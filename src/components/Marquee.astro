@@ -1,0 +1,23 @@
+---
+const stream = await fetch("https://status.spencerchang.me/api/me").then((res) => res.json());
+
+function formatDate(date: Date) {
+    return date.toLocaleString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    }).replace(", ", "|").replace('\/', '.');
+}
+---
+<div class="marquee" title="this is a set of live attributes from what I consume and make streamed to this little status bar. The numbers represent Spencer epoch time, a play on UNIX epoch.">
+  <span class="marqueeContent">
+  {stream.map((element, idx) => 
+    <Fragment>[<span class="date"><span class="timestamp">{formatDate(element.date)}</span><span class="epoch">{element.birthdayEpoch}</span></span>] <Fragment set:html={element.displayHTML}></Fragment> •</Fragment>
+  )}
+   {stream.map((element, idx) => 
+    <Fragment>[<span class="date"><span class="timestamp">{formatDate(element.date)}</span><span class="epoch">{element.birthdayEpoch}</span></span>] <Fragment set:html={element.displayHTML}></Fragment> •</Fragment>
+  )}
+</span>
+</div>

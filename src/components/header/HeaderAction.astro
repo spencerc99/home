@@ -1,0 +1,17 @@
+---
+export interface HeaderActionType {
+    name?: string;
+    icon: string;
+    href: string;
+}
+
+type Props = HeaderActionType;
+
+
+const { name, icon, href } = Astro.props;
+const { pathname, href: currentHref } = Astro.url;
+const isActive = pathname.indexOf(href) > -1;
+
+---
+
+<a href={href} class={isActive ? 'active' : ''}>{name && <span>{name}</span>} <b>{icon}</b></a>

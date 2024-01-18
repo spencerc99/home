@@ -1,0 +1,40 @@
+---
+import HeaderAction, { type HeaderActionType } from "./HeaderAction.astro";
+
+const Actions: HeaderActionType[] = [
+    {href: "/posts", name: "writing" , icon: "📝"},
+    // {href: "/books", name: "books" , icon: "📚"},
+    {href: "/projects", name: "creations" , icon: "🪄"},
+    {href: "/fits", icon: "🧢"},
+    {href: "/photos", icon: "📸"},
+    {href: "/window", icon: "🪟"},
+]
+---
+
+<div class="navbarActions">
+    {Actions.map((action) => (
+        <HeaderAction {...action} />
+    ))}
+    
+    <div class="divider"></div>
+    <button id="darkModeToggle" class="link"><b></b></button>
+</div>
+
+
+<script>
+    function setDarkMode(state) {
+        document.documentElement.classList.toggle("dark-mode", state);
+        document.querySelector("#darkModeToggle").children[0].innerHTML = state ? "☀️" : "🌑";
+    }
+
+    function toggleDarkMode() {
+        console.log('hello')
+        setDarkMode(!document.documentElement.classList.contains("dark-mode"));
+    }
+    
+    document.querySelector("#darkModeToggle").addEventListener("click", toggleDarkMode);
+    const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+    useDark.addListener((evt) => setDarkMode(evt.matches));
+    setDarkMode(useDark.matches);
+
+</script>

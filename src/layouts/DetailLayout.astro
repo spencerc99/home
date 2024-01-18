@@ -1,0 +1,21 @@
+---
+import Marquee from '../components/Marquee.astro';
+import PersonalEmoji from '../components/PersonalEmoji.astro';
+import BaseLayout, { type BaseLayoutProps } from './BaseLayout.astro';
+
+interface Props extends BaseLayoutProps {
+    title: string;
+    emojis?: string[];
+}
+
+const {title, emojis} = Astro.props;
+---
+
+<BaseLayout includeMarquee={true} {...Astro.props} >
+<div class="headerContainer textContent">
+  <h1>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
+</div>
+<div class="listDescription textContent">
+  <slot/>
+</div>
+</BaseLayout>

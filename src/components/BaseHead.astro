@@ -1,17 +1,18 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
+import '../styles/global.scss';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	draft?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { title, description, image = '/name-stamp.png', draft } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -19,10 +20,6 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
-
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -40,8 +37,53 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
 <!-- Twitter -->
+<!-- TODO: should be "summary" if home -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Don't index draft posts -->
+{!draft ? <meta name="robots" content="noindex"/> : null}
+<meta name="robots" content="noodp" />
+
+<!-- fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,800,900|Muli:400,500,700,800,900|Cousine:400,400i,700,700i|Playfair+Display:400,400i,500,500i,700|Crimson+Text:400,400i,600,600i,700,700i&display=swap"
+	rel="stylesheet">
+
+<!-- icons -->
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/solid.css">
+<link rel="apple-touch-icon" sizes="180x180" href="/name-stamp.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/name-stamp.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/name-stamp.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- lazy load images to prioritize those in view -->
+<script async src="/lazysizes.min.js"></script>
+
+<!-- javascript helpers -->
+<script async src="/helpers.js"></script>
+
+<!-- telescopic text -->
+<script src="https://unpkg.com/telescopic-text@latest/lib/index.js" is:inline></script>
+<link
+	href="https://unpkg.com/telescopic-text@latest/lib/index.css"
+	rel="stylesheet"
+/>
+
+<!-- plausible.io -->
+<script
+	defer
+	data-domain="spencerchang.me"
+	data-api="https://sharingan.spencerc99.workers.dev/genjutsu/event"
+	src="https://sharingan.spencerc99.workers.dev/genjutsu/script.js"
+></script>
+
+<!-- HammerJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- local helpers -->
+<script src="../scripts/helpers.ts" is:inline></script>

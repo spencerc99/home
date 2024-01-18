@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Marquee from '../components/Marquee.astro';
+
+export interface BaseLayoutProps {
+    title?: string;
+    description?: string;
+    image?: string;
+    includeMarquee?: boolean;
+}
+type Props = BaseLayoutProps;
+
+const {title, description, image, includeMarquee} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title || SITE_TITLE} description={description || SITE_DESCRIPTION} image={image}/>
+	</head>
+	<body>
+		<Header/>
+		<div id="background"></div>
+		<div id="content">
+			<slot/>
+		</div>
+		<Footer />
+
+        <div id="snackbar"/>
+
+        <!-- import cursor chat -->
+        <script src="https://cursor-party.spencerc99.partykit.dev/cursors.js"></script>
+        <script type="module" is:inline>
+            import "https://unpkg.com/playhtml@latest";
+            playhtml.init();
+        </script>
+        <link
+        rel="stylesheet"
+        href="https://unpkg.com/playhtml@latest/dist/style.css"
+        />
+	</body>
+    {includeMarquee && <Marquee/> }
+</html>

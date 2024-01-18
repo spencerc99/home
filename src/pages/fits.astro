@@ -1,0 +1,96 @@
+---
+import fitsData from '../data/fits.json';
+import dayjs from 'dayjs'
+import DetailLayout from '../layouts/DetailLayout.astro';
+const fitsPagePermalink = Astro.url.href;
+
+const sortedFits = fitsData.fits.sort((a, b) => b.timestamp - a.timestamp);
+const LayoutProps = {
+    title: "Fits",
+    description: "A permanent space for my outfits of the day.",
+    date: "2021-10-12",
+    image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
+    postfilter: ["fits"],
+    emojis: ["🧢", '🧥', '👖'],
+}
+
+---
+
+<!-- TODO: implement "jump to" on the side or on the top? -->
+<!-- TODO: implement button that allows you to leave a comment or emoji somehow -->
+<!-- TODO: add permalink that is accessible via the number. people send the # to me so that's their "UID" -->
+<!-- TODO: paginate this so it doesn't bombard people with loading -->
+<!-- TODO: add thumbnail URL and also upload to s3 but resized as a thumbnail (400 x 600) and then use thumbnailSrc as the img src -->
+<DetailLayout {...LayoutProps}>
+        <p>This project started with finding a way to document my intention to try new outfits every day. I ended up kicking off a <a href="https://twitter.com/spencerc99/status/1421244720638873603?s=21">twitter thread</a> but soon found it difficult to keep it updated. I wanted somewhere permanent to reference my growing collection and have a lightweight action to document it to avoid making dressing up feel like a chore.</p>
+        <p>So, I created an automated process for taking my fit of the day, uploading it to cloud storage, and serving the photos from my website. Now I can just tell anyone to go to the fits tab on my website, and the best part is that it&#39;ll stay updated live with minimal effort.</p>
+        <p>I&#39;ve written about why I&#39;m going to all this effort and why I care about fashion in <a href="/posts/denim-personality">denim personality</a> and <a href="https://reallifemag.com/worn-out/">this piece</a> in Real Life Mag gets at why it&#39;s important.</p>
+    </div>
+    <div>
+        <input id="filterFavorites" class="filterCheckbox" type="checkbox" onchange="filterFits()">
+        <label class="form-check-label" for="filterFavorites">
+            Only show favorites
+        </label>
+    </div>
+    <br/>
+
+    <div id="fitsContainer" class="gallery">
+        {sortedFits.map((fit, index) => {
+            const fitIndex = sortedFits.length - index;
+            const fitPermalink = `${fitsPagePermalink}#${fitIndex}`;
+            // <!-- NOTE: we replace the extension to jpeg since apple photos preview is always jpeg, not -->
+            // <!-- whatever the original extension was. -->
+            const previewImgSrc = fit.imgSrc.replace(/\.([^\.]+)$/, "_preview.jpeg");
+
+            return <div id={fitIndex.toString()} class="photoCard">
+                {fit.favorite && <i class="uis uis-star photoCardFave"></i>}
+                <div class="photoCardMeta">
+                    <span class="photoCardIdx" data-permalink={fitPermalink}>{fitIndex} <i class="uil uil-link-h" ></i></span>
+                    <span class="photoCardDate">{dayjs(fit.date).format('MM.DD.YYYY')}</span>
+                </div>
+                <figure itemscope itemtype="http://schema.org/ImageObject" class="image gallery-item">
+                    <!-- TODO: calculate proper size based on item and store inside json, needed for animation -->
+                    <a class="galleryLink" href={fit.imgSrc} itemprop="contentUrl" data-size={`${fit.width}x${fit.height}`}>
+                        <!-- Manually setting a 1.5 aspect ratio here using width + height -->
+                        <!-- because modern browsers will make sure to reserve space to prevent reflow -->
+                        <!-- eventually should calculate it properly and set here and above -->
+                        <!-- source: https://www.youtube.com/watch?v=4-d_SoCHeWE -->
+                        <!-- and https://www.codecaptain.io/blog/web-development/responsive-images-and-preventing-page-reflow/474 -->
+                        <img width={fit.width} height={fit.height} 
+                        class="lazyload photoCardPhoto galleryImage" data-src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/>
+                    </a>
+                </figure>
+                <p>{fit.description}</p>
+            </div>
+        })}
+    <div class="scrollUp"><button onclick="scrollUp('filterFavorites')">Back to top</button></div>
+
+
+    <script is:inline>
+        const copyLinkBtns = document.querySelectorAll('#fitsContainer [data-permalink]')
+        copyLinkBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const permalink = e.target.dataset.permalink;
+                copyLink(permalink);
+            })
+        })
+        // handle filtering by favorites
+        const getFilterEl = () => document.getElementById("filterFavorites");
+        function hide(ele) {
+            ele.style.display = "none";
+        }
+
+        function show(ele) {
+            ele.style.display = "block";
+        }
+
+        function filterFits() {
+            const showAll = !getFilterEl().checked;
+            const allFits = Array.from(document.getElementsByClassName("photoCard"));
+            const nonFavorites = allFits.filter(ele => !ele.querySelector('.photoCardFave'));
+            nonFavorites.forEach(fit => showAll ? show(fit) : hide(fit));
+        }
+        filterFits();
+    </script>
+
+</DetailLayout>

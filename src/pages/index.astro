@@ -1,50 +1,307 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import EmailEmbed from "../components/EmailEmbed.astro";
+import Marquee from "../components/Marquee.astro";
+import PersonalEmoji from "../components/PersonalEmoji.astro";
+import SocialMediaLinks from "../components/SocialMediaLinks.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());
+
+const workDescription =`
+- I spend my days
+- imagining communal <a href="https://spencerchang.substack.com/p/towards-flight">futures of computing</a>,
+  - imagining communal <a href="https://spencerchang.substack.com/p/towards-flight">futures of computing</a>
+  - the kind with new ways for <a href="/posts/our-internet/">making space</a> on the internet, 
+    - the kind with new ways for <a href="/posts/our-internet/">making space</a> and <a href="https://playhtml.fun">relating to each other</a> on the internet,
+  - and community-owned, <a href="https://twitter.com/spencerc99/status/1619086724231208961?s=20">small-scale</a> infrastructure.
+- exploring <a id="tinyInternets" href="https://tiny-inter.net/">𝓽𝓲𝓷𝔂 𝓲𝓷𝓽𝓮𝓻𝓷𝓮𝓽𝓼</a>,
+  - exploring <a id="tinyInternets" href="https://tiny-inter.net/">𝓽𝓲𝓷𝔂 𝓲𝓷𝓽𝓮𝓻𝓷𝓮𝓽𝓼</a>,
+  - ones where we can shape according to <a href="https://we-b.site">our internet dreams</a>,
+- and exploring poetry, through <a href="https://reboothq.substack.com/p/everyday-magic">writing</a>, <a href="https://www.frieze.com/article/online-publications-bridging-poetry-and-code">art</a>, and
+- software.
+  - playful
+    - playful,
+    - open,
+      - open,
+      - and empowering
+  - software (like this <a href="https://htmlgarden.spencerchang.me">seasonal garden website</a>).
+    - software (like this <a href="https://htmlgarden.spencerchang.me">seasonal garden website</a>
+    - and <a href="https://poems.verses.xyz">expanding poems library</a>).
+      - and <a href="https://poems.verses.xyz">expanding poems library</a>
+      - and <a href="/pacman-poem">pacman poem</a>).
+- Before, I crafted
+- tools for tinkers at <a id="coda" href="https://coda.io">Coda</a> for several years
+  - tools for tinkers at <a id="coda" href="https://coda.io">Coda</a> for several years (I built out our <a href="/posts/rituals-remixing">custom templates platform</a> and helped extend the <a href="https://coda.io/packs">Packs platform</a>)
+    - tools for tinkers at <a id="coda" href="https://coda.io">Coda</a> for several years (I built out our <a href="/posts/rituals-remixing">custom templates platform</a> and helped extend the <a href="https://coda.io/packs">Packs platform</a> so that anyone can extend Coda's capabilities, maintaining an <a href="https://github.com/coda/packs-sdk">open-source SDK</a>)
+- and conjured 
+- soulful speculations of new futures at <a href="https://verses.xyz" id="verses">verses</a>.
+  - soulful speculations of new futures at <a href="https://verses.xyz" id="verses">verses</a>
+  - (I co-stewarded the creation of <b id="pluriverse"><a href="https://pluriverse.world">pluriverse.world</a></b>).
+    - (I co-stewarded the creation of <b id="pluriverse"><a href="https://pluriverse.world">pluriverse.world</a></b>
+    - and created our <a href="https://poems.verses.xyz">transforming text playground</a>). 
+`;
+let likes = [
+  ['writing'],
+  ['reading'],
+  ['eating'],
+  ['dressing up'],
+  ['dancing'],      
+  ['paying attention'],      
+  ['wondering'],      
+  ['wandering'],      
+  ['daydreaming'],      
+  ['capturing moments'],
+  ['being in nature'],
+  ['loving people'],
+  ['sipping water'],
+  ['loving life'],
+  ['cracking my joints'],
+  ['watermelon on a hot day'],
+  ['recognizing constellations'],
+  ['the city skyline at night'],
+  ['uncontrollable crying'],
+  ['creating magic'],
+  ['experimenting'],
+  ['speculative infrastructure'],
+  ['computational poetry'],
+  ['creative technology'],
+  ['agencyful computation'],
+  ['alternative futures'],
+  ['playful tools'],
+  ['evocative writing'],
+  ['imaginative fiction'],
+  ['tools for wonder'],
+  ['everyday beauty'],
+  ['accessible magic'],
+  ['cybernetic ecology'],
+  ['pluriversality'],
+  ['rain drops rolling down the side of a window'],
+  ["a large scarf that covers your face when it's cold outside"],
+  ['warm pockets'],
+  ['tender hugs'],
+  ['lingering tastes'],
+  ['warm lighting'],
+  ['fantasizing being a blade of grass in a Hayao Miyazaki film'],
+  ['stardust and shoreless seeds'],
+  ['unexpected light'],
+  ['unexpected mediums'],
+  ['folk practices'],
+  ['daily rituals'],
+  ['dreaming'],
+  ["art that doesn't take itself too seriously"],
+  ["creating things"],
+  ["making new stuff from old stuff"],
+  ["laughing with friends"],
+  ["sharing food"],
+  ["hole-in-the-walls"],
+  ["complimenting people on their outfits"],
+  ["getting complimented on my outfit"],
+  ["receiving a reply on my newsletter"],
+  ["receiving an email from a visitor to my site"],
+  ["a full water bottle"],
+  ["sufficiently chapsticked lips"],
+  ["worn books"],
+  ["marginalia"],
+  ["soulful things"],
+  ["people who look at the world"],
+  ["walking aimlessly"],
+  ["running under 6 miles in nice weather"],
+  ["taking care of things"],
+  ["cultivating life"],
+  ["naming"],
+  ["sitting with the unknown"],
+  ["laying under the stars"],
+  ["watching meteor showers"],
+  ["making things up and committing to the bit"],
+  ["saying hi to the moon"],
+  ["collecting sunset colors"],
+  ["smiskis"],
+  ["Noguchi lamps"],
+  ["oranges (the color)"],
+  ["oranges (the fruit)"],
+  ["oranges (the mood)"],
+  ["a crisp wifi connection"],
+  ["overlapping voices in a cafe"],
+  ["a hot cortado (oat milk please!)"],
+  ["sliced watermelon on a hot summer day"],
+  ["feeling the wind on my cheek while biking"],
+  ["plants (that are easy to keep alive)"],
+  ["San Francisco's air"],
+  ["New York's energy"],
+  ["noticing a stranger's smile on a bus"],
+  ["things made with love"],
+  ["anything soft and fuzzy"],
+  ["aeropress coffee"],
+  ["fast wifi"],
+  ["dance circles in playgrounds at night"],
+  ["Yohji Yamamoto clothing"],
+  ["bags in bags"],
+]
+const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodVB1">what do you think I'll like?</a>`;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout includeMarquee={true}>
+<div class="headerContainer home textContent">
+  <!-- TODO(spencer): insert kaleidescope here? -->
+  <h1 id="siteTitle" title="hi! hover around other parts of the site and you might find other hidden treasures.">
+    hi! i'm spencer
+    <PersonalEmoji/>
+  </h1>
+  <div class="description">
+    <img
+      class="lamp"
+      id="lamp-akari"
+      src="/assets/noguchi-akari-1at.png"
+      can-toggle
+      title="this is one of my favorite Noguchi lamps..."
+    />
+    <p><i>programmer, writer, internet imagineer, computational poet</i><br/>last in <a href="/window">{location.location}</a></p>
+    <!-- <div >
+      <img class="mainWindow" src="https://raw.githubusercontent.com/spencerc99/spencer-net-shots/main/window.png"/>
+    </div> -->
+    <p>
+    <details>
+        <summary>Dreaming, wandering, laughing, and thinking about...</summary>
+        <div>
+            <ul class="noPadding">
+            <li>
+                <b>creative agency</b> <br/> how we can give users more <a href="/posts/take-back-the-future-response">agency</a> in the software they use or are used by every day and what does a healthy relationship with <a href="/posts/technology-paradox">technology look like</a>?
+            </li>
+            <li>
+                <b><a href="https://mmm.page/helena.soft_tech">soft tech</a></b> <br/> how do we create software that encourages tinkering and authentic expression, where making crazy connections is necessary rather than a nuisance?
+            </li>
+            <li>
+                <b>people over systems</b> <br/> what sort of systems do we need to create a society that cares about enabling every person to live with the <a href="/experiments/100posts/privilege-of-dreams">privilege to pursue their dreams</a> and create something that they can truly own?
+            </li>
+            <li>
+              <b>change through poetics</b> <br/> how can <a href="https://spencerchang.substack.com/p/calm-lunacy">poetry</a> and <a href="https://spencerchang.substack.com/p/ti-04-gestures-at-alternative-internets">art</a> help make transformative systematic change (like change the direction of the future of the internet and our technology platforms)?
+            </li>
+            </ul>
+        </div>
+	</details>
+    </p>
+    <div aria-hidden="true" class="plant" can-grow >
+        <hr style="bottom: 12px; left: 0px; position: absolute; transform: rotate(270deg);">
+        <hr style="bottom: 13.851px; left: -11.8564px; position: absolute; transform: rotate(240deg);">
+        <hr style="bottom: 0.571044px; left: -3.65773px; position: absolute; transform: rotate(-60deg);">
+        <hr style="bottom: 24px; left: 0px; position: absolute; transform: rotate(270deg);">
+        <hr style="bottom: 12.571px; left: 3.65773px; position: absolute; transform: rotate(60deg);">
+        <hr class="grow-1" style="bottom: 25.851px; left: 11.8564px; position: absolute; transform: rotate(300deg);">
+        <hr class="grow-2" style="bottom: 37.851px; left: -11.8564px; position: absolute; transform: rotate(240deg);">
+        <hr style="bottom: 26.4221px; left: -15.5141px; position: absolute; transform: rotate(210deg);">
+        <hr class="grow-1" style="bottom: 32.4741px; left: -1.12842px; position: absolute; transform: rotate(-90deg);">
+        <hr class="grow-2" style="bottom: 39.702px; left: -23.7128px; position: absolute; transform: rotate(240deg);">
+        <hr class="grow-3" style="bottom: 41.5531px; left: -11.8564px; position: absolute; transform: rotate(30deg);">
+        <hr style="bottom: 51.702px; left: -23.7128px; position: absolute; transform: rotate(270deg);">
+        <hr style="bottom: 24.571px; left: -3.65773px; position: absolute; transform: rotate(-60deg);">
+        <hr style="bottom: 48px; left: 0px; position: absolute; transform: rotate(270deg);">
+        <hr style="bottom: 49.851px; left: -11.8564px; position: absolute; transform: rotate(240deg);">
+        <hr style="bottom: 36.571px; left: -3.65773px; position: absolute; transform: rotate(-60deg);">
+        <hr class="grow-1" style="bottom: 60px; left: 0px; position: absolute; transform: rotate(270deg);">
+        <hr style="bottom: 48.571px; left: 3.65773px; position: absolute; transform: rotate(60deg);">
+        <hr style="bottom: 61.851px; left: 11.8564px; position: absolute; transform: rotate(300deg);">
+        <hr style="bottom: 60.571px; left: 3.65773px; position: absolute; transform: rotate(60deg);">
+    </div>
+    <p id="expandingWork"></p>
+    
+	<script define:vars={{workDescription}} >
+		let node = createTelescopicTextFromBulletedList(workDescription, {textMode: TextMode.Html});
+		const container = document.getElementById("expandingWork")
+		container.appendChild(node);
+	</script>
+
+    <p>Open to collaborations for fun websites, speculative infrastructure for a defensibly open internet, and community-embedded computing. Say hi! And check out my lovely <a href="/friends">web friends</a>.</p>
+    <p>Also available are a <a href="/about">succinct, professional bio</a> and <a href="https://spencer.place/art">an overview of my art</a></p>
+
+<div id="signature"><div class="signatureContent">
+      <!-- TODO: hover over for photo in lil modal? -->
+      <div class="serif">Spencer 張正 Chang<br/>spencerc99@gmail.com</div>
+      <img can-spin id="stamp" class="stamp" src="/assets/name-stamp.png" title="this is my name stamp. my chinese name is 張正, 正 being my given name. 正 has many meanings: just, right, 5 if marking tallies on a food ordering sheet, proper, main, positive (for numbers). this animation was made on winter solstice and inspired by the scene from avatar the last airbender where aang opens the door to visit avatar roku during the winter solstice."/>
+      <SocialMediaLinks/>
+      </div>
+    </div>
+    <EmailEmbed/>
+    <p>
+</p>
+        <p id="expandingLikes"></p>
+  </div>    
+</div>
+
+<!-- Likes logic -->
+<script define:vars={{likesData: likes, enjoyPrompt}}>
+// TODO: can you add hover tooltips with images and previews?
+// TODO: support descriptors for each in the list, and have a way to "ellipsis" to add a new of the top level one
+// 'in my room', 'snuggled in quiet corners', 'in public parks'
+// randomize likes
+let likes = likesData;
+likes = likes.sort(() => Math.random() - 0.5);
+likes.splice(12, 0, [enjoyPrompt]);
+let likeExpandedIdx = 0;
+
+function createLikeNode(like) {
+  const likeNode = document.createElement("span");
+  likeNode.classList.add('likeItem')
+  likeNode.innerHTML = `${like}`;
+  if (likeExpandedIdx < likes.length - 1) {
+    likeNode.innerHTML += ', ';
+  } 
+  if (likeExpandedIdx === likes.length - 2) {
+    likeNode.innerHTML += 'and ';
+  } 
+  return likeNode;
+}
+const likesNode = document.createElement("div");
+likesNode.id = 'telescope';
+const onMoreNode = document.createElement("div");
+onMoreNode.style = "display: inline-block;"
+onMoreNode.setAttribute('role', 'button')
+onMoreNode.setAttribute('tabindex', '0')
+onMoreNode.setAttribute('title', 'click me to see more! try tabbing to me and using enter or space to go even faster!')
+onMoreNode.innerHTML = 'and...';
+onMoreNode.addEventListener('click', onClickMore);
+onMoreNode.addEventListener('keydown', onKeyDown);
+const likesContainer = document.getElementById("expandingLikes")
+likesContainer.appendChild(likesNode);
+likesNode.appendChild(document.createTextNode('A non-exhaustive list of the things I enjoy:'))
+likesNode.appendChild(document.createElement("br"))
+likesNode.appendChild(onMoreNode);
+onMoreNode.classList.add("details");
+onMoreNode.classList.add("close");
+
+
+function onKeyDown(e) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    onClickMore();
+    e.preventDefault();
+  }
+}
+
+function onClickMore() {
+  const likeNode = createLikeNode(likes[likeExpandedIdx]);
+  likesNode.insertBefore(likeNode, onMoreNode);
+  likeExpandedIdx++;
+  if (likeExpandedIdx === likes.length) {
+    onMoreNode.remove();
+    return;
+  }
+}
+// start with 3 open
+onClickMore();
+onClickMore();
+onClickMore();
+onClickMore();
+
+</script>
+
+
+<!-- BODY -->
+<!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
+<div class="summaryList expand">
+  <!-- TODO: make this a tab -->
+</div>
+<!-- window embeds -->
+<!-- TODO: need to fix scroll hijacking and the perf -->
+<!-- <div class="window" style="left: 1%; top:23%;"><iframe src="https://spencerchang.me/window#sky"></iframe></div>
+<div class="window" style="right: 2%; top:23%;"><iframe src="https://spencerchang.me/window#selfie"></iframe></div>
+<div class="window" style="left: 2.5%; top:73%;"><iframe src="https://spencerchang.me/window#vignette"></iframe></div> -->
+</BaseLayout>

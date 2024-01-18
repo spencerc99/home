@@ -1,0 +1,30 @@
+---
+import { shuffleArray } from '../utils';
+interface Props {
+    emojis?: string[];
+    inline?: boolean;
+    hideWee?: boolean;
+}
+
+// TODO: can we support custom svgs and icons?
+const defaultEmojis = ['🎋', '🍂', '🌑', '🪸', '🌀'];
+const { inline, hideWee, emojis: inputEmojis } = Astro.props;
+const emojis = inputEmojis || defaultEmojis;
+
+shuffleArray(emojis);
+
+---
+<div class={`emojiContainer ${inline ? 'inline' : ''}`}><button id="emoji" ></button></div>
+{!hideWee && <div class="clickme">weee</div>}
+    
+
+<script define:vars={{emojis}}>
+    document.getElementById('emoji')?.addEventListener('click', updateEmoji)
+    var idx = 0;
+    function updateEmoji() {
+        let randomEmoji = emojis[idx];
+        document.getElementById('emoji').innerHTML = randomEmoji;
+        idx = (idx + 1) % emojis.length;
+    }
+    updateEmoji();
+</script>
