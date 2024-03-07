@@ -1,0 +1,24 @@
+{
+  "title": "bulletin",
+  "subtext": "“a softer anki”",
+  "description": "An app for taking control of your attention digitally by 1) embedding content you want to sit with directly into the places you already visit and 2) cultivating grounding rituals you want to repeat",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Extension",
+    "Open Source",
+    "Community"
+  ],
+  "createdDate": "2023-03-07T08:29:32.806Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-wdeNHkHgI9/2eba85d33c602c3d8f9e7cc4f52bec110db6266ab5be092efc1f4bcd83be046b24c77e82a66cb74d1a7a7c2e1f645e78d69e87959f394cb3eaa6833e0cac0577d2fbf5151372d31368b12973fa49d6034a5b2ba45100519c56e313a91858e4bb55bbcbac",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-wdeNHkHgI9/2eba85d33c602c3d8f9e7cc4f52bec110db6266ab5be092efc1f4bcd83be046b24c77e82a66cb74d1a7a7c2e1f645e78d69e87959f394cb3eaa6833e0cac0577d2fbf5151372d31368b12973fa49d6034a5b2ba45100519c56e313a91858e4bb55bbcbac"
+  ],
+  "link": "http://bulletin.spencerchang.me/",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": true
+}

@@ -1,9 +1,11 @@
 ---
 import EmailEmbed from "../components/EmailEmbed.astro";
+import { getCollection } from 'astro:content';
 import Marquee from "../components/Marquee.astro";
 import PersonalEmoji from "../components/PersonalEmoji.astro";
 import SocialMediaLinks from "../components/SocialMediaLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CreationSummary from "../components/CreationSummary.astro";
 
 const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());
 
@@ -138,6 +140,11 @@ let likes = [
   ["bags in bags"],
 ]
 const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodVB1">what do you think I'll like?</a>`;
+
+
+const creations = (await getCollection('creations')).filter(c => Boolean(c.data.heroImage) && c.data.featured).sort(
+	(a, b) => a.data.createdDate.valueOf() - b.data.createdDate.valueOf()
+);
 ---
 
 <BaseLayout includeMarquee={true}>
@@ -155,7 +162,7 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       can-toggle
       title="this is one of my favorite Noguchi lamps..."
     />
-    <p><i>programmer, writer, internet imagineer, computational poet</i><br/>last in <a href="/window">{location.location}</a></p>
+    <p><i>programmer, artist, "internet imaginator," computational poet</i><br/>last in <a href="/window">{location.location}</a></p>
     <!-- <div >
       <img class="mainWindow" src="https://raw.githubusercontent.com/spencerc99/spencer-net-shots/main/window.png"/>
     </div> -->
@@ -210,8 +217,8 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 		container.appendChild(node);
 	</script>
 
-    <p>Open to collaborations for fun websites, speculative infrastructure for a defensibly open internet, and community-embedded computing. Say hi! And check out my lovely <a href="/friends">web friends</a>.</p>
-    <p>Also available are a <a href="/about">succinct, professional bio</a> and <a href="https://spencer.place/art">an overview of my art</a></p>
+    <p>Open to collaborations for fun websites, speculative infrastructure for a defensibly open internet, and community-embedded computing. Say hi! And check out my lovely <a href="/friends">web friends</a*>.</p>
+    <p>For more: <a href="/about">bio</a>, <a href="https://spencer.place/art">art overview</a></p>
 
 <div id="signature"><div class="signatureContent">
       <!-- TODO: hover over for photo in lil modal? -->
@@ -296,9 +303,15 @@ onClickMore();
 
 <!-- BODY -->
 <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
-<div class="summaryList expand">
-  <!-- TODO: make this a tab -->
+
+<div class="creations">
+   {
+						creations.map((creation) => (
+							<CreationSummary id={creation.id} {...creation.data} />
+						))
+					}
 </div>
+
 <!-- window embeds -->
 <!-- TODO: need to fix scroll hijacking and the perf -->
 <!-- <div class="window" style="left: 1%; top:23%;"><iframe src="https://spencerchang.me/window#sky"></iframe></div>

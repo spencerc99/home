@@ -1,0 +1,20 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import CreationDetail from '../../layouts/CreationDetail.astro';
+
+export async function getStaticPaths() {
+	const creations = await getCollection('creations');
+	return creations.map((creation) => ({
+		params: { slug: creation.id },
+		props: creation,
+	}));
+}
+type Props = CollectionEntry<'creations'>;
+
+const creation = Astro.props;
+// render description as markdown
+---
+
+<CreationDetail {...creation.data}>
+
+</CreationDetail>

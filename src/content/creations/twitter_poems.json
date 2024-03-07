@@ -1,0 +1,21 @@
+{
+  "title": "twitter poems",
+  "subtext": "An interactive version of alex dimitrov’s ever-evolving love and loneliness poem",
+  "description": "",
+  "parentCategory": "",
+  "categories": [
+    "Art"
+  ],
+  "createdDate": "2023-01-03T07:18:03.865Z",
+  "heroImage": "https://cdn-codaio.imgix.net/external/img/doc-banner-compressed-2x-v2.jpg?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg",
+  "media": [
+    "https://cdn-codaio.imgix.net/external/img/doc-banner-compressed-2x-v2.jpg?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "link": "https://coda.io/@spencer/twitter-poems",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

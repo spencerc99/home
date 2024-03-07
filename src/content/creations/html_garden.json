@@ -1,0 +1,23 @@
+{
+  "title": "html garden",
+  "subtext": "a seasonal website that honors the humble html element",
+  "description": "html garden is an attempt to imagine what a \"seasonal website\" looks like, one that rewards visitors for coming back and noticing, a very different and radical act from the way large platforms force interface changes. Visitors are encouraged to take a stroll through and use their inherent browser mechanisms to zoom in and take a closer peek at the plants that call to them.\nhtml garden is composed of digitally-native plants, formed from HTML elements that simulate the growth patterns of real plants (backed by a grammar that means you could create your own plant!). Returning repeatedly will reward you with the sights of growth in each plant along with budding offspring, and you might just find new species as you come to become a regular at this neighborhood garden. The slow growth of the website day-to-day invites returning to the same place on the internet and bearing witness to its change.\ncreated for thehtml.review, exhibited in Amsterdam, New York (CultureHub), and San Francisco (the DeYoung Museum), and featured in Frieze and MIT Technology Review.",
+  "parentCategory": "Project",
+  "categories": [
+    "Art",
+    "Open Source",
+    "Website"
+  ],
+  "createdDate": "2023-03-19T08:12:11.923Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ELhFN0CMFg/dcd5aa5151b52c866213ef1e7a15a16307b44937dc540e4a335ee4fb1b1ad6ce15d8a9902e1822b4b03408fdbc5229526becc90de2e19f738b8823852627a2ffc396ef6d5001d081e0a1366e82413c16c37f67bd13ba316e754e4b1f29cf3b5d5a810797",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ELhFN0CMFg/dcd5aa5151b52c866213ef1e7a15a16307b44937dc540e4a335ee4fb1b1ad6ce15d8a9902e1822b4b03408fdbc5229526becc90de2e19f738b8823852627a2ffc396ef6d5001d081e0a1366e82413c16c37f67bd13ba316e754e4b1f29cf3b5d5a810797"
+  ],
+  "link": "https://htmls.garden/",
+  "materials": "html, javascript, css, p5.js",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": true,
+  "featuredWork": false
+}
