@@ -1,0 +1,28 @@
+{
+  "title": "our internet map",
+  "subtext": "a participatory art exhibit for internet mapping",
+  "descriptionMd": "*our internet map* is an exercise in communal Internet mapmaking as a form of resistance against the corporate-controlled maps we must use daily by inviting visitors to contribute personally meaningful digital sites and connect them to the physical world. As web development has become more complicated and the web has become bigger, we’ve lost our ability to personalize it to us and rely mostly on large search engines to make our way around. This exhibit aims to channel the agency, surprise, and intimacy of the “old internet” of webrings and geocities into a collective website, that visitors can “take home” with them after. Visitors may contribute a website that’s meaningful to them and print out a sheet of personalized QR codes to exchange with others and bridge their physical passages with their digital homes.",
+  "parentCategory": "Project",
+  "categories": [
+    "Art",
+    "Exhibition"
+  ],
+  "date": "2022-06-15T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-cCZbyzg-Dk/f7660881573bf7a36aff3620461143e77e49fd8320ae80f9ff5b8297d817f9441bed98dfdd248361dfa772cf84b4ef6683a6a4314051a5ac029681fc295331e7340ae0ce731ea96c55d8eb0caeb42dddd4520c3f6ed40860799d0c0877dbe28a36a755d4",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-cCZbyzg-Dk/f7660881573bf7a36aff3620461143e77e49fd8320ae80f9ff5b8297d817f9441bed98dfdd248361dfa772cf84b4ef6683a6a4314051a5ac029681fc295331e7340ae0ce731ea96c55d8eb0caeb42dddd4520c3f6ed40860799d0c0877dbe28a36a755d4",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-varEft0qEX/8876c5169fe3526ef8a37c38a133b6bcac41ee2c75b8366237f3983f2c2d7f7b51f5ea054d16ae0d2d251e1eae1d24b86e8c7dd0d5af2c6addb3148a0ce79e7ff78be836211d3f0d19b7dce3a3f83ac9fee1cd1f08ffc1fe821f5ada796e7db80b3a1c52",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-VK3wod6uPs/6a68c4da272e3c5b3b4b1d4766cb6e11e872d232d88c7f59f95004aee455670f4a1bfbf5535c44945e1203487e076391ab3a3314a44c40f358f58cf9722c1b1215bc5d2d7cea7e584f7eabe93a36c1a28cbc17875728bededbe9a64bc2c6e6131111cb95",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-mV73pG6kID/2662a3eefeb549498bc15f9aaaa86b400b3f5294c0a87a4c346e926739a392f00aa1a9550896c591329d199ac7528163bc798d9834c53a26b2f1888f0e19532d0ab55d53157a7338304d41a03a02af85b2f831ecbdbd94bd687121f3d252edd636cb48bd",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-cRiaWeptYr/426948c97425a86763eb677c86c8f2f5385f676794071092b91bb9d3b935ea53d28ac4f738dab1c8420b4eff3d506568670b6960e98b32c33c7c726fc991f9c1962cc987e8ae92204f536b0f27f57ea8a5877a83a9d8048de95cc277763aa8eabe3054ae",
+    "https://codaio.imgix.net/docs/p0TR-1QoTT/blobs/bl-DOr0ocva-P/b29cef7bb54b086a77b9c7a1a84c468e86b7490d6d292897eb9fefcebe8bb7fe779ef07c0f72c94565f2f7c1b14e8c19e6e3b22a535c231b650afceaa0b943e193ddf2a3894ac559895bfb46c56ca7997ae04a8efc576de2d4af156586da222eb5ceeceb?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/@spencer/tiny-internets/our-internet-map-51",
+  "materials": "html, javascript, css, projection, printer, QR codes",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": false
+}

@@ -1,0 +1,25 @@
+{
+  "title": "playhtml",
+  "subtext": "an open-source library for designing communal internet experiences by enhancing web elements with real-time, collaborative interactivity.",
+  "descriptionMd": "playhtml aims to provide the infrastructure for making new diverse and open forms of \"social media\" that make the web feel alive. By providing the means to shape the way we interact with each other on the web, I invite people to imagine what websites can become and who we can become when we inhabit them.",
+  "parentCategory": "Project",
+  "categories": [
+    "Open Source",
+    "Software Tool",
+    "Website"
+  ],
+  "date": "2023-07-09T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-BliRr_OfeZ/31a3bda223877cab8f7b792298315cc838b5ecaa92900fe8ae2f4b192cc473ee64dee0823b390bcd94f9ac2ab04d7b51890adee7937300b6e5eccd38f8ce20a53b43113f607e3be8df6c89341907daf710c5752ad70860833c407e8df4706c4f7fe8057b",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-BliRr_OfeZ/31a3bda223877cab8f7b792298315cc838b5ecaa92900fe8ae2f4b192cc473ee64dee0823b390bcd94f9ac2ab04d7b51890adee7937300b6e5eccd38f8ce20a53b43113f607e3be8df6c89341907daf710c5752ad70860833c407e8df4706c4f7fe8057b",
+    "https://playhtml.fun/icon.png"
+  ],
+  "movieUrl": "",
+  "link": "https://playhtml.fun/",
+  "materials": "",
+  "ongoing": true,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": true
+}

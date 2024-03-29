@@ -1,0 +1,24 @@
+{
+  "title": "are.na pack",
+  "subtext": "Sync Arena channel data and their contents",
+  "descriptionMd": "Pack to pull data from are.na. \nGrab the contents of channels and organize them directly in Coda, or combine this with the Twitter Pack to make a Twitter bot for each Are.na channel.",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Open Source",
+    "Coda"
+  ],
+  "date": "2022-11-01T07:00:00.000Z",
+  "heroImage": "https://cdn-codaio.imgix.net/external/img/oembed.png?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg",
+  "media": [
+    "https://cdn-codaio.imgix.net/external/img/oembed.png?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/packs/arena-14581",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

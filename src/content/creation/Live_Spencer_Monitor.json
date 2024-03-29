@@ -1,0 +1,22 @@
+{
+  "title": "Live Spencer Monitor",
+  "subtext": "A live monitor of how I’m doing fueled by my journal data",
+  "descriptionMd": "",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool"
+  ],
+  "date": "2020-03-14T07:00:00.000Z",
+  "heroImage": "https://images.unsplash.com/photo-1494059980473-813e73ee784b?crop=entropy&ixid=eyJhcHBfaWQiOjEwNzMxMn0&ixlib=rb-1.2.1&auto=compress&fit=crop&ar=1.91%3A1&fm=jpg",
+  "media": [
+    "https://images.unsplash.com/photo-1494059980473-813e73ee784b?crop=entropy&ixid=eyJhcHBfaWQiOjEwNzMxMn0&ixlib=rb-1.2.1&auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/@spencer/decoding-your-mind/live-spencer-monitor-22",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

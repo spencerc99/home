@@ -1,0 +1,24 @@
+{
+  "title": "readwise pack",
+  "subtext": "Sync books, highlights, and more from Readwise into Coda",
+  "descriptionMd": "Pack to pull data from readwise.io\nSync your books (and web articles) and respective highlights from them. Build a personal database of highlights and search across them easily.",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Open Source",
+    "Coda"
+  ],
+  "date": "2022-11-01T07:00:00.000Z",
+  "heroImage": "https://cdn-codaio.imgix.net/external/img/oembed.png?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg",
+  "media": [
+    "https://cdn-codaio.imgix.net/external/img/oembed.png?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/packs/readwise-14579",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

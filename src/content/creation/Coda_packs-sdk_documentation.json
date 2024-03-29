@@ -1,0 +1,23 @@
+{
+  "title": "Coda packs-sdk documentation",
+  "subtext": "the website for hosting the packs-sdk documentation and the infrastructure and pipeline powering it",
+  "descriptionMd": "Infrastructure for serving static documentation from parent domain with an automated CI-integrated pipeline for updating documentation with new releases",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Coda"
+  ],
+  "date": "2022-02-02T08:00:00.000Z",
+  "heroImage": "https://coda.io/packs/build/latest/assets/images/social/index.png",
+  "media": [
+    "https://coda.io/packs/build/latest/assets/images/social/index.png"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/packs/build/latest",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": true
+}

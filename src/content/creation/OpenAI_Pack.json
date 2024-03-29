@@ -1,0 +1,25 @@
+{
+  "title": "OpenAI Pack",
+  "subtext": "An extension that brings the power of OpenAI to Coda, giving people the power of GPT-3 and DALL-E to summarize documents, make stories, and create images.",
+  "descriptionMd": "",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Open Source",
+    "Coda"
+  ],
+  "date": "2022-11-09T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4",
+    "https://codaio.imgix.net/docs/mAhnXLIQsx/blobs/bl-tMT6Jwrejh/a5f4a1a9d0c91a281ab89ef0bc2fefa3b31b2ea1626ab710430f2d07763b99b996941d2854db98ebd843a536bf0223172e27d67a42dcf372d03a9a940fd13ed79d979bef5ef51217aa37b69d3484a7ac52a6a19691314266be8c44b3a2ad2e2b08786967?auto=compress&fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/@coda/openai-for-coda",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": true
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Image Mad Libs",
+  "subtext": "Generate images using the power of OpenAI",
+  "descriptionMd": "",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool"
+  ],
+  "date": "2022-11-09T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Y6PQHP-Vwe/a39dac8d0e82f754c7b644bcc156370a8aa61530738435bc10d161404f8bf9caaaa8495c3abe481854251ed1b891395a343f3bfb9c21ce50f65d014b4dabfc98feea165276a072fa41e5273538eb71c60b4363809579b309bbb70e36b705246857c90425",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Y6PQHP-Vwe/a39dac8d0e82f754c7b644bcc156370a8aa61530738435bc10d161404f8bf9caaaa8495c3abe481854251ed1b891395a343f3bfb9c21ce50f65d014b4dabfc98feea165276a072fa41e5273538eb71c60b4363809579b309bbb70e36b705246857c90425",
+    "https://cdn-codaio.imgix.net/external/img/doc-banner-compressed-2x-v2.jpg?fit=crop&ar=1.91%3A1&fm=jpg"
+  ],
+  "movieUrl": "",
+  "link": "https://coda.io/@spencer/image-mad-libs",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

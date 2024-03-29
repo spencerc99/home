@@ -1,0 +1,24 @@
+{
+  "title": "Coda packs-sdk ",
+  "subtext": "The open-source SDK that powers Coda’s Pack Platform, enabling makers to interface with and extend Coda with JavaScript/TypeScript",
+  "descriptionMd": "I served as one of the lead contributors and maintainers, managing the NPM release flow, adding support for new building blocks, and proposing methods to simplify and remove complexity without careless deprecation",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Open Source",
+    "Coda"
+  ],
+  "date": "2021-11-26T08:00:00.000Z",
+  "heroImage": "https://opengraph.githubassets.com/238739f20cabcfdbfb3d5de9885467b70c87db53451168d627c95d841ac69841/coda/packs-sdk",
+  "media": [
+    "https://opengraph.githubassets.com/238739f20cabcfdbfb3d5de9885467b70c87db53451168d627c95d841ac69841/coda/packs-sdk"
+  ],
+  "movieUrl": "",
+  "link": "https://github.com/coda/packs-sdk",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": true
+}

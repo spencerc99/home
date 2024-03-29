@@ -1,0 +1,25 @@
+{
+  "title": "Fits Stream",
+  "subtext": "A stream of my daily outfits.",
+  "descriptionMd": "",
+  "parentCategory": "Project",
+  "categories": [
+    "Software Tool",
+    "Website",
+    "Art"
+  ],
+  "date": "2021-10-12T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-tM2HRAWLip/7d6421146cb483542f338845264cacde9875a4200bcaaa70904bfd18946a873d006abd56b4652326065da089be4f8a274d1033e0b0da5106340375b4fa6bd141b65d5d3c891a2595b47c7673b4ed8655483e8959fa87860119fdc0922f7470d1ebae46e1",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-tM2HRAWLip/7d6421146cb483542f338845264cacde9875a4200bcaaa70904bfd18946a873d006abd56b4652326065da089be4f8a274d1033e0b0da5106340375b4fa6bd141b65d5d3c891a2595b47c7673b4ed8655483e8959fa87860119fdc0922f7470d1ebae46e1",
+    "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/2021-06-27_edited.jpeg"
+  ],
+  "movieUrl": "",
+  "link": "https://www.spencerchang.me/fits",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": false
+}

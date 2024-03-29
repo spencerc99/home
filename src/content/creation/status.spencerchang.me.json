@@ -1,0 +1,25 @@
+{
+  "title": "status.spencerchang.me",
+  "subtext": "a personal API of my latest consumptions and creations",
+  "descriptionMd": "*status.spencerchang.me* is an experiment in sharing the latest updates from my latest digital platforms on my website. Data is continuously pulled every hour from platforms I use daily that track my activity: Spotify, Strava, Goodreads, Substack, and Github. These activities are distilled into the latest things I’m listening to, moving, reading, writing, and building.\nEach activity has a timestamp in **Spencer Epoch Time**, a personal take on UNIX time equal to the number of milliseconds that have elapsed since my birth. It felt meaningful to ascribe a personal timestamp to these activities that are markers of my own life.\nThis project feeds the live activity marquee on my [personal website](https://spencerchang.me/).",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Software Tool",
+    "Open Source"
+  ],
+  "date": "2022-11-10T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Jw8-V-W5Jy/b43ff27f3f73c9bfc077dc4a1489bbf5fc2dd71e2ac6139d6ebe8b833f100ce2523f8eeef0dce01838a2c3507f08077d8406358aeb919ab54fbca0dae8d79e2f791b7970b4336b272755852d2835ea467ade676b4e819f0b647ecf0fe27c0d4d14142076"
+  ],
+  "movieUrl": "",
+  "link": "status.spencerchang.me",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": false
+}

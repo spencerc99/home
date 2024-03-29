@@ -1,0 +1,26 @@
+{
+  "title": "verses verses",
+  "subtext": "A collection of transforming verses from the verses community and an interactive lab to make your own.",
+  "descriptionMd": "Part transforming poem on the nature of words and part infrastructure for creating these kinds of shapeshifting verses. \nThis piece leverages the unique capability of the digital medium to create poems that have a life of their own and transform depending on how the reader chooses, giving them the power of authorship. How does meaning shift as the text changes with engagement? How can the reader create, and choose, their own meaning as they explore in the textual landscape?\nBy providing the infrastructure behind the tool and creating a playground to create transforming poems from plain text (http://poems.verses.xyz/test), verses verses pushes the bounds for what a poem can be, as both a poem and a tool for creating poems.\nverses verses has been taught as a tool for creative writing classes at SFSU.",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Software Tool",
+    "Art",
+    "Open Source"
+  ],
+  "date": "2022-04-15T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-xI7GcceUIl/021b1ce5f0c7ba2874d645cb6dee8619eb9d1a0201a6bf81313d0b369ec61078da6a5cabb001c5db650826e69e2cadb31abd096a0761d5e4608361bebf90ce01f45b6f2df4fe67628bac64b15be1aa658c0cc1ceaf55efa5111542e22a4b84a6a5e53a44",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-xI7GcceUIl/021b1ce5f0c7ba2874d645cb6dee8619eb9d1a0201a6bf81313d0b369ec61078da6a5cabb001c5db650826e69e2cadb31abd096a0761d5e4608361bebf90ce01f45b6f2df4fe67628bac64b15be1aa658c0cc1ceaf55efa5111542e22a4b84a6a5e53a44",
+    "https://poems.verses.xyz/assets/android-chrome-512x512.png"
+  ],
+  "movieUrl": "",
+  "link": "https://poems.verses.xyz/",
+  "materials": "html, javascript, css, bullet lists",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": true,
+  "featuredWork": false
+}

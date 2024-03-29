@@ -1,0 +1,25 @@
+{
+  "title": "wall of windows",
+  "subtext": "a set of live-updating windows that show slices of my life in real time.",
+  "descriptionMd": "Simultaneously an ever-changing snapshot of the latest of 4 categories from my life (what I ate, a sky I saw, a moment that struck me, and a selfie) and an ephemeral social network featuring vignettes into visitors’ everyday lives, memorialized into the grain of the site. An experiment in a site that rewards returning because visitors could only see the latest ones. How could a site live, breathe, and change as I did so as I lived?",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Art",
+    "Open Source"
+  ],
+  "date": "2022-10-01T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-riAbfxkITe/51e3245dd6c2da78c86497a9cf6120b151481c69b74c8b9d3c1ffba5590c97a1b5ac9db8f3ff3b23414b3149d74b6f1fcb2c7c7e869e20e4ca281d4160eed4d0db710e3bfd9ca7c6ffd427dcd1279ee38ea7c8d07d714cc9df1a5c1d5dfd707d4f825a2d",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-riAbfxkITe/51e3245dd6c2da78c86497a9cf6120b151481c69b74c8b9d3c1ffba5590c97a1b5ac9db8f3ff3b23414b3149d74b6f1fcb2c7c7e869e20e4ca281d4160eed4d0db710e3bfd9ca7c6ffd427dcd1279ee38ea7c8d07d714cc9df1a5c1d5dfd707d4f825a2d",
+    "https://spencerchang.me/window/banner.png"
+  ],
+  "movieUrl": "",
+  "link": "https://www.spencerchang.me/window",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": true,
+  "featuredWork": false
+}

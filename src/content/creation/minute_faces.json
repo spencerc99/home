@@ -1,0 +1,25 @@
+{
+  "title": "minute faces",
+  "subtext": "created for taper 12",
+  "descriptionMd": "As time has increasingly become a fungible unit for productivity and capitalist utility, clocks, a traditionally ambient tool, have been converted into tools for controlling us, something that restricts our autonomy rather than enabling it.\n\"minute faces\" reimagines the modern clock as an ambient environment, close to its origins as an ambient tool, that invites us to not only pay attention to the natural movements of time but also become acquainted with each minute of the day as its own person. The environment is designed to be equally compelling whether viewed through a small window in the corner of your screen or featured on a dedicated monitor.\nIn “minute faces,” the current time hovers in the center while their shadows orbit around them, inspired by the trajectory of a mechanical clock's hands. The background of the website changes with the movement of time to mimic how time passes in the physical world: the brightness mirrors the movement of the sun throughout the day and each minute of the day progresses proportionally through the color wheel. Under these conditions, each minute of the day gains its own identity through a unique color palette. \nGiving space to continuous measures of time, the current season and an ever-increasing representation of the life of computing—the current UNIX timestamp—are displayed on the edges. As time passes, this website will also age, until one day its entire surface is filled with a record of the history of its host's origin.\n“minute faces” subverts the frictionless digital experiences and a “time is money” mindset we are accustomed to by asking for continued presence before yielding anything “useful.” As a visitor spends more time on the site and grows familiar with the form of a day's minutes, they start to recognize associate each minute of the day with its color palette and a glance becomes enough to give a sense of the time of day.\nWhat does time become when each minute is humanized? How does a tool change us when it becomes an environment?\n",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Art"
+  ],
+  "date": "2024-02-15T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-aGNwCWz0fr/bf9647261a537ec29b9a708c29c102d20a833f22860f926de4dcbe5466912380cb3487c3284335eca3caf915a4e1fce34796aaa0d55e6793e1e17fc6f16be68ba03d67ab97769527a560dfcf27c24c29e10d11d757f24641a18d7e6f9e1ba95ebd207d8f",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-aGNwCWz0fr/bf9647261a537ec29b9a708c29c102d20a833f22860f926de4dcbe5466912380cb3487c3284335eca3caf915a4e1fce34796aaa0d55e6793e1e17fc6f16be68ba03d67ab97769527a560dfcf27c24c29e10d11d757f24641a18d7e6f9e1ba95ebd207d8f",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-laKtVCoVAQ/621ec7fd0044bd160904b3b720dedae4c314aad0a05abc04ce82c9002251e40c86139eb500ca7f7e2e4dca0a9a31c1ba045592e5dd0d8d9995048af18f28b9186e6e388b34535c1c5107ec3b487ead923c40cc753fec929e738bbb7def8406cf3717a407",
+    "https://clock.spencer.place/vite.svg"
+  ],
+  "movieUrl": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-f4JMYiJKDn/50df8345850f04f59f31ca08a91be5d4f431a8e297267dd8dc25c8c08d07dd6d51ac0d3f6a5d0c872355b956e6c5e27134cc0e33dccbdbc10a9fc48a367e8312495e6a310c6287816169f82780c2df4107d3683a83dc853e4a9a65233e10a5662d27ad28",
+  "link": "https://clock.spencer.place/",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": true,
+  "featured": true,
+  "featuredArt": true,
+  "featuredWork": false
+}

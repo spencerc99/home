@@ -1,0 +1,22 @@
+{
+  "title": "every color haiku bot",
+  "subtext": "a twitter bot that tweets out a new hex color every hour with a generated haiku.",
+  "descriptionMd": "",
+  "parentCategory": "Project",
+  "categories": [
+    "Bot"
+  ],
+  "date": "2022-12-08T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-13QYeddWdP/41147d749535f22a07d6bf96ab15fb20edf66a8ed1477874e5b2f917bb767963b63980843273668fd7b0aa13babb3898a62ab1c5104f4b16ea8103cd129e1ffd84d885d6d8e8b7c710dacf39331e5f1ed083343d6fc59737a13e64f5f0dede7443ee1ac9",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-13QYeddWdP/41147d749535f22a07d6bf96ab15fb20edf66a8ed1477874e5b2f917bb767963b63980843273668fd7b0aa13babb3898a62ab1c5104f4b16ea8103cd129e1ffd84d885d6d8e8b7c710dacf39331e5f1ed083343d6fc59737a13e64f5f0dede7443ee1ac9"
+  ],
+  "movieUrl": "",
+  "link": "https://twitter.com/everycolorhaiku",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false
+}

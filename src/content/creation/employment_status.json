@@ -1,0 +1,25 @@
+{
+  "title": "employment status",
+  "subtext": "",
+  "descriptionMd": "I made this website to process the ocean of emotions that the experience has filled me with. Intense ones, urgent ones that ran the full spectrum of feeling. Shock, loss, grief, shame, sorrow, anger, resent, frustration, confusion, destabilization, exhaustion, disbelief; but also: warmth, love, care, curiosity, excitement, freedom, lightness, play, humor, new beginnings, flight. And all the things in between: skepticism, irony, sarcasm, drama.\nThis piece is meant to try to emulate some part of the experience of being laid off. I wanted to give voice to the layoff experience, to confront people who have been fortunate enough to never experience its destabilization to understand a bit more about those who were unlucky. And to give space for the voices of countless others who have had their the routine of their life stripped from them suddenly, left to find their own way home, uncertain about who to commiserate with, who of their peers had also been affected, how to tell their loved ones in a way that would not be too devastating, how to find a new source of living, how to find a new sense of purpose, how to return to a deepened sense of self.\nI hope this piece helps people feel more connected in their experience. And maybe, just maybe, it will show the cruelties in the normalized processes of conducting these and point to more human ways of conducting layoffs, or provoke speculations of ways of forming [work](https://en.wikipedia.org/wiki/Cooperative) structures that change the balance of power between company and individual.",
+  "parentCategory": "Project",
+  "categories": [
+    "Open Source",
+    "Art",
+    "Website"
+  ],
+  "date": "2023-02-15T08:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Tz9kZ_JcK0/6873660a2e5191dd7d95f3d38f1b86a55bf949da9adb57734a8d4d0acd8049f988f727a6241c5a9e73d19041df10c8ac6ee1627c3f4a6c11f6bdcdad518370beef1834ac473811bbc514c6c6a50973d026d83aa99044428003f00a2420f1ea45e179984a",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Tz9kZ_JcK0/6873660a2e5191dd7d95f3d38f1b86a55bf949da9adb57734a8d4d0acd8049f988f727a6241c5a9e73d19041df10c8ac6ee1627c3f4a6c11f6bdcdad518370beef1834ac473811bbc514c6c6a50973d026d83aa99044428003f00a2420f1ea45e179984a",
+    "https://employment-status.vercel.app/icon.png"
+  ],
+  "movieUrl": "",
+  "link": "https://employment-status.vercel.app/",
+  "materials": "html, javascript, css",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": true,
+  "featuredWork": false
+}

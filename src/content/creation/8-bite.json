@@ -1,0 +1,26 @@
+{
+  "title": "8-bite",
+  "subtext": "Pacman reimagined as an interactive poetry game\n(collaboration with Kelsey Chen)",
+  "descriptionMd": "An 8-ball is reimagined as an 8-bit game reimagined as a poetry machine. Readers play the game using their arrow keys to move the 8-ball around to consume words. Rather than collecting points like in Pacman, readers eat words and punctuations to create their own poem, which automatically fills in the space below the grid. The grid is filled with a select number of random words from a pre-filled work bank for each part of speech, including punctuation, and the game is over when all words have been consumed. Replay variety is amplified through randomization and words that multitask in sentence function (e.g. as both verb and noun), despite a limited word bank. Toying with consumption (eight=ate), luck (8-ball), constraint (the 4 directions), and poetic composition (with 8 words in a grid of 16), 8-Bite is a playful poetic contraption that literally makes you eat your words. How do you win a game of poetry? What happens when luck is a functional constraint on beauty?\nWhat does it mean to create poetry by eating your words (taking things back) in an irretractable gameplay?\nA simplified version was published in [taper 8](https://taper.badquar.to/8), an issue of a computational poetry journal.",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Art",
+    "Open Source"
+  ],
+  "date": "2022-05-05T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-D2v09Q8j3D/9f29692c7d07d7f27a860001fe08172f6f7c64d2eb6e00f99c729702c3088cf9e033c7558d1b80ef060b77a6fc295f0ab0e1bd16e42e5dc2a5bf0043fa7105e486c3913b2f549dff870e0f01852a48238888691a9f5000ef5d1691dd6a92578a2e3e3aaa",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-D2v09Q8j3D/9f29692c7d07d7f27a860001fe08172f6f7c64d2eb6e00f99c729702c3088cf9e033c7558d1b80ef060b77a6fc295f0ab0e1bd16e42e5dc2a5bf0043fa7105e486c3913b2f549dff870e0f01852a48238888691a9f5000ef5d1691dd6a92578a2e3e3aaa",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-DzP8mVYWTB/d202a3841c34bcc1a60a7114d60c23b76020937e81ed3c911b820bb6e0642303c916bf6fe5ab98d24e72c665b646b0f20d1ada3212cf50d93e30c0153505e43f36b72f6d2c32071cf7c27fc20272357551538e66ce8c689844002627ab36467b26c29d7e",
+    "https://spencerchang.me/pacman-poem/banner.png"
+  ],
+  "movieUrl": "",
+  "link": "https://www.spencerchang.me/pacman-poem/",
+  "materials": "",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": true,
+  "featuredWork": false
+}
