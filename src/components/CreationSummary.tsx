@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import React from "react";
 import { ViewType } from "./CreationsView";
+import { LazyContainer } from "./LazyContainer";
 
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
@@ -41,9 +42,11 @@ export function CreationSummary({
       return (
         <div id={id} className="creationSummary nomove">
           {movieUrl ? (
-            <video autoPlay muted loop>
-              <source src={movieUrl} type="video/webm" />
-            </video>
+            <LazyContainer>
+              <video autoPlay muted loop playsInline>
+                <source src={movieUrl} type="video/webm" />
+              </video>
+            </LazyContainer>
           ) : (
             <img src={heroImage} className="registryImage" loading="lazy" />
           )}
@@ -55,6 +58,7 @@ export function CreationSummary({
               </div>
             </a>
           ) : (
+            // TODO: else link out maybe with external link treatment
             <div className="creationSummaryTitle">
               <span>{title}</span>
             </div>

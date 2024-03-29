@@ -439,7 +439,7 @@ body {
   background-image: url(/tiled-texture.png);
   filter: saturate(1.5) contrast(1.2);
   transition: transform 0.05s ease-in-out;
-  animation: ripple 20s infinite linear;
+  // animation: ripple 20s infinite linear;
 
   background-size: 333px;
   width: 110dvw;
