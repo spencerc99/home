@@ -1,44 +1,13 @@
 ---
+import FriendsRing from "../components/FriendsRing.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-interface Friend {
-    url: string;
-    name: string;
-    dimensions?: {
-        width: number;
-        height: number;
-    }
-}
-
-function cleanUrl(url: string) {
-    return url.replace(/http(s)?:\/\//, '').replace(/\/$/, '');
-}
-
-function randomColor() {
-    // in rgb format
-    return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, .4)`
-}
-
-const friendsData: Friend[] = await (fetch(
-                "https://raw.githubusercontent.com/spencerc99/poeticomp-friends/main/webring.json"
-            ).then((c) => c.json()));
 ---
 <BaseLayout includeMarquee>
     <div class="headerContainer">
     </div>
     <div class="mainContainer" style="padding-top: 5em; gap:2em;">
 
-        <div id="friends">
-            {friendsData.map((friend) => {
-                return (
-                    <div class="friend" style={`--shadow-color: ${randomColor()}`}>
-                        <a href={friend.url}>
-                            <img src={`https://api.faviconkit.com/${encodeURIComponent(cleanUrl(friend.url))}/144`} alt={friend.name} style="width:100%; height: 100%; border-radius: 50%;"/>
-                        </a>
-                    </div>
-                )
-            })}
-        </div>
+       <FriendsRing/>
     
         <br/>
         <br/>
@@ -46,73 +15,4 @@ const friendsData: Friend[] = await (fetch(
             Send me a letter if you'd like to join this circle of poeticomp friends.
         </div>
     </div>
-
-
-    <style lang="scss">
-    @mixin distribute-in-circle($circle-diameter, $child-size, $count) {
-        $radius: $circle-diameter / 2;
-        $container-center: $radius;
-        $child-center: $child-size / 2;
-        
-        // Parent container styling
-        position: relative;
-        width: $circle-diameter;
-        height: $circle-diameter;
-        
-        // Child elements styling
-        & > * {
-            position: absolute;
-            width: $child-size;
-            height: $child-size;
-            // Set transform origin at the center of the child element
-            transform-origin: 50% 50%;
-            // Calculate child's center position
-            margin-top: -($child-center);
-            margin-left: -($child-center);
-            border-radius: 50%;
-
-            // TODO: for shared shadow
-            // &:nth-of-type(3n + 2) {
-            //     // fades in and out
-            //     box-shadow: var(--shadow-color) 0px 0px 20px 5px;
-            // }
-            
-            // Position each child
-            @for $i from 1 through $count {
-                // Angle for the child element
-                $angle: (360deg / $count) * ($i - 1);
-                // Position calculation
-                $x: $container-center + $radius * cos($angle) - $child-center;
-                $y: $container-center + $radius * sin($angle) - $child-center;
-                // counteract the spinning from below
-                animation: reverse-spin 45s linear infinite;
-
-                
-                &:nth-child(#{$i}) {
-                    left: $x;
-                    top: $y;
-                }
-            }
-        }
-    }
-
-        #friends {
-            @include distribute-in-circle(14em, 3em, 13);
-            animation: spin 45s linear infinite;
-        }
-
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes reverse-spin {
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-
-    </style>
-
 </BaseLayout>
