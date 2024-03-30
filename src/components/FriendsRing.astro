@@ -27,7 +27,7 @@ const friendsData: Friend[] = await (fetch(
                 return (
                     <div class="friend" style={`--shadow-color: ${randomColor()}`}>
                         <a href={friend.url}>
-                            <img src={`https://api.faviconkit.com/${encodeURIComponent(cleanUrl(friend.url))}/144`} alt={friend.name} style="width:100%; height: 100%; border-radius: 50%;"/>
+                            <img src={`https://api.faviconkit.com/${encodeURIComponent(cleanUrl(friend.url))}/144`} alt={`the favicon for ${friend.name}'s site at ${friend.url}`} style="width:100%; height: 100%; border-radius: 50%;"/>
                         </a>
                     </div>
                 )

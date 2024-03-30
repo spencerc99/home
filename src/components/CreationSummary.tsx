@@ -48,7 +48,12 @@ export function CreationSummary({
           </video>
         </LazyContainer>
       ) : (
-        <img src={heroImage} className="registryImage" loading="lazy" />
+        <img
+          src={heroImage}
+          className="registryImage"
+          loading="lazy"
+          alt={`an image that shows a demo of ${title}`}
+        />
       );
       const shouldLink = Boolean(descriptionMd);
       const linkedCover = shouldLink ? (

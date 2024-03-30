@@ -45,7 +45,7 @@ const { title, description, image = '/name-stamp.png', draft } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- Don't index draft posts -->
-{!draft ? <meta name="robots" content="noindex"/> : null}
+{draft ? <meta name="robots" content="noindex"/> : null}
 <meta name="robots" content="noodp" />
 
 <!-- icons -->

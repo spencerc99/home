@@ -839,6 +839,8 @@ button.icon {
 }
 
 .avatarLink {
+  height: fit-content;
+  margin: auto 0;
   &:hover {
     .avatar {
       @include roll-and-move();
@@ -940,6 +942,7 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
   color: $color-external-link;
   text-decoration: none;
   transition: background-color 0.15s ease-in-out;
+  position: relative;
 
   .postContent &,
   .listDescription & {
@@ -948,6 +951,11 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
 
   &:hover {
     @include link-highlight();
+  }
+
+  &::after {
+    content: "↗";
+    font-family: "VT323";
   }
 }
 

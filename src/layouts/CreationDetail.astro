@@ -29,10 +29,9 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 			<article>
 				<div class="content">
 				<div class="prose">
-					<div class="header">
-						<a href={link}>
-							<h2>{title}</h2>
-						</a>
+					<div class="header"><h2>
+						<a href={link}>{title}</a>
+						</h2>
 						<div class="date">
 							{date && <FormattedDate date={date} />}
 						</div>
@@ -48,7 +47,7 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 				</div> : <div class="hero-image">
 					{movieUrl ? <video controls autoplay loop>
 						<source src={movieUrl} type="video/webm" />
-					</video>  : <img src={heroImage} alt="" />}
+					</video>  : <img src={heroImage} alt={`the hero image for ${title}, located at ${link}`} />}
 				</div>}
 				<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length - 1)} client:only="react"></CreationDetailImages>
 				<div >
