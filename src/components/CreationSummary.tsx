@@ -16,8 +16,6 @@ export function CreationSummary({
 }: Props) {
   const link = `/creation/${id}`;
 
-  console.log(view);
-
   switch (view) {
     // case ViewType.FREE:
     //   return (
@@ -39,30 +37,39 @@ export function CreationSummary({
     //   );
     case ViewType.LIST:
     case ViewType.GRID:
+      const cover = movieUrl ? (
+        <LazyContainer
+          style={{
+            borderRadius: "inherit",
+          }}
+        >
+          <video autoPlay muted loop playsInline>
+            <source src={movieUrl} type="video/webm" />
+          </video>
+        </LazyContainer>
+      ) : (
+        <img src={heroImage} className="registryImage" loading="lazy" />
+      );
+      const shouldLink = Boolean(descriptionMd);
+      const linkedCover = shouldLink ? (
+        <a
+          style={{
+            borderRadius: "inherit",
+          }}
+          href={link}
+        >
+          {cover}
+        </a>
+      ) : (
+        cover
+      );
+      // TODO: else link out maybe with external link treatment
       return (
         <div id={id} className="creationSummary nomove">
-          {movieUrl ? (
-            <LazyContainer>
-              <video autoPlay muted loop playsInline>
-                <source src={movieUrl} type="video/webm" />
-              </video>
-            </LazyContainer>
-          ) : (
-            <img src={heroImage} className="registryImage" loading="lazy" />
-          )}
-          {/* <!-- link to detail --> */}
-          {descriptionMd ? (
-            <a href={link}>
-              <div className="creationSummaryTitle">
-                <span>{title}</span>
-              </div>
-            </a>
-          ) : (
-            // TODO: else link out maybe with external link treatment
-            <div className="creationSummaryTitle">
-              <span>{title}</span>
-            </div>
-          )}
+          {linkedCover}
+          <div className="creationSummaryTitle">
+            <span>{title}</span>
+          </div>
         </div>
       );
   }

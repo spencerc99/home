@@ -680,6 +680,9 @@ button.icon {
 
 .textContent.textContent.textContent {
   max-width: calc(min(#{$viewport-width}, 100vw));
+  @include media(xsmallScreen, smallScreen) {
+    align-items: center;
+  }
 }
 
 .navbarActions {
@@ -1960,8 +1963,7 @@ button {
   gap: 16px;
   justify-content: center;
   // compensation for minus viewport-width
-  width: $large-content-width;
-  margin-left: -(($large-content-width - $viewport-width) / 2);
+  max-width: $large-content-width;
 
   @include media(xsmallScreen, smallScreen, mediumScreen) {
     grid-template-columns: 1fr 1fr;
@@ -2032,9 +2034,10 @@ button {
 
   // override the `.gallery img` setting
   img {
-    max-width: none;
+    max-width: 100%;
     border-radius: 8px;
     box-shadow: none;
+    width: 100%;
   }
 
   .photoCardPhoto {
@@ -2470,15 +2473,31 @@ hr.separator {
   display: inline;
 }
 
+.creationsMasonry {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-right: 3em;
+  @include media(xsmallScreen, smallScreen) {
+    max-width: 100dvw;
+    overflow-x: scroll;
+  }
+
+  .creationSummary {
+    width: 100%;
+  }
+}
+
 .creations {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1em;
-  row-gap: 3em;
+  gap: 2em;
+  row-gap: 2em;
   margin-top: 2em;
   margin-bottom: 2em;
   position: relative;
+  justify-content: space-around;
+  margin-right: 3em;
 
   @include media(xsmallScreen, smallScreen) {
     max-width: 100dvw;
@@ -2491,40 +2510,43 @@ hr.separator {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   // justify-content: flex-start;
   justify-content: flex-end;
   // margin-top: auto;
-  border-radius: 16px;
-  position: absolute;
+  border-radius: 0.25em;
 
-  transition: box-shadow 0.07s !important;
+  &.selected {
+  }
 
-  &.nomove {
-    transform: none !important;
-    position: initial;
+  &.filtered {
+    opacity: 0.5;
   }
 
   img,
   video {
     object-fit: cover;
     border-radius: inherit;
-    min-width: 250px;
-    min-height: 250px;
-    max-height: 300px;
+    width: 100%;
+    min-width: 200px;
+    min-height: 200px;
+    max-height: 250px;
     max-width: 350px;
     // max-height: 300px;
     @include image-dropshadow();
+    transition: box-shadow 0.15s opacity 0.15s;
   }
 
-  &:hover {
-    .creationSummaryTitle {
-      // opacity: 1;
-      // pointer-events: initial;
-    }
-
+  a {
     img,
     video {
-      box-shadow: 0px 0px 15px 12px $color-link-translucent;
+      box-shadow: 0px 0px 1em 0.3em $color-link-translucent;
+    }
+    &:hover {
+      img,
+      video {
+        opacity: 0.7;
+      }
     }
   }
 
@@ -2539,7 +2561,7 @@ hr.separator {
 .creationsView {
   display: flex;
   flex-direction: column;
-  max-width: 1600px;
+  max-width: 2000px;
 
   .actions {
     display: flex;
@@ -2597,22 +2619,6 @@ img {
   &.xlarge {
     max-width: 1200px;
     border-radius: 0.5em;
-  }
-}
-
-.creationDetail {
-  .images {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    justify-content: center;
-    margin-top: 1em;
-    flex-wrap: wrap;
-
-    img {
-      width: 100%;
-      border-radius: 0.25em;
-    }
   }
 }
 
@@ -2679,17 +2685,19 @@ summary {
 }
 
 .polaroid {
-  width: 300px; /* Adjust the width as desired */
+  width: 200px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   padding: 10px;
   position: relative;
   overflow: hidden;
+  transform: rotate(-3deg);
 }
 
 .polaroid img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  aspect-ratio: 1;
   border-radius: 4px;
   filter: sepia(0.5) contrast(1.2) brightness(0.9) saturate(0.8)
     hue-rotate(5deg);
@@ -2697,7 +2705,7 @@ summary {
 
 .polaroid .shine-wrap {
   position: relative;
-  overflow: hidden; /* Add this line to contain the shine effect */
+  overflow: hidden;
 }
 
 .polaroid .shine {
@@ -2709,7 +2717,7 @@ summary {
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.5) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   opacity: 0;
@@ -2722,9 +2730,18 @@ summary {
   opacity: 1;
 }
 
-.caption {
+.caption.caption {
   text-align: center;
-  font-family: "Permanent Marker", cursive; /* Use a handwritten-style font */
+  font-family: "Gaegu", cursive; /* Use a handwritten-style font */
   font-size: 18px;
-  padding: 8px 0;
+}
+
+.medium-zoom--opened {
+  .medium-zoom-overlay {
+    opacity: 0.7 !important;
+  }
+}
+.medium-zoom-image--opened {
+  object-fit: contain;
+  opacity: 1;
 }

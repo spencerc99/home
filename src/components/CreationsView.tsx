@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CreationSummary } from "./CreationSummary";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 export enum ViewType {
   GRID = "grid",
@@ -30,6 +31,7 @@ export function CreationsView({ creations }: Props) {
       ),
     [creations]
   );
+
   return (
     <div className="creationsView">
       <div className="actions">
@@ -60,7 +62,31 @@ export function CreationsView({ creations }: Props) {
         {/* TODO: sort */}
         {/* reverse chronological, random */}
       </div>
-      <div className="creations">
+      <div className="creationsMasonry">
+        <ResponsiveMasonry
+          columnsCountBreakPoints={{
+            800: 1,
+            1250: 2,
+            1500: 3,
+            1900: 4,
+            2400: 5,
+          }}
+        >
+          <Masonry gutter="2em">
+            {sortedCreations.map((creation) => (
+              <CreationSummary
+                key={creation.id}
+                creation={{
+                  id: creation.id,
+                  ...creation.data,
+                }}
+                view={view}
+              />
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>
+      </div>
+      {/* <div className="creations">
         {sortedCreations.map((creation) => (
           <CreationSummary
             key={creation.id}
@@ -71,7 +97,7 @@ export function CreationsView({ creations }: Props) {
             view={view}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

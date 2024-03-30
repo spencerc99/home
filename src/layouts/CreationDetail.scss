@@ -26,13 +26,15 @@ iframe {
 iframe,
 .hero-image img,
 video {
-  max-width: 1200px;
+  max-width: calc(min(1200px));
+  max-height: calc(min(800px));
+  // max-width: calc(min(1200px, 40vw));
+  // max-height: calc(min(800px, 50vh));
   display: block;
   border-radius: 0.5em;
   box-shadow: var(--box-shadow);
   width: 100%;
   object-fit: cover;
-  max-height: 800px;
 }
 .prose {
   max-width: $viewport-width;
@@ -61,19 +63,23 @@ video {
 
 .content {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto 1fr;
   gap: 3em;
   width: 100%;
-  align-content: space-between;
-  justify-content: space-between;
-  @media (max-width: 1200px) {
+  @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
+    gap: 1em;
+  }
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
     grid-template-columns: 1fr;
   }
 
   .images {
-    flex-direction: column;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: fit-content;
+    max-width: 1200px;
+    margin-top: 1em;
+
+    img {
+      // width: 100%;
+      border-radius: 0.25em;
+    }
   }
 }

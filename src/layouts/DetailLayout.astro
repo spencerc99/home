@@ -15,7 +15,7 @@ const {title, emojis} = Astro.props;
 <div class="headerContainer textContent">
   <h1>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
 </div>
-<div class="listDescription textContent">
+<div class="two-columns">
   <slot/>
 </div>
 </BaseLayout>
