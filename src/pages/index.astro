@@ -7,6 +7,7 @@ import SocialMediaLinks from "../components/SocialMediaLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {CreationsView} from "../components/CreationsView";
 import FriendsRing from "../components/FriendsRing.astro";
+import Trinkets from "../components/Trinkets.astro";
 
 const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());
 
@@ -38,7 +39,6 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
       <summary>
         Open to collaborations <span id="new">NEW</span>
       </summary>
-      <div>
       <p> I'm interested in:</p>
         <ul>
         <li>provocative internet experiences for art pieces or businesses (<a href="">e.g.1</a>, <a href="https://newsroom.spotify.com/2023-01-04/give-yourself-a-musical-surprise-in-january-2024-with-spotifys-playlist-in-a-bottle/">e.g.2</a>)</li>
@@ -52,56 +52,7 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
         <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
           just find that you get extra privileges with these items...</p>
         </br>
-        </div>
-    <div id="trinkets">
-          <img
-        class="lamp"
-        id="lamp-akari"
-        src="/assets/noguchi-akari-1at.png"
-        can-toggle
-        title="this is one of my favorite Noguchi lamps..."
-      />
-        <!-- window of window -->
-        <div can-spin id="window" title="" style="background: rgb(0, 150, 255);display:flex;flex-direction:column;border-radius:8px;box-shadow:rgba(0, 0, 0, 0.133) 0px 0px 8px 0px;width: 100%;max-width:200px;aspect-ratio:1 / 1;margin: auto 0px;padding:10px;position:relative;justify-content:center; transform: rotate(-7deg)">
-          <div style="position:relative;width: inherit;"><img width="200" loading="lazy" src="https://i.imgur.com/mJxf0Yz.jpg" style="width: inherit;object-fit:cover;" />
-              <div style="position:absolute;z-index:1;top:1px;right:-1px;font-size:8px;font-family:'Press Start 2P', cursive;color:rgb(249, 184, 91);backdrop-filter:blur(2px);line-height:16px;padding:0px 3px;border-radius:0px 0px 0px 4px;background:rgba(0, 0, 0, 0.4) none repeat scroll 0% 0% / auto padding-box border-box;">12:25:03 11/05/2023</div>
-          </div>
-          <div style="background: rgb(0, 150, 255);position:absolute;font-family:Orbitron;border-radius:4px;bottom:-20px;width: 110%;left:-12px;z-index:2;display:flex;justify-content:center;padding:0px 16px; font-size: 18px;">sky</div>
-      </div>
-
-      <FriendsRing/>
-
-      <div id="clockEmbed">
-        <!-- <a href="https://clock.spencer.place"> -->
-          <iframe src="https://clock.spencer.place" title="an embed of the clock that spencer made that changes colors with the time such that every minute has a unique color."/>
-          <!-- </a> -->
-      </div>
-        
-      <!-- tv of sliding i want to remember this -->
-        <div id="tv">
-          <img src="macbook.png"/>
-          <!-- arena channel -->
-        </div>
-        
-        <!-- computer of garage -->
-        <!-- record -->
-        <!-- polaroid of latest "i love living" ? -->
-        <div class="polaroid">
-            <div class="shine-wrap">
-              <img src="texture.jpeg" alt="Your Image">
-                  <div class="shine"></div>
-            </div>
-  <div class="caption">Image Caption</div>
-</div>
-        <!-- "boil water" -->
-        <!-- "make tea" -->
-        <!-- "pick cursor" (all of these configure your cursor..?) -->
-        <!-- table with book -->
-        <!-- writing desk -->
-        <!-- some sort of plant that grows and can be watered -->
-        <!-- cyanotype -->
-        </div>
-        
+        <Trinkets/>
       </div>
     <!-- BODY -->
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->

@@ -1,5 +1,6 @@
 ---
 import EmailEmbed from "../components/EmailEmbed.astro";
+import Trinkets from "../components/Trinkets.astro";
 import SocialMediaLinks from "../components/SocialMediaLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -130,99 +131,113 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 ---
 <BaseLayout>
 
-	<div class="headerContainer home textContent">
-      <p id="expandingWork"></p>
+  <div class="two-columns"> 
 
-    
-	<script define:vars={{workDescription}} >
-		let node = createTelescopicTextFromBulletedList(workDescription, {textMode: TextMode.Html});
-		const container = document.getElementById("expandingWork")
-		container.appendChild(node);
-	</script>
 
-<p>I'm an engineer, artist, and researcher (<a href="https://spencer.place/art">art overview</a>). My practice focuses on stewarding the internet towards a space that empowers us to love each other and create together. To do this, I provide alternatives and provide tools for making those alternatives through making:</p>
-<ol>
-<li>infrastructure (<a href="https://github.com/spencerc99/playhtml">creative tools</a>, <a href="https://spencerchang.substack.com/p/tangible-computing">experimental interfaces</a>, <a href="https://gather.directory/">local-first apps</a>, <a href="http://poems.verses.xyz/test">text playgrounds</a>, <a href="https://spencers.cafe/projects/i-love-living">archival automations</a>, <a href="https://syllabusproject.org/syllabus-for-taking-an-internet-walk/">instruction manuals</a>) and</li>
-<li><i>environments</i> (<a href="https://htmls.garden/">living ecosystems</a>, <a href="https://playhtml.fun/fridge.html">playful spaces</a>, <a href="https://cursorwatch.ing/">live windows</a>, <a href="https://html-portal.vercel.app/">html gatherings in the park</a>, <a href="https://we-b.site">collections of dreams</a>, <a href="https://www.spencerchang.me/pacman-poem/">games</a>)</li>
-</ol>
-
-<p>that highlight the humanity inherent to all technology and empower us to actively shape computing. I want to create space for human-computer dialogue, so that computing becomes a material for people to express themselves, cherish others, and create the possibility for imaginative change.</p>
-
-<div id="signature"><div class="signatureContent">
-      <!-- TODO: hover over for photo in lil modal? -->
-      <SocialMediaLinks/>
+    <div class="headerContainer home textContent">
+      <div class="polaroid float">
+          <img src="assets/spencer_real_person.png" style="aspect-ratio: inherit"/>
       </div>
-    </div>
-    <EmailEmbed/>
-    <p>
-</p>
-        <p id="expandingLikes"></p>
-  </div>   
-
-  <!-- Likes logic -->
-<script define:vars={{likesData: likes, enjoyPrompt}}>
-// TODO: can you add hover tooltips with images and previews?
-// TODO: support descriptors for each in the list, and have a way to "ellipsis" to add a new of the top level one
-// 'in my room', 'snuggled in quiet corners', 'in public parks'
-// randomize likes
-let likes = likesData;
-likes = likes.sort(() => Math.random() - 0.5);
-likes.splice(12, 0, [enjoyPrompt]);
-let likeExpandedIdx = 0;
-
-function createLikeNode(like) {
-  const likeNode = document.createElement("span");
-  likeNode.classList.add('likeItem')
-  likeNode.innerHTML = `${like}`;
-  if (likeExpandedIdx < likes.length - 1) {
-    likeNode.innerHTML += ', ';
-  } 
-  if (likeExpandedIdx === likes.length - 2) {
-    likeNode.innerHTML += 'and ';
-  } 
-  return likeNode;
-}
-const likesNode = document.createElement("div");
-likesNode.id = 'telescope';
-const onMoreNode = document.createElement("div");
-onMoreNode.style = "display: inline-block;"
-onMoreNode.setAttribute('role', 'button')
-onMoreNode.setAttribute('tabindex', '0')
-onMoreNode.setAttribute('title', 'click me to see more! try tabbing to me and using enter or space to go even faster!')
-onMoreNode.innerHTML = 'and...';
-onMoreNode.addEventListener('click', onClickMore);
-onMoreNode.addEventListener('keydown', onKeyDown);
-const likesContainer = document.getElementById("expandingLikes")
-likesContainer.appendChild(likesNode);
-likesNode.appendChild(document.createTextNode('A non-exhaustive list of the things I enjoy:'))
-likesNode.appendChild(document.createElement("br"))
-likesNode.appendChild(onMoreNode);
-onMoreNode.classList.add("details");
-onMoreNode.classList.add("close");
-
-
-function onKeyDown(e) {
-  if (event.key === 'Enter' || event.key === ' ') {
-    onClickMore();
-    e.preventDefault();
+      <p>Growing up, I never felt like I fit in at school or local communities. Instead, I grew up on the internet. The internet was where I found my community, learned what it meant to have a passion, and discovered the range of humanity—how tender and how heartless people could be. I fell into making technology because it felt like a way to carry on the kindnesses that I was shown. I want to make the internet a place that can facilitate the intimacy, creation, and solidarity I found.</p>
+        <p id="expandingWork"></p>
+  
+      
+    <script define:vars={{workDescription}} >
+      let node = createTelescopicTextFromBulletedList(workDescription, {textMode: TextMode.Html});
+      const container = document.getElementById("expandingWork")
+      container.appendChild(node);
+    </script>
+  
+  <p>I'm an engineer, artist, and researcher. My practice focuses on stewarding the internet towards a space that empowers us to love each other and create together. To do this, I provide alternatives and provide tools for making those alternatives through making:</p>
+  <ol>
+  <li><i><b style="font-weight: 600">infrastructure</b></i> (<a href="https://github.com/spencerc99/playhtml">creative tools</a>, <a href="https://spencerchang.substack.com/p/tangible-computing">experimental interfaces</a>, <a href="https://gather.directory/">local-first apps</a>, <a href="http://poems.verses.xyz/test">text playgrounds</a>, <a href="https://spencers.cafe/projects/i-love-living">archival automations</a>, <a href="https://syllabusproject.org/syllabus-for-taking-an-internet-walk/">instruction manuals</a>) and</li>
+  <li><i><b style="font-weight: 600">environments</b></i> (<a href="https://htmls.garden/">living ecosystems</a>, <a href="https://playhtml.fun/fridge.html">playful spaces</a>, <a href="https://cursorwatch.ing/">live windows</a>, <a href="https://html-portal.vercel.app/">html gatherings in the park</a>, <a href="https://we-b.site">collections of dreams</a>, <a href="https://www.spencerchang.me/pacman-poem/">games</a>)</li>
+  </ol>
+  
+  <p>that highlight the humanity inherent to all technology and empower us to actively shape computing. I want to create space for human-computer dialogue, so that computing becomes a material for people to express themselves, cherish others, and create the possibility for imaginative change.</p>
+  
+  <div id="signature"><div class="signatureContent">
+        <!-- TODO: hover over for photo in lil modal? -->
+        <SocialMediaLinks/>
+        </div>
+      </div>
+      <EmailEmbed/>
+      <p>
+  </p>
+          <p id="expandingLikes"></p>
+    </div>   
+  
+    <!-- Likes logic -->
+  <script define:vars={{likesData: likes, enjoyPrompt}}>
+  // TODO: can you add hover tooltips with images and previews?
+  // TODO: support descriptors for each in the list, and have a way to "ellipsis" to add a new of the top level one
+  // 'in my room', 'snuggled in quiet corners', 'in public parks'
+  // randomize likes
+  let likes = likesData;
+  likes = likes.sort(() => Math.random() - 0.5);
+  likes.splice(12, 0, [enjoyPrompt]);
+  let likeExpandedIdx = 0;
+  
+  function createLikeNode(like) {
+    const likeNode = document.createElement("span");
+    likeNode.classList.add('likeItem')
+    likeNode.innerHTML = `${like}`;
+    if (likeExpandedIdx < likes.length - 1) {
+      likeNode.innerHTML += ', ';
+    } 
+    if (likeExpandedIdx === likes.length - 2) {
+      likeNode.innerHTML += 'and ';
+    } 
+    return likeNode;
   }
-}
-
-function onClickMore() {
-  const likeNode = createLikeNode(likes[likeExpandedIdx]);
-  likesNode.insertBefore(likeNode, onMoreNode);
-  likeExpandedIdx++;
-  if (likeExpandedIdx === likes.length) {
-    onMoreNode.remove();
-    return;
+  const likesNode = document.createElement("div");
+  likesNode.id = 'telescope';
+  const onMoreNode = document.createElement("div");
+  onMoreNode.style = "display: inline-block;"
+  onMoreNode.setAttribute('role', 'button')
+  onMoreNode.setAttribute('tabindex', '0')
+  onMoreNode.setAttribute('title', 'click me to see more! try tabbing to me and using enter or space to go even faster!')
+  onMoreNode.innerHTML = 'and...';
+  onMoreNode.addEventListener('click', onClickMore);
+  onMoreNode.addEventListener('keydown', onKeyDown);
+  const likesContainer = document.getElementById("expandingLikes")
+  likesContainer.appendChild(likesNode);
+  likesNode.appendChild(document.createTextNode('A non-exhaustive list of the things I enjoy:'))
+  likesNode.appendChild(document.createElement("br"))
+  likesNode.appendChild(onMoreNode);
+  onMoreNode.classList.add("details");
+  onMoreNode.classList.add("close");
+  
+  
+  function onKeyDown(e) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onClickMore();
+      e.preventDefault();
+    }
   }
-}
-// start with 3 open
-onClickMore();
-onClickMore();
-onClickMore();
-onClickMore();
+  
+  function onClickMore() {
+    const likeNode = createLikeNode(likes[likeExpandedIdx]);
+    likesNode.insertBefore(likeNode, onMoreNode);
+    likeExpandedIdx++;
+    if (likeExpandedIdx === likes.length) {
+      onMoreNode.remove();
+      return;
+    }
+  }
+  // start with 3 open
+  onClickMore();
+  onClickMore();
+  onClickMore();
+  onClickMore();
+  
+  </script>
 
-</script>
-
+  
+<div style="margin-top:4em; margin-right: 2em;">
+  <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
+          just find that you get extra privileges with these items...</p>
+        </br>
+     <Trinkets/>
+</div>
 </BaseLayout>

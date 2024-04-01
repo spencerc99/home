@@ -446,7 +446,7 @@ body {
   height: 110dvh;
   position: fixed;
   z-index: -1;
-  opacity: 0.3;
+  opacity: 0.2;
   pointer-events: none;
 }
 
@@ -942,7 +942,6 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
   color: $color-external-link;
   text-decoration: none;
   transition: background-color 0.15s ease-in-out;
-  position: relative;
 
   .postContent &,
   .listDescription & {
@@ -2702,6 +2701,10 @@ summary {
   position: relative;
   overflow: hidden;
   transform: rotate(-3deg);
+
+  &.float {
+    float: right;
+  }
 }
 
 .polaroid img {
