@@ -675,6 +675,7 @@ button.icon {
 #content {
   min-width: 300px;
   padding-left: 3em;
+  padding-right: 3em;
   @include media(xsmallScreen) {
     padding-left: 1em;
     padding-right: 1em;
@@ -1975,11 +1976,17 @@ button {
   justify-content: center;
   // compensation for minus viewport-width
   max-width: $large-content-width;
-
-  @include media(xsmallScreen, smallScreen, mediumScreen) {
+  @include media(xsmallScreen) {
+    grid-template-columns: 1fr;
+  }
+  @include media(smallScreen) {
     grid-template-columns: 1fr 1fr;
-    margin-left: 0;
-    width: inherit;
+  }
+  @include media(mediumScreen) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @include media(largeScreen) {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
