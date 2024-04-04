@@ -49,7 +49,7 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 						<source src={movieUrl} type="video/webm" />
 					</video>  : <img src={heroImage} alt={`the hero image for ${title}, located at ${link}`} />}
 				</div>}
-				<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length - 1)} client:only="react"></CreationDetailImages>
+				<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
 				<div >
 				</div>
 				</div>

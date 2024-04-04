@@ -35,12 +35,10 @@ $color-background-teal-dark: #353c3d87;
 $color-text-dark: rgb(227, 223, 226);
 $color-quote-background-dark: rgb(24, 26, 27);
 $default-font-size: 20px;
-$paragraph-font-size: 20px;
 // $scaled-font-size: calc(min(max(18px, .75vw), 20px));
 $paragraph-vertical-margin: 24px;
-$scaled-font-size: $default-font-size;
 $default-line-height: 1.6;
-$smaller-font-size: $default-font-size * 0.8;
+$smaller-font-size: $default-font-size * 0.9;
 $navbar-zindex: 999;
 $color-text-color: #282828;
 $color-text-color-white: rgb(235, 232, 227);
@@ -396,8 +394,7 @@ $screenMaxWidths: (
 @mixin meta-content() {
   color: var(--color-text-accent);
   @extend .sans-serif;
-  // font-size: 80%;
-  font-size: $smaller-font-size;
+  font-size: 90%;
 }
 
 @mixin collapsed-post-summary-container() {
@@ -430,8 +427,11 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   margin: 0;
-  font-size: $paragraph-font-size;
+  font-size: $default-font-size;
   // background-color: transparent;
+  @include media(xsmallScreen, smallScreen) {
+    font-size: $smaller-font-size;
+  }
 }
 
 #background {
@@ -558,7 +558,6 @@ div {
 p {
   font-family: $site-font;
   line-height: $default-line-height;
-  font-size: $paragraph-font-size;
   margin: $paragraph-vertical-margin 0;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -676,6 +675,10 @@ button.icon {
 #content {
   min-width: 300px;
   padding-left: 3em;
+  @include media(xsmallScreen) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
 
 .textContent.textContent.textContent {
@@ -686,7 +689,6 @@ button.icon {
 }
 
 .navbarActions {
-  font-size: $scaled-font-size;
   margin-left: auto;
   display: grid;
   grid-gap: 0.75rem;
@@ -726,9 +728,10 @@ button.icon {
   position: fixed;
   margin-left: 2em;
   top: 0;
-  max-width: calc($viewport-width + 1em);
+  max-width: calc(min($viewport-width + 1em, 100vw - 1em));
   width: 100%;
-  border-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   padding: 0 0.5em;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
@@ -753,6 +756,10 @@ button.icon {
     i {
       font-size: 24px;
     }
+  }
+
+  @include media(xsmallScreen) {
+    margin-left: 0.5em;
   }
 }
 
@@ -885,14 +892,12 @@ button.icon {
 .headerContainer {
   @extend .serif;
   margin: $header-container-margin 0 24px 0;
-  font-size: $scaled-font-size;
 
   &.postHeader {
     margin: $navBar-height 0 24px 0;
   }
 
   p {
-    font-size: $scaled-font-size;
     margin: 12px 0;
   }
 
@@ -1300,7 +1305,6 @@ summary:focus {
 details div {
   display: flex;
   flex-direction: column;
-  font-size: $paragraph-font-size;
 }
 
 .writingMeta {
@@ -1371,7 +1375,7 @@ details div {
   margin-bottom: 0px;
 
   i {
-    font-size: $smaller-font-size;
+    font-size: 90%;
     display: inline-flex;
     vertical-align: middle;
   }
@@ -2073,7 +2077,7 @@ button {
   z-index: 1; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
-  font-size: $smaller-font-size;
+  font-size: 90%;
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -2168,7 +2172,7 @@ button {
 
   @extend .mono;
   @include media(xsmallScreen, smallScreen) {
-    font-size: $smaller-font-size;
+    font-size: 90%;
   }
 }
 
@@ -2178,7 +2182,7 @@ button {
   animation: marquee 22s linear infinite;
 
   @include media(xsmallScreen, smallScreen) {
-    font-size: $smaller-font-size !important;
+    font-size: 90% !important;
   }
 
   .date {
@@ -2644,11 +2648,13 @@ img {
 #clockEmbed {
   width: fit-content;
   iframe {
-    width: 300px;
-    height: 300px;
+    max-width: 300px;
+    max-height: 300px;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 50%;
     overflow: hidden;
-    border: 25px solid var(--color-text-color);
+    border: 1em solid var(--color-text-color);
     transition: box-shadow 0.2s ease-in-out;
     &:hover {
       box-shadow: 0px 0px 15px 12px $color-link-translucent;
@@ -2664,7 +2670,7 @@ img {
 
 #trinkets {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto;
   gap: 2em;
   margin: 0 auto;
   width: 100%;

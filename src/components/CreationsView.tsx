@@ -65,7 +65,10 @@ export function CreationsView({ creations }: Props) {
       <div className="creationsMasonry">
         <ResponsiveMasonry
           columnsCountBreakPoints={{
-            800: 1,
+            350: 1,
+            600: 2,
+            900: 3,
+            1024: 1,
             1250: 2,
             1500: 3,
             1900: 4,
