@@ -1,6 +1,7 @@
 ---
 import FriendsRing from "./FriendsRing.astro";
 import {ClockEmbed} from "./ClockEmbed";
+import {Polaroid} from "./Polaroid";
 ---
 
 <div id="trinkets">
@@ -32,13 +33,7 @@ import {ClockEmbed} from "./ClockEmbed";
         <!-- computer of garage -->
         <!-- record -->
         <!-- polaroid of latest "i love living" ? -->
-        <div class="polaroid">
-            <div class="shine-wrap">
-              <img src="texture.jpeg" alt="Your Image">
-                  <div class="shine"></div>
-            </div>
-          </div>
-  <div class="caption">Image Caption</div>
+        <Polaroid client:only="react" imgSrc="texture.jpeg"/> 
   <!-- "boil water" -->
         <!-- "make tea" -->
         <!-- "pick cursor" (all of these configure your cursor..?) -->
