@@ -61,6 +61,7 @@ export function CreationsView({ creations }: Props) {
         </select>
         {/* TODO: sort */}
         {/* reverse chronological, random */}
+        <i>that which ive given life energy to</i>
       </div>
       <div className="creationsMasonry">
         <ResponsiveMasonry
