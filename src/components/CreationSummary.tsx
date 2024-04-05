@@ -1,4 +1,5 @@
 import type { CollectionEntry } from "astro:content";
+import classNames from "classnames";
 import React from "react";
 import { ViewType } from "./CreationsView";
 import { LazyContainer } from "./LazyContainer";
@@ -8,11 +9,13 @@ interface Props {
     id: string;
   };
   view: ViewType;
+  isFiltered?: boolean;
 }
 
 export function CreationSummary({
   creation: { title, descriptionMd, date, heroImage, ongoing, id, movieUrl },
   view,
+  isFiltered,
 }: Props) {
   const link = `/creation/${id}`;
 
@@ -70,7 +73,12 @@ export function CreationSummary({
       );
       // TODO: else link out maybe with external link treatment
       return (
-        <div id={id} className="creationSummary nomove">
+        <div
+          id={id}
+          className={classNames("creationSummary", "nomove", {
+            filtered: isFiltered,
+          })}
+        >
           {linkedCover}
           <div className="creationSummaryTitle">
             <span>{title}</span>

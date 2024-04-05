@@ -4,6 +4,7 @@ import { CreationSummary } from "./CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 export enum ViewType {
+  FREE = "free",
   GRID = "grid",
   LIST = "list",
 }
@@ -36,17 +37,16 @@ export function CreationsView({ creations }: Props) {
     <div className="creationsView">
       <div className="actions">
         {/* view select */}
-        <select
+        {/* <select
           value={view}
           onChange={(e) => {
             setView(e.target.value);
           }}
         >
-          {/* dynamically derive it from ViewType */}
           {Object.values(ViewType).map((viewType) => (
             <option value={viewType}>{viewType}</option>
           ))}
-        </select>
+        </select> */}
         {/* Category select */}
         <select
           value={category}
@@ -83,6 +83,10 @@ export function CreationsView({ creations }: Props) {
                   id: creation.id,
                   ...creation.data,
                 }}
+                isFiltered={
+                  category !== "all" &&
+                  creation.data.parentCategory !== category
+                }
                 view={view}
               />
             ))}
