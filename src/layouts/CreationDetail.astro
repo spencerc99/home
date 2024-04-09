@@ -29,13 +29,14 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 			<article>
 				<div class="content">
 				<div class="prose">
-					<div class="header"><h2>
-						<a href={link}>{title}</a>
-						</h2>
+					<div class="header">
 						<div class="date">
 							{date && <FormattedDate date={date} />}
 						</div>
-						<i>{subtext}</i>
+						<h2>
+						<a href={link}>{title}</a>
+						</h2>
+						<i class="meta">{subtext}</i>
 					</div>
 					<p set:html={descriptionParsed}></p>
 					<slot />

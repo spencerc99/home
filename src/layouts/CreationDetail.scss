@@ -46,7 +46,6 @@ video {
 }
 .prose {
   max-width: $viewport-width;
-  color: rgb(var(--gray-dark));
 }
 .header {
   display: flex;
@@ -63,7 +62,7 @@ video {
 }
 .date {
   display: flex;
-  color: rgb(var(--gray));
+  @include meta-content();
 }
 .last-updated-on {
   font-style: italic;
