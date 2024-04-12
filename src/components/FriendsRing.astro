@@ -85,6 +85,10 @@ const friendsData: Friend[] = await (fetch(
         #friends {
             @include distribute-in-circle(7em, 2em, 13);
             animation: spin 45s linear infinite;
+
+            a {
+                text-decoration: none;
+            }
         }
 
         @keyframes spin {
