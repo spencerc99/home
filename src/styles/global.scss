@@ -641,10 +641,6 @@ footer {
     padding-left: 1em;
     padding-right: 1em;
   }
-
-  .footerContent {
-    max-width: calc(min(#{$viewport-width}, 100vw));
-  }
 }
 
 .textContent.textContent.textContent {
@@ -683,7 +679,7 @@ footer {
     }
 
     &.active {
-      border-bottom: 1px solid $color-blueberry;
+      border-bottom: 1px dotted $color-blueberry;
     }
   }
 }
@@ -910,7 +906,8 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
 
   .postContent &,
   .listDescription &,
-  .description & {
+  .textContent &,
+  footer {
     text-decoration: underline dotted 1px;
   }
 
@@ -933,7 +930,8 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
 
     .postContent &,
     .listDescription &,
-    .description & {
+    .textContent &,
+    footer {
       text-decoration: underline dotted 1px;
     }
 
