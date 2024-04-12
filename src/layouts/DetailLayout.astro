@@ -6,14 +6,15 @@ import BaseLayout, { type BaseLayoutProps } from './BaseLayout.astro';
 interface Props extends BaseLayoutProps {
     title: string;
     emojis?: string[];
+    titleClass?: string;
 }
 
-const {title, emojis} = Astro.props;
+const {title, emojis, titleClass} = Astro.props;
 ---
 
 <BaseLayout includeMarquee={true} {...Astro.props} >
 <div class="headerContainer textContent">
-  <h1>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
+  <h1 class={titleClass}>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
 </div>
 <div class="two-columns">
   <slot/>

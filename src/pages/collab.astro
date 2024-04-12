@@ -1,0 +1,52 @@
+---
+import DetailLayout from "../layouts/DetailLayout.astro";
+
+const LayoutProps = {
+    title: "(collaborate)",
+    description: "work with me...",
+    date: "2024-04-11",
+    // image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
+    emojis: [],
+  titleClass: 'uniform'
+}
+---
+<DetailLayout  {...LayoutProps}>
+    <div class="listDescription textContent">
+        <p>Spencer Chang is an engineer, artist, and designer stewarding the internet towards a medium for intimacy, creation, and solidarity. Spanning open-source infrastructure, participatory environments, creative tools, and multimedia installations, their interdisciplinary and interdependent practice empower (and rely upon) visitors to make their own technological narratives and discover the poetics and solidarity latent in our everyday actions and encounters. In their focus on infrastructural work, Spencer continues the path laid by “maintenance art,” where “the working is the art,” to imagine, realize, and maintain an approach to technology as a conduit for communal humanity. Their work has been featured and supported by the de Young Museum, CultureHub, MIT Technology Review, Frieze, and Gray Area.</p>
+    </div>
+    <div class="collab">
+        <h3 >1. invite me to speak / teach / install</h3>
+        <p>I've spoken across a range of institutions, including U. Penn., Gray Area, and for W3C community group meetings. I've led workshops at Stanford University and Gray Area.</p>
+        <p>I've exhibited multimedia installations and internet art at Gray Area, the de Young Museum, and CultureHub. I'd love to create more installations, both ones that build upon existing net art and infrastructural work and new creations.</p>
+        <p><em>If you'd like to invite me, email spencerc99 at gmail dot com</em></p>
+        <h3>2. commission me</h3>
+            <p>I run a hybrid lab-studio for physical artifacts. I create computation-infused physical artifacts (e.g. <a href="/creation/SIGIL-I/">SIGIL I</a>, fortune cookies that link to an app experience, or invites that open to a personalized website). I'm available for custom commisssions of integrated digital-physical experiences that can be customized to receipients.</p>
+            <p><em>If you have ideas that come to mind that you want to realize, email spencerc99 at gmail dot com</em></p>
+        <h3>3. work with me</h3>
+        <em>open to collaborations & custom commissions for late summer / fall of 2024</em>
+        <p>I can provide freelance ideation, prototyping, design, programming and engineering. I excel at creative interface and system design and prototype designs rapidly through code, while identifying a path to scalable implementation.</p>
+        
+            <p> I'm interested in:</p>
+            <ul>
+            <li>provocative internet experiences for art pieces or businesses (e.g. <a href="https://lens.tldraw.com/">1</a>, <a href="https://newsroom.spotify.com/2023-01-04/give-yourself-a-musical-surprise-in-january-2024-with-spotifys-playlist-in-a-bottle/">2</a>, <a href="https://linkedtarot.com/">3</a>)</li>
+            <li>communal digital experiences for launches, events, and collaboration websites</li>
+            <li>open internet infrastructure (e.g. <a href="https://atproto.com/">AT Protocol</a>)</li>
+            <li>community-embedded software systems (<a href="https://www.are.na/">Are.na</a>)</li>
+            <li>tangible computing interfaces (e.g. <a href="https://play.date/">playdate</a>, <a href="https://myterra.ai/">terra</a>)</li>
+            <li>local-first apps (e.g. <a href="/creation/gather">Gather</a>) </li>
+            <li>developer creative tools<a href="https://river.maxbittker.com/">*1</a><a href="/creation/verses-verses">*2</a></li>
+        </ul>
+        <p><em>If you're interested in exploring working together, email spencerc99 at gmail dot com</em></p>
+    </div>
+    <style lang="scss">
+        @import "../styles/variables.scss";
+        .collab {
+            display: block;
+            max-width: $large-content-width;
+            h3 {
+                text-transform: uppercase;
+                font-family: VT323, monospace;
+            }
+        }
+    </style>
+</DetailLayout>

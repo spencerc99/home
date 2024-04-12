@@ -14,7 +14,7 @@ const emojis = inputEmojis || defaultEmojis;
 shuffleArray(emojis);
 
 ---
-<div class={`emojiContainer ${inline ? 'inline' : ''}`}><button id="emoji" ></button></div>
+{emojis.length > 0 ? <div class={`emojiContainer ${inline ? 'inline' : ''}`}><button id="emoji" ></button></div> : null}
 {!hideWee && <div class="clickme">weee</div>}
     
 
@@ -22,6 +22,9 @@ shuffleArray(emojis);
     document.getElementById('emoji')?.addEventListener('click', updateEmoji)
     var idx = 0;
     function updateEmoji() {
+        if (!document.getElementById('emoji')) {
+            return;
+        }
         let randomEmoji = emojis[idx];
         document.getElementById('emoji').innerHTML = randomEmoji;
         idx = (idx + 1) % emojis.length;

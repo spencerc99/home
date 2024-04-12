@@ -17,7 +17,8 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
 ---
 
 <BaseLayout includeMarquee={true}>
-  <div class="two-columns"><div class="headerContainer home textContent">
+  <div class="two-columns">
+    <div class="headerContainer home textContent">
       <!-- TODO(spencer): insert kaleidescope here? -->
       <!-- <h1 id="siteTitle" title="hi! hover around other parts of the site and you might find other hidden treasures.">
         spencer chang
@@ -48,7 +49,6 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
            <li>new computing interfaces (<a href="https://play.date/">e.g.</a>)</li>
         </ul>
           <p>I excel at creative interface and system design and prototype designs rapidly through code, while identifying a path to scalable implementation. If you're interested in working together, email spencerc99 at gmail dot com</p>
-          </div>
       </div>
     </details>
         <br/>
@@ -57,6 +57,7 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
         </br>
         <Trinkets/>
       </div>
+    </div>
     <!-- BODY -->
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
     <CreationsView creations={creations} client:only="react"/>
