@@ -2,6 +2,7 @@
 import fitsData from '../data/fits.json';
 import dayjs from 'dayjs'
 import DetailLayout from '../layouts/DetailLayout.astro';
+import { Image } from 'astro:assets';
 const fitsPagePermalink = Astro.url.href;
 
 const sortedFits = fitsData.fits.sort((a, b) => b.timestamp - a.timestamp);
@@ -42,6 +43,7 @@ const LayoutProps = {
             // <!-- NOTE: we replace the extension to jpeg since apple photos preview is always jpeg, not -->
             // <!-- whatever the original extension was. -->
             const previewImgSrc = fit.imgSrc.replace(/\.([^\.]+)$/, "_preview.jpeg");
+//                         <Image width={fit.width} height={fit.height} class="lazyload photoCardPhoto galleryImage" src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/>
 
             return <div id={fitIndex.toString()} class="photoCard">
                 {fit.favorite && <i class="uis uis-star photoCardFave"></i>}
@@ -49,6 +51,7 @@ const LayoutProps = {
                     <span class="photoCardIdx" data-permalink={fitPermalink}>{fitIndex} <i class="uil uil-link-h" ></i></span>
                     <span class="photoCardDate">{dayjs(fit.date).format('MM.DD.YYYY')}</span>
                 </div>
+
                 <figure itemscope itemtype="http://schema.org/ImageObject" class="image gallery-item">
                     <!-- TODO: calculate proper size based on item and store inside json, needed for animation -->
                     <a class="galleryLink" href={fit.imgSrc} itemprop="contentUrl" data-size={`${fit.width}x${fit.height}`}>
@@ -57,8 +60,9 @@ const LayoutProps = {
                         <!-- eventually should calculate it properly and set here and above -->
                         <!-- source: https://www.youtube.com/watch?v=4-d_SoCHeWE -->
                         <!-- and https://www.codecaptain.io/blog/web-development/responsive-images-and-preventing-page-reflow/474 -->
-                        <img width={fit.width} height={fit.height} 
-                        class="lazyload photoCardPhoto galleryImage" data-src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/>
+                        <!--- <img width={fit.width} height={fit.height} 
+                        // class="lazyload photoCardPhoto galleryImage" data-src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/> -->
+                        <Image width={fit.width} height={fit.height} class="lazyload photoCardPhoto galleryImage" src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/>
                     </a>
                 </figure>
                 <p>{fit.description}</p>

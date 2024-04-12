@@ -1,15 +1,15 @@
 ---
 import '../styles/photoswipe.css';
 import '../styles/default-skin/default-skin.css';
+import Signature from './Signature.astro';
 ---
 
 <footer>
-	<div class="footerCta">
-  <span>If you'd like to support my independent work, I have some fun buttons for you 🧡</span>
-  <div class="ctaBtns">
-  <a href="https://github.com/sponsors/spencerc99" class="button" target="_blank"><button id="sponsorBtn">Sponsor me <i class='uil uil-github'></i></button></a>
-  <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="coffeeBtn" >Tip me 🥚s</button></a>
-  </div>
+	<div class="footerContent">
+    <!-- TODO: make this an input -->
+    <p>If you enjoyed your stay, <a href="spencerchang.substack.com">sign your email up</a> to receive updates from my explorations.</p>
+    <p>My work is made possible, in large part, by <a href="/support">support from community members</a>.</p>
+    <Signature/>
 </div>
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">

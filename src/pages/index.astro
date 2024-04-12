@@ -1,12 +1,9 @@
 ---
 import EmailEmbed from "../components/EmailEmbed.astro";
 import { getCollection } from 'astro:content';
-import Marquee from "../components/Marquee.astro";
-import PersonalEmoji from "../components/PersonalEmoji.astro";
 import SocialMediaLinks from "../components/SocialMediaLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {CreationsView} from "../components/CreationsView";
-import FriendsRing from "../components/FriendsRing.astro";
 import Trinkets from "../components/Trinkets.astro";
 
 const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());
@@ -26,9 +23,10 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
       </h1> -->
       <div class="description">
     <p>Hi, I'm Spencer. Thanks for visiting my internet home.</p>
+    <!-- TODO: change asterisk to footnote -->
       <p>I'm interested in making internet material for possbility. I'm an engineer, designer, and artist. In all I do, I try to be an "internet caretaker"*, stewarding computers towards enabling us to love & support each other and create & dream together.</p>
-          <div id="signature" style="float: none">
-            <div class="signatureContent">
+          <div class="signature">
+            <div class="signatureContent" style="margin-left:auto">
           <!-- TODO: hover over for photo in lil modal? -->
           <div class="serif">Spencer 張正 Chang<br/>spencerc99@gmail.com</div>
           <img can-spin id="stamp" class="stamp" src="/assets/name-stamp.png" title="this is my name stamp. my chinese name is 張正, 正 being my given name. 正 has many meanings: just, right, 5 if marking tallies on a food ordering sheet, proper, main, positive (for numbers). this animation was made on winter solstice and inspired by the scene from avatar the last airbender where aang opens the door to visit avatar roku during the winter solstice."/>
@@ -36,21 +34,7 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
           </div>
         </div>
         <br/>
-         <details>
-      <summary>
-        Open to collaborations <span id="new">NEW</span>
-      </summary>
-      <div>
-
-        <p> I'm interested in:</p>
-          <ul>
-          <li>provocative internet experiences for art pieces or businesses (<a href="">e.g.1</a>, <a href="https://newsroom.spotify.com/2023-01-04/give-yourself-a-musical-surprise-in-january-2024-with-spotifys-playlist-in-a-bottle/">e.g.2</a>)</li>
-          <li>open internet infrastructure (<a href="https://atproto.com/">e.g.</a>), community-embedded software systems (<a href="https://www.are.na/">e.g.</a>)</li>
-           <li>new computing interfaces (<a href="https://play.date/">e.g.</a>)</li>
-        </ul>
-          <p>I excel at creative interface and system design and prototype designs rapidly through code, while identifying a path to scalable implementation. If you're interested in working together, email spencerc99 at gmail dot com</p>
-      </div>
-    </details>
+        <div style="position: relative; display:inline-block"> <span id="new">NEW</span> Open to <a href="/collab">collaborations</a></div>
         <br/>
         <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
           just find that you get extra privileges with these items...</p>

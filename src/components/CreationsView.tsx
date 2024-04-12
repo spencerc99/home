@@ -56,7 +56,9 @@ export function CreationsView({ creations }: Props) {
         >
           <option value="all">All</option>
           {Array.from(allCategories).map((category) => (
-            <option value={category}>{category}</option>
+            <option key={category} value={category}>
+              {category}
+            </option>
           ))}
         </select>
         {/* TODO: sort */}

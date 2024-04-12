@@ -6,7 +6,10 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://spencerchang.me",
+  image: {
+    domains: ["assets.spencerchang.me", "codahosted.io/"],
+  },
+  site: "https://spencer.place",
   integrations: [
     mdx(),
     sitemap(),

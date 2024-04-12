@@ -634,6 +634,19 @@ button.icon {
   }
 }
 
+footer {
+  padding-left: 3em;
+  padding-right: 3em;
+  @include media(xsmallScreen) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .footerContent {
+    max-width: calc(min(#{$viewport-width}, 100vw));
+  }
+}
+
 .textContent.textContent.textContent {
   max-width: calc(min(#{$viewport-width}, 100vw));
   @include media(xsmallScreen, smallScreen) {
@@ -677,7 +690,8 @@ button.icon {
 
 #navbar {
   border-bottom: 1px $color-lighter-grey solid;
-  background-color: $color-site-background;
+  background-color: var(--color-neutral-background);
+  box-shadow: 0 2px 4px 0 var(--color-box-shadow);
   position: fixed;
   margin-left: 2em;
   top: 0;
@@ -686,7 +700,6 @@ button.icon {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   padding: 0 0.5em;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
   height: $navBar-height;
   z-index: $navbar-zindex;
@@ -999,10 +1012,8 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
 
   i,
   svg {
-    &:before {
-      margin-left: 0.1em;
-      margin-right: 0.1em;
-    }
+    margin-left: 2px;
+    margin-right: 2px;
   }
 }
 
@@ -2216,9 +2227,7 @@ button {
   }
 }
 
-#signature#signature {
-  margin-left: 12px;
-
+.signature.signature {
   .stamp {
     margin-top: 5.3px;
     margin-left: 10px;
@@ -2237,11 +2246,6 @@ button {
     .serif {
       text-align: right;
     }
-  }
-  float: right;
-
-  @include media(smallScreen) {
-    float: none;
   }
 }
 
@@ -2378,13 +2382,15 @@ hr.separator {
   justify-content: center;
 }
 
-.footerCta {
+.footerContent {
   display: flex;
-  align-items: center;
+  // align-items: center;
   flex-direction: column;
   padding-bottom: 3em;
   gap: 1em;
-  text-align: center;
+  p {
+    margin: 0;
+  }
   margin-top: 15em;
   width: 100%;
 
@@ -2657,11 +2663,6 @@ summary {
   background: var(--color-glowing-highlight);
   padding: 2px 4px;
   border-radius: 4px;
-  position: absolute;
-  right: -60px;
-  // transform: rotate(-33deg);
-  // top: -13px;
-  // left: -50px;
 
   margin-bottom: 8px;
   font-size: 0.8em;
