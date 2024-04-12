@@ -48,7 +48,7 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 				</div> : <div class="hero-image">
 					{movieUrl ? <video controls autoplay loop>
 						<source src={movieUrl} type="video/webm" />
-					</video>  : <img src={heroImage} alt={`the hero image for ${title}, located at ${link}`} />}
+					</video>  : <img src={heroImage} alt={`${title}, located at ${link}`} />}
 				</div>}
 				<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
 				<div >

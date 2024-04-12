@@ -21,7 +21,7 @@ export function CreationsView({ creations }: Props) {
   const [view, setView] = useState(ViewType.GRID);
   const [category, setCategory] = useState("all");
   const allCategories = new Set(
-    creations.map((creation) => creation.data.parentCategory)
+    creations.map((creation) => creation.data.parentCategory).filter(Boolean)
   );
 
   const sortedCreations = useMemo(

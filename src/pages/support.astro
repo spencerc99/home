@@ -1,18 +1,41 @@
 ---
-import FriendsRing from "../components/FriendsRing.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import DetailLayout from "../layouts/DetailLayout.astro";
+
+const LayoutProps = {
+    // title: "(support)",
+    description: "support my work...",
+    date: "2024-04-11",
+    // image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
+    emojis: [],
+  titleClass: 'uniform'
+}
 ---
-<BaseLayout>
-    <div class="headerContainer">
-    </div>
-    <div class="mainContainer" style="padding-top: 5em; gap:2em;">
-        <h1>the people who make my work possible</h1>
-        <p>my endless gratitude for all my sponsors, current and past, for enabling what I do.</p>
+<DetailLayout {...LayoutProps}>
+    <div class="listDescription textContent">
+          <div class="headerContainer textContent">
+              <h1 class='uniform'>(support)</h1>
+          </div>
+<p>At the beginning of 2023, I left my job in tech (<a href="https://spencerchang.substack.com/p/towards-flight">story</a>) for independent work, research, and art around creating forms of computing rooted in communal agency. Since then, I've created open-source infrastructure for creating shared web experiences and spaces, local-first apps for archiving and curating data, and participatory environments that offer alternative paces of moving across the internet.</p>
+<p>I'm still figuring out how (and if) this life can be sustainable. I'm endlessly grateful for any support you can offer, whether in sharing my work or sponsoring me. My work is made possible by these gestures of support.</p>
+<p>Thank you for your generosity.</p>
+
         <!-- TODO: show all sponsors -->
     
         <div class="ctaBtns">
   <a href="https://github.com/sponsors/spencerc99" class="button" target="_blank"><button id="sponsorBtn">Sponsor me <i class='uil uil-github'></i></button></a>
   <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="coffeeBtn" >Tip me 🥚s</button></a>
-  </div>
+  
+  <a href="https://account.venmo.com/u/spencerc99" class="button" target="_blank"><button id="venmoBtn" >Venmo me</button></a>
+  <a href="https://donate.stripe.com/cN202r8gj9HW8Ks144" class="button" target="_blank"><button id="stripeBtn" >Stripe me</button></a>
+  <!-- <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="commmissionBtn" >Commission me</button></a> -->
+  
     </div>
-</BaseLayout>
+    </div>
+    <div class="sponsors">
+        <em>
+            my endless gratitude for all my sponsors, current and past, for enabling what I do.
+        </em>
+        <!-- TODO: all sponsors -->
+
+    </div>
+</DetailLayout>

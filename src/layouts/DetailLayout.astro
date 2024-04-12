@@ -4,7 +4,7 @@ import PersonalEmoji from '../components/PersonalEmoji.astro';
 import BaseLayout, { type BaseLayoutProps } from './BaseLayout.astro';
 
 interface Props extends BaseLayoutProps {
-    title: string;
+    title?: string;
     emojis?: string[];
     titleClass?: string;
 }

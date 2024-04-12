@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import {CreationsView} from "../../components/CreationsView";
+import DetailLayout from '../../layouts/DetailLayout.astro';
+
+const creations = (await getCollection('creation')).sort(
+	(a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+);
+const LayoutProps = {
+    // title: "(collaborate)",
+    description: "all my creaetions...",
+    date: "2024-04-11",
+    // image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
+    emojis: [],
+    titleClass: 'uniform'
+}
+---
+<DetailLayout {...LayoutProps}>
+    <div class="listDescription textContent">
+        All my creations. that I've given life to.
+        All my creations. that I've given life to.
+    </div>
+        <CreationsView creations={creations} client:only="react"/>
+</DetailLayout>

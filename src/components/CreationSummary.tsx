@@ -12,6 +12,22 @@ interface Props {
   isFiltered?: boolean;
 }
 
+export function stringToColor(
+  str: string,
+  {
+    saturation = 100,
+    lightness = 50,
+    alpha = 1,
+  }: { saturation?: number; lightness?: number; alpha?: number } = {}
+) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    hash = hash & hash;
+  }
+  return `hsla(${hash % 360}, ${saturation}%, ${lightness}%, ${alpha})`;
+}
+
 export function CreationSummary({
   creation: { title, descriptionMd, date, heroImage, ongoing, id, movieUrl },
   view,
@@ -50,13 +66,23 @@ export function CreationSummary({
             <source src={movieUrl} type="video/webm" />
           </video>
         </LazyContainer>
-      ) : (
+      ) : heroImage ? (
         <img
           src={heroImage}
           className="registryImage"
           loading="lazy"
-          alt={`an image that shows a demo of ${title}`}
+          alt={`a demo of ${title}`}
         />
+      ) : (
+        <div
+          className="creationAura"
+          style={{
+            "--aura-color": stringToColor(title),
+            "--aura-color-transparent": stringToColor(title, {
+              alpha: 0.3,
+            }),
+          }}
+        ></div>
       );
       const shouldLink = Boolean(descriptionMd);
       const linkedCover = shouldLink ? (
