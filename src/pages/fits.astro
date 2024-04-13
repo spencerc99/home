@@ -1,6 +1,6 @@
 ---
 import fitsData from '../data/fits.json';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import DetailLayout from '../layouts/DetailLayout.astro';
 import { Image } from 'astro:assets';
 const fitsPagePermalink = Astro.url.href;
@@ -68,7 +68,7 @@ const LayoutProps = {
                 <p>{fit.description}</p>
             </div>
         })}
-    <div class="scrollUp"><button onclick="scrollUp('filterFavorites')">Back to top</button></div>
+    <div class="scrollUp"><button onclick={scrollUp('filterFavorites')}>Back to top</button></div>
 
 
     <script is:inline>
@@ -95,6 +95,13 @@ const LayoutProps = {
             const nonFavorites = allFits.filter(ele => !ele.querySelector('.photoCardFave'));
             nonFavorites.forEach(fit => showAll ? show(fit) : hide(fit));
         }
+
+        function scrollUp(elementId) {
+            document
+                .querySelector(`#${elementId}`)
+                ?.scrollIntoView({ behavior: "smooth" });
+        }
+
         filterFits();
     </script>
     </div>

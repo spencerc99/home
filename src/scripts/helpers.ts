@@ -1,4 +1,4 @@
-function showSnackbar(text) {
+export function showSnackbar(text) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
 
@@ -12,17 +12,17 @@ function showSnackbar(text) {
   }, 2000);
 }
 
-function showLinkCopiedSnackbar() {
+export function showLinkCopiedSnackbar() {
   showSnackbar("Link copied to clipboard!");
 }
 
-function copyLink(text) {
+export function copyLink(text) {
   navigator.clipboard.writeText(text);
   showLinkCopiedSnackbar();
   return undefined;
 }
 
-function scrollUp(elementId) {
+export function scrollUp(elementId) {
   document
     .querySelector(`#${elementId}`)
     ?.scrollIntoView({ behavior: "smooth" });
