@@ -2,6 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.scss';
+import "../scripts/helpers.ts";
 
 interface Props {
 	title: string;
@@ -59,9 +60,6 @@ const { title, description, image = '/name-stamp.png', draft } = Astro.props;
 <!-- lazy load images to prioritize those in view -->
 <script async src="/lazysizes.min.js"></script>
 
-<!-- javascript helpers -->
-<script async src="/helpers.js"></script>
-
 <!-- telescopic text -->
 <script src="https://unpkg.com/telescopic-text@latest/lib/index.js" is:inline></script>
 <link
@@ -79,7 +77,3 @@ const { title, description, image = '/name-stamp.png', draft } = Astro.props;
 
 <!-- HammerJS -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
-
-<!-- local helpers -->
-<script src="../scripts/helpers.ts" is:inline></script>
