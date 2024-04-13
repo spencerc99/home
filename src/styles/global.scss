@@ -1718,37 +1718,37 @@ ul.noPadding {
 }
 
 // Masonry code
-.gallery {
-  width: 100%;
-  display: block;
-  margin: 0 auto;
+// .gallery {
+//   width: 100%;
+//   display: block;
+//   margin: 0 auto;
 
-  column-count: 4;
-  column-gap: 0.2rem;
-  width: 100%;
+//   column-count: 4;
+//   column-gap: 0.2rem;
+//   width: 100%;
 
-  /* Extra Small Devices, Phones */
-  @include media(xsmallScreen) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  /* Small Devices, Tablets */
-  @include media(smallScreen) {
-    column-count: 2;
-    column-gap: 3px;
-  }
+//   /* Extra Small Devices, Phones */
+//   @include media(xsmallScreen) {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//   }
+//   /* Small Devices, Tablets */
+//   @include media(smallScreen) {
+//     column-count: 2;
+//     column-gap: 3px;
+//   }
 
-  @include media(mediumScreen) {
-    column-count: 3;
-    column-gap: 3px;
-  }
+//   @include media(mediumScreen) {
+//     column-count: 3;
+//     column-gap: 3px;
+//   }
 
-  img {
-    max-width: 100%;
-    @include image-dropshadow();
-  }
-}
+//   img {
+//     max-width: 100%;
+//     @include image-dropshadow();
+//   }
+// }
 
 .gallery-item {
   /* Masonry bricks or child elements */
