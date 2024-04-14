@@ -10,10 +10,11 @@ export interface BaseLayoutProps {
     description?: string;
     image?: string;
     includeMarquee?: boolean;
+    backgroundOpacity?: number;
 }
 type Props = BaseLayoutProps;
 
-const {title, description, image, includeMarquee} = Astro.props;
+const {title, description, image, includeMarquee, backgroundOpacity} = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +24,9 @@ const {title, description, image, includeMarquee} = Astro.props;
 	</head>
 	<body>
 		<Header/>
-		<div id="background"></div>
+		<div id="background" style={{
+            opacity: backgroundOpacity ? backgroundOpacity : .2
+        }}></div>
 		<div id="content">
 			<slot/>
 		</div>

@@ -773,10 +773,6 @@ footer {
   }
 }
 
-.title {
-  font-size: 2.3em;
-}
-
 .relatedPosts {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -890,7 +886,7 @@ footer {
   }
 }
 
-$internal-link-selectors: ' a[href^="https://spencerchang.me"], a[href^="https://www.spencerchang.me"], a[href^="http://spencerchang.me"], a[href^="http://www.spencerchang.me"], a[href^="spencerchang.me"], a[href^="www.spencerchang.me"], a[href^="/"], a[href^="#"]';
+$internal-link-selectors: ' a[href^="https://spencer.place"], a[href^="https://www.spencer.place"], a[href^="http://spencer.place"], a[href^="http://www.spencer.place"], a[href^="spencer.place"], a[href^="www.spencer.place"], a[href^="/"], a[href^="#"]';
 
 a {
   text-underline-offset: 0.2em;
@@ -938,28 +934,6 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
     &:hover {
       @include link-highlight();
     }
-  }
-}
-
-.postHeaderLink {
-  // for some reason doing the or selector (,) on all of these doesn't work, maybe submit issue?
-  h1:hover & {
-    @include link-highlight();
-  }
-  h2:hover & {
-    @include link-highlight();
-  }
-  h3:hover & {
-    @include link-highlight();
-  }
-  h4:hover & {
-    @include link-highlight();
-  }
-  h5:hover & {
-    @include link-highlight();
-  }
-  h6:hover & {
-    @include link-highlight();
   }
 }
 
@@ -1053,138 +1027,6 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
     }
   }
 }
-
-$expandThresholdPadding: 80px;
-.summaryList {
-  width: 100%;
-  max-width: $viewport-width;
-
-  &.expand {
-    @include biggerThanViewport($expandThresholdPadding) {
-      max-width: none;
-    }
-  }
-
-  div {
-    &.hidden {
-      display: none;
-
-      @include biggerThanViewport($expandThresholdPadding) {
-        display: inherit;
-      }
-    }
-  }
-
-  .tabs {
-    border-bottom: 5px dashed var(--color-text-accent);
-    padding-bottom: 8px;
-    display: flex;
-
-    button {
-      border: none;
-      background: none;
-      padding: 4px 8px;
-      padding-bottom: 2px;
-      margin: 0 4px;
-      border-radius: 4px;
-
-      @include biggerThanViewport($expandThresholdPadding) {
-        max-width: 400px;
-        width: 100%;
-      }
-
-      &:first-child {
-        margin-left: 0;
-        padding-left: 2px;
-      }
-
-      &:hover {
-        @include link-highlight();
-      }
-
-      @include biggerThanViewport($expandThresholdPadding) {
-        background: var(--color-background-teal);
-        box-shadow: inset 0.3px 0.5px 1.6px var(--color-box-shadow);
-      }
-
-      &.active {
-        background: var(--color-background-teal);
-        box-shadow: inset 0.3px 0.5px 1.6px var(--color-box-shadow);
-      }
-
-      h3 {
-        margin-top: 0;
-        margin-bottom: 4px;
-        color: var(--color-text-accent) !important;
-        font-weight: 600;
-      }
-    }
-  }
-
-  .tabContent {
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-
-    div {
-      @include biggerThanViewport(80px) {
-        max-width: 400px;
-      }
-    }
-  }
-}
-
-.postContainer {
-  $border-size: 7px;
-  width: 100%;
-  position: relative;
-  padding: 1em 1.5em 0em 1.5em;
-  background: var(--color-neutral-background-translucent);
-  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
-  // generated from broider
-  border-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAK9JREFUOE+9VEkOgCAQk/d68uoDvHryvZoxKSlrioBcIDDTKZ3Frft5L4OXA+h1bO+5dzd+AZBdGKjtCIAzPlN7ByHPlBWAI+5Yotob7D3TEiMGVoIZgUDT+NtK/nIyJclRgHI2nOSE6VdQli/QtAeQtU+yHydDCRQ3UFKnXKutgMU6HcpUYaXYZOtUcSzZQNt/6pQ7RGFd7agpvT9lSvGwHjZPeyc+/P3kVxLSYvMAqAsvlMmv9W0AAAAASUVORK5CYII=")
-    #{7} / #{$border-size} / 0 round;
-  border-width: $border-size;
-  border-style: solid;
-  overflow-x: hidden;
-
-  .title {
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-
-  .description {
-    color: $color-light-grey;
-    margin-top: 8px;
-  }
-
-  h3:first-child {
-    margin-bottom: 6px;
-  }
-
-  // narrow margin on the first descendant if there's not a full width image
-  article > *:not(figure):not(img):first-child {
-    margin-top: 6px;
-  }
-
-  @include media(xsmallScreen, smallScreen) {
-    padding: 1em 0.5em 0em 0.5em;
-    // This handles huge embeds and takes into account the padding above and the border above
-    max-width: calc(100vw - 1em - #{$border-size} * 2) !important;
-  }
-}
-
-.postFooter {
-  font-weight: bold;
-  color: $color-light-grey;
-  & > p {
-    @extend .mono;
-    font-size: $smaller-font-size;
-    line-height: $default-line-height;
-    margin: 12px 0;
-  }
-}
-
 summary {
   line-height: $default-line-height;
   position: relative;
@@ -1365,98 +1207,17 @@ i.uis.uis-star {
   font-weight: bold;
 }
 
-.postContent {
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
+hr {
+  border: none;
+  text-align: center;
 
-  figure {
-    margin-left: 0;
-    margin-right: 0;
-
-    // &:not(.fullWidth)
-    &:not(.gallery-item) {
-      display: table;
-      margin: auto;
-
-      figcaption {
-        display: table-caption;
-        caption-side: bottom;
-      }
-    }
-
-    // make more specific than img tag below.
-    &.fullWidth.fullWidth {
-      // figcaption {
-      //   // only let the caption expand to 90% of the full viewport width
-      //   p {
-      //     margin-left: 5vw;
-      //     margin-right: 5vw;
-      //   }
-      // }
-
-      // // allow image to grow to 3/4 of viewport.
-      // // at 800 = 600 (viewport width) * 4/3 (inverse of ratio below),
-      // // revert to normal sizing since it 75% of viewport will be smaller than normal sizing.
-      // // TODO(spencer): this should naturally scale to take the full width and shrink to a min of 75%.
-      // @media (min-width: $full-width-image-shrink-threshold + 1) {
-      //   left: 50%;
-      //   margin-left: calc(max(-37.5vw, calc(#{$full-width-image-shrink-threshold} / -2)));
-      //   margin-right:  calc(max(-37.5vw, calc(#{$full-width-image-shrink-threshold} / -2)));
-      //   max-width: calc(min(75vw, #{$full-width-image-shrink-threshold}));
-      //   position: relative;
-      //   right: 50%;
-      //   width: 100vw;
-      //   min-width: $viewport-width;
-      // }
-
-      // @media(max-width: $full-width-image-shrink-threshold) {
-      //   @include extend-width();
-      //   figcaption {
-      //     p {
-      //       margin-left: 6px;
-      //       margin-right: 6px;
-      //     }
-      //   }
-      // }
-    }
-
-    &.embed.embed {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 100%;
-    }
-
-    img:not(.galleryImage),
-    video {
-      max-width: 100%;
-      display: flex;
-      margin: auto;
-    }
-
-    figcaption {
-      margin: auto;
-      font-style: italic;
-      color: $color-light-grey;
-      margin-top: 8px;
-    }
-
-    p {
-      margin: 0;
-      margin: auto;
-      text-align: center;
-    }
-  }
-
-  hr {
-    max-width: 100px;
-    border-width: 2px;
-    border-style: solid;
-    margin: 30px auto;
-    color: $color-lighter-grey;
+  &::after {
+    content: "࿌ ࿌ ࿌";
+    color: var(--color-text-accent);
+    filter: blur(1px);
+    // drop-shadow(0 0px 5px $color-link)
+    //   drop-shadow(0 0px 10px $color-link);
+    font-size: 0.8em;
   }
 }
 
@@ -1495,6 +1256,10 @@ blockquote {
 
 section.footnotes {
   & > hr {
+    display: none;
+  }
+
+  #footnote-label {
     display: none;
   }
 

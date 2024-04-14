@@ -25,8 +25,12 @@ $color-light-lavender: rgb(250, 248, 254);
 $color-dark-lavender: rgb(57, 56, 60);
 $color-site-background: $color-light-peach;
 $color-site-background-translucent: $color-light-peach-translucent;
-$color-site-background-dark: hsla(100 50% 8% / 1);
-$color-site-background-dark-translucent: hsla(100 50% 8% / 60%);
+// $color-site-background-dark: hsla(100 50% 8% / 1);
+$color-site-background-dark: hsl(204.86deg 50% 8%);
+$color-site-background-dark-translucent: transparentize(
+  $color-site-background-dark,
+  0.4
+);
 $color-background-teal: #f4fdff87;
 $color-background-teal-dark: #353c3d87;
 $color-text-dark: rgb(227, 223, 226);

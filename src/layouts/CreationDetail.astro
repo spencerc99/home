@@ -8,6 +8,7 @@ import { marked } from 'marked';
 import {CreationDetailImages} from '../components/CreationDetailImages';
 
 import './CreationDetail.scss'
+import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'collection'>['data'];
 
@@ -15,48 +16,37 @@ const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIfram
 const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {breaks: true, gfm: true});
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={subtext} />
-		<style>
-			
-		</style>
-	</head>
-
-	<body>
-		<Header />
-		<main class="creationDetail">
-			<article>
-				<div class="content">
-				<div class="prose">
-					<div class="header">
-						<div class="date">
-							{date && <FormattedDate date={date} />}
-						</div>
-						<h2>
-						<a href={link}>{title}</a>
-						</h2>
-						<i class="meta">{subtext}</i>
+<BaseLayout title={title} description={subtext} image={heroImage}>
+	<main class="creationDetail">
+		<article>
+			<div class="content">
+			<div class="prose">
+				<div class="header">
+					<div class="date">
+						{date && <FormattedDate date={date} />}
 					</div>
-					<p set:html={descriptionParsed}></p>
-					<slot />
+					<h2>
+					<a href={link}>{title}</a>
+					</h2>
+					<i class="meta">{subtext}</i>
 				</div>
-				<div>
-				{shouldIframe ? <div class="iframeWrapper">
-					<iframe src={link}></iframe>
-					<div>window into <a href={link}>{link}</a></div>
-				</div> : <div class="hero-image">
-					{movieUrl ? <video controls autoplay loop>
-						<source src={movieUrl} type="video/webm" />
-					</video>  : <img src={heroImage} alt={`${title}, located at ${link}`} />}
-				</div>}
-				<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
-				<div >
-				</div>
-				</div>
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
-</html>
+				<p set:html={descriptionParsed}></p>
+				<slot />
+			</div>
+			<div>
+			{shouldIframe ? <div class="iframeWrapper">
+				<iframe src={link}></iframe>
+				<div>window into <a href={link}>{link}</a></div>
+			</div> : <div class="hero-image">
+				{movieUrl ? <video controls autoplay loop>
+					<source src={movieUrl} type="video/webm" />
+				</video>  : <img src={heroImage} alt={`${title}, located at ${link}`} />}
+			</div>}
+			<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
+			<div >
+			</div>
+			</div>
+			</div>
+		</article>
+	</main>
+</BaseLayout>
