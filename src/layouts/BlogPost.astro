@@ -41,6 +41,10 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				.postMain {
 					width: fit-content;
 					position: relative;
+
+					@include media(xsmallScreen) {
+						overflow: hidden;
+					}
 				}
 				.hero-image {
 				width: 100%;
