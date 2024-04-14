@@ -10,7 +10,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <BaseLayout title={title} description={description} image={heroImage} backgroundOpacity={.15}>
 		
-		<main>
+		<main class="postMain">
 			<article class="textContainer">
 				<!-- <div class="hero-image">
 					{heroImage && <img src={heroImage}  />}
@@ -37,7 +37,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		</main>
 			<style lang="scss">
 				@import '../styles/global.scss';
-			.hero-image {
+			
+				.postMain {
+					width: fit-content;
+					position: relative;
+				}
+				.hero-image {
 				width: 100%;
 				margin-top:-2em;
 				position: absolute;

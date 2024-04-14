@@ -42,8 +42,7 @@ const {title, description, image, includeMarquee, backgroundOpacity} = Astro.pro
 
         <div id="snackbar"/>
 
-        <!-- import cursor chat -->
-        <script src="https://cursor-party.spencerc99.partykit.dev/cursors.js"></script>
+        <script src="https://cursor-party.spencerc99.partykit.dev/cursors.js" is:inline></script>
         <script type="module" is:inline>
             import "https://unpkg.com/playhtml@latest";
             playhtml.init();

@@ -2552,10 +2552,10 @@ summary {
 
 #construction {
   position: absolute;
-  right: -126px;
+  right: -166px;
   padding-top: 3em;
   text-align: center;
-  width: 14em;
+  width: 18em;
   padding-right: 1em;
   top: -66px;
   transform: rotate(45deg);
@@ -2563,5 +2563,39 @@ summary {
   opacity: 0.7;
   @include media(xsmallScreen, smallScreen) {
     display: none;
+  }
+}
+
+.object {
+  max-width: 100px;
+  max-height: 100px;
+  position: absolute;
+  right: -200px;
+  border-radius: 50%;
+  // background: radial-gradient(
+  //   circle,
+  //   hsl(183deg 100% 82% / 30%) 20%,
+  //   hsl(183deg 100% 82% / 10%) 100%
+  // );
+  img {
+    filter: drop-shadow(0px 0px 10px var(--color-box-shadow))
+      drop-shadow(0px 0px 30px var(--color-box-shadow))
+      drop-shadow(0px 0px 8px var(--color-box-shadow));
+  }
+  // box-shadow: 0px 0px 14px 6px var(--color-box-shadow);
+  transition: 0.8s ease-in-out background 0.8s ease-in-out;
+
+  &:hover {
+    // background: radial-gradient(
+    //   circle,
+    //   hsl(183deg 100% 82% / 40%) 20%,
+    //   hsl(183deg 100% 82% / 20%) 100%
+    // );
+
+    img {
+      filter: drop-shadow(0px 0px 10px hsl(183deg 100% 82% / 60%))
+        drop-shadow(0px 0px 30px hsl(183deg 100% 82% / 60%))
+        drop-shadow(0px 0px 8px hsl(183deg 100% 82% / 60%));
+    }
   }
 }
