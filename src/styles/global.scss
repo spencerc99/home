@@ -806,6 +806,7 @@ footer {
 .avatarLink {
   height: fit-content;
   margin: auto 0;
+  line-height: 1;
   &:hover {
     .avatar {
       @include roll-and-move();
