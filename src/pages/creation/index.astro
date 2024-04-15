@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import {CreationsView} from "../../components/CreationsView";
+import {CreationsView} from "../../components/views/CreationsView";
 import DetailLayout from '../../layouts/DetailLayout.astro';
 
 const creations = (await getCollection('creation')).sort(
