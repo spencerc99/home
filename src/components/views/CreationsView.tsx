@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import React, { useEffect, useMemo, useState } from "react";
-import { CreationSummary } from "./CreationSummary";
+import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 export enum ViewType {

@@ -3,7 +3,7 @@ import EmailEmbed from "../components/EmailEmbed.astro";
 import { getCollection } from 'astro:content';
 import SocialMediaLinks from "../components/SocialMediaLinks.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import {CreationsView} from "../components/CreationsView";
+import {CreationsView} from "../components/views/CreationsView";
 import Trinkets from "../components/Trinkets.astro";
 
 const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());

@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
 import React from "react";
-import { ViewType } from "./CreationsView";
+import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
 
 interface Props {
