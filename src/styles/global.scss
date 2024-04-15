@@ -2562,6 +2562,7 @@ summary {
   transform: rotate(45deg);
   background: var(--color-background-lavender);
   opacity: 0.7;
+  z-index: 10;
   @include media(xsmallScreen, smallScreen) {
     display: none;
   }
