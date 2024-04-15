@@ -68,8 +68,8 @@ export function CreationSummary({
         </LazyContainer>
       ) : heroImage ? (
         <img
-          src={heroImage}
-          className="registryImage"
+          data-src={heroImage}
+          className="lazyload registryImage"
           loading="lazy"
           alt={`a demo of ${title}`}
         />

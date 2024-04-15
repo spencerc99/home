@@ -10,7 +10,7 @@ export function CreationDetailImages({ images }: { images: string[] }) {
           // TODO: i hate astro lmao its as bad as hugo
           // this literally doesn't render at all because of Zoom and ZoomOptions
           // <ImageZoom className="medium" src={imgUrl} />
-          <img className="medium" src={imgUrl} />
+          <img className="lazyload medium" data-src={imgUrl} />
         ))}
       </MasonryLayout>
     </div>
