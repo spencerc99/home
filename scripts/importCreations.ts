@@ -25,6 +25,7 @@ export interface CodaItem {
   forthcoming: boolean;
   ongoing: boolean;
   featured: boolean;
+  useImageForPreview: boolean;
 }
 
 function escapeTitleForFilename(title: string): string {
@@ -136,6 +137,7 @@ async function importCreations() {
       featured: item.featured,
       featuredArt: item.featuredArt,
       featuredWork: item["Work Highlight"],
+      useImageForPreview: item.useImageForPreview,
     };
   });
 

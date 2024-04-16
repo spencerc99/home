@@ -29,7 +29,16 @@ export function stringToColor(
 }
 
 export function CreationSummary({
-  creation: { title, descriptionMd, date, heroImage, ongoing, id, movieUrl },
+  creation: {
+    title,
+    descriptionMd,
+    date,
+    heroImage,
+    ongoing,
+    id,
+    movieUrl,
+    useImageForPreview,
+  },
   view,
   isFiltered,
 }: Props) {
@@ -56,34 +65,35 @@ export function CreationSummary({
     //   );
     case ViewType.LIST:
     case ViewType.GRID:
-      const cover = movieUrl ? (
-        <LazyContainer
-          style={{
-            borderRadius: "inherit",
-          }}
-        >
-          <video autoPlay muted loop playsInline>
-            <source src={movieUrl} type="video/webm" />
-          </video>
-        </LazyContainer>
-      ) : heroImage ? (
-        <img
-          data-src={heroImage}
-          className="lazyload registryImage"
-          loading="lazy"
-          alt={`a demo of ${title}`}
-        />
-      ) : (
-        <div
-          className="creationAura"
-          style={{
-            "--aura-color": stringToColor(title),
-            "--aura-color-transparent": stringToColor(title, {
-              alpha: 0.3,
-            }),
-          }}
-        ></div>
-      );
+      const cover =
+        !useImageForPreview && movieUrl ? (
+          <LazyContainer
+            style={{
+              borderRadius: "inherit",
+            }}
+          >
+            <video autoPlay muted loop playsInline>
+              <source src={movieUrl} type="video/webm" />
+            </video>
+          </LazyContainer>
+        ) : heroImage ? (
+          <img
+            data-src={heroImage}
+            className="lazyload registryImage"
+            loading="lazy"
+            alt={`a demo of ${title}`}
+          />
+        ) : (
+          <div
+            className="creationAura"
+            style={{
+              "--aura-color": stringToColor(title),
+              "--aura-color-transparent": stringToColor(title, {
+                alpha: 0.3,
+              }),
+            }}
+          ></div>
+        );
       const shouldLink = Boolean(descriptionMd);
       const linkedCover = shouldLink ? (
         <a
