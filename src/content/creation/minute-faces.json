@@ -22,5 +22,6 @@
   "forthcoming": true,
   "featured": true,
   "featuredArt": true,
-  "featuredWork": false
+  "featuredWork": false,
+  "useImageForPreview": false
 }

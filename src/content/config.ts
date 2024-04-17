@@ -30,7 +30,7 @@ export const creationSchema = z.object({
   featured: z.boolean(),
   featuredArt: z.boolean(),
   featuredWork: z.boolean(),
-  useImageForPreview: z.boolean(),
+  useImageForPreview: z.boolean().optional(),
 });
 
 const creation = defineCollection({

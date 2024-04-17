@@ -20,5 +20,6 @@
   "forthcoming": false,
   "featured": false,
   "featuredArt": true,
-  "featuredWork": false
+  "featuredWork": false,
+  "useImageForPreview": false
 }
