@@ -1,13 +1,19 @@
 {
   "title": "Syllabus: Taking an Internet Walk",
   "subtext": "with Kristoffer Tjalve",
-  "descriptionMd": "\npublished in the [Syllabus Project](https://syllabusproject.org/)",
+  "descriptionMd": "Kristoffer Tjalve and I collected the parts of the internet we don't see often anymore: the hole-in-the-walls, the shrines by the street, neighborhood cafes, and secret sunset nooks into a syllabus.\nWe explore practices for discovering, maintaining, and adding to the many internets blossoming beneath app hedges and large platforms: from visiting local neighborhoods, to foraging for messages in source code, to cultivating and publishing your own lists to the internet & more.\nThrough these practices, we imagine our ability to create a plurality of internets as opposed to a single, monolithic Internet. \npublished in the [Syllabus Project](https://syllabusproject.org/)",
   "parentCategory": "Writing",
-  "categories": [],
+  "categories": [
+    "Writing"
+  ],
   "date": "2023-11-08T08:00:00.000Z",
-  "heroImage": "https://syllabusproject.files.wordpress.com/2023/11/image4.png",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-vo4stgPu9h/c1a2325145e61b111900d53231e9e0325a78647acc2a1b00e8dae2bb4b95a900c1eb405c8619eb7d18d372737d5043f0f3a9237f8aa6f963ce834229f9cf06a7157cd0e63dce0cf91e4187372d73b6a80bbd19dcb9da6e9ef7cbaca37642207663cf28c4",
   "media": [
-    "https://syllabusproject.files.wordpress.com/2023/11/image4.png"
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-vo4stgPu9h/c1a2325145e61b111900d53231e9e0325a78647acc2a1b00e8dae2bb4b95a900c1eb405c8619eb7d18d372737d5043f0f3a9237f8aa6f963ce834229f9cf06a7157cd0e63dce0cf91e4187372d73b6a80bbd19dcb9da6e9ef7cbaca37642207663cf28c4",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-U9R4D2OUay/f25708918453b4566314b34f863d7d107ca677d3c9d3e324c4f9a250b1130ff27253a70cda7cfb19c53c23949f568f1a349576a4bb8ea8a5f93e71424f0e8021f071c38ba384e3a33abaa202717c14dabe1cf1206b6e3d39fef72bfa88fda104ba8b9367",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-IUDxhi6y75/ccbb29fe7dec2fdfb7c906d223b4df056502eca1ada6291268ad04135ede2654c68dcdf9841ddcc6d5b03eee217577c4cb77a741ccf5250ea67d0a6e911680194b7a59e327f76780a53625f05fd14777fef40c1d7d2146a3b4cce4eb38cf3b3775bcdc66",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-topgqSiO2S/3bca090c8e5b86c500a7ead0124975390462fbfbd252a56de5d739c2570a3eee8ebc87731efb6ac494c94b895e770f647aeb350ef584f6ad2c97f6a92d356e2d9a1d3f9c4917c1fa7ece6f389b80c842fb490f08b54f74c7379c47ecbf1ca92d20a02df0",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-sQ8gBGnZZk/f3f01124e2022fe2907056e2b8f0a27b0f69fb70e730af9d54d2c697405ceb71bcd438ac9babd6b557ed5ed399b30933090456105c6cd939beffc4b4ec0711924248e2c856a4483a74644daec8e5f2734789b5681b22be01b1c9a36f4c097eea2011fd65"
   ],
   "movieUrl": "",
   "link": "https://syllabusproject.org/syllabus-for-taking-an-internet-walk/",
