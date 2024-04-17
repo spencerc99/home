@@ -891,40 +891,10 @@ $internal-link-selectors: ' a[href^="https://spencer.place"], a[href^="https://w
 
 a {
   text-underline-offset: 0.2em;
-}
-
-// external links
-a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
-    .galleryLink
-  ):not(.button) {
-  color: $color-external-link;
+  transition: text-shadow 0.2s ease;
   text-decoration: none;
-  transition: background-color 0.15s ease-in-out;
 
-  .postContent &,
-  .listDescription &,
-  .textContent &,
-  footer {
-    text-decoration: underline dotted 1px;
-  }
-
-  &:hover {
-    @include link-highlight();
-  }
-
-  &::after {
-    content: "↗";
-    font-family: "VT323";
-  }
-}
-
-// internal links
-#{$internal-link-selectors} {
   &:not(.socialMediaLink):not(.anchor) {
-    color: $color-link;
-    text-decoration: none;
-    transition: background-color 0.25s ease-in-out;
-
     .postContent &,
     .listDescription &,
     .textContent &,
@@ -933,8 +903,36 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
     }
 
     &:hover {
-      @include link-highlight();
+      text-shadow: 0 0 4px var(--color-link-translucent);
     }
+  }
+}
+
+// external links
+a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
+    .galleryLink
+  ):not(.button) {
+  color: $color-external-link;
+  --color-link: #{$color-external-link};
+  --color-link-translucent: #{$color-external-link-translucent};
+  cursor: ne-resize;
+
+  &::after {
+    content: "↗";
+    font-family: "VT323";
+  }
+  &.noanchor::after {
+    content: "";
+  }
+}
+
+// internal links
+#{$internal-link-selectors} {
+  --color-link: #{$color-link};
+  --color-link-translucent: #{$color-link-translucent};
+
+  &:not(.socialMediaLink):not(.anchor) {
+    color: $color-link;
   }
 }
 
@@ -2314,6 +2312,13 @@ hr.separator {
 
   a {
     transition: background-color 0s linear !important;
+
+    &.external {
+      img,
+      video {
+        box-shadow: 0px 0px 0.8em 0.3em $color-external-link-translucent;
+      }
+    }
 
     img,
     video {

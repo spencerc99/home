@@ -38,11 +38,13 @@ export function CreationSummary({
     id,
     movieUrl,
     useImageForPreview,
+    link,
   },
   view,
   isFiltered,
 }: Props) {
-  const link = `/creation/${id}`;
+  const internalLink = `/creation/${id}`;
+  const externalLink = link;
 
   switch (view) {
     // case ViewType.FREE:
@@ -94,20 +96,24 @@ export function CreationSummary({
             }}
           ></div>
         );
-      const shouldLink = Boolean(descriptionMd);
-      const linkedCover = shouldLink ? (
-        <a
-          style={{
-            borderRadius: "inherit",
-          }}
-          href={link}
-        >
-          {cover}
-        </a>
-      ) : (
-        cover
-      );
-      // TODO: else link out maybe with external link treatment
+      const shouldLinkInternal = Boolean(descriptionMd);
+      const linkedCover =
+        shouldLinkInternal || externalLink ? (
+          <a
+            className={classNames("noanchor", {
+              external: !shouldLinkInternal,
+            })}
+            style={{
+              borderRadius: "inherit",
+            }}
+            href={shouldLinkInternal ? internalLink : externalLink}
+          >
+            {cover}
+          </a>
+        ) : (
+          cover
+        );
+
       return (
         <div
           id={id}
