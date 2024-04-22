@@ -2298,6 +2298,13 @@ hr.separator {
 
   img,
   video {
+    position: relative;
+    background: radial-gradient(
+      circle,
+      var(--aura-color) 0%,
+      var(--aura-color) 20%,
+      var(--aura-color-transparent) 100%
+    );
     object-fit: cover;
     border-radius: inherit;
     width: 100%;
@@ -2308,6 +2315,10 @@ hr.separator {
     // max-height: 300px;
     @include image-dropshadow();
     transition: box-shadow 0.15s, opacity 0.1s linear;
+
+    &.loading {
+      animation: pulse-opacity 1.3s infinite ease-in-out;
+    }
   }
 
   a {
@@ -2357,6 +2368,18 @@ hr.separator {
   //     flex-basis: 33%;
   //   }
   // }
+}
+
+@keyframes pulse-opacity {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .creationSummaryTitle {

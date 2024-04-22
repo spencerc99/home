@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
 
@@ -45,6 +45,13 @@ export function CreationSummary({
 }: Props) {
   const internalLink = `/creation/${id}`;
   const externalLink = link;
+  const style = {
+    "--aura-color": stringToColor(title),
+    "--aura-color-transparent": stringToColor(title, {
+      alpha: 0.3,
+    }),
+  };
+  const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
 
   switch (view) {
     // case ViewType.FREE:
@@ -74,27 +81,37 @@ export function CreationSummary({
               borderRadius: "inherit",
             }}
           >
-            <video autoPlay muted loop playsInline>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={style}
+              onLoadedData={() => {
+                setHasLoadedMedia(true);
+              }}
+              className={classNames({
+                loading: !hasLoadedMedia,
+              })}
+            >
               <source src={movieUrl} type="video/webm" />
             </video>
           </LazyContainer>
         ) : heroImage ? (
           <img
+            style={style}
             data-src={heroImage}
-            className="lazyload registryImage"
+            className={classNames("lazyload registryImage", {
+              loading: !hasLoadedMedia,
+            })}
             loading="lazy"
             alt={`a demo of ${title}`}
+            onLoad={() => {
+              setHasLoadedMedia(true);
+            }}
           />
         ) : (
-          <div
-            className="creationAura"
-            style={{
-              "--aura-color": stringToColor(title),
-              "--aura-color-transparent": stringToColor(title, {
-                alpha: 0.3,
-              }),
-            }}
-          ></div>
+          <div className="creationAura" style={style}></div>
         );
       const shouldLinkInternal = Boolean(descriptionMd);
       const linkedCover =

@@ -7,12 +7,13 @@ interface Props extends BaseLayoutProps {
     title?: string;
     emojis?: string[];
     titleClass?: string;
+    metaTitle?: string;
 }
 
-const {title, emojis, titleClass} = Astro.props;
+const {title, emojis, titleClass, metaTitle} = Astro.props;
 ---
 
-<BaseLayout includeMarquee={true} {...Astro.props} >
+<BaseLayout includeMarquee={true} {...{...Astro.props, title: metaTitle || title}} >
 <div class="headerContainer textContent">
   <h1 class={titleClass}>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
 </div>
