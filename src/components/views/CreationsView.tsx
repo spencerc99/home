@@ -9,15 +9,34 @@ export enum ViewType {
   LIST = "list",
 }
 
+export enum DescriptionType {
+  Selected = "selected",
+}
+
+function getDescriptionForDescriptionType(descriptionType?: DescriptionType) {
+  switch (descriptionType) {
+    case DescriptionType.Selected:
+      return (
+        <i>
+          selected works I've given energy to.{" "}
+          <a href="/creation">see everything</a>
+        </i>
+      );
+    default:
+      return <i>that which ive given life energy to</i>;
+  }
+}
+
 interface Props {
   creations: Array<
     CollectionEntry<"creations">["data"] & {
       id: string;
     }
   >;
+  description?: DescriptionType;
 }
 
-export function CreationsView({ creations }: Props) {
+export function CreationsView({ creations, description }: Props) {
   const [view, setView] = useState(ViewType.GRID);
   const [category, setCategory] = useState("all");
   const allCategories = new Set(
@@ -63,7 +82,8 @@ export function CreationsView({ creations }: Props) {
         </select>
         {/* TODO: sort */}
         {/* reverse chronological, random */}
-        <i>that which ive given life energy to</i>
+
+        {getDescriptionForDescriptionType(description)}
       </div>
       <div className="creationsMasonry">
         <ResponsiveMasonry

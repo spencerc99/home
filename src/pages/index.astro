@@ -44,7 +44,7 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
     </div>
     <!-- BODY -->
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
-    <CreationsView creations={creations} client:only="react"/>
+    <CreationsView creations={creations} description={'selected'} client:only="react"/>
     <!-- <div>        <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
           just find that you get extra privileges with these items...</p>
         </br>
