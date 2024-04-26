@@ -2428,6 +2428,19 @@ img {
   }
 }
 
+.hideMedium {
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    display: none;
+  }
+}
+
+.showMedium {
+  display: none;
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    display: inherit;
+  }
+}
+
 .two-columns {
   display: grid;
   gap: 6em;

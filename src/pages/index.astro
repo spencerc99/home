@@ -24,7 +24,8 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
       <div class="textContent">
     <p>Hi, I'm Spencer. Thanks for visiting my internet home.</p>
     <!-- TODO: change asterisk to footnote -->
-      <p>I'm interested in making internet material for possbility. I'm an engineer, designer, and artist. In all I do, I try to be an "internet caretaker"*, stewarding computers towards enabling us to love & support each other and create & dream together.</p>
+      <p>I'm interested in creating technological approaches that nurture interdependence and human agency. My in(ter)dependent<span title="thank you to Marcel Goethals https://twitter.com/wolkenmachine?lang=en for this term">*</span> and interdisciplinary practice as an engineer and artist spans open-source infrastructure, internet art, and computing-infused objects.</p>
+      <p>In all I do, I try to be an "internet caretaker"<a href="/about">*</a>, stewarding the internet towards a space that enables us to not only love & support each other but also create & dream together.</p>
           <div class="signature">
             <div class="signatureContent" style="margin-left:auto">
           <!-- TODO: hover over for photo in lil modal? -->
@@ -35,16 +36,20 @@ const creations = (await getCollection('creation')).filter(c => Boolean(c.data.h
         </div>
         <br/>
         <div style="position: relative; display:inline-block"> <span id="new">NEW</span> Open to <a href="/collab">collaborations</a></div>
-        <br/>
-        <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
+        <div class="hideMedium">        <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
           just find that you get extra privileges with these items...</p>
         </br>
-        <Trinkets/>
+        <Trinkets/></div>
       </div>
     </div>
     <!-- BODY -->
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
     <CreationsView creations={creations} client:only="react"/>
+    <!-- <div>        <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
+          just find that you get extra privileges with these items...</p>
+        </br>
+        <Trinkets/></div> -->
+        </div>
   </div>
 <!-- window embeds -->
 <!-- TODO: need to fix scroll hijacking and the perf -->
