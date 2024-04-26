@@ -2239,6 +2239,7 @@ hr.separator {
   @include media(xsmallScreen, smallScreen) {
     max-width: 100dvw;
     overflow-x: scroll;
+    margin-right: 0;
   }
 
   .creationSummary {
@@ -2362,7 +2363,6 @@ hr.separator {
     margin-top: 1em;
     align-items: center;
   }
-
   // @media screen and (max-width: 1670px) {
   //   .creationSummary {
   //     flex-basis: 33%;
