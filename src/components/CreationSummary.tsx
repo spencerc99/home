@@ -105,7 +105,6 @@ export function CreationSummary({
               loading: !hasLoadedMedia,
             })}
             loading="lazy"
-            alt={`a demo of ${title}`}
             onLoad={() => {
               setHasLoadedMedia(true);
             }}
