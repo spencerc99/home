@@ -30,9 +30,9 @@ export interface CodaItem {
 
 function escapeTitleForFilename(title: string): string {
   // Replace spaces with hyphen
-  let escapedTitle = title.replace(/\s+/g, "-");
+  let escapedTitle = title.trim().replace(/\s+/g, "-").toLowerCase();
   // Remove characters that are not alphanumeric or hyphens
-  escapedTitle = escapedTitle.replace(/[\[<>\/:\*\?|\]]/g, "");
+  escapedTitle = escapedTitle.replace(/[\[<>\/:\*\?|\]"'”“’\.]/g, "");
   return escapedTitle;
 }
 

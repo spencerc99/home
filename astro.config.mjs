@@ -9,6 +9,12 @@ export default defineConfig({
   image: {
     domains: ["assets.spencerchang.me", "codahosted.io/"],
   },
+  redirects: {
+    "/creation/SIGIL-I": "/creation/sigil-i",
+    "/creation/Touching-Computers-Creating-Data-Talismans":
+      "/creation/touching-computers-creating-data-talismans",
+    "/creation/Gather": "/creation/gather",
+  },
   site: "https://spencer.place",
   integrations: [
     mdx(),
