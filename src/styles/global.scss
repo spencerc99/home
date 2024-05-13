@@ -2576,14 +2576,22 @@ summary {
   font-size: 18px;
 }
 
+.medium-zoom-overlay {
+  background: var(--color-neutral-background) !important;
+  z-index: 11;
+}
+
 .medium-zoom--opened {
   .medium-zoom-overlay {
-    opacity: 0.7 !important;
+    opacity: 0.9 !important;
   }
 }
+
 .medium-zoom-image--opened {
   object-fit: contain;
   opacity: 1;
+  border-radius: 0 !important;
+  z-index: 12;
 }
 
 .footnote.footnote.footnote {

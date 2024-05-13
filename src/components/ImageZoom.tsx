@@ -1,6 +1,6 @@
 import { useRef, ComponentProps, RefCallback } from "react";
 import React from "react";
-import mediumZoom, { Zoom, ZoomOptions } from "medium-zoom";
+import mediumZoom, { type ZoomOptions, type Zoom } from "medium-zoom";
 
 type ImageZoomProps = ComponentProps<"img"> & {
   options?: ZoomOptions;
@@ -8,7 +8,6 @@ type ImageZoomProps = ComponentProps<"img"> & {
 
 export function ImageZoom({ options, ...props }: ImageZoomProps) {
   const zoomRef = useRef<Zoom | null>(null);
-  console.log("kill me");
 
   function getZoom() {
     if (zoomRef.current === null) {

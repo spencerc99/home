@@ -1,11 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/header/Header.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { marked } from 'marked';
 import {CreationDetailImages} from '../components/CreationDetailImages';
+import {ImageZoom} from '../components/ImageZoom';
 
 import './CreationDetail.scss'
 import BaseLayout from './BaseLayout.astro';
@@ -40,7 +38,7 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 			</div> : <div class="hero-image">
 				{movieUrl ? <video controls autoplay loop>
 					<source src={movieUrl} type="video/webm" />
-				</video>  : <img src={heroImage} alt={`${title}, located at ${link}`} />}
+				</video>  : <ImageZoom client:only="react" src={heroImage} />}
 			</div>}
 			<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
 			<div >
