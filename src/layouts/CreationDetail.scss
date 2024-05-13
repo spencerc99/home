@@ -33,7 +33,7 @@ main {
 iframe,
 .iframeWrapper {
   min-height: 800px;
-  max-width: 1200px;
+  max-width: 950px;
   width: 100%;
 }
 .iframeWrapper {
@@ -44,8 +44,8 @@ iframe,
 .hero-image,
 iframe {
   width: 100%;
-  max-width: calc(min(1200px));
-  max-height: calc(min(800px));
+  max-width: calc(min(950px));
+  max-height: calc(min(650px));
 }
 iframe,
 .hero-image img,
@@ -53,7 +53,7 @@ video {
   max-width: max-content;
   // max-width: calc(min(1200px, 40vw));
   // max-height: calc(min(800px, 50vh));
-  max-height: calc(min(800px));
+  max-height: calc(min(650px));
   display: block;
   border-radius: 0.5em;
   box-shadow: var(--box-shadow);
