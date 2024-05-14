@@ -5,6 +5,7 @@ import { ImageZoom } from "./ImageZoom";
 export function CreationDetailImages({ images }: { images: string[] }) {
   return (
     <div className="images">
+      {/* TODO: turn into lightbox carousel with photoswipe */}
       <MasonryLayout columnsCount={2} gutter="1em">
         {images.map((imgUrl) => (
           <ImageZoom className="medium" src={imgUrl} key={imgUrl} />
