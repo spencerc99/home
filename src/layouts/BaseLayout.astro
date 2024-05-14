@@ -11,10 +11,11 @@ export interface BaseLayoutProps {
     image?: string;
     includeMarquee?: boolean;
     backgroundOpacity?: number;
+    empty?: boolean;
 }
 type Props = BaseLayoutProps;
 
-const {title, description, image, includeMarquee, backgroundOpacity} = Astro.props;
+const {title, description, image, includeMarquee, backgroundOpacity, empty} = Astro.props;
 ---
 
 <!doctype html>
@@ -23,22 +24,22 @@ const {title, description, image, includeMarquee, backgroundOpacity} = Astro.pro
 		<BaseHead title={title || SITE_TITLE} description={description || SITE_DESCRIPTION} image={image}/>
 	</head>
 	<body>
-		<Header/>
-        <div id="construction">
+		<Header hidden={empty}/>
+        {!empty && <div id="construction">
             A
             <br/>
             WIP
             <br/>
             FOREVER
             <img src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif" style="width:40px; margin:auto"/>
-        </div>
+        </div>}
 		<div id="background" style={{
             opacity: backgroundOpacity ? backgroundOpacity : .2
         }}></div>
 		<div id="content">
 			<slot/>
 		</div>
-		<Footer />
+		{!empty && <Footer />}
 
         <div id="snackbar"/>
 

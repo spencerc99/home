@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {Intersection} from '../components/intersection/Intersection';
+
+const LayoutProps = {
+    title: "(intersection)",
+    description: "the intersection...",
+    date: "2024-05-14",
+    emojis: [],
+  titleClass: 'uniform'
+}
+---
+
+<BaseLayout {...LayoutProps} empty>
+    <Intersection client:only="react"/>
+</BaseLayout>

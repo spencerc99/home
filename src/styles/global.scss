@@ -701,6 +701,10 @@ footer {
   z-index: $navbar-zindex;
   scroll-margin-top: $navBar-height;
 
+  &.hidden {
+    opacity: 0;
+  }
+
   /* Collapse nav bar on scroll down */
   &.collapse {
     animation: collapse 0.25s ease forwards;
@@ -2648,5 +2652,13 @@ summary {
         drop-shadow(0px 0px 30px hsl(183deg 100% 82% / 60%))
         drop-shadow(0px 0px 8px hsl(183deg 100% 82% / 60%));
     }
+  }
+}
+
+#telescope#telescope hr {
+  border: none;
+
+  &::after {
+    content: "";
   }
 }

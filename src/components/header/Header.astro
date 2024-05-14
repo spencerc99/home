@@ -1,8 +1,13 @@
 ---
 import HeaderActions from '../header/HeaderActions.astro';
+
+interface Props {
+  hidden?: boolean;
+}
+const {hidden} = Astro.props
 ---
 <!-- src: https://blog.christopherianmurphy.com/2017/05/expand-collapse-navbar/ -->
-<nav id="navbar">
+<nav id="navbar" class={hidden ? 'hidden' : undefined}>
   <div class="navbarContainer">
     <a href="/" class="avatarLink"
         >
