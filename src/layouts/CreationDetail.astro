@@ -10,7 +10,7 @@ import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'collection'>['data'];
 
-const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl} = Astro.props;
+const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, materials} = Astro.props;
 const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {breaks: true, gfm: true});
 ---
 
@@ -26,7 +26,8 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 					<h2>
 					<a href={link}>{title}</a>
 					</h2>
-					<i class="meta">{subtext}</i>
+					<i >{subtext}</i>
+					{materials && <i class="meta" >Materials: {materials}</i>}
 				</div>
 				<p set:html={descriptionParsed}></p>
 				<slot />
