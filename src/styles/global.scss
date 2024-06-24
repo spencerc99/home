@@ -2512,12 +2512,27 @@ summary {
   background: var(--color-glowing-highlight);
   padding: 2px 4px;
   border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
 
   margin-bottom: 8px;
   font-size: 0.8em;
   box-shadow: 0px 0px 10px 4px rgba(255, 235, 12, 0.5);
 
   @extend .mono;
+}
+
+.now {
+  border: 1px solid var(--color-glowing-highlight);
+  padding: 0.5em;
+  padding-top: 1.5em;
+  box-shadow: 0px 0px 10px 4px rgba(255, 235, 12, 0.5);
+  background: var(--color-neutral-background-translucent);
+  border-radius: 8px;
+  p {
+    margin: 0;
+  }
 }
 
 .polaroid {
