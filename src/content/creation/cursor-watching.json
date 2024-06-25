@@ -20,7 +20,7 @@
   "link": "https://cursorwatch.ing/",
   "materials": "20 iframes, a real-time web server, interactive website, visitor cursors, phone participatory interface",
   "ongoing": false,
-  "forthcoming": true,
+  "forthcoming": false,
   "featured": true,
   "featuredArt": true,
   "featuredWork": false,

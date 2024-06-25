@@ -19,7 +19,7 @@
   "materials": "",
   "ongoing": false,
   "forthcoming": false,
-  "featured": true,
+  "featured": false,
   "featuredArt": false,
   "featuredWork": true,
   "useImageForPreview": true

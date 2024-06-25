@@ -16,7 +16,7 @@
   "materials": "",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "featuredArt": false,
   "featuredWork": false,
   "useImageForPreview": false

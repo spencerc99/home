@@ -19,8 +19,8 @@
   "link": "https://clock.spencer.place/",
   "materials": "website, javascript, color wheel, UNIX timestamp",
   "ongoing": false,
-  "forthcoming": true,
-  "featured": true,
+  "forthcoming": false,
+  "featured": false,
   "featuredArt": true,
   "featuredWork": false,
   "useImageForPreview": false

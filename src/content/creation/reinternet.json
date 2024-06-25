@@ -1,7 +1,7 @@
 {
   "title": "RE:INTERNET",
   "subtext": "a talk about my creative practice & the internet",
-  "descriptionMd": "",
+  "descriptionMd": "There isn’t much hope for the internet these days. The same 5 apps, our data harvested by large algorithms and platforms, ad banners and cookies banners and more flourish.\nWhat did we want from the Internet before? What do we want now? And how can we make that dream a reality?\nThis talk was given at [Gray Area](https://grayarea.org/) in May 2024.",
   "parentCategory": "Speaking & Workshops",
   "categories": [
     "Community"
@@ -12,11 +12,11 @@
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-KZ7M8kuq-u/d80691142eea96b9961377af76b94137a4cdb8a7926f0783aa2a220228be7b1adff645cd3a6fd92a5cfeda9fedca64107aa724ec38a35e508830987646f59b68deab7f13e986dcbb42e1eda651ed2b6918008cc97192542e8e7340676e659becfdcd7e88"
   ],
   "movieUrl": "",
-  "link": "",
+  "link": "https://www.youtube.com/watch?v=EbaQecvGR3E",
   "materials": "",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "featuredArt": false,
   "featuredWork": false,
   "useImageForPreview": false

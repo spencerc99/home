@@ -18,7 +18,7 @@
   "materials": "html, javascript, css",
   "ongoing": false,
   "forthcoming": false,
-  "featured": true,
+  "featured": false,
   "featuredArt": true,
   "featuredWork": false,
   "useImageForPreview": false
