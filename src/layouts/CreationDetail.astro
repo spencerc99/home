@@ -4,6 +4,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import { marked } from 'marked';
 import {CreationDetailImages} from '../components/CreationDetailImages';
 import {ImageZoom} from '../components/ImageZoom';
+import {withQueryParams} from '../utils/url';
 
 import './CreationDetail.scss'
 import BaseLayout from './BaseLayout.astro';
@@ -12,6 +13,42 @@ type Props = CollectionEntry<'collection'>['data'];
 
 const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, materials} = Astro.props;
 const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {breaks: true, gfm: true});
+
+const transformedMovieUrl = movieUrl ? withQueryParams(
+              movieUrl.replace(
+                "https://codahosted.io",
+                "https://codaio.imgix.net"
+              ),
+              {
+                auto: "format,compress",
+                fit: "max",
+                w: "1200",
+                h: "650",
+              }
+            ) : movieUrl;
+const transformedHeroImage = heroImage ? withQueryParams(
+              heroImage.replace(
+                "https://codahosted.io",
+                "https://codaio.imgix.net"
+              ),
+              {
+                auto: "format,compress",
+                fit: "max",
+                w: "1200",
+                h: "650",
+              }
+            ) : heroImage;
+const mediaTransformed = media.map((item) => {
+  return withQueryParams(item.replace(
+		"https://codahosted.io",
+		"https://codaio.imgix.net"
+	  ),
+	  {
+		auto: "format,compress",
+		fit: "max",
+		w: "700",
+	  });
+});
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
@@ -38,10 +75,10 @@ const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {
 				<div>window into <a href={link}>{link}</a></div>
 			</div> : <div class="hero-image">
 				{movieUrl ? <video controls autoplay loop>
-					<source src={movieUrl} type="video/webm" />
-				</video>  : <ImageZoom client:only="react" src={heroImage} />}
+					<source src={transformedMovieUrl} type="video/webm" />
+				</video>  : <ImageZoom client:only="react" src={transformedHeroImage} />}
 			</div>}
-			<CreationDetailImages images={media.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
+			<CreationDetailImages images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
 			<div >
 			</div>
 			</div>

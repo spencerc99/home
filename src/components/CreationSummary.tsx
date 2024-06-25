@@ -1,8 +1,9 @@
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
+import { withQueryParams } from "../utils/url";
 
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
@@ -52,6 +53,34 @@ export function CreationSummary({
     }),
   };
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
+  const transformedHeroImage = useMemo(() => {
+    if (!heroImage) {
+      return heroImage;
+    }
+    return withQueryParams(
+      heroImage.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      {
+        auto: "format,compress",
+        fit: "max",
+        w: "400",
+        h: "300",
+      }
+    );
+  }, heroImage);
+  const transformedMovieUrl = useMemo(() => {
+    if (!movieUrl) {
+      return movieUrl;
+    }
+    return withQueryParams(
+      movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      {
+        auto: "format,compress",
+        fit: "max",
+        w: "400",
+        h: "300",
+      }
+    );
+  }, movieUrl);
 
   switch (view) {
     // case ViewType.FREE:
@@ -94,13 +123,13 @@ export function CreationSummary({
                 loading: !hasLoadedMedia,
               })}
             >
-              <source src={movieUrl} type="video/webm" />
+              <source src={transformedMovieUrl} />
             </video>
           </LazyContainer>
         ) : heroImage ? (
           <img
             style={style}
-            data-src={heroImage}
+            data-src={transformedHeroImage}
             className={classNames("lazyload registryImage", {
               loading: !hasLoadedMedia,
             })}

@@ -36,14 +36,6 @@ function escapeTitleForFilename(title: string): string {
   return escapedTitle;
 }
 
-function withQueryParams(url: string, params: Record<string, any>) {
-  const urlObj = new URL(url);
-  Object.entries(params).forEach(([key, value]) =>
-    urlObj.searchParams.set(key, value)
-  );
-  return urlObj.toString();
-}
-
 async function importCreations() {
   const docId = "5hYjdHt-Rs";
   const gridId =
