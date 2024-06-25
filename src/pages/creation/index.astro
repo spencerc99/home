@@ -4,7 +4,8 @@ import {CreationsView} from "../../components/views/CreationsView";
 import DetailLayout from '../../layouts/DetailLayout.astro';
 
 const creations = (await getCollection('creation')).sort(
-	(a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+	(a, b) =>   a.data.forthcoming === b.data.forthcoming ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime() : a.data.forthcoming ? -1 : 1
+  
 );
 const LayoutProps = {
     // title: "(creations)",

@@ -10,7 +10,9 @@ import Trinkets from "../components/Trinkets.astro";
 const location = await fetch("https://status.spencerchang.me/api/metadata").then((res) => res.json());
 
 const creations = (await getCollection('creation')).filter(c => Boolean(c.data.heroImage) && c.data.featured).sort(
-	(a, b) => a.data.date.valueOf() - b.data.date.valueOf()
+	(a, b) => 
+  // sort forthcoming first and then by date
+  a.data.forthcoming === b.data.forthcoming ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime() : a.data.forthcoming ? -1 : 1
 );
 ---
 

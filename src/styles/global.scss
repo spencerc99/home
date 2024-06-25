@@ -2297,26 +2297,50 @@ hr.separator {
     opacity: 0.2;
   }
 
+  .previewWrapper {
+    display: inline;
+    position: relative;
+    transition: box-shadow 0.15s linear;
+    border-radius: inherit;
+    overflow: hidden;
+
+    &.forthcoming {
+      &::after {
+        background: url("/assets/wip-banner.png");
+        background-repeat: repeat-x;
+        background-size: contain;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+        width: 100%;
+        // transform: rotate(-45deg);
+        height: 20px;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
   img,
   video {
-    position: relative;
+    @include image-dropshadow();
     background: radial-gradient(
       circle,
       var(--aura-color) 0%,
       var(--aura-color) 20%,
       var(--aura-color-transparent) 100%
     );
+
+    transition: opacity 0.1s linear;
     object-fit: cover;
     border-radius: inherit;
     width: 100%;
     min-width: 200px;
     min-height: 200px;
     max-height: 250px;
-    max-width: 350px;
     // max-height: 300px;
-    @include image-dropshadow();
-    transition: box-shadow 0.15s, opacity 0.1s linear;
-
+    max-width: 350px;
     &.loading {
       animation: pulse-opacity 1.3s infinite ease-in-out;
     }

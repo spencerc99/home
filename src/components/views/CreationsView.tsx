@@ -43,14 +43,7 @@ export function CreationsView({ creations, description }: Props) {
     creations.map((creation) => creation.data.parentCategory).filter(Boolean)
   );
 
-  const sortedCreations = useMemo(
-    () =>
-      [...creations].sort(
-        (a, b) =>
-          new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-      ),
-    [creations]
-  );
+  const sortedCreations = creations;
 
   return (
     <div className="creationsView">

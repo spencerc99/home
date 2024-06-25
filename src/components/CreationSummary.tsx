@@ -40,6 +40,7 @@ export function CreationSummary({
     movieUrl,
     useImageForPreview,
     link,
+    forthcoming,
   },
   view,
   isFiltered,
@@ -65,7 +66,7 @@ export function CreationSummary({
         w: "450",
       }
     );
-  }, heroImage);
+  }, [heroImage]);
   const transformedMovieUrl = useMemo(() => {
     if (!movieUrl) {
       return movieUrl;
@@ -78,7 +79,7 @@ export function CreationSummary({
         w: "450",
       }
     );
-  }, movieUrl);
+  }, [movieUrl]);
 
   switch (view) {
     // case ViewType.FREE:
@@ -101,44 +102,51 @@ export function CreationSummary({
     //   );
     case ViewType.LIST:
     case ViewType.GRID:
-      const cover =
-        !useImageForPreview && movieUrl ? (
-          <LazyContainer
-            style={{
-              borderRadius: "inherit",
-            }}
-          >
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              style={style}
-              onLoadedData={() => {
-                setHasLoadedMedia(true);
+      const cover = (
+        <div
+          className={classNames("previewWrapper", {
+            forthcoming,
+          })}
+        >
+          {!useImageForPreview && movieUrl ? (
+            <LazyContainer
+              style={{
+                borderRadius: "inherit",
               }}
-              className={classNames({
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={style}
+                className={classNames({
+                  loading: !hasLoadedMedia,
+                })}
+                onLoadedData={() => {
+                  setHasLoadedMedia(true);
+                }}
+              >
+                <source src={transformedMovieUrl} />
+              </video>
+            </LazyContainer>
+          ) : heroImage ? (
+            <img
+              style={style}
+              data-src={transformedHeroImage}
+              className={classNames("lazyload registryImage", {
                 loading: !hasLoadedMedia,
               })}
-            >
-              <source src={transformedMovieUrl} />
-            </video>
-          </LazyContainer>
-        ) : heroImage ? (
-          <img
-            style={style}
-            data-src={transformedHeroImage}
-            className={classNames("lazyload registryImage", {
-              loading: !hasLoadedMedia,
-            })}
-            loading="lazy"
-            onLoad={() => {
-              setHasLoadedMedia(true);
-            }}
-          />
-        ) : (
-          <div className="creationAura" style={style}></div>
-        );
+              loading="lazy"
+              onLoad={() => {
+                setHasLoadedMedia(true);
+              }}
+            />
+          ) : (
+            <div className="creationAura" style={style}></div>
+          )}
+        </div>
+      );
       const shouldLinkInternal = Boolean(descriptionMd);
       const linkedCover =
         shouldLinkInternal || externalLink ? (
