@@ -62,8 +62,7 @@ export function CreationSummary({
       {
         auto: "format,compress",
         fit: "max",
-        w: "400",
-        h: "300",
+        w: "450",
       }
     );
   }, heroImage);
@@ -76,8 +75,7 @@ export function CreationSummary({
       {
         auto: "format,compress",
         fit: "max",
-        w: "400",
-        h: "300",
+        w: "450",
       }
     );
   }, movieUrl);
