@@ -9,8 +9,12 @@ export function NowBlock() {
         collections client.
       </p>
       <p>
-        - Designing <a href="/creation/playhtml">playhtml</a>, open-source
-        infrastructure for shared web experiences
+        - Creating <a href="/creation/acknowledgenet">acknowledgeNET</a>, an
+        installation honoring our labor creating the internet. Showing at{" "}
+        <a href="https://grayarea.org/event/gray-area-artist-showcase-summer-2024/">
+          Gray Area in July
+        </a>
+        .
       </p>
       <p>
         - Crafting{" "}
@@ -23,6 +27,10 @@ export function NowBlock() {
       <p>
         - Open to <a href="/collab">invitations</a> for speaking, writing, and
         consulting.
+      </p>
+      <p>
+        - (in hibernation) Designing <a href="/creation/playhtml">playhtml</a>,
+        open-source infrastructure for shared web experiences
       </p>
     </div>
   );
