@@ -2275,7 +2275,7 @@ hr.separator {
     var(--aura-color) 20%,
     var(--aura-color-transparent) 100%
   );
-  border-radius: 50%;
+  border-radius: 50% !important;
   box-shadow: 0 0 32px 16px var(--aura-color-transparent);
 }
 

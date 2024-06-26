@@ -104,8 +104,10 @@ export function CreationSummary({
     case ViewType.GRID:
       const cover = (
         <div
+          style={style}
           className={classNames("previewWrapper", {
             forthcoming,
+            creationAura: !movieUrl && !heroImage,
           })}
         >
           {!useImageForPreview && movieUrl ? (
@@ -119,7 +121,6 @@ export function CreationSummary({
                 muted
                 loop
                 playsInline
-                style={style}
                 className={classNames({
                   loading: !hasLoadedMedia,
                 })}
@@ -132,7 +133,6 @@ export function CreationSummary({
             </LazyContainer>
           ) : heroImage ? (
             <img
-              style={style}
               data-src={transformedHeroImage}
               className={classNames("lazyload registryImage", {
                 loading: !hasLoadedMedia,
@@ -142,9 +142,7 @@ export function CreationSummary({
                 setHasLoadedMedia(true);
               }}
             />
-          ) : (
-            <div className="creationAura" style={style}></div>
-          )}
+          ) : null}
         </div>
       );
       const shouldLinkInternal = Boolean(descriptionMd);
