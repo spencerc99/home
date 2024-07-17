@@ -61,7 +61,7 @@ const mediaTransformed = media.map((item) => {
 						{date && <FormattedDate date={date} />}
 					</div>
 					<h2>
-					<a href={link}>{title}</a>
+					{link ? <a href={link}>{title}</a> : title}
 					</h2>
 					<i >{subtext}</i>
 					{materials && <i class="meta" >Materials: {materials}</i>}
