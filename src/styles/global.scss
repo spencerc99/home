@@ -2133,6 +2133,10 @@ button {
   @include cta-btn(rgb(85, 83, 173), $color-text-color, 0.5);
 }
 
+#cryptoBtn {
+  @include cta-btn(rgba(62, 40, 208, 0.47), $color-text-color, 0.5);
+}
+
 hr.separator {
   border: none;
   text-align: center;

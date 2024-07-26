@@ -13,7 +13,7 @@ export function showSnackbar(text) {
 }
 
 export function showLinkCopiedSnackbar() {
-  showSnackbar("Link copied to clipboard!");
+  showSnackbar("Copied to clipboard!");
 }
 
 export function copyLink(text) {
