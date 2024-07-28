@@ -133,10 +133,18 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 
   <div class="two-columns"> 
 
-
-    <div class="headerContainer home textContent">
+    <div style="margin-top:4em;" class="textContent">
       <p><em>this website is still a work-in-progress... you can find my old one at <a href="https://spencerchang.me">spencerchang.me</a></em></p>
-      <Polaroid imgSrc="/assets/spencer_real_person.png" className="float" aspectRatio="inherit"/>
+      <p>One day I will merge the two bastions of code that make up my old website (and my old self) and my present website (and present self). Until then, the two websites will exist in a strange dichotomy, some duplicate content and missing updates along with traces of my past selves caught in the seams. I hope you enjoy this present chaotic moment while it's still here. And thank you once again for visiting.</p>
+  <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
+          just find that you get extra privileges with these items...</p>
+        </br>
+     <Trinkets/>
+</div>
+
+
+    <div class="headerContainer home" style="margin-right: 2em;">
+      <Polaroid imgSrc="/assets/spencer_real_person.png" className="float" aspectRatio="inherit" style={{marginLeft: "1em"}}/>
       <p>Growing up, I never felt like I fit in at school or local communities. Instead, I grew up on the internet. The internet was where I found my community, learned what it meant to have a passion, and discovered the range of humanity—how tender and how heartless people could be. I fell into making technology because it felt like a way to carry on the kindnesses that I was shown. I want to make the internet a place that can facilitate the intimacy, creation, and solidarity I found.</p>
         <p id="expandingWork"></p>
   
@@ -225,12 +233,4 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
   onClickMore();
   
   </script>
-
-  
-<div style="margin-top:4em; margin-right: 2em;">
-  <p>Below, you'll find my selection of live furniture. Visitors can change them, and I'll move them around every time I visit my website. The more of a regular you are, you might 
-          just find that you get extra privileges with these items...</p>
-        </br>
-     <Trinkets/>
-</div>
 </BaseLayout>

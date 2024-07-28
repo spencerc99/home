@@ -2536,13 +2536,18 @@ summary {
   }
 }
 
+#nowTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  vertical-align: middle;
+}
+
 #new {
   background: var(--color-glowing-highlight);
   padding: 2px 4px;
   border-radius: 4px;
-  position: absolute;
-  top: 0;
-  left: 0;
 
   margin-bottom: 8px;
   font-size: 0.8em;
