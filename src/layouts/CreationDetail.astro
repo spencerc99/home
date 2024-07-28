@@ -11,7 +11,7 @@ import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'collection'>['data'];
 
-const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, materials} = Astro.props;
+const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, materials, imageDescriptions} = Astro.props;
 const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {breaks: true, gfm: true});
 
 const transformedMovieUrl = movieUrl ? withQueryParams(
@@ -77,8 +77,9 @@ const mediaTransformed = media.map((item) => {
 				{movieUrl ? <video controls autoplay loop>
 					<source src={transformedMovieUrl} type="video/webm" />
 				</video>  : <ImageZoom client:only="react" src={transformedHeroImage} />}
+				{!movieUrl && imageDescriptions?.[0] && <span class="descriptionText">{imageDescriptions[0]}</span>}
 			</div>}
-			<CreationDetailImages images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)} client:only="react"></CreationDetailImages>
+			<CreationDetailImages images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)} descriptions={imageDescriptions ? imageDescriptions.slice(movieUrl ? 0 : 1) : []} client:only="react"></CreationDetailImages>
 			<div >
 			</div>
 			</div>

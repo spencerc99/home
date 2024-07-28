@@ -23,5 +23,12 @@
   "featured": true,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": true
+  "useImageForPreview": true,
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
 }

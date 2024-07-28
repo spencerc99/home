@@ -22,5 +22,8 @@
   "featured": false,
   "featuredArt": false,
   "featuredWork": true,
-  "useImageForPreview": true
+  "useImageForPreview": true,
+  "imageDescriptions": [
+    ""
+  ]
 }

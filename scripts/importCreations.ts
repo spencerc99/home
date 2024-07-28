@@ -17,6 +17,7 @@ export interface CodaItem {
   "Work Highlight": boolean;
   created: string;
   imageUrls: string[];
+  imageDescriptions: string[];
   metadata: string;
   websiteImage: string;
   movieUrl: string;
@@ -130,6 +131,7 @@ async function importCreations() {
       featuredArt: item.featuredArt,
       featuredWork: item["Work Highlight"],
       useImageForPreview: item.useImageForPreview,
+      imageDescriptions: item.imageDescriptions || [],
     };
   });
 
@@ -149,5 +151,5 @@ async function importCreations() {
   });
 }
 
-importCreations();
+await importCreations();
 console.log("done importing");

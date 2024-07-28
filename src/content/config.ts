@@ -22,6 +22,7 @@ export const creationSchema = z.object({
   date: z.coerce.date(),
   heroImage: z.string().optional(),
   media: z.array(z.string()).optional(),
+  imageDescriptions: z.array(z.string()).optional(),
   link: z.string().optional(),
   materials: z.string().optional(),
   movieUrl: z.string().optional(),

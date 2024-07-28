@@ -17,5 +17,6 @@
   "featured": false,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false
+  "useImageForPreview": false,
+  "imageDescriptions": []
 }
