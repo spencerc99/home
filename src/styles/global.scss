@@ -2342,7 +2342,7 @@ hr.separator {
     width: 100%;
     min-width: 200px;
     min-height: 200px;
-    max-height: 250px;
+    max-height: 280px;
     // max-height: 300px;
     max-width: 350px;
     &.loading {
@@ -2384,11 +2384,12 @@ hr.separator {
   display: flex;
   flex-direction: column;
   max-width: 2000px;
+  margin-top: 1em;
+  gap: 1em;
 
   .actions {
     display: flex;
     gap: 1em;
-    margin-top: 1em;
     align-items: center;
   }
   // @media screen and (max-width: 1670px) {

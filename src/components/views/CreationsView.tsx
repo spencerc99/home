@@ -2,6 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import React, { useEffect, useMemo, useState } from "react";
 import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import { EventCreationsList } from "../EventCreationsList";
 
 export enum ViewType {
   FREE = "free",
@@ -43,7 +44,12 @@ export function CreationsView({ creations, description }: Props) {
     creations.map((creation) => creation.data.parentCategory).filter(Boolean)
   );
 
-  const sortedCreations = creations;
+  const eventCreations = creations.filter(
+    (creation) => creation.data.isEvent && creation.data.forthcoming
+  );
+  const nonEventCreations = creations.filter(
+    (creation) => !creation.data.isEvent || !creation.data.forthcoming
+  );
 
   return (
     <div className="creationsView">
@@ -78,6 +84,24 @@ export function CreationsView({ creations, description }: Props) {
 
         {getDescriptionForDescriptionType(description)}
       </div>
+      {/* EVENTS */}
+      {eventCreations.length > 0 && (
+        <div className="events">
+          <i
+            style={{
+              fontSize: "1.2em",
+            }}
+          >
+            upcoming events
+          </i>
+          <EventCreationsList
+            creations={eventCreations.map((c) => ({
+              ...c.data,
+              id: c.id,
+            }))}
+          />
+        </div>
+      )}
       <div className="creationsMasonry">
         <ResponsiveMasonry
           columnsCountBreakPoints={{
@@ -92,7 +116,7 @@ export function CreationsView({ creations, description }: Props) {
           }}
         >
           <Masonry gutter="2em">
-            {sortedCreations.map((creation) => (
+            {nonEventCreations.map((creation) => (
               <CreationSummary
                 key={creation.id}
                 creation={{
