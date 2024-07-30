@@ -21,6 +21,7 @@ export interface CodaItem {
   metadata: string;
   websiteImage: string;
   movieUrl: string;
+  movieEmbed: string;
   featuredArt: boolean;
   Materials: string;
   forthcoming: boolean;
@@ -113,7 +114,7 @@ async function importCreations() {
     //   heroImage = `creation/${filename}`;
     // }
 
-    return {
+    const finalItem = {
       title: item.title,
       subtext: item.subtext,
       descriptionMd: item.descriptionMd,
@@ -123,6 +124,7 @@ async function importCreations() {
       heroImage,
       media,
       movieUrl: item.movieUrl,
+      movieEmbed: item.movieEmbed,
       link: item.link,
       materials: item.Materials,
       ongoing: item.ongoing,
@@ -133,6 +135,18 @@ async function importCreations() {
       useImageForPreview: item.useImageForPreview,
       imageDescriptions: item.imageDescriptions || [],
     };
+    // remove empty fields
+    Object.keys(finalItem).forEach((key) => {
+      if (
+        finalItem[key] === undefined ||
+        finalItem[key] === null ||
+        finalItem[key] === ""
+      ) {
+        delete finalItem[key];
+      }
+    });
+
+    return finalItem;
   });
 
   const dir = path.join(__dirname, "../src/content/creation");

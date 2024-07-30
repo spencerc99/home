@@ -11,8 +11,8 @@ import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'collection'>['data'];
 
-const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, materials, imageDescriptions} = Astro.props;
-const descriptionParsed = marked.parse(descriptionMd.replaceAll('\n', '\n\n'), {breaks: true, gfm: true});
+const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, movieEmbed,materials, imageDescriptions} = Astro.props;
+const descriptionParsed = descriptionMd ? marked.parse(descriptionMd?.replaceAll('\n', '\n\n'), {breaks: true, gfm: true}) : '';
 
 const transformedMovieUrl = movieUrl ? withQueryParams(
               movieUrl.replace(
@@ -66,18 +66,21 @@ const mediaTransformed = media.map((item) => {
 					<i >{subtext}</i>
 					{materials && <i class="meta" >Materials: {materials}</i>}
 				</div>
-				<p set:html={descriptionParsed}></p>
+				{descriptionParsed && <p set:html={descriptionParsed}></p>}
 				<slot />
 			</div>
 			<div>
 			{shouldIframe ? <div class="iframeWrapper">
 				<iframe src={link}></iframe>
 				<div>window into <a href={link}>{link}</a></div>
-			</div> : <div class="hero-image">
+			</div> :movieEmbed ? <iframe class="movieEmbed" src={movieEmbed}/>  : <div class="hero-image">
 				{movieUrl ? <video controls autoplay loop>
 					<source src={transformedMovieUrl} type="video/webm" />
-				</video>  : <ImageZoom client:only="react" src={transformedHeroImage} />}
-				{!movieUrl && imageDescriptions?.[0] && <span class="descriptionText">{imageDescriptions[0]}</span>}
+				</video>  : <>
+					<ImageZoom client:only="react" src={transformedHeroImage} />
+					{imageDescriptions?.[0] && <span class="descriptionText">{imageDescriptions[0]}</span>}
+				</>
+				}
 			</div>}
 			<CreationDetailImages images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)} descriptions={imageDescriptions ? imageDescriptions.slice(movieUrl ? 0 : 1) : []} client:only="react"></CreationDetailImages>
 			<div >
@@ -86,4 +89,5 @@ const mediaTransformed = media.map((item) => {
 			</div>
 		</article>
 	</main>
+	<script src="https://player.vimeo.com/api/player.js"></script>
 </BaseLayout>
