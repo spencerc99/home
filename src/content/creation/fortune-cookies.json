@@ -1,7 +1,6 @@
 {
   "title": "fortune cookies",
   "subtext": "a gift made to be re-gifted",
-  "descriptionMd": "",
   "parentCategory": "Tinkering",
   "categories": [
     "Art",
@@ -19,9 +18,6 @@
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-deWoDrPKu1/0b982fa94b34e1ea1c203996b8446ca4d81d25b4ff4077e217e27a5636afcaa0399bf5237175307b068779a744b6fd9a6cec9ea12435af24f9a749156c9b1991a3ddb99c1b186c8f7310a42fef02c8bc07a42c7b988352359005705e65afe72bbc79301b",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-JGTDam3fCH/7d083f414148727b0df01f268b4fa2c8f9d969312b3ca0ed5a01b9562829034c90650c2842ee42b1c5b9efbc9fe82b849cdcae5ea966ebabdf52ded4bc303bfbc8b73c9d1c88f3add945b462a21b1a1777427817703b8b481d5c8d8f1c14122145296e71"
   ],
-  "movieUrl": "",
-  "link": "",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,

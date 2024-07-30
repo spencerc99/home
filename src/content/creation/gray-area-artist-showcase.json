@@ -1,7 +1,5 @@
 {
   "title": "Gray Area Artist Showcase",
-  "subtext": "",
-  "descriptionMd": "",
   "parentCategory": "Exhibition",
   "categories": [
     "Art",
@@ -12,9 +10,7 @@
   "media": [
     "https://grayarea.org/wp-content/uploads/2024/06/2024-01-0613-11-50-ezgif.com-optimize.gif"
   ],
-  "movieUrl": "",
   "link": "https://grayarea.org/event/gray-area-artist-showcase-summer-2024/",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,

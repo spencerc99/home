@@ -1,7 +1,6 @@
 {
   "title": "opencoda",
   "subtext": "inspired by opensheet, JSON-ifies any open coda table",
-  "descriptionMd": "",
   "parentCategory": "Project",
   "categories": [
     "Software Tool",
@@ -12,9 +11,7 @@
   "media": [
     "https://opengraph.githubassets.com/597325db20dab121b586a1798c202f1802b9c77f3a2209a7d305bd4699cc33e8/spencerc99/opencoda"
   ],
-  "movieUrl": "",
   "link": "https://github.com/spencerc99/opencoda",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,

@@ -1,23 +1,22 @@
 {
   "title": "neighborhood internets workshop",
   "subtext": "creating tiny social networks using playhtml @ Gray Area",
-  "descriptionMd": "",
   "parentCategory": "Speaking & Workshops",
-  "categories": ["Website", "Software Tool"],
+  "categories": [
+    "Website",
+    "Software Tool"
+  ],
   "date": "2024-08-18T07:00:00.000Z",
   "heroImage": "https://grayarea.org/wp-content/uploads/2024/06/Fridge-poetry-heart.png",
   "media": [
     "https://grayarea.org/wp-content/uploads/2024/06/Fridge-poetry-heart.png"
   ],
-  "movieUrl": "",
   "link": "https://grayarea.org/event/communal-computing-workshop-neighborhood-internets/",
-  "materials": "",
   "ongoing": false,
   "forthcoming": true,
   "featured": false,
   "featuredArt": false,
   "featuredWork": false,
   "useImageForPreview": false,
-  "imageDescriptions": [],
-  "isEvent": true
+  "imageDescriptions": []
 }

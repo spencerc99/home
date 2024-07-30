@@ -1,7 +1,5 @@
 {
   "title": "Everyday Magic",
-  "subtext": "",
-  "descriptionMd": "",
   "parentCategory": "Writing",
   "categories": [
     "Writing"
@@ -11,9 +9,7 @@
   "media": [
     "https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fcdn.substack.com%2Fimage%2Fupload%2Fw_728%2Cc_limit%2Fnqoigyxb9yvdihrh4ub2"
   ],
-  "movieUrl": "",
   "link": "https://joinreboot.org/p/everyday-magic",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": true,

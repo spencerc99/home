@@ -1,7 +1,6 @@
 {
   "title": "I picked up a plastic wrapper today",
   "subtext": "poem published in Kernel 3",
-  "descriptionMd": "",
   "parentCategory": "Writing",
   "categories": [
     "Poetry"
@@ -11,9 +10,7 @@
   "media": [
     "https://www.kernelmag.io/site-images/og-image.jpg"
   ],
-  "movieUrl": "",
   "link": "https://www.kernelmag.io/",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,

@@ -1,7 +1,6 @@
 {
   "title": "100 mini-essays",
   "subtext": "an experiment to publish raw, lightly edited pieces semi-daily towards achieving 100 public pieces.",
-  "descriptionMd": "",
   "parentCategory": "Writing",
   "categories": [
     "Writing"
@@ -11,9 +10,7 @@
   "media": [
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-s_0aDwk_ox/c9aac4c978f3d72aad3fafeb7bc5a36cd08bed5fb2419f24107ececcd50c061c6528401d8ca25e88d3ab0d4f030b52c6031c4b2b2282991772aa362523de3d6fddeb82015b22ccf6b2d1e77f5186ce32112aefae19850d42944e3e034e7226b1ee3eb70b"
   ],
-  "movieUrl": "",
   "link": "https://www.spencerchang.me/experiments/100posts/",
-  "materials": "",
   "ongoing": false,
   "forthcoming": false,
   "featured": true,
