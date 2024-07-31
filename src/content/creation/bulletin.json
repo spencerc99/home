@@ -24,5 +24,6 @@
   "useImageForPreview": true,
   "imageDescriptions": [
     ""
-  ]
+  ],
+  "isEvent": false
 }

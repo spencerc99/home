@@ -16,5 +16,6 @@
   "useImageForPreview": false,
   "imageDescriptions": [
     ""
-  ]
+  ],
+  "isEvent": true
 }

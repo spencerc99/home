@@ -20,5 +20,6 @@
   "featuredArt": false,
   "featuredWork": true,
   "useImageForPreview": false,
-  "imageDescriptions": []
+  "imageDescriptions": [],
+  "isEvent": false
 }

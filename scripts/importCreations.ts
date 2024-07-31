@@ -28,6 +28,7 @@ export interface CodaItem {
   ongoing: boolean;
   featured: boolean;
   useImageForPreview: boolean;
+  isEvent: boolean;
 }
 
 function escapeTitleForFilename(title: string): string {
@@ -134,6 +135,7 @@ async function importCreations() {
       featuredWork: item["Work Highlight"],
       useImageForPreview: item.useImageForPreview,
       imageDescriptions: item.imageDescriptions || [],
+      isEvent: item.isEvent,
     };
     // remove empty fields
     Object.keys(finalItem).forEach((key) => {
