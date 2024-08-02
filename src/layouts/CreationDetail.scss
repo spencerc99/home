@@ -35,6 +35,7 @@ iframe,
   min-height: 800px;
   max-width: 950px !important;
   width: 100%;
+  object-fit: contain;
 }
 .iframeWrapper {
   display: flex;

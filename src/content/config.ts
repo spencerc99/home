@@ -19,7 +19,7 @@ export const creationSchema = z.object({
   descriptionMd: z.string().optional(),
   parentCategory: z.string().optional(),
   categories: z.array(z.string()),
-  date: z.coerce.date(),
+  date: z.coerce.date().nullable(),
   heroImage: z.string().optional(),
   media: z.array(z.string()).optional(),
   imageDescriptions: z.array(z.string()).optional(),

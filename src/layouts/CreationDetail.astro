@@ -46,7 +46,7 @@ const mediaTransformed = media.map((item) => {
 	  {
 		auto: "format,compress",
 		fit: "max",
-		w: "700",
+		w: "1000",
 	  });
 });
 ---
@@ -57,9 +57,9 @@ const mediaTransformed = media.map((item) => {
 			<div class="content">
 			<div class="prose">
 				<div class="header">
-					<div class="date">
-						{date && <FormattedDate date={date} />}
-					</div>
+					{date ? <div class="date">
+						<FormattedDate date={date} />
+					</div> : null}
 					<h2>
 					{link ? <a href={link}>{title}</a> : title}
 					</h2>

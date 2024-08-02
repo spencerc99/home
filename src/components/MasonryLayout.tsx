@@ -14,7 +14,6 @@ export function MasonryLayout({
   columnsCount?: number;
   gutter?: string;
 }>) {
-  console.log(className);
   return columnsCountBreakPoints ? (
     <ResponsiveMasonry columnsCountBreakPoints={{}}>
       <Masonry gutter={gutter} columnsCount={columnsCount}>

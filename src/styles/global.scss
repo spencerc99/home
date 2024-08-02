@@ -635,6 +635,8 @@ button.icon {
 }
 
 footer {
+  // Accounts for overlapping with content.
+  z-index: -1;
   padding-left: 3em;
   padding-right: 3em;
   @include media(xsmallScreen) {
