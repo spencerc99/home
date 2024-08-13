@@ -2,6 +2,7 @@
 // https://github.com/verses-xyz/pluriverse/blob/20fd754b0be88b94fafe6ed20db9ee48f0423978/browser/src/components/EssayBody.css#L2
 
 import { PropsWithChildren, useRef, useState } from "react";
+import classNames from "classnames";
 import "./Footnote.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
@@ -15,6 +16,7 @@ interface FootnoteProps {
   isHtmlCaption?: boolean;
 }
 
+// TODO: for mobile needs to calculate where it is on screen so it doesn't overflow
 export function Footnote({
   imageSrc,
   url,
@@ -69,7 +71,9 @@ export function Footnote({
       {url ? (
         <a
           href={url}
-          className="footnote"
+          className={classNames("footnote", {
+            hasHover: showHoverInfo,
+          })}
           //   onMouseEnter={handleMouseEnter}
           //   onMouseLeave={handleMouseLeave}
           onClick={handleClick}
@@ -78,7 +82,9 @@ export function Footnote({
         </a>
       ) : (
         <span
-          className="footnote"
+          className={classNames("footnote", {
+            hasHover: showHoverInfo,
+          })}
           //   onMouseEnter={handleMouseEnter}
           //   onMouseLeave={handleMouseLeave}
           onClick={handleClick}

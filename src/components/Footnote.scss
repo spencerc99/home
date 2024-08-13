@@ -10,6 +10,10 @@
   text-decoration: none !important;
   display: inline;
   font-size: 90%;
+  &.hasHover {
+    text-shadow: 0 0 4px var(--color-glowing-highlight);
+    filter: drop-shadow(0 0 3px var(--color-glowing-highlight));
+  }
 }
 
 // TODO: this doesn't look great on mobile..
