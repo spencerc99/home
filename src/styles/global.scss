@@ -1,5 +1,5 @@
 @import "./base.scss";
-@import url("https://fonts.googleapis.com/css2?family=Diphylleia&family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=ABeeZee&family=Gaegu:wght@300;400;700&family=VT323&family=Sono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=VT323&family=Sono&display=swap");
 @import "./variables.scss";
 
 @mixin fontCooper($name, $weight, $style) {
@@ -274,6 +274,16 @@
       background-color: $color-site-background-dark;
     }
   }
+}
+.mono {
+  font-family: $site-font-mono !important;
+}
+.sans-serif {
+  font-family: $site-font;
+}
+
+.serif {
+  font-family: $site-font-serif;
 }
 
 // source: https://gist.github.com/gokulkrishh/242e68d1ee94ad05f488
@@ -923,7 +933,8 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
     content: "↗";
     font-family: "VT323";
   }
-  &.noanchor::after {
+  &.noanchor::after,
+  &.footnote::after {
     content: "";
   }
 }
@@ -2055,7 +2066,8 @@ button {
 }
 
 #lamp-akari {
-  max-width: 200px;
+  max-width: 70px;
+  float: right;
   width: 100%;
   background-color: transparent;
   &:hover {
@@ -2394,6 +2406,12 @@ hr.separator {
     display: flex;
     gap: 1em;
     align-items: center;
+    @include media(xsmallScreen, smallScreen) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.2em;
+    }
+    @include meta-content();
   }
   // @media screen and (max-width: 1670px) {
   //   .creationSummary {
@@ -2646,11 +2664,11 @@ summary {
   z-index: 12;
 }
 
-.footnote.footnote.footnote {
-  vertical-align: super;
-  font-size: 70%;
-  text-decoration: none !important;
-}
+// .footnote.footnote.footnote {
+//   vertical-align: super;
+//   font-size: 70%;
+//   text-decoration: none !important;
+// }
 
 #construction {
   position: fixed;

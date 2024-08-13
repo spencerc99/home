@@ -25,14 +25,14 @@ export function NowBlock() {
           computing-infused
         </a>{" "}
         <a href="https://x.com/spencerc99/status/1820919721639997849">
-          ceramics
+          objects
         </a>{" "}
         (sign up{" "}
         <a href="https://forms.gle/AFyjWi7BEEEu92wA8">for preorder info</a>)
       </p>
       <p>
-        - Creating <a href="https://shrine.computer">computing shrines</a> in my
-        neighborhood
+        - Creating <a href="/creation/computing-shrines">computing shrines</a>{" "}
+        in my neighborhood
       </p>
       <p>
         - Hosting workshops for <a href="/creation/playhtml">playhtml</a> and{" "}

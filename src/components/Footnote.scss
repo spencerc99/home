@@ -1,0 +1,53 @@
+@import "../styles/global.scss";
+
+.footnote-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.footnote {
+  vertical-align: super; // Superscript styling for the asterisk or image
+  text-decoration: none !important;
+  display: inline;
+  font-size: 90%;
+}
+
+// TODO: this doesn't look great on mobile..
+.hover-node {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background: var(--color-background-lavender);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--color-box-shadow);
+  // SAME AS .medium image
+  max-width: 500px;
+  border-radius: 0.25em;
+  width: fit-content;
+  min-width: 200px;
+  gap: 6px;
+
+  .footnote-caption {
+    font-size: 80%;
+    padding: 0.5em 0.8em;
+    padding-bottom: 0.8em;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .footnote-hover-image {
+    @extend .medium !optional;
+    @include media(xsmallScreen, smallScreen) {
+      max-width: 200px !important;
+    }
+  }
+}
+
+.footnote img {
+  max-width: 24px; // Adjust size to look like an icon
+  max-height: 24px; // Adjust size to look like an icon
+  margin-left: 0.1em;
+  border-radius: 4px;
+}
