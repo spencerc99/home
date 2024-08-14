@@ -2353,7 +2353,8 @@ hr.separator {
 
     transition: opacity 0.1s linear;
     object-fit: cover;
-    border-radius: inherit;
+    // TODO: this mkaes videos transparent on chrome lol
+    // border-radius: inherit;
     width: 100%;
     min-width: 200px;
     min-height: 200px;

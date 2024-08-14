@@ -128,7 +128,8 @@ export function CreationSummary({
                   setHasLoadedMedia(true);
                 }}
               >
-                <source src={transformedMovieUrl} />
+                {/* NOTE: this type is required for webm videos to work in safari. not all videos are webm but other ones work too with this so 🤷 */}
+                <source src={transformedMovieUrl} type="video/webm" />
               </video>
             </LazyContainer>
           ) : heroImage ? (
