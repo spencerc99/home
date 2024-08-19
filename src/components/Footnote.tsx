@@ -74,8 +74,6 @@ export function Footnote({
           className={classNames("footnote", {
             hasHover: showHoverInfo,
           })}
-          //   onMouseEnter={handleMouseEnter}
-          //   onMouseLeave={handleMouseLeave}
           onClick={handleClick}
         >
           {content}
@@ -85,8 +83,6 @@ export function Footnote({
           className={classNames("footnote", {
             hasHover: showHoverInfo,
           })}
-          //   onMouseEnter={handleMouseEnter}
-          //   onMouseLeave={handleMouseLeave}
           onClick={handleClick}
         >
           {content}
