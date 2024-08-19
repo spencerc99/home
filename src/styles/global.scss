@@ -197,6 +197,7 @@
   color: #{$color-text-color};
 
   --color-neutral-background: white;
+  --color-accent-background: #{$color-accent-background};
   --color-text-highlight: #{$color-highlight};
   --color-background-lavender: #{$color-light-lavender};
   --color-background-teal: #{$color-background-teal};
@@ -248,6 +249,7 @@
     color: $color-text-color-white;
     --telescope-text-color: #{$color-text-color-white};
     --color-neutral-background: #{$color-quote-background-dark};
+    --color-accent-background: #{$color-accent-background-dark};
     --color-text-highlight: #{$color-highlight-dark};
     --color-background-lavender: #{$color-dark-lavender};
     --color-background-teal: #{$color-background-teal-dark};
@@ -2512,6 +2514,11 @@ img {
   @include media(xsmallScreen, smallScreen, mediumScreen) {
     grid-template-columns: 1fr;
     gap: 1em;
+    &.reverseDirectionMobile {
+      *:nth-child(2) {
+        order: -1;
+      }
+    }
   }
 }
 

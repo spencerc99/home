@@ -6,6 +6,7 @@ import classNames from "classnames";
 import "./Footnote.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
+import Markdown from "react-markdown";
 
 // have a toggle somewhere that allows you to toggle all "annotations" on
 interface FootnoteProps {
@@ -53,7 +54,9 @@ export function Footnote({
       dangerouslySetInnerHTML={{ __html: caption }}
     ></p>
   ) : (
-    <p className="caption footnote-caption">{caption}</p>
+    <p className="caption footnote-caption">
+      <Markdown>{caption}</Markdown>
+    </p>
   );
 
   const content = imageSrc ? (
