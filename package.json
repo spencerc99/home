@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import-creations": "esrun scripts/importCreations.ts"
+    "import-creations": "esrun scripts/importCreations.ts",
+    "upload-fits": "./scripts/upload-fits.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",

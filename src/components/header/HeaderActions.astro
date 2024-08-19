@@ -4,14 +4,13 @@ import HeaderAction, { type HeaderActionType } from "./HeaderAction.astro";
 const Actions: HeaderActionType[] = [
     // {href: "/posts", name: "writing" , icon: "📝"},
     // {href: "/books", name: "books" , icon: "📚"},
-    {href: "/about", name: "about" , icon: "🙇"},
     {href: "/creation", name: "index" , icon: "🪄"},
     {href: "/collab" , icon: "🌻"},
     // {href: "/colophon", name: "creations" , icon: "🪄"},
     // {href: "/feed", name: "feed" , icon: "📜"},
     // {href: "/workbench", name: "workbench" , icon: "🔩"},
-    // TODO: bring back when actually moved from original website.
-    // {href: "/fits", icon: "🧢"},
+    {href: "/fits", icon: "🧢"},
+    {href: "/about", icon: "🙇"},
     // {href: "/window", icon: "🪟"},
 ]
 ---
@@ -33,7 +32,6 @@ const Actions: HeaderActionType[] = [
     }
 
     function toggleDarkMode() {
-        console.log('hello')
         setDarkMode(!document.documentElement.classList.contains("dark-mode"));
     }
     
