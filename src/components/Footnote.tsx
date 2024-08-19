@@ -54,9 +54,7 @@ export function Footnote({
       dangerouslySetInnerHTML={{ __html: caption }}
     ></p>
   ) : (
-    <p className="caption footnote-caption">
-      <Markdown>{caption}</Markdown>
-    </p>
+    <Markdown className="footnote-md">{caption}</Markdown>
   );
 
   const content = imageSrc ? (

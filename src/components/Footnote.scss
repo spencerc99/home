@@ -5,6 +5,13 @@
   display: inline-flex;
 }
 
+.footnote-md {
+  p {
+    @extend .footnote-caption;
+    @extend .caption;
+  }
+}
+
 .footnote {
   vertical-align: super; // Superscript styling for the asterisk or image
   text-decoration: none !important;
