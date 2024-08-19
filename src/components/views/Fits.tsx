@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ImageZoom } from "../ImageZoom";
 import dayjs from "dayjs";
 import {
   copyLink,
@@ -95,26 +96,19 @@ export function FitsView({
                 className="image gallery-item"
               >
                 {/* <!-- TODO: calculate proper size based on item and store inside json, needed for animation --> */}
-                <a
-                  className="galleryLink"
-                  href={fit.imgSrc}
-                  itemprop="contentUrl"
-                  data-size={`${fit.width}x${fit.height}`}
-                >
-                  {/* <!-- Manually setting a 1.5 aspect ratio here using width + height -->
+                {/* <!-- Manually setting a 1.5 aspect ratio here using width + height -->
                         <!-- because modern browsers will make sure to reserve space to prevent reflow -->
                         <!-- eventually should calculate it properly and set here and above -->
                         <!-- source: https://www.youtube.com/watch?v=4-d_SoCHeWE -->
                         <!-- and https://www.codecaptain.io/blog/web-development/responsive-images-and-preventing-page-reflow/474 --> */}
-                  <img
-                    width={fit.width}
-                    height={fit.height}
-                    className="lazyload photoCardPhoto galleryImage"
-                    data-src={previewImgSrc}
-                    itemprop="thumbnail"
-                    alt={`image of Spencer dressed on ${fit.date}`}
-                  />
-                </a>
+                <ImageZoom
+                  width={fit.width}
+                  height={fit.height}
+                  className="lazyload photoCardPhoto galleryImage"
+                  data-src={previewImgSrc}
+                  itemprop="thumbnail"
+                  alt={`image of Spencer dressed on ${fit.date}`}
+                />
               </figure>
               <p>{fit.description}</p>
             </div>
