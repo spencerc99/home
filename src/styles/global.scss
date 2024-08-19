@@ -2596,6 +2596,20 @@ summary {
   @extend .mono;
 }
 
+ol,
+ul {
+  line-height: 1.2;
+  li {
+    margin: 0.5em 0;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .now {
   border: 1px solid var(--color-glowing-highlight);
   padding: 0.5em;
@@ -2604,7 +2618,14 @@ summary {
   background: var(--color-neutral-background-translucent);
   border-radius: 8px;
   p {
-    margin: 0;
+    margin: 0.4em;
+    line-height: 1.2;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
