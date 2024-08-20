@@ -15,6 +15,7 @@ export function CreationDetailImages({
       <MasonryLayout columnsCount={2} gutter="1em">
         {images.map((imgUrl, idx) => (
           <div
+            key={imgUrl}
             style={{ display: "flex", flexDirection: "column", gap: "0.2em" }}
           >
             <ImageZoom className="medium" src={imgUrl} key={imgUrl} />

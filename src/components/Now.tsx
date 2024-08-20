@@ -35,14 +35,6 @@ export function NowBlock() {
         in my neighborhood
       </p>
       <p>
-        - Hosting workshops for <a href="/creation/playhtml">playhtml</a> and{" "}
-        <a href="/creation/touching-computers-creating-data-talismans">
-          webstones
-        </a>
-        .
-      </p>
-
-      <p>
         - (coming out of hibernation) Designing{" "}
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
