@@ -1,15 +1,13 @@
 {
   "title": "neighborhood internets workshop",
   "subtext": "creating tiny social networks using playhtml @ Gray Area",
+  "descriptionMd": "We live in the age of the \"personal computer\" these days. Even as the internet connects billions around the world every day, we still feel alone on the web. Our devices and interfaces were designed for individual experiences rather than collective ones. **Communal Computing** explores the shape of a world of \"communal computers,\" filled with software made for people to create together and love each other and made by people who care about maintaining it for the long-term. How can technology bring us together and give us space to support one another and create together? How can we build it in a way that lets the human behind the design shine through the bits and circuits?\nIn this one day workshop, we'll explore alternative device interfaces and internet environments that foster intimacy, co-creation, and solidarity. The workshop is hands-on and experiential: each participant is expected to walk away with a functional \"communal computing\" interface.",
   "parentCategory": "Speaking & Workshops",
-  "categories": [
-    "Website",
-    "Software Tool",
-    "Community"
-  ],
+  "categories": ["Website", "Software Tool", "Community"],
   "date": "2024-08-18T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-AFUtvvKdYo/3f8b30b6a99f5e0acba707bf78c12505ba4b30aba9109de5cdc8e239d1ed8ab7eab0010bdc4f002a17a53ea76c4af59103988826725c2d4b389843d4c4871c1efb61bb0d7790427d24d9285f4828f6e4dc23e11f66d6298dacccd8a5e1a241dba1711375",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
   "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-AFUtvvKdYo/3f8b30b6a99f5e0acba707bf78c12505ba4b30aba9109de5cdc8e239d1ed8ab7eab0010bdc4f002a17a53ea76c4af59103988826725c2d4b389843d4c4871c1efb61bb0d7790427d24d9285f4828f6e4dc23e11f66d6298dacccd8a5e1a241dba1711375",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-BrNEoloce4/8bacfef410e1432122d234eb1479524272d64b7564f4f44bca3cd768aeae2f6932e9dd5f3cc459fef623748b0d1c6fcca018bcc5eaa777ec723804e5fd8577a401029fa15db18baf77e3d378ab3f303104a70bf5380dad3d97d0e5e9ca41579f7ac378bc",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-KpA0zKns-I/3124cc72465da4d8029644f994e97dd7f4ee821215c16d8429bd73743d0fbb23b62f03c3d8c268a04763027799b2f9f894452d9fb7dcaa37d66dde297c4cdbee501231f6e8b328bbd72176db4a4c07791d56f161b799e83d123c9157e93e8496b975218e",
@@ -19,17 +17,10 @@
   "link": "https://grayarea.org/event/communal-computing-workshop-neighborhood-internets/",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "featuredArt": false,
   "featuredWork": false,
   "useImageForPreview": false,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "imageDescriptions": ["", "", "", "", "", ""],
   "isEvent": true
 }
