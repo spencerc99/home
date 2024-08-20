@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "import-creations": "esrun scripts/importCreations.ts",
-    "upload-fits": "./scripts/upload-fits.sh"
+    "upload-fits": "sh ./scripts/upload_fits.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NOTE: this assumes running from root directory.
 # TODO: clean up using this file so that it works properly and test that it works for future updates.
 # TODO: allow variable for verbose
