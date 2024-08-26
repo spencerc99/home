@@ -35,7 +35,8 @@ const posts: NewsletterRSSItem[] = data.items;
 
 const slug = Astro.url.searchParams.get('i');
 const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
-export const prerender = false;
+// TODO: this is blank on production i hate astro lol
+// export const prerender = false;
 ---
 
 <DetailLayout {...LayoutProps}>
