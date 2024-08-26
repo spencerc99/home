@@ -148,3 +148,20 @@ export function CreationsView({ creations, description }: Props) {
     </div>
   );
 }
+
+export function SimpleCreationsList({ creations }: Props) {
+  return (
+    <div className="creations">
+      {creations.map((creation) => (
+        <CreationSummary
+          key={creation.id}
+          creation={{
+            id: creation.id,
+            ...creation.data,
+          }}
+          view={ViewType.LIST}
+        />
+      ))}
+    </div>
+  );
+}

@@ -1,0 +1,71 @@
+---
+import { CreationSummary } from "../../components/CreationSummary";
+import EmailEmbed from "../../components/EmailEmbed.astro";
+import SocialMediaLinks from "../../components/SocialMediaLinks.astro";
+import { SimpleCreationsList, ViewType } from "../../components/views/CreationsView";
+import DetailLayout from "../../layouts/DetailLayout.astro";
+
+const LayoutProps = {
+    title: "(newsletter)",
+    description: "follow me...",
+    date: "2024-04-11",
+    image: "/newsletter.png",
+    emojis: [],
+  titleClass: 'uniform'
+}
+
+export interface NewsletterRSSItem {
+  title:       string;
+  pubDate:     Date;
+  link:        string;
+  guid:        string;
+  thumbnail:   string;
+  description: string;
+  content:     string;
+  enclosure:   {
+    link: string; // this is the thumbnail image
+  };
+  categories:  any[];
+}
+
+const newsletterFeedUrl = 'https://spencerchang.substack.com/feed';
+const rssFeed = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${newsletterFeedUrl}`);
+const data = await rssFeed.json();
+const posts: NewsletterRSSItem[] = data.items;
+
+
+const slug = Astro.url.searchParams.get('i');
+const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
+export const prerender = false;
+---
+
+<DetailLayout {...LayoutProps}>
+    <div class="listDescription textContent" style={{gap: ".5em"}}>
+        <p>Subscribe to my newsletter for updates. No spam and relatively interesting content—I promise.</p>
+        <EmailEmbed/>
+        <SocialMediaLinks/>
+    </div>
+    <div>
+      
+      <!-- Render posts as CreationSummary -->
+       <SimpleCreationsList creations={posts.map(
+        post => ({
+          id: post.guid,
+          data: {
+            title: post.title,
+            descriptionMd: post.description,
+            date: post.pubDate,
+            heroImage: post.enclosure.link,
+            link: post.link,
+            forthcoming: false,
+          }
+        })
+       )}  client:only="react"/>
+    </div>
+    <script define:vars={{postRedirectLink}}>
+      // redirect to the latest post from the newsletter RSS feed
+      if (postRedirectLink) {
+        window.location.replace(postRedirectLink)
+      }
+    </script>
+</DetailLayout>

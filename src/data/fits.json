@@ -2,6 +2,26 @@
     "fits": [
         {
             "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2024-08-20%3AIMG_6523.jpeg",
+            "date": "2024-08-20",
+            "timestamp": 1724180006.975,
+            "width": 3024,
+            "height": 4032,
+            "favorite": false,
+            "place": "San Francisco, California, United States",
+            "city": "San Francisco",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "People",
+                "Window"
+            ],
+            "season": "Summer",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
             "imgSrc": "https://assets.spencerchang.me/fits-stream/2024-08-18%3AIMG_6494.jpeg",
             "date": "2024-08-18",
             "timestamp": 1724032359.61,
