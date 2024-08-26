@@ -9,6 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "import-creations": "esrun scripts/importCreations.ts",
+    "import-newsletter": "esrun scripts/importNewsletter.ts",
+    "import-all": "npm run import-creations && npm run import-newsletter",
     "upload-fits": "sh ./scripts/upload_fits.sh"
   },
   "dependencies": {

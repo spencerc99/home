@@ -2474,6 +2474,11 @@ hr.separator {
 }
 
 img {
+  &.small {
+    max-width: 360px;
+    border-radius: 0.25em;
+  }
+
   &.medium {
     max-width: 500px;
     border-radius: 0.25em;

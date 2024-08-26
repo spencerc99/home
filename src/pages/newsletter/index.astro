@@ -3,6 +3,7 @@ import EmailEmbed from "../../components/EmailEmbed.astro";
 import SocialMediaLinks from "../../components/SocialMediaLinks.astro";
 import { SimpleCreationsList } from "../../components/views/CreationsView";
 import DetailLayout from "../../layouts/DetailLayout.astro";
+import PostsList from '../../components/PostsList.astro';
 
 const LayoutProps = {
     title: "(newsletter)",
@@ -32,6 +33,16 @@ const rssFeed = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${news
 const data = await rssFeed.json();
 const posts: NewsletterRSSItem[] = data.items;
 
+const transformedPosts = posts.map(post => ({
+  slug: post.guid,
+  data: {
+    title: post.title,
+    description: post.description,
+    pubDate: new Date(post.pubDate),
+    heroImage: post.enclosure.link,
+    externalLink: post.link,
+  }
+}));
 
 const slug = Astro.url.searchParams.get('i');
 const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
@@ -41,26 +52,12 @@ const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : 
 
 <DetailLayout {...LayoutProps}>
     <div class="listDescription textContent" style={{gap: ".5em"}}>
-        <p>Subscribe to my newsletter for updates. No spam and relatively interesting content—I promise.</p>
+        <p>Subscribe to my newsletter for updates. No spam—I promise—only the things I find interesting.</p>
         <EmailEmbed/>
         <SocialMediaLinks/>
     </div>
     <div>
-      
-      <!-- Render posts as CreationSummary -->
-       <SimpleCreationsList creations={posts.map(
-        post => ({
-          id: post.guid,
-          data: {
-            title: post.title,
-            descriptionMd: post.description,
-            date: post.pubDate,
-            heroImage: post.enclosure.link,
-            link: post.link,
-            forthcoming: false,
-          }
-        })
-       )}  client:only="react"/>
+      <PostsList posts={transformedPosts} />
     </div>
     <script define:vars={{postRedirectLink}}>
       // redirect to the latest post from the newsletter RSS feed
