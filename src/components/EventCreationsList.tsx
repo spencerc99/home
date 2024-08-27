@@ -6,7 +6,6 @@ export function EventCreationsList({
 }: {
   creations: Array<CollectionEntry<"creations">["data"]>;
 }) {
-  console.log(creations);
   return (
     <ul id="EventCreations">
       {creations.map((creation) => (

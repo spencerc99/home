@@ -15,6 +15,7 @@ interface FootnoteProps {
   hoverImg?: string;
   caption?: string; // Added caption attribute
   isHtmlCaption?: boolean;
+  asChild?: boolean; // ignores the default footnote styling
 }
 
 // TODO: for mobile needs to calculate where it is on screen so it doesn't overflow
@@ -25,25 +26,32 @@ export function Footnote({
   caption,
   isHtmlCaption,
   children,
+  asChild = false,
 }: PropsWithChildren<FootnoteProps>) {
   const [isHovered, setIsHovered] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hoverImg = inputHoverImg || imageSrc;
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    setIsHovered(true);
     setIsHovering(true);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(true);
+    }, 300); // 300ms delay before showing hover content
   };
 
   const handleMouseLeave = () => {
     setIsHovering(false);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
     timeoutRef.current = setTimeout(() => {
       setIsHovered(false);
-    }, 300); // 300ms delay
+    }, 300); // 300ms delay before hiding hover content
   };
 
   const handleClick = () => setIsHovered(!isHovered);
@@ -72,8 +80,9 @@ export function Footnote({
       {url ? (
         <a
           href={url}
-          className={classNames("footnote", {
-            hasHover: showHoverInfo,
+          className={classNames({
+            footnote: !asChild,
+            hasHover: !asChild && showHoverInfo,
           })}
           onClick={handleClick}
         >
@@ -81,8 +90,9 @@ export function Footnote({
         </a>
       ) : (
         <span
-          className={classNames("footnote", {
-            hasHover: showHoverInfo,
+          className={classNames({
+            footnote: !asChild,
+            hasHover: !asChild && showHoverInfo,
           })}
           onClick={handleClick}
         >

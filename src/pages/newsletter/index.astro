@@ -1,6 +1,6 @@
 ---
 import EmailEmbed from "../../components/EmailEmbed.astro";
-import SocialMediaLinks from "../../components/SocialMediaLinks.astro";
+import SocialMediaLinks from "../../components/SocialMediaLinks";
 import { SimpleCreationsList } from "../../components/views/CreationsView";
 import DetailLayout from "../../layouts/DetailLayout.astro";
 import PostsList from '../../components/PostsList.astro';
@@ -54,7 +54,7 @@ const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : 
     <div class="listDescription textContent" style={{gap: ".5em"}}>
         <p>Subscribe to my newsletter for updates. No spam—I promise—only the things I find interesting.</p>
         <EmailEmbed/>
-        <SocialMediaLinks/>
+        <SocialMediaLinks client:only="react"/>
     </div>
     <div>
       <PostsList posts={transformedPosts} />

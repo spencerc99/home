@@ -125,38 +125,6 @@
   }
 }
 
-@keyframes rotate-stamp-animation {
-  0% {
-    transform: rotate(0deg);
-    filter: drop-shadow(0px 0px 12px #406dff);
-  }
-  90% {
-    transform: rotate(360deg);
-    filter: drop-shadow(0px 0px 12px #406dff);
-  }
-  92% {
-    transform: translate(1.5px, 0px) rotate(6deg);
-  }
-  94% {
-    transform: translate(1.5px, 0px) rotate(3deg);
-  }
-  96% {
-    transform: translate(0.5px, 0px) rotate(-1deg);
-  }
-  97% {
-    transform: translate(0.5px, 0px) rotate(0deg);
-  }
-  100% {
-    transform: translate(0px, 0px) rotate(1deg);
-  }
-  // 96% { transform: translate(-1px, 2px) rotate(-1deg); }
-  // 97% { transform: translate(-3px, 1px) rotate(0deg); }
-  // 98% { transform: translate(3px, 1px) rotate(-1deg); }
-  // 99% { transform: translate(-1px, -1px) rotate(1deg); }
-  // 99.5% { transform: translate(1px, 2px) rotate(0deg); }
-  // 100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
 @mixin wave($iteration-count: 1) {
   animation-name: wave-animation;
   // animation-duration: 2.5s;
@@ -176,12 +144,6 @@
   animation-name: rotate-icon-animation;
   animation-duration: 0.5s;
   animation-iteration-count: $iteration-count;
-}
-
-@mixin rotate-stamp() {
-  animation-name: rotate-stamp-animation;
-  animation-duration: 4s;
-  animation-iteration-count: 1;
 }
 
 @mixin roll-and-move($iteration-count: 1) {
@@ -838,7 +800,7 @@ footer {
   font-size: 1.2em;
 }
 
-.avatar {
+.avatar.avatar {
   border-radius: 50%;
   border: 1px black solid;
   width: 150px;
@@ -1589,17 +1551,6 @@ ul.noPadding {
   }
 }
 
-.rotate-stamp {
-  animation-delay: 0.2s;
-  @include rotate-stamp();
-
-  &:active {
-    // resets animation so that it will work on every click (focus).
-    -webkit-animation: none;
-    animation: none;
-  }
-}
-
 .clickme {
   position: absolute;
   left: 334px;
@@ -2021,9 +1972,7 @@ button {
   @include image-dropshadow();
   // border: .5px solid var(--color-text-accent);
   border-radius: 2px;
-  cursor: url(/assets/fire-cursor.cur), crosshair;
   transition: filter 0.2s ease-in-out;
-  @extend .rotate-stamp;
 
   &:hover {
     filter: drop-shadow(0px 0px 12px #406dff);

@@ -1,7 +1,7 @@
 ---
 import '../styles/photoswipe.css';
 import '../styles/default-skin/default-skin.css';
-import Signature from './Signature.astro';
+import Signature from './Signature';
 ---
 
 <footer>
@@ -9,7 +9,7 @@ import Signature from './Signature.astro';
     <!-- TODO: make this an input -->
     <p>If you enjoyed your stay, <a href="https://spencerchang.substack.com">sign your email up</a> to receive updates from my explorations.</p>
     <p>My work is made possible, in large part, by <a href="/support">support from community members</a>.</p>
-    <Signature/>
+    <Signature client:only="react"/>
 </div>
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
   <!-- <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"> -->
