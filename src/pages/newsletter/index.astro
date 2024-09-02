@@ -33,7 +33,7 @@ const rssFeed = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${news
 const data = await rssFeed.json();
 const posts: NewsletterRSSItem[] = data.items;
 
-const transformedPosts = posts.map(post => ({
+const transformedPosts = posts?.map(post => ({
   slug: post.guid,
   data: {
     title: post.title,
@@ -42,7 +42,7 @@ const transformedPosts = posts.map(post => ({
     heroImage: post.enclosure.link,
     externalLink: post.link,
   }
-}));
+})) || [];
 
 const slug = Astro.url.searchParams.get('i');
 const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
