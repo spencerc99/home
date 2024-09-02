@@ -47,7 +47,7 @@ const transformedPosts = posts.map(post => ({
 const slug = Astro.url.searchParams.get('i');
 const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
 // TODO: this is blank on production i hate astro lol
-// export const prerender = false;
+export const prerender = false;
 ---
 
 <DetailLayout {...LayoutProps}>
