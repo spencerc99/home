@@ -1,9 +1,9 @@
 ---
 import EmailEmbed from "../../components/EmailEmbed.astro";
 import SocialMediaLinks from "../../components/SocialMediaLinks";
-import { SimpleCreationsList } from "../../components/views/CreationsView";
 import DetailLayout from "../../layouts/DetailLayout.astro";
 import PostsList from '../../components/PostsList.astro';
+import NewsletterRedirect from "../../components/NewsletterRedirect";
 
 const LayoutProps = {
     title: "(newsletter)",
@@ -44,10 +44,6 @@ const transformedPosts = posts?.map(post => ({
   }
 })) || [];
 
-const slug = Astro.url.searchParams.get('i');
-const postRedirectLink = slug ? `https://spencerchang.substack.com/p/${slug}` : null;
-// TODO: this is blank on production i hate astro lol
-export const prerender = false;
 ---
 
 <DetailLayout {...LayoutProps}>
@@ -59,10 +55,5 @@ export const prerender = false;
     <div>
       <PostsList posts={transformedPosts} />
     </div>
-    <script define:vars={{postRedirectLink}}>
-      // redirect to the latest post from the newsletter RSS feed
-      if (postRedirectLink) {
-        window.location.replace(postRedirectLink)
-      }
-    </script>
+    <NewsletterRedirect  client:load />
 </DetailLayout>
