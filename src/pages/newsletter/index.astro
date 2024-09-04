@@ -55,5 +55,5 @@ const transformedPosts = posts?.map(post => ({
     <div>
       <PostsList posts={transformedPosts} />
     </div>
-    <NewsletterRedirect  client:load />
+    <NewsletterRedirect  client:only="react" />
 </DetailLayout>
