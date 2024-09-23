@@ -3,14 +3,17 @@
   "subtext": "a homegrown automation for gratitude",
   "descriptionMd": "*i love living* is an ongoing archival piece of all the moments you feel gratitude for life created by folk software, the kind made in-place in the context of existing devices and technologies. The piece is activated for each individual when it is installed onto phone as an automation. Once installed, the automation enables the user to tell their device voice assistant “I love living,” which archives a timestamp, location, and a front and back photo from the device’s camera to an on-device note called “i love living.” This piece leverages the power of archival that all of our devices offer us and activates a lasting archive and performance piece for each person that installs it.\n\nThis originated from me repeatedly being intimate with this **[feeling of overwhelming gratitude](https://x.com/spencerc99/status/1589157443627778051?s=20)** for being alive and wanting to create a time capsule to preserve these feelings. It started off as just recording the date and time and leaving me space to write a little note about it, and increasingly I added more and more metadata to capture as much of the surrounding context as possible to “bottle” up this feeling. I added the location, front and back camera photos (BeReal style), and I really wanted a way to capture the surrounding snippet of audio (in the same way Live Photos do) but that wasn’t technically feasible.\nI turned it into an iOS shortcut so I could run it from my home screen and also just tell Siri to run it by saying “i love living” so it was as easy as possible for me to capture without detracting from the moment.\n**[Download (iOS only)](https://www.icloud.com/shortcuts/8524b99cb6264e62aaeb5c32b18f8d7b)** \n**Instructions**: Install the shortcut using the link above and then create a note in your Apple Notes app called \"I love living\" You should be able to immediately start using the shortcut after that by either telling Siri \"run I love living\" or adding it to your homescreen (if you click into the shortcut there will be an option in there).\n**Share a note with your loved ones**: you can modify the shortcut by just a little to also create tiny social networks around your gratitudes for living. To do so, just add a new \"append to note\" action, copy + paste the content from the existing one to the new one, and choose the shared note.  \n",
   "parentCategory": "Project",
-  "categories": ["Software Tool", "Collecting", "Art"],
+  "categories": [
+    "Software Tool",
+    "Collecting",
+    "Art"
+  ],
   "date": "2022-12-21T08:00:00.000Z",
   "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
   "media": [
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-SDfPygk4j8/2742e0e8af8ecc6352eb8e35435e8e493cd1cb71d16bca36ca03070dfb80c9b7d293d223b4436689ff2cf1963e6b3a87b4b731958c427ebde2134d299447604a5a960449a933c79c51b71f59e462d46f68a6798f60a2c0ea354787aa1b91beb4efc1d206"
   ],
-  "link": "",
   "materials": "Apple Shortcuts, Apple Notes, Siri",
   "ongoing": false,
   "forthcoming": false,
@@ -18,6 +21,9 @@
   "featuredArt": true,
   "featuredWork": true,
   "useImageForPreview": false,
-  "imageDescriptions": ["", ""],
+  "imageDescriptions": [
+    "",
+    ""
+  ],
   "isEvent": false
 }
