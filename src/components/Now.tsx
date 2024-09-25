@@ -12,7 +12,7 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 08-12-24
+          Updated 09-25-24
         </span>
       </div>
       <p>
