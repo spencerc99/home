@@ -20,17 +20,6 @@ export function NowBlock() {
         your curiosity.
       </p>
       <p>
-        - Making a batch of{" "}
-        <a href="https://x.com/spencerc99/status/1818721711858368890">
-          computing-infused
-        </a>{" "}
-        <a href="https://x.com/spencerc99/status/1820919721639997849">
-          objects
-        </a>{" "}
-        (sign up{" "}
-        <a href="https://forms.gle/AFyjWi7BEEEu92wA8">for preorder info</a>)
-      </p>
-      <p>
         - Creating <a href="/creation/computing-shrines">computing shrines</a>{" "}
         in my neighborhood
       </p>

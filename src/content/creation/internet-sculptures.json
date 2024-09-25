@@ -1,0 +1,25 @@
+{
+  "title": "Internet Sculptures",
+  "subtext": "a shop for handmade computing-infused objects",
+  "parentCategory": "Project",
+  "categories": [
+    "Object",
+    "Website"
+  ],
+  "date": "2024-09-25T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-AOj56DDY09/bf571efbb7bb96431e3e8e6de0cc85b2685cdd9f44d0ac5e6fa7f80ee5fce2a01408f690338cab41906530faf392cf6b7bcab9db0d2582b60656bc122eb84f98137d33d6bd2a8b233ed70104d20f27107eb991805deb3bb754c5a88231c29c74d71d1a00",
+  "media": [
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-AOj56DDY09/bf571efbb7bb96431e3e8e6de0cc85b2685cdd9f44d0ac5e6fa7f80ee5fce2a01408f690338cab41906530faf392cf6b7bcab9db0d2582b60656bc122eb84f98137d33d6bd2a8b233ed70104d20f27107eb991805deb3bb754c5a88231c29c74d71d1a00"
+  ],
+  "link": "https://objects.spencer.place/",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "featuredArt": false,
+  "featuredWork": false,
+  "useImageForPreview": false,
+  "imageDescriptions": [
+    ""
+  ],
+  "isEvent": false
+}
