@@ -2,6 +2,31 @@
     "fits": [
         {
             "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2024-09-26%3AIMG_7777.jpeg",
+            "date": "2024-09-26",
+            "timestamp": 1727396483.663,
+            "width": 3024,
+            "height": 4032,
+            "favorite": false,
+            "place": "San Francisco, California, United States",
+            "city": "San Francisco",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Chair",
+                "Chandelier",
+                "Clothing",
+                "Furniture",
+                "Light",
+                "People",
+                "Window"
+            ],
+            "season": "Fall",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
             "imgSrc": "https://assets.spencerchang.me/fits-stream/2024-08-22%3AIMG_6608.jpeg",
             "date": "2024-08-22",
             "timestamp": 1724350753.72,
