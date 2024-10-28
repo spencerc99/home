@@ -55,15 +55,9 @@ export function Link({
         <div className="title">{title}</div>
         {description && <div className="description">{description}</div>}
         <div
-          className="icon"
+          className="linkIcon"
           style={{
             backgroundImage: `url(${img})`,
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            backgroundSize: "cover",
-            borderRadius: "50%",
-            zIndex: -1,
           }}
         ></div>
       </div>
