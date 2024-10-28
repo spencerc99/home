@@ -1,0 +1,42 @@
+.linksView {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: space-around;
+
+  .link {
+    display: flex;
+    flex-direction: column;
+    // max-width: 120px;
+    line-height: 1;
+    background-color: var(--color-neutral-background-translucent);
+
+    position: relative;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    color: var(--color-text-color);
+
+    box-shadow: 0 0 12px 2px var(--color-link);
+
+    // img {
+    //   width: 120px;
+    //   height: 120px;
+    //   border-radius: 1em;
+    // }
+  }
+
+  .title {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 80%;
+    margin-top: 0.5em;
+    text-align: center;
+  }
+}
