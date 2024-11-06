@@ -14,7 +14,7 @@
   "materials": "clay, electronics, phone",
   "ongoing": false,
   "forthcoming": false,
-  "featured": true,
+  "featured": false,
   "featuredArt": false,
   "featuredWork": false,
   "useImageForPreview": false,
