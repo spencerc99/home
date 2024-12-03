@@ -92,7 +92,7 @@ export function CreationsView({ creations, description }: Props) {
               fontSize: "1.2em",
             }}
           >
-            upcoming events
+            upcoming
           </i>
           <EventCreationsList
             creations={eventCreations.map((c) => ({

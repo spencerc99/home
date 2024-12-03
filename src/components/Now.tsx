@@ -16,7 +16,7 @@ export function NowBlock() {
         </span>
       </div>
       <p>
-        Embedded{" "}
+        - Embedded{" "}
         <a href="https://sc.metalabel.com/field-companions">
           everyday objects with memory
         </a>
