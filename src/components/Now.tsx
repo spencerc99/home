@@ -12,22 +12,30 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 09-25-24
+          Updated 12-03-24
         </span>
       </div>
       <p>
-        - Releasing <a href="/creation/gather">Gather</a>, an app companion to
-        your curiosity.
+        Embedded{" "}
+        <a href="https://sc.metalabel.com/field-companions">
+          everyday objects with memory
+        </a>
+      </p>
+      <p>
+        - Fighting the App Store to release{" "}
+        <a href="/creation/gather">Gather</a>, an app companion to your
+        curiosity.
       </p>
       <p>
         - Creating <a href="/creation/computing-shrines">computing shrines</a>{" "}
         in my neighborhood
       </p>
-      <p>
+      <p>- Reading Isamu Noguchi's Autobiography</p>
+      {/* <p>
         - (coming out of hibernation) Designing{" "}
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
-      </p>
+      </p> */}
       <p>
         - Open to <a href="/collab">invitations & collborations</a> for
         teaching, crafting, and scheming.
