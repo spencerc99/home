@@ -31,13 +31,13 @@ export const creationSchema = z.object({
   materials: z.string().optional(),
   movieUrl: z.string().optional(),
   movieEmbed: z.string().optional(),
-  ongoing: z.boolean(),
-  forthcoming: z.boolean(),
-  featured: z.boolean(),
-  featuredArt: z.boolean(),
-  featuredWork: z.boolean(),
-  useImageForPreview: z.boolean().optional(),
-  isEvent: z.boolean().optional(),
+  ongoing: z.boolean().default(false),
+  forthcoming: z.boolean().default(false),
+  featured: z.boolean().default(false),
+  featuredArt: z.boolean().default(false),
+  featuredWork: z.boolean().default(false),
+  useImageForPreview: z.boolean().default(false),
+  isEvent: z.boolean().default(false),
 });
 
 const creation = defineCollection({

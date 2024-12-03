@@ -44,7 +44,12 @@ async function importCreations() {
   const gridId =
     "grid-sync-1054-Table-dynamic-91a21264ba5189ae869bfd39fc74c2deec9488c8ffe5267f43ef07b20fdef4e8";
   const resp = await fetch(
-    `https://opencoda.spencerc99.workers.dev/${docId}/${gridId}`
+    `https://opencoda.spencerc99.workers.dev/${docId}/${gridId}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   const data: CodaItem[] = await resp.json();
   // put them into content/creation as single json files using the title as the name
