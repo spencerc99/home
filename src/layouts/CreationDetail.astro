@@ -66,10 +66,13 @@ const mediaTransformed = media.map((item) => {
 					<i >{subtext}</i>
 					{materials && <i class="meta" >Materials: {materials}</i>}
 				</div>
-				{descriptionParsed && <p set:html={descriptionParsed}></p>}
-				<slot />
+				<div class="main">
+					{descriptionParsed && <p set:html={descriptionParsed}></p>}
+					<slot />
+				</div>
 			</div>
 			<div>
+				<!-- TODO: put this at top of content if single column view -->
 			{shouldIframe ? <div class="iframeWrapper">
 				<iframe src={link}></iframe>
 				<div>window into <a href={link}>{link}</a></div>
