@@ -32,6 +32,7 @@ export function stringToColor(
 export function CreationSummary({
   creation: {
     title,
+    subtext,
     descriptionMd,
     date,
     heroImage,
@@ -110,6 +111,11 @@ export function CreationSummary({
             creationAura: !movieUrl && !heroImage,
           })}
         >
+          {subtext && (
+            <div className="subtextOverlay">
+              <p>{subtext}</p>
+            </div>
+          )}
           {!useImageForPreview && movieUrl ? (
             <LazyContainer
               style={{

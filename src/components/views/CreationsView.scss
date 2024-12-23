@@ -64,6 +64,32 @@
     opacity: 0.2;
   }
 
+  .subtextOverlay {
+    position: absolute;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+    text-shadow: none;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    padding: 0.5em;
+    mix-blend-mode: hard-light;
+  }
+
+  .subtextOverlay p {
+    color: var(--color-text-color);
+    text-align: center;
+    margin: 0;
+  }
+
+  .previewWrapper:hover .subtextOverlay {
+    opacity: 1;
+    display: flex;
+  }
+
   .previewWrapper {
     display: inline;
     position: relative;

@@ -9,7 +9,7 @@ export function CreationDetailImages({
   images: string[];
   descriptions: string[];
 }) {
-  return (
+  return images.length > 1 ? (
     <div className="images">
       {/* TODO: turn into lightbox carousel with photoswipe */}
       <MasonryLayout columnsCount={2} gutter="1em">
@@ -26,5 +26,5 @@ export function CreationDetailImages({
         ))}
       </MasonryLayout>
     </div>
-  );
+  ) : null;
 }
