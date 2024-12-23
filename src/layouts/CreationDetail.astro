@@ -1,103 +1,182 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-import { marked } from 'marked';
-import {CreationDetailImages} from '../components/CreationDetailImages';
-import {ImageZoom} from '../components/ImageZoom';
-import {withQueryParams} from '../utils/url';
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import { marked } from "marked";
+import { CreationDetailImages } from "../components/CreationDetailImages";
+import { ImageZoom } from "../components/ImageZoom";
+import { withQueryParams } from "../utils/url";
 
-import './CreationDetail.scss'
-import BaseLayout from './BaseLayout.astro';
+import "./CreationDetail.scss";
+import BaseLayout from "./BaseLayout.astro";
 
-type Props = CollectionEntry<'collection'>['data'];
+type Props = CollectionEntry<"collection">["data"];
 
-const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, movieEmbed,materials, imageDescriptions} = Astro.props;
-const descriptionParsed = descriptionMd ? marked.parse(
-  // Convert any single \n that isn't preceded by two spaces into \n\n
-  descriptionMd.replace(/(?<!  )\n/g, '\n\n'),
-  {
-    breaks: true,
-    gfm: true
-  }
-) : '';
+const {
+  title,
+  descriptionMd,
+  date,
+  subtext,
+  heroImage,
+  media,
+  link,
+  shouldIframe,
+  movieUrl,
+  movieEmbed,
+  materials,
+  imageDescriptions,
+} = Astro.props;
+const descriptionParsed = descriptionMd
+  ? marked.parse(
+      // Convert any single \n that isn't preceded by two spaces into \n\n
+      descriptionMd.replace(/(?<!  )\n/g, "\n\n"),
+      {
+        breaks: true,
+        gfm: true,
+      }
+    )
+  : "";
 
-const transformedMovieUrl = movieUrl ? withQueryParams(
-              movieUrl.replace(
-                "https://codahosted.io",
-                "https://codaio.imgix.net"
-              ),
-              {
-                auto: "format,compress",
-                fit: "max",
-                w: "1200",
-                h: "650",
-              }
-            ) : movieUrl;
-const transformedHeroImage = heroImage ? withQueryParams(
-              heroImage.replace(
-                "https://codahosted.io",
-                "https://codaio.imgix.net"
-              ),
-              {
-                auto: "format,compress",
-                fit: "max",
-                w: "1200",
-                h: "650",
-              }
-            ) : heroImage;
+const transformedMovieUrl = movieUrl
+  ? withQueryParams(
+      movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      {
+        auto: "format,compress",
+        fit: "max",
+        w: "1200",
+        h: "650",
+      }
+    )
+  : movieUrl;
+const transformedHeroImage = heroImage
+  ? withQueryParams(
+      heroImage.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      {
+        auto: "format,compress",
+        fit: "max",
+        w: "1200",
+        h: "650",
+      }
+    )
+  : heroImage;
 const mediaTransformed = media.map((item) => {
-  return withQueryParams(item.replace(
-		"https://codahosted.io",
-		"https://codaio.imgix.net"
-	  ),
-	  {
-		auto: "format,compress",
-		fit: "max",
-		w: "1000",
-	  });
+  return withQueryParams(
+    item.replace("https://codahosted.io", "https://codaio.imgix.net"),
+    {
+      auto: "format,compress",
+      fit: "max",
+      w: "1000",
+    }
+  );
 });
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
-	<main class="creationDetail">
-		<article>
-			<div class="content">
-			<div class="prose">
-				<div class="header">
-					{date ? <div class="date">
-						<FormattedDate date={date} />
-					</div> : null}
-					<h2>
-					{link ? <a href={link}>{title}</a> : title}
-					</h2>
-					<i >{subtext}</i>
-					{materials && <i class="meta" >Materials: {materials}</i>}
-				</div>
-				<div class="main">
-					{descriptionParsed && <p set:html={descriptionParsed}></p>}
-					<slot />
-				</div>
-			</div>
-			<div>
-			<!-- TODO: put this at top of content if single column view -->
-			{shouldIframe ? <div class="iframeWrapper">
-				<iframe src={link}></iframe>
-				<div>window into <a href={link}>{link}</a></div>
-			</div> :movieEmbed ? <iframe class="movieEmbed" src={movieEmbed}/>  : <div class="hero-image">
-				{movieUrl ? <video controls autoplay loop>
-					<source src={transformedMovieUrl} type="video/webm" />
-				</video>  : <>
-					<ImageZoom client:only="react" src={transformedHeroImage} />
-					{imageDescriptions?.[0] && <span class="descriptionText">{imageDescriptions[0]}</span>}
-				</>
-				}
-			</div>}
-			<CreationDetailImages images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)} descriptions={imageDescriptions ? imageDescriptions.slice(movieUrl ? 0 : 1) : []} client:only="react"></CreationDetailImages>
-			<div >
-			</div>
-			</div>
-			</div>
-		</article>
-	</main>
-	<script src="https://player.vimeo.com/api/player.js"></script>
+  <main class="creationDetail">
+    <article>
+      <div class="content">
+        <div class="prose">
+          <div class="header">
+            {
+              date ? (
+                <div class="date">
+                  <FormattedDate date={date} />
+                </div>
+              ) : null
+            }
+            <h2>
+              {link ? <a href={link}>{title}</a> : title}
+            </h2>
+            <i>{subtext}</i>
+            {materials && <i class="meta">Materials: {materials}</i>}
+          </div>
+          <div class="main">
+            <div class="hero-container-mobile">
+              {
+                shouldIframe ? (
+                  <div class="iframeWrapper">
+                    <iframe src={link} />
+                    <div>
+                      window into <a href={link}>{link}</a>
+                    </div>
+                  </div>
+                ) : movieEmbed ? (
+                  <iframe class="movieEmbed" src={movieEmbed} />
+                ) : (
+                  <div class="hero-image">
+                    {movieUrl ? (
+                      <video controls autoplay loop>
+                        <source src={transformedMovieUrl} type="video/webm" />
+                      </video>
+                    ) : (
+                      <>
+                        <ImageZoom
+                          client:only="react"
+                          src={transformedHeroImage}
+                        />
+                        {imageDescriptions?.[0] && (
+                          <span class="descriptionText">
+                            {imageDescriptions[0]}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )
+              }
+            </div>
+            {
+              descriptionParsed && (
+                <p class="main-description" set:html={descriptionParsed} />
+              )
+            }
+            <slot />
+          </div>
+        </div>
+        <div>
+          <div class="hero-container-desktop">
+            {
+              shouldIframe ? (
+                <div class="iframeWrapper">
+                  <iframe src={link} />
+                  <div>
+                    window into <a href={link}>{link}</a>
+                  </div>
+                </div>
+              ) : movieEmbed ? (
+                <iframe class="movieEmbed" src={movieEmbed} />
+              ) : (
+                <div class="hero-image">
+                  {movieUrl ? (
+                    <video controls autoplay loop>
+                      <source src={transformedMovieUrl} type="video/webm" />
+                    </video>
+                  ) : (
+                    <>
+                      <ImageZoom
+                        client:only="react"
+                        src={transformedHeroImage}
+                      />
+                      {imageDescriptions?.[0] && (
+                        <span class="descriptionText">
+                          {imageDescriptions[0]}
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
+              )
+            }
+          </div>
+          <CreationDetailImages
+            images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)}
+            descriptions={imageDescriptions
+              ? imageDescriptions.slice(movieUrl ? 0 : 1)
+              : []}
+            client:only="react"
+          />
+        </div>
+      </div>
+    </article>
+  </main>
+  <script src="https://player.vimeo.com/api/player.js"></script>
 </BaseLayout>

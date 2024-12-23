@@ -16,7 +16,6 @@ main {
 
   @include media(xsmallScreen, smallScreen) {
     margin-top: 3em;
-    padding: 0 1em;
 
     .prose {
       p:nth-child(2) {
@@ -112,5 +111,19 @@ video {
       // width: 100%;
       border-radius: 0.25em;
     }
+  }
+}
+
+.hero-container-mobile {
+  display: none;
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    display: block;
+  }
+}
+
+.hero-container-desktop {
+  display: none;
+  @include media(largeScreen, xlargeScreen) {
+    display: block;
   }
 }
