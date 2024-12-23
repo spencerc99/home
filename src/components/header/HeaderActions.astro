@@ -2,42 +2,43 @@
 import HeaderAction, { type HeaderActionType } from "./HeaderAction.astro";
 
 const Actions: HeaderActionType[] = [
-    // {href: "/posts", name: "writing" , icon: "📝"},
-    // {href: "/books", name: "books" , icon: "📚"},
-    {href: "/creation", name: "index" , icon: "🪄"},
-    {href: "/collab" , icon: "🌻"},
-    // {href: "/colophon", name: "creations" , icon: "🪄"},
-    // {href: "/feed", name: "feed" , icon: "📜"},
-    // {href: "/workbench", name: "workbench" , icon: "🔩"},
-    {href: "/fits", icon: "🧢"},
-    {href: "/about", icon: "🙇"},
-    // {href: "/window", icon: "🪟"},
-]
+  // {href: "/posts", name: "writing" , icon: "📝"},
+  // {href: "/books", name: "books" , icon: "📚"},
+  { href: "/about", name: "about", showName: true, icon: "🟠" },
+  { href: "/creation", icon: "🪄", name: "creations" },
+  { href: "/collab", icon: "🌻", name: "collaborations" },
+  // {href: "/colophon", name: "creations" , icon: "🪄"},
+  //   {href: "/feed", name: "feed" , icon: "📜"},
+  // {href: "/workbench", name: "workbench" , icon: "🔩"},
+  { href: "/fits", icon: "🧢", name: "fits" },
+
+  // {href: "/window", icon: "🪟"},
+];
 ---
 
 <div class="navbarActions">
-    {Actions.map((action) => (
-        <HeaderAction {...action} />
-    ))}
-    
-    <div class="divider"></div>
-    <button id="darkModeToggle" class="link"><b></b></button>
+  {Actions.map((action) => <HeaderAction {...action} />)}
+
+  <div class="divider"></div>
+  <button id="darkModeToggle" class="link"><b></b></button>
 </div>
 
-
 <script is:inline>
-    function setDarkMode(state) {
-        document.documentElement.classList.toggle("dark-mode", state);
-        document.querySelector("#darkModeToggle").children[0].innerHTML = state ? "☀️" : "🌑";
-    }
+  function setDarkMode(state) {
+    document.documentElement.classList.toggle("dark-mode", state);
+    document.querySelector("#darkModeToggle").children[0].innerHTML = state
+      ? "☀️"
+      : "🌑";
+  }
 
-    function toggleDarkMode() {
-        setDarkMode(!document.documentElement.classList.contains("dark-mode"));
-    }
-    
-    document.querySelector("#darkModeToggle").addEventListener("click", toggleDarkMode);
-    const useDark = window.matchMedia("(prefers-color-scheme: dark)");
-    useDark.addListener((evt) => setDarkMode(evt.matches));
-    setDarkMode(useDark.matches);
+  function toggleDarkMode() {
+    setDarkMode(!document.documentElement.classList.contains("dark-mode"));
+  }
 
+  document
+    .querySelector("#darkModeToggle")
+    .addEventListener("click", toggleDarkMode);
+  const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+  useDark.addListener((evt) => setDarkMode(evt.matches));
+  setDarkMode(useDark.matches);
 </script>

@@ -1,14 +1,12 @@
 ---
-import HeaderActions from '../header/HeaderActions.astro';
+import HeaderActions from "../header/HeaderActions.astro";
 ---
+
 <!-- src: https://blog.christopherianmurphy.com/2017/05/expand-collapse-navbar/ -->
 <nav id="navbar">
   <div class="navbarContainer">
-    <a href="/" class="avatarLink"
-        >
-          <img class="avatar small" src="/assets/companion-in-a-box-final.png" alt="a cartoonish rendering of spencer chang"
-      /> spencer chang</a>
-      <HeaderActions/>
+    <a href="/" class="avatarLink">spencer chang</a>
+    <HeaderActions />
   </div>
 
   <script is:inline>
@@ -28,7 +26,7 @@ import HeaderActions from '../header/HeaderActions.astro';
     }
 
     // returns current scroll position
-    var scrollTop = function() {
+    var scrollTop = function () {
       return window.scrollY;
     };
 
@@ -36,7 +34,7 @@ import HeaderActions from '../header/HeaderActions.astro';
     var scrollState = 0;
 
     // Primary scroll event function
-    var scrollDetect = function(down, up) {
+    var scrollDetect = function (down, up) {
       // Current scroll position
       var currentScroll = scrollTop();
       if (currentScroll > scrollState && currentScroll > navbarHeight / 3) {
@@ -47,7 +45,7 @@ import HeaderActions from '../header/HeaderActions.astro';
       // Set previous scroll position
       scrollState = scrollTop();
     };
-    window.addEventListener("scroll", function() {
+    window.addEventListener("scroll", function () {
       scrollDetect(downAction, upAction);
     });
   </script>
