@@ -1,4 +1,4 @@
-@import "../styles/global.scss";
+@import "../styles/mixins.scss";
 
 main {
   width: 100%;
@@ -20,6 +20,13 @@ main {
     .prose {
       p:nth-child(2) {
         margin-top: 0;
+      }
+      // Seems to be an extra paragrph
+      p:last-child {
+        margin-top: 0;
+      }
+      p:nth-last-child(-n + 2) {
+        margin-bottom: 0;
       }
     }
 

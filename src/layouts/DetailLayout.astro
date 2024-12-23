@@ -1,23 +1,30 @@
 ---
-import Marquee from '../components/Marquee.astro';
-import PersonalEmoji from '../components/PersonalEmoji.astro';
-import BaseLayout, { type BaseLayoutProps } from './BaseLayout.astro';
+import Marquee from "../components/Marquee.astro";
+import PersonalEmoji from "../components/PersonalEmoji.astro";
+import BaseLayout, { type BaseLayoutProps } from "./BaseLayout.astro";
 
 interface Props extends BaseLayoutProps {
-    title?: string;
-    emojis?: string[];
-    titleClass?: string;
-    metaTitle?: string;
+  title?: string;
+  emojis?: string[];
+  titleClass?: string;
+  metaTitle?: string;
+  columns?: number;
 }
 
-const {title, emojis, titleClass, metaTitle} = Astro.props;
+const { title, emojis, titleClass, metaTitle, columns = 2 } = Astro.props;
 ---
 
-<BaseLayout includeMarquee={true} {...{...Astro.props, title: metaTitle || title}} >
-<div class="headerContainer textContent">
-  <h1 class={titleClass}>{title} <PersonalEmoji hideWee={true} inline={true} emojis={emojis}/></h1>
-</div>
-<div class="two-columns">
-  <slot/>
-</div>
+<BaseLayout
+  includeMarquee={true}
+  {...{ ...Astro.props, title: metaTitle || title }}
+>
+  <div class="headerContainer textContent">
+    <h1 class={titleClass}>
+      {title}
+      <PersonalEmoji hideWee={true} inline={true} emojis={emojis} />
+    </h1>
+  </div>
+  <div class={`${columns === 2 ? "two-columns" : "one-column"}`}>
+    <slot />
+  </div>
 </BaseLayout>

@@ -1,32 +1,41 @@
 ---
-import { getCollection } from 'astro:content';
-import {CreationsView} from "../../components/views/CreationsView";
-import DetailLayout from '../../layouts/DetailLayout.astro';
+import { getCollection } from "astro:content";
+import { CreationsView } from "../../components/views/CreationsView";
+import DetailLayout from "../../layouts/DetailLayout.astro";
 
-const creations = (await getCollection('creation')).sort(
-	(a, b) =>   a.data.forthcoming === b.data.forthcoming ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime() : a.data.forthcoming ? -1 : 1
-  
+const creations = (await getCollection("creation")).sort((a, b) =>
+  a.data.forthcoming === b.data.forthcoming
+    ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+    : a.data.forthcoming
+      ? -1
+      : 1
 );
 const LayoutProps = {
-    // title: "(creations)",
-    description: "all my creations...",
-    date: "2024-04-11",
-    // image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
-    emojis: [],
-    titleClass: 'uniform'
-}
+  // title: "(creations)",
+  description: "all my creations...",
+  date: "2024-04-11",
+  // image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",
+  emojis: [],
+  titleClass: "uniform",
+};
 ---
-<DetailLayout {...LayoutProps}>
-    <!-- TODO: fix extra space on top on the right side in detaillayout-->
-    <div class="listDescription textContent">
-          <div class="headerContainer textContent">
-              <h1 class='uniform'>(creations)</h1>
-          </div>
-        <em>everything I've given life to.</em>
-        
-        <p>I like to create software that is beautiful, poetic, playful, and empowering. These are some of the things I’ve created and tinkered on towards that end. I want software creation to feel more like home-cooking. I want to taste software, to pass ingredients and side dishes as we pair, to make lil apps with our hodgepodge of leftovers… I’m hoping my work will forward a world that looks like that.</p>
 
-
+<DetailLayout {...LayoutProps} columns={1}>
+  <!-- TODO: fix extra space on top on the right side in detaillayout-->
+  <div class="listDescription textContent">
+    <div class="headerContainer textContent">
+      <h1 class="uniform">(creations)</h1>
     </div>
-        <CreationsView creations={creations} client:only="react"/>
+    <em>everything I've given life to.</em>
+
+    <p>
+      I like to create software that is beautiful, poetic, playful, and
+      empowering. These are some of the things I’ve created and tinkered on
+      towards that end. I want software creation to feel more like home-cooking.
+      I want to taste software, to pass ingredients and side dishes as we pair,
+      to make lil apps with our hodgepodge of leftovers… I’m hoping my work will
+      forward a world that looks like that.
+    </p>
+  </div>
+  <CreationsView creations={creations} columns={1} client:only="react" />
 </DetailLayout>

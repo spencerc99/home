@@ -1,0 +1,99 @@
+@import "./variables.scss";
+
+.mono {
+  font-family: $site-font-mono !important;
+}
+.sans-serif {
+  font-family: $site-font;
+}
+
+.serif {
+  font-family: $site-font-serif;
+}
+
+// source: https://gist.github.com/gokulkrishh/242e68d1ee94ad05f488
+// This used to be `320px` but makes no sense that smaller than 320px reverts so changing to 0.
+$screenXsmallMin: 0px;
+$screenSmallMin: 481px;
+$screenMediumMin: 768px;
+$screenLargeMin: 1025px;
+$screenXlargeMin: 1281px;
+
+$full-width-image-shrink-threshold: $screenLargeMin - 1;
+
+$screenMinWidths: (
+  xsmallScreen: $screenXsmallMin,
+  smallScreen: $screenSmallMin,
+  mediumScreen: $screenMediumMin,
+  largeScreen: $screenLargeMin,
+  xlargeScreen: $screenXlargeMin,
+);
+
+$screenMaxWidths: (
+  xsmallScreen: $screenSmallMin - 1,
+  smallScreen: $screenMediumMin - 1,
+  mediumScreen: $screenLargeMin - 1,
+  largeScreen: $screenXlargeMin - 1,
+  xlargeScreen: 1000000px,
+);
+
+// sources
+// https://stackoverflow.com/questions/9829612/save-media-query-in-variable
+// https://stackoverflow.com/questions/55882215/how-can-i-use-multiple-include-in-scss
+//  mixin to print out media queries (based on map keys passed)
+@mixin media($keys...) {
+  @each $key in $keys {
+    @media only screen and (min-width: map-get($screenMinWidths, $key)) and (max-width: map-get($screenMaxWidths, $key)) {
+      @content;
+    }
+  }
+}
+
+@mixin biggerThanViewport($extraPadding: 0) {
+  @media only screen and (min-width: ($viewport-width + $extraPadding)) {
+    @content;
+  }
+}
+
+@mixin image-dropshadow() {
+  box-shadow: 0 0px 15px 2px rgba(0, 0, 0, 0.2),
+    0 0px 36px -18px rgba(0, 0, 0, 0.22);
+}
+
+@mixin extend-width() {
+  // Old code for making it span the entire screen
+  // source: https://gomakethings.com/how-to-break-an-image-out-of-its-parent-container-with-css/
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  position: relative;
+  width: 100vw;
+  min-width: calc(min(#{$viewport-width}, 100vw));
+  // width: 800px;
+}
+
+@mixin meta-content() {
+  color: var(--color-text-accent);
+  @extend .sans-serif;
+  font-size: 90%;
+}
+
+@mixin collapsed-post-summary-container() {
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+
+  .postSummaryImageContainer {
+    margin-left: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+  }
+
+  .postSummaryHeader {
+    width: 100%;
+  }
+}

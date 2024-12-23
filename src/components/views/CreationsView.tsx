@@ -2,6 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import React, { useEffect, useMemo, useState } from "react";
 import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
 
 export enum ViewType {
@@ -13,6 +14,24 @@ export enum ViewType {
 export enum DescriptionType {
   Selected = "selected",
 }
+
+const TwoColumnsColumnCountBreakPoints = {
+  350: 1,
+  600: 2,
+  900: 3,
+  1024: 1,
+  1250: 2,
+  1500: 3,
+  1900: 4,
+  2400: 5,
+};
+const OneColumnColumnCountBreakPoints = {
+  350: 1,
+  600: 2,
+  900: 3,
+  1024: 4,
+  1250: 5,
+};
 
 function getDescriptionForDescriptionType(descriptionType?: DescriptionType) {
   switch (descriptionType) {
@@ -35,9 +54,11 @@ interface Props {
     }
   >;
   description?: DescriptionType;
+  // Accounts for if it is in display with something else
+  columns: 1 | 2;
 }
 
-export function CreationsView({ creations, description }: Props) {
+export function CreationsView({ creations, description, columns }: Props) {
   const [view, setView] = useState(ViewType.GRID);
   const [category, setCategory] = useState("all");
   const allCategories = new Set(
@@ -50,6 +71,12 @@ export function CreationsView({ creations, description }: Props) {
   const nonEventCreations = creations.filter(
     (creation) => !creation.data.isEvent || !creation.data.forthcoming
   );
+
+  const columnsCountBreakPoints = useMemo(() => {
+    return columns === 1
+      ? OneColumnColumnCountBreakPoints
+      : TwoColumnsColumnCountBreakPoints;
+  }, [columns]);
 
   return (
     <div className="creationsView">
@@ -103,18 +130,7 @@ export function CreationsView({ creations, description }: Props) {
         </div>
       )}
       <div className="creationsMasonry">
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{
-            350: 1,
-            600: 2,
-            900: 3,
-            1024: 1,
-            1250: 2,
-            1500: 3,
-            1900: 4,
-            2400: 5,
-          }}
-        >
+        <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
           <Masonry gutter="2em">
             {nonEventCreations.map((creation) => (
               <CreationSummary
