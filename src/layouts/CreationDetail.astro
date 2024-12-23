@@ -12,7 +12,14 @@ import BaseLayout from './BaseLayout.astro';
 type Props = CollectionEntry<'collection'>['data'];
 
 const { title, descriptionMd, date, subtext, heroImage, media, link, shouldIframe, movieUrl, movieEmbed,materials, imageDescriptions} = Astro.props;
-const descriptionParsed = descriptionMd ? marked.parse(descriptionMd?.replaceAll('\n', '\n\n'), {breaks: true, gfm: true}) : '';
+const descriptionParsed = descriptionMd ? marked.parse(
+  // Convert any single \n that isn't preceded by two spaces into \n\n
+  descriptionMd.replace(/(?<!  )\n/g, '\n\n'),
+  {
+    breaks: true,
+    gfm: true
+  }
+) : '';
 
 const transformedMovieUrl = movieUrl ? withQueryParams(
               movieUrl.replace(

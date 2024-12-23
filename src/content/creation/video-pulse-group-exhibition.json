@@ -1,0 +1,22 @@
+{
+  "title": "Video Pulse: Group Exhibition",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Website",
+    "Art"
+  ],
+  "date": "2024-11-13T08:00:00.000Z",
+  "heroImage": "https://grayarea.org/wp-content/uploads/2024/11/Screenshot-2024-11-14-225724.png",
+  "media": [
+    "https://grayarea.org/wp-content/uploads/2024/11/Screenshot-2024-11-14-225724.png"
+  ],
+  "link": "https://grayarea.org/event/video-pulse/",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "featuredArt": false,
+  "featuredWork": false,
+  "useImageForPreview": false,
+  "imageDescriptions": [],
+  "isEvent": true
+}

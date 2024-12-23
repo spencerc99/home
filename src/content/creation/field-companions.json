@@ -1,8 +1,11 @@
 {
   "title": "Field Companions",
   "subtext": "everyday objects modified to hold memory and share their perspective of our environments",
-  "descriptionMd": "*released exclusively with* *[Metalabel](https://www.metalabel.com/)* *as part of their* *[2024 F/W Collection](https://www.metalabel.com/fw2024)*\nField Companions are a collection of interactive sculptures that imbue everyday materials with the agency to share their stories. Found stones become chosen representatives of local biomes and specific intersections, emphasizing what researcher Jane Bennett describes as “agential assemblages” of human and nonhuman materialities equally making space. What worlds can we create when collaborating across living forms and once-living materials?  \n  \nEach artifact has had a piece of it carved away and replaced with an orange soul. Touching your phone to it initiates a 1-min audio memory from the moment and location it was found. Every Companion is sourced, carved, molded, and finished by hand and completely unique, featuring a distinct sculptural form and digital soundscape, which can only be accessed by interacting with its physical body.  \n  \nBy adopting a Field Companion, you accept the responsibility to steward the moment they carry.  \n  \nThis first release features 25 stones 5 locations: Beacon in New York, Ocean Beach, SF Botanical Garden, Golden Gate Park, and San Francisco's streets.  \n  \nField Companions, 2024  \nLimited First Edition of 25  \nfound stones, dyed polyurethane, electronic chips, audio file, location metadata, website  \nDimensions: fits in the palm of your hand, exact sizes vary  \nWebsite: [shrine.computer/companions](https://shrine.computer/companions)",
-  "categories": ["Art", "Object"],
+  "descriptionMd": "*released exclusively with* *[Metalabel](https://www.metalabel.com/)* *as part of their* *[2024 F/W Collection](https://www.metalabel.com/fw2024)*\nField Companions are a collection of interactive sculptures that imbue everyday materials with the agency to share their stories. Found stones become chosen representatives of local biomes and specific intersections, emphasizing what researcher Jane Bennett describes as “agential assemblages” of human and nonhuman materialities equally making space. What worlds can we create when collaborating across living forms and once-living materials?\nEach artifact has had a piece of it carved away and replaced with an orange soul. Touching your phone to it initiates a 1-min audio memory from the moment and location it was found. Every Companion is sourced, carved, molded, and finished by hand and completely unique, featuring a distinct sculptural form and digital soundscape, which can only be accessed by interacting with its physical body.\nBy adopting a Field Companion, you accept the responsibility to steward the moment they carry.\nThis first release features 25 stones 5 locations: Beacon in New York, Ocean Beach, SF Botanical Garden, Golden Gate Park, and San Francisco's streets.\nField Companions, 2024  \nLimited First Edition of 25  \nfound stones, dyed polyurethane, electronic chips, audio file, location metadata, website  \nDimensions: fits in the palm of your hand, exact sizes vary  \nWebsite: [shrine.computer/companions](https://shrine.computer/companions)",
+  "categories": [
+    "Art",
+    "Object"
+  ],
   "date": "2024-11-27T08:00:00.000Z",
   "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Zm_tTCxMul/a9cf3d8c43c64d0d5afc7a4427d9ce8599e7b2e964d92a937729fc8ab225a3a9d26eacf5b6f57451d0bd8360e3231e55052a501dd3bc06ed75f4aa37e80dbca189a1c6fecbc3baed5c4dfd346812a9e33227a8904c2b917f25c4c19ba6772ab7919d1f09",
   "media": [
@@ -18,7 +21,6 @@
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-kbn_sbctzf/8f392717b8b9feadbfe2c5c5d089454893a8a021d22e9e4d3b2673beb5d5ed3ff4e81e7e47cfe46bcacc47588b0338361df405c409d0665c306d9d3de193f0882978aa29b642690428b77c18a71dfd61697a5b55c3143d47fe52d4042830f9a503821754",
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-S2KaHfQJab/91ea47c23391459f2549e45347dfa414112f5b22529c790de68400f4cfd7e3d1df48f65cff8e0027346cdf21ea3dcaad93051be6fb75ea5b33aa73c0de88e64c2fbb61460ca225e073976ebaaed6f0a73ef08e59f78cd7ef8260fdb9c62a23539778c0f1"
   ],
-  "movieEmbed": "https://player.vimeo.com/video/1035786832?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479",
   "link": "https://sc.metalabel.com/field-companions",
   "materials": "found stones, dyed polyurethane, electronic chips, audio file, location metadata, website",
   "ongoing": false,
@@ -26,14 +28,14 @@
   "featured": true,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false,
+  "useImageForPreview": true,
   "imageDescriptions": [
     "",
     "",
     "the different websites for each location",
     "a sample rock found in the garden ",
-    "",
-    "",
+    "a found rock carved out in the middle",
+    "a found rock filled in with its \"soul\"",
     "",
     "",
     "",

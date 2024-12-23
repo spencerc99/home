@@ -1885,7 +1885,7 @@ button {
 
   @extend .mono;
   @include media(xsmallScreen, smallScreen) {
-    font-size: 90%;
+    font-size: 0.6em;
   }
 }
 
@@ -1893,10 +1893,6 @@ button {
   display: inline-block;
   will-change: transform;
   animation: marquee 22s linear infinite;
-
-  @include media(xsmallScreen, smallScreen) {
-    font-size: 90% !important;
-  }
 
   .date {
     &:hover {

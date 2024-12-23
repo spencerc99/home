@@ -3,7 +3,11 @@
   "subtext": "a dedication to the human infrastructure that makes up the Internet and the infrastructure used to make this installation",
   "descriptionMd": "Anywhere you go on the internet, you find comments left by someone, somewhere in the world. So much of the internet—its content—is created by us. The internet is the internet because of our labor.\nAcknowledgeNET is an internet art installation dedicated to us, the creators of the Internet. An ever-growing list of our contributions to the Internet masquerades as an artist label for the Internet as an art object to juxtapose the human faces that make up the Internet with the huge platforms that are commonly attributed as its creators. Meanwhile, a computer operates the piece's open-source comment archival infrastructure in a live performance.  Extending Mierle Laderman Ukeles’ “maintenance art,” the installation highlights the often-overlooked human infrastructure behind the internet while exposing the infrastructure used to create itself.\nIntimate memories mingle with the spark of love stories while frustrated complaints dance with absurdist reviews and crude jokes, all the while voices from bloggers and artists cascade alongside video game music and ASMR unboxing sounds, capturing a blurry self-portrait of the Internet and the people that make it what it is. The computer's live performance features a livestream of its desktop as it pulls up link after link of comments, reviews, and posts across the web. On each post, it selects each part of the comment to archive that streams down the open code terminal on the right side.\nVisitors are invited to offer their phone to the installation in order to not only submit new acknowledgments for archival but also run the work’s infrastructure themselves. Transforming encounters into collaborations, AcknowledgeNET becomes the seed of a community network devoted to our Internet presence, connection, and labor.\nAcknowledgeNET was shown at [Gray Area in July](https://grayarea.org/event/gray-area-artist-showcase-summer-2024/) and presented at [the Internet Archive](http://tiat.place/) in November.",
   "parentCategory": "Project",
-  "categories": ["Art", "Installation", "Website"],
+  "categories": [
+    "Art",
+    "Installation",
+    "Website"
+  ],
   "date": "2024-07-11T07:00:00.000Z",
   "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-_nuypn6MBn/dfe6afd738ab26cf4f46bff4fd7ee6904fac0f9008bab9baf0ec9c1e6e75d206cabb8f01cb801c36b9a0616a82312fae7cf3bc009bf31042e9fd14639be049f619a22f41043fa9b3b9443abf2de13adece49bdc5013dd716c8b2652a3d9e3f0ba0e620d4",
   "media": [
@@ -27,6 +31,17 @@
   "featuredArt": true,
   "featuredWork": false,
   "useImageForPreview": false,
-  "imageDescriptions": ["", "", "", "", "", "", "", "", "", ""],
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
   "isEvent": false
 }
