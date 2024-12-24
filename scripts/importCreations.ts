@@ -27,8 +27,8 @@ export interface CodaItem {
   forthcoming: boolean;
   ongoing: boolean;
   featured: boolean;
-  useImageForPreview: boolean;
   isEvent: boolean;
+  assetPreviewIdx?: number;
 }
 
 export function escapeTitleForFilename(title: string): string {
@@ -138,7 +138,7 @@ async function importCreations() {
       featured: item.featured,
       featuredArt: item.featuredArt,
       featuredWork: item["Work Highlight"],
-      useImageForPreview: item.useImageForPreview,
+      assetPreviewIdx: item.assetPreviewIdx,
       imageDescriptions: item.imageDescriptions || [],
       isEvent: item.isEvent,
     };

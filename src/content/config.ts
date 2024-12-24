@@ -36,7 +36,7 @@ export const creationSchema = z.object({
   featured: z.boolean().default(false),
   featuredArt: z.boolean().default(false),
   featuredWork: z.boolean().default(false),
-  useImageForPreview: z.boolean().default(false),
+  assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
 });
 
