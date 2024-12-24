@@ -80,12 +80,6 @@ export function ImageZoom({
   // Use forceType if provided, otherwise use detected mediaType
   const finalMediaType = forceType || mediaType;
 
-  if (!finalMediaType) {
-    // Optional: Show loading state or fallback
-    // TODO: show loading state
-    return <div>Loading...</div>;
-  }
-
   return finalMediaType === "video" ? (
     <video
       src={src}
