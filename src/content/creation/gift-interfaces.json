@@ -1,6 +1,6 @@
 {
   "title": "Gift Interfaces",
-  "subtext": "co-teaching a class at SFPC",
+  "subtext": "class on the architecture of gift-giving in product design at SFPC",
   "descriptionMd": "A class for the [School for Poetic Computation](https://sfpc.study/) on the architecture of gift-giving to incorporate as inspiration into product design (as opposed to the tradition of infinite scale) and how we can create more interfaces, infrastructure, and cycles of giving to foster interdependence.\nco-taught with [Elan Ullendorff](https://elan.place/)",
   "parentCategory": "Speaking & Workshops",
   "categories": [
@@ -14,7 +14,7 @@
   ],
   "link": "https://sfpc.study/sessions/winter-25/gift-interfaces",
   "ongoing": false,
-  "forthcoming": true,
+  "forthcoming": false,
   "featured": true,
   "featuredArt": false,
   "featuredWork": false,
