@@ -18,10 +18,9 @@
   "link": "https://www.eventbrite.com/e/reboot-community-day-ft-kernel-4-launch-tickets-843445467097?aff=oddtdtcreator",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false,
   "imageDescriptions": [
     "",
     "",

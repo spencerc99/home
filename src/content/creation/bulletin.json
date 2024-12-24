@@ -18,10 +18,9 @@
   "link": "http://bulletin.spencerchang.me/",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "featuredArt": false,
   "featuredWork": true,
-  "useImageForPreview": true,
   "imageDescriptions": [
     ""
   ],

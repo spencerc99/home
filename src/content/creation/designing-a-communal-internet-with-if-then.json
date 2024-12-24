@@ -1,5 +1,6 @@
 {
   "title": "Designing a Communal Internet with If-then",
+  "parentCategory": "Speaking & Workshops",
   "categories": [],
   "date": "2024-09-27T07:00:00.000Z",
   "heroImage": "https://freight.cargo.site/i/628451a1aef8d52cd37451214c17948f26788f744e34560ccb43588369002f75/2.png",
@@ -12,6 +13,6 @@
   "featured": false,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false,
-  "imageDescriptions": []
+  "imageDescriptions": [],
+  "isEvent": true
 }

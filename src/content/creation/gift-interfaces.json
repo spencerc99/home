@@ -8,9 +8,9 @@
     "Teaching"
   ],
   "date": "2024-12-23T08:00:00.000Z",
-  "heroImage": "https://sfpc.study/images/sessions/meta.jpg",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ZxtSYN8D7G/fdc045416ed6eb585495e6ec1fd98b39ed4290355783190b396b025d3f48a9d385862809b872ae3778f027429395cf9b5663db527277a59c8e530e6c028be44fc21484fea8beea15506a553dee36df1fe0044512ac4ff0265aef346520d0eff117445d37",
   "media": [
-    "https://sfpc.study/images/sessions/meta.jpg"
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ZxtSYN8D7G/fdc045416ed6eb585495e6ec1fd98b39ed4290355783190b396b025d3f48a9d385862809b872ae3778f027429395cf9b5663db527277a59c8e530e6c028be44fc21484fea8beea15506a553dee36df1fe0044512ac4ff0265aef346520d0eff117445d37"
   ],
   "link": "https://sfpc.study/sessions/winter-25/gift-interfaces",
   "ongoing": false,
@@ -18,7 +18,8 @@
   "featured": true,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false,
-  "imageDescriptions": [],
+  "imageDescriptions": [
+    ""
+  ],
   "isEvent": true
 }

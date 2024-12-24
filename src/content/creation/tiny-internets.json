@@ -1,6 +1,7 @@
 {
   "title": "tiny internets",
   "subtext": "an inquiry into how we create more human, natural, and homey spaces to shape, live in, and form bonds in.",
+  "descriptionMd": "[http://spencer.place/fits](http://spencer.place/fits)",
   "parentCategory": "Project",
   "categories": [
     "Website",
@@ -17,7 +18,6 @@
   "featured": true,
   "featuredArt": false,
   "featuredWork": false,
-  "useImageForPreview": false,
   "imageDescriptions": [
     ""
   ],
