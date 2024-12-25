@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { LazyContainer } from "./LazyContainer";
 import { withQueryParams } from "../utils/url";
 import { stringToColor } from "./CreationSummary";
+import { ImageOrVideo } from "./ImageOrVideo";
 
 interface Props {
   event: CollectionEntry<"creation">["data"] & {
@@ -18,7 +19,8 @@ export function EventSummary({
     date,
     heroImage,
     movieUrl,
-    useImageForPreview,
+    assetPreviewIdx,
+    media,
     link,
     forthcoming,
   },
@@ -31,32 +33,17 @@ export function EventSummary({
     }),
   };
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
-  const transformedHeroImage = useMemo(() => {
-    if (!heroImage) {
-      return heroImage;
-    }
+  const transformedHeroAsset = useMemo(() => {
+    const heroAsset = media[assetPreviewIdx];
     return withQueryParams(
-      heroImage.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
       {
         auto: "format,compress",
         fit: "max",
         w: "450",
       }
     );
-  }, [heroImage]);
-  const transformedMovieUrl = useMemo(() => {
-    if (!movieUrl) {
-      return movieUrl;
-    }
-    return withQueryParams(
-      movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "450",
-      }
-    );
-  }, [movieUrl]);
+  }, [media, assetPreviewIdx]);
 
   const cover = (
     <div
@@ -66,30 +53,13 @@ export function EventSummary({
         creationAura: !movieUrl && !heroImage,
       })}
     >
-      {!useImageForPreview && movieUrl ? (
-        <LazyContainer
-          style={{
-            borderRadius: "inherit",
-          }}
-        >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className={classNames({
-              loading: !hasLoadedMedia,
-            })}
-            onLoadedData={() => {
-              setHasLoadedMedia(true);
-            }}
-          >
-            <source src={transformedMovieUrl} />
-          </video>
-        </LazyContainer>
-      ) : heroImage ? (
-        <img
-          data-src={transformedHeroImage}
+      <LazyContainer
+        style={{
+          borderRadius: "inherit",
+        }}
+      >
+        <ImageOrVideo
+          data-src={transformedHeroAsset}
           className={classNames("lazyload registryImage", {
             loading: !hasLoadedMedia,
           })}
@@ -97,8 +67,17 @@ export function EventSummary({
           onLoad={() => {
             setHasLoadedMedia(true);
           }}
+          // video props
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          onLoadedData={() => {
+            setHasLoadedMedia(true);
+          }}
         />
-      ) : null}
+      </LazyContainer>
     </div>
   );
   const linkedCover = externalLink ? (

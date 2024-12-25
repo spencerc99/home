@@ -4,6 +4,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
 import { withQueryParams } from "../utils/url";
+import { ImageOrVideo } from "./ImageOrVideo";
 
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
@@ -42,6 +43,8 @@ export function CreationSummary({
     useImageForPreview,
     link,
     forthcoming,
+    media,
+    assetPreviewIdx,
   },
   view,
   isFiltered,
@@ -55,19 +58,8 @@ export function CreationSummary({
     }),
   };
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
-  const transformedHeroImage = useMemo(() => {
-    if (!heroImage) {
-      return heroImage;
-    }
-    return withQueryParams(
-      heroImage.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "450",
-      }
-    );
-  }, [heroImage]);
+
+  // TODO:remove
   const transformedMovieUrl = useMemo(() => {
     if (!movieUrl) {
       return movieUrl;
@@ -81,6 +73,21 @@ export function CreationSummary({
       }
     );
   }, [movieUrl]);
+
+  const transformedHeroAsset = useMemo(() => {
+    if (assetPreviewIdx !== 0) {
+      console.log(assetPreviewIdx, media);
+    }
+    const heroAsset = media[assetPreviewIdx];
+    return withQueryParams(
+      heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
+      {
+        auto: "format,compress",
+        fit: "max",
+        w: "450",
+      }
+    );
+  }, [media, assetPreviewIdx]);
 
   switch (view) {
     // case ViewType.FREE:
@@ -139,16 +146,31 @@ export function CreationSummary({
               </video>
             </LazyContainer>
           ) : heroImage ? (
-            <img
-              data-src={transformedHeroImage}
-              className={classNames("lazyload registryImage", {
-                loading: !hasLoadedMedia,
-              })}
-              loading="lazy"
-              onLoad={() => {
-                setHasLoadedMedia(true);
+            <LazyContainer
+              style={{
+                borderRadius: "inherit",
               }}
-            />
+            >
+              <ImageOrVideo
+                data-src={transformedHeroAsset}
+                className={classNames("lazyload registryImage", {
+                  loading: !hasLoadedMedia,
+                })}
+                loading="lazy"
+                onLoad={() => {
+                  setHasLoadedMedia(true);
+                }}
+                // video props
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls={false}
+                onLoadedData={() => {
+                  setHasLoadedMedia(true);
+                }}
+              />
+            </LazyContainer>
           ) : null}
         </div>
       );

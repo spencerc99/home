@@ -8,6 +8,7 @@ import { withQueryParams } from "../utils/url";
 
 import "./CreationDetail.scss";
 import BaseLayout from "./BaseLayout.astro";
+import { ImageOrVideo } from "../components/ImageOrVideo";
 
 type Props = CollectionEntry<"collection">["data"];
 
@@ -109,7 +110,7 @@ const mediaTransformed = media.map((item) => {
                       </video>
                     ) : (
                       <>
-                        <ImageZoom
+                        <ImageOrVideo
                           client:only="react"
                           src={transformedHeroImage}
                         />
@@ -152,7 +153,7 @@ const mediaTransformed = media.map((item) => {
                     </video>
                   ) : (
                     <>
-                      <ImageZoom
+                      <ImageOrVideo
                         client:only="react"
                         src={transformedHeroImage}
                       />

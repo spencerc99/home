@@ -23,8 +23,6 @@ export function Vignette() {
       );
   }, []);
 
-  console.log(lastVignette);
-
   return (
     <>
       <div

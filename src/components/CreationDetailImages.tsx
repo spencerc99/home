@@ -1,6 +1,6 @@
 import React from "react";
 import { MasonryLayout } from "./MasonryLayout";
-import { ImageZoom } from "./ImageZoom";
+import { ImageOrVideo } from "./ImageOrVideo";
 
 export function CreationDetailImages({
   images,
@@ -18,7 +18,7 @@ export function CreationDetailImages({
             key={imgUrl}
             style={{ display: "flex", flexDirection: "column", gap: "0.2em" }}
           >
-            <ImageZoom className="medium" src={imgUrl} key={imgUrl} />
+            <ImageOrVideo className="medium" src={imgUrl} key={imgUrl} />
             {Boolean(descriptions?.[idx]) && (
               <span className="descriptionText">{descriptions[idx]}</span>
             )}
