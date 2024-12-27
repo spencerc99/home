@@ -2252,8 +2252,9 @@ img {
 #trinkets {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2em;
+  gap: 3em;
   margin: 0 auto;
+  margin-top: 1em;
   width: 100%;
 
   & > * {

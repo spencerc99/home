@@ -67,7 +67,7 @@
   .subtextOverlay {
     position: absolute;
     z-index: 10;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
     text-shadow: none;
     top: 0;
     width: 100%;
@@ -125,7 +125,7 @@
       var(--aura-color-transparent) 100%
     );
 
-    transition: opacity 0.1s linear;
+    transition: opacity 0.15s linear;
     object-fit: cover;
     // TODO: this mkaes videos transparent on chrome lol
     // border-radius: inherit;
@@ -157,7 +157,7 @@
     &:hover {
       img,
       video {
-        opacity: 0.7;
+        opacity: 0.6;
       }
     }
   }

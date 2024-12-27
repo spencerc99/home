@@ -169,6 +169,7 @@ export function CreationSummary({
                 onLoadedData={() => {
                   setHasLoadedMedia(true);
                 }}
+                withZoom={false}
               />
             </LazyContainer>
           ) : null}
