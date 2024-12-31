@@ -36,7 +36,6 @@ export function CreationSummary({
     subtext,
     descriptionMd,
     date,
-    heroImage,
     ongoing,
     id,
     movieUrl,
@@ -75,10 +74,10 @@ export function CreationSummary({
   }, [movieUrl]);
 
   const transformedHeroAsset = useMemo(() => {
-    if (assetPreviewIdx !== 0) {
-      console.log(assetPreviewIdx, media);
-    }
     const heroAsset = media[assetPreviewIdx];
+    if (!heroAsset) {
+      return heroAsset;
+    }
     return withQueryParams(
       heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
       {
@@ -115,7 +114,7 @@ export function CreationSummary({
           style={style}
           className={classNames("previewWrapper", {
             forthcoming,
-            creationAura: !movieUrl && !heroImage,
+            creationAura: !movieUrl && !transformedHeroAsset,
           })}
         >
           {subtext && (
@@ -145,7 +144,7 @@ export function CreationSummary({
                 <source src={transformedMovieUrl} type="video/webm" />
               </video>
             </LazyContainer>
-          ) : heroImage ? (
+          ) : transformedHeroAsset ? (
             <LazyContainer
               style={{
                 borderRadius: "inherit",

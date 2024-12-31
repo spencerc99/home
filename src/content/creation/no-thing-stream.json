@@ -12,10 +12,12 @@
   ],
   "link": "https://www.instagram.com/p/DBgp4nzMa3k/",
   "ongoing": false,
-  "forthcoming": true,
+  "forthcoming": false,
   "featured": false,
   "featuredArt": false,
   "featuredWork": false,
-  "imageDescriptions": [],
+  "imageDescriptions": [
+    ""
+  ],
   "isEvent": true
 }

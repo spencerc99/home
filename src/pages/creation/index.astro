@@ -10,6 +10,7 @@ const creations = (await getCollection("creation")).sort((a, b) =>
       ? -1
       : 1
 );
+console.log(creations);
 const LayoutProps = {
   // title: "(creations)",
   description: "all my creations...",

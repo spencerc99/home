@@ -17,7 +17,6 @@ export function EventSummary({
     title,
     subtext,
     date,
-    heroImage,
     movieUrl,
     assetPreviewIdx,
     media,
@@ -35,6 +34,9 @@ export function EventSummary({
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
   const transformedHeroAsset = useMemo(() => {
     const heroAsset = media[assetPreviewIdx];
+    if (!heroAsset) {
+      return null;
+    }
     return withQueryParams(
       heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
       {
@@ -50,7 +52,7 @@ export function EventSummary({
       style={style}
       className={classNames("previewWrapper", {
         forthcoming,
-        creationAura: !movieUrl && !heroImage,
+        creationAura: !movieUrl && !transformedHeroAsset,
       })}
     >
       <LazyContainer
