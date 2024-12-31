@@ -1,15 +1,13 @@
 {
   "title": "Gray Area Artist Showcase",
+  "subtext": "group show at Gray Area",
   "parentCategory": "Exhibition",
   "categories": [
     "Art",
     "Installation"
   ],
   "date": "2024-07-11T07:00:00.000Z",
-  "heroImage": "https://grayarea.org/wp-content/uploads/2024/06/2024-01-0613-11-50-ezgif.com-optimize.gif",
-  "media": [
-    "https://grayarea.org/wp-content/uploads/2024/06/2024-01-0613-11-50-ezgif.com-optimize.gif"
-  ],
+  "media": [],
   "link": "https://grayarea.org/event/gray-area-artist-showcase-summer-2024/",
   "ongoing": false,
   "forthcoming": false,

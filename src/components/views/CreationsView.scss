@@ -32,9 +32,15 @@
   }
 }
 
-.creationAura {
+.creationAuraContainer {
   height: 100%;
   width: 50%;
+}
+
+.creationAura {
+  height: 100%;
+  // TODO: this must match the numbers below
+  min-width: 130px;
   aspect-ratio: 1;
   background: radial-gradient(
     circle,
@@ -44,6 +50,7 @@
   );
   border-radius: 50% !important;
   box-shadow: 0 0 32px 16px var(--aura-color-transparent);
+  display: block !important;
 }
 
 .creationSummary {
@@ -77,6 +84,8 @@
     display: none;
     padding: 0.5em;
     mix-blend-mode: hard-light;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .subtextOverlay p {

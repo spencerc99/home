@@ -61,7 +61,7 @@ export function CreationSummary({
   // TODO:remove
   const transformedMovieUrl = useMemo(() => {
     if (!movieUrl) {
-      return movieUrl;
+      return null;
     }
     return withQueryParams(
       movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
@@ -76,7 +76,8 @@ export function CreationSummary({
   const transformedHeroAsset = useMemo(() => {
     const heroAsset = media[assetPreviewIdx];
     if (!heroAsset) {
-      return heroAsset;
+      console.log(title, "no hero asset");
+      return null;
     }
     return withQueryParams(
       heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
@@ -111,7 +112,6 @@ export function CreationSummary({
     case ViewType.GRID:
       const cover = (
         <div
-          style={style}
           className={classNames("previewWrapper", {
             forthcoming,
             creationAura: !movieUrl && !transformedHeroAsset,
@@ -195,11 +195,18 @@ export function CreationSummary({
       return (
         <div
           id={id}
+          style={style}
           className={classNames("creationSummary", "nomove", {
             filtered: isFiltered,
           })}
         >
+          {/* <div
+            className={classNames({
+              creationAura: !movieUrl && !transformedHeroAsset,
+            })}
+          > */}
           {linkedCover}
+          {/* </div> */}
           <div className="creationSummaryTitle">
             <span>{title}</span>
           </div>

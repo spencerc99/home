@@ -2,22 +2,15 @@
   "title": "NO-THING Stream",
   "subtext": "a 24-hour stream on the theme of nothingness",
   "parentCategory": "Exhibition",
-  "categories": [
-    "Art"
-  ],
+  "categories": ["Art"],
   "date": "2024-12-29T08:00:00.000Z",
-  "heroImage": "https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/464265734_3763147053998349_92930878848147646_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=102&ccb=1-7&_nc_sid=18de74&_nc_ohc=u7OXJW_VxNsQ7kNvgHOrVea&_nc_zt=23&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_gid=Au-f5WVFfkD-r5TlP_O6dnG&oh=00_AYD4DqOYEkjOIE_XIw9Cm4PjKzxzLisKFdbvMBmlYTk1ww&oe=67713630",
-  "media": [
-    "https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/464265734_3763147053998349_92930878848147646_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=102&ccb=1-7&_nc_sid=18de74&_nc_ohc=u7OXJW_VxNsQ7kNvgHOrVea&_nc_zt=23&_nc_ht=scontent-sea1-1.cdninstagram.com&_nc_gid=Au-f5WVFfkD-r5TlP_O6dnG&oh=00_AYD4DqOYEkjOIE_XIw9Cm4PjKzxzLisKFdbvMBmlYTk1ww&oe=67713630"
-  ],
+  "media": [],
   "link": "https://www.instagram.com/p/DBgp4nzMa3k/",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,
   "featuredArt": false,
   "featuredWork": false,
-  "imageDescriptions": [
-    ""
-  ],
+  "imageDescriptions": [],
   "isEvent": true
 }
