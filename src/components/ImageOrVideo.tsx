@@ -17,6 +17,7 @@ export function ImageOrVideo({
 }: MediaZoomProps) {
   const [mediaType, setMediaType] = useState<"image" | "video" | null>(null);
 
+  const [hadError, setHadError] = useState(false);
   const src = initSrc || props["data-src"];
 
   useEffect(() => {
@@ -47,6 +48,8 @@ export function ImageOrVideo({
         }
       })
       .catch((error) => {
+        props.onLoad?.();
+        setHadError(true);
         console.error("Error detecting media type:", error);
       });
   }, [src, forceType]);
