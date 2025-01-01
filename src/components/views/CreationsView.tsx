@@ -175,6 +175,20 @@ export function CreationsView({ creations, description, columns }: Props) {
     }
   }, [selectedIndex, view]);
 
+  const filteredCreations = useMemo(() => {
+    return sortedNonEventCreations.filter(
+      (creation) =>
+        category === "all" || creation.data.parentCategory === category
+    );
+  }, [sortedNonEventCreations, category]);
+  const normalizedSelectedIndex = useMemo(() => {
+    return selectedIndex === -1
+      ? -1
+      : filteredCreations.findIndex(
+          (c) => c.id === sortedNonEventCreations[selectedIndex].id
+        );
+  }, [filteredCreations, sortedNonEventCreations, selectedIndex]);
+
   function renderCreations() {
     switch (view) {
       case ViewType.LIST:
@@ -188,8 +202,10 @@ export function CreationsView({ creations, description, columns }: Props) {
           >
             <div className="listViewHeader">
               <div>
-                {selectedIndex > -1 ? selectedIndex + 1 : "?"}/
-                {creations.length}
+                {normalizedSelectedIndex > -1
+                  ? normalizedSelectedIndex + 1
+                  : "?"}
+                /{filteredCreations.length}
               </div>
               <div>What</div>
               <div
