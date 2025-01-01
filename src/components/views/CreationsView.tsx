@@ -187,7 +187,10 @@ export function CreationsView({ creations, description, columns }: Props) {
             tabIndex={0}
           >
             <div className="listViewHeader">
-              <div></div>
+              <div>
+                {selectedIndex > -1 ? selectedIndex + 1 : "?"}/
+                {creations.length}
+              </div>
               <div>What</div>
               <div
                 onClick={() =>
