@@ -5,6 +5,7 @@ import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
 import { withQueryParams } from "../utils/url";
 import { ImageOrVideo } from "./ImageOrVideo";
+import dayjs from "dayjs";
 
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
@@ -12,6 +13,7 @@ interface Props {
   };
   view: ViewType;
   isFiltered?: boolean;
+  isSelected?: boolean;
 }
 
 export function stringToColor(
@@ -31,11 +33,17 @@ export function stringToColor(
 }
 
 export function CreationSummary({
-  creation: {
+  creation,
+  view,
+  isFiltered,
+  isSelected,
+}: Props) {
+  const {
     title,
     subtext,
     descriptionMd,
     date,
+    endDate,
     ongoing,
     id,
     movieUrl,
@@ -44,10 +52,9 @@ export function CreationSummary({
     forthcoming,
     media,
     assetPreviewIdx,
-  },
-  view,
-  isFiltered,
-}: Props) {
+    parentCategory,
+    categories,
+  } = creation;
   const internalLink = `/creation/${id}`;
   const externalLink = link;
   const style = {
@@ -57,6 +64,8 @@ export function CreationSummary({
     }),
   };
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
+
+  const shouldLinkInternal = Boolean(descriptionMd);
 
   // TODO:remove
   const transformedMovieUrl = useMemo(() => {
@@ -76,7 +85,6 @@ export function CreationSummary({
   const transformedHeroAsset = useMemo(() => {
     const heroAsset = media[assetPreviewIdx];
     if (!heroAsset) {
-      console.log(title, "no hero asset");
       return null;
     }
     return withQueryParams(
@@ -109,6 +117,71 @@ export function CreationSummary({
     //     </div>
     //   );
     case ViewType.LIST:
+      return (
+        <div
+          className={classNames("listViewRow", {
+            selected: isSelected,
+            filtered: isFiltered,
+          })}
+          style={style}
+        >
+          <div
+            className={classNames("thumbnail", {
+              creationAura: !movieUrl && !transformedHeroAsset,
+            })}
+          >
+            {transformedHeroAsset && (
+              <LazyContainer>
+                <ImageOrVideo
+                  data-src={transformedHeroAsset}
+                  className={classNames("lazyload thumbnailImage", {
+                    loading: !hasLoadedMedia,
+                  })}
+                  loading="lazy"
+                  onLoad={() => setHasLoadedMedia(true)}
+                  style={{
+                    aspectRatio: "1",
+                    objectFit: "cover",
+                    pointerEvents: "none",
+                  }}
+                  controls={false}
+                  withZoom={false}
+                />
+              </LazyContainer>
+            )}
+          </div>
+          <div className="title">
+            {shouldLinkInternal || externalLink ? (
+              <a
+                href={shouldLinkInternal ? internalLink : externalLink}
+                className={classNames({ external: !shouldLinkInternal })}
+              >
+                {title}
+              </a>
+            ) : (
+              title
+            )}
+          </div>
+          <div className="date">
+            {date
+              ? dayjs(date).format("MMM YYYY")
+              : forthcoming
+              ? "in progress..."
+              : ""}
+            {endDate
+              ? `-${dayjs(endDate).format("MMM YYYY")}`
+              : ongoing
+              ? "-now"
+              : ""}
+          </div>
+          <div className="subtext">{subtext}</div>
+          <div className="kind">
+            <b>{parentCategory}</b>
+            {categories.filter((c) => c !== parentCategory).length > 0 &&
+              `: ${categories.filter((c) => c !== parentCategory).join(", ")}`}
+          </div>
+        </div>
+      );
     case ViewType.GRID:
       const cover = (
         <div
@@ -174,7 +247,6 @@ export function CreationSummary({
           ) : null}
         </div>
       );
-      const shouldLinkInternal = Boolean(descriptionMd);
       const linkedCover =
         shouldLinkInternal || externalLink ? (
           <a

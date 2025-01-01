@@ -24,6 +24,7 @@ export const creationSchema = z.object({
   parentCategory: z.string().optional(),
   categories: z.array(z.string()),
   date: z.coerce.date().nullable(),
+  endDate: z.coerce.date().nullable().optional(),
   heroImage: z.string().optional(),
   media: z.array(z.string()).optional(),
   imageDescriptions: z.array(z.string()).optional(),

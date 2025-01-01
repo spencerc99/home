@@ -12,6 +12,7 @@ export interface CodaItem {
   descriptionMd: string;
   link: string;
   date: string;
+  endDate: string;
   specificCategory: string[];
   parentCategory: string;
   "Work Highlight": boolean;
@@ -127,6 +128,7 @@ async function importCreations() {
       parentCategory: item.parentCategory,
       categories: item.specificCategory || [],
       date,
+      endDate: item.endDate ? new Date(item.endDate) : null,
       heroImage,
       media,
       movieUrl: item.movieUrl,

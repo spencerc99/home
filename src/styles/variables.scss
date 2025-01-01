@@ -59,3 +59,94 @@ $site-font-mono: "Sono", "Cousine";
 
 $color-accent-background: rgb(249, 255, 76);
 $color-accent-background-dark: rgb(234, 234, 111);
+
+:root {
+  color-scheme: light dark;
+  background: $color-site-background;
+  color: #{$color-text-color};
+
+  --color-neutral-background: white;
+  --color-accent-background: #{$color-accent-background};
+  --color-text-highlight: #{$color-highlight};
+  --color-text-muted: #{$color-light-grey};
+  --border-color: #{$color-light-grey};
+  --color-background-lavender: #{$color-light-lavender};
+  --color-background-teal: #{$color-background-teal};
+  --color-text-accent: #{$color-blueberry};
+  --color-text-color: #{$color-text-color};
+  --telescope-text-color: #{$color-text-color};
+  --color-neutral-background-translucent: #{$color-site-background-translucent};
+  transition: color 0.2s ease-in-out;
+  --color-box-shadow: #{$color-box-shadow};
+  --color-glowing-highlight: #{$color-glowing-highlight};
+  --color-neutral-background-hover: rgba(0, 0, 0, 0.05);
+
+  // For email subscription widget
+  #custom-substack-embed .custom-substack-widget {
+    --csw-primary-color: #{$color-link};
+    --csw-input-color: white;
+    --csw-text-color: #{$color-text-color};
+    --csw-input-text-color: #{$color-text-color};
+  }
+
+  /* For telescopic text styling */
+
+  // #telescope .details {
+  //   background-color: $color-blueberry;
+  // }
+
+  // #telescope .details.close:hover {
+  //   background-color: $color-blueberry-lighter;
+  // }
+
+  .sans-serif &,
+  &.sans-serif {
+    font-family: $site-font;
+  }
+
+  .serif &,
+  &.serif {
+    font-family: $site-font-serif;
+  }
+
+  .mono &,
+  &.mono {
+    font-family: $site-font-mono;
+  }
+
+  &.dark-mode {
+    // This is the default chrome background color in dark mode.
+    // Need to explicitly set it to handle swapping to dark mode when the system setting is light mode.
+    background: $color-site-background-dark;
+    color: $color-text-color-white;
+    --telescope-text-color: #{$color-text-color-white};
+    --color-neutral-background: #{$color-quote-background-dark};
+    --color-accent-background: #{$color-accent-background-dark};
+    --color-text-highlight: #{$color-highlight-dark};
+    --color-background-lavender: #{$color-dark-lavender};
+    --color-background-teal: #{$color-background-teal-dark};
+    --color-text-accent: #{$color-text-accent-dark};
+    --color-text-color: #{$color-text-color-white};
+    --color-neutral-background-translucent: #{$color-site-background-dark-translucent};
+    --telescope-highlight: #{$color-telescopic-background-dark};
+    --telescope-highlight-hover: #{$color-telescopic-background-dark-hover};
+    --color-box-shadow: #{$color-box-shadow-dark};
+    --color-glowing-highlight: #{$color-glowing-highlight-dark};
+    --color-neutral-background-hover: rgba(255, 255, 255, 0.05);
+
+    // For email subscription widget
+    #custom-substack-embed .custom-substack-widget {
+      --csw-primary-color: #{$color-background-teal-dark} !important;
+      --csw-input-color: #{$color-quote-background-dark} !important;
+      --csw-text-color: #{$color-text-color-white} !important;
+      --csw-input-text-color: #{$color-text-color-white} !important;
+    }
+
+    #background#background {
+      background-color: $color-site-background-dark;
+    }
+    #navbar#navbar {
+      background-color: $color-site-background-dark;
+    }
+  }
+}

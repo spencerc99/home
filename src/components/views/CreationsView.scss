@@ -2,7 +2,7 @@
 .creationsMasonry {
   margin-top: 2em;
   margin-bottom: 2em;
-  margin-right: 3em;
+  // margin-right: 2em;
   @include media(xsmallScreen, smallScreen) {
     max-width: 100dvw;
     overflow-x: scroll;
@@ -24,11 +24,26 @@
   margin-bottom: 2em;
   position: relative;
   justify-content: space-around;
-  margin-right: 3em;
 
   @include media(xsmallScreen, smallScreen) {
     max-width: 100dvw;
     overflow-x: scroll;
+  }
+
+  &.listView {
+    &:focus {
+      outline: none; // Optional: remove default focus outline
+    }
+
+    display: block;
+    overflow-x: auto;
+    margin-top: 0;
+    border: 1px solid var(--border-color);
+
+    @include media(xsmallScreen, smallScreen) {
+      max-width: 100dvw;
+      margin-right: 0;
+    }
   }
 }
 
@@ -187,6 +202,9 @@
   gap: 1em;
 
   .actions {
+    select {
+      max-width: 120px;
+    }
     display: flex;
     gap: 1em;
     align-items: center;
@@ -202,4 +220,97 @@
   //     flex-basis: 33%;
   //   }
   // }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 2fr 2fr;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  > * {
+    padding: 0 0.3rem;
+  }
+}
+
+.listViewRow {
+  @extend .row;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  font-size: 0.8em;
+
+  &:hover,
+  &.selected {
+    background-color: var(--color-neutral-background-hover);
+  }
+
+  &.filtered {
+    opacity: 0.2;
+  }
+
+  .thumbnail {
+    width: 100%;
+    max-width: 80px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.creationAura {
+      min-width: 0px;
+      margin: 0 auto;
+      max-width: 80%;
+      border-radius: 50%;
+      box-shadow: 0 0 10px 4px var(--aura-color-transparent);
+    }
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-width: unset;
+      min-height: unset;
+      max-height: unset;
+      max-width: unset;
+    }
+  }
+
+  .title {
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .subtext {
+    color: var(--color-text-muted);
+  }
+}
+
+.listViewHeader {
+  @extend .row;
+  border-bottom: 2px solid var(--border-color);
+  @extend .mono;
+  color: var(--color-text-muted);
+  font-size: 0.75em;
+  text-transform: uppercase;
+
+  div {
+    &:nth-child(3) {
+      // When column
+      user-select: none;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
 }

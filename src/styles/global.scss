@@ -154,93 +154,6 @@
   animation-iteration-count: $iteration-count;
 }
 
-:root {
-  color-scheme: light dark;
-  background: $color-site-background;
-  color: #{$color-text-color};
-
-  --color-neutral-background: white;
-  --color-accent-background: #{$color-accent-background};
-  --color-text-highlight: #{$color-highlight};
-  --color-background-lavender: #{$color-light-lavender};
-  --color-background-teal: #{$color-background-teal};
-  --color-text-accent: #{$color-blueberry};
-  --color-text-color: #{$color-text-color};
-  --telescope-text-color: #{$color-text-color};
-  --color-neutral-background-translucent: #{$color-site-background-translucent};
-  transition: color 0.2s ease-in-out;
-  --color-box-shadow: #{$color-box-shadow};
-  --color-glowing-highlight: #{$color-glowing-highlight};
-
-  // For email subscription widget
-  #custom-substack-embed .custom-substack-widget {
-    --csw-primary-color: #{$color-link};
-    --csw-input-color: white;
-    --csw-text-color: #{$color-text-color};
-    --csw-input-text-color: #{$color-text-color};
-  }
-
-  /* For telescopic text styling */
-
-  // #telescope .details {
-  //   background-color: $color-blueberry;
-  // }
-
-  // #telescope .details.close:hover {
-  //   background-color: $color-blueberry-lighter;
-  // }
-
-  .sans-serif &,
-  &.sans-serif {
-    font-family: $site-font;
-  }
-
-  .serif &,
-  &.serif {
-    font-family: $site-font-serif;
-  }
-
-  .mono &,
-  &.mono {
-    font-family: $site-font-mono;
-  }
-
-  &.dark-mode {
-    // This is the default chrome background color in dark mode.
-    // Need to explicitly set it to handle swapping to dark mode when the system setting is light mode.
-    background: $color-site-background-dark;
-    color: $color-text-color-white;
-    --telescope-text-color: #{$color-text-color-white};
-    --color-neutral-background: #{$color-quote-background-dark};
-    --color-accent-background: #{$color-accent-background-dark};
-    --color-text-highlight: #{$color-highlight-dark};
-    --color-background-lavender: #{$color-dark-lavender};
-    --color-background-teal: #{$color-background-teal-dark};
-    --color-text-accent: #{$color-text-accent-dark};
-    --color-text-color: #{$color-text-color-white};
-    --color-neutral-background-translucent: #{$color-site-background-dark-translucent};
-    --telescope-highlight: #{$color-telescopic-background-dark};
-    --telescope-highlight-hover: #{$color-telescopic-background-dark-hover};
-    --color-box-shadow: #{$color-box-shadow-dark};
-    --color-glowing-highlight: #{$color-glowing-highlight-dark};
-
-    // For email subscription widget
-    #custom-substack-embed .custom-substack-widget {
-      --csw-primary-color: #{$color-background-teal-dark} !important;
-      --csw-input-color: #{$color-quote-background-dark} !important;
-      --csw-text-color: #{$color-text-color-white} !important;
-      --csw-input-text-color: #{$color-text-color-white} !important;
-    }
-
-    #background#background {
-      background-color: $color-site-background-dark;
-    }
-    #navbar#navbar {
-      background-color: $color-site-background-dark;
-    }
-  }
-}
-
 html {
   margin: 0;
 }
@@ -1342,7 +1255,7 @@ ul.noPadding {
 .galleryCaption {
   font-size: 90%;
   font-style: italic;
-  color: $color-light-grey;
+  color: var(--co);
   text-align: right;
 
   @include media(xsmallScreen) {
@@ -2099,7 +2012,7 @@ hr.separator {
 .descriptionText {
   margin-top: 4px;
   font-size: 0.8em;
-  color: $color-light-grey;
+  color: var(--color-text-muted);
   line-height: 1;
 }
 
@@ -2411,15 +2324,16 @@ ul {
 
 #construction {
   position: fixed;
-  right: -166px;
+  right: -130px;
   padding-top: 3em;
   text-align: center;
   width: 18em;
+  font-size: 0.8em;
   padding-right: 1em;
-  top: -66px;
+  top: -54px;
   transform: rotate(45deg);
   background: var(--color-background-lavender);
-  opacity: 0.7;
+  opacity: 0.4;
   z-index: 10;
   @include media(xsmallScreen, smallScreen) {
     display: none;
