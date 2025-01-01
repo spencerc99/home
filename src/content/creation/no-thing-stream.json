@@ -2,15 +2,17 @@
   "title": "NO-THING Stream",
   "subtext": "a 24-hour stream on the theme of nothingness",
   "parentCategory": "Exhibition",
-  "categories": ["Art"],
+  "categories": [
+    "Art"
+  ],
   "date": "2024-12-29T08:00:00.000Z",
   "media": [],
   "link": "https://www.instagram.com/p/DBgp4nzMa3k/",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,
-  "featuredArt": false,
-  "featuredWork": false,
-  "imageDescriptions": [],
+  "imageDescriptions": [
+    ""
+  ],
   "isEvent": true
 }

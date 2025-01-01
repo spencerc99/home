@@ -1,5 +1,6 @@
 {
   "title": "spencer’s paradoxes",
+  "subtext": "my regular newsletter breaking down projects & my feeling while making them",
   "descriptionMd": "*spencer’s paradoxes* is the name of my personal newsletter. I’ve written regularly on this blog since 2022. Some notable endeavors include a [100 mini-essay experiment](http://spencerchang.me/experiments/100posts) over the course of 2022 and a subsidiary newsletter for my regular research log, called *tiny internets*. \nMy writing acts as a public journal recording my ongoing questions, struggles, and joys. I also document my creative process and share my thinking about leading a creative life.",
   "parentCategory": "Writing",
   "categories": [
@@ -14,8 +15,6 @@
   "ongoing": true,
   "forthcoming": false,
   "featured": true,
-  "featuredArt": true,
-  "featuredWork": false,
   "imageDescriptions": [
     ""
   ],

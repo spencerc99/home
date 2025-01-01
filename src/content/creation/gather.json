@@ -4,9 +4,10 @@
   "descriptionMd": "Gather is a mobile app for collecting, sorting, and revisiting multimedia data. It works completely offline, stores all data locally, and optionally syncs to external data sources (Are.na) when there’s internet connection.\nGather provides the infrastructure for a new way of interacting with apps with user data ownership inherent to the experience and new interfaces for archiving, sorting, and revisiting the digital objects that are meaningful to you. Gather stores all user data locally and requires no internet connection to use, while allowing users to sync media to and from external data sources like are.na. Gather is an app posed as speculative fiction that points to a world where all the data we produce is fundamentally ours, and apps become tools that we form partnerships with instead of platforms that we are beholden to.",
   "parentCategory": "Project",
   "categories": [
-    "Software Tool"
+    "Software Tool",
+    "App"
   ],
-  "date": "2024-06-01T07:00:00.000Z",
+  "date": "2023-11-15T08:00:00.000Z",
   "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-i6iLqPBXV-/0a714634b25891170584552bea49eedf5828587e7fca3168e00b1fe3b9cb0ee49a5c44747eac74c552ac9407fcd3dec0207d824dfef08f4a7c85b1c569833c5a6b3a0885491a28f3d8d62294bb91dd1fd79acc4c4060efb38aee3cbe69b02cb3aa03ab39",
   "media": [
     "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-i6iLqPBXV-/0a714634b25891170584552bea49eedf5828587e7fca3168e00b1fe3b9cb0ee49a5c44747eac74c552ac9407fcd3dec0207d824dfef08f4a7c85b1c569833c5a6b3a0885491a28f3d8d62294bb91dd1fd79acc4c4060efb38aee3cbe69b02cb3aa03ab39",
@@ -18,8 +19,6 @@
   "ongoing": true,
   "forthcoming": false,
   "featured": true,
-  "featuredArt": false,
-  "featuredWork": true,
   "imageDescriptions": [
     "",
     "",

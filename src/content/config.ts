@@ -35,8 +35,6 @@ export const creationSchema = z.object({
   ongoing: z.boolean().default(false),
   forthcoming: z.boolean().default(false),
   featured: z.boolean().default(false),
-  featuredArt: z.boolean().default(false),
-  featuredWork: z.boolean().default(false),
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
 });

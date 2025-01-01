@@ -1,5 +1,6 @@
 {
   "title": "WWW gathering",
+  "subtext": "a gathering around HTML freewriting",
   "descriptionMd": "A gathering facilitated with HTML Energy for freewriting HTML in the park. \nThe gathering happened in the same few hours across 5 different locations around the world, including New York, London, Amsterdam, and Boston. I built a website that connected each location with a portal, which allowed location-specific participants to decorate their own location link and see a collective artifact at the end.\nThis took place with over 20 attendees in Alamo Square Park\n(photos & artifacts [https://www.are.na/bay-area-95sssqibasq/w-s-www-gathering](https://www.are.na/bay-area-95sssqibasq/w-s-www-gathering))",
   "parentCategory": "Gathering",
   "categories": [
@@ -17,8 +18,6 @@
   "ongoing": false,
   "forthcoming": false,
   "featured": true,
-  "featuredArt": true,
-  "featuredWork": false,
   "imageDescriptions": [
     "",
     ""

@@ -138,8 +138,6 @@ async function importCreations() {
       ongoing: item.ongoing,
       forthcoming: item.forthcoming || date > new Date(),
       featured: item.featured,
-      featuredArt: item.featuredArt,
-      featuredWork: item["Work Highlight"],
       assetPreviewIdx: item.assetPreviewIdx,
       imageDescriptions: item.imageDescriptions || [],
       isEvent: item.isEvent,
