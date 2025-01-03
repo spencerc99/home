@@ -62,58 +62,14 @@ export function FitsView({
         <div id="fitsContainer" className="gallery">
           {allFits.map((fit, index) => {
             const fitIndex = allFits.length - index;
-            const fitPermalink = `${fitsPagePermalink}#${fitIndex}`;
-            // <!-- NOTE: we replace the extension to jpeg since apple photos preview is always jpeg, not -->
-            // <!-- whatever the original extension was. -->
-            const previewImgSrc = fit.imgSrc.replace(
-              /\.([^\.]+)$/,
-              "_preview.jpeg"
-            );
-            //                         <Image width={fit.width} height={fit.height} className="lazyload photoCardPhoto galleryImage" src={previewImgSrc} itemprop="thumbnail"  alt={`image of Spencer dressed on ${fit.date}`}/>
-
             return (
-              <div
-                id={fitIndex.toString()}
-                className="photoCard"
-                style={{
-                  display: onlyFavorites && !fit.favorite ? "none" : "block",
-                }}
-              >
-                {fit.favorite && <i className="uis uis-star photoCardFave"></i>}
-                <div className="photoCardMeta">
-                  <span
-                    className="photoCardIdx"
-                    onClick={() => copyLink(fitPermalink)}
-                  >
-                    {fitIndex} <i className="uil uil-link-h"></i>
-                  </span>
-                  <span className="photoCardDate">
-                    {dayjs(fit.date).format("MM.DD.YYYY")}
-                  </span>
-                </div>
-
-                <figure
-                  itemscope
-                  itemtype="http://schema.org/ImageObject"
-                  className="image gallery-item"
-                >
-                  {/* <!-- TODO: calculate proper size based on item and store inside json, needed for animation --> */}
-                  {/* <!-- Manually setting a 1.5 aspect ratio here using width + height -->
-                        <!-- because modern browsers will make sure to reserve space to prevent reflow -->
-                        <!-- eventually should calculate it properly and set here and above -->
-                        <!-- source: https://www.youtube.com/watch?v=4-d_SoCHeWE -->
-                        <!-- and https://www.codecaptain.io/blog/web-development/responsive-images-and-preventing-page-reflow/474 --> */}
-                  <ImageZoom
-                    width={fit.width}
-                    height={fit.height}
-                    className="lazyload photoCardPhoto galleryImage"
-                    data-src={previewImgSrc}
-                    itemprop="thumbnail"
-                    alt={`image of Spencer dressed on ${fit.date}`}
-                  />
-                </figure>
-                <p>{fit.description}</p>
-              </div>
+              <FitCard
+                key={fitIndex}
+                fit={fit}
+                fitIndex={fitIndex}
+                fitsPagePermalink={fitsPagePermalink}
+                onlyFavorites={onlyFavorites}
+              />
             );
           })}
           <div className="scrollUp">
@@ -124,5 +80,64 @@ export function FitsView({
         </div>
       </div>
     </ZoomContextProvider>
+  );
+}
+
+interface FitCardProps {
+  fit: Fit;
+  fitIndex?: number;
+  fitsPagePermalink?: string;
+  onlyFavorites?: boolean;
+}
+
+export function FitCard({
+  fit,
+  fitIndex,
+  fitsPagePermalink,
+  onlyFavorites,
+}: FitCardProps) {
+  const fitPermalink = `${fitsPagePermalink}#${fitIndex}`;
+  const previewImgSrc = fit.imgSrc.replace(/\.([^\.]+)$/, "_preview.jpeg");
+
+  return (
+    <div
+      id={fitIndex ? fitIndex.toString() : undefined}
+      className="photoCard"
+      style={{
+        display: onlyFavorites && !fit.favorite ? "none" : "block",
+      }}
+    >
+      {fit.favorite && <i className="uis uis-star photoCardFave"></i>}
+      <div className="photoCardMeta">
+        <span
+          className="photoCardIdx"
+          onClick={() => {
+            if (!fitIndex || !fitsPagePermalink) return;
+            copyLink(fitPermalink);
+          }}
+        >
+          {fitIndex} <i className="uil uil-link-h"></i>
+        </span>
+        <span className="photoCardDate">
+          {dayjs(fit.date).format("MM.DD.YYYY")}
+        </span>
+      </div>
+
+      <figure
+        itemScope
+        itemType="http://schema.org/ImageObject"
+        className="image gallery-item"
+      >
+        <ImageZoom
+          width={fit.width}
+          height={fit.height}
+          className="lazyload photoCardPhoto galleryImage"
+          data-src={previewImgSrc}
+          itemProp="thumbnail"
+          alt={`image of Spencer dressed on ${fit.date}`}
+        />
+      </figure>
+      <p>{fit.description}</p>
+    </div>
   );
 }

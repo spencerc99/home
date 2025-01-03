@@ -1,0 +1,40 @@
+---
+import { Footnote } from "../components/Footnote";
+import fitsData from "../data/fits.json";
+import Status from "../components/Status.astro";
+import { FitCard, FitsView } from "../components/views/Fits";
+import DetailLayout from "../layouts/DetailLayout.astro";
+import "../styles/feed.scss";
+
+const LayoutProps = {
+  title: "(feed)",
+  description: "all my digital debris...",
+  date: "2024-12-28",
+  image: "/feed.png",
+  metaTitle: "𝚜𝚙𝚎𝚗𝚌𝚎𝚛's feed",
+  emojis: [],
+  titleClass: "uniform",
+};
+
+const sortedFits = fitsData.fits.sort((a, b) => b.timestamp - a.timestamp);
+const lastFit = sortedFits[0];
+---
+
+<DetailLayout {...LayoutProps} columns={1}>
+  <div class="listDescription textContent">
+    <p>all my digital debris</p>
+  </div>
+
+  <div class="gridContainer">
+    <!-- Marquee bulletin board -->
+    <Status />
+
+    <!-- events -->
+    <!-- are.na channels -->
+    <!-- fits -->
+    <div style="max-width: 400px;">
+      <h3><a href="/fits">Last Fit (1/{sortedFits.length})</a></h3>
+      <FitCard fit={lastFit} client:only="react" />
+    </div>
+  </div>
+</DetailLayout>
