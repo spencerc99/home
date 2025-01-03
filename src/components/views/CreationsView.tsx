@@ -217,7 +217,7 @@ export function CreationsView({ creations, description, columns }: Props) {
                 When{sortDirection === "asc" ? "↑" : "↓"}
               </div>
               <div>teaser</div>
-              <div>Kind</div>
+              <div className="kind">Kind</div>
             </div>
             {sortedNonEventCreations.map((creation, index) => (
               <div

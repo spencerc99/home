@@ -48,7 +48,11 @@ export function Vignette() {
             width="200"
             loading="lazy"
             src={lastVignette?.image?.display?.url}
-            style={{ width: "inherit", objectFit: "cover" }}
+            style={{
+              width: "inherit",
+              objectFit: "cover",
+              aspectRatio: "5/7",
+            }}
           />
           <div
             style={{
@@ -78,7 +82,7 @@ export function Vignette() {
               position: "absolute",
               fontFamily: "Orbitron",
               borderRadius: "4px",
-              bottom: "-20px",
+              bottom: "-12px",
               width: "110%",
               left: "-12px",
               zIndex: 2,

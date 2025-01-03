@@ -2333,7 +2333,7 @@ ul {
   top: -54px;
   transform: rotate(45deg);
   background: var(--color-background-lavender);
-  opacity: 0.4;
+  opacity: 0.6;
   z-index: 10;
   @include media(xsmallScreen, smallScreen) {
     display: none;

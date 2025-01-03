@@ -240,6 +240,10 @@
   overflow-wrap: anywhere;
   font-size: 0.8em;
 
+  @include media(xlargeScreen) {
+    font-size: 0.9em;
+  }
+
   &:hover,
   &.selected {
     background-color: var(--color-neutral-background-hover);
@@ -313,4 +317,9 @@
       }
     }
   }
+}
+
+.kind {
+  @extend .mono;
+  font-size: 0.75em;
 }
