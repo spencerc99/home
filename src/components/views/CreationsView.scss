@@ -35,6 +35,8 @@
       outline: none; // Optional: remove default focus outline
     }
 
+    background: var(--color-neutral-background);
+
     display: block;
     overflow-x: auto;
     margin-top: 0;
