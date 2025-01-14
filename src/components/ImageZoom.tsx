@@ -10,6 +10,10 @@ type MediaZoomProps = Omit<ComponentProps<"img">, "ref"> & {
 export function ImageZoom({ options, src, ...props }: MediaZoomProps) {
   const { attachZoom } = useZoom({ options });
 
+  if (!attachZoom) {
+    console.log("attachZoom", attachZoom);
+  }
+
   return (
     <img
       src={src}

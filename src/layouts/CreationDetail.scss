@@ -54,6 +54,16 @@ iframe.movieEmbed {
   width: 100%;
 }
 
+video,
+img {
+  @include image-dropshadow();
+
+  transition: opacity 0.15s linear;
+  &.loading {
+    animation: pulse-opacity 1.3s infinite ease-in-out;
+  }
+}
+
 .hero-image,
 iframe {
   width: 100%;
@@ -63,13 +73,12 @@ iframe {
 iframe,
 .hero-image img,
 video {
-  max-width: max-content;
+  // max-width: max-content;
   // max-width: calc(min(1200px, 40vw));
   // max-height: calc(min(800px, 50vh));
   max-height: calc(min(650px));
   display: block;
   border-radius: 0.5em;
-  box-shadow: var(--box-shadow);
   width: 100%;
   object-fit: cover;
 }

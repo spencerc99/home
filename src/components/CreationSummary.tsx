@@ -6,7 +6,7 @@ import { LazyContainer } from "./LazyContainer";
 import { withQueryParams } from "../utils/url";
 import { ImageOrVideo } from "./ImageOrVideo";
 import dayjs from "dayjs";
-
+import { stringToColor } from "../utils";
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
     id: string;
@@ -14,22 +14,6 @@ interface Props {
   view: ViewType;
   isFiltered?: boolean;
   isSelected?: boolean;
-}
-
-export function stringToColor(
-  str: string,
-  {
-    saturation = 100,
-    lightness = 50,
-    alpha = 1,
-  }: { saturation?: number; lightness?: number; alpha?: number } = {}
-) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    hash = hash & hash;
-  }
-  return `hsla(${hash % 360}, ${saturation}%, ${lightness}%, ${alpha})`;
 }
 
 export function CreationSummary({

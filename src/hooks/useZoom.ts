@@ -9,9 +9,13 @@ import { ZoomContext } from "../context/ZoomContext";
 export function useZoom({ options }: { options?: ZoomOptions }) {
   const { getZoom: getZoomInit } = useContext(ZoomContext);
 
-  const getZoom = () => {
-    return getZoomInit() || mediumZoom(options);
-  };
+  const getZoom = useCallback(() => {
+    const zoom = mediumZoom(options);
+    return zoom;
+    // const zoominit = getZoomInit();
+    // TODO: this is failing intermittently lol just forget it
+    // return zoominit || zoom;
+  }, [getZoomInit]);
 
   const attachZoom: RefCallback<HTMLImageElement | HTMLVideoElement> =
     useCallback(
@@ -36,7 +40,7 @@ export function useZoom({ options }: { options?: ZoomOptions }) {
     document.removeEventListener("keyup", handleKey, false);
   };
   const handleKey = (e) => {
-    console.log("handleKey", e);
+    // console.log("handleKey", e);
     const zoom = getZoom();
     const images = zoom.getImages();
     const currentImageIndex = images.indexOf(zoom.getZoomedImage());

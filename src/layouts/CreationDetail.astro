@@ -8,6 +8,7 @@ import { withQueryParams } from "../utils/url";
 import "./CreationDetail.scss";
 import BaseLayout from "./BaseLayout.astro";
 import { ImageOrVideo } from "../components/ImageOrVideo";
+import { stringToColor } from "../utils";
 
 type Props = CollectionEntry<"collection">["data"];
 
@@ -68,6 +69,13 @@ const mediaTransformed = media.map((item) => {
     }
   );
 });
+
+const style = {
+  "--aura-color": stringToColor(title),
+  "--aura-color-transparent": stringToColor(title, {
+    alpha: 0.3,
+  }),
+};
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
@@ -102,7 +110,7 @@ const mediaTransformed = media.map((item) => {
                 ) : movieEmbed ? (
                   <iframe class="movieEmbed" src={movieEmbed} />
                 ) : (
-                  <div class="hero-image">
+                  <div class="hero-image" style={style}>
                     {movieUrl ? (
                       <video controls autoplay loop>
                         <source src={transformedMovieUrl} type="video/webm" />
@@ -133,7 +141,7 @@ const mediaTransformed = media.map((item) => {
           </div>
         </div>
         <div>
-          <div class="hero-container-desktop">
+          <div class="hero-container-desktop" style={style}>
             {
               shouldIframe ? (
                 <div class="iframeWrapper">

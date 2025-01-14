@@ -20,7 +20,12 @@ export function CreationDetailImages({
               key={imgUrl}
               style={{ display: "flex", flexDirection: "column", gap: "0.2em" }}
             >
-              <ImageOrVideo className="medium" src={imgUrl} key={imgUrl} />
+              <ImageOrVideo
+                className="medium"
+                src={imgUrl}
+                key={imgUrl}
+                withZoom
+              />
               {Boolean(descriptions?.[idx]) && (
                 <span className="descriptionText">{descriptions[idx]}</span>
               )}

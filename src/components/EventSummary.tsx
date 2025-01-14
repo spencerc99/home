@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import { LazyContainer } from "./LazyContainer";
 import { withQueryParams } from "../utils/url";
-import { stringToColor } from "./CreationSummary";
+import { stringToColor } from "../utils";
 import { ImageOrVideo } from "./ImageOrVideo";
 
 interface Props {
