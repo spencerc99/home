@@ -21,7 +21,7 @@ export function CreationDetailImages({
               style={{ display: "flex", flexDirection: "column", gap: "0.2em" }}
             >
               <ImageOrVideo
-                className="medium"
+                className="medium-masonry"
                 src={imgUrl}
                 key={imgUrl}
                 withZoom

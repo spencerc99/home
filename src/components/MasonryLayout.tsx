@@ -16,12 +16,16 @@ export function MasonryLayout({
 }>) {
   return columnsCountBreakPoints ? (
     <ResponsiveMasonry columnsCountBreakPoints={{}}>
-      <Masonry gutter={gutter} columnsCount={columnsCount}>
+      <Masonry
+        gutter={gutter}
+        columnsCount={columnsCount}
+        className={className}
+      >
         {children}
       </Masonry>
     </ResponsiveMasonry>
   ) : (
-    <Masonry gutter={gutter} columnsCount={columnsCount}>
+    <Masonry gutter={gutter} columnsCount={columnsCount} className={className}>
       {children}
     </Masonry>
   );
