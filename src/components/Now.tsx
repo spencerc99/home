@@ -12,24 +12,27 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 12-03-24
+          Updated 01-29-25
         </span>
       </div>
-      <p>
-        - Embedded{" "}
-        <a href="https://sc.metalabel.com/field-companions">
-          everyday objects with memory
-        </a>
-      </p>
-      <p>
-        - Fighting the App Store to release{" "}
-        <a href="/creation/gather">Gather</a>, an app companion to your
-        curiosity.
-      </p>
       <p>
         - Creating <a href="/creation/computing-shrines">computing shrines</a>{" "}
         in my neighborhood
       </p>
+      <p>
+        - Released <a href="https://gather.directory/">Gather</a>, the
+        local-first app for archiving & curating multimedia collections and
+        client for Are.na, officially on the{" "}
+        <a href="https://apps.apple.com/us/app/gather-handheld-curiosity/id6468843059">
+          App Store
+        </a>{" "}
+        &{" "}
+        <a href="https://play.google.com/store/apps/details?id=net.tiny_inter.gather&hl=en_US">
+          Play Store
+        </a>
+        .
+      </p>
+      <p>Custom commissions for ████████ ███ ██████ (coming soon...)</p>
       <p>- Reading Isamu Noguchi's Autobiography</p>
       {/* <p>
         - (coming out of hibernation) Designing{" "}
@@ -37,7 +40,7 @@ export function NowBlock() {
         for tiny social networks
       </p> */}
       <p>
-        - Open to <a href="/collab">invitations & collborations</a> for
+        - Open to <a href="/collab">invitations & collaborations</a> for
         teaching, crafting, and scheming.
       </p>
     </div>
