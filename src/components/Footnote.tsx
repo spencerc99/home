@@ -7,6 +7,7 @@ import "./Footnote.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 import Markdown from "react-markdown";
+import { ImageZoom } from "./ImageZoom";
 
 // have a toggle somewhere that allows you to toggle all "annotations" on
 interface FootnoteProps {
@@ -109,7 +110,7 @@ export function Footnote({
             transition={{ duration: 0.3 }}
           >
             {hoverImg && (
-              <img
+              <ImageZoom
                 src={hoverImg}
                 alt={caption}
                 className="footnote-hover-image"
