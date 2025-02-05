@@ -1,90 +1,122 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import FormattedDate from '../components/FormattedDate.astro';
-import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import BaseLayout from "./BaseLayout.astro";
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} image={heroImage} backgroundOpacity={.15}>
-		
-		<main class="postMain">
-			<article class="textContainer">
-				<!-- <div class="hero-image">
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  backgroundOpacity={0.15}
+  centered
+>
+  <main class="postMain">
+    <article class="textContainer">
+      <!-- <div class="hero-image">
 					{heroImage && <img src={heroImage}  />}
 				</div> -->
-				<div class="prose">
-					<div class="title">
-						<h1>{title}</h1>
-						{description && <p><em>{description}</em></p>}
-					
-						<div class="date">
-							{pubDate && <div>Published on 
-								<FormattedDate date={pubDate} />
-							</div>}
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-			<style lang="scss">
-				@import '../styles/global.scss';
-			
-				.postMain {
-					width: fit-content;
-					position: relative;
+      <div class="prose">
+        <div class="title">
+          <h1>{title}</h1>
+          {
+            description && (
+              <p>
+                <em>{description}</em>
+              </p>
+            )
+          }
 
-					@include media(xsmallScreen) {
-						overflow: hidden;
-					}
-				}
-				.hero-image {
-				width: 100%;
-				margin-top:-2em;
-				position: absolute;
-				right: 0;
-			}
+          <div class="date">
+            {
+              pubDate && (
+                <div>
+                  Published on
+                  <FormattedDate date={pubDate} />
+                </div>
+              )
+            }
+            {
+              updatedDate && (
+                <div class="last-updated-on">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
+          </div>
+        </div>
+        <slot />
+      </div>
+    </article>
+  </main>
+  <style lang="scss">
+    @import "../styles/global.scss";
+    .postMain {
+      width: 100%;
+      display: flex;
+      justify-content: center;
 
-			.prose {
-				h2,h3,h4,h5,h6 {
-					margin-top: 1em;
-					margin-bottom: 0.5em;
-				}
-			}
-			.hero-image img {
-				display: block;
-				border-radius: 12px;
-				@include image-dropshadow();
-				width: auto; max-height: 300px
-			}
-			.prose {
-				padding: 1em 0;
-				color: rgb(var(--gray-dark));
-				max-width: 800px;
-			}
-			.title {
-				margin-top: 2em;
-				margin-bottom: .5em;
-				padding: 1em 0;
-				line-height: 1;
-				/* text-align: center; */
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				@include meta-content();
-			}
+      @include media(xsmallScreen) {
+        overflow: hidden;
+      }
+    }
 
-		</style>
+    article {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1em;
+    }
+
+    .hero-image {
+      width: 100%;
+      margin-top: -2em;
+      position: absolute;
+      right: 0;
+    }
+
+    .prose {
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+      position: relative;
+    }
+    .hero-image img {
+      display: block;
+      border-radius: 12px;
+      @include image-dropshadow();
+      width: auto;
+      max-height: 300px;
+    }
+    .prose {
+      padding: 1em 0;
+      color: rgb(var(--gray-dark));
+      max-width: 800px;
+    }
+    .title {
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+      padding: 1em 0;
+      line-height: 1;
+      /* text-align: center; */
+    }
+    .title h1 {
+      margin: 0 0 0.1em 0;
+    }
+    .title p {
+      margin: 0.2em;
+    }
+    .date {
+      @include meta-content();
+    }
+  </style>
 </BaseLayout>

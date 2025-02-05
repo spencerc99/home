@@ -35,12 +35,12 @@ export function Vignette() {
           borderRadius: "8px",
           boxShadow: "rgba(0, 0, 0, 0.133) 0px 0px 8px 0px",
           width: "100%",
-          margin: "auto 0px",
+          margin: "0px",
           padding: "10px",
           position: "relative",
           justifyContent: "center",
           transform: "rotate(-7deg)",
-          maxWidth: "250px",
+          maxWidth: "180px",
         }}
       >
         <div style={{ position: "relative", width: "inherit" }}>

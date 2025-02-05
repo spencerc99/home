@@ -1,18 +1,18 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.scss';
+import "../styles/global.scss";
 
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
-	draft?: boolean;
+  title: string;
+  description?: string;
+  image?: string;
+  draft?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/name-stamp.png', draft } = Astro.props;
+const { title, description, image = "/name-stamp.png", draft } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -45,36 +45,83 @@ const { title, description, image = '/name-stamp.png', draft } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- Don't index draft posts -->
-{draft ? <meta name="robots" content="noindex"/> : null}
+{draft ? <meta name="robots" content="noindex" /> : null}
 <meta name="robots" content="noodp" />
 
 <!-- icons -->
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
-<link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/solid.css">
-<link rel="apple-touch-icon" sizes="180x180" href="/name-stamp.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/name-stamp.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/name-stamp.png">
-<link rel="manifest" href="/site.webmanifest">
+<link
+  rel="stylesheet"
+  href="https://unicons.iconscout.com/release/v3.0.6/css/line.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://unicons.iconscout.com/release/v3.0.6/css/solid.css"
+/>
+<link rel="apple-touch-icon" sizes="180x180" href="/name-stamp.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/name-stamp.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/name-stamp.png" />
+<link rel="manifest" href="/site.webmanifest" />
 
 <!-- lazy load images to prioritize those in view -->
 <script async src="/lazysizes.min.js"></script>
 
+<!-- External link UTM handler -->
+<script>
+  function addUtmToExternalLinks() {
+    const links = document.querySelectorAll("a");
+    const selfDomains = [
+      "spencerchang.me",
+      "spencer.place",
+      "www.spencer.place",
+      "www.spencerchang.me",
+    ];
+
+    function getDomain(url) {
+      try {
+        return new URL(url).hostname;
+      } catch (e) {
+        return "";
+      }
+    }
+
+    links.forEach((link) => {
+      const originalHref = link.getAttribute("href");
+      if (originalHref?.startsWith("http")) {
+        const domain = getDomain(originalHref);
+        if (!selfDomains.includes(domain)) {
+          try {
+            const url = new URL(originalHref);
+            url.searchParams.set("utm_source", "invited_by_Spencer_Chang");
+            link.href = url.toString();
+          } catch (e) {
+            console.warn("Invalid URL:", originalHref);
+          }
+        }
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", addUtmToExternalLinks);
+</script>
+
 <!-- telescopic text -->
-<script src="https://unpkg.com/telescopic-text@latest/lib/index.js" is:inline></script>
+<script src="https://unpkg.com/telescopic-text@latest/lib/index.js" is:inline
+></script>
 <link
-	href="https://unpkg.com/telescopic-text@latest/lib/index.css"
-	rel="stylesheet"
+  href="https://unpkg.com/telescopic-text@latest/lib/index.css"
+  rel="stylesheet"
 />
 
 <!-- plausible.io -->
 <script
-	defer
-	data-domain="spencer.place"
-	data-api="https://sharingan.spencerc99.workers.dev/genjutsu/event"
-	src="https://sharingan.spencerc99.workers.dev/genjutsu/script.js"
-></script>
-<script data-goatcounter="https://spencer.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  defer
+  data-domain="spencer.place"
+  data-api="https://sharingan.spencerc99.workers.dev/genjutsu/event"
+  src="https://sharingan.spencerc99.workers.dev/genjutsu/script.js"></script>
+<script
+  data-goatcounter="https://spencer.goatcounter.com/count"
+  async
+  src="//gc.zgo.at/count.js"></script>
 
 <!-- HammerJS -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->

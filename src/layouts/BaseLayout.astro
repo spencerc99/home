@@ -1,68 +1,154 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/header/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import Marquee from '../components/Marquee.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/header/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Marquee from "../components/Marquee.astro";
 
 export interface BaseLayoutProps {
-    title?: string;
-    description?: string;
-    image?: string;
-    includeMarquee?: boolean;
-    backgroundOpacity?: number;
+  title?: string;
+  description?: string;
+  image?: string;
+  includeMarquee?: boolean;
+  backgroundOpacity?: number;
+  centered?: boolean;
 }
 type Props = BaseLayoutProps;
 
-const {title, description, image, includeMarquee, backgroundOpacity} = Astro.props;
+const {
+  title,
+  description,
+  image,
+  includeMarquee,
+  backgroundOpacity,
+  centered,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={title || SITE_TITLE} description={description || SITE_DESCRIPTION} image={image}/>
-	</head>
-	<body>
-		<Header/>
-        <div id="construction">
-            A
-            <br/>
-            WIP
-            <br/>
-            FOREVER
-            <img src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif" style="width:40px; margin:auto"/>
-        </div>
-		<div id="background" style={{
-            opacity: backgroundOpacity ? backgroundOpacity : .2
-        }}></div>
-		<div id="content">
-			<slot/>
-		</div>
-		<Footer />
+  <head>
+    <BaseHead
+      title={title || SITE_TITLE}
+      description={description || SITE_DESCRIPTION}
+      image={image}
+    />
+  </head>
+  <body class={centered ? "centered" : ""}>
+    <Header />
+    <div id="construction">
+      A
+      <br />
+      WIP
+      <br />
+      FOREVER
+      <img
+        src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
+        style="width:40px; margin:auto"
+      />
+    </div>
+    <div
+      id="background"
+      style={{
+        opacity: backgroundOpacity ? backgroundOpacity : 0.2,
+      }}
+    >
+    </div>
+    <div id="content">
+      <slot />
+    </div>
+    <Footer />
 
-        <div id="snackbar"/>
+    <div id="snackbar"></div>
 
-        <script src="https://cursor-party.spencerc99.partykit.dev/cursors.js" is:inline></script>
-        <script type="module" is:inline>
-            import "https://unpkg.com/playhtml@latest";
-            playhtml.init();
-        </script>
-        <link
-        rel="stylesheet"
-        href="https://unpkg.com/playhtml@latest/dist/style.css"
-        />
+    <script
+      src="https://cursor-party.spencerc99.partykit.dev/cursors.js"
+      is:inline></script>
+    <script type="module" is:inline>
+      import "https://unpkg.com/playhtml@latest";
+      playhtml.init();
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/playhtml@latest/dist/style.css"
+    />
 
-        <link rel="preload" href="/fonts/Cooper-Regular.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-Italic.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-Medium.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-MediumItalic.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-SemiBoldItalic.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-Bold.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-BoldItalic.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-ExtraBold.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-ExtraBoldItalic.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-Black.woff2" as="font" type="font/woff2" crossorigin ></link>
-        <link rel="preload" href="/fonts/Cooper-BlackItalic.woff2" as="font" type="font/woff2" crossorigin ></link>
-	</body>
-    {includeMarquee && <Marquee/> }
+    <link
+      rel="preload"
+      href="/fonts/Cooper-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-Italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-MediumItalic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-SemiBoldItalic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-BoldItalic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-ExtraBold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-ExtraBoldItalic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-Black.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Cooper-BlackItalic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </body>{includeMarquee && <Marquee />}
 </html>

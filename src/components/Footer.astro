@@ -1,16 +1,30 @@
 ---
-import '../styles/photoswipe.css';
-import '../styles/default-skin/default-skin.css';
-import Signature from './Signature';
+import "../styles/photoswipe.css";
+import "../styles/default-skin/default-skin.css";
+import Signature from "./Signature";
+import Trinkets from "./Trinkets.astro";
 ---
 
 <footer>
-	<div class="footerContent textContent">
-    <!-- TODO: make this an input -->
-    <p>If you enjoyed your stay, <a href="https://spencerchang.substack.com">sign your email up</a> to receive updates from my explorations.</p>
-    <p>My work is made possible, in large part, by <a href="/support">support from community members</a>.</p>
-    <Signature client:only="react"/>
-</div>
+  <div class="footerContent">
+    <div class="textContent">
+      <!-- TODO: make this an input -->
+      <p>
+        If you enjoyed your stay, <a href="https://spencerchang.substack.com"
+          >sign your email up</a
+        > to receive updates from my explorations.
+      </p>
+      <p>
+        My work is made possible, in large part, by <a href="/support"
+          >support from community members</a
+        >.
+      </p>
+      <Signature client:only="react" />
+    </div>
+    <Trinkets />
+  </div>
+  <!-- TODO: this is a good opportunity to add some sort of graphical or interactive thing.. for people who scroll all the way to the bottom -->
+
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
   <!-- <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"> -->
   <!-- Background of PhotoSwipe.
@@ -18,26 +32,26 @@ import Signature from './Signature';
   <!-- <div class="pswp__bg"></div> -->
   <!-- Slides wrapper with overflow:hidden. -->
   <!-- <div class="pswp__scroll-wrap"> -->
-    <!-- Container that holds slides.
+  <!-- Container that holds slides.
       PhotoSwipe keeps only 3 of them in DOM to save memory.
       Don't modify these 3 pswp__item elements, data is added later on. -->
-    <!-- <div class="pswp__container">
+  <!-- <div class="pswp__container">
       <div class="pswp__item"></div>
       <div class="pswp__item"></div>
       <div class="pswp__item"></div>
     </div> -->
-    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-    <!-- <div class="pswp__ui pswp__ui--hidden">
+  <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+  <!-- <div class="pswp__ui pswp__ui--hidden">
     <div class="pswp__top-bar"> -->
-      <!--  Controls are self-explanatory. Order can be changed. -->
-      <!-- <div class="pswp__counter"></div>
+  <!--  Controls are self-explanatory. Order can be changed. -->
+  <!-- <div class="pswp__counter"></div>
       <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
       <button class="pswp__button pswp__button--share" title="Share"></button>
       <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
       <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button> -->
-      <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-      <!-- element will get class pswp__preloader--active when preloader is running -->
-      <!-- <div class="pswp__preloader">
+  <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+  <!-- element will get class pswp__preloader--active when preloader is running -->
+  <!-- <div class="pswp__preloader">
       <div class="pswp__preloader__icn">
         <div class="pswp__preloader__cut">
         <div class="pswp__preloader__donut"></div>
@@ -69,4 +83,3 @@ import Signature from './Signature';
     // lightbox.init();
   </script>
 </footer>
-
