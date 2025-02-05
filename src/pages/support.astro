@@ -1,57 +1,97 @@
 ---
 import DetailLayout from "../layouts/DetailLayout.astro";
-import {SendCryptoButton} from '../components/SendCryptoButton'
+import { SendCryptoButton } from "../components/SendCryptoButton";
 
 const LayoutProps = {
-    // title: "(support)",
-    description: "support my work...",
-    date: "2024-04-11",
-    image: "/thank-you-sponsors.png",
-    emojis: [],
-    metaTitle: "support 𝚜𝚙𝚎𝚗𝚌𝚎𝚛",
-  titleClass: 'uniform'
-}
+  // title: "(support)",
+  description: "support my work...",
+  date: "2024-04-11",
+  image: "/thank-you-sponsors.png",
+  emojis: [],
+  metaTitle: "support 𝚜𝚙𝚎𝚗𝚌𝚎𝚛",
+  titleClass: "uniform",
+};
 ---
+
 <DetailLayout {...LayoutProps}>
-    <div class="listDescription textContent">
-          <div class="headerContainer textContent">
-              <h1 class='uniform'>(support)</h1>
-          </div>
-<p>At the beginning of 2023, I left my job in tech (<a href="https://spencerchang.substack.com/p/towards-flight">story</a>) for independent work, research, and art around creating forms of computing rooted in communal agency. Since then, I've created open-source infrastructure for creating shared web experiences and spaces, local-first apps for archiving and curating data, and participatory environments that offer alternative paces of moving across the internet.</p>
-<p>I'm still figuring out how (and if) this life can be sustainable. I'm endlessly grateful for any support you can offer, whether in sharing my work or sponsoring me. My work is made possible by these gestures of support.</p>
-<p>Thank you for your generosity.</p>
+  <div class="listDescription textContent">
+    <div class="headerContainer textContent">
+      <h1 class="uniform">(support)</h1>
+    </div>
+    <p>
+      At the beginning of 2023, I left my job in tech (<a
+        href="https://spencerchang.substack.com/p/towards-flight">story</a
+      >) for independent work, research, and art around creating forms of
+      computing rooted in communal agency. Since then, I've created open-source
+      infrastructure for creating shared web experiences and spaces, local-first
+      apps for archiving and curating data, and participatory environments that
+      offer alternative paces of moving across the internet.
+    </p>
+    <p>
+      I'm still figuring out how (and if) this life can be sustainable. I'm
+      endlessly grateful for any support you can offer, whether in sharing my
+      work or sponsoring me. My work is made possible by these gestures of
+      support.
+    </p>
+    <p>Thank you for your generosity.</p>
 
-        <!-- TODO: show all sponsors -->
-    
-        <div class="ctaBtns">
-  <a href="https://github.com/sponsors/spencerc99" class="button" target="_blank"><button id="sponsorBtn">Sponsor me <i class='uil uil-github'></i></button></a>
-  <a href="https://venmo.com/spencerc99?txn=pay&note=tip%20spencer" class="button" target="_blank"><button id="venmoBtn" >Venmo</button></a>
-  <a href="https://paypal.com/paypalme/spencerchang99/" class="button" target="_blank"><button id="paypalBtn" >Paypal</button></a>
-  <a href="https://cash.app/$spencerchang" class="button" target="_blank"><button id="cashAppBtn" >Cash App</button></a>
-  <a href="https://donate.stripe.com/8wM9D1cwz5rG2m46op" class="button" target="_blank"><button id="coffeeBtn" >Credit Card</button></a>
-  <SendCryptoButton client:only="react"/>
-  <!-- <a href="" class="button" target="_blank"><button id="stripeBtn" >Tip me</button></a> -->
-    <!-- <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="coffeeBtn" >Buy me 🥚s</button></a> -->
-  
-  <!-- <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="commmissionBtn" >Commission me</button></a> -->
-  
-    </div>
-    </div>
-    <div class="sponsors">
-        <p>
-            <em>
-                my endless gratitude for all my sponsors, current and past, for enabling what I do.
-            </em>
-        </p>
+    <!-- TODO: show all sponsors -->
 
-        <b>current sponsors</b>
-        <p>Jasmine, Raymond, Jacky, Sunil, Jess, Tim, Sarah, Jon, soft networks, Nikhil, Alejandro, Andy, Caro, Riley, Charles, Greg, James, Crystal, Dan, Jonah, Rachel, Gleb, and one anonymous donor for their generous monthly sponsorships of my work.</p>
-        <b>past sponsors</b>
-        <p>Max, Parker, Song, Janvi, Ron, Yush, Andy, Annie, and two anonymous donors for their past support of my work.</p>
-        <!-- <b>past</b> -->
-        <!-- TODO: all sponsors -->
-<em>
-                last updated 2024-07-26
-            </em>
+    <div class="ctaBtns">
+      <a
+        href="https://github.com/sponsors/spencerc99"
+        class="button"
+        target="_blank"
+        ><button id="sponsorBtn"
+          >Sponsor me <i class="uil uil-github"></i></button
+        ></a
+      >
+      <a
+        href="https://venmo.com/spencerc99?txn=pay&note=tip%20spencer"
+        class="button"
+        target="_blank"><button id="venmoBtn">Venmo</button></a
+      >
+      <a
+        href="https://paypal.com/paypalme/spencerchang99/"
+        class="button"
+        target="_blank"><button id="paypalBtn">Paypal</button></a
+      >
+      <a href="https://cash.app/$spencerchang" class="button" target="_blank"
+        ><button id="cashAppBtn">Cash App</button></a
+      >
+      <a
+        href="https://donate.stripe.com/8wM9D1cwz5rG2m46op"
+        class="button"
+        target="_blank"><button id="coffeeBtn">Credit Card</button></a
+      >
+      <SendCryptoButton client:only="react" />
+      <!-- <a href="" class="button" target="_blank"><button id="stripeBtn" >Tip me</button></a> -->
+      <!-- <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="coffeeBtn" >Buy me 🥚s</button></a> -->
+
+      <!-- <a href="https://buymeacoffee.com/spencerchang" class="button" target="_blank"><button id="commmissionBtn" >Commission me</button></a> -->
     </div>
+  </div>
+  <div class="sponsors" style="max-width:650px;">
+    <p>
+      <em>
+        my endless gratitude for all my sponsors, current and past, for enabling
+        what I do.
+      </em>
+    </p>
+
+    <b>current sponsors</b>
+    <p>
+      Shaobo, Janvi, Raymond, Jacky, Sunil, Jess, Tim, Sarah, Jon, soft
+      networks, Nikhil, Alejandro, Andy, Caro, Riley, Charles, James, Crystal,
+      Dan, Jonah, Rachel, Gleb, Yorke, and one anonymous donor.
+    </p>
+    <b>past sponsors</b>
+    <p>
+      Jasmine, Max, Parker, Song, Ron, Yush, Andy, Annie, and two anonymous
+      donors for their past support of my work.
+    </p>
+    <!-- <b>past</b> -->
+    <!-- TODO: all sponsors -->
+    <em> last updated 2024-07-26 </em>
+  </div>
 </DetailLayout>
