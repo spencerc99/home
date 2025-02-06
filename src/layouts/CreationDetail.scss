@@ -63,14 +63,14 @@ img {
     animation: pulse-opacity 1.3s infinite ease-in-out;
   }
 }
-
-.hero-image,
-iframe {
+.iframeWrapper iframe,
+.hero-image {
   width: 100%;
   max-width: calc(min(950px));
   max-height: calc(min(650px));
 }
-iframe,
+
+.iframeWrapper iframe,
 .hero-image img,
 video {
   // max-width: max-content;
