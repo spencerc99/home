@@ -1973,6 +1973,7 @@ hr.separator {
 
 .footerContent {
   display: flex;
+  overflow-x: hidden;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
@@ -2149,7 +2150,9 @@ img {
 }
 
 #clockEmbed {
+  aspect-ratio: 1/1;
   width: fit-content;
+  height: auto;
   iframe {
     max-width: 200px !important;
     max-height: 200px !important;
