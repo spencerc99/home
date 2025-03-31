@@ -12,7 +12,7 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 01-29-25
+          Updated 03-30-25
         </span>
       </div>
       <p>
@@ -20,25 +20,15 @@ export function NowBlock() {
         in my neighborhood
       </p>
       <p>
-        - Released <a href="https://gather.directory/">Gather</a>, the
-        local-first app for archiving & curating multimedia collections and
-        client for Are.na, officially on the{" "}
-        <a href="https://apps.apple.com/us/app/gather-handheld-curiosity/id6468843059">
-          App Store
-        </a>{" "}
-        &{" "}
-        <a href="https://play.google.com/store/apps/details?id=net.tiny_inter.gather&hl=en_US">
-          Play Store
-        </a>
-        .
+        Preparing for <a href="https://www.demofestival.org/">DEMO 2025</a> at
+        NEW INC
       </p>
-      <p>Custom commissions for ████████ ███ ██████ (coming soon...)</p>
-      <p>- Reading Isamu Noguchi's Autobiography</p>
-      {/* <p>
+      <p>
         - (coming out of hibernation) Designing{" "}
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
-      </p> */}
+      </p>
+      <p>Making a website for ████████</p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for
         teaching, crafting, and scheming.

@@ -1,0 +1,19 @@
+{
+  "title": "nothing on my computer in THING+YOU",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Art",
+    "Website"
+  ],
+  "date": "2025-04-12T07:00:00.000Z",
+  "heroImage": "https://movingimage.org/favicon.ico",
+  "media": [
+    "https://movingimage.org/favicon.ico"
+  ],
+  "link": "https://movingimage.org/event/thingyou/",
+  "ongoing": false,
+  "forthcoming": true,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true
+}

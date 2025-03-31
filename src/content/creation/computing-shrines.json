@@ -1,7 +1,7 @@
 {
-  "title": "computing shrines",
-  "subtext": "local computing-facilitated sites for connection",
-  "descriptionMd": "We face an increasing loneliness epidemic in large urban areas. People increasingly mourn the loss of free third spaces where communities can gather outside their homes. In response, people have experimented with new initiatives to facilitate community connection and support. From bulletin boards and little libraries to community fridges and neighborhood memorials, we find ways to bring our communities together.\n*Computing Shrines* are public installations that facilitate human connection through a site-specific website and ultimately foster community solidarity. These creations can be installed anywhere on top of existing infrastructure and environments, from abandoned phone booths and park benches to the side of neighborhood trees and outside local businesses. They consist of a computing rig (either low power or no power required depending on the location) that brings visitors to the site’s website, through a tap interaction with their phone. Each website is built around a simple collective interaction showing the traces of past visitors, such as a message board, a drawing wall, or an audio message repository.\n*Computing Shrines* aims to leverage digital spaces to augment existing local community practices with personal history archival and intimate connection. In the face of an increasing loneliness epidemic concentrated in large urban areas, we believe that emergent community installations can facilitate grassroots initiatives to re-establish a collective social fabric in urban environments. Through our work, we hope to not only create a diverse ecosystem to facilitate local connection but also establish a framework for anyone to create & steward their own shrines to nurture our capacity for collective ownership and care.\nSupported by [APOSSIBLE](https://apossible.com/) and [DAL](https://dalab.xyz/en/).",
+  "title": "Computing Shrines",
+  "subtext": "a collection of site-specific objects turning shared spaces into spaces for sharing and open protocol for doing so",
+  "descriptionMd": "We face an increasing loneliness epidemic as free third spaces for communities continue to disappear. Computing Shrines responds to this crisis by reimagining technology as a public good for fostering local connection rather than replacing it.\nComputing Shrines is a protocol for and a collection of public installations that transform shared spaces into places for meaningful exchange. Each shrine consists of a passively powered structure that connects visitors' phones to a site-specific web experience, each built around an interaction of exchange between past and future visitors. These websites can only be accessed at their shrine, anchoring a virtual space to a physical place.\nAs cyber-physical objects, these shrines become living archives of our collective everyday interactions, from natural physical patina to the meaningful data visitors contribute. These stories and memories imbue these spaces with a material sense of the people of that place that transcend their physical containers.\nFor example, \"Shrine to Voice\" is an acrylic phone booth for mobile phones that invites visitors to listen to the last visitor’s voice message and share their own worries and hopes with the next stranger. Other examples include “Shrine to Wishing” and “Shrine to Libraries,” that invite visitors to share wishes and log check-ins at neighborhood libraries.\nMore than an installation, Computing Shrines is an open protocol for anyone to create their own public good technology. Designed with common materials and electronics, open-sourcing the web experiences, and collaboratively collecting instructions by local stewards, the project embraces accessible technology and transforms the normally solitary act of creating technology into a community project\nComputing Shrines reclaims technology, from a system that steals attention, as a critical tool for empowering people within local communities to talk to and see one another, while nurturing the agency to shape technology for themselves.\nSupported by [APOSSIBLE](https://apossible.com/), [DAL](https://dalab.xyz/en/), and [NEW INC](https://newinc.org/).",
   "parentCategory": "Project",
   "categories": [
     "Art",
@@ -10,16 +10,29 @@
     "Hardware",
     "Community"
   ],
-  "date": null,
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-V4E0sGwqkR/e443da21945d367fdcbc59647da21524f6a0b1a833920edde9df925e72af1bb94adabf1e1ab848585bf477b522d2c8327ef820126165972867db317a9245dc5f7b4413c5d5c21a0d6e52743e6a65ecdb335bfac452220d175189ed0a3220ee24a1e9a4a6",
+  "date": "2025-04-16T07:00:00.000Z",
+  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ciaIfmI_XJ/9092ff3bb49a7ce6cf419617e3e36e806fe5fbc1129bdfe76f31bc98fa4bfff237c4f46e3924e1cf361307c8ae6e319df6a9829741687d87412ca83c4c27fe7abcae27dce06b9c1b71a059399e2f80b86e2b2ddacbcf41eb0937c8b5bbd34a17b2695b90",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-V4E0sGwqkR/e443da21945d367fdcbc59647da21524f6a0b1a833920edde9df925e72af1bb94adabf1e1ab848585bf477b522d2c8327ef820126165972867db317a9245dc5f7b4413c5d5c21a0d6e52743e6a65ecdb335bfac452220d175189ed0a3220ee24a1e9a4a6"
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ciaIfmI_XJ/9092ff3bb49a7ce6cf419617e3e36e806fe5fbc1129bdfe76f31bc98fa4bfff237c4f46e3924e1cf361307c8ae6e319df6a9829741687d87412ca83c4c27fe7abcae27dce06b9c1b71a059399e2f80b86e2b2ddacbcf41eb0937c8b5bbd34a17b2695b90",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-aWpQt6Fsdi/84ae03f14cbcb4d216687ab43d1f018bbdabf187983d7952792970db6a9f31c4d2425dd8e94bfd4f6721eb569af40e761047eaefeebd2b92678ca344eda646f3981e3492aa202b16ece229167d4cccf0e8dd2d9322e5fddbc7ad065f32a4a839f36a80ff",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Mq3KAXYo-i/3d80610f39a00024430dad1e384ee25a20e9a3cbcc22a8b9d8985a70d1b69ad816eb6eb1812e6c4d026e5c4989a9f5d6e5de47d2f90cddf6ec87321940e88e391e36cfc4751489728799d30c8a0f12bbd7cf00fbab06dc811a2777a7aa871041426a65f6",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-cZo9EvU1uG/2a3e932f2e3beb85b6c9b964d2a9b1634a3486f3e7180f5c1f8dec5d6a5ee7a119c5b577f37cf7174f2e65120c0fe4a70c55e57ddc3b0c26b31f0e8361a375e9e9c9496bccc63900eeff707b631828b8e1456716eacb28c384887b612dc120e97724fd3d",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-7foizQIIHf/469f5d08dbc7faca4a4f40bd82ade5432597488bb4f8b6b9460f5dd7900833e1c7aa780283968f1df49f536f5d86dae449461f303bf80bc75ebfd3d42cf481203f25fa974f0a0900b6d957d0cd1d5131844f9df7ed29a90e2b729e8d04493c4d56874214",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-sxWSk4Yf-w/46249c3f6cd718e3c8ca5020d08f3a8f28c2df6dda9dcdcd1584485946b8586b92a801910a682e7a521f15ef8e00b798e1a1eef4b6762a27e7b20c2d657bc6907bbdf98743f2e4589a2b04323b968ab86a2f6b17c7549075fd5dee13e43e9cd88a7524ec",
+    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-QcOXEoG3eM/936972d6315da71f639e3a88feb25355375da3345c0ce20bd4c17821d7ac2d65acedd009325f99a4dac7b978c0b5997f36a6fe1d41ab517fed76de171dafdd94754fa73989acc86d53d2a919f8dbc896615caf8c685240ac2844c8da067a5d7c440f1b77"
   ],
   "link": "https://shrine.computer/",
+  "materials": "location-bound websites, RFID chips, mixed materials including acrylic, ceramics, found stone, and silicone.",
   "ongoing": false,
   "forthcoming": true,
   "featured": true,
   "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
     ""
   ],
   "isEvent": false
