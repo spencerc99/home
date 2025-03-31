@@ -1,7 +1,9 @@
 {
   "title": "DEMO 2025",
   "parentCategory": "Exhibition",
-  "categories": [],
+  "categories": [
+    "Art"
+  ],
   "date": "2025-06-04T07:00:00.000Z",
   "media": [],
   "ongoing": false,
