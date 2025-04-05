@@ -9,11 +9,11 @@
     "Art"
   ],
   "date": "2022-12-21T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-CIjXaedVPf/b369f7399d1c1177e21abf649c612f3db85e68d79757067cdf8fe6548e2e40f4f0ebb13547a38552120115db04727f91c79caec9e3604c27b5a001d2fa532dbd15cdb7faf220a238d9944dad958b5fe3ed18c0dddd4f3ca60c3cda3618292a14d53f756a",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-SDfPygk4j8/2742e0e8af8ecc6352eb8e35435e8e493cd1cb71d16bca36ca03070dfb80c9b7d293d223b4436689ff2cf1963e6b3a87b4b731958c427ebde2134d299447604a5a960449a933c79c51b71f59e462d46f68a6798f60a2c0ea354787aa1b91beb4efc1d206"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-8LORXEo3yt/ae1e981e069e4d5a2eac08618d56b15fefab996fbc4028d71c2990870aecd2935529294acf5036951e67fdef7b27ac351ccaab985b6e9297d748f3d286fc86cbbbeee537b2607953c46b94a0ccd358db6c2ac913c8f9314d05de158c1918160fc3e4eeec",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-CIjXaedVPf/b369f7399d1c1177e21abf649c612f3db85e68d79757067cdf8fe6548e2e40f4f0ebb13547a38552120115db04727f91c79caec9e3604c27b5a001d2fa532dbd15cdb7faf220a238d9944dad958b5fe3ed18c0dddd4f3ca60c3cda3618292a14d53f756a",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-SDfPygk4j8/2742e0e8af8ecc6352eb8e35435e8e493cd1cb71d16bca36ca03070dfb80c9b7d293d223b4436689ff2cf1963e6b3a87b4b731958c427ebde2134d299447604a5a960449a933c79c51b71f59e462d46f68a6798f60a2c0ea354787aa1b91beb4efc1d206"
   ],
   "materials": "Apple Shortcuts, Apple Notes, Siri",
   "ongoing": false,
@@ -24,5 +24,10 @@
     "",
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "video",
+    "image"
+  ]
 }

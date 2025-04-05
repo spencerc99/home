@@ -6,9 +6,9 @@
     "Website"
   ],
   "date": "2022-11-18T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-U4Y_8zz_L7/e5a8d01a874a8d2ed937d8bd4c673ebd5eedfd6ce7463f688800d576909db92096393a0af6fb23159ae508a98f9428c6beb19d57d45dedd8ccef859e69c345a376b0f72bc23e899732b496953cf1a5f32f8f2b95bf6da8e6b88a3ab24eb7a46a92c48d01",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-U4Y_8zz_L7/e5a8d01a874a8d2ed937d8bd4c673ebd5eedfd6ce7463f688800d576909db92096393a0af6fb23159ae508a98f9428c6beb19d57d45dedd8ccef859e69c345a376b0f72bc23e899732b496953cf1a5f32f8f2b95bf6da8e6b88a3ab24eb7a46a92c48d01",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-U4Y_8zz_L7/e5a8d01a874a8d2ed937d8bd4c673ebd5eedfd6ce7463f688800d576909db92096393a0af6fb23159ae508a98f9428c6beb19d57d45dedd8ccef859e69c345a376b0f72bc23e899732b496953cf1a5f32f8f2b95bf6da8e6b88a3ab24eb7a46a92c48d01"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-U4Y_8zz_L7/e5a8d01a874a8d2ed937d8bd4c673ebd5eedfd6ce7463f688800d576909db92096393a0af6fb23159ae508a98f9428c6beb19d57d45dedd8ccef859e69c345a376b0f72bc23e899732b496953cf1a5f32f8f2b95bf6da8e6b88a3ab24eb7a46a92c48d01"
   ],
   "link": "https://coda.io/@spencer/new-twitter",
   "ongoing": false,
@@ -17,5 +17,8 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ]
 }

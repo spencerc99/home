@@ -7,11 +7,11 @@
     "Website"
   ],
   "date": "2023-09-30T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-tZ3jOitwuy/45175edae3a311d634d83e539ac37c95d69b32bc12ba496e5aea4731ffef5503f3fc4800c0d7635b0ced496112890e5d688c653921020d26e04bffb0a2bc7b36bc0c1a371345f73653b8497f9320a3a204cd815892f4cbb3331d6ddb0babb424b3f3f7dc",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tZ3jOitwuy/45175edae3a311d634d83e539ac37c95d69b32bc12ba496e5aea4731ffef5503f3fc4800c0d7635b0ced496112890e5d688c653921020d26e04bffb0a2bc7b36bc0c1a371345f73653b8497f9320a3a204cd815892f4cbb3331d6ddb0babb424b3f3f7dc",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-tZ3jOitwuy/45175edae3a311d634d83e539ac37c95d69b32bc12ba496e5aea4731ffef5503f3fc4800c0d7635b0ced496112890e5d688c653921020d26e04bffb0a2bc7b36bc0c1a371345f73653b8497f9320a3a204cd815892f4cbb3331d6ddb0babb424b3f3f7dc",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-zgJEdGrCtU/9b12b763ca949257029a2fab3044094ea2f66c7951541d5e0d452d541379f4fd7943ad68b83f495077ad3abac8ee238aabcc486496510fb12e74b92c9df00c125cb0667c1aa1e7f274c4b8aa39e08b9b9f3b4ec51dff3d827a117ac912930ac64d334aff",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-2pfqbeREWx/a219dd84d84fabcfce4f47e37c82d4b8a9b2b9510336b3709bac2759cb41c55a1761a80608ec57cf78a2e808e793d7c01fe920d48e2cd2cc43a3741c4d96566e3ae3e63da8ea87fa609d1fa69d3cf666db17b7a190333a4282422a512096d4b89a6667ff"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tZ3jOitwuy/45175edae3a311d634d83e539ac37c95d69b32bc12ba496e5aea4731ffef5503f3fc4800c0d7635b0ced496112890e5d688c653921020d26e04bffb0a2bc7b36bc0c1a371345f73653b8497f9320a3a204cd815892f4cbb3331d6ddb0babb424b3f3f7dc",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zgJEdGrCtU/9b12b763ca949257029a2fab3044094ea2f66c7951541d5e0d452d541379f4fd7943ad68b83f495077ad3abac8ee238aabcc486496510fb12e74b92c9df00c125cb0667c1aa1e7f274c4b8aa39e08b9b9f3b4ec51dff3d827a117ac912930ac64d334aff",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2pfqbeREWx/a219dd84d84fabcfce4f47e37c82d4b8a9b2b9510336b3709bac2759cb41c55a1761a80608ec57cf78a2e808e793d7c01fe920d48e2cd2cc43a3741c4d96566e3ae3e63da8ea87fa609d1fa69d3cf666db17b7a190333a4282422a512096d4b89a6667ff"
   ],
   "link": "https://www.instagram.com/p/CxWf4ajP6os/?img_index=1",
   "ongoing": false,
@@ -22,5 +22,10 @@
     "",
     ""
   ],
-  "isEvent": true
+  "isEvent": true,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image"
+  ]
 }

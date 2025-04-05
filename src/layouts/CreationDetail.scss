@@ -42,6 +42,8 @@
     // max-height: calc(min(800px, 50vh));
     display: block;
     border-radius: 0.5em;
+  }
+  .hero-image img {
     object-fit: cover;
   }
 

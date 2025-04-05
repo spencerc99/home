@@ -5,11 +5,11 @@
     "Website"
   ],
   "date": "2024-03-25T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-vemdlfUliB/0a2b97fd5fe5d0f2753bbbdd8cef28447f5a70ba784003ffcb8fb4022059cb5f7a67c990c90374db879f1edd6f5b71cc525326390067d37fd42449e6fcb69738bbd64fd9cfeb62df4b702ffb3a697fffe44d0609876e2c26d0f3b8bcbdc58e15bdd15dcc",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vemdlfUliB/0a2b97fd5fe5d0f2753bbbdd8cef28447f5a70ba784003ffcb8fb4022059cb5f7a67c990c90374db879f1edd6f5b71cc525326390067d37fd42449e6fcb69738bbd64fd9cfeb62df4b702ffb3a697fffe44d0609876e2c26d0f3b8bcbdc58e15bdd15dcc",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-vemdlfUliB/0a2b97fd5fe5d0f2753bbbdd8cef28447f5a70ba784003ffcb8fb4022059cb5f7a67c990c90374db879f1edd6f5b71cc525326390067d37fd42449e6fcb69738bbd64fd9cfeb62df4b702ffb3a697fffe44d0609876e2c26d0f3b8bcbdc58e15bdd15dcc",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-maSmiThT15/97ff21a69ab91fa6377071544ae9654fbe6d4dd2a768b3cb04964dbf57ac15554af83ca890e73f0fc730e2642d83c7bf45109f77f70298f929ebc7287b1466442c1d34f4309e5be837344799a352394b58398d37ac5ca884e70fed0d468a7a3040b2552a",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-uN2UNsLYvg/ef24f008671fd7efc61cd1b13331bc206aba5c5afd31b1e8f93c5a77c5d87d6b14f7f71f61805350a8cd8fd81dc755b3e0d8d86879908e6688149e35f62f68df2cc821efc91b0c8c5ce93ec1910da6500ba2701fbfaf4ea374a9622b733616fe7fbd1c12"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vemdlfUliB/0a2b97fd5fe5d0f2753bbbdd8cef28447f5a70ba784003ffcb8fb4022059cb5f7a67c990c90374db879f1edd6f5b71cc525326390067d37fd42449e6fcb69738bbd64fd9cfeb62df4b702ffb3a697fffe44d0609876e2c26d0f3b8bcbdc58e15bdd15dcc",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-maSmiThT15/97ff21a69ab91fa6377071544ae9654fbe6d4dd2a768b3cb04964dbf57ac15554af83ca890e73f0fc730e2642d83c7bf45109f77f70298f929ebc7287b1466442c1d34f4309e5be837344799a352394b58398d37ac5ca884e70fed0d468a7a3040b2552a",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-uN2UNsLYvg/ef24f008671fd7efc61cd1b13331bc206aba5c5afd31b1e8f93c5a77c5d87d6b14f7f71f61805350a8cd8fd81dc755b3e0d8d86879908e6688149e35f62f68df2cc821efc91b0c8c5ce93ec1910da6500ba2701fbfaf4ea374a9622b733616fe7fbd1c12"
   ],
   "link": "https://playhtml.fun/experiments/4/",
   "ongoing": false,
@@ -20,5 +20,10 @@
     "",
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image"
+  ]
 }

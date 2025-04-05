@@ -2,9 +2,41 @@ import fs from "fs";
 import path from "path";
 import { creationSchema } from "../src/content/config";
 import { z } from "astro/zod";
+import { transformImageUrl } from "../src/utils/images";
 
 // this is already defined sometimes?
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+// Helper function to detect media type from URL
+async function getMediaType(url: string): Promise<"image" | "video" | null> {
+  // Method 1: Check file extension
+  const extensionMatch = url.match(/\.([^.]+)$/);
+  if (extensionMatch) {
+    const ext = extensionMatch[1].toLowerCase();
+    if (["jpg", "jpeg", "png", "gif", "webp", "avif"].includes(ext)) {
+      return "image";
+    }
+    if (["mp4", "webm", "ogg", "mov"].includes(ext)) {
+      return "video";
+    }
+  }
+
+  try {
+    // Method 2: Fetch headers to check Content-Type
+    const response = await fetch(url, { method: "HEAD" });
+    const contentType = response.headers.get("Content-Type");
+    if (contentType?.startsWith("image/")) {
+      return "image";
+    }
+    if (contentType?.startsWith("video/")) {
+      return "video";
+    }
+  } catch (error) {
+    console.error("Error detecting media type:", error);
+  }
+
+  return "image";
+}
 
 export interface CodaItem {
   title: string;
@@ -55,114 +87,87 @@ async function importCreations() {
   const data: CodaItem[] = await resp.json();
   // put them into content/creation as single json files using the title as the name
 
-  // zod type from creationSchema
-  const transformedData: z.infer<typeof creationSchema>[] = data.map((item) => {
-    const date = new Date(item.date);
+  // Transform the data with media metadata
+  const transformedData: z.infer<typeof creationSchema>[] = await Promise.all(
+    data.map(async (item) => {
+      const date = new Date(item.date);
+      const media = [...(item.imageUrls ?? [])]
+        .filter(Boolean)
+        .map(transformImageUrl);
 
-    const media = [...(item.imageUrls ?? [])].filter(Boolean);
-    const heroImage = media[0];
-    // download the assets into local folder item.movie if present and item.firstImage
-    // const mediaUrls = [item.movie, ...(item.imageUrls ?? [])].filter(Boolean);
-    // const heroImageUrl = item.firstImage;
-    // let media: string[] = [];
-    // let heroImage;
-    // if (mediaUrls.length > 0) {
-    //   console.log(`downloading media for ${item.title}`);
-    //   mediaUrls.forEach((url, index) => {
-    //     const ext = path.extname(url);
-    //     const filename = `${escapeTitleForFilename(item.title)}-${index}${ext}`;
-    //     const filePath = path.join(__dirname, "../public/creation", filename);
-    //     // ignore if already exists
-    //     if (fs.existsSync(filePath)) {
-    //       return;
-    //     }
-    //     console.log(`downloading ${url} to ${filePath}`);
-    //     fetch(url).then((resp) => {
-    //       const dest = fs.createWriteStream(filePath);
-    //       if (resp.body) {
-    //         resp.body
-    //           .getReader()
-    //           .read()
-    //           .then(({ value, done }) => {
-    //             if (!done) {
-    //               dest.write(Buffer.from(value));
-    //               dest.end();
-    //             }
-    //           });
-    //       }
-    //     });
-    //     media.push(`creation/${filename}`);
-    //   });
-    // }
-    // if (heroImageUrl) {
-    //   const ext = path.extname(heroImageUrl);
-    //   const filename = `${escapeTitleForFilename(item.title)}-hero${ext}`;
-    //   const filePath = path.join(__dirname, "../public/creation", filename);
-    //   // ignore if already exists
-    //   if (fs.existsSync(filePath)) {
-    //     return;
-    //   }
+      // Get type for all media items
+      const mediaMetadata = await Promise.all(
+        media.map(async (url) => {
+          const type = await getMediaType(url);
+          return type;
+        })
+      );
 
-    //   console.log(`downloading ${heroImageUrl} to ${filePath}`);
-    //   fetch(heroImageUrl).then((resp) => {
-    //     const dest = fs.createWriteStream(filePath);
-    //     if (resp.body) {
-    //       resp.body
-    //         .getReader()
-    //         .read()
-    //         .then(({ value, done }) => {
-    //           if (!done) {
-    //             dest.write(Buffer.from(value));
-    //             dest.end();
-    //           }
-    //         });
-    //     }
-    //   });
-    //   heroImage = `creation/${filename}`;
-    // }
+      //   console.log(`downloading ${heroImageUrl} to $
+      // {filePath}`);
+      //   fetch(heroImageUrl).then((resp) => {
+      //     const dest = fs.createWriteStream(filePath);
+      //     if (resp.body) {
+      //       resp.body
+      //         .getReader()
+      //         .read()
+      //         .then(({ value, done }) => {
+      //           if (!done) {
+      //             dest.write(Buffer.from(value));
+      //             dest.end();
+      //           }
+      //         });
+      //     }
+      //   });
+      //   heroImage = `creation/${filename}`;
+      // }
 
-    const finalItem = {
-      title: item.title,
-      subtext: item.subtext,
-      descriptionMd: item.descriptionMd,
-      parentCategory: item.parentCategory,
-      categories: item.specificCategory || [],
-      date,
-      endDate: item.endDate ? new Date(item.endDate) : null,
-      heroImage,
-      media,
-      movieUrl: item.movieUrl,
-      movieEmbed: item.movieEmbed,
-      link: item.link,
-      materials: item.Materials,
-      ongoing: item.ongoing,
-      forthcoming: item.forthcoming || date > new Date(),
-      featured: item.featured,
-      assetPreviewIdx: item.assetPreviewIdx,
-      imageDescriptions: item.imageDescriptions || [],
-      isEvent: item.isEvent,
-    };
-    // remove empty fields
-    Object.keys(finalItem).forEach((key) => {
-      if (
-        finalItem[key] === undefined ||
-        finalItem[key] === null ||
-        finalItem[key] === ""
-      ) {
-        delete finalItem[key];
-      }
-    });
+      const finalItem = {
+        title: item.title,
+        subtext: item.subtext,
+        descriptionMd: item.descriptionMd,
+        parentCategory: item.parentCategory,
+        categories: item.specificCategory || [],
+        date,
+        endDate: item.endDate ? new Date(item.endDate) : null,
+        heroImage: media[0],
+        media,
+        movieUrl: item.movieUrl,
+        movieEmbed: item.movieEmbed,
+        link: item.link,
+        materials: item.Materials,
+        ongoing: item.ongoing,
+        forthcoming: item.forthcoming || date > new Date(),
+        featured: item.featured,
+        assetPreviewIdx: item.assetPreviewIdx,
+        imageDescriptions: item.imageDescriptions || [],
+        isEvent: item.isEvent,
+        mediaMetadata,
+      };
 
-    return finalItem;
-  });
+      // Remove empty fields
+      Object.keys(finalItem).forEach((key) => {
+        if (
+          finalItem[key] === undefined ||
+          finalItem[key] === null ||
+          finalItem[key] === ""
+        ) {
+          delete finalItem[key];
+        }
+      });
+
+      return finalItem;
+    })
+  );
 
   const dir = path.join(__dirname, "../src/content/creation");
 
-  // delete all files in directory
+  // Delete all files in directory
   fs.readdirSync(dir).forEach((file) => {
     fs.unlinkSync(path.join(dir, file));
   });
 
+  // Write transformed data
   transformedData.forEach((item) => {
     const filePath = path.join(
       dir,

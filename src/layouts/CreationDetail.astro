@@ -25,6 +25,7 @@ const {
   movieEmbed,
   materials,
   imageDescriptions,
+  mediaMetadata,
 } = Astro.props;
 const descriptionParsed = descriptionMd
   ? marked.parse(
@@ -120,6 +121,7 @@ const style = {
                         <ImageOrVideo
                           client:only="react"
                           src={transformedHeroImage}
+                          type={mediaMetadata?.[0]}
                         />
                         {imageDescriptions?.[0] && (
                           <span class="descriptionText">
@@ -163,6 +165,7 @@ const style = {
                       <ImageOrVideo
                         client:only="react"
                         src={transformedHeroImage}
+                        type={mediaMetadata?.[0]}
                       />
                       {imageDescriptions?.[0] && (
                         <span class="descriptionText">
@@ -181,6 +184,7 @@ const style = {
               ? imageDescriptions.slice(movieUrl ? 0 : 1)
               : []}
             client:only="react"
+            metadata={mediaMetadata?.slice(movieUrl ? 0 : 1)}
           />
         </div>
       </div>

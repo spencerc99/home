@@ -37,6 +37,7 @@ export const creationSchema = z.object({
   featured: z.boolean().default(false),
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
+  mediaMetadata: z.array(z.enum(["image", "video"])),
 });
 
 const creation = defineCollection({

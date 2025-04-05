@@ -9,13 +9,13 @@
     "Open Source"
   ],
   "date": "2023-02-25T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-gYZFkUt_FL/2d4d18f709dbc8b84c44035f9a209d9c5cbfa5743fd4449fd72ec23b8f4f34346c5ebc18dec85c3d0bda28389b379be6649fae8796ab971863efb151c47118953ee4d461d1033652e6903542594d9db202fe20046a1f94732d45d0f61a0c5bf4c75e0e43",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gYZFkUt_FL/2d4d18f709dbc8b84c44035f9a209d9c5cbfa5743fd4449fd72ec23b8f4f34346c5ebc18dec85c3d0bda28389b379be6649fae8796ab971863efb151c47118953ee4d461d1033652e6903542594d9db202fe20046a1f94732d45d0f61a0c5bf4c75e0e43",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-gYZFkUt_FL/2d4d18f709dbc8b84c44035f9a209d9c5cbfa5743fd4449fd72ec23b8f4f34346c5ebc18dec85c3d0bda28389b379be6649fae8796ab971863efb151c47118953ee4d461d1033652e6903542594d9db202fe20046a1f94732d45d0f61a0c5bf4c75e0e43",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-O8jRexzuRT/409f93a1c5ea568bede7e9cd3f461bbe7bab077ebaf6d644154d48111a829d9925f2a35e7aea63421be61d7d9298dd0258a916d370e360bad0706f36a710042dcfd1ab522e0a191ed8200216876ff942c43eb8d033ff0a916622be5eacf4bd16d397de07",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-lQ2xut7U5z/6801e1ae357f881088ef167d257a44ae78a38197a39507410489b482d45159b56f6d922fe83df720cad45e7caf3684fead6480c7fa67e43325cb0a249a8e218fa5ce8cb187a02c8de0878d262231cc599e33ee0f28874e0b6cc8e0a452306f2d7d9bb896",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-NNNKmYt9m-/ce3a40584691ce2d16987d27b550685a809683e96ed54456b7cd0924afa81aefddaf28c8abb0e19047b915ac33f448c18ab6846a9648378d12b378e2583540be4456fe1609e50db27ad35b1ab98256da97cc417707cff67373dc22b3afcdb92164a9556d",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-8iG4RXrba1/2e83ddf847afce6630a6a3ccf33597ccade1c6bd65265ac1e129a06343513a7ea7080879d830a9483003b31cb94629ba8c919e6df769b7ed4061ba23b83c0fa0b1bb05ec2b4f003e2616ac89b3e3b09a0408ea41a1b31856c843b31ac7f3aed9a00367e2"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gYZFkUt_FL/2d4d18f709dbc8b84c44035f9a209d9c5cbfa5743fd4449fd72ec23b8f4f34346c5ebc18dec85c3d0bda28389b379be6649fae8796ab971863efb151c47118953ee4d461d1033652e6903542594d9db202fe20046a1f94732d45d0f61a0c5bf4c75e0e43",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-O8jRexzuRT/409f93a1c5ea568bede7e9cd3f461bbe7bab077ebaf6d644154d48111a829d9925f2a35e7aea63421be61d7d9298dd0258a916d370e360bad0706f36a710042dcfd1ab522e0a191ed8200216876ff942c43eb8d033ff0a916622be5eacf4bd16d397de07",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-lQ2xut7U5z/6801e1ae357f881088ef167d257a44ae78a38197a39507410489b482d45159b56f6d922fe83df720cad45e7caf3684fead6480c7fa67e43325cb0a249a8e218fa5ce8cb187a02c8de0878d262231cc599e33ee0f28874e0b6cc8e0a452306f2d7d9bb896",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-NNNKmYt9m-/ce3a40584691ce2d16987d27b550685a809683e96ed54456b7cd0924afa81aefddaf28c8abb0e19047b915ac33f448c18ab6846a9648378d12b378e2583540be4456fe1609e50db27ad35b1ab98256da97cc417707cff67373dc22b3afcdb92164a9556d",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-8iG4RXrba1/2e83ddf847afce6630a6a3ccf33597ccade1c6bd65265ac1e129a06343513a7ea7080879d830a9483003b31cb94629ba8c919e6df769b7ed4061ba23b83c0fa0b1bb05ec2b4f003e2616ac89b3e3b09a0408ea41a1b31856c843b31ac7f3aed9a00367e2"
   ],
   "link": "https://we-b.site",
   "ongoing": false,
@@ -28,5 +28,12 @@
     "",
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "image",
+    "image"
+  ]
 }

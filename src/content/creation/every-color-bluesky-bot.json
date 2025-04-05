@@ -6,9 +6,9 @@
     "Bot"
   ],
   "date": "2023-05-22T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-pru9dvop39/f20712788dbee718643bba1ee3768a5d0528dbec8d7a5ebcd7e5f2e2be10911b5a5f2ddded24f81fb63fa668f6c3e4e8ee135a1ce35ebd5fab53d5ffa9459cb98b976f30777fd8c32dd4a494d59ad6837c9c6c4b10e150b123664d7516360af36db89c22",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pru9dvop39/f20712788dbee718643bba1ee3768a5d0528dbec8d7a5ebcd7e5f2e2be10911b5a5f2ddded24f81fb63fa668f6c3e4e8ee135a1ce35ebd5fab53d5ffa9459cb98b976f30777fd8c32dd4a494d59ad6837c9c6c4b10e150b123664d7516360af36db89c22",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-pru9dvop39/f20712788dbee718643bba1ee3768a5d0528dbec8d7a5ebcd7e5f2e2be10911b5a5f2ddded24f81fb63fa668f6c3e4e8ee135a1ce35ebd5fab53d5ffa9459cb98b976f30777fd8c32dd4a494d59ad6837c9c6c4b10e150b123664d7516360af36db89c22"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pru9dvop39/f20712788dbee718643bba1ee3768a5d0528dbec8d7a5ebcd7e5f2e2be10911b5a5f2ddded24f81fb63fa668f6c3e4e8ee135a1ce35ebd5fab53d5ffa9459cb98b976f30777fd8c32dd4a494d59ad6837c9c6c4b10e150b123664d7516360af36db89c22"
   ],
   "link": "https://bsky.app/profile/colors.bsky.social",
   "ongoing": false,
@@ -17,5 +17,8 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ]
 }

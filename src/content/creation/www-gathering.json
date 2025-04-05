@@ -8,10 +8,10 @@
     "Art"
   ],
   "date": "2023-06-03T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ZoZwMwv1fX/6c2b8fb6ff725f826ab4b382ed5bd380ca68f507de1d143d35dc152996bfbf56ce534d47f60481601956c4a6c952ed5301c0fd51ee06fe209fff56870ffd9bdeddf096f096c8e0a0eb585e639fb1782e13da07f8a03dd4d814726ec8443fed7f5beecad6",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-ZoZwMwv1fX/6c2b8fb6ff725f826ab4b382ed5bd380ca68f507de1d143d35dc152996bfbf56ce534d47f60481601956c4a6c952ed5301c0fd51ee06fe209fff56870ffd9bdeddf096f096c8e0a0eb585e639fb1782e13da07f8a03dd4d814726ec8443fed7f5beecad6",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-ZoZwMwv1fX/6c2b8fb6ff725f826ab4b382ed5bd380ca68f507de1d143d35dc152996bfbf56ce534d47f60481601956c4a6c952ed5301c0fd51ee06fe209fff56870ffd9bdeddf096f096c8e0a0eb585e639fb1782e13da07f8a03dd4d814726ec8443fed7f5beecad6",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-q0b29MzHJy/3a867d28a82f6afbfd7922bd9159bd2303c7d425f4dddc4bdd05ce644b5adfee6a1b8b1c8a074ad1cadf55d9783d4550d2e627f121b70969570318683e90b452f9a74d59f9f682326c525d5f8ef2a8cc2a3623d9859963d6d3b32dcd00f0b87b5dcfb0f3"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-ZoZwMwv1fX/6c2b8fb6ff725f826ab4b382ed5bd380ca68f507de1d143d35dc152996bfbf56ce534d47f60481601956c4a6c952ed5301c0fd51ee06fe209fff56870ffd9bdeddf096f096c8e0a0eb585e639fb1782e13da07f8a03dd4d814726ec8443fed7f5beecad6",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-q0b29MzHJy/3a867d28a82f6afbfd7922bd9159bd2303c7d425f4dddc4bdd05ce644b5adfee6a1b8b1c8a074ad1cadf55d9783d4550d2e627f121b70969570318683e90b452f9a74d59f9f682326c525d5f8ef2a8cc2a3623d9859963d6d3b32dcd00f0b87b5dcfb0f3"
   ],
   "movieUrl": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-O6ADCVY5DS/ac0b21a8e18c3ed6960b8175fe00845c8d3234e64d95a7abe107f55ceb5e082ca4b63d0a79d975f6f340c13c75a9db65943729e4786f9c609063f70beb60ee5992247baa2c53aa368ae041144972a27c72507b1de0af3437fc625264d35907be419dde64",
   "link": "https://docs.google.com/document/d/1jzIv2fag3j6bnZrlenUCL_1nDG-LV--A53OTZf_RZl8/edit",
@@ -22,5 +22,9 @@
     "",
     ""
   ],
-  "isEvent": true
+  "isEvent": true,
+  "mediaMetadata": [
+    "image",
+    "image"
+  ]
 }

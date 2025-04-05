@@ -7,9 +7,9 @@
     "Writing"
   ],
   "date": "2022-01-01T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-A2UACIyEKe/592c835cac2427adc94f71f46faafb1b766759d3494cf459ff78a54006b1d8a8e27c6aab9b7f8013af4fe57d9f86820444a0c112fb59e9d9a46fb3f16f1ba287f0fae656a7840772ba72a53f1b920933e12c03b910d127fd462c8907b18bd9e66313941f",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-A2UACIyEKe/592c835cac2427adc94f71f46faafb1b766759d3494cf459ff78a54006b1d8a8e27c6aab9b7f8013af4fe57d9f86820444a0c112fb59e9d9a46fb3f16f1ba287f0fae656a7840772ba72a53f1b920933e12c03b910d127fd462c8907b18bd9e66313941f",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-A2UACIyEKe/592c835cac2427adc94f71f46faafb1b766759d3494cf459ff78a54006b1d8a8e27c6aab9b7f8013af4fe57d9f86820444a0c112fb59e9d9a46fb3f16f1ba287f0fae656a7840772ba72a53f1b920933e12c03b910d127fd462c8907b18bd9e66313941f"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-A2UACIyEKe/592c835cac2427adc94f71f46faafb1b766759d3494cf459ff78a54006b1d8a8e27c6aab9b7f8013af4fe57d9f86820444a0c112fb59e9d9a46fb3f16f1ba287f0fae656a7840772ba72a53f1b920933e12c03b910d127fd462c8907b18bd9e66313941f"
   ],
   "link": "https://spencerchang.substack.com/",
   "ongoing": true,
@@ -18,5 +18,8 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ]
 }

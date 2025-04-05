@@ -6,9 +6,11 @@ import { ZoomContextProvider } from "../context/ZoomContext";
 export function CreationDetailImages({
   images,
   descriptions,
+  metadata,
 }: {
   images: string[];
   descriptions: string[];
+  metadata: ("image" | "video")[];
 }) {
   return images.length > 1 ? (
     <ZoomContextProvider>
@@ -25,6 +27,7 @@ export function CreationDetailImages({
                 src={imgUrl}
                 key={imgUrl}
                 withZoom
+                type={metadata[idx]}
               />
               {Boolean(descriptions?.[idx]) && (
                 <span className="descriptionText">{descriptions[idx]}</span>

@@ -9,10 +9,10 @@
     "Open Source"
   ],
   "date": "2022-11-10T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Jw8-V-W5Jy/b43ff27f3f73c9bfc077dc4a1489bbf5fc2dd71e2ac6139d6ebe8b833f100ce2523f8eeef0dce01838a2c3507f08077d8406358aeb919ab54fbca0dae8d79e2f791b7970b4336b272755852d2835ea467ade676b4e819f0b647ecf0fe27c0d4d14142076"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2EURu_3QBN/9034f98e549cb2eb44ac0a4445dca3a05e8c9159d0edc4291fb363fe1a43e243aafa3572b03d3f596ad197e577c8aeba276ee24da200c94663feea195131a00ad71082246b9a6005ccbfd654f376dfb499f154ecc6b27155d232c9eeb28526145b0e2553",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Jw8-V-W5Jy/b43ff27f3f73c9bfc077dc4a1489bbf5fc2dd71e2ac6139d6ebe8b833f100ce2523f8eeef0dce01838a2c3507f08077d8406358aeb919ab54fbca0dae8d79e2f791b7970b4336b272755852d2835ea467ade676b4e819f0b647ecf0fe27c0d4d14142076"
   ],
   "movieUrl": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-Rjv1_aLpqz/366bdafa9210875503f9146c4b49516e35f3c8da313d6b9262e0146854386f50a8a0663675bebc43891bd972ad8550926e4d296e290d35b66812107741adce56cd405592052b05f24ba54aaf10c2d10b370b8475fda44f8f76a1fc1fc714266c9cbde502",
   "link": "status.spencerchang.me",
@@ -23,5 +23,9 @@
     "",
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image"
+  ]
 }

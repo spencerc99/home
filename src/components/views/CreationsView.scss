@@ -141,6 +141,9 @@
       }
     }
   }
+  img {
+    object-fit: cover;
+  }
   img,
   video {
     @include image-dropshadow();
@@ -152,7 +155,6 @@
     );
 
     transition: opacity 0.15s linear;
-    object-fit: cover;
     // TODO: this mkaes videos transparent on chrome lol
     // border-radius: inherit;
     width: 100%;
@@ -278,7 +280,6 @@
     video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       min-width: unset;
       min-height: unset;
       max-height: unset;

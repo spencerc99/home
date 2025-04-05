@@ -38,6 +38,7 @@ export function CreationSummary({
     assetPreviewIdx,
     parentCategory,
     categories,
+    mediaMetadata,
   } = creation;
   const internalLink = `/creation/${id}`;
   const externalLink = link;
@@ -56,14 +57,11 @@ export function CreationSummary({
     if (!movieUrl) {
       return null;
     }
-    return withQueryParams(
-      movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "450",
-      }
-    );
+    return withQueryParams(movieUrl, {
+      auto: "format,compress",
+      fit: "max",
+      w: "450",
+    });
   }, [movieUrl]);
 
   const transformedHeroAsset = useMemo(() => {
@@ -71,14 +69,11 @@ export function CreationSummary({
     if (!heroAsset) {
       return null;
     }
-    return withQueryParams(
-      heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "450",
-      }
-    );
+    return withQueryParams(heroAsset, {
+      auto: "format,compress",
+      fit: "max",
+      w: "450",
+    });
   }, [media, assetPreviewIdx]);
 
   switch (view) {
@@ -130,6 +125,7 @@ export function CreationSummary({
                   }}
                   controls={false}
                   withZoom={false}
+                  type={mediaMetadata?.[assetPreviewIdx]}
                 />
               </LazyContainer>
             )}
@@ -226,6 +222,7 @@ export function CreationSummary({
                   setHasLoadedMedia(true);
                 }}
                 withZoom={false}
+                type={mediaMetadata?.[assetPreviewIdx]}
               />
             </LazyContainer>
           ) : null}

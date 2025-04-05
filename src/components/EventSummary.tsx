@@ -22,6 +22,7 @@ export function EventSummary({
     media,
     link,
     forthcoming,
+    mediaMetadata,
   },
 }: Props) {
   const externalLink = link;
@@ -78,6 +79,7 @@ export function EventSummary({
           onLoadedData={() => {
             setHasLoadedMedia(true);
           }}
+          type={mediaMetadata?.[assetPreviewIdx]}
         />
       </LazyContainer>
     </div>

@@ -14,5 +14,8 @@
   "forthcoming": true,
   "featured": false,
   "imageDescriptions": [],
-  "isEvent": true
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ]
 }

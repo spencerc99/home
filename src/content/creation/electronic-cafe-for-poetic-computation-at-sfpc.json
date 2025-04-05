@@ -5,9 +5,9 @@
     "Art"
   ],
   "date": "2023-09-13T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-u27GithILR/9d04d13654bdc3263313f050ac5c34a9e57a17e832414acb6200683e0e9f64cc8d6987668082aacdea72f0d153f1b3ef1fbaeb7f38c9324a37f366926564d84cb3faa1ca3d76664399cb1ecd5432295176cdbe68319b60eb98e3a4614cff4add40c235f0",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-u27GithILR/9d04d13654bdc3263313f050ac5c34a9e57a17e832414acb6200683e0e9f64cc8d6987668082aacdea72f0d153f1b3ef1fbaeb7f38c9324a37f366926564d84cb3faa1ca3d76664399cb1ecd5432295176cdbe68319b60eb98e3a4614cff4add40c235f0",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-u27GithILR/9d04d13654bdc3263313f050ac5c34a9e57a17e832414acb6200683e0e9f64cc8d6987668082aacdea72f0d153f1b3ef1fbaeb7f38c9324a37f366926564d84cb3faa1ca3d76664399cb1ecd5432295176cdbe68319b60eb98e3a4614cff4add40c235f0"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-u27GithILR/9d04d13654bdc3263313f050ac5c34a9e57a17e832414acb6200683e0e9f64cc8d6987668082aacdea72f0d153f1b3ef1fbaeb7f38c9324a37f366926564d84cb3faa1ca3d76664399cb1ecd5432295176cdbe68319b60eb98e3a4614cff4add40c235f0"
   ],
   "link": "https://sfpc.notion.site/ECPC-Electronic-Art-Archive-5087537f9932499ea8ddd3daf8c03c50",
   "ongoing": false,
@@ -16,5 +16,8 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": true
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ]
 }

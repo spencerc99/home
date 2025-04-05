@@ -8,11 +8,11 @@
     "Community"
   ],
   "date": "2024-03-23T07:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-JcXvPSvoTZ/83ec5ce6f01db0d646299efabb241d678cbaf023d54b50b8856ed8180d2bdfed4103b3a3ad916e373bfcb14238ace188a06c740c244d38eb6c9f55df3fbcf5fc1d942e2564eb3454e9e36b989316065a83aed38b6aaa687e8169d857c21ff6be8913e480",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-JcXvPSvoTZ/83ec5ce6f01db0d646299efabb241d678cbaf023d54b50b8856ed8180d2bdfed4103b3a3ad916e373bfcb14238ace188a06c740c244d38eb6c9f55df3fbcf5fc1d942e2564eb3454e9e36b989316065a83aed38b6aaa687e8169d857c21ff6be8913e480",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-JcXvPSvoTZ/83ec5ce6f01db0d646299efabb241d678cbaf023d54b50b8856ed8180d2bdfed4103b3a3ad916e373bfcb14238ace188a06c740c244d38eb6c9f55df3fbcf5fc1d942e2564eb3454e9e36b989316065a83aed38b6aaa687e8169d857c21ff6be8913e480",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-XyEuBD3unQ/2bc4537b70dff6f1356c9fdaf106812bb0475d5d8755412b7f34a11038a9b1c242dd2351905fdf89c07c91bb06e0f1a2b28094898dc9b13f64b9c6089199d893eba05a1c020dcffbee6374b9761b443b341175e6618c0ceec9107c161f78469671bbfbd0",
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-jN-ZvD2ZmH/d202bca3af8f5c3b27df902be8e2cc4a377ebb47f65724501283f876f35339e028e9a222dd3e7f04726c7b883fbc82d10e24ec762c59e29f28fdb463bf7bb7b758258bc21b9f618c6c5382afa9655772af93c4da8960c454fc35f847880ce34367798c91"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-JcXvPSvoTZ/83ec5ce6f01db0d646299efabb241d678cbaf023d54b50b8856ed8180d2bdfed4103b3a3ad916e373bfcb14238ace188a06c740c244d38eb6c9f55df3fbcf5fc1d942e2564eb3454e9e36b989316065a83aed38b6aaa687e8169d857c21ff6be8913e480",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-XyEuBD3unQ/2bc4537b70dff6f1356c9fdaf106812bb0475d5d8755412b7f34a11038a9b1c242dd2351905fdf89c07c91bb06e0f1a2b28094898dc9b13f64b9c6089199d893eba05a1c020dcffbee6374b9761b443b341175e6618c0ceec9107c161f78469671bbfbd0",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jN-ZvD2ZmH/d202bca3af8f5c3b27df902be8e2cc4a377ebb47f65724501283f876f35339e028e9a222dd3e7f04726c7b883fbc82d10e24ec762c59e29f28fdb463bf7bb7b758258bc21b9f618c6c5382afa9655772af93c4da8960c454fc35f847880ce34367798c91"
   ],
   "movieUrl": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-617MYP4YJZ/5d0b544f5104b11ae84c2948ce947783adbdaef442ebec30b24aa3f1994809373cf42c4326eac41a3006164d54dd2c361f46cec486e5c45b3b7af0135caae6f8b91bef60ca0771d5de9106e0667a91745363b1d2d3e7d38a9b0ab9d444a4b955455e5673",
   "link": "https://www.eventbrite.com/e/reboot-community-day-ft-kernel-4-launch-tickets-843445467097?aff=oddtdtcreator",
@@ -24,5 +24,10 @@
     "",
     ""
   ],
-  "isEvent": true
+  "isEvent": true,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image"
+  ]
 }

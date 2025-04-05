@@ -8,9 +8,9 @@
     "Coda"
   ],
   "date": "2022-11-09T08:00:00.000Z",
-  "heroImage": "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4",
   "media": [
-    "https://codahosted.io/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-I3EuCjLFYV/014276c85f60cee0512b11038bed0caede05afb73ee411852785d34b361e701f0a038ba0f3d97fea348dac136306d81985bea81aefa2f7d8f5f0b874754238907958642e91e22f33f8f7074bc6c2dcf0be49d90bfd0b06a42b3edd2844eab2bb9441c9e4"
   ],
   "link": "https://coda.io/@coda/openai-for-coda",
   "ongoing": false,
@@ -19,5 +19,8 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": false
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ]
 }
