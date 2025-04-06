@@ -141,11 +141,9 @@
       }
     }
   }
-  img {
-    object-fit: cover;
-  }
   img,
   video {
+    object-fit: cover;
     @include image-dropshadow();
     background: radial-gradient(
       circle,
