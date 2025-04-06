@@ -7,6 +7,7 @@ import { withQueryParams } from "../utils/url";
 import { ImageOrVideo } from "./ImageOrVideo";
 import dayjs from "dayjs";
 import { stringToColor } from "../utils";
+import { transformImageUrl } from "../utils/images";
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
     id: string;

@@ -95,6 +95,8 @@ async function importCreations() {
         .filter(Boolean)
         .map(transformImageUrl);
 
+      const transformedMovieUrl = transformImageUrl(item.movieUrl);
+
       // Get type for all media items
       const mediaMetadata = await Promise.all(
         media.map(async (url) => {
@@ -132,7 +134,7 @@ async function importCreations() {
         endDate: item.endDate ? new Date(item.endDate) : null,
         heroImage: media[0],
         media,
-        movieUrl: item.movieUrl,
+        movieUrl: transformedMovieUrl,
         movieEmbed: item.movieEmbed,
         link: item.link,
         materials: item.Materials,
