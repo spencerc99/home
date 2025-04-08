@@ -28,7 +28,7 @@ export function NowBlock() {
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
       </p>
-      <p>Making a website for ████████</p>
+      <p>- Making a website for ████████</p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for
         teaching, crafting, and scheming.

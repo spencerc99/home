@@ -2448,3 +2448,16 @@ select {
   background: var(--color-neutral-background);
   color: var(--color-text-color);
 }
+
+.orgsImgGallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  img {
+    max-width: 120px;
+    max-height: 100px;
+    height: 100%;
+  }
+}
