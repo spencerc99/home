@@ -4,13 +4,18 @@ import FormattedDate from "../components/FormattedDate.astro";
 import { marked } from "marked";
 import { CreationDetailImages } from "../components/CreationDetailImages";
 import { withQueryParams } from "../utils/url";
+import { RelatedCreations } from "../components/RelatedCreations";
 
 import "./CreationDetail.scss";
 import BaseLayout from "./BaseLayout.astro";
 import { ImageOrVideo } from "../components/ImageOrVideo";
 import { stringToColor } from "../utils";
 
-type Props = CollectionEntry<"collection">["data"];
+type Props = CollectionEntry<"collection">["data"] & {
+  relatedCreations?: Array<
+    CollectionEntry<"creation">["data"] & { id: string }
+  >;
+};
 
 const {
   title,
@@ -26,6 +31,7 @@ const {
   materials,
   imageDescriptions,
   mediaMetadata,
+  relatedCreations = [],
 } = Astro.props;
 const descriptionParsed = descriptionMd
   ? marked.parse(
@@ -140,6 +146,16 @@ const style = {
               )
             }
             <slot />
+            {
+              relatedCreations.length > 0 && (
+                <div class="desktop-related">
+                  <RelatedCreations
+                    client:only="react"
+                    creations={relatedCreations}
+                  />
+                </div>
+              )
+            }
           </div>
         </div>
         <div>
@@ -186,6 +202,16 @@ const style = {
             client:only="react"
             metadata={mediaMetadata?.slice(movieUrl ? 0 : 1)}
           />
+          {
+            relatedCreations.length > 0 && (
+              <div class="mobile-related">
+                <RelatedCreations
+                  client:only="react"
+                  creations={relatedCreations}
+                />
+              </div>
+            )
+          }
         </div>
       </div>
     </article>

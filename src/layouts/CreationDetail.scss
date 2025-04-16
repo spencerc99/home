@@ -121,13 +121,13 @@
     .images {
       max-width: 1200px;
       margin-top: 1em;
-      padding-bottom: 4em;
 
       img {
         // width: 100%;
         border-radius: 0.25em;
       }
     }
+    padding-bottom: 4em;
   }
 
   .hero-container-mobile {
@@ -142,5 +142,21 @@
     @include media(largeScreen, xlargeScreen) {
       display: block;
     }
+  }
+}
+
+.mobile-related {
+  display: none;
+}
+.desktop-related {
+  display: block;
+}
+
+@include media(xsmallScreen, smallScreen, mediumScreen) {
+  .mobile-related {
+    display: block;
+  }
+  .desktop-related {
+    display: none;
   }
 }

@@ -1,20 +1,30 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import CreationDetail from '../../layouts/CreationDetail.astro';
+import { type CollectionEntry, getCollection } from "astro:content";
+import CreationDetail from "../../layouts/CreationDetail.astro";
 
 export async function getStaticPaths() {
-	const creations = await getCollection('creation');
-	return creations.map((creation) => ({
-		params: { slug: creation.id },
-		props: creation,
-	}));
+  const creations = await getCollection("creation");
+  return creations.map((creation) => ({
+    params: { slug: creation.id },
+    props: { creation, creations },
+  }));
 }
-type Props = CollectionEntry<'creation'>;
 
-const creation = Astro.props;
-// render description as markdown
+interface Props {
+  creation: CollectionEntry<"creation">;
+  creations: CollectionEntry<"creation">[];
+}
+
+const { creation, creations } = Astro.props;
+
+// Get related creations if they exist
+const relatedSlugs = creation.data.related || [];
+const relatedCreations = creations
+  .filter((c) => relatedSlugs.includes(`${c.id}`))
+  .map((c) => ({
+    id: c.id,
+    ...c.data,
+  }));
 ---
 
-<CreationDetail {...creation.data}>
-
-</CreationDetail>
+<CreationDetail {...creation.data} relatedCreations={relatedCreations} />

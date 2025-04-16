@@ -18,10 +18,8 @@ const { Content } = await post.render();
 // Get related posts if they exist
 const relatedSlugs = post.data.related || [];
 let relatedPosts = [];
-console.log(relatedSlugs);
 if (relatedSlugs.length > 0) {
   const posts = await getCollection("posts");
-  console.log(posts);
   relatedPosts = posts.filter(
     (p) =>
       relatedSlugs.includes(`/posts/${p.slug}/`) ||
