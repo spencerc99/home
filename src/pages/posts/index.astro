@@ -18,7 +18,7 @@ const posts = ((await getCollection("posts")) || [])
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<DetailLayout {...LayoutProps}>
+<DetailLayout {...LayoutProps} columns={1}>
   <div class="listDescription textContent">
     <div class="headerContainer textContent">
       <h1 class="uniform">(writing)</h1>
@@ -41,7 +41,8 @@ const posts = ((await getCollection("posts")) || [])
       <PostsList posts={posts} />
       <p>
         more available on my <a href="https://spencerchang.me/posts"
-          >old website</a>
+          >old website</a
+        >
       </p>
     </section>
   </main>
