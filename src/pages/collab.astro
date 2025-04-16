@@ -1,5 +1,6 @@
 ---
 import { Footnote } from "../components/Footnote";
+import SelectedCreationSummary from "../components/SelectedCreationSummary.astro";
 import DetailLayout from "../layouts/DetailLayout.astro";
 
 const LayoutProps = {
@@ -7,7 +8,7 @@ const LayoutProps = {
   description: "work with me...",
   date: "2024-04-11",
   image: "/collab.png",
-  metaTitle: "work with 𝚜𝚙𝚎𝚗𝚌𝚎𝚛",
+  metaTitle: "work with ꜱᴘᴇɴᴄᴇʀ",
   emojis: [],
   titleClass: "uniform",
 };
@@ -73,37 +74,28 @@ const LayoutProps = {
     </div>
   </div>
   <div class="collab">
-    <h3 id="invite">1. invite me to speak / teach / install</h3>
+    <h3 id="invite">1. invite me to teach / speak</h3>
     <div class="imgGallery">
-      <div class="imgContainer">
-        <img
-          class="lazyload"
-          data-src="/collab/html-garden-culturehub.png"
-          alt="a group of people taking a picture in front of a large projection of html garden in an outdoor patio"
+      <div class="imgContainer" style="padding: 1em;">
+        <SelectedCreationSummary
+          slug="touching-computers-creating-data-talismans"
         />
-        <img
-          class="lazyload"
-          data-src="/collab/communal-computing-workshop-dweb.png"
-          alt="10-20 people seated on blankets on the ground on a sunny day"
-        />
-        <img
-          class="lazyload"
-          data-src="/collab/tiny-internets-workshop.png"
-          alt="a crowded room watching a small presentation"
-        />
+        <SelectedCreationSummary slug="neighborhood-internets-workshop" />
+        <SelectedCreationSummary slug="reinternet" />
       </div>
     </div>
     <p>
       I've spoken across a range of institutions, including U. Penn., Gray Area,
-      and for W3C community group meetings. I've led workshops at Stanford
-      University, SFPC, and Internet Archive's DWeb Camp.
+      and for W3C community group meetings. I've led workshops internationally
+      across Stanford University, SFPC, trust.support, and Internet Archive's
+      DWeb Camp. Some examples include <a
+        href="/creation/touching-computers-creating-data-talismans"
+        >Touching Computers</a
+      > and <a href="/creation/neighborhood-internets-workshop"
+        >Neighborhood Internets</a
+      >.
     </p>
-    <p>
-      I've exhibited internet art at the de Young Museum, CultureHub, and Gray
-      Area and created work for NEW INC, Hyundai Artlab, and the Ethereum
-      Foundation. I'd love to create more installations, both ones that build
-      upon existing net art and infrastructural work and new creations.
-    </p>
+
     <p>
       <em
         >If you'd like to invite me, email <a
@@ -111,76 +103,55 @@ const LayoutProps = {
         > with the subject "[INVITATION]"</em
       >
     </p>
-    <h3 id="commission">2. commission me</h3>
-    <div class="imgGallery">
-      <div class="imgContainer">
-        <img
-          class="lazyload"
-          data-src="/collab/sigil-I-stitched-phone-tapping.png"
-          alt="a stitched photo of a ceramic charm tapped to a phone and triggering a website prompt"
-        />
-        <img
-          class="lazyload"
-          data-src="/collab/sigils.png"
-          alt="a set of ceramic charms with different colors and iconographies"
-        />
-        <img
-          class="lazyload"
-          data-src="/collab/fortune-cookie.png"
-          alt="a marbled red ceramic fortune cookie with a note tied to it with red string"
-        />
-        <img
-          class="lazyload"
-          data-src="/collab/tabi-incense-holder.png"
-          alt="a blue-white ceramic tabi boot holding a stick of incense in between the toes"
-        />
-      </div>
-    </div>
+    <h3 id="work">2. work with me</h3>
     <p>
-      I run a hybrid lab-studio for physical artifacts. I create
-      computation-infused physical artifacts (e.g. <a href="/creation/SIGIL-I/"
-        >SIGIL I</a
-      >, fortune cookies that link to an app experience, or invites that open to
-      a personalized website). I'm available for custom commisssions of
-      integrated digital-physical experiences that can be customized to
-      receipients.
+      I create distinctive digital-physical experiences that bridge technology
+      and art for brands seeking unexpected creative expressions. My work
+      combines software engineering with interactive sculpture to craft
+      memorable, tangible moments that generate authentic engagement.
     </p>
     <p>
-      <em
-        >If you have ideas that come to mind that you want to realize, email <a
-          href="mailto:spencer@spencer.place">spencer@spencer.place</a
-        > with the subject "[OBJECT]"</em
-      >
-    </p>
-    <h3 id="work">3. work with me</h3>
-    <em>open to collaborations & custom commissions on demand</em>
-
-    <p>
-      I can provide freelance ideation, prototyping, design, programming and
-      engineering. I excel at creative interface and system design and prototype
-      designs rapidly through code, while identifying a path to scalable
-      implementation.
+      I'll lead concept development, rapid prototyping, and the end-to-end
+      production of the digital and physical components. Every step will be
+      collaborative, and we'll align on our collective visions before moving
+      forward.
     </p>
     <p>
-      Some things that I've been experimenting with include: interactive hero
-      experiences for landing pages that showcase your product philosophy,
-      standalone interactive games, and small companion tools<Footnote
+      Some things that I've worked on include: interactive sculptures that bring
+      up custom digital experiences when tapped with a phone for your business
+      or event, playful websites for media companies, standalone interactive
+      games, and small companion tools<Footnote
         client:only="react"
         url="https://www.are.na/editorial/an-interview-with-spencer-chang"
       />.
     </p>
-    <p>
-      I'm interested in creating internet infrastructure and computing
-      interfaces that enable agency, intimacy, and solidarity (<a
-        href="/posts/one-year-research#what-i-do--care-about"
-        >more on what I care about</a
-      >).
-    </p>
+
+    <div class="imgGallery">
+      <div class="imgContainer">
+        <img
+          class="lazyload"
+          data-src="/collab/shrine-to-voice-06.jpg"
+          alt="a red acrylic phone booth labeled 'phone' with a mobile phone inside showing a website embedded in the phone booth."
+        />
+        <img
+          class="lazyload"
+          data-src="/collab/field-companions-staged-1.jpg"
+          alt="a grey stone with an orange piece in the center against a background of fall leaves"
+        />
+        <img
+          class="lazyload"
+          data-src="/collab/fortune-webstone.jpeg"
+          alt="a blue-white ceramic fortune cookie"
+        />
+      </div>
+    </div>
+    <p></p>
 
     Some areas of interest...
     <ul>
+      <!-- TODO: update this -->
       <li>
-        infrastructure for an open internet<Footnote
+        platforms for open internet<Footnote
           client:only="react"
           url="/creation/playhtml"
           hoverImg="https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-BliRr_OfeZ/31a3bda223877cab8f7b792298315cc838b5ecaa92900fe8ae2f4b192cc473ee64dee0823b390bcd94f9ac2ab04d7b51890adee7937300b6e5eccd38f8ce20a53b43113f607e3be8df6c89341907daf710c5752ad70860833c407e8df4706c4f7fe8057b?auto=format%2Ccompress&fit=max&w=1000"
@@ -241,16 +212,30 @@ const LayoutProps = {
         > with the subject "[COLLAB]"</em
       >
     </p>
+    <h3 id="commission">3. commission me</h3>
+    <p>
+      I've exhibited internet art at the de Young Museum, CultureHub, and Gray
+      Area and created work for NEW INC, Hyundai Artlab, and the Ethereum
+      Foundation. I'd love to create more installations, both ones that build
+      upon existing net art and infrastructural work and new creations.
+    </p>
+    <p>
+      <em
+        >If you have ideas that come to mind that you want to realize, email <a
+          href="mailto:spencer@spencer.place">spencer@spencer.place</a
+        > with the subject "[COMMISSION]"</em
+      >
+    </p>
   </div>
-  <style lang="scss">
-    @import "../styles/variables.scss";
-    .collab {
-      display: block;
-      max-width: $large-content-width;
-      h3 {
-        text-transform: uppercase;
-        font-family: VT323, monospace;
-      }
-    }
-  </style>
 </DetailLayout>
+<style lang="scss">
+  @import "../styles/variables.scss";
+  .collab {
+    display: block;
+    max-width: $large-content-width;
+    h3 {
+      text-transform: uppercase;
+      font-family: VT323, monospace;
+    }
+  }
+</style>

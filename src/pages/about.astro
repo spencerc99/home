@@ -5,18 +5,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Polaroid } from "../components/Polaroid";
 import { Guestbook } from "../components/interactive/Guestbook";
 import { Footnote } from "../components/Footnote";
+import "../styles/tailwind.css";
 
 const workDescription = `
-- I spend my days
-- imagining <a href="https://spencerchang.substack.com/p/towards-flight">communal computing</a> futures,
-  - imagining <a href="https://spencerchang.substack.com/p/towards-flight">communal computing</a> futures,
-  - through 
-  - internet environments and solidarity infrastructure,
-    - internet environments and solidarity infrastructure,
-    - the kinds with new ways for <a href="https://tiny-inter.net/">making space</a> on the internet, 
-      - the kinds with new ways for <a href="https://tiny-inter.net/">making space</a> and <a href="https://playhtml.fun">relating to each other</a> on the internet,
-    - and community-owned, <a href="https://spencerchang.substack.com/p/ti-10-make-small-web-tools">small-scale</a> infrastructure.
-- Before, I 
+- In the past, they 
 - crafted
   - designed and developed
 - tools for tinkers
@@ -29,9 +21,9 @@ const workDescription = `
   - interactive essays and poetic tools at <a href="https://verses.xyz" id="verses">verses</a>
   - (I co-stewarded the creation of <b id="pluriverse"><a href="https://pluriverse.world">pluriverse.world</a></b>).
     - (I co-stewarded the creation of <b id="pluriverse"><a href="https://pluriverse.world">pluriverse.world</a></b>
-    - and created our <a href="https://poems.verses.xyz">transforming text playground</a>). 
-- My work has been featured and supported by NEW INC, the de Young Museum, Gray Area, CultureHub, MIT Technology Review, and Frieze.
+    - and created our <a href="https://poems.verses.xyz">transforming text playground</a>).
 `;
+
 let likes = [
   ["writing"],
   ["reading"],
@@ -135,37 +127,22 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 <BaseLayout centered>
   <div class="headerContainer home" style="margin-right: 2em;">
     <Polaroid
-      imgSrc="/assets/spencer_real_person.png"
+      imgSrc="/assets/spencer_headshot.jpg"
       className="float"
       aspectRatio="inherit"
       style={{ marginLeft: "1em" }}
     />
-    <p>
-      Growing up, I never felt like I fit in at school or local communities.
-      Instead, I grew up on the internet. The internet was where I found my
-      community, learned what it meant to have a passion, and discovered the
-      range of humanity—how tender and how heartless people could be. I fell
-      into making technology because it felt like a way to carry on the
-      kindnesses that I was shown. I want to make the internet a place that can
-      facilitate the intimacy, creation, and solidarity I found.
-    </p>
-    <p id="expandingWork"></p>
 
-    <script define:vars={{ workDescription }}>
-      let node = createTelescopicTextFromBulletedList(workDescription, {
-        textMode: TextMode.Html,
-      });
-      const container = document.getElementById("expandingWork");
-      container.appendChild(node);
-    </script>
-
+    <p>Spencer is an artist, designer, and toymaker.</p>
     <p>
-      I'm an engineer, artist, and researcher. My practice focuses on stewarding
-      and making computer forms that embody and empower human connection and
-      creativity. To do this, I provide alternatives and provide tools for
-      making those alternatives through making:
+      They make <a
+        href="https://www.are.na/spencer-chang/communal-computing-infrastructure"
+        >communal computing infrastructure</a
+      >—playful, intimate, and empowering forms of technology made to be used
+      and loved by people. These include:
     </p>
-    <ol>
+    <ol class="list-decimal list-inside pl-8">
+      <!-- TODO: add floating image hover preview for each of these, support for hosted creations to show their preview -->
       <li>
         <i><b style="font-weight: 600">infrastructure</b></i> (<a
           href="https://github.com/spencerc99/playhtml">creative tools</a
@@ -173,9 +150,7 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
           >experimental interfaces</a
         >, <a href="https://gather.directory/">local-first apps</a>, <a
           href="http://poems.verses.xyz/test">text playgrounds</a
-        >, <a href="https://spencers.cafe/projects/i-love-living"
-          >archival automations</a
-        >, <a
+        >, <a href="/creation/i-love-living">archival automations</a>, <a
           href="https://syllabusproject.org/syllabus-for-taking-an-internet-walk/"
           >instruction manuals</a
         >) and
@@ -184,9 +159,10 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
         <i><b style="font-weight: 600">environments</b></i> (<a
           href="https://htmls.garden/">living ecosystems</a
         >, <a href="https://playhtml.fun/fridge.html">playful spaces</a>, <a
-          href="https://cursorwatch.ing/">live windows</a
-        >, <a href="https://html-portal.vercel.app/"
-          >html gatherings in the park</a
+          href="https://artlab.hyundai.com/commissions/spencer-chang-everyday"
+          >phone interventions</a
+        >, <a href="https://cursorwatch.ing/">live windows</a>, <a
+          href="https://html-portal.vercel.app/">html gatherings in the park</a
         >, <a href="https://we-b.site">collections of dreams</a>, <a
           href="https://www.spencerchang.me/pacman-poem/">games</a
         >)
@@ -194,128 +170,187 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     </ol>
 
     <p>
-      that highlight the humanity inherent to all technology and empower us to
-      actively shape computing.
-    </p>
+      A <a href="https://www.newmuseum.org/person/spencer-chang/">Y11 NEW INC</a
+      > member, their work has been shown in and commissioned by the de Young Museum,
+      Gray Area, Hyundai Artlab, and Culturehub. They have co-taught a quarter-long
+      courses for SFPC and led workshops for institutions such as Stanford University
+      and UPenn. Their work has been featured by publications such as Frieze, MIT
+      Technology Review, Rock Paper Shotgun, and Its Nice That.
+      <p id="expandingWork"></p>
+      <script define:vars={{ workDescription }}>
+        let node = createTelescopicTextFromBulletedList(workDescription, {
+          textMode: TextMode.Html,
+        });
+        const container = document.getElementById("expandingWork");
+        container.appendChild(node);
+      </script>
 
-    <p>
-      My practice, spanning participatory environments, sculpture, and creative
-      infrastructure, imagines and works towards dismantling technology for
-      oppression in favor of a communal tool that expands our capability to
-      express, advocate, and take care of each other and our systems. These
-      works act as "interventions" that leverage play and whimsical intimacy to
-      interrogate the power conditions of our systems, invite active imagination
-      for what communal technology could be, and finally, equip people with the
-      infrastructure to create their own technology.
-    </p>
-    <p>
-      Ultimately, my dream is an internet that feels like a home made for, and
-      tended by, all of us—a patchwork of neighborhood websites, apps, and
-      servers that enable us to play, share, and steward together: both on
-      digital ground and in our everyday lives and communities.
-    </p>
+      <p>
+        They are always open to collaborations <span class="italic"
+          >(with people or brands)</span
+        >, invitations <span class="italic">(to teach or speak)</span>, and
+        commissions <span class="italic"
+          >(of objects or digital experiences)</span
+        >. Say hi to them over email at <span class="email"
+          >spencer@spencer.place</span
+        > or <a href="/collab">learn more</a>.
+      </p>
 
-    <p>
-      I'm still not really sure what the end steady state of this work looks
-      like, but I have inspirations: Noguchi, MSCHF, Bluesky. A full-time artist <Footnote
-        client:only="react"
-        url="https://americanartist.us/">*</Footnote
-      >? An indie game/product studio<Footnote
-        client:only="react"
-        url="https://panic.com/">*</Footnote
-      >? An experimental research group<Footnote
-        client:only="react"
-        url="http://inkandswitch.com">*1</Footnote
-      ><Footnote client:only="react" url="https://modemworks.com/">*2</Footnote
-      >? An independent software creative<Footnote
-        client:only="react"
-        url="https://tarng.com/">*</Footnote
-      >? If you have ideas or thoughts or if you're going through a similar
-      journey, I'd love <a
-        href="mailto:spencer@spencer.place?subject=MAKING A LIVING DOING WHAT YOU LOVE IS HARD!!!"
-        >to chat</a
-      >.
-    </p>
-    <EmailEmbed />
+      <h4 class="font-bold mb-2">
+        some questions & some ever-evolving answers
+      </h4>
+      <div class="flex flex-col gap-2 pb-8 text-base">
+        <details>
+          <summary class="text-lg"> 1. why the internet? </summary>
+          <p>
+            Growing up, I never felt like I fit in at school or local
+            communities. Instead, I grew up on the internet. The internet was
+            where I found my community, learned what it meant to have a passion,
+            and discovered the range of humanity—how tender and how heartless
+            people could be.
+          </p>
+          <p>
+            Because of this, I am driven to understand and create spaces that
+            allow for people to be seen: their lives, sorrows, and dreams. The
+            internet is increasingly the medium for this, from our constant
+            encounters with the supercomputers in our pockets to the pleas to be
+            seen in every comment and corner of the web. Grappling directly with
+            the tension between the oppressive bases of technology and its role
+            as a global source for connection, meaning, and agency, my work
+            speculates what the internet might look like if these were in
+            harmony by offering living systems that do so. Varying between
+            spaces that invite new ways for seeing each other digitally, tools
+            for creating new methods of connection, and objects that inspire
+            whimsical intimacy with our devices, I am always in search of a form
+            of technology that lives as we do.
+          </p>
+        </details>
+        <details>
+          <summary class="text-lg"> 2. what is your goal? </summary>
+          <p>
+            That we live in a world where the technology we make and advance
+            feels as fundamentally human as humanities or cultural work. That we
+            live in a world where we aren't trying to get away from our phones
+            and remove technology, where our idea of technology is not so
+            dominated by capitalism and surveillance, where it can be used for
+            fun things, poetic things, things that have no reason for existing
+            other than the fact that someone wanted them to. A world where
+            technology is as natural a medium for bringing us closer together as
+            public space is.
+          </p>
+          <p>
+            In practical terms, I'm still not really sure what the end steady
+            state of this work looks like, but I have inspirations: Noguchi,
+            Fluxus, MSCHF, Bluesky. A full-time artist <Footnote
+              client:only="react"
+              url="https://americanartist.us/">*</Footnote
+            >? An indie game/product studio<Footnote
+              client:only="react"
+              url="https://panic.com/">*</Footnote
+            >? An experimental research group<Footnote
+              client:only="react"
+              url="http://inkandswitch.com">*1</Footnote
+            ><Footnote client:only="react" url="https://modemworks.com/"
+              >*2</Footnote
+            >? An independent software creative<Footnote
+              client:only="react"
+              url="https://tarng.com/">*</Footnote
+            >? If you have ideas or thoughts or if you're going through a
+            similar journey, I'd love <a
+              href="mailto:spencer@spencer.place?subject=MAKING A LIVING DOING WHAT YOU LOVE IS HARD!!!"
+              >to chat</a
+            >.
+          </p>
+        </details>
+        <details>
+          <summary class="text-lg"> 3. what do you enjoy?</summary>
+          <p id="expandingLikes"></p>
+        </details>
+        <!-- <details>
+        <summary class="text-lg"> 4. why orange?</summary>
+        <p></p>
+      </details> -->
+      </div>
+      <EmailEmbed />
 
-    <p id="expandingLikes"></p>
-
-    <p class="descriptionText">
-      p.s. like these highlighted paragraphs that expand when you touch them?
-      they're made with the <a href="/creation/verses-verses"
-        >open-source library</a
-      > jacky and I made.
+      <p class="descriptionText">
+        p.s. like these highlighted paragraphs that expand when you touch them?
+        they're made with the <a href="/creation/verses-verses"
+          >open-source library</a
+        > jacky and I made.
+      </p>
     </p>
+    <Guestbook client:only="react" />
+    <br />
+
+    <!-- Likes logic -->
+    <script define:vars={{ likesData: likes, enjoyPrompt }}>
+      // TODO: can you add hover tooltips with images and previews?
+      // TODO: support descriptors for each in the list, and have a way to "ellipsis" to add a new of the top level one
+      // 'in my room', 'snuggled in quiet corners', 'in public parks'
+      // randomize likes
+      let likes = likesData;
+      likes = likes.sort(() => Math.random() - 0.5);
+      likes.splice(12, 0, [enjoyPrompt]);
+      let likeExpandedIdx = 0;
+
+      function createLikeNode(like) {
+        const likeNode = document.createElement("span");
+        likeNode.classList.add("likeItem");
+        likeNode.innerHTML = `${like}`;
+        if (likeExpandedIdx < likes.length - 1) {
+          likeNode.innerHTML += ", ";
+        }
+        if (likeExpandedIdx === likes.length - 2) {
+          likeNode.innerHTML += "and ";
+        }
+        return likeNode;
+      }
+      const likesNode = document.createElement("div");
+      likesNode.id = "telescope";
+      likesNode.style.display = "inline";
+      const onMoreNode = document.createElement("div");
+      onMoreNode.style = "display: inline-block;";
+      onMoreNode.setAttribute("role", "button");
+      onMoreNode.setAttribute("tabindex", "0");
+      onMoreNode.setAttribute(
+        "title",
+        "click me to see more! try tabbing to me and using enter or space to go even faster!"
+      );
+      onMoreNode.innerHTML = "and...";
+      onMoreNode.addEventListener("click", onClickMore);
+      onMoreNode.addEventListener("keydown", onKeyDown);
+      const likesContainer = document.getElementById("expandingLikes");
+      likesContainer.appendChild(likesNode);
+      likesNode.appendChild(
+        document.createTextNode("A non-exhaustive list of the things I enjoy:")
+      );
+      likesNode.appendChild(document.createElement("br"));
+      likesNode.appendChild(onMoreNode);
+      onMoreNode.classList.add("details");
+      onMoreNode.classList.add("close");
+
+      function onKeyDown(e) {
+        if (event.key === "Enter" || event.key === " ") {
+          onClickMore();
+          e.preventDefault();
+        }
+      }
+
+      function onClickMore() {
+        const likeNode = createLikeNode(likes[likeExpandedIdx]);
+        likesNode.insertBefore(likeNode, onMoreNode);
+        likeExpandedIdx++;
+        if (likeExpandedIdx === likes.length) {
+          onMoreNode.remove();
+          return;
+        }
+      }
+      // start with 3 open
+      onClickMore();
+      onClickMore();
+      onClickMore();
+      onClickMore();
+    </script>
   </div>
-  <Guestbook client:only="react" />
-  <br />
-
-  <!-- Likes logic -->
-  <script define:vars={{ likesData: likes, enjoyPrompt }}>
-    // TODO: can you add hover tooltips with images and previews?
-    // TODO: support descriptors for each in the list, and have a way to "ellipsis" to add a new of the top level one
-    // 'in my room', 'snuggled in quiet corners', 'in public parks'
-    // randomize likes
-    let likes = likesData;
-    likes = likes.sort(() => Math.random() - 0.5);
-    likes.splice(12, 0, [enjoyPrompt]);
-    let likeExpandedIdx = 0;
-
-    function createLikeNode(like) {
-      const likeNode = document.createElement("span");
-      likeNode.classList.add("likeItem");
-      likeNode.innerHTML = `${like}`;
-      if (likeExpandedIdx < likes.length - 1) {
-        likeNode.innerHTML += ", ";
-      }
-      if (likeExpandedIdx === likes.length - 2) {
-        likeNode.innerHTML += "and ";
-      }
-      return likeNode;
-    }
-    const likesNode = document.createElement("div");
-    likesNode.id = "telescope";
-    const onMoreNode = document.createElement("div");
-    onMoreNode.style = "display: inline-block;";
-    onMoreNode.setAttribute("role", "button");
-    onMoreNode.setAttribute("tabindex", "0");
-    onMoreNode.setAttribute(
-      "title",
-      "click me to see more! try tabbing to me and using enter or space to go even faster!"
-    );
-    onMoreNode.innerHTML = "and...";
-    onMoreNode.addEventListener("click", onClickMore);
-    onMoreNode.addEventListener("keydown", onKeyDown);
-    const likesContainer = document.getElementById("expandingLikes");
-    likesContainer.appendChild(likesNode);
-    likesNode.appendChild(
-      document.createTextNode("A non-exhaustive list of the things I enjoy:")
-    );
-    likesNode.appendChild(document.createElement("br"));
-    likesNode.appendChild(onMoreNode);
-    onMoreNode.classList.add("details");
-    onMoreNode.classList.add("close");
-
-    function onKeyDown(e) {
-      if (event.key === "Enter" || event.key === " ") {
-        onClickMore();
-        e.preventDefault();
-      }
-    }
-
-    function onClickMore() {
-      const likeNode = createLikeNode(likes[likeExpandedIdx]);
-      likesNode.insertBefore(likeNode, onMoreNode);
-      likeExpandedIdx++;
-      if (likeExpandedIdx === likes.length) {
-        onMoreNode.remove();
-        return;
-      }
-    }
-    // start with 3 open
-    onClickMore();
-    onClickMore();
-    onClickMore();
-    onClickMore();
-  </script>
 </BaseLayout>

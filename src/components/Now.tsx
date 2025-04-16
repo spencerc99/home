@@ -20,7 +20,7 @@ export function NowBlock() {
         in my neighborhood
       </p>
       <p>
-        Preparing for <a href="https://www.demofestival.org/">DEMO 2025</a> at
+        - Preparing for <a href="https://www.demofestival.org/">DEMO 2025</a> at
         NEW INC
       </p>
       <p>
@@ -28,7 +28,6 @@ export function NowBlock() {
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
       </p>
-      <p>- Making a website for ████████</p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for
         teaching, crafting, and scheming.

@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import { CreationSummary } from "./CreationSummary";
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+// Get all creations and find the one matching the slug
+const creations = await getCollection("creation");
+const creation = creations.find((creation) => creation.id === slug);
+
+if (!creation) {
+  throw new Error(`Creation with slug "${slug}" not found`);
+}
+---
+
+<div class="singleCreation">
+  <CreationSummary
+    client:only="react"
+    creation={{
+      id: creation.slug,
+      ...creation.data,
+    }}
+    view={"grid"}
+  />
+</div>
+
+<style lang="scss">
+  .singleCreation {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>

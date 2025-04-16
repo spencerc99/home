@@ -1279,14 +1279,15 @@ ul.noPadding {
 .imgGallery {
   overflow-x: auto;
   width: 100%;
-  height: 300px;
+  height: 340px;
   position: relative;
 
   .imgContainer {
     position: absolute;
     display: flex;
     gap: 0.5em;
-    img {
+    & > img,
+    & > div {
       max-height: 300px;
       max-width: 500px;
       object-fit: cover;
@@ -1950,6 +1951,10 @@ hr.separator {
   }
 }
 
+.email {
+  text-decoration: underline dotted;
+}
+
 .emailEmbedContainer {
   margin-top: 24px;
   margin-bottom: 24px !important;
@@ -2275,8 +2280,8 @@ ul {
   height: 100%;
   aspect-ratio: 1;
   border-radius: 4px;
-  filter: sepia(0.5) contrast(1.2) brightness(0.9) saturate(0.8)
-    hue-rotate(5deg);
+  // filter: sepia(0.5) contrast(1.2) brightness(0.9) saturate(0.8);
+  // hue-rotate(5deg);
 }
 
 .polaroid .shine-wrap {
@@ -2460,4 +2465,13 @@ select {
     max-height: 100px;
     height: 100%;
   }
+}
+
+iframe {
+  overflow-clip-margin: content-box !important;
+  overflow: clip !important;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
 }
