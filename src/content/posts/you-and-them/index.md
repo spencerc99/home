@@ -7,7 +7,7 @@ icon: "uil uil-bolt"
 pubDate: "2021-02-17"
 keywords: ["fiction", "existentialist"]
 tags: ["favorite", "creative"]
-related: []
+
 draft: true
 ---
 

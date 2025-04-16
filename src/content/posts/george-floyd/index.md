@@ -7,7 +7,7 @@ resources:
   - src: "images/*.jpg"
     name: images-:counter
     title: images-title-:counter
-related: []
+
 tags: ["personal", "culture"]
 ---
 

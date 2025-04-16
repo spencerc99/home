@@ -1,9 +1,9 @@
 ---
 title: "Writing"
 description: "All of my writing, including personal essays, short story fiction, poems, and critical pieces on technology and culture."
-emojis: ['✍️', 📝, 📇]
-related: []
+emojis: ["✍️", 📝, 📇]
 ---
+
 <details>
     <summary> why do I write?</summary>
     <br/>

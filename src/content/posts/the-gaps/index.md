@@ -6,7 +6,6 @@ icon: "uil uil-bolt"
 pubDate: "2021-07-16"
 keywords: ["fiction", "poetry"]
 tags: ["creative", "poetry"]
-related: []
 ---
 
 <pre>

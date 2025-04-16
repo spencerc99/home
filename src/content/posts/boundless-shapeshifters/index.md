@@ -7,7 +7,6 @@ icon: "uil uil-bolt"
 storyType: "serif"
 emojis: [🪐, 🎶, 🏳️]
 heroImage: "../boundless-shapeshifters/images/54-views.png"
-related: []
 ---
 
 {{< figure src="./images/54-views.png" caption="54 Views by Tsherin Sherpa" >}}

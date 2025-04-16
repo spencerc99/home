@@ -6,7 +6,7 @@ heroImage: "./images/sublime-arts/lights.jpeg"
 icon: "uil uil-bolt"
 pubDate: "2019-11-19"
 keywords: ["fiction"]
-related: []
+
 tags: ["creative", "short story"]
 ---
 

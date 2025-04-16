@@ -4,7 +4,6 @@ heroImage: "../craft-over-career/images/mads-mikkelsen.png"
 pubDate: "2021-04-21"
 tags: ["personal", "beliefs", "favorite"]
 description: 'what if we chose to optimize craft over career? It means everything we''re doing right now is the most important thing, not just a stepping stone towards some "better" future.'
-related: []
 ---
 
 _This post was originally published on [my newsletter](https://spencerchang.substack.com/p/craft-over-career)._

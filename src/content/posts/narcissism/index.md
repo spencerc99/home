@@ -5,7 +5,6 @@ pubDate: "2022-06-02"
 tags: ["reflection", "personal"]
 emojis: [🪞]
 heroImage: "../narcissism/images/portrait.png"
-related: []
 ---
 
 {{< figure src="./images/portrait.png" caption="still of a mirror shot from *A Portrait of a Lady on Fire*" >}}

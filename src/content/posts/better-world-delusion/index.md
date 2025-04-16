@@ -11,7 +11,7 @@ resources:
     name: bridge-:counter
     title: bridge-title-:counter
 keywords: ["decisions", "existentialist"]
-related: []
+
 tags: ["personal", "culture", "favorite"]
 ---
 

@@ -1,6 +1,5 @@
 ---
-import FormattedDate from "./FormattedDate.astro";
-import { Image } from "astro:assets";
+import PostSummary from "./PostSummary.astro";
 
 export interface Post {
   slug: string;
@@ -21,38 +20,7 @@ const { posts } = Astro.props;
 ---
 
 <ul>
-  {
-    posts.map((post) => (
-      <li>
-        {post.data.heroImage &&
-          (typeof post.data.heroImage === "string" ? (
-            <img class="small" src={post.data.heroImage} alt="" />
-          ) : (
-            <Image
-              class="small"
-              src={post.data.heroImage}
-              alt=""
-              width={360}
-              height={200}
-              style="object-fit: cover;"
-            />
-          ))}
-        <h4 class="title">
-          <a href={post.data.externalLink || `/posts/${post.slug}/`}>
-            {post.data.title}
-          </a>
-        </h4>
-        {post.data.description && (
-          <p class="description">{post.data.description}</p>
-        )}
-        {post.data.pubDate && (
-          <p class="meta">
-            <FormattedDate date={post.data.pubDate} />
-          </p>
-        )}
-      </li>
-    ))
-  }
+  {posts.map((post) => <PostSummary post={post} />)}
 </ul>
 
 <style>
@@ -63,37 +31,5 @@ const { posts } = Astro.props;
     list-style-type: none;
     margin: 0;
     padding: 0;
-  }
-  ul li {
-    width: calc(50% - 1rem);
-    gap: 0.25em;
-    display: flex;
-    flex-direction: column;
-    max-width: 360px;
-  }
-  @media (max-width: 1350px) {
-    ul li {
-      width: 100%;
-    }
-  }
-  ul li * {
-    text-decoration: none;
-    transition: 0.2s ease;
-  }
-  ul li img {
-    margin-bottom: 0.5rem;
-    border-radius: 12px;
-    object-fit: cover;
-  }
-  ul li a {
-    display: block;
-  }
-  .title {
-    margin: 0;
-    line-height: 1;
-  }
-  ul li a:hover h4,
-  ul a:hover img {
-    box-shadow: var(--box-shadow);
   }
 </style>

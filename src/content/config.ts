@@ -20,6 +20,7 @@ const posts = defineCollection({
       draft: z.boolean().optional(),
       external_link_syndication: z.string().optional(),
       hidden: z.boolean().optional(),
+      related: z.array(z.string()).optional(),
     }),
 });
 

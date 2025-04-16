@@ -7,7 +7,7 @@ icon: "uil uil-bolt"
 pubDate: "2021-04-30"
 keywords: ["fiction"]
 tags: ["creative"]
-related: []
+
 draft: true
 ---
 

@@ -4,7 +4,7 @@ description: "When the progress of things is broken by catastrophe"
 heroImage: "./images/broken-lines/logs.jpg"
 pubDate: "2020-05-20"
 keywords: ["coronavirus", "world", "society", "culture"]
-related: []
+
 tags: ["culture", "ideas"]
 ---
 

@@ -3,7 +3,7 @@ title: "Crowdsourced Birthday Recommendations"
 description: "An experiment in crowd-sourcing birthday recommendations and the fruits of it."
 pubDate: "2020-05-01"
 externalLink: "https://coda.io/@spencer/friend-powered-recommendations"
-related: []
+
 tags: ["personal", "projects"]
 ---
 

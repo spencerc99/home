@@ -7,7 +7,7 @@ heroImage: "./images/rider/match.jpeg"
 icon: "uil uil-bolt"
 pubDate: "2019-12-18"
 keywords: ["fiction"]
-related: []
+
 tags: ["creative", "short story"]
 ---
 
