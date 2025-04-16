@@ -1,26 +1,31 @@
 import { defineCollection, z } from "astro:content";
 
+// Base schema for posts that can be used outside of collections
+export const postSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  // Transform string to Date object
+  pubDate: z.coerce.date(),
+  updatedDate: z.coerce.date().optional(),
+  heroImage: z.string().optional(),
+  categories: z.array(z.string()).optional(),
+  externalLink: z.string().optional(),
+  storyType: z.enum(["serif", "mono"]).optional(),
+  icon: z.string().optional(),
+  emojis: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  draft: z.boolean().optional(),
+  external_link_syndication: z.string().optional(),
+  hidden: z.boolean().optional(),
+  related: z.array(z.string()).optional(),
+});
+
 const posts = defineCollection({
   type: "content",
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string().optional(),
-      // Transform string to Date object
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
+    postSchema.extend({
+      // Override heroImage to support both image() and string
       heroImage: z.union([image(), z.string()]).optional(),
-      categories: z.array(z.string()).optional(),
-      externalLink: z.string().optional(),
-      //   image: z.string().optional(),
-      storyType: z.enum(["serif", "mono"]).optional(),
-      icon: z.string().optional(),
-      emojis: z.array(z.string()).optional(),
-      tags: z.array(z.string()).optional(),
-      draft: z.boolean().optional(),
-      external_link_syndication: z.string().optional(),
-      hidden: z.boolean().optional(),
-      related: z.array(z.string()).optional(),
     }),
 });
 
