@@ -1,29 +1,26 @@
 import { defineCollection, z } from "astro:content";
 
-export const postSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  // Transform string to Date object
-  pubDate: z.coerce.date(),
-  updatedDate: z.coerce.date().optional(),
-  heroImage: z.string().optional(),
-  categories: z.array(z.string()).optional(),
-  externalLink: z.string().optional(),
-  //   image: z.string().optional(),
-  // storyType: z.enum(["serif", "mono"]).optional(),
-  // icon: z.string().optional(),
-  // emojis: z.array(z.string()).optional(),
-  // tags: z.array(z.string()).optional(),
-  // draft: z.boolean().optional(),
-  // external_link_syndication: z.string().optional(),
-  // external_link: z.string().optional(),
-  // hidden: z.boolean().optional(),
-});
-
 const posts = defineCollection({
   type: "content",
-  // Type-check frontmatter using a schema
-  schema: postSchema,
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      // Transform string to Date object
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      heroImage: z.union([image(), z.string()]).optional(),
+      categories: z.array(z.string()).optional(),
+      externalLink: z.string().optional(),
+      //   image: z.string().optional(),
+      storyType: z.enum(["serif", "mono"]).optional(),
+      icon: z.string().optional(),
+      emojis: z.array(z.string()).optional(),
+      tags: z.array(z.string()).optional(),
+      draft: z.boolean().optional(),
+      external_link_syndication: z.string().optional(),
+      hidden: z.boolean().optional(),
+    }),
 });
 
 export const creationSchema = z.object({

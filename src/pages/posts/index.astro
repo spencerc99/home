@@ -1,41 +1,48 @@
 ---
-import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import DetailLayout from '../../layouts/DetailLayout.astro';
-import EmailEmbed from '../../components/EmailEmbed.astro';
-import PostsList from '../../components/PostsList.astro';
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import DetailLayout from "../../layouts/DetailLayout.astro";
+import EmailEmbed from "../../components/EmailEmbed.astro";
+import PostsList from "../../components/PostsList.astro";
 
 const LayoutProps = {
-	// title: "(writing)",
-    description: "all my writing...",
-    date: "2024-04-11",
-    titleClass: 'uniform',
-	emojis: [],
-}
+  // title: "(writing)",
+  description: "all my writing...",
+  date: "2024-04-11",
+  titleClass: "uniform",
+  emojis: [],
+};
 
-const posts = (await getCollection('posts') || []).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = ((await getCollection("posts")) || [])
+  .filter((post) => !post.data.hidden && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <DetailLayout {...LayoutProps}>
-	 <div class="listDescription textContent">
-          <div class="headerContainer textContent">
-              <h1 class='uniform'>(writing)</h1>
-          </div>
-        <em>everything I've written about.</em>
-        
-        <p>All my public writing is here in some form. I write for emotional resonance, so if something I’ve written strikes a chord, please send me a note!</p>
-		<p>Subscribe to my newsletter for updates. No spam—I promise—only the things I find interesting.</p>
-		<EmailEmbed/>
-
-
+  <div class="listDescription textContent">
+    <div class="headerContainer textContent">
+      <h1 class="uniform">(writing)</h1>
     </div>
-	<main>
-		<section>
-			<PostsList posts={posts} />
-			<p>more available on my <a href="https://spencerchang.me/posts">old website</a></p>
-		</section>
-	</main>
-</DetailLayout>
+    <em>everything I've written about.</em>
 
+    <p>
+      All my public writing is here in some form. I write for emotional
+      resonance, so if something I’ve written strikes a chord, please send me a
+      note!
+    </p>
+    <p>
+      Subscribe to my newsletter for updates. No spam—I promise—only the things
+      I find interesting.
+    </p>
+    <EmailEmbed />
+  </div>
+  <main>
+    <section>
+      <PostsList posts={posts} />
+      <p>
+        more available on my <a href="https://spencerchang.me/posts"
+          >old website</a>
+      </p>
+    </section>
+  </main>
+</DetailLayout>

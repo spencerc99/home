@@ -1,5 +1,6 @@
 ---
-import FormattedDate from './FormattedDate.astro';
+import FormattedDate from "./FormattedDate.astro";
+import { Image } from "astro:assets";
 
 export interface Post {
   slug: string;
@@ -7,7 +8,7 @@ export interface Post {
     title: string;
     description?: string;
     pubDate?: Date;
-    heroImage?: string;
+    heroImage?: ImageMetadata | string;
     externalLink?: string;
   };
 }
@@ -20,20 +21,38 @@ const { posts } = Astro.props;
 ---
 
 <ul>
-  {posts.map((post) => (
-    <li>
-      {post.data.heroImage && <img class="small" src={post.data.heroImage} alt="" />}
-      <h4 class="title">
-        <a href={post.data.externalLink || `/posts/${post.slug}/`}>{post.data.title}</a>
-      </h4>
-      {post.data.description && <p class="description">{post.data.description}</p>}
-      {post.data.pubDate && (
-        <p class="meta">
-          <FormattedDate date={post.data.pubDate} />
-        </p>
-      )}
-    </li>
-  ))}
+  {
+    posts.map((post) => (
+      <li>
+        {post.data.heroImage &&
+          (typeof post.data.heroImage === "string" ? (
+            <img class="small" src={post.data.heroImage} alt="" />
+          ) : (
+            <Image
+              class="small"
+              src={post.data.heroImage}
+              alt=""
+              width={360}
+              height={200}
+              style="object-fit: cover;"
+            />
+          ))}
+        <h4 class="title">
+          <a href={post.data.externalLink || `/posts/${post.slug}/`}>
+            {post.data.title}
+          </a>
+        </h4>
+        {post.data.description && (
+          <p class="description">{post.data.description}</p>
+        )}
+        {post.data.pubDate && (
+          <p class="meta">
+            <FormattedDate date={post.data.pubDate} />
+          </p>
+        )}
+      </li>
+    ))
+  }
 </ul>
 
 <style>
