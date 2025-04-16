@@ -10,6 +10,7 @@ interface NewsletterItem {
   description: string;
   image: string;
   link: string;
+  hasRealPost: boolean;
 }
 
 function escapeSingleQuotes(str: string) {
@@ -25,32 +26,36 @@ async function importNewsletter() {
   );
   const data: NewsletterItem[] = await resp.json();
 
+  // Exclude newsletter items that have a real post
+  const filteredNewsletterItems = data.filter((item) => !item.hasRealPost);
+
   // zod type from creationSchema
-  const transformedData: z.infer<typeof postSchema>[] = data.map((item) => {
-    const date = new Date(item.published);
+  const transformedData: z.infer<typeof postSchema>[] =
+    filteredNewsletterItems.map((item) => {
+      const date = new Date(item.published);
 
-    const finalItem: z.infer<typeof postSchema> = {
-      title: item.title,
-      description: item.description,
-      pubDate: date,
-      updatedDate: date,
-      heroImage: item.image,
-      categories: ["newsletter"],
-      externalLink: item.link,
-    };
-    // remove empty fields
-    Object.keys(finalItem).forEach((key) => {
-      if (
-        finalItem[key] === undefined ||
-        finalItem[key] === null ||
-        finalItem[key] === ""
-      ) {
-        delete finalItem[key];
-      }
+      const finalItem: z.infer<typeof postSchema> = {
+        title: item.title,
+        description: item.description,
+        pubDate: date,
+        updatedDate: date,
+        heroImage: item.image,
+        categories: ["newsletter"],
+        externalLink: item.link,
+      };
+      // remove empty fields
+      Object.keys(finalItem).forEach((key) => {
+        if (
+          finalItem[key] === undefined ||
+          finalItem[key] === null ||
+          finalItem[key] === ""
+        ) {
+          delete finalItem[key];
+        }
+      });
+
+      return finalItem;
     });
-
-    return finalItem;
-  });
 
   const dir = path.join(__dirname, "../src/content/posts");
 
