@@ -2477,3 +2477,13 @@ iframe {
   border-color: initial;
   border-image: initial;
 }
+
+details {
+  summary {
+    margin-left: 0 !important;
+  }
+  // indent content
+  & > * {
+    margin-left: 2em !important;
+  }
+}
