@@ -28,6 +28,7 @@ export const experimentSchema = z.object({
   description: z.string().optional(),
   tags: z.array(z.string()).optional(),
   external_link: z.string().optional(),
+  internal_link: z.string().optional(),
 });
 
 const posts = defineCollection({

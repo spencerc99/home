@@ -10,7 +10,9 @@ heroImage: "https://substackcdn.com/image/fetch/w_1200,h_600,c_limit,f_jpg,q_aut
 tags: [software]
 ---
 
-{{< pullquote quote="This post is part of a letter series with Jacky and other internet friends for [(we)bsite](we-b.site),  a gathering place for dreams of internet futures from its inhabitants. This is my first articulation for the kind of internet I imagine and hope for. Find more letters and share your own with us." class="callout" >}}
+<blockquote>
+  This post is part of a letter series with Jacky and other internet friends for [(we)bsite](we-b.site),  a gathering place for dreams of internet futures from its inhabitants. This is my first articulation for the kind of internet I imagine and hope for. Find more letters and share your own with us.
+</blockquote>
 
 Every day, we break a new record for how many people own personal computing devices and rely on software to enrich and empower their lives, yet those systems are increasingly **outside our control and break in ways we can't understand**.
 

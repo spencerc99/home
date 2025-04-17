@@ -22,7 +22,17 @@ export default defineConfig({
   },
   site: "https://spencer.place",
   integrations: [
-    mdx(),
+    mdx({
+      extendMarkdownConfig: true,
+      markdownOptions: {
+        mode: "mdx",
+      },
+      rehypeOptions: {
+        fragment: true,
+        space: "html",
+        allowDangerousHtml: true,
+      },
+    }),
     sitemap(),
     react({
       experimentalReactChildren: true,

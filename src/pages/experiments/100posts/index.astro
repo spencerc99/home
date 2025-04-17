@@ -67,7 +67,13 @@ const sortedPosts = posts.sort(
                       {post.data.title}
                     </a>
                   ) : (
-                    <a href={`/experiments/100posts/${post.slug}`}>
+                    <a
+                      href={
+                        post.data.internal_link
+                          ? post.data.internal_link
+                          : `/experiments/100posts/${post.slug}`
+                      }
+                    >
                       {post.data.title}
                     </a>
                   )}

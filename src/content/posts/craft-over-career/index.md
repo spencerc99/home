@@ -13,7 +13,7 @@ _This post was originally published on [my newsletter](https://spencerchang.subs
 I came across this tweet today on a life philosophy to follow that really resonated with me.
 
 <figure class="embed">
-    {{< tweet 1384499318934188032 >}}
+  <iframe src="https://x.com/x/status/1384499318934188032"></iframe>
 </figure>
 
 > everything I do is the most important thing I do.... I will be ambitious with my job and not my career.

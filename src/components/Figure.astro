@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import { marked } from "marked";
+
+interface Props {
+  src: string | ImageMetadata;
+  alt?: string;
+  caption?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+}
+
+const {
+  src,
+  alt = "",
+  caption,
+  class: className = "",
+  width = 800,
+  height = 600,
+} = Astro.props;
+
+// Process markdown in caption if it exists
+const processedCaption = caption
+  ? (marked.parse(caption, { async: false }) as string)
+  : null;
+---
+
+<figure class:list={["figure", className]}>
+  {
+    typeof src === "string" ? (
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        style="object-fit: cover;"
+      />
+    ) : (
+      <Image src={src} alt={alt} width={width} height={height} />
+    )
+  }
+  {
+    processedCaption && (
+      <figcaption set:html={processedCaption.replace(/<\/?p>/g, "")} />
+    )
+  }
+</figure>
+
+<style>
+  .figure {
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+    font-style: italic;
+  }
+
+  /* Style markdown elements in caption */
+  :global(figcaption em) {
+    font-style: italic;
+  }
+
+  :global(figcaption strong) {
+    font-weight: bold;
+  }
+
+  :global(figcaption a) {
+    color: var(--text-color-link);
+    text-decoration: underline;
+  }
+
+  :global(figcaption a:hover) {
+    text-decoration: none;
+  }
+</style>
