@@ -1,20 +1,47 @@
 import { defineCollection, z } from "astro:content";
 
+// Base schema for posts that can be used outside of collections
 export const postSchema = z.object({
   title: z.string(),
-  description: z.string(),
+  description: z.string().optional(),
   // Transform string to Date object
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),
   heroImage: z.string().optional(),
   categories: z.array(z.string()).optional(),
   externalLink: z.string().optional(),
+  storyType: z.enum(["serif", "mono"]).optional(),
+  icon: z.string().optional(),
+  emojis: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  draft: z.boolean().optional(),
+  external_link_syndication: z.string().optional(),
+  hidden: z.boolean().optional(),
+  related: z.array(z.string()).optional(),
+});
+
+// Schema for experiments collection
+export const experimentSchema = z.object({
+  title: z.string(),
+  number: z.number().optional(),
+  date: z.string(),
+  description: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  external_link: z.string().optional(),
 });
 
 const posts = defineCollection({
   type: "content",
-  // Type-check frontmatter using a schema
-  schema: postSchema,
+  schema: ({ image }) =>
+    postSchema.extend({
+      // Override heroImage to support both image() and string
+      heroImage: z.union([image(), z.string()]).optional(),
+    }),
+});
+
+const experiments = defineCollection({
+  type: "content",
+  schema: experimentSchema,
 });
 
 export const creationSchema = z.object({
@@ -38,6 +65,7 @@ export const creationSchema = z.object({
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
   mediaMetadata: z.array(z.enum(["image", "video"])),
+  related: z.array(z.string()).optional(),
 });
 
 const creation = defineCollection({
@@ -45,4 +73,4 @@ const creation = defineCollection({
   schema: creationSchema,
 });
 
-export const collections = { posts, creation };
+export const collections = { posts, creation, experiments };

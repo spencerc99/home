@@ -419,6 +419,7 @@ button.icon {
   min-width: 300px;
   padding-left: 3em;
   padding-right: 3em;
+  padding-bottom: 4em;
   @include media(xsmallScreen) {
     padding-left: 1em;
     padding-right: 1em;
@@ -433,6 +434,7 @@ footer {
   z-index: -1;
   padding-left: 3em;
   padding-right: 3em;
+  margin-top: auto;
   @include media(xsmallScreen) {
     padding-left: 1em;
     padding-right: 1em;

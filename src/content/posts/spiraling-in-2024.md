@@ -1,6 +1,6 @@
 ---
 title: >
-    spiraling in 2024
+  spiraling in 2024
 description: >
   First, a warm welcome to new members :) I suspect many of you found your way here from my guest post in Elan Ullendorff’s newsletter: Be Specific.
 pubDate: 2024-02-14T00:21:10.000Z
@@ -9,4 +9,3 @@ heroImage: https://substackcdn.com/image/fetch/w_1200,h_600,c_fill,f_jpg,q_auto:
 externalLink: https://spencerchang.substack.com/p/spiraling-in-2024
 categories: ["newsletter"]
 ---
-    

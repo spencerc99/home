@@ -1,0 +1,27 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const experiments = (await getCollection("experiments")) || [];
+  return experiments.map((experiment) => ({
+    params: { slug: experiment.slug },
+    props: experiment,
+  }));
+}
+type Props = CollectionEntry<"experiments">;
+
+const experiment = Astro.props;
+const { Content } = await experiment.render();
+
+// Convert the date string to a Date object for BlogPost
+const pubDate = new Date(experiment.data.date);
+---
+
+<BlogPost
+  title={experiment.data.title}
+  pubDate={pubDate}
+  externalLink={experiment.data.external_link}
+>
+  <Content />
+</BlogPost>

@@ -1,0 +1,85 @@
+---
+import FormattedDate from "./FormattedDate.astro";
+import { Image } from "astro:assets";
+
+export interface Props {
+  post: {
+    slug: string;
+    data: {
+      title: string;
+      description?: string;
+      pubDate?: Date;
+      heroImage?: ImageMetadata | string;
+      externalLink?: string;
+    };
+  };
+}
+
+const { post } = Astro.props;
+---
+
+<li>
+  {
+    post.data.heroImage &&
+      (typeof post.data.heroImage === "string" ? (
+        <img class="small" src={post.data.heroImage} alt="" />
+      ) : (
+        <Image
+          class="small"
+          src={post.data.heroImage}
+          alt=""
+          width={360}
+          height={200}
+          style="object-fit: cover;"
+        />
+      ))
+  }
+  <h4 class="title">
+    <a href={post.data.externalLink || `/posts/${post.slug}/`}>
+      {post.data.title}
+    </a>
+  </h4>
+  {post.data.description && <p class="description">{post.data.description}</p>}
+  {
+    post.data.pubDate && (
+      <p class="meta">
+        <FormattedDate date={post.data.pubDate} />
+      </p>
+    )
+  }
+</li>
+
+<style>
+  li {
+    width: calc(50% - 1rem);
+    gap: 0.25em;
+    display: flex;
+    flex-direction: column;
+    max-width: 360px;
+  }
+  @media (max-width: 1350px) {
+    li {
+      width: 100%;
+    }
+  }
+  li * {
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+  li img {
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  li a {
+    display: block;
+  }
+  .title {
+    margin: 0;
+    line-height: 1;
+  }
+  li a:hover h4,
+  a:hover img {
+    box-shadow: var(--box-shadow);
+  }
+</style>

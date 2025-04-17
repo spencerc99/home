@@ -1,20 +1,62 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+import PostSummary from "../../components/PostSummary.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('posts') || [];
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = (await getCollection("posts")) || [];
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'posts'>;
+type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
 const { Content } = await post.render();
+
+// Get related posts if they exist
+const relatedSlugs = post.data.related || [];
+let relatedPosts = [];
+if (relatedSlugs.length > 0) {
+  const posts = await getCollection("posts");
+  relatedPosts = posts.filter(
+    (p) =>
+      relatedSlugs.includes(`/posts/${p.slug}/`) ||
+      relatedSlugs.includes(`/posts/${p.slug}`)
+  );
+}
 ---
 
 <BlogPost {...post.data}>
-	<Content />
+  <Content />
+  {
+    relatedPosts.length > 0 && (
+      <div class="related-posts">
+        <h4>connected things...</h4>
+        <ul>
+          {relatedPosts.map((relatedPost) => (
+            <PostSummary post={relatedPost} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </BlogPost>
+
+<style>
+  .related-posts {
+    margin-top: 3rem;
+  }
+  .related-posts h4 {
+    margin-bottom: 1rem;
+  }
+  .related-posts ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

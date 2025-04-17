@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BlogPost from "./BlogPost.astro";
+
+type Props = CollectionEntry<"experiments">["data"];
+
+const { title, date, external_link } = Astro.props;
+
+// Convert the date string to a Date object for BlogPost
+const pubDate = new Date(date);
+---
+
+<BlogPost title={title} pubDate={pubDate} externalLink={external_link}>
+  <slot />
+</BlogPost>
