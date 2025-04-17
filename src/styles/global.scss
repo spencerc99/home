@@ -694,8 +694,10 @@ a {
     .postContent &,
     .listDescription &,
     .textContent &,
-    footer {
-      text-decoration: underline dotted 1px;
+    footer &,
+    p &,
+    li & {
+      text-decoration: underline dotted 1px var(--color-link);
     }
 
     &:hover {
@@ -2234,7 +2236,7 @@ ol,
 ul {
   line-height: 1.2;
   li {
-    margin: 0.5em 0;
+    margin: 0.25em 0;
     &:first-child {
       margin-top: 0;
     }
@@ -2345,17 +2347,17 @@ ul {
 
 #construction {
   position: fixed;
-  right: -130px;
+  right: -80px;
   padding-top: 3em;
   text-align: center;
   width: 18em;
-  font-size: 0.8em;
+  font-size: 0.5em;
   padding-right: 1em;
-  top: -54px;
+  top: -30px;
   transform: rotate(45deg);
   background: var(--color-background-lavender);
   opacity: 0.6;
-  z-index: 10;
+  z-index: 1000000;
   @include media(xsmallScreen, smallScreen) {
     display: none;
   }
