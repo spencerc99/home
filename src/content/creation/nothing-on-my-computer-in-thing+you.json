@@ -6,13 +6,13 @@
     "Website"
   ],
   "date": "2025-04-12T07:00:00.000Z",
-  "heroImage": "https://movingimage.org/favicon.ico",
+  "heroImage": "https://movingimage.org/wp-content/uploads/2024/09/thingtube2.jpg",
   "media": [
-    "https://movingimage.org/favicon.ico"
+    "https://movingimage.org/wp-content/uploads/2024/09/thingtube2.jpg"
   ],
   "link": "https://movingimage.org/event/thingyou/",
   "ongoing": false,
-  "forthcoming": true,
+  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
