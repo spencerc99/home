@@ -1,0 +1,174 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import DetailLayout from "../../../layouts/DetailLayout.astro";
+
+// Get the index content
+const indexEntry = await getCollection("experiments", ({ id }) => {
+  return id === "100posts/index.md";
+});
+const index = indexEntry[0];
+const { Content } = await index.render();
+
+// Get all 100posts experiments except the index
+const posts =
+  (await getCollection("experiments", ({ id, data }) => {
+    return (
+      id.startsWith("100posts/") &&
+      id !== "100posts/index.md" &&
+      data.tags?.includes("100posts")
+    );
+  })) || [];
+
+// Sort by number
+const sortedPosts = posts.sort(
+  (a, b) => (a.data.number || 0) - (b.data.number || 0)
+);
+---
+
+<DetailLayout
+  title={index.data.title}
+  description={index.data.description}
+  columns={1}
+  centered
+>
+  <main>
+    <article>
+      <div class="header">
+        <div class="meta">
+          <time datetime={index.data.date}
+            >{new Date(index.data.date).toLocaleDateString()}</time
+          >
+          {
+            index.data.tags && index.data.tags.length > 0 && (
+              <div class="tags">
+                {index.data.tags.map((tag) => (
+                  <span class="tag">#{tag}</span>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="content">
+        <Content />
+
+        <div class="posts-list">
+          <h4>All Posts</h4>
+          <ul>
+            {
+              sortedPosts.map((post) => (
+                <li>
+                  <span class="post-number">#{post.data.number}</span>
+                  {post.data.external_link ? (
+                    <a href={post.data.external_link} class="external-link">
+                      {post.data.title}
+                    </a>
+                  ) : (
+                    <a href={`/experiments/100posts/${post.slug}`}>
+                      {post.data.title}
+                    </a>
+                  )}
+                  <span class="post-date">
+                    <FormattedDate date={new Date(post.data.date)} />
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </article>
+  </main>
+</DetailLayout>
+
+<style>
+  main {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .header {
+    margin-bottom: 2em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2.5em;
+    line-height: 1.2;
+  }
+
+  .description {
+    margin: 0.5em 0;
+    font-size: 1.2em;
+    color: var(--gray);
+  }
+
+  .meta {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    margin-top: -1em;
+    font-size: 0.9em;
+    color: var(--gray);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5em;
+  }
+
+  .tag {
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    background: var(--gray-light);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .posts-list {
+    margin-top: 1em;
+    border-top: 1px solid var(--gray-light);
+    padding-top: 2em;
+  }
+
+  .posts-list h2 {
+    margin-bottom: 1em;
+  }
+
+  .posts-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .posts-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    margin-bottom: 0.8em;
+  }
+
+  .post-number {
+    color: var(--gray);
+    font-family: var(--font-mono);
+    min-width: 2.5em;
+  }
+
+  .post-date {
+    color: var(--gray);
+    margin-left: auto;
+    font-size: 0.9em;
+  }
+
+  .external-link::after {
+    content: "↗";
+    display: inline-block;
+    margin-left: 0.2em;
+  }
+</style>

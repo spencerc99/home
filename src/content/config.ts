@@ -20,6 +20,16 @@ export const postSchema = z.object({
   related: z.array(z.string()).optional(),
 });
 
+// Schema for experiments collection
+export const experimentSchema = z.object({
+  title: z.string(),
+  number: z.number().optional(),
+  date: z.string(),
+  description: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  external_link: z.string().optional(),
+});
+
 const posts = defineCollection({
   type: "content",
   schema: ({ image }) =>
@@ -27,6 +37,11 @@ const posts = defineCollection({
       // Override heroImage to support both image() and string
       heroImage: z.union([image(), z.string()]).optional(),
     }),
+});
+
+const experiments = defineCollection({
+  type: "content",
+  schema: experimentSchema,
 });
 
 export const creationSchema = z.object({
@@ -58,4 +73,4 @@ const creation = defineCollection({
   schema: creationSchema,
 });
 
-export const collections = { posts, creation };
+export const collections = { posts, creation, experiments };

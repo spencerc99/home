@@ -1,0 +1,142 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import DetailLayout from "../../layouts/DetailLayout.astro";
+
+const LayoutProps = {
+  description: "a collection of experiments and explorations...",
+  titleClass: "uniform",
+  emojis: [],
+};
+
+const allExperiments = await getCollection("experiments");
+// Separate top-level experiments from nested ones
+const experiments = allExperiments
+  .filter((exp) => !exp.slug.includes("/")) // Only top-level experiments
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+console.log(experiments);
+---
+
+<DetailLayout {...LayoutProps}>
+  <div class="listDescription textContent">
+    <div class="headerContainer textContent">
+      <h1 class="uniform">(experiments)</h1>
+    </div>
+    <em>a collection of explorations and creative experiments.</em>
+
+    <p>
+      This is my digital laboratory—a space where I explore ideas, test
+      hypotheses, and push the boundaries of what's possible at the intersection
+      of technology and creativity. Each experiment represents a journey into
+      the unknown, whether it's exploring new technical concepts, artistic
+      expressions, or novel ways of interaction.
+    </p>
+
+    <p>
+      Some experiments are polished, others are raw and unfinished—but each one
+      captures a moment of curiosity and learning. They range from visual
+      explorations to interactive experiences, from technical proofs-of-concept
+      to playful diversions.
+    </p>
+  </div>
+
+  <main>
+    {
+      experiments.length > 0 && (
+        <div class="experiment-section">
+          <ul class="experiments-list mono">
+            {experiments.map((experiment) => (
+              <li class="experiment-item">
+                <div class="experiment-header">
+                  <span class="experiment-date">
+                    <FormattedDate date={new Date(experiment.data.date)} />
+                  </span>
+                  <h4>
+                    <a href={`/experiments/${experiment.slug}/`}>
+                      {experiment.data.title}
+                    </a>
+                  </h4>
+                </div>
+                {experiment.data.description && (
+                  <p class="experiment-description">
+                    {experiment.data.description}
+                  </p>
+                )}
+                {experiment.data.tags && experiment.data.tags.length > 0 && (
+                  <div class="experiment-tags">
+                    {experiment.data.tags.map((tag) => (
+                      <span class="tag">#{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </main>
+</DetailLayout>
+
+<style>
+  .experiments-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+
+  .experiment-item {
+    margin-bottom: 2rem;
+  }
+
+  .experiment-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .experiment-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .experiment-title:hover {
+    text-decoration: underline;
+  }
+
+  .experiment-date {
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+  }
+
+  .experiment-description {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .experiment-tags {
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.9rem;
+    color: var(--text-color-light);
+    margin-right: 0.75rem;
+  }
+
+  .experiment-section {
+    margin-bottom: 3rem;
+  }
+
+  .experiment-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+</style>
