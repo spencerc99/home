@@ -1,0 +1,108 @@
+@import "../styles/mixins.scss";
+
+.feed-card {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+
+  &.variant-default {
+    background: var(--color-neutral-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px var(--color-box-shadow);
+
+    .window-header {
+      border-bottom: 1px solid var(--border-color);
+      background: var(--color-neutral-background);
+    }
+
+    .window-content {
+      background: var(--color-neutral-background);
+    }
+  }
+
+  &.variant-borderless {
+    .window-header {
+      margin-bottom: 4px;
+    }
+
+    .window-content {
+      padding: 0;
+    }
+  }
+
+  .window-header {
+    position: relative;
+    padding-top: 6px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(
+        to right,
+        var(--color-text-color) 0px,
+        var(--color-text-color) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      opacity: 0.1;
+      pointer-events: none;
+    }
+  }
+
+  .window-controls {
+    display: flex;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 2em;
+    padding: 0 6px 6px;
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0;
+
+      &:nth-child(3n + 1) {
+        background: #ff5f56;
+      }
+      &:nth-child(3n + 2) {
+        background: #ffbd2e;
+      }
+      &:nth-child(3n + 3) {
+        background: #27c93f;
+      }
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+
+  .window-title {
+    padding: 2px 8px 4px;
+    font-family: var(--site-font-mono, "Sono", monospace);
+    font-size: 0.8em;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-start;
+    margin-left: 2px;
+    letter-spacing: -0.3px;
+
+    .icon {
+      font-size: 1em;
+    }
+  }
+}

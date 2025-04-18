@@ -8,7 +8,9 @@ import {
 } from "../../scripts/helpers";
 import React from "react";
 import { ZoomContextProvider } from "../../context/ZoomContext";
-interface Fit {
+import "../../styles/fits.scss";
+
+export interface Fit {
   description: string;
   imgSrc: string;
   date: string;
@@ -55,7 +57,7 @@ export function FitsView({
             checked={onlyFavorites}
             onChange={filterFits}
           />
-          <label className="form-check-label" for="filterFavorites">
+          <label className="form-check-label" htmlFor="filterFavorites">
             Only show favorites
           </label>
         </div>
@@ -88,6 +90,7 @@ interface FitCardProps {
   fitIndex?: number;
   fitsPagePermalink?: string;
   onlyFavorites?: boolean;
+  variant?: "default" | "horizontal";
 }
 
 export function FitCard({
@@ -95,9 +98,58 @@ export function FitCard({
   fitIndex,
   fitsPagePermalink,
   onlyFavorites,
+  variant = "default",
 }: FitCardProps) {
   const fitPermalink = `${fitsPagePermalink}#${fitIndex}`;
   const previewImgSrc = fit.imgSrc.replace(/\.([^\.]+)$/, "_preview.jpeg");
+
+  if (variant === "horizontal") {
+    return (
+      <div className="photoCard horizontal mono">
+        <div className="photoCard-image">
+          <figure
+            itemScope
+            itemType="http://schema.org/ImageObject"
+            className="image gallery-item"
+          >
+            <ImageZoom
+              width={fit.width}
+              height={fit.height}
+              className="photoCardPhoto galleryImage"
+              src={previewImgSrc}
+              itemProp="thumbnail"
+              alt={`image of Spencer dressed on ${fit.date}`}
+            />
+          </figure>
+        </div>
+        <div className="photoCard-content">
+          <div className="photoCard-header">
+            <div className="photoCard-meta-line">
+              <span className="timestamp">
+                {dayjs(fit.date).format("MM.DD.YY")}
+              </span>
+              <span className="location">{fit.city}</span>
+              {fit.favorite && <i className="uis uis-star"></i>}
+            </div>
+          </div>
+          <p className="photoCard-description">{fit.description}</p>
+          <div className="photoCard-labels">
+            <span className="tag season">{fit.season}</span>
+            {fit.activities && fit.activities.split(",")[0].trim() && (
+              <span className="tag activity">
+                {fit.activities.split(",")[0].trim()}
+              </span>
+            )}
+            {fit.labels?.slice(0, 3).map((label, i) => (
+              <span key={i} className="tag">
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

@@ -2,8 +2,10 @@
 import { Footnote } from "../components/Footnote";
 import fitsData from "../data/fits.json";
 import Status from "../components/Status.astro";
-import { FitCard, FitsView } from "../components/views/Fits";
+import { FitsCarousel } from "../components/views/FitsCarousel";
 import DetailLayout from "../layouts/DetailLayout.astro";
+import { FeedCard } from "../components/FeedCard";
+import type { Fit } from "../components/views/Fits";
 import "../styles/feed.scss";
 
 const LayoutProps = {
@@ -16,7 +18,9 @@ const LayoutProps = {
   titleClass: "uniform",
 };
 
-const sortedFits = fitsData.fits.sort((a, b) => b.timestamp - a.timestamp);
+const sortedFits = (fitsData.fits as Fit[]).sort(
+  (a, b) => b.timestamp - a.timestamp
+);
 const lastFit = sortedFits[0];
 ---
 
@@ -26,15 +30,14 @@ const lastFit = sortedFits[0];
   </div>
 
   <div class="gridContainer">
-    <!-- Marquee bulletin board -->
-    <Status />
+    <div class="status-window">
+      <Status />
+    </div>
 
-    <!-- events -->
-    <!-- are.na channels -->
-    <!-- fits -->
-    <div style="max-width: 400px;">
-      <h3><a href="/fits">Last Fit (1/{sortedFits.length})</a></h3>
-      <FitCard fit={lastFit} client:only="react" />
+    <div class="fits-window">
+      <FeedCard title="FIT" icon="👔" client:only="react">
+        <FitsCarousel fits={sortedFits} client:only="react" />
+      </FeedCard>
     </div>
   </div>
 </DetailLayout>

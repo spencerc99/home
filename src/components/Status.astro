@@ -1,5 +1,8 @@
 ---
 import "./Status.scss";
+import { StatusCarousel } from "./StatusCarousel";
+import { FeedCard } from "./FeedCard";
+
 const stream = await fetch("https://status.spencerchang.me/api/me").then(
   (res) => res.json()
 );
@@ -16,29 +19,15 @@ function formatDate(date: Date) {
     .replace(", ", "|")
     .replace("/", ".");
 }
-
-console.log(stream);
 ---
 
-<div
-  class="activities"
-  title="this is a set of live attributes from what I consume and make streamed to this little status bar. The numbers represent Spencer epoch time, a play on UNIX epoch."
->
-  <h3>Latest Activities</h3>
-  <ul>
-    {
-      stream.map((element, idx) => (
-        <li>
-          [
-          <span class="date">
-            <>
-              <span class="timestamp">{formatDate(element.date)}</span>
-              <span class="epoch">{element.birthdayEpoch}</span>
-            </>
-          </span>
-          ] <Fragment set:html={element.displayHTML} />
-        </li>
-      ))
-    }
-  </ul>
+<div class="status-container">
+  <FeedCard title="LIVE" icon="📡" client:only="react">
+    <StatusCarousel items={stream} client:only="react" />
+  </FeedCard>
 </div>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Sono:wght@400;600&display=swap"
+  rel="stylesheet"
+/>
