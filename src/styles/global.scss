@@ -1998,7 +1998,8 @@ hr.separator {
   h3 {
     font-style: italic;
   }
-  & > div {
+
+  .textContent {
     display: flex;
     flex-direction: column;
     gap: 1em;
