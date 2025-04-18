@@ -3,8 +3,9 @@
 .feed-card {
   position: relative;
   width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
+  min-width: 0;
+  max-width: 500px;
+  width: 100%;
 
   background: var(--color-neutral-background);
   border: 1px solid var(--border-color);

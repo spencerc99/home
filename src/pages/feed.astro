@@ -8,6 +8,7 @@ import { FeedCard } from "../components/FeedCard";
 import type { Fit } from "../components/views/Fits";
 import "../styles/feed.scss";
 import { getCollection } from "astro:content";
+import { EventsCarousel } from "../components/views/EventsView";
 
 const LayoutProps = {
   title: "(feed)",
@@ -22,8 +23,6 @@ const LayoutProps = {
 const sortedFits = (fitsData.fits as Fit[]).sort(
   (a, b) => b.timestamp - a.timestamp
 );
-const lastFit = sortedFits[0];
-
 // const sortedPosts = getCollection("posts").sort(
 //   (a, b) => b.pubDate.getTime() - a.pubDate.getTime()
 // );
@@ -33,6 +32,17 @@ const lastFit = sortedFits[0];
 //   (a, b) => b.date.getTime() - a.date.getTime()
 // );
 // const lastCreation = sortedCreations[0];
+const creations = await getCollection("creation");
+
+const events = creations
+  .filter((creation) => creation.data.isEvent)
+  .sort((a, b) =>
+    a.data.forthcoming === b.data.forthcoming
+      ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+      : a.data.forthcoming
+        ? -1
+        : 1
+  );
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
@@ -41,15 +51,11 @@ const lastFit = sortedFits[0];
   </div>
 
   <div class="gridContainer">
-    <div class="window">
-      <Status />
-    </div>
+    <Status />
 
-    <div class="window">
-      <FeedCard title="FIT" icon="👔" allLink="/fits">
-        <FitsCarousel fits={sortedFits} client:only="react" />
-      </FeedCard>
-    </div>
+    <FeedCard title="FIT" icon="👔" allLink="/fits">
+      <FitsCarousel fits={sortedFits} client:only="react" />
+    </FeedCard>
     <!-- post -->
     <!-- <div class="window">
       <FeedCard title="POST" icon="📰" client:only="react">
@@ -59,5 +65,8 @@ const lastFit = sortedFits[0];
     <!-- creation -->
     <!-- press -->
     <!-- event -->
+    <FeedCard title="EVENT" icon="🤳" allLink="/events">
+      <EventsCarousel events={events} client:only="react" />
+    </FeedCard>
   </div>
 </DetailLayout>

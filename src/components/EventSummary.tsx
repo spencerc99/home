@@ -63,6 +63,10 @@ export function EventSummary({
           className={classNames("lazyload registryImage", {
             loading: !hasLoadedMedia,
           })}
+          style={{
+            width: "fit-content",
+            maxWidth: "250px",
+          }}
           loading="lazy"
           onLoad={() => {
             setHasLoadedMedia(true);
@@ -98,7 +102,11 @@ export function EventSummary({
   );
 
   return (
-    <div className={classNames("eventSummary")}>
+    <div
+      style={{
+        margin: "1em 0",
+      }}
+    >
       <h3>
         {date.toLocaleDateString("en-us", {
           year: "numeric",
@@ -106,13 +114,29 @@ export function EventSummary({
           day: "numeric",
         })}
       </h3>
-      <div className="eventInfo">
-        {linkedCover}
-        <div className="creationSummaryTitle">
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "1em",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          className="creationSummaryTitle"
+          style={{
+            textAlign: "left",
+            display: "flex",
+            flexDirection: "column",
+            gap: ".25em",
+            maxWidth: "50%",
+          }}
+        >
           <em>{title}</em>
           <span>{subtext}</span>
           {forthcoming && <a href={link}>Register</a>}
         </div>
+        {linkedCover}
       </div>
     </div>
   );

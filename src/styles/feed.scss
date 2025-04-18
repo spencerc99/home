@@ -6,26 +6,7 @@
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
-  padding: 0 1rem;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-
-  .window {
-    min-width: 0;
-    display: flex;
-    justify-content: center;
-
-    .feed-card {
-      max-width: 500px;
-      width: 100%;
-
-      .window-content {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
+  width: 100%;
 }
 
 .listDescription {

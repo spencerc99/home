@@ -1764,25 +1764,6 @@ button {
   margin-left: -25%;
 }
 
-#window {
-  position: relative;
-  // max-width: 400px;
-  width: 400px;
-  height: 460px;
-  pointer-events: none;
-  @include image-dropshadow();
-
-  @media only screen and (max-width: 1600px) {
-    display: none;
-  }
-
-  iframe {
-    height: 100%;
-    width: 100%;
-    border: 2px solid var(--color-text-color);
-  }
-}
-
 // inspiration: https://www.youtube.com/watch?v=yRfG-l_HRoE
 #stamp {
   width: 40px;
