@@ -1,13 +1,12 @@
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ViewType } from "./views/CreationsView";
 import { LazyContainer } from "./LazyContainer";
-import { withQueryParams } from "../utils/url";
 import { ImageOrVideo } from "./ImageOrVideo";
 import dayjs from "dayjs";
 import { stringToColor } from "../utils";
-import { transformImageUrl } from "../utils/images";
+import { maybeTransformImgixUrl } from "../utils/images";
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
     id: string;
@@ -58,7 +57,7 @@ export function CreationSummary({
     if (!movieUrl) {
       return null;
     }
-    return withQueryParams(movieUrl, {
+    return maybeTransformImgixUrl(movieUrl, {
       auto: "format,compress",
       fit: "max",
       w: "450",
@@ -70,7 +69,7 @@ export function CreationSummary({
     if (!heroAsset) {
       return null;
     }
-    return withQueryParams(heroAsset, {
+    return maybeTransformImgixUrl(heroAsset, {
       auto: "format,compress",
       fit: "max",
       w: "450",

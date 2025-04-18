@@ -3,13 +3,12 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import { marked } from "marked";
 import { CreationDetailImages } from "../components/CreationDetailImages";
-import { withQueryParams } from "../utils/url";
 import { RelatedCreations } from "../components/RelatedCreations";
-
 import "./CreationDetail.scss";
 import BaseLayout from "./BaseLayout.astro";
 import { ImageOrVideo } from "../components/ImageOrVideo";
 import { stringToColor } from "../utils";
+import { maybeTransformImgixUrl } from "../utils/images";
 
 type Props = CollectionEntry<"collection">["data"] & {
   relatedCreations?: Array<
@@ -45,36 +44,27 @@ const descriptionParsed = descriptionMd
   : "";
 
 const transformedMovieUrl = movieUrl
-  ? withQueryParams(
-      movieUrl.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "1200",
-        h: "650",
-      }
-    )
-  : movieUrl;
-const transformedHeroImage = heroImage
-  ? withQueryParams(
-      heroImage.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "1200",
-        h: "650",
-      }
-    )
-  : heroImage;
-const mediaTransformed = media.map((item) => {
-  return withQueryParams(
-    item.replace("https://codahosted.io", "https://codaio.imgix.net"),
-    {
+  ? maybeTransformImgixUrl(movieUrl, {
       auto: "format,compress",
       fit: "max",
-      w: "1000",
-    }
-  );
+      w: "1200",
+      h: "650",
+    })
+  : movieUrl;
+const transformedHeroImage = heroImage
+  ? maybeTransformImgixUrl(heroImage, {
+      auto: "format,compress",
+      fit: "max",
+      w: "1200",
+      h: "650",
+    })
+  : heroImage;
+const mediaTransformed = media.map((item) => {
+  return maybeTransformImgixUrl(item, {
+    auto: "format,compress",
+    fit: "max",
+    w: "1000",
+  });
 });
 
 const style = {

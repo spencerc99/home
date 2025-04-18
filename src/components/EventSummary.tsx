@@ -2,9 +2,9 @@ import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import { LazyContainer } from "./LazyContainer";
-import { withQueryParams } from "../utils/url";
 import { stringToColor } from "../utils";
 import { ImageOrVideo } from "./ImageOrVideo";
+import { maybeTransformImgixUrl } from "../utils/images";
 
 interface Props {
   event: CollectionEntry<"creation">["data"] & {
@@ -38,14 +38,11 @@ export function EventSummary({
     if (!heroAsset) {
       return null;
     }
-    return withQueryParams(
-      heroAsset.replace("https://codahosted.io", "https://codaio.imgix.net"),
-      {
-        auto: "format,compress",
-        fit: "max",
-        w: "450",
-      }
-    );
+    return maybeTransformImgixUrl(heroAsset, {
+      auto: "format,compress",
+      fit: "max",
+      w: "450",
+    });
   }, [media, assetPreviewIdx]);
 
   const cover = (
