@@ -27,7 +27,7 @@ const creations = (await getCollection("creation"))
   );
 ---
 
-<BaseLayout includeMarquee={true}>
+<BaseLayout>
   <div class="two-columns">
     <div class="headerContainer home textContent">
       <div class="textContent">
@@ -119,6 +119,6 @@ const creations = (await getCollection("creation"))
 
 <!-- window embeds -->
 <!-- TODO: need to fix scroll hijacking and the perf -->
-<!-- <div class="window" style="left: 1%; top:23%;"><iframe src="https://spencerchang.me/window#sky"></iframe></div>
-<div class="window" style="right: 2%; top:23%;"><iframe src="https://spencerchang.me/window#selfie"></iframe></div>
-<div class="window" style="left: 2.5%; top:73%;"><iframe src="https://spencerchang.me/window#vignette"></iframe></div> -->
+<!-- <div id="window" style="left: 1%; top:23%;"><iframe src="https://spencerchang.me/window#sky"></iframe></div>
+<div id="window" style="right: 2%; top:23%;"><iframe src="https://spencerchang.me/window#selfie"></iframe></div>
+<div id="window" style="left: 2.5%; top:73%;"><iframe src="https://spencerchang.me/window#vignette"></iframe></div> -->

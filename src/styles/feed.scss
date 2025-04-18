@@ -2,8 +2,8 @@
 @import "./retro-card.scss";
 
 .gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 2rem;
   padding: 0 1rem;
@@ -11,15 +11,13 @@
   margin-left: auto;
   margin-right: auto;
 
-  .status-window,
-  .fits-window {
-    min-width: 0; // Prevent overflow in grid
+  .window {
+    min-width: 0;
     display: flex;
     justify-content: center;
 
     .feed-card {
-      min-width: 300px;
-      max-width: 600px;
+      max-width: 500px;
       width: 100%;
 
       .window-content {
@@ -38,19 +36,5 @@
   p {
     font-style: italic;
     color: var(--color-text-muted);
-  }
-}
-
-// Status component styles
-.status-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-
-  .feed-card {
-    min-width: 300px;
-    max-width: 600px;
-    width: 100%;
-    height: fit-content;
   }
 }

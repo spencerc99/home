@@ -7,6 +7,7 @@ import DetailLayout from "../layouts/DetailLayout.astro";
 import { FeedCard } from "../components/FeedCard";
 import type { Fit } from "../components/views/Fits";
 import "../styles/feed.scss";
+import { getCollection } from "astro:content";
 
 const LayoutProps = {
   title: "(feed)",
@@ -22,22 +23,41 @@ const sortedFits = (fitsData.fits as Fit[]).sort(
   (a, b) => b.timestamp - a.timestamp
 );
 const lastFit = sortedFits[0];
+
+// const sortedPosts = getCollection("posts").sort(
+//   (a, b) => b.pubDate.getTime() - a.pubDate.getTime()
+// );
+// const lastPost = sortedPosts[0];
+
+// const sortedCreations = getCollection("creation").sort(
+//   (a, b) => b.date.getTime() - a.date.getTime()
+// );
+// const lastCreation = sortedCreations[0];
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
-  <div class="listDescription textContent">
+  <div class="textContent">
     <p>all my digital debris</p>
   </div>
 
   <div class="gridContainer">
-    <div class="status-window">
+    <div class="window">
       <Status />
     </div>
 
-    <div class="fits-window">
-      <FeedCard title="FIT" icon="👔" client:only="react">
+    <div class="window">
+      <FeedCard title="FIT" icon="👔" allLink="/fits">
         <FitsCarousel fits={sortedFits} client:only="react" />
       </FeedCard>
     </div>
+    <!-- post -->
+    <!-- <div class="window">
+      <FeedCard title="POST" icon="📰" client:only="react">
+        <PostsCarousel posts={sortedPosts} client:only="react" />
+      </FeedCard>
+    </div> -->
+    <!-- creation -->
+    <!-- press -->
+    <!-- event -->
   </div>
 </DetailLayout>

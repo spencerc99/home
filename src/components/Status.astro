@@ -3,9 +3,9 @@ import "./Status.scss";
 import { StatusCarousel } from "./StatusCarousel";
 import { FeedCard } from "./FeedCard";
 
-const stream = await fetch("https://status.spencerchang.me/api/me").then(
-  (res) => res.json()
-);
+const stream = await fetch("https://status.spencerchang.me/api/me")
+  .then((res) => res.json())
+  .catch((err) => console.error(err));
 
 function formatDate(date: Date) {
   return date

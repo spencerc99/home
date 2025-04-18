@@ -12,8 +12,9 @@ export function FitsCarousel({ fits }: FitsCarouselProps) {
     <Carousel
       items={fits}
       renderItem={(fit) => <FitCard fit={fit} variant="horizontal" />}
-      middleText="SPENCER.FIT.v1"
+      middleText="SPENCERS.FITS"
       transitionInterval={7000}
+      allLink="/fits"
     />
   );
 }

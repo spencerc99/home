@@ -13,6 +13,7 @@
     .timestamp {
       opacity: 0.8;
       font-family: var(--site-font-mono, "Sono", monospace);
+      font-size: var(--text-sm);
       letter-spacing: -0.3px;
 
       .epoch {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Carousel.scss";
 
 interface CarouselProps<T> {
-  items: T[];
+  items: T[] | null; // null if loading or failed
   renderItem: (item: T) => React.ReactNode;
   transitionInterval?: number;
   middleText?: string;
@@ -11,7 +11,7 @@ interface CarouselProps<T> {
 }
 
 export function Carousel<T>({
-  items,
+  items: initialItems,
   renderItem,
   transitionInterval = 5000,
   middleText,
@@ -20,6 +20,7 @@ export function Carousel<T>({
 }: CarouselProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const items = initialItems || [];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,12 +57,14 @@ export function Carousel<T>({
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="screen-content">{renderItem(items[currentIndex])}</div>
+      <div className="screen-content">
+        {initialItems === null ? (
+          <div>loading...</div>
+        ) : (
+          renderItem(items[currentIndex])
+        )}
+      </div>
       <div className="carousel-footer">
-        <div className="status-count">
-          {currentIndex + 1}/{items.length}
-        </div>
-        {middleText && <div className="middle-text">{middleText}</div>}
         <div className="carousel-controls">
           <button
             onClick={() =>
@@ -94,6 +97,10 @@ export function Carousel<T>({
             ▶
           </button>
         </div>
+        <div className="status-count">
+          {currentIndex + 1}/{items.length}
+        </div>
+        {middleText && <div className="middle-text">{middleText}</div>}
       </div>
     </div>
   );

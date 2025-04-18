@@ -24,8 +24,8 @@ export interface Fit {
   peopleCount: number;
   labels: string[];
   season: string;
-  activities: string;
-  venue_types: string;
+  activities: string | string[];
+  venue_types: string | string[];
 }
 
 export function FitsView({
@@ -135,16 +135,19 @@ export function FitCard({
           <p className="photoCard-description">{fit.description}</p>
           <div className="photoCard-labels">
             <span className="tag season">{fit.season}</span>
-            {fit.activities && fit.activities.split(",")[0].trim() && (
-              <span className="tag activity">
-                {fit.activities.split(",")[0].trim()}
-              </span>
-            )}
-            {fit.labels?.slice(0, 3).map((label, i) => (
+            {typeof fit.activities !== "string" &&
+              fit.activities.map((activity) => (
+                <span className="tag activity">{activity}</span>
+              ))}
+            {fit.labels?.map((label, i) => (
               <span key={i} className="tag">
                 {label}
               </span>
             ))}
+            {typeof fit.venue_types !== "string" &&
+              fit.venue_types.map((venue) => (
+                <span className="tag venue">{venue}</span>
+              ))}
           </div>
         </div>
       </div>

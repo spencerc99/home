@@ -60,7 +60,7 @@ function StatusItemView({
 }
 
 interface StatusCarouselProps {
-  items: StatusItem[];
+  items: StatusItem[] | null;
 }
 
 export function StatusCarousel({ items }: StatusCarouselProps) {

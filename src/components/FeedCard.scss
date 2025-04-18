@@ -6,36 +6,28 @@
   max-width: 100%;
   margin: 0 auto;
 
-  &.variant-default {
+  background: var(--color-neutral-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px var(--color-box-shadow);
+
+  .window-header {
+    border-bottom: 1px solid var(--border-color);
     background: var(--color-neutral-background);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px var(--color-box-shadow);
-
-    .window-header {
-      border-bottom: 1px solid var(--border-color);
-      background: var(--color-neutral-background);
-    }
-
-    .window-content {
-      background: var(--color-neutral-background);
-    }
   }
 
-  &.variant-borderless {
-    .window-header {
-      margin-bottom: 4px;
-    }
-
-    .window-content {
-      padding: 0;
-    }
+  .window-content {
+    background: var(--color-neutral-background);
   }
 
   .window-header {
     position: relative;
     padding-top: 6px;
+
+    &:hover {
+      background: var(--color-neutral-background-hover);
+    }
 
     &::before {
       content: "";
