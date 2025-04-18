@@ -15,7 +15,7 @@ const LayoutProps = {
   description: "all my digital debris...",
   date: "2024-12-28",
   image: "/feed.png",
-  metaTitle: "𝚜𝚙𝚎𝚗𝚌𝚎𝚛's feed",
+  metaTitle: "feed",
   emojis: [],
   titleClass: "uniform",
 };
@@ -53,7 +53,7 @@ const events = creations
   <div class="gridContainer">
     <Status />
 
-    <FeedCard title="FIT" icon="👔" allLink="/fits">
+    <FeedCard title="FIT" icon="👔" allLink="/fits" client:only="react">
       <FitsCarousel fits={sortedFits} client:only="react" />
     </FeedCard>
     <!-- post -->
@@ -65,7 +65,7 @@ const events = creations
     <!-- creation -->
     <!-- press -->
     <!-- event -->
-    <FeedCard title="EVENT" icon="🤳" allLink="/events">
+    <FeedCard title="EVENT" icon="🤳" allLink="/events" client:only="react">
       <EventsCarousel events={events} client:only="react" />
     </FeedCard>
   </div>

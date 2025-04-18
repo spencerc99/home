@@ -102,11 +102,7 @@ export function EventSummary({
   );
 
   return (
-    <div
-      style={{
-        margin: "1em 0",
-      }}
-    >
+    <div>
       <h3>
         {date.toLocaleDateString("en-us", {
           year: "numeric",

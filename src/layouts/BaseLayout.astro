@@ -29,7 +29,7 @@ const {
 <html lang="en">
   <head>
     <BaseHead
-      title={title || SITE_TITLE}
+      title={`${SITE_TITLE}${title ? ` ༶ ${title}` : ""}`}
       description={description || SITE_DESCRIPTION}
       image={image}
     />

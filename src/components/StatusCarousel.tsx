@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel } from "./Carousel";
-import dayjs from "dayjs";
+import { Footnote } from "./Footnote";
 import "./StatusCarousel.scss";
 
 interface StatusItem {
@@ -36,10 +36,15 @@ function StatusItemView({
   return (
     <div className="status-card">
       <div className="header">
-        <div className="timestamp">
-          [{formatDate(new Date(date))}]
-          <span className="epoch">{birthdayEpoch}</span>
-        </div>
+        <Footnote
+          caption="this is a set of live attributes from what I consume and make streamed to this little status bar. The numbers represent Spencer epoch time, a play on UNIX epoch."
+          asChild
+        >
+          <div className="timestamp">
+            [{formatDate(new Date(date))}]
+            <span className="epoch">{birthdayEpoch}</span>
+          </div>
+        </Footnote>
         <div className="category-badge">
           {emoji} {category}
         </div>

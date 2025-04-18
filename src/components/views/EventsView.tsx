@@ -26,23 +26,27 @@ export function EventsView({ events }: Props) {
       {upcomingEvents.length > 0 && (
         <div className="upcomingEvents">
           <h3>upcoming</h3>
-          {upcomingEvents.map((event) => (
-            <EventSummary
-              key={event.id}
-              event={{ id: event.id, ...event.data }}
-            />
-          ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+            {upcomingEvents.map((event) => (
+              <EventSummary
+                key={event.id}
+                event={{ id: event.id, ...event.data }}
+              />
+            ))}
+          </div>
         </div>
       )}
       {pastEvents.length > 0 && (
         <div className="pastEvents">
           <h3>past</h3>
-          {pastEvents.map((event) => (
-            <EventSummary
-              key={event.id}
-              event={{ id: event.id, ...event.data }}
-            />
-          ))}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1em" }}>
+            {pastEvents.map((event) => (
+              <EventSummary
+                key={event.id}
+                event={{ id: event.id, ...event.data }}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -57,6 +61,7 @@ export function EventsCarousel({ events }: Props) {
         <EventSummary key={event.id} event={{ id: event.id, ...event.data }} />
       )}
       middleText="SPEAKING & WORKSHOPS"
+      transitionInterval={10000}
     />
   );
 }

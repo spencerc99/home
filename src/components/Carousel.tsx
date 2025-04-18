@@ -5,6 +5,7 @@ interface CarouselProps<T> {
   items: T[] | null; // null if loading or failed
   renderItem: (item: T) => React.ReactNode;
   transitionInterval?: number;
+  shouldAutoTransition?: boolean;
   middleText?: string;
   className?: string;
   maxVisibleSteps?: number;
@@ -14,6 +15,7 @@ export function Carousel<T>({
   items: initialItems,
   renderItem,
   transitionInterval = 5000,
+  shouldAutoTransition = true,
   middleText,
   className,
   maxVisibleSteps = 10,
@@ -24,13 +26,13 @@ export function Carousel<T>({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!isPaused) {
+      if (!isPaused && shouldAutoTransition) {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
       }
     }, transitionInterval);
 
     return () => clearInterval(interval);
-  }, [items.length, isPaused, transitionInterval]);
+  }, [items.length, isPaused, transitionInterval, shouldAutoTransition]);
 
   // Calculate which dots to show
   const getVisibleDots = () => {
