@@ -5,11 +5,13 @@ import { LazyContainer } from "./LazyContainer";
 import { stringToColor } from "../utils";
 import { ImageOrVideo } from "./ImageOrVideo";
 import { maybeTransformImgixUrl } from "../utils/images";
+import "./EventSummary.scss";
 
 interface Props {
   event: CollectionEntry<"creation">["data"] & {
     id: string;
   };
+  className?: string;
 }
 
 export function EventSummary({
@@ -24,6 +26,7 @@ export function EventSummary({
     forthcoming,
     mediaMetadata,
   },
+  className,
 }: Props) {
   const externalLink = link;
   const style = {
@@ -102,7 +105,7 @@ export function EventSummary({
   );
 
   return (
-    <div>
+    <div className={`${className} event-summary`}>
       <h3>
         {date.toLocaleDateString("en-us", {
           year: "numeric",
@@ -111,6 +114,7 @@ export function EventSummary({
         })}
       </h3>
       <div
+        className="event-summary-content"
         style={{
           display: "flex",
           flexWrap: "wrap",

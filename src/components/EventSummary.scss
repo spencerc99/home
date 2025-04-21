@@ -1,0 +1,16 @@
+.event-summary {
+  &.compact {
+    font-size: 16px;
+    h3 {
+      color: var(--color-text-muted);
+    }
+    img {
+      max-width: 150px;
+      max-height: 150px;
+    }
+
+    .event-summary-content {
+      flex-wrap: nowrap !important;
+    }
+  }
+}

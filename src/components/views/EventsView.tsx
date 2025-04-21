@@ -58,7 +58,11 @@ export function EventsCarousel({ events }: Props) {
     <Carousel
       items={events}
       renderItem={(event) => (
-        <EventSummary key={event.id} event={{ id: event.id, ...event.data }} />
+        <EventSummary
+          key={event.id}
+          event={{ id: event.id, ...event.data }}
+          className="compact mono"
+        />
       )}
       middleText="SPEAKING & WORKSHOPS"
       transitionInterval={10000}

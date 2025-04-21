@@ -43,6 +43,9 @@ const events = creations
         ? -1
         : 1
   );
+const press = creations.filter(
+  (creation) => creation.parentCategory === "Press"
+);
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
@@ -51,11 +54,6 @@ const events = creations
   </div>
 
   <div class="gridContainer">
-    <Status />
-
-    <FeedCard title="FIT" icon="👔" allLink="/fits" client:only="react">
-      <FitsCarousel fits={sortedFits} client:only="react" />
-    </FeedCard>
     <!-- post -->
     <!-- <div class="window">
       <FeedCard title="POST" icon="📰" client:only="react">
@@ -63,10 +61,18 @@ const events = creations
       </FeedCard>
     </div> -->
     <!-- creation -->
-    <!-- press -->
-    <!-- event -->
-    <FeedCard title="EVENT" icon="🤳" allLink="/events" client:only="react">
+    <!-- experiments -->
+
+    <!-- <FeedCard title="PRESS" icon="📰" allLink="/press" client:only="react">
+      <PressCarousel press={press} client:only="react" />
+    </FeedCard> -->
+
+    <FeedCard title="EVENTS" icon="🤳" allLink="/events" client:only="react">
       <EventsCarousel events={events} client:only="react" />
     </FeedCard>
+    <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
+      <FitsCarousel fits={sortedFits} client:only="react" />
+    </FeedCard>
+    <Status />
   </div>
 </DetailLayout>

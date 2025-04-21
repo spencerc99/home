@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./Carousel.scss";
 
 interface CarouselProps<T> {
@@ -21,12 +22,14 @@ export function Carousel<T>({
   maxVisibleSteps = 10,
 }: CarouselProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
   const [isPaused, setIsPaused] = useState(false);
   const items = initialItems || [];
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isPaused && shouldAutoTransition) {
+        setDirection(1);
         setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
       }
     }, transitionInterval);
@@ -53,27 +56,81 @@ export function Carousel<T>({
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 
+  const slideVariants = {
+    enter: (direction: number) => ({
+      position: "absolute",
+      width: "100%",
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      position: "relative",
+      width: "100%",
+      x: 0,
+      opacity: 1,
+      zIndex: 1,
+    },
+    exit: (direction: number) => ({
+      position: "absolute",
+      width: "100%",
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+      zIndex: 0,
+    }),
+  };
+
+  const handlePrevious = () => {
+    setDirection(-1);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? items.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+  };
+
   return (
     <div
       className={`carousel ${className || ""}`}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="screen-content">
-        {initialItems === null ? (
-          <div>loading...</div>
-        ) : (
-          renderItem(items[currentIndex])
-        )}
+      <div
+        className="screen-content"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        <AnimatePresence initial={false} custom={direction}>
+          {initialItems === null ? (
+            <div>loading...</div>
+          ) : (
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  duration: 0.3,
+                },
+                opacity: { duration: 0.2 },
+              }}
+            >
+              {renderItem(items[currentIndex])}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <div className="carousel-footer">
         <div className="carousel-controls">
           <button
-            onClick={() =>
-              setCurrentIndex((prevIndex) =>
-                prevIndex === 0 ? items.length - 1 : prevIndex - 1
-              )
-            }
+            onClick={handlePrevious}
             className="control-btn"
             title="Previous"
           >
@@ -84,18 +141,15 @@ export function Carousel<T>({
               <span
                 key={index}
                 className={`dot ${index === currentIndex ? "active" : ""}`}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => {
+                  setDirection(index > currentIndex ? 1 : -1);
+                  setCurrentIndex(index);
+                }}
                 title={`Item ${index + 1}`}
               />
             ))}
           </div>
-          <button
-            onClick={() =>
-              setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length)
-            }
-            className="control-btn"
-            title="Next"
-          >
+          <button onClick={handleNext} className="control-btn" title="Next">
             ▶
           </button>
         </div>
