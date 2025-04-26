@@ -13,10 +13,23 @@ export function EventCreationsList({
       className="mono"
       style={{
         fontSize: "16px",
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        width: "100%",
+        gap: ".25rem",
       }}
     >
       {creations.map((creation) => (
-        <li key={creation.id}>
+        <li
+          key={creation.id}
+          style={{
+            width: "400px",
+            minWidth: "250px",
+            flex: "1 1 400px",
+            margin: "0 .5rem",
+          }}
+        >
           {creation.date && (
             <>
               <b>
