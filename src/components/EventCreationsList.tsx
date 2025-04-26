@@ -8,7 +8,13 @@ export function EventCreationsList({
   creations: Array<CollectionEntry<"creations">["data"]>;
 }) {
   return (
-    <ul id="EventCreations">
+    <ul
+      id="EventCreations"
+      className="mono"
+      style={{
+        fontSize: "16px",
+      }}
+    >
       {creations.map((creation) => (
         <li key={creation.id}>
           {creation.date && (
@@ -24,7 +30,9 @@ export function EventCreationsList({
             </>
           )}
           <a href={creation.link}>{creation.title}</a>
-          {creation.subtext && <span>, {creation.subtext}</span>}
+          {creation.subtext && (
+            <span className="descriptionText"> {creation.subtext}</span>
+          )}
         </li>
       ))}
     </ul>

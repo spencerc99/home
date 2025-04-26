@@ -314,13 +314,16 @@ export function CreationsView({ creations, description, columns }: Props) {
       {/* EVENTS */}
       {eventCreations.length > 0 && (
         <div className="events">
-          <i
+          <span
+            className="mono"
             style={{
-              fontSize: "1.2em",
+              fontSize: "18px",
+              textTransform: "uppercase",
+              fontWeight: "bold",
             }}
           >
-            upcoming
-          </i>
+            FORTHCOMING
+          </span>
           <EventCreationsList
             creations={eventCreations.map((c) => ({
               ...c.data,
