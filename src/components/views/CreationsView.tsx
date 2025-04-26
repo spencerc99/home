@@ -276,7 +276,6 @@ export function CreationsView({ creations, description, columns }: Props) {
       <div className="actions">
         {/* Category select */}
         <div>
-          highlight{" "}
           <select
             value={category}
             onChange={(e) => {
@@ -293,7 +292,6 @@ export function CreationsView({ creations, description, columns }: Props) {
         </div>
         {/* view select */}
         <div>
-          show as{"  "}
           <select
             value={view}
             onChange={(e) => {
