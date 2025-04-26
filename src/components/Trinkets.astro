@@ -2,9 +2,12 @@
 import FriendsRing from "./FriendsRing.astro";
 import { ClockEmbed } from "./ClockEmbed";
 import { Vignette } from "./interactive/Vignette";
+import "../styles/tailwind.css";
+import { Stats } from "./trinkets/Stats";
 ---
 
-<!-- <div id="trinkets"> --><!-- window of window -->
+<!-- window of window -->
+<Stats client:only="react" />
 <div class="trinket">
   <ClockEmbed client:only="react" />
   <em>my website clock</em>

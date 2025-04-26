@@ -2,17 +2,16 @@
 import FriendsRing from "../components/FriendsRing.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout includeMarquee>
-    <div class="headerContainer">
-    </div>
-    <div class="mainContainer" style="padding-top: 5em; gap:2em;">
 
-       <FriendsRing/>
-    
-        <br/>
-        <br/>
-        <div style="text-align: center">
-            Send me a letter if you'd like to join this circle of poeticomp friends.
-        </div>
+<BaseLayout>
+  <div class="headerContainer"></div>
+  <div class="mainContainer" style="padding-top: 5em; gap:2em;">
+    <FriendsRing />
+
+    <br />
+    <br />
+    <div style="text-align: center">
+      Send me a letter if you'd like to join this circle of poeticomp friends.
     </div>
+  </div>
 </BaseLayout>

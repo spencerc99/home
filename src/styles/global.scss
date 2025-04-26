@@ -432,8 +432,6 @@ footer {
   width: 100%;
   // Accounts for overlapping with content.
   z-index: -1;
-  padding-left: 3em;
-  padding-right: 3em;
   margin-top: auto;
   @include media(xsmallScreen) {
     padding-left: 1em;
@@ -1764,25 +1762,6 @@ button {
   margin-left: -25%;
 }
 
-.window {
-  position: relative;
-  // max-width: 400px;
-  width: 400px;
-  height: 460px;
-  pointer-events: none;
-  @include image-dropshadow();
-
-  @media only screen and (max-width: 1600px) {
-    display: none;
-  }
-
-  iframe {
-    height: 100%;
-    width: 100%;
-    border: 2px solid var(--color-text-color);
-  }
-}
-
 // inspiration: https://www.youtube.com/watch?v=yRfG-l_HRoE
 #stamp {
   width: 40px;
@@ -1989,6 +1968,8 @@ hr.separator {
   gap: 3em;
   max-width: 1600px;
   padding-bottom: 3em;
+  padding-left: 3em;
+  padding-right: 3em;
   p {
     margin: 0;
   }
@@ -1998,7 +1979,8 @@ hr.separator {
   h3 {
     font-style: italic;
   }
-  & > div {
+
+  .textContent {
     display: flex;
     flex-direction: column;
     gap: 1em;

@@ -1,0 +1,79 @@
+@mixin retro-card {
+  background: var(--color-neutral-background);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 4px var(--color-box-shadow), 0 0 0 1px var(--border-color);
+  position: relative;
+
+  // Classic Mac window stripes
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 24px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--color-text-color) 0px,
+      var(--color-text-color) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    opacity: 0.1;
+  }
+
+  .window-controls {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+
+    button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+
+      &:first-child {
+        background: #ff5f57;
+      }
+      &:nth-child(2) {
+        background: #ffbd2e;
+      }
+      &:last-child {
+        background: #28c940;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .window-title {
+    text-align: center;
+    font-family: var(--site-font-mono, "Sono", monospace);
+    font-size: 0.8em;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+    padding: 4px 0;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  .window-content {
+    margin-top: 24px;
+    position: relative;
+  }
+}

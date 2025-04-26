@@ -1,0 +1,80 @@
+.status-card {
+  color: var(--color-text-color);
+  position: relative;
+  z-index: 2;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 80%;
+
+    .timestamp {
+      opacity: 0.8;
+      font-family: var(--site-font-mono, "Sono", monospace);
+      font-size: var(--text-sm);
+      letter-spacing: -0.3px;
+
+      .epoch {
+        margin-left: 0.5rem;
+        color: var(--color-text-accent);
+      }
+    }
+
+    .category-badge {
+      background: var(--color-text-highlight);
+      color: var(--color-text-color);
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .title {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--color-text-color);
+  }
+
+  .status-text {
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    letter-spacing: -0.3px;
+
+    a {
+      color: var(--color-text-accent);
+      text-decoration: underline;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .status-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: var(--color-text-accent);
+    text-decoration: none;
+    font-size: 0.7rem;
+    padding: 0.3em 0.6em;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background: var(--color-neutral-background-hover);
+    letter-spacing: -0.3px;
+
+    .link-icon {
+      font-size: 1.1em;
+    }
+
+    &:hover {
+      background: var(--color-text-highlight);
+    }
+  }
+}

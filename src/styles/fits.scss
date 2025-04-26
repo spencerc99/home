@@ -1,0 +1,130 @@
+.photoCard {
+  &.horizontal {
+    display: flex;
+    gap: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+
+    .photoCard-image {
+      flex: 0 0 40%;
+      max-width: 40%;
+      aspect-ratio: 3/4;
+      height: 100%;
+
+      figure {
+        margin: 0;
+        height: 100%;
+
+        .galleryImage {
+          border-radius: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          aspect-ratio: 1;
+        }
+      }
+    }
+
+    .photoCard-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 0.25rem 0;
+      font-family: var(--site-font-mono);
+
+      .photoCard-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .photoCard-meta-line {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: var(--text-sm);
+          color: var(--color-text-muted);
+          letter-spacing: -0.3px;
+
+          .divider {
+            color: var(--color-text-muted);
+            opacity: 0.5;
+          }
+
+          .timestamp {
+            color: var(--color-text-accent);
+          }
+
+          .location {
+            text-transform: uppercase;
+            font-size: 0.9em;
+          }
+
+          .season {
+            color: var(--color-text-color);
+          }
+
+          .activities {
+            color: var(--color-text-color);
+            font-style: italic;
+          }
+
+          i {
+            color: var(--color-text-accent);
+            font-size: 0.9em;
+            margin-left: 0.25rem;
+          }
+        }
+      }
+
+      .photoCard-description {
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin: 0;
+        letter-spacing: -0.3px;
+        color: var(--color-text-color);
+      }
+
+      .photoCard-labels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: auto;
+        margin-bottom: 0.5em;
+
+        .tag {
+          font-size: 0.6em;
+          padding: 0.2em 0.6em;
+          border-radius: 3px;
+          background: var(--color-neutral-background-hover);
+          color: var(--color-text-muted);
+          letter-spacing: -0.3px;
+          transition: all 0.2s ease;
+          word-wrap: break-word;
+          text-overflow: ellipsis;
+
+          &.season {
+            background: var(--color-text-accent);
+            color: var(--color-background);
+            font-weight: 600;
+          }
+
+          &.activity {
+            font-style: italic;
+            background: var(--color-background-lavender);
+          }
+          &.venue {
+            background: var(--color-background-green);
+          }
+
+          &:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+}

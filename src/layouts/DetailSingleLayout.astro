@@ -1,23 +1,22 @@
 ---
-import BaseLayout, { type BaseLayoutProps } from './BaseLayout.astro';
-import './DetailLayout.scss'
+import BaseLayout, { type BaseLayoutProps } from "./BaseLayout.astro";
+import "./DetailLayout.scss";
 
 interface Props extends BaseLayoutProps {
-    title?: string;
-    emojis?: string[];
-    titleClass?: string;
-    metaTitle?: string;
+  title?: string;
+  emojis?: string[];
+  titleClass?: string;
+  metaTitle?: string;
 }
 
-const {title, emojis, titleClass, metaTitle} = Astro.props;
+const { title, emojis, titleClass, metaTitle } = Astro.props;
 ---
 
-<BaseLayout includeMarquee={true} {...{...Astro.props, title: metaTitle || title}} >
-<div class="headerContainer textContent">
-</div>
-<article class="textContainer">
-  <div class="prose">
-    <slot/>
-</div>
-</article>
+<BaseLayout {...{ ...Astro.props, title: metaTitle || title }}>
+  <div class="headerContainer textContent"></div>
+  <article class="textContainer">
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
 </BaseLayout>

@@ -1,0 +1,105 @@
+---
+import { Footnote } from "../components/Footnote";
+import fitsData from "../data/fits.json";
+import Status from "../components/Status.astro";
+import { FitsCarousel } from "../components/views/FitsCarousel";
+import DetailLayout from "../layouts/DetailLayout.astro";
+import { FeedCard } from "../components/FeedCard";
+import type { Fit } from "../components/views/Fits";
+import "../styles/feed.scss";
+import { getCollection } from "astro:content";
+import { CreationsCarousel } from "../components/views/Carousels";
+import type { CollectionEntry } from "astro:content";
+import { CreationCategory } from "../utils/creations";
+
+const LayoutProps = {
+  title: "(feed)",
+  description: "all my digital debris...",
+  date: "2024-12-28",
+  image: "/feed.png",
+  metaTitle: "feed",
+  emojis: [],
+  titleClass: "uniform",
+};
+
+const sortedFits = (fitsData.fits as Fit[]).sort(
+  (a, b) => b.timestamp - a.timestamp
+);
+const posts = ((await getCollection("posts")) || [])
+  .filter((post) => !post.data.hidden && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const creations = await getCollection("creation");
+
+const sortedCreations = creations
+  .filter((c) => Boolean(c.data.parentCategory))
+  .sort((a, b) => {
+    if (a.data.isEvent && b.data.isEvent) {
+      return a.data.date.getTime() - b.data.date.getTime();
+    }
+    return b.data.date.getTime() - a.data.date.getTime();
+  });
+
+const groupedCreations = sortedCreations.reduce((acc, creation) => {
+  const category = creation.data.parentCategory;
+  if (!acc[category]) {
+    acc[category] = creation;
+  }
+  return acc;
+}, {}) as Record<string, CollectionEntry<"creation">>;
+
+if (
+  groupedCreations["Writing"] &&
+  groupedCreations["Writing"].data.date.getTime() <
+    posts[0].data.pubDate.valueOf()
+) {
+  groupedCreations["Writing"] = posts[0];
+}
+
+const latestCreations = Object.values(groupedCreations).sort((a, b) => {
+  const aCategory = a.data.parentCategory || "Writing";
+  const bCategory = b.data.parentCategory || "Writing";
+  return CreationCategory[aCategory] - CreationCategory[bCategory];
+});
+---
+
+<DetailLayout {...LayoutProps} columns={1}>
+  <div>all my digital debris</div>
+
+  <div class="gridContainer">
+    <!-- post -->
+    <!-- <FeedCard title="WRITING" icon="📰" client:only="react"> -->
+    <!-- <PostsCarousel posts={sortedPosts} client:only="react" /> -->
+    <!-- </FeedCard> -->
+    <!-- <FeedCard
+      title="CREATIONS"
+      icon="🪄"
+      client:only="react"
+      allLink="/creation"
+    >
+      <CreationsCarousel creations={sortedCreations} client:only="react" />
+    </FeedCard> -->
+    <!-- creation -->
+    <!-- experiments -->
+
+    <!-- <FeedCard title="PRESS" icon="📰" allLink="/press" client:only="react">
+      <PressCarousel press={press} client:only="react" />
+    </FeedCard> -->
+
+    <FeedCard
+      title="THE THINGS I PUT ENERGY INTO"
+      icon="🪄"
+      allLink="/creation"
+      client:only="react"
+    >
+      <CreationsCarousel creations={latestCreations} client:only="react" />
+    </FeedCard>
+    <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
+      <FitsCarousel fits={sortedFits} client:only="react" />
+    </FeedCard>
+    <Status />
+    <!-- Location -->
+    <!-- social media posts across bluesky, instagram, twitter? -->
+    <!-- last video? -->
+  </div>
+</DetailLayout>

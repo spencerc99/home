@@ -1,0 +1,21 @@
+@import "./mixins.scss";
+@import "./retro-card.scss";
+
+.gridContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.listDescription {
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 600px;
+
+  p {
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+}

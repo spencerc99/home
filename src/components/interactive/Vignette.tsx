@@ -26,7 +26,6 @@ export function Vignette() {
   return (
     <>
       <div
-        id="window"
         title=""
         style={{
           background: "rgb(96 126 183 / 65%)",

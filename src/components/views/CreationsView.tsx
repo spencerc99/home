@@ -74,9 +74,9 @@ export function CreationsView({ creations, description, columns }: Props) {
     creations.map((creation) => creation.data.parentCategory).filter(Boolean)
   );
 
-  const eventCreations = creations.filter(
-    (creation) => creation.data.isEvent && creation.data.forthcoming
-  );
+  const eventCreations = creations
+    .filter((creation) => creation.data.isEvent && creation.data.forthcoming)
+    .reverse();
   const nonEventCreations = creations.filter(
     (creation) => !creation.data.isEvent || !creation.data.forthcoming
   );

@@ -1,0 +1,6 @@
+---
+description: modifying astro files
+globs: 
+alwaysApply: false
+---
+- when using react components in .astro files, you must render them with client:only="react"

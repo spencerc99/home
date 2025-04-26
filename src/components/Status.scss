@@ -1,0 +1,25 @@
+.activities {
+  .date {
+    &:hover {
+      .epoch {
+        display: none;
+      }
+
+      .timestamp {
+        display: inherit;
+      }
+    }
+
+    .timestamp {
+      display: none;
+    }
+
+    cursor: zoom-in;
+  }
+}
+
+.status-container {
+  .feed-card {
+    width: 400px;
+  }
+}

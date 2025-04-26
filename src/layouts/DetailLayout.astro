@@ -1,5 +1,4 @@
 ---
-import Marquee from "../components/Marquee.astro";
 import PersonalEmoji from "../components/PersonalEmoji.astro";
 import BaseLayout, { type BaseLayoutProps } from "./BaseLayout.astro";
 
@@ -14,10 +13,7 @@ interface Props extends BaseLayoutProps {
 const { title, emojis, titleClass, metaTitle, columns = 2 } = Astro.props;
 ---
 
-<BaseLayout
-  includeMarquee={true}
-  {...{ ...Astro.props, title: metaTitle || title }}
->
+<BaseLayout {...{ ...Astro.props, title: metaTitle || title }}>
   <div class="headerContainer textContent">
     <h1 class={titleClass}>
       {title}
