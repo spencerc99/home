@@ -34,10 +34,16 @@ const creations = await getCollection("creation");
 const sortedCreations = creations
   .filter((c) => Boolean(c.data.parentCategory))
   .sort((a, b) => {
-    if (a.data.isEvent && b.data.isEvent) {
-      return a.data.date.getTime() - b.data.date.getTime();
+    // if both are forthcoming, sort by date ascending
+    // otherwise if one is forthcoming, it comes first
+    // otherwise, sort by date descending
+    if (a.data.forthcoming && b.data.forthcoming) {
+      return a.data.date.valueOf() - b.data.date.valueOf();
     }
-    return b.data.date.getTime() - a.data.date.getTime();
+    if (a.data.forthcoming || b.data.forthcoming) {
+      return a.data.forthcoming ? -1 : 1;
+    }
+    return b.data.date.valueOf() - a.data.date.valueOf();
   });
 
 const groupedCreations = sortedCreations.reduce((acc, creation) => {
@@ -48,15 +54,17 @@ const groupedCreations = sortedCreations.reduce((acc, creation) => {
   return acc;
 }, {}) as Record<string, CollectionEntry<"creation">>;
 
+const latestCreations = groupedCreations;
+
 if (
-  groupedCreations["Writing"] &&
-  groupedCreations["Writing"].data.date.getTime() <
+  latestCreations["Writing"] &&
+  latestCreations["Writing"].data.date.getTime() <
     posts[0].data.pubDate.valueOf()
 ) {
-  groupedCreations["Writing"] = posts[0];
+  latestCreations["Writing"] = posts[0];
 }
 
-const latestCreations = Object.values(groupedCreations).sort((a, b) => {
+const finalCreations = Object.values(latestCreations).sort((a, b) => {
   const aCategory = a.data.parentCategory || "Writing";
   const bCategory = b.data.parentCategory || "Writing";
   return CreationCategory[aCategory] - CreationCategory[bCategory];
@@ -92,7 +100,7 @@ const latestCreations = Object.values(groupedCreations).sort((a, b) => {
       allLink="/creation"
       client:only="react"
     >
-      <CreationsCarousel creations={latestCreations} client:only="react" />
+      <CreationsCarousel creations={finalCreations} client:only="react" />
     </FeedCard>
     <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
       <FitsCarousel fits={sortedFits} client:only="react" />
