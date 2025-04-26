@@ -1,7 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import React, { useMemo } from "react";
 import { EventSummary } from "../EventSummary";
-import { Carousel } from "../Carousel";
 
 interface Props {
   events: Array<
@@ -50,22 +49,5 @@ export function EventsView({ events }: Props) {
         </div>
       )}
     </div>
-  );
-}
-
-export function EventsCarousel({ events }: Props) {
-  return (
-    <Carousel
-      items={events}
-      renderItem={(event) => (
-        <EventSummary
-          key={event.id}
-          event={{ id: event.id, ...event.data }}
-          className="compact mono"
-        />
-      )}
-      middleText="SPEAKING & WORKSHOPS"
-      transitionInterval={10000}
-    />
   );
 }

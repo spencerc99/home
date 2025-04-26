@@ -8,7 +8,9 @@ import { FeedCard } from "../components/FeedCard";
 import type { Fit } from "../components/views/Fits";
 import "../styles/feed.scss";
 import { getCollection } from "astro:content";
-import { EventsCarousel } from "../components/views/EventsView";
+import { CreationsCarousel } from "../components/views/Carousels";
+import type { CollectionEntry } from "astro:content";
+import { CreationCategory } from "../utils/creations";
 
 const LayoutProps = {
   title: "(feed)",
@@ -23,28 +25,42 @@ const LayoutProps = {
 const sortedFits = (fitsData.fits as Fit[]).sort(
   (a, b) => b.timestamp - a.timestamp
 );
-// const sortedPosts = getCollection("posts").sort(
-//   (a, b) => b.pubDate.getTime() - a.pubDate.getTime()
-// );
-// const lastPost = sortedPosts[0];
+const posts = ((await getCollection("posts")) || [])
+  .filter((post) => !post.data.hidden && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const creations = await getCollection("creation");
 
-const events = creations
-  .filter((creation) => creation.data.isEvent)
-  .sort((a, b) =>
-    a.data.forthcoming === b.data.forthcoming
-      ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-      : a.data.forthcoming
-        ? -1
-        : 1
-  );
-// const press = creations.filter(
-//   (creation) => creation.parentCategory === "Press"
-// );
-// const sortedCreations = creations
-//   .filter((creation) => !creation.data.isEvent)
-//   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const sortedCreations = creations
+  .filter((c) => Boolean(c.data.parentCategory))
+  .sort((a, b) => {
+    if (a.data.isEvent && b.data.isEvent) {
+      return a.data.date.getTime() - b.data.date.getTime();
+    }
+    return b.data.date.getTime() - a.data.date.getTime();
+  });
+
+const groupedCreations = sortedCreations.reduce((acc, creation) => {
+  const category = creation.data.parentCategory;
+  if (!acc[category]) {
+    acc[category] = creation;
+  }
+  return acc;
+}, {}) as Record<string, CollectionEntry<"creation">>;
+
+if (
+  groupedCreations["Writing"] &&
+  groupedCreations["Writing"].data.date.getTime() <
+    posts[0].data.pubDate.valueOf()
+) {
+  groupedCreations["Writing"] = posts[0];
+}
+
+const latestCreations = Object.values(groupedCreations).sort((a, b) => {
+  const aCategory = a.data.parentCategory || "Writing";
+  const bCategory = b.data.parentCategory || "Writing";
+  return CreationCategory[aCategory] - CreationCategory[bCategory];
+});
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
@@ -71,12 +87,12 @@ const events = creations
     </FeedCard> -->
 
     <FeedCard
-      title="HAPPENINGS"
-      icon="🤳"
-      allLink="/events"
+      title="THE THINGS I PUT ENERGY INTO"
+      icon="🪄"
+      allLink="/creation"
       client:only="react"
     >
-      <EventsCarousel events={events} client:only="react" />
+      <CreationsCarousel creations={latestCreations} client:only="react" />
     </FeedCard>
     <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
       <FitsCarousel fits={sortedFits} client:only="react" />

@@ -23,7 +23,7 @@
 
   .carousel-footer {
     display: grid;
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: auto auto 1fr auto;
     gap: 0.5em;
     align-items: center;
     padding: 8px 16px;
@@ -40,8 +40,14 @@
       font-size: 12px;
       font-weight: bold;
       text-transform: uppercase;
-      color: var(--color-text-muted);
+      color: var(--color-text-accent);
       margin-left: auto;
+      text-decoration: none;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--color-text-highlight);
+      }
     }
   }
 

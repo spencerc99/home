@@ -7,7 +7,8 @@ interface CarouselProps<T> {
   renderItem: (item: T) => React.ReactNode;
   transitionInterval?: number;
   shouldAutoTransition?: boolean;
-  middleText?: string;
+  middleText?: string | ((item: T) => React.ReactNode);
+  allLink?: string | ((item: T) => string);
   className?: string;
   maxVisibleSteps?: number;
 }
@@ -18,6 +19,7 @@ export function Carousel<T>({
   transitionInterval = 5000,
   shouldAutoTransition = true,
   middleText,
+  allLink,
   className,
   maxVisibleSteps = 10,
 }: CarouselProps<T>) {
@@ -156,7 +158,27 @@ export function Carousel<T>({
         <div className="status-count">
           {currentIndex + 1}/{items.length}
         </div>
-        {middleText && <div className="middle-text">{middleText}</div>}
+        {middleText && allLink && (
+          <a
+            href={
+              typeof allLink === "function"
+                ? allLink(items[currentIndex])
+                : allLink
+            }
+            className="middle-text"
+          >
+            {typeof middleText === "function"
+              ? middleText(items[currentIndex])
+              : middleText}
+          </a>
+        )}
+        {middleText && !allLink && (
+          <div className="middle-text">
+            {typeof middleText === "function"
+              ? middleText(items[currentIndex])
+              : middleText}
+          </div>
+        )}
       </div>
     </div>
   );

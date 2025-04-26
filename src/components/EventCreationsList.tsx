@@ -23,7 +23,8 @@ export function EventCreationsList({
               :{" "}
             </>
           )}
-          <a href={creation.link}>{creation.title}</a>, {creation.subtext}
+          <a href={creation.link}>{creation.title}</a>
+          {creation.subtext && <span>, {creation.subtext}</span>}
         </li>
       ))}
     </ul>

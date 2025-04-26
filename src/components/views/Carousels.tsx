@@ -1,43 +1,31 @@
 import React from "react";
 import { Carousel } from "../Carousel";
-import { CreationSummary } from "../CreationSummary";
-import { ViewType } from "./CreationsView";
 import type { CollectionEntry } from "astro:content";
-
-interface PostsCarouselProps {
-  posts: CollectionEntry<"post">[];
-}
-
-export function PostsCarousel({ posts }: PostsCarouselProps) {
-  return (
-    <Carousel
-      items={posts}
-      renderItem={(post) => <PostSummary post={post} />}
-      middleText="WRITING"
-      transitionInterval={7000}
-    />
-  );
-}
+import { CompactCreationSummary } from "../CompactCreationSummary";
 
 interface CreationsCarouselProps {
-  creations: CollectionEntry<"creation">[];
+  creations: (CollectionEntry<"creation"> | CollectionEntry<"posts">)[];
 }
 
 export function CreationsCarousel({ creations }: CreationsCarouselProps) {
-  console.log(creations);
   return (
     <Carousel
       items={creations}
       renderItem={(creation) => (
-        <CreationSummary
+        <CompactCreationSummary
           creation={{
             id: creation.id,
+            slug: creation.slug,
             ...creation.data,
           }}
-          view={ViewType.GRID}
+          key={creation.id}
+          className="mono"
         />
       )}
-      middleText="everything"
+      middleText={(creation) =>
+        creation.data.pubDate ? "WRITING" : creation.data.parentCategory
+      }
+      allLink={(creation) => (creation.data.pubDate ? "/posts" : "/creation")}
       transitionInterval={7000}
     />
   );

@@ -5,40 +5,65 @@ import { LazyContainer } from "./LazyContainer";
 import { stringToColor } from "../utils";
 import { ImageOrVideo } from "./ImageOrVideo";
 import { maybeTransformImgixUrl } from "../utils/images";
+import "./CompactCreationSummary.scss";
 
 interface Props {
-  event: CollectionEntry<"creation">["data"] & {
-    id: string;
-  };
+  creation:
+    | (CollectionEntry<"creation">["data"] & {
+        id: string;
+      })
+    | (CollectionEntry<"posts">["data"] & {
+        id: string;
+      });
   className?: string;
 }
 
-export function EventSummary({
-  event: {
+export function CompactCreationSummary({
+  creation: {
     title,
     subtext,
     date,
     movieUrl,
-    assetPreviewIdx,
+    assetPreviewIdx = 0,
     media,
     link,
     forthcoming,
     mediaMetadata,
     isEvent,
-    parentCategory,
+    descriptionMd,
+    description,
+    pubDate,
+    heroImage,
+    externalLink,
+    slug,
+    id,
   },
   className,
 }: Props) {
-  const externalLink = link;
+  // Handle both creation and post data
+  const displayDate = pubDate || date;
+  const displayLink = externalLink || link;
   const style = {
     "--aura-color": stringToColor(title),
     "--aura-color-transparent": stringToColor(title, {
       alpha: 0.3,
     }),
-  };
+  } as React.CSSProperties;
+
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
   const transformedHeroAsset = useMemo(() => {
-    const heroAsset = media[assetPreviewIdx];
+    // Handle both creation media array and post heroImage
+    if (heroImage) {
+      return typeof heroImage === "string"
+        ? heroImage
+        : maybeTransformImgixUrl(heroImage, {
+            auto: "format,compress",
+            fit: "max",
+            w: "450",
+          });
+    }
+
+    const heroAsset = media?.[assetPreviewIdx];
     if (!heroAsset) {
       return null;
     }
@@ -47,13 +72,12 @@ export function EventSummary({
       fit: "max",
       w: "450",
     });
-  }, [media, assetPreviewIdx]);
+  }, [media, assetPreviewIdx, heroImage]);
 
   const cover = (
     <div
       style={style}
       className={classNames("previewWrapper", {
-        forthcoming,
         creationAura: !movieUrl && !transformedHeroAsset,
       })}
     >
@@ -89,7 +113,8 @@ export function EventSummary({
       </LazyContainer>
     </div>
   );
-  const linkedCover = externalLink ? (
+
+  const linkedCover = displayLink ? (
     <a
       className={classNames("noanchor", {
         external: true,
@@ -97,7 +122,7 @@ export function EventSummary({
       style={{
         borderRadius: "inherit",
       }}
-      href={externalLink}
+      href={displayLink}
     >
       {cover}
     </a>
@@ -105,17 +130,16 @@ export function EventSummary({
     cover
   );
 
+  const internalLink = pubDate
+    ? `/posts/${slug}`
+    : descriptionMd
+    ? `/creation/${id}`
+    : displayLink;
+
   return (
-    <div className={`${className} event-summary`}>
-      <h3>
-        {date.toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
-      </h3>
+    <div className={`${className} compact-creation-summary`}>
       <div
-        className="event-summary-content"
+        className="creation-summary-content"
         style={{
           display: "flex",
           flexWrap: "wrap",
@@ -124,19 +148,31 @@ export function EventSummary({
         }}
       >
         <div
-          className="creationSummaryTitle"
+          className="creation-title"
           style={{
             textAlign: "left",
             display: "flex",
             flexDirection: "column",
             gap: ".25em",
             maxWidth: "50%",
+            lineHeight: "1.2",
           }}
         >
+          {displayDate && (
+            <h3>
+              {displayDate.toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </h3>
+          )}
           <em>{title}</em>
-          <span>{subtext}</span>
-          {(forthcoming || (!isEvent && link)) && (
-            <a href={link}>{forthcoming ? "Register" : "Learn"}</a>
+          <span className="descriptionText">{description || subtext}</span>
+          {((isEvent && forthcoming) || (!isEvent && displayLink)) && (
+            <a href={internalLink || displayLink} className="creation-link">
+              {isEvent && forthcoming ? "Register" : "Learn"}
+            </a>
           )}
         </div>
         {linkedCover}
