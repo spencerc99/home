@@ -25,6 +25,7 @@ export function EventSummary({
     link,
     forthcoming,
     mediaMetadata,
+    parentCategory,
   },
   className,
 }: Props) {
@@ -134,7 +135,9 @@ export function EventSummary({
         >
           <em>{title}</em>
           <span>{subtext}</span>
-          {forthcoming && <a href={link}>Register</a>}
+          {(parentCategory === "Press" || forthcoming) && (
+            <a href={link}>{forthcoming ? "Register" : "Read"}</a>
+          )}
         </div>
         {linkedCover}
       </div>

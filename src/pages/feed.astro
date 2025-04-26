@@ -28,10 +28,6 @@ const sortedFits = (fitsData.fits as Fit[]).sort(
 // );
 // const lastPost = sortedPosts[0];
 
-// const sortedCreations = getCollection("creation").sort(
-//   (a, b) => b.date.getTime() - a.date.getTime()
-// );
-// const lastCreation = sortedCreations[0];
 const creations = await getCollection("creation");
 
 const events = creations
@@ -43,23 +39,30 @@ const events = creations
         ? -1
         : 1
   );
-const press = creations.filter(
-  (creation) => creation.parentCategory === "Press"
-);
+// const press = creations.filter(
+//   (creation) => creation.parentCategory === "Press"
+// );
+// const sortedCreations = creations
+//   .filter((creation) => !creation.data.isEvent)
+//   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
-  <div class="textContent">
-    <p>all my digital debris</p>
-  </div>
+  <div>all my digital debris</div>
 
   <div class="gridContainer">
     <!-- post -->
-    <!-- <div class="window">
-      <FeedCard title="POST" icon="📰" client:only="react">
-        <PostsCarousel posts={sortedPosts} client:only="react" />
-      </FeedCard>
-    </div> -->
+    <!-- <FeedCard title="WRITING" icon="📰" client:only="react"> -->
+    <!-- <PostsCarousel posts={sortedPosts} client:only="react" /> -->
+    <!-- </FeedCard> -->
+    <!-- <FeedCard
+      title="CREATIONS"
+      icon="🪄"
+      client:only="react"
+      allLink="/creation"
+    >
+      <CreationsCarousel creations={sortedCreations} client:only="react" />
+    </FeedCard> -->
     <!-- creation -->
     <!-- experiments -->
 
@@ -67,12 +70,20 @@ const press = creations.filter(
       <PressCarousel press={press} client:only="react" />
     </FeedCard> -->
 
-    <FeedCard title="EVENTS" icon="🤳" allLink="/events" client:only="react">
+    <FeedCard
+      title="HAPPENINGS"
+      icon="🤳"
+      allLink="/events"
+      client:only="react"
+    >
       <EventsCarousel events={events} client:only="react" />
     </FeedCard>
     <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
       <FitsCarousel fits={sortedFits} client:only="react" />
     </FeedCard>
     <Status />
+    <!-- Location -->
+    <!-- social media posts across bluesky, instagram, twitter? -->
+    <!-- last video? -->
   </div>
 </DetailLayout>
