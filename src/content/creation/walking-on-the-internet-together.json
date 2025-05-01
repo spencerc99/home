@@ -1,25 +1,36 @@
 {
   "title": "Walking on the Internet Together",
-  "subtext": "A virtual program with Rhzome featuring a presentation, discussion, and Q&A about exploring the web. ",
+  "subtext": "a stroll through the Internet together, collecting links, sharing hubs, pointing out sights.",
+  "descriptionMd": "[Kristoffer Tjalve](https://cloudlord.management) and I made a [Syllabus for Taking an Internet Walk](https://spencer.place/creation/syllabus-taking-an-internet-walk) for the Syllabus Project in 2023. In it, we collected all of our years of research, exploring, and making on the tiny, poetic, personal, handmade web to create a set of prompts for discovering the Internets outside of the mainstream search engines and social platforms. With over 70 hyperlinks shared in the piece, many of which contain tens-hundreds of links themselves that grow over time, the syllabus is a live environment that can be actively explored for several months.\nFor this event, we introduced our syllabus and stewarded a collaborative internet walk. We started with our [walking hub](https://playhtml.fun/events/walking-together) with live cursors and chat for participants to share URLs dear to them and those they find on their walk along with “cursor icebreakers” that invited people to embody their cursor by completing tasks together, such as making a circle, imagining their cursor as a raindrop, and playing tag. Then, we walked the web, using prompts in the syllabus and other resources people already had available to them, shared live about the sights we noticed, and had volunteers screenshare to walk through neighborhoods together. To conclude, we invited participants to invent fictional domains and URLs to share with themselves, each other, and the broader web (e.g. [https://hug.me/](https://hug.me/), [https://www.gone.fishing](https://www.gone.fishing/), [https://attendingalovelything.com](https://attendingalovelything.com/), [https://where-did-i-smell-that.hmm](https://where-did-i-smell-that.hmm/), [https://getyourself.librarycard](https://getyourself.librarycard/), [https://freepastafordaniel.forever/](https://freepastafordaniel.forever/) among others)\nA full archive of URLs is available on the [event website](https://playhtml.fun/events/walking-together/)\n*over 160 signups, planned in coordination with* *[Rhizome World](https://rhizome.org/editorial/2025/apr/03/rhizome-world/)*",
   "parentCategory": "Speaking & Workshops",
   "categories": [
     "Art",
-    "Website"
+    "Website",
+    "Community"
   ],
   "date": "2025-04-30T07:00:00.000Z",
-  "heroImage": "https://lh3.googleusercontent.com/CyXUlqTWvkW6CWLIkEFjaHkTz9U-xg5vN8bRauGy58LXQzP6AmBh30gUiTLUvbi8Uc1kwHdV4u1bZt0=w1200-h630-p",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
   "media": [
-    "https://lh3.googleusercontent.com/CyXUlqTWvkW6CWLIkEFjaHkTz9U-xg5vN8bRauGy58LXQzP6AmBh30gUiTLUvbi8Uc1kwHdV4u1bZt0=w1200-h630-p"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-x4AR0Gp316/e2dcf613985c3936e25464feed3ac4b2d5b3e3927644c8761857894948095bd39226bf57147d58a425ae800decc5fc5e6ea780152364640d6bd5d2960c195d31bcb9b688907911e4146a9a0d40334d5cdf26dc3388f5cb2ecc914a89d9bd0fedb7086531",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-KH2eiJanN8/92f385ace480b89b63cc5a56088e3200017d9d4f9e2dbb419edf6d76ac8b9fd138950a74f87de8ee6cc59009e07564d09b737511c34d634cb9bf18ab2a999d5803471d90955e7a96d7e5abf9b43adf619237f568f0d6782339e23ee3891b2f4fad76eee5",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-7EDpkn0xVg/ac15197502b57e49b241055138f29ede00ca0a868d3d61ee4a06feda19c6e960a08a112cba025423ed83ec7ffb6202fc379eb78af240ebf9c21552084456310dcdf1a429131fc0443a263b443c42611986381502bfbc45dcd5b8aab0187a1621f2d2353a"
   ],
   "link": "https://docs.google.com/forms/d/e/1FAIpQLScEfTHJSrowLqeqlvA7HKhy8lDWBnjuAskAB_pFmDctROZDeA/viewform?usp=sharing",
   "ongoing": false,
-  "forthcoming": true,
-  "featured": false,
+  "forthcoming": false,
+  "featured": true,
   "imageDescriptions": [
+    "",
+    "",
+    "",
     ""
   ],
   "isEvent": true,
   "mediaMetadata": [
+    "image",
+    "image",
+    "image",
     "image"
   ]
 }

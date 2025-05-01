@@ -3,7 +3,10 @@
   "subtext": "A festival celebrating explorations in art, design, and technology from NEW INC, the New Museum’s Incubator.",
   "parentCategory": "Exhibition",
   "categories": [
-    "Art"
+    "Art",
+    "Installation",
+    "Website",
+    "Object"
   ],
   "date": "2025-06-04T07:00:00.000Z",
   "endDate": "2025-06-22T07:00:00.000Z",

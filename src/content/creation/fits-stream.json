@@ -1,6 +1,7 @@
 {
   "title": "Fits Stream",
   "subtext": "A stream of my daily outfits.",
+  "descriptionMd": "I started documenting my fits by taking photos every day so I could see the progression of my journey. It's like those body or age transformation journeys: photos composed over time paint a textured picture of how you've grown as a person, and I wanted to replicate that for my style. \nI view my style as the physical manifestation of my view of myself. Your style reflects your personality and your comfort and confidence expressing that personality. It's one of the ultimate litmus tests for how in tune you are with your own being and presentation to the world around you. Fashion and style have slowly gotten a bad rep, especially from the tech and professional world. It's seen as a waste of time or even vain to pay attention to what you look like. Those characterizations aren't completely off base. It does take a non-trivial amount of time to explore and develop your fashion sense, just like any creative outlet. You can also chase fashion for the wrong reasons and become obsessed with just the external image that others perceive, chasing looks for the clout and the validation rather for an expression of self. But if you do it for yourself and leverage it as an avenue for experimentation, it can be incredibly gratifying and stabilizing for your comfort with being yourself.\nI created my “fits stream” to carve out a space on the internet for this practice and for my personal website to truly reflect the “personal.”",
   "parentCategory": "Project",
   "categories": [
     "Software Tool",
@@ -12,7 +13,7 @@
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tM2HRAWLip/7d6421146cb483542f338845264cacde9875a4200bcaaa70904bfd18946a873d006abd56b4652326065da089be4f8a274d1033e0b0da5106340375b4fa6bd141b65d5d3c891a2595b47c7673b4ed8655483e8959fa87860119fdc0922f7470d1ebae46e1"
   ],
-  "link": "http://spencer.place/fits",
+  "link": "https://spencer.place/fits",
   "ongoing": false,
   "forthcoming": false,
   "featured": true,
