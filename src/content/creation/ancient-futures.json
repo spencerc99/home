@@ -1,0 +1,27 @@
+{
+  "title": "ancient futures",
+  "subtext": "a workshop weaving digital and physical worlds",
+  "parentCategory": "Speaking & Workshops",
+  "categories": [
+    "Community",
+    "Art",
+    "Ceramics",
+    "Hardware"
+  ],
+  "date": "2024-04-24T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-YNI-oP4sph/37118f225059443b66fad00df2ecb091f3d40b9b1620379dc6b3de5dd518280947fc1b9d386ee922d4eec4f6780dfc648bebd46d81db4ae8bae5d305d82d6b614e78b392c71b58946c232ddeb74e3fb334662fe7cbf955c90c6fb1e7953a6cf3cdb59054",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-YNI-oP4sph/37118f225059443b66fad00df2ecb091f3d40b9b1620379dc6b3de5dd518280947fc1b9d386ee922d4eec4f6780dfc648bebd46d81db4ae8bae5d305d82d6b614e78b392c71b58946c232ddeb74e3fb334662fe7cbf955c90c6fb1e7953a6cf3cdb59054"
+  ],
+  "link": "https://events.stanford.edu/event/ancient-futures",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": true,
+  "imageDescriptions": [
+    "a sample of finished webstones to give away at Stanford University"
+  ],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ]
+}
