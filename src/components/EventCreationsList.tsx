@@ -1,6 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import "./EventCreationsList.scss";
 import React from "react";
+import { formatDateRange } from "../utils";
 
 export function EventCreationsList({
   creations,
@@ -33,11 +34,16 @@ export function EventCreationsList({
           {creation.date && (
             <>
               <b>
-                {creation.date.toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
+                {creation.endDate
+                  ? formatDateRange(
+                      new Date(creation.date),
+                      new Date(creation.endDate)
+                    )
+                  : creation.date.toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
               </b>
               :{" "}
             </>

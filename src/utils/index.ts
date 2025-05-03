@@ -22,3 +22,37 @@ export function stringToColor(
   }
   return `hsla(${hash % 360}, ${saturation}%, ${lightness}%, ${alpha})`;
 }
+
+export function formatDateRange(startDate: Date, endDate: Date) {
+  const startMonth = startDate.getMonth();
+  const endMonth = endDate.getMonth();
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
+
+  // Same year cases
+  if (startYear === endYear) {
+    // Same month
+    if (startMonth === endMonth) {
+      return `${startDate.toLocaleDateString("en-us", {
+        month: "long",
+      })} ${startDate.getDate()}-${endDate.getDate()}, ${startYear}`;
+    }
+    // Different months, same year
+    return `${startDate.toLocaleDateString("en-us", {
+      month: "long",
+    })} ${startDate.getDate()}-${endDate.toLocaleDateString("en-us", {
+      month: "long",
+    })} ${endDate.getDate()}, ${startYear}`;
+  }
+
+  // Different years
+  return `${startDate.toLocaleDateString("en-us", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })} - ${endDate.toLocaleDateString("en-us", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })}`;
+}
