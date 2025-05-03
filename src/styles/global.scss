@@ -1985,6 +1985,11 @@ hr.separator {
     flex-direction: column;
     gap: 1em;
   }
+
+  @include media(xsmallScreen, smallScreen) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
 
 #custom-substack-embed * {
