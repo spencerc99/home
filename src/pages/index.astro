@@ -7,15 +7,19 @@ import { CreationsView } from "../components/views/CreationsView";
 import Trinkets from "../components/Trinkets.astro";
 import Signature from "../components/Signature";
 
-const location = await fetch(
-  "https://status.spencerchang.me/api/metadata"
-).then((res) => res.json());
+// const location = await fetch(
+//   "https://status.spencerchang.me/api/metadata"
+// ).then((res) => res.json());
 
+// Manually calculat forthcoming because the date is changing
 const creations = (await getCollection("creation"))
   .filter(
     (c) =>
       (Boolean(c.data.heroImage) && c.data.featured) ||
-      (c.data.isEvent && c.data.forthcoming)
+      (c.data.isEvent &&
+        (c.data.forthcoming && c.data.endDate
+          ? c.data.endDate > new Date()
+          : c.data.date > new Date()))
   )
   .sort((a, b) =>
     // sort forthcoming first and then by date
