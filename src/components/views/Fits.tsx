@@ -66,7 +66,7 @@ export function FitsView({
             const fitIndex = allFits.length - index;
             return (
               <FitCard
-                key={fitIndex}
+                key={fit.timestamp}
                 fit={fit}
                 fitIndex={fitIndex}
                 fitsPagePermalink={fitsPagePermalink}

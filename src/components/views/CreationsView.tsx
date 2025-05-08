@@ -71,7 +71,6 @@ export function CreationsView({
   columns,
   defaultView,
 }: Props) {
-  console.log("defaultView", defaultView);
   const [view, setView] = useState(defaultView || ViewType.GRID);
   const [category, setCategory] = useState("all");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
