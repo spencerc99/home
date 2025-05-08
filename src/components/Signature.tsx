@@ -7,7 +7,7 @@ const Signature: React.FC = () => {
   useEffect(() => {
     if (!nameStampRef.current) return;
 
-    window.playhtml?.setupPlayElement(nameStampRef.current);
+    window.playhtml?.setupPlayElement?.(nameStampRef.current);
   }, [nameStampRef]);
   return (
     <div className="signature" style={{ float: "none" }}>

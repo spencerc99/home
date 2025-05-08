@@ -17,6 +17,7 @@ interface FootnoteProps {
   caption?: string; // Added caption attribute
   isHtmlCaption?: boolean;
   asChild?: boolean; // ignores the default footnote styling
+  containerStyle?: React.CSSProperties; // Add containerStyle prop
 }
 
 // TODO: for mobile needs to calculate where it is on screen so it doesn't overflow
@@ -28,6 +29,7 @@ export function Footnote({
   isHtmlCaption,
   children,
   asChild = false,
+  containerStyle,
 }: PropsWithChildren<FootnoteProps>) {
   const [isHovered, setIsHovered] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -75,6 +77,7 @@ export function Footnote({
   return (
     <div
       className="footnote-container"
+      style={containerStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

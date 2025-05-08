@@ -42,13 +42,19 @@ const creations = (await getCollection("creation"))
             client:only="react">Spencer</Footnote
           >. Welcome to my internet home.
         </p>
-        <img
-          class="lamp"
-          id="lamp-akari"
-          src="/assets/akari-22n.png"
-          can-toggle
-          title="this is one of my favorite Noguchi lamps..."
-        />
+        <Footnote
+          asChild
+          caption="this is one of my favorite Noguchi lamps... and anyone who visits can turn it on or off for everyone else (in real-time)!"
+          client:only="react"
+          containerStyle={{ float: "right" }}
+        >
+          <img
+            class="lamp"
+            id="lamp-akari"
+            src="/assets/akari-22n.png"
+            can-toggle
+          />
+        </Footnote>
         <p>
           I'm interested in making communal computers<Footnote
             client:only="react"

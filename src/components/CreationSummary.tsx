@@ -60,7 +60,7 @@ export function CreationSummary({
     return maybeTransformImgixUrl(movieUrl, {
       auto: "format,compress",
       fit: "max",
-      w: "450",
+      w: "300",
     });
   }, [movieUrl]);
 
@@ -72,7 +72,7 @@ export function CreationSummary({
     return maybeTransformImgixUrl(heroAsset, {
       auto: "format,compress",
       fit: "max",
-      w: "450",
+      w: "300",
     });
   }, [media, assetPreviewIdx]);
 
