@@ -16,7 +16,7 @@ declare global {
 }
 
 export function Stats() {
-  const [visitors, setVisitors] = useState(0);
+  const [visitors, setVisitors] = useState(1);
   const [cursorColor, setCursorColor] = useState("#000000");
   // counts up every millisecond
   const startTime = new Date().getTime();

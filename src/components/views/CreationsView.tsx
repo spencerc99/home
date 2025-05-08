@@ -62,10 +62,17 @@ interface Props {
   description?: DescriptionType;
   // Accounts for if it is in display with something else
   columns: 1 | 2;
+  defaultView?: ViewType;
 }
 
-export function CreationsView({ creations, description, columns }: Props) {
-  const [view, setView] = useState(ViewType.GRID);
+export function CreationsView({
+  creations,
+  description,
+  columns,
+  defaultView,
+}: Props) {
+  console.log("defaultView", defaultView);
+  const [view, setView] = useState(defaultView || ViewType.GRID);
   const [category, setCategory] = useState("all");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);

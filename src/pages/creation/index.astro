@@ -38,5 +38,10 @@ const LayoutProps = {
       forward a world that looks like that.
     </p>
   </div>
-  <CreationsView creations={creations} columns={1} client:only="react" />
+  <CreationsView
+    creations={creations}
+    columns={1}
+    client:only="react"
+    defaultView="list"
+  />
 </DetailLayout>

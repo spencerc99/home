@@ -25,9 +25,9 @@ export function EventCreationsList({
         <li
           key={creation.id}
           style={{
-            width: "400px",
+            maxWidth: "400px",
             minWidth: "250px",
-            flex: "1 1 400px",
+            flex: "1 1 0",
             margin: "0 .5rem",
           }}
         >

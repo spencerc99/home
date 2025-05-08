@@ -11,12 +11,11 @@ import { getCollection } from "astro:content";
 import { CreationsCarousel } from "../components/views/Carousels";
 import type { CollectionEntry } from "astro:content";
 import { CreationCategory } from "../utils/creations";
+import { CreationsView } from "../components/views/CreationsView";
 
 const LayoutProps = {
-  title: "(feed)",
-  description: "all my digital debris...",
+  title: "(everything)",
   date: "2024-12-28",
-  image: "/feed.png",
   metaTitle: "feed",
   emojis: [],
   titleClass: "uniform",
@@ -72,8 +71,6 @@ const finalCreations = Object.values(latestCreations).sort((a, b) => {
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
-  <div>all my digital debris</div>
-
   <div class="gridContainer">
     <!-- post -->
     <!-- <FeedCard title="WRITING" icon="📰" client:only="react"> -->
@@ -110,4 +107,12 @@ const finalCreations = Object.values(latestCreations).sort((a, b) => {
     <!-- social media posts across bluesky, instagram, twitter? -->
     <!-- last video? -->
   </div>
+  <!-- NOTE: this has to be a constant and not ViewType.GRID, idk why but it breaks otherwise -->
+  <!-- @ts-ignore -->
+  <CreationsView
+    creations={sortedCreations}
+    client:only="react"
+    columns={1}
+    defaultView={"list"}
+  />
 </DetailLayout>
