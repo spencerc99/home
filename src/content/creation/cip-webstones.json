@@ -1,0 +1,31 @@
+{
+  "title": "CIP webstones",
+  "descriptionMd": "A commission from the [Collective Intelligence Project](https://cip.org/) to create a set of ceramic internet sculptures for each member of the team that links to their website. The sculptures feature their tree trunk icon in an unglazed finish surrounded by a smooth brown glaze to emulate the trunk. On the back, RFID chips are encased in resin that give a slight light to allow spinning the sculptures smoothly on a table as a fidget toy and feature an “exposed” electronic look that matches the internal view captured by the icon’s tree rings. The logo on the front extrudes out and can also be used as a stamp.\nWe also designed how the stones could each link to an individual’s profile on the website with direct access to their contact info, but implementation is waiting on a pending website infrastructure migration.\n",
+  "parentCategory": "Collaboration",
+  "categories": [
+    "Object",
+    "Collaboration",
+    "Art"
+  ],
+  "date": "2025-04-30T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-LtxAM2ohzr/ffe267dceee8c155d8bfc444495942d5adb5a5739b3f5d68af5d3922578b4c59eb4b4a43f1177166e75bf90717e2b0725d7f7c7b4004850bc140e0cd589060e6a95b211c5a53982b193043c02b822bf425638eb51570639e4fa2bd8cbfdd73f9bb83891f",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-LtxAM2ohzr/ffe267dceee8c155d8bfc444495942d5adb5a5739b3f5d68af5d3922578b4c59eb4b4a43f1177166e75bf90717e2b0725d7f7c7b4004850bc140e0cd589060e6a95b211c5a53982b193043c02b822bf425638eb51570639e4fa2bd8cbfdd73f9bb83891f",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-8-BKU60_dW/2efef4b59ddf91e847e5e49523be4b2eb68871163ba9f172a9c171699fa0af2aed170a0fd4691124a119c6d7a97f208033b1a5c9750df657b1ba995beab136350c5ba8ee5b312c8dfb566044321b31297a2c4fa651e5ff5c59e2d443c62be2ab5178751f",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-B6qCUnKXRz/ba9f682e6e78be1beefcfdfd06e5e04c9d6ec73c5d0ea3f5a8267c450178ce00c6c9c803db3a7a6ca571b4125768357d207b38917922a257ec5ebbfc28ff5e76c54a33dd83befc9459aac63ff20fd18746338e18147cc0a7713a4c6db15ec477c24e6f22"
+  ],
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [
+    "",
+    "",
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image"
+  ]
+}

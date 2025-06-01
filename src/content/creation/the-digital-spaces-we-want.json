@@ -1,8 +1,8 @@
 {
   "title": "the digital spaces we want",
   "subtext": "an interactive conversation about the kinds of digital spaces we dream of",
-  "descriptionMd": "A conversation with [Jacky](https://jzhao.xyz/) about the kinds of digital spaces we want\ncreated for [commonplace](https://commonplace.knowledgefutures.org/)",
-  "parentCategory": "Writing",
+  "descriptionMd": "Part performance, part dialog, part interactive website—a conversation with [Jacky](https://jzhao.xyz/) about the kinds of digital spaces we want\ncreated for [commonplace](https://commonplace.knowledgefutures.org/)",
+  "parentCategory": "Project",
   "categories": [
     "Website",
     "Writing"
@@ -15,7 +15,7 @@
   "link": "https://campfire.we-b.site/",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
+  "featured": true,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [

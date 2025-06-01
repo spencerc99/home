@@ -1,7 +1,7 @@
 {
   "title": "Solidarity Infrastructure: SFPC",
   "descriptionMd": "An SFPC class on reclaiming technological imagination through the exploration of a grassroots approach to technology, agentic infrastructure, and computing structures that prioritize maintenance and longevity.",
-  "parentCategory": "Gathering",
+  "parentCategory": "Education",
   "categories": [
     "Affiliation"
   ],
@@ -18,7 +18,7 @@
   "imageDescriptions": [
     ""
   ],
-  "isEvent": true,
+  "isEvent": false,
   "mediaMetadata": [
     "image"
   ]
