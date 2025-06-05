@@ -1,0 +1,17 @@
+{
+  "title": "clone.fyi website",
+  "descriptionMd": "Designed and engineered the website and backend CMS for a new brand and curated link aggregation site from [dirt.fyi](dirt.fyi) and Boys Club. The CMS featured support for pulling in  dynamic RSS feeds and a flow for syndicating those to the site with manual approval. The website features a visitor count and an interactive sheep cursor that also “clones” new sheep that hang out and jump around at the bottom of the page on the footer.",
+  "parentCategory": "Collaboration",
+  "categories": [
+    "Website"
+  ],
+  "date": "2025-05-06T07:00:00.000Z",
+  "media": [],
+  "link": "clone.fyi",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": []
+}
