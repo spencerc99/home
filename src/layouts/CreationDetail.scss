@@ -32,6 +32,12 @@
   .hero-image {
     width: 100%;
     max-width: calc(min(950px));
+
+    img,
+    video {
+      max-width: calc(min(950px));
+      max-height: 700px;
+    }
   }
 
   .iframeWrapper iframe,
