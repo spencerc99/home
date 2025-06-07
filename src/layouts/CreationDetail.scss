@@ -32,9 +32,11 @@
   .hero-image {
     width: 100%;
     max-width: calc(min(950px));
+    max-height: 700px;
 
     img,
     video {
+      width: 100%;
       max-width: calc(min(950px));
       max-height: 700px;
     }
