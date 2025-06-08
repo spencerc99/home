@@ -19,10 +19,12 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-t7jz7VaixP/328296d4088f750512b018faa94a67a6d1bc80bf08914edd494ea7c250063ac93b8045b9dc3b2dc926cb5c94a0b02b9aa398f40a227ada52eab6b8816b5184ec66e9e0a138e62c6125eef7fb84b46aafd2d9d240756d8703ef987adeeb4adc57438320db",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GeRkgTAZJf/4e4d00dcf60685b3451581184a943deb5e017d189cbf37e581dde065ad64f6bfbb1d0f62529e3e0b8f8dcb595970722f8d2f5f435788f1f9b07742a4705d94c94d8a36ec1ee09fc07766d9cfa01d68be22e4a1194a75e291f45570dbf4f62c8ce84b4346",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gykAg5Sc_l/45ba5960e3298ec42e48acbd5769581e579a88f409064466bf9125cd7da9f420926786d9f02eb039bb86f5e45b4d4e3fb4df9cf54f35636df1b35f3dd57db6956d8adb7c5a45d88ce2f66145e43eb76c35d55b873478fca3734b8ccc77ccf121b38c2746",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-sEkYKbNMUt/630176744bb40a5f25c6e95cb0f8bb6b7af3335f5374fe71aa48c6ea7b8eff589424c1aa1698f7a722362e19854beefd43f0e1f16e20f53ae0344fb0c043530d1c5f2cc25b86978dac4b29fee1a7d9ede0d04e6c991a3126f9db785ac22d0ac01598bba4",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-7foizQIIHf/469f5d08dbc7faca4a4f40bd82ade5432597488bb4f8b6b9460f5dd7900833e1c7aa780283968f1df49f536f5d86dae449461f303bf80bc75ebfd3d42cf481203f25fa974f0a0900b6d957d0cd1d5131844f9df7ed29a90e2b729e8d04493c4d56874214",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Vl5qhGtW61/fd55965fbcb02d57913479a20abc361697909ac052d762d2e5250982e7f40e7c094ea32cce4e1ba9f625d04f326e336fce80950d62ad70f0e6d1e68069b6a643711a6f7c491c3cd01803376dd8206a83d94891030382d31df6357cf32f842eb278336ceb",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Tmd22JGFWc/29493cdcebc7b7176fe91b5601b2490af2da9e1639838143ef1e9c454ef760a8cfa2382f44981849c3fa0004d2dbf7d1869142dfa94a40616728416143f88cd26c5a50a7ae074e8a1b0a50296542f98ae5b5771907d0e1bfc3b16dcec6b9bf0a088e50d6",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-C1j0SotKhX/7b1db3ce2e9861afa85fbcd4883f7e8bbfa8ebb1d581d53c05bcbf40c9523ee061f5c88b4d5643e5397c9caa54b8ee776026052d1539f61e1725df9bedf24bc17bf1bb56ec018c775642e447cdb84b909b11072b215632726d07d55c3f2dae42be64bc11",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DW6J_73sCn/844ff2e5807f3b29d2937f93907857af987e15b938eb6813db712c626e7613afaf855c95f6216b7f3c2698f6649e8e29bb37c84f6c1b52952d4da7f128d7b473341d59668f765eaed77aa033ceb3939eed338651816c65a8bb239b19e9fca8ec643d8a4c"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-W7UsnDKZSQ/4fb4c3ce3fd9cc351448f34d737aba21b30304a4c62d98e7599feb205f448b6af10cb8778f5fdbaa26ee17becb75256cb8c7d32f2fdd08f5b70a0b96b5a583556093974604a4fa53ff0cff8d9424bc5ac378ba516af824d1f0da2146daf44053aa930707",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DbaB8eobY6/09ccc61c9c42d634bd4d501031948fee416860e376a2b26548f8233efa479d341da19116a5786e2cd5d3d3e6ba5b78458e9acf469d06cd1774f9301ace64beb0684928df1b05dbf706c4dd7247078d843775e09ede88738b1ae98f9cc372fbb5673ffd0a"
   ],
   "link": "https://shrine.computer/",
   "materials": "location-bound websites, RFID chips, mixed materials including acrylic, ceramics, found stone, and silicone.",
@@ -30,6 +32,7 @@
   "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
+    "Shrine to Earth is a serpentine boulder that carries a website facilitating visitors offering rocks from their camera roll that they've found. Rocks are shown in a free-form physics world and can be stacked freely by visitors.",
     "",
     "",
     "",
@@ -39,6 +42,7 @@
     "",
     "",
     "",
+    "Shrine Map (Earth, Voice, Others) is an homage to community bulletin boards and uses phones and cables to represent a map of the shrines in the exhibition space. The phones play looping video showing the process and interactions of the shrines.",
     ""
   ],
   "isEvent": false,
@@ -52,6 +56,8 @@
     "image",
     "image",
     "image",
-    "video"
+    "image",
+    "image",
+    "image"
   ]
 }

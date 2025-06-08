@@ -168,7 +168,7 @@ export function CompactCreationSummary({
             </h3>
           )}
           <em>{title}</em>
-          <span className="descriptionText">{description || subtext}</span>
+          <p className="descriptionText">{description || subtext}</p>
           {((isEvent && forthcoming) || (!isEvent && displayLink)) && (
             <a href={internalLink || displayLink} className="creation-link">
               {isEvent && forthcoming ? "Register" : "Learn"}

@@ -30,7 +30,7 @@ export function CreationDetailImages({
                 type={metadata[idx]}
               />
               {Boolean(descriptions?.[idx]) && (
-                <span className="descriptionText">{descriptions[idx]}</span>
+                <p className="descriptionText">{descriptions[idx]}</p>
               )}
             </div>
           ))}

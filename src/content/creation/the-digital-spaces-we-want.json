@@ -3,7 +3,10 @@
   "subtext": "an interactive conversation about the kinds of digital spaces we dream of",
   "descriptionMd": "Part performance, part dialog, part interactive website—a conversation with [Jacky](https://jzhao.xyz/) about the kinds of digital spaces we want\ncreated for [commonplace](https://commonplace.knowledgefutures.org/)",
   "parentCategory": "Project",
-  "categories": ["Website", "Writing"],
+  "categories": [
+    "Website",
+    "Writing"
+  ],
   "date": "2023-08-31T07:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3OOsj0VUj5/1c20cbce1aade42a46c142e861d57d4a4264bc45716d8aacfe31d1c672ec0e42994d50968a440159b1024da63a5ec6d8d16b485eb46fdbc94f592318c1a44136e2dc1866034caa9f0607a5bc2cb5a4402d7356d9fe3d3ba9926ea0a1d0e16a021497db28",
   "media": [
@@ -23,5 +26,10 @@
     "collaborative reactions"
   ],
   "isEvent": false,
-  "mediaMetadata": ["image", "image", "image", "image"]
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "image"
+  ]
 }

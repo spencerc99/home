@@ -50,7 +50,7 @@ export function EventCreationsList({
           )}
           <a href={creation.link}>{creation.title}</a>
           {creation.subtext && (
-            <span className="descriptionText"> {creation.subtext}</span>
+            <p className="descriptionText"> {creation.subtext}</p>
           )}
         </li>
       ))}
