@@ -1287,7 +1287,8 @@ ul.noPadding {
   .imgContainer {
     position: absolute;
     display: flex;
-    gap: 0.5em;
+    align-items: center;
+    gap: 1em;
     & > img,
     & > div {
       max-height: 300px;
