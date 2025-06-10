@@ -281,7 +281,7 @@ export function CreationsView({
     <div className="creationsView">
       <div className="actions">
         {/* Category select */}
-        <div>
+        {/* <div>
           <select
             value={category}
             onChange={(e) => {
@@ -295,9 +295,10 @@ export function CreationsView({
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
         {/* view select */}
         <div>
+          View as{" "}
           <select
             value={view}
             onChange={(e) => {

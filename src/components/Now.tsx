@@ -12,30 +12,19 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 04-26-25
+          Updated 06-09-25
         </span>
       </div>
       <p>
-        - Creating <a href="/creation/computing-shrines">computing shrines</a>{" "}
-        in my neighborhood
+        - Watching people interact with{" "}
+        <a href="/creation/computing-shrines">computing shrines</a> at{" "}
+        <a href="https://demofestival.org">DEMO 2025</a>
       </p>
       <p>
-        - Preparing for <a href="https://www.demofestival.org/">DEMO 2025</a> at
-        NEW INC
-      </p>
-      <p>
-        - Making <a href="https://tiktok.com/@spencer.place">30 videos</a> of
-        myself talking to the camera
-      </p>
-      <p>
-        - Migrating fully to <a href="/">this website</a> from my old{" "}
-        <code>spencerchang.me</code> domain
-      </p>
-      {/* <p>
         - (coming out of hibernation) Designing{" "}
         <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
         for tiny social networks
-      </p> */}
+      </p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for
         teaching, crafting, and scheming.
