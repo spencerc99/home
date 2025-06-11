@@ -47,21 +47,24 @@ const transformedMovieUrl = movieUrl
   ? maybeTransformImgixUrl(movieUrl, {
       auto: "format,compress",
       fit: "max",
-      w: "1200",
+      w: "2000",
+      h: "2000",
     })
   : movieUrl;
 const transformedHeroImage = heroImage
   ? maybeTransformImgixUrl(heroImage, {
       auto: "format,compress",
       fit: "max",
-      w: "1200",
+      w: "2000",
+      h: "2000",
     })
   : heroImage;
 const mediaTransformed = media.map((item) => {
   return maybeTransformImgixUrl(item, {
     auto: "format,compress",
     fit: "max",
-    w: "1000",
+    w: "2000",
+    h: "2000",
   });
 });
 
