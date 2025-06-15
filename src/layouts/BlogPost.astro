@@ -80,14 +80,18 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     }
 
     .prose {
+      h1,
       h2,
       h3,
       h4,
       h5,
       h6 {
-        margin-top: 1em;
+        margin-top: 1.5em;
         margin-bottom: 0.5em;
+        font-weight: bold;
+        line-height: 1.25;
       }
+
       position: relative;
     }
     .hero-image img {

@@ -1006,6 +1006,7 @@ i.uis.uis-star {
 hr {
   border: none;
   text-align: center;
+  height: inherit;
 
   &::after {
     content: "࿌ ࿌ ࿌";
@@ -2385,21 +2386,21 @@ ul {
 }
 
 article {
-  .main {
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      margin-bottom: 1em;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 1em;
+    font-weight: bold;
   }
 
   ol,
   ul {
     margin: 24px 0;
     line-height: unset;
+    margin-left: 1em;
     ul,
     ol {
       margin: 6px;
@@ -2407,6 +2408,45 @@ article {
         margin: 0.25em;
       }
     }
+    p {
+      margin: 0;
+    }
+  }
+
+  p {
+    margin: 1em 0;
+    line-height: 1.75;
+  }
+
+  // Handle all default styles
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  pre {
+    margin: 1.5em 0;
+    padding: 1em;
+    background-color: rgba(var(--gray-dark), 0.05);
+    border-radius: 0.5em;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    background-color: rgba(var(--gray-dark), 0.05);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25em;
+    font-size: 0.9em;
+  }
+
+  pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
   }
 }
 
