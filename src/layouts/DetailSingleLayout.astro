@@ -8,20 +8,30 @@ interface Props extends BaseLayoutProps {
   titleClass?: string;
   metaTitle?: string;
   size?: "small" | "medium";
+  centered?: boolean;
   frontmatter?: {
     size?: "small" | "medium";
     title?: string;
+    centered?: boolean;
   };
 }
 
-const { title, emojis, titleClass, metaTitle, size = "medium" } = Astro.props;
+const {
+  title,
+  emojis,
+  titleClass,
+  metaTitle,
+  size = "medium",
+  centered,
+} = Astro.props;
 // Check if size exists in frontmatter data
 const frontmatterSize = Astro.props.frontmatter?.size;
 const finalSize = frontmatterSize || size;
 const finalTitle = Astro.props.frontmatter?.title || metaTitle || title;
+const finalCentered = Astro.props.frontmatter?.centered || centered;
 ---
 
-<BaseLayout {...{ ...Astro.props, title: finalTitle }}>
+<BaseLayout {...{ ...Astro.props, title: finalTitle, centered: finalCentered }}>
   <div class={`headerContainer textContent`}></div>
   <article class={`textContainer ${finalSize}`}>
     <div class={`prose`}>
