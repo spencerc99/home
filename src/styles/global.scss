@@ -2386,6 +2386,10 @@ ul {
 }
 
 article {
+  &.small {
+    max-width: 800px;
+  }
+
   h1,
   h2,
   h3,
@@ -2404,6 +2408,7 @@ article {
     ul,
     ol {
       margin: 6px;
+      margin-left: 1em;
       li {
         margin: 0.25em;
       }
