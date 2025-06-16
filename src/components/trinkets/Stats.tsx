@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Define types for the cursor system
 interface CursorSystem {
+  allColors: string[];
   count: number;
   color: string;
   on: (event: string, callback: (data: any) => void) => void;
@@ -16,7 +17,7 @@ declare global {
 }
 
 export function Stats() {
-  const [visitors, setVisitors] = useState(1);
+  const [visitors, setVisitors] = useState<Array<string>>([]);
   const [cursorColor, setCursorColor] = useState("#000000");
   // counts up every millisecond
   const startTime = new Date().getTime();
@@ -34,12 +35,12 @@ export function Stats() {
       isSubscribed = true;
 
       // Set initial values
-      setVisitors(cursors.count);
+      setVisitors(cursors.allColors);
       setCursorColor(cursors.color);
 
       // Handle cursor updates
-      const handleCursorUpdate = (data: { count: number }) => {
-        setVisitors(data.count);
+      const handleCursorUpdate = (colors: string[]) => {
+        setVisitors(colors);
       };
 
       const handleColorUpdate = (color: string) => {
@@ -47,13 +48,13 @@ export function Stats() {
       };
 
       // Subscribe to events
-      //   cursors.on("count", handleCursorUpdate);
-      //   cursors.on("color", handleColorUpdate);
+      cursors.on("allColors", handleCursorUpdate);
+      cursors.on("color", handleColorUpdate);
 
       // Return cleanup function
       return () => {
-        // cursors.off("count", handleCursorUpdate);
-        // cursors.off("color", handleColorUpdate);
+        cursors.off("allColors", handleCursorUpdate);
+        cursors.off("color", handleColorUpdate);
         isSubscribed = false;
       };
     };
@@ -112,20 +113,21 @@ export function Stats() {
       style={{ border: "double", gap: 0 }}
     >
       <span>
-        ppl: <span>{visitors}</span>
-        {/* <div id="cursor-list"></div> */}
-      </span>
-      <span>
-        you:{" "}
-        <div
+        ppl
+        <span
+          className="text-xs"
           style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            display: "inline-block",
-            backgroundColor: cursorColor,
+            letterSpacing: "-0.05em",
           }}
-        />
+        >
+          ({visitors.length})
+        </span>
+        :{" "}
+        <div className="flex gap-[2px] inline-flex">
+          {visitors.map((color, index) => (
+            <CursorColor key={color} color={color} isFirst={index === 0} />
+          ))}
+        </div>
       </span>
       <span>
         time: <span>{time.toFixed(1)}m</span>
@@ -133,10 +135,41 @@ export function Stats() {
       <span>
         energy: <span>{deviceBattery}%</span>
       </span>
+      {/* movement: # of pixels moved */}
+      {/* # of clicks */}
+      {/* # of typed */}
       {/* 
-      - location & weather emoji?
-      - phone battery percentage
+      - location & weather emoji & time for "currently"?
       */}
+      {/* show device type */}
+      {/* device screen size */}
     </div>
   );
 }
+
+const CursorColor = ({
+  color,
+  isFirst = false,
+}: {
+  color: string;
+  isFirst?: boolean;
+}) => {
+  return (
+    <div className="relative">
+      {isFirst && (
+        <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
+          you
+        </span>
+      )}
+      <div
+        style={{
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          display: "inline-block",
+          backgroundColor: color,
+        }}
+      />
+    </div>
+  );
+};
