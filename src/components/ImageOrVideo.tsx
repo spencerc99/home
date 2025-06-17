@@ -23,7 +23,10 @@ export function ImageOrVideo({
   const mediaType = forceType || (type ?? null);
 
   return mediaType === "video" ? (
-    <video src={src} controls {...props} />
+    <video controls crossOrigin="anonymous" {...props}>
+      <source src={src} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   ) : withZoom ? (
     <ImageZoom src={src} {...props} />
   ) : (

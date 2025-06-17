@@ -225,7 +225,7 @@ export function CreationsView({
               <div>teaser</div>
               <div>Kind</div>
             </div>
-            {sortedNonEventCreations.map((creation, index) => (
+            {filteredCreations.map((creation, index) => (
               <div
                 key={creation.id}
                 data-index={index}
@@ -236,10 +236,6 @@ export function CreationsView({
                     id: creation.id,
                     ...creation.data,
                   }}
-                  isFiltered={
-                    category !== "all" &&
-                    creation.data.parentCategory !== category
-                  }
                   view={view}
                   isSelected={index === selectedIndex}
                 />
@@ -254,17 +250,13 @@ export function CreationsView({
               columnsCountBreakPoints={columnsCountBreakPoints}
             >
               <Masonry gutter="2em">
-                {nonEventCreations.map((creation) => (
+                {filteredCreations.map((creation) => (
                   <CreationSummary
                     key={creation.id}
                     creation={{
                       id: creation.id,
                       ...creation.data,
                     }}
-                    isFiltered={
-                      category !== "all" &&
-                      creation.data.parentCategory !== category
-                    }
                     view={view}
                   />
                 ))}
@@ -281,7 +273,7 @@ export function CreationsView({
     <div className="creationsView">
       <div className="actions">
         {/* Category select */}
-        {/* <div>
+        <div>
           <select
             value={category}
             onChange={(e) => {
@@ -295,7 +287,7 @@ export function CreationsView({
               </option>
             ))}
           </select>
-        </div> */}
+        </div>
         {/* view select */}
         <div>
           View as{" "}
