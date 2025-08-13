@@ -1,20 +1,48 @@
 {
   "title": "Touching Computers: NFC as Ritual",
   "subtext": "a webstone workshop with Munus Shih for FAPA",
+  "descriptionMd": "A workshop for the [Formosan Association for Public Affairs](https://www.instagram.com/fapa_hq/) month of art programming, culminating in a show at One Art Space. Taught with [Munus Shih](https://munusshih.com/).\nTouching Computers is a one-hour hands-on workshop that teaches participants to interweave the physical and digital worlds and infuse personal artifacts with digital memory. Participants are encouraged to bring everyday objects and media that are meaningful to their different heritages and mix them to create hybrid objects that reflect their own diverse history, such as: zines and books, lucky charms, a favorite hat, their daily carry bag, or any other everyday object.\nAs Taiwanese Americans, we often find ourselves navigating between two different cultural systems and everyday technologies. This workshop begins on the daily use of NFC, such as the EasyCard (悠遊卡) in Taiwan and the MetroCard in the U.S., and then begin reimagining how NFC can be reshaped as a poetic, creative medium. One that enables new rituals, new interfaces, and new modes of remembering. Participants will prototype objects that embody this blending, grounding their cultural narratives both digitally and physically.",
   "parentCategory": "Speaking & Workshops",
   "categories": [],
   "date": "2025-06-18T07:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pZBSkgmP_X/cc7a909d7880157d48e684891f9e96881bca59a1079c1bc84cdec9cb6aa12643b6aba14a67606832ae1491607da8e89fddfa152f9ade427fe2d3a7b0abdcc57738456b719685489d6f5ad019f3a96b55f90ac7123116c3edce43ad7888228238d1de3140",
   "media": [
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pZBSkgmP_X/cc7a909d7880157d48e684891f9e96881bca59a1079c1bc84cdec9cb6aa12643b6aba14a67606832ae1491607da8e89fddfa152f9ade427fe2d3a7b0abdcc57738456b719685489d6f5ad019f3a96b55f90ac7123116c3edce43ad7888228238d1de3140"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pZBSkgmP_X/cc7a909d7880157d48e684891f9e96881bca59a1079c1bc84cdec9cb6aa12643b6aba14a67606832ae1491607da8e89fddfa152f9ade427fe2d3a7b0abdcc57738456b719685489d6f5ad019f3a96b55f90ac7123116c3edce43ad7888228238d1de3140",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2aLGAJj0A6/d4b5aa9a84d689a7f550d19ec5c785c731789fc41bfd027c4e6df325bbe72bbfcb8850b15ecb6b509b6387284ca15c1e214e418de2b3e5fb9f83a6e16843960fd1a3ef9dbe0553539aa964e3cb7a58416d5ff5dcbd2abacc9385da7b0007d6fa558502af",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zgP9Z_cimT/3f21440efe353e287613b8c39f92c90960ed384b6bc9e68f3488317430900e55245b307e94938b0cad6f81016e14182fc0c2f3243ade2d0279915d816d2fe7a1e9b522632c211a7208f716d9c99b9e6aef30ebc0b9a690342487f25736bd1413b1b1ebc0",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-bchvtsRUZp/b572d64a5a128fb06642076864a00a18e572a9b4d60c3ffa2dd9e38979519e0c8ed73605c3aaa8f9c4ea9dec58d36f1940ab80f28dbd1574af3594c777edf68db9b4184d1715c3fcf2a0c4bac78ebba3462eed092c548726c30d862a9ae31320b1056891",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-hXZq2BbeAV/3e1c490ddee1f2a8a56fc7881dba41937c29d3c64522e6bf747b29c10e198e8512180a4adde674f9b581a2904230cb809b88183aeca6f773b6558beef3a237010cc6c2310b054d39420c0ca850719906da56798a5b08437cde34f0379919085e62b6210d",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-oWGfGyhgyW/2a1b16ee7d4625f2ce3e81aa05a257f6d1d866d1294e5f3c29b94d61d288693a1e6d7989a9d14d3d371e067c56c879c10f2f9d4647805e62497c2b0ef3b425fdb88accb1b16bd649da6e44a249a7307b6e94a9bef49dc770fb307c619fd0f3b60d680b6e",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-g8Xs1yfBan/73e5d08f0f7860860a66414624181e18b3215adf719e8a78b98068fc57f1fa35623b1c251702307f271d5c54bf177a183b698ed0bf70fc2f8cfcc9ae5c67f7e939e5e4fc21fcff38ee705dfc98ee07419ae6ee351020b9ceac2148f544a03a67dc33cfe9",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-igP_uQ9H7V/73fcdfbe9c57b264087d365b3a77c080d1d0347b865f3e946823464711506afc21511a051f51589bc0355cdd1eef4e0332b65517a676e78708c73073a0379c77f75d59fad82eccada32a5dbc378c96e34290369f69bdb1a82b21e7f2f3be8b13447a81c4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tDkAZte0FV/ecc88ae11afff82137f88c6ac9f7cf0a4c833b74116bc54a78a522e0c736b03b8c5d3ea1d7b5a22d2168b77945c9099f9dac3b948db87607b0dc279eb07bfa3ca72804e6e2fe7620d66b8d0c37823440abffe0b6264ce4c32878ed9c0010637ef6b61111"
   ],
   "link": "https://partiful.com/e/8ufX29A7gdILRZqaiRdd",
   "ongoing": false,
   "forthcoming": false,
   "featured": false,
-  "imageDescriptions": [],
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
   "isEvent": true,
   "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "image",
+    "image",
+    "image",
+    "image",
+    "image",
     "image"
   ]
 }
