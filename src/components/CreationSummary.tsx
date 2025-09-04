@@ -247,7 +247,7 @@ export function CreationSummary({
 
       return (
         <div
-          id={id}
+          id={`creation-${id}`}
           style={style}
           className={classNames("creationSummary", "nomove", {
             filtered: isFiltered,
