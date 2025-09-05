@@ -1,7 +1,7 @@
 {
   "title": "Coda Custom Templates",
   "subtext": "a system for saving everything from repeated snippets to entire workflows into shareable, reusable templates",
-  "descriptionMd": "[Templates](https://community.coda.io/t/launched-custom-templates-drag-drop-and-slash-your-way/22718) are a system enabling anyone to create reusable shared snippets and tools (from idea brainstorms, to task trackers, to coffee brew guides), available to drag-and-drop into docs, which dramatically increased the ease of getting started and making things with Coda\nLead engineering and a team of 2 others and actively worked with product and design for shaping out the final interaction model and design details.\nThis was a key feature highlighted in the [Coda 3.0 launch](https://coda.io/@coda/the-doc-that-brings-it-all-together).\n([blog post](https://coda.io/@spencer/rituals-at-scale-how-we-remixed-templates))",
+  "descriptionMd": "[Templates](https://community.coda.io/t/launched-custom-templates-drag-drop-and-slash-your-way/22718) are a system enabling anyone to create reusable shared snippets and tools (from idea brainstorms, to task trackers, to coffee brew guides), available to drag-and-drop into docs, which dramatically increased the ease of getting started and making things with Coda\n&nbsp;\nLead engineering and a team of 2 others and actively worked with product and design for shaping out the final interaction model and design details.\n&nbsp;\nThis was a key feature highlighted in the [Coda 3.0 launch](https://coda.io/@coda/the-doc-that-brings-it-all-together).\n&nbsp;\n([blog post](https://coda.io/@spencer/rituals-at-scale-how-we-remixed-templates))",
   "parentCategory": "Project",
   "categories": [
     "Software Tool",

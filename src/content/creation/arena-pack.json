@@ -1,7 +1,7 @@
 {
   "title": "are.na pack",
   "subtext": "Sync Arena channel data and their contents",
-  "descriptionMd": "Pack to pull data from are.na. Grab the contents of channels and organize them directly in Coda, or combine this with the Twitter Pack to make a Twitter bot for each Are.na channel.",
+  "descriptionMd": "Pack to pull data from are.na. \n&nbsp;\nGrab the contents of channels and organize them directly in Coda, or combine this with the Twitter Pack to make a Twitter bot for each Are.na channel.",
   "parentCategory": "Project",
   "categories": [
     "Software Tool",

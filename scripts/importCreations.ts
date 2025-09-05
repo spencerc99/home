@@ -8,6 +8,7 @@ import crypto from "crypto";
 // this is already defined sometimes?
 // const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
+const VERBOSE = false;
 // Check if MP4 video already exists locally by blob ID
 function getLocalVideoPath(blobId: string): string | null {
   const videoDir = path.join(__dirname, "../public/creation-videos");
@@ -73,42 +74,57 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
 
   // Convert to MP4 using ffmpeg with intelligent compression based on input size
   const inputSizeMB = buffer.length / (1024 * 1024);
-  let crf = "23";  // Default quality
+  let crf = "23"; // Default quality
   let preset = "medium";
   let maxBitrate = null;
-  
+
   if (inputSizeMB > 50) {
     // Very large files - moderate compression with higher bitrate
     crf = "26";
     preset = "medium";
     maxBitrate = "2M";
-    console.log(`Large video detected (${inputSizeMB.toFixed(1)}MB), using moderate compression`);
+    console.log(
+      `Large video detected (${inputSizeMB.toFixed(
+        1
+      )}MB), using moderate compression`
+    );
   } else if (inputSizeMB > 20) {
     // Medium-large files - slightly higher compression
     crf = "25";
     preset = "medium";
     maxBitrate = "3M";
-    console.log(`Medium-large video detected (${inputSizeMB.toFixed(1)}MB), using higher compression`);
+    console.log(
+      `Medium-large video detected (${inputSizeMB.toFixed(
+        1
+      )}MB), using higher compression`
+    );
   }
-  
+
   const { spawn } = await import("child_process");
   const ffmpegArgs = [
-    "-i", tempPath,
-    "-c:v", "libx264",        // H.264 video codec (fast)
-    "-c:a", "aac",            // AAC audio codec (fast)
-    "-crf", crf,              // Quality setting (adaptive)
-    "-preset", preset,        // Encoding preset (adaptive)
-    "-movflags", "faststart", // Optimize for web streaming
-    "-pix_fmt", "yuv420p",    // Ensure compatibility
+    "-i",
+    tempPath,
+    "-c:v",
+    "libx264", // H.264 video codec (fast)
+    "-c:a",
+    "aac", // AAC audio codec (fast)
+    "-crf",
+    crf, // Quality setting (adaptive)
+    "-preset",
+    preset, // Encoding preset (adaptive)
+    "-movflags",
+    "faststart", // Optimize for web streaming
+    "-pix_fmt",
+    "yuv420p", // Ensure compatibility
   ];
-  
+
   // Add bitrate limit for large files
   if (maxBitrate) {
     ffmpegArgs.push("-maxrate", maxBitrate, "-bufsize", "2M");
   }
-  
+
   ffmpegArgs.push("-f", "mp4", "-y", finalPath);
-  
+
   const ffmpeg = spawn("ffmpeg", ffmpegArgs);
 
   return new Promise((resolve, reject) => {
@@ -132,16 +148,26 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
         if (fs.existsSync(finalPath) && fs.statSync(finalPath).size > 0) {
           const finalSizeMB = fs.statSync(finalPath).size / (1024 * 1024);
           const cloudflareLimit = 25; // MB
-          
+
           if (finalSizeMB > cloudflareLimit) {
             console.warn(
-              `⚠️  OVERSIZED FILE: ${finalFilename} is ${finalSizeMB.toFixed(1)}MB, exceeds Cloudflare Pages limit of ${cloudflareLimit}MB`
+              `⚠️  OVERSIZED FILE: ${finalFilename} is ${finalSizeMB.toFixed(
+                1
+              )}MB, exceeds Cloudflare Pages limit of ${cloudflareLimit}MB`
             );
             console.warn(`📁 File kept at: ${finalPath}`);
-            console.warn(`🔗 Upload this file to R2 and update the JSON manually`);
-            
+            console.warn(
+              `🔗 Upload this file to R2 and update the JSON manually`
+            );
+
             // Keep the file but mark as oversized - fall back to original URL
-            reject(new Error(`Video ${finalFilename} exceeds ${cloudflareLimit}MB limit (${finalSizeMB.toFixed(1)}MB) - file kept at ${finalPath}`));
+            reject(
+              new Error(
+                `Video ${finalFilename} exceeds ${cloudflareLimit}MB limit (${finalSizeMB.toFixed(
+                  1
+                )}MB) - file kept at ${finalPath}`
+              )
+            );
           } else {
             console.log(
               `Converted to MP4: ${finalFilename} (${finalSizeMB.toFixed(1)}MB)`
@@ -289,9 +315,10 @@ async function importCreations() {
               // Check if video already exists locally
               const existingPath = getLocalVideoPath(blobId);
               if (existingPath) {
-                console.log(
-                  `Using existing video for blob ${blobId}: ${existingPath}`
-                );
+                if (VERBOSE)
+                  console.log(
+                    `Using existing video for blob ${blobId}: ${existingPath}`
+                  );
                 return existingPath;
               } else {
                 // Download video
@@ -299,7 +326,9 @@ async function importCreations() {
                   const localPath = await downloadVideo(originalUrl, blobId);
                   return localPath;
                 } catch (error) {
-                  console.warn(`Failed to convert video ${blobId}: ${error.message}`);
+                  console.warn(
+                    `Failed to convert video ${blobId}: ${error.message}`
+                  );
                   console.warn(`Falling back to original URL: ${originalUrl}`);
                   // Fall back to original URL if conversion fails (e.g., file too large)
                   return originalUrl;
