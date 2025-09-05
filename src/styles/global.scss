@@ -456,6 +456,8 @@ footer {
   margin-left: $sidebar-width;
   margin-top: auto;
   @include media(xsmallScreen) {
+    margin-left: 0;
+    width: 100%;
     padding-left: 1em;
     padding-right: 1em;
   }

@@ -33,7 +33,7 @@ const {
   relatedCreations = [],
 } = Astro.props;
 const descriptionParsed = descriptionMd
-  ? marked.parse(
+  ? await marked.parse(
       // Convert any single \n that isn't preceded by two spaces into \n\n
       descriptionMd.replace(/(?<!  )\n&nbsp;/g, "\n\n"),
       {
@@ -74,125 +74,265 @@ const style = {
     alpha: 0.3,
   }),
 };
+
+// Parse description into paragraphs for mobile interspersing
+const descriptionParagraphs = descriptionParsed
+  ? descriptionParsed.split("\n").filter((p) => p.trim())
+  : [];
+
+console.log(descriptionParagraphs);
+
+// Organize media - all media including movieUrl if present
+const allMediaSources = movieUrl ? [transformedMovieUrl] : [];
+allMediaSources.push(...mediaTransformed);
+
+const allDescriptions = movieUrl ? [""] : [];
+allDescriptions.push(...(imageDescriptions || []));
+
+const allMetadata = movieUrl ? [{ type: "video" }] : [];
+allMetadata.push(...(mediaMetadata || []));
+
+// Helper function to extract domain from URL
+function getDomainFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.replace("www.", "");
+  } catch {
+    return url;
+  }
+}
+
+const linkDomain = link ? getDomainFromUrl(link) : "";
+
+// Function to create mobile interspersed content
+function createMobileContent(
+  paragraphs: string[],
+  mediaSources: string[],
+  descriptions: string[],
+  metadata: any[]
+) {
+  const content: Array<{
+    type: "text" | "image" | "video";
+    content?: string;
+    src?: string;
+    description?: string;
+    metadata?: any;
+    index?: number;
+  }> = [];
+  let mediaIndex = 0;
+
+  // Add first media item
+  if (mediaSources[0]) {
+    content.push({
+      type: movieUrl ? "video" : "image",
+      src: mediaSources[0],
+      description: descriptions[0],
+      metadata: metadata[0],
+      index: 0,
+    });
+    mediaIndex = 1;
+  }
+
+  // Intersperse paragraphs with media every 2 paragraphs
+  paragraphs.forEach((paragraph, i) => {
+    // Only add non-empty paragraphs
+    if (paragraph.trim()) {
+      content.push({ type: "text", content: paragraph });
+
+      if ((i + 1) % 2 === 0 && mediaIndex < mediaSources.length) {
+        content.push({
+          type: "image",
+          src: mediaSources[mediaIndex],
+          description: descriptions[mediaIndex],
+          metadata: metadata[mediaIndex],
+          index: mediaIndex,
+        });
+        mediaIndex++;
+      }
+    }
+  });
+
+  return content;
+}
+
+const mobileContent = createMobileContent(
+  descriptionParagraphs,
+  allMediaSources,
+  allDescriptions,
+  allMetadata
+);
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
-  <main class="creationDetail">
+  <main class="creationDetail editorial">
     <article>
-      <div class="content">
-        <div class="prose">
-          <div class="header">
+      <!-- Desktop Editorial Layout -->
+      <div class="desktop-layout">
+        <!-- Title and Metadata Row -->
+        <div class="title-metadata-row">
+          <h1 class="title-sentence">
+            <>
+              <b>{title}</b>
+              {subtext ? ` is ${subtext}` : ""}
+            </>
+          </h1>
+
+          <!-- Metadata Sidebar -->
+          <div class="metadata-sidebar">
             {
-              date ? (
+              date && (
                 <div class="date">
                   <FormattedDate date={date} />
                 </div>
-              ) : null
+              )
             }
-            <h2>
-              {link ? <a href={link}>{title}</a> : title}
-            </h2>
-            <i>{subtext}</i>
-            {materials && <i class="meta">Materials: {materials}</i>}
-          </div>
-          <div class="main">
-            <div class="hero-container-mobile">
-              {
-                shouldIframe ? (
-                  <div class="iframeWrapper">
-                    <iframe src={link} />
-                    <div>
-                      window into <a href={link}>{link}</a>
-                    </div>
-                  </div>
-                ) : movieEmbed ? (
-                  <iframe class="movieEmbed" src={movieEmbed} />
-                ) : (
-                  <div class="hero-image" style={style}>
-                    {movieUrl ? (
-                      <video controls autoplay loop>
-                        <source src={transformedMovieUrl} type="video/webm" />
-                      </video>
-                    ) : (
-                      <>
-                        <ImageOrVideo
-                          client:only="react"
-                          src={transformedHeroImage}
-                          type={mediaMetadata?.[0]}
-                        />
-                        {imageDescriptions?.[0] && (
-                          <div class="descriptionText">
-                            {imageDescriptions[0]}
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                )
-              }
-            </div>
+            {materials && <div class="materials">Materials: {materials}</div>}
             {
-              descriptionParsed && (
-                <p class="main-description" set:html={descriptionParsed} />
+              link && (
+                <div class="link">
+                  <a href={link}>visit {linkDomain}</a>
+                </div>
               )
             }
           </div>
         </div>
-        <div>
-          <div class="hero-container-desktop" style={style}>
-            {
-              shouldIframe ? (
-                <div class="iframeWrapper">
-                  <iframe src={link} />
-                  <div>
-                    window into <a href={link}>{link}</a>
-                  </div>
+
+        <!-- Hero Row -->
+        <div class="hero-row" style={style}>
+          {
+            shouldIframe ? (
+              <div class="iframeWrapper">
+                <iframe src={link} />
+                <div>
+                  window into <a href={link}>{link}</a>
                 </div>
-              ) : movieEmbed ? (
-                <iframe class="movieEmbed" src={movieEmbed} />
-              ) : (
-                <div class="hero-image">
-                  {movieUrl ? (
+              </div>
+            ) : movieEmbed ? (
+              <iframe class="movieEmbed" src={movieEmbed} />
+            ) : (
+              allMediaSources.slice(0, 4).map((src, i) => (
+                <div class="media-item" key={i}>
+                  {movieUrl && i === 0 ? (
                     <video controls autoplay loop>
-                      <source src={transformedMovieUrl} type="video/webm" />
+                      <source src={src} type="video/webm" />
                     </video>
                   ) : (
-                    <>
-                      <ImageOrVideo
-                        client:only="react"
-                        src={transformedHeroImage}
-                        type={mediaMetadata?.[0]}
-                      />
-                      {imageDescriptions?.[0] && (
-                        <div class="descriptionText">
-                          {imageDescriptions[0]}
-                        </div>
-                      )}
-                    </>
+                    <ImageOrVideo
+                      client:only="react"
+                      src={src}
+                      type={i === 0 ? "video" : allMetadata[i]}
+                    />
+                  )}
+                  {allDescriptions[i] && (
+                    <p class="descriptionText">{allDescriptions[i]}</p>
                   )}
                 </div>
-              )
-            }
-          </div>
-          <CreationDetailImages
-            images={mediaTransformed.slice(movieUrl ? 0 : 1, media.length)}
-            descriptions={imageDescriptions
-              ? imageDescriptions.slice(movieUrl ? 0 : 1)
-              : []}
-            client:only="react"
-            metadata={mediaMetadata?.slice(movieUrl ? 0 : 1)}
-          />
-          {
-            relatedCreations.length > 0 && (
-              <div class="mobile-related">
-                <RelatedCreations
-                  client:only="react"
-                  creations={relatedCreations}
-                />
-              </div>
+              ))
             )
           }
         </div>
+
+        <!-- Two-Column Description -->
+        <div class="description-columns">
+          {descriptionParsed && <div set:html={descriptionParsed} />}
+        </div>
+
+        <!-- Flow Images -->
+        <div class="flow-images">
+          <CreationDetailImages
+            images={allMediaSources.slice(4)}
+            descriptions={allDescriptions.slice(4)}
+            client:only="react"
+            metadata={allMetadata?.slice(4)}
+          />
+        </div>
+
+        <!-- Related Creations -->
+        {
+          relatedCreations.length > 0 && (
+            <div class="related-creations">
+              <RelatedCreations
+                client:only="react"
+                creations={relatedCreations}
+              />
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Mobile Editorial Layout -->
+      <div class="mobile-layout">
+        <!-- Title Sentence -->
+        <div class="title-metadata-row">
+          <h1 class="title-sentence">
+            <>
+              <b>{title}</b>
+              {subtext ? ` is ${subtext}` : ""}
+            </>
+          </h1>
+
+          <!-- Metadata Sidebar -->
+          <div class="metadata-sidebar">
+            {
+              date && (
+                <div class="date">
+                  <FormattedDate date={date} />
+                </div>
+              )
+            }
+            {materials && <div class="materials">Materials: {materials}</div>}
+            {
+              link && (
+                <div class="link">
+                  <a href={link}>visit {linkDomain}</a>
+                </div>
+              )
+            }
+          </div>
+        </div>
+
+        <!-- Interspersed Content -->
+        <div class="mobile-content">
+          {
+            mobileContent.map((item, i) =>
+              item.type === "text" ? (
+                <Fragment key={i} set:html={item.content} />
+              ) : item.type === "video" ? (
+                <div key={i} class="media-block" style={style}>
+                  <video controls autoplay loop>
+                    <source src={item.src} type="video/webm" />
+                  </video>
+                  {item.description && (
+                    <div class="descriptionText">{item.description}</div>
+                  )}
+                </div>
+              ) : (
+                <div key={i} class="media-block" style={style}>
+                  <ImageOrVideo
+                    client:only="react"
+                    src={item.src}
+                    type={item.metadata}
+                  />
+                  {item.description && (
+                    <div class="descriptionText">{item.description}</div>
+                  )}
+                </div>
+              )
+            )
+          }
+        </div>
+
+        <!-- Mobile Related Creations -->
+        {
+          relatedCreations.length > 0 && (
+            <div class="mobile-related">
+              <RelatedCreations
+                client:only="react"
+                creations={relatedCreations}
+              />
+            </div>
+          )
+        }
       </div>
     </article>
   </main>

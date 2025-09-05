@@ -16,7 +16,7 @@ export function CreationDetailImages({
     <ZoomContextProvider>
       <div className="images">
         {/* TODO: turn into lightbox carousel with photoswipe */}
-        <MasonryLayout columnsCount={2} gutter="1em">
+        <MasonryLayout columnsCount={3} gutter="1em">
           {images.map((imgUrl, idx) => (
             <div
               key={imgUrl}

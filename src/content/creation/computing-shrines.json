@@ -3,23 +3,18 @@
   "subtext": "a collection of site-specific sculptures turning shared spaces into spaces for sharing",
   "descriptionMd": "We face a loneliness epidemic as free third spaces for communities disappear, and our devices have become symbols of isolation. Computing Shrines responds to this crisis by reimagining technology as a public good for fostering local connection rather than replacing it.\n&nbsp;\nEach shrine connects visitors' phones to a custom communal web interface that facilitates the exchange of small intimacies between past and future visitors. These websites can only be accessed at their shrine, anchoring a virtual space to a physical place and turning these shrines into living archives of the collective everyday interactions of the people who steward the space.\n&nbsp;\nFor example, \"Shrine to Voice\" is mobile phone booth that invites visitors to listen to and share their worries and hopes with the last and next stranger. “Shrine to Earth” features a found boulder that invites visitors to share photos of rocks they’ve found, which become pieces in a cairn-making mini-game. And in \"Shrine to Others,\" a clay tablet nestled beside a seating area invites visitors to notice the people they share the space with and vocalize what they admire about strangers.\n&nbsp;\nBeyond an installation, Computing Shrines is an open protocol for creating public good technology that fosters local connection rather than replacing it. Designed with common materials, open-sourcing the interfaces, and collaborating with local stewards, the project transforms the normally solitary and exclusive act of creating technology into a community improvement project for all to shape.\n&nbsp;\nSupported by [APOSSIBLE](https://apossible.com/), [DAL](https://dalab.xyz/en/), [NEW INC](https://newinc.org/), the New Museum’s art and technology incubator, and the San Francisco Arts Commission.\n&nbsp;\nMore information available in APOSSIBLE’s [case study](https://apossible.com/applied-experiments/shrines).\n&nbsp;\n**Exhibition History**\n&nbsp;\n- June 4-22: [Embodied Algorithms / Collective Mechanics](https://www.demofestival.org/showcases/art-and-code) by NEW INC and the New Museum, Curated by Sheldon Gooch",
   "parentCategory": "Project",
-  "categories": [
-    "Art",
-    "Website",
-    "Installation",
-    "Hardware",
-    "Community"
-  ],
+  "categories": ["Art", "Website", "Installation", "Hardware", "Community"],
   "date": "2025-04-16T07:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-knjZ51PPnZ/7c9e7175be64b4579738a09295835ad319bff06bc300350582494a29db9ecff6365b87534a4614aad0b94dfc32dea979048aedec5ff491a1a07bda31157ff8a3776c97880259db3e6f45ced95dfbc226b5c53e6256a82b115b1602331cba7bdb29ece60e",
   "media": [
+    "/creation-videos/bl-Q0MVZozo6h.mp4",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-knjZ51PPnZ/7c9e7175be64b4579738a09295835ad319bff06bc300350582494a29db9ecff6365b87534a4614aad0b94dfc32dea979048aedec5ff491a1a07bda31157ff8a3776c97880259db3e6f45ced95dfbc226b5c53e6256a82b115b1602331cba7bdb29ece60e",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-By4jZ5quAS/a6ab5688737e5095469329720c877b9767da537c4626f9cf0f188988faafb95ae10fff398f79289e8b3c48101565cad1275b674a71ffeaf08fa42ac9c939adeca307e122d4453c9aa0d56311d46f2488d0d4f25cbddb95764c95b85cc50c8bfc130ed078",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jJB-lKSLDm/311b95342156a1247acba30f82fb49126238ddc568f34bcf8834827e8caf79c800a1adf2170dcf39e25a48fa48ba451bc844e4debb3b6af0bbb231f945a9e959fc95d5dd91bc89c29135bf6cd1c0a7e0fb35d9a80d26cfe3179a35fa5fb2b777bc70ad19",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Tmd22JGFWc/29493cdcebc7b7176fe91b5601b2490af2da9e1639838143ef1e9c454ef760a8cfa2382f44981849c3fa0004d2dbf7d1869142dfa94a40616728416143f88cd26c5a50a7ae074e8a1b0a50296542f98ae5b5771907d0e1bfc3b16dcec6b9bf0a088e50d6",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-pdAAlHuXpi/1250b5d543e36e512d3766b52aa381e8331f372373c5f5c18405fb3ee2c88feb0cd812a7654d80860b30d51570aa10537404e04b5150619bd56022090890246552c3523c7a3df662c3d14cdd20f37f4a61de02507ea1da4642350fe2413edf6807aba0ee",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-fv98yadt66/2e78f1eaf90621eeac9971e9e42b1765b804c921eb2b0434116f34ca7e76261319841143f8de5267d9d4abe74423d9db572ee07ccbfe7fb6221876a2099be3ad4bcaaabd7b00d22260f9f73e9230e307cc1d0195311a8eacb4fe04b9ebd385fd5330cb15",
-    "/creation-videos/bl-Q0MVZozo6h.mp4",
+
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gykAg5Sc_l/45ba5960e3298ec42e48acbd5769581e579a88f409064466bf9125cd7da9f420926786d9f02eb039bb86f5e45b4d4e3fb4df9cf54f35636df1b35f3dd57db6956d8adb7c5a45d88ce2f66145e43eb76c35d55b873478fca3734b8ccc77ccf121b38c2746",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-sEkYKbNMUt/630176744bb40a5f25c6e95cb0f8bb6b7af3335f5374fe71aa48c6ea7b8eff589424c1aa1698f7a722362e19854beefd43f0e1f16e20f53ae0344fb0c043530d1c5f2cc25b86978dac4b29fee1a7d9ede0d04e6c991a3126f9db785ac22d0ac01598bba4",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Vl5qhGtW61/fd55965fbcb02d57913479a20abc361697909ac052d762d2e5250982e7f40e7c094ea32cce4e1ba9f625d04f326e336fce80950d62ad70f0e6d1e68069b6a643711a6f7c491c3cd01803376dd8206a83d94891030382d31df6357cf32f842eb278336ceb",
