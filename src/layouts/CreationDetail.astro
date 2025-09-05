@@ -31,6 +31,7 @@ const {
   imageDescriptions,
   mediaMetadata,
   relatedCreations = [],
+  descriptionFooter,
 } = Astro.props;
 const descriptionParsed = descriptionMd
   ? await marked.parse(
@@ -41,6 +42,13 @@ const descriptionParsed = descriptionMd
         gfm: true,
       }
     )
+  : "";
+
+const descriptionFooterParsed = descriptionFooter
+  ? await marked.parse(descriptionFooter, {
+      breaks: true,
+      gfm: true,
+    })
   : "";
 
 const transformedMovieUrl = movieUrl
@@ -104,66 +112,116 @@ function getDomainFromUrl(url: string): string {
 
 const linkDomain = link ? getDomainFromUrl(link) : "";
 
-// Function to create mobile interspersed content
-function createMobileContent(
-  paragraphs: string[],
-  mediaSources: string[],
-  descriptions: string[],
-  metadata: any[]
-) {
-  const content: Array<{
-    type: "text" | "image" | "video";
-    content?: string;
-    src?: string;
-    description?: string;
-    metadata?: any;
-    index?: number;
-  }> = [];
-  let mediaIndex = 0;
+// // Function to create mobile interspersed content
+// function createMobileContent(
+//   paragraphs: string[],
+//   mediaSources: string[],
+//   descriptions: string[],
+//   metadata: any[]
+// ) {
+//   const content: Array<{
+//     type: "text" | "image" | "video";
+//     content?: string;
+//     src?: string;
+//     description?: string;
+//     metadata?: any;
+//     index?: number;
+//   }> = [];
+//   let mediaIndex = 0;
 
-  // Add first media item
-  if (mediaSources[0]) {
-    content.push({
-      type: movieUrl ? "video" : "image",
-      src: mediaSources[0],
-      description: descriptions[0],
-      metadata: metadata[0],
-      index: 0,
-    });
-    mediaIndex = 1;
-  }
+//   // Add first media item
+//   if (mediaSources[0]) {
+//     content.push({
+//       type: movieUrl ? "video" : "image",
+//       src: mediaSources[0],
+//       description: descriptions[0],
+//       metadata: metadata[0],
+//       index: 0,
+//     });
+//     mediaIndex = 1;
+//   }
 
-  // Intersperse paragraphs with media every 2 paragraphs
-  paragraphs.forEach((paragraph, i) => {
-    // Only add non-empty paragraphs
-    if (paragraph.trim()) {
-      content.push({ type: "text", content: paragraph });
+//   // Intersperse paragraphs with media every 2 paragraphs
+//   paragraphs.forEach((paragraph, i) => {
+//     // Only add non-empty paragraphs
+//     if (paragraph.trim()) {
+//       content.push({ type: "text", content: paragraph });
 
-      if ((i + 1) % 2 === 0 && mediaIndex < mediaSources.length) {
-        content.push({
-          type: "image",
-          src: mediaSources[mediaIndex],
-          description: descriptions[mediaIndex],
-          metadata: metadata[mediaIndex],
-          index: mediaIndex,
-        });
-        mediaIndex++;
-      }
-    }
-  });
+//       if ((i + 1) % 2 === 0 && mediaIndex < mediaSources.length) {
+//         content.push({
+//           type: "image",
+//           src: mediaSources[mediaIndex],
+//           description: descriptions[mediaIndex],
+//           metadata: metadata[mediaIndex],
+//           index: mediaIndex,
+//         });
+//         mediaIndex++;
+//       }
+//     }
+//   });
 
-  return content;
-}
+//   return content;
+// }
 
-const mobileContent = createMobileContent(
-  descriptionParagraphs,
-  allMediaSources,
-  allDescriptions,
-  allMetadata
-);
+// const mobileContent = createMobileContent(
+//   descriptionParagraphs,
+//   allMediaSources,
+//   allDescriptions,
+//   allMetadata
+// );
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
+  <!-- <script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll(".media-item, .media-block");
+
+      items.forEach((item) => {
+        const media = item.querySelector("img, video");
+        const caption = item.querySelector(".descriptionText");
+
+        if (media && caption) {
+          // Function to set the width and display the caption
+          const setCaptionAndItemWidth = () => {
+            const newWidth = media.clientWidth;
+            if (newWidth) {
+              // Set the caption's width
+              caption.style.width = newWidth + "px";
+              caption.style.display = "block";
+
+              // Set the flex-basis of the parent item to the image's width
+              // This allows the item to be a fluid flex container
+              item.style.flexBasis = newWidth + "px";
+            }
+          };
+
+          // Immediately apply the width in case the media is already loaded
+          setCaptionAndItemWidth();
+
+          // Add a listener for when the media loads
+          media.addEventListener("load", setCaptionAndItemWidth, {
+            once: true,
+          });
+
+          // Add a ResizeObserver to handle changes to the media's size after the initial load
+          const ro = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+              const newWidth = Math.round(entry.contentRect.width);
+              const currentWidth = parseInt(item.style.flexBasis, 10);
+
+              // Only update if the width has changed
+              if (newWidth && newWidth !== currentWidth) {
+                item.style.flexBasis = newWidth + "px";
+                caption.style.width = newWidth + "px";
+              }
+            }
+          });
+
+          ro.observe(media);
+        }
+      });
+    });
+  </script> -->
   <main class="creationDetail editorial">
     <article>
       <!-- Desktop Editorial Layout -->
@@ -172,7 +230,7 @@ const mobileContent = createMobileContent(
         <div class="title-metadata-row">
           <h1 class="title-sentence">
             <>
-              <b>{title}</b>
+              <b class="creation-title">{title}</b>
               {subtext ? ` is ${subtext}` : ""}
             </>
           </h1>
@@ -219,8 +277,9 @@ const mobileContent = createMobileContent(
                   ) : (
                     <ImageOrVideo
                       client:only="react"
+                      className="medium-masonry"
                       src={src}
-                      type={i === 0 ? "video" : allMetadata[i]}
+                      type={allMetadata[i]}
                     />
                   )}
                   {allDescriptions[i] && (
@@ -233,17 +292,20 @@ const mobileContent = createMobileContent(
         </div>
 
         <!-- Two-Column Description -->
-        <div class="description-columns">
-          {descriptionParsed && <div set:html={descriptionParsed} />}
+        <div class="flex gap-">
+          <div class="description-columns">
+            {descriptionParsed && <div set:html={descriptionParsed} />}
+          </div>
+          <div class="meta small" set:html={descriptionFooterParsed} />
         </div>
 
         <!-- Flow Images -->
         <div class="flow-images">
           <CreationDetailImages
-            images={allMediaSources.slice(4)}
-            descriptions={allDescriptions.slice(4)}
+            images={allMediaSources}
+            descriptions={allDescriptions}
             client:only="react"
-            metadata={allMetadata?.slice(4)}
+            metadata={allMetadata}
           />
         </div>
 
@@ -251,81 +313,6 @@ const mobileContent = createMobileContent(
         {
           relatedCreations.length > 0 && (
             <div class="related-creations">
-              <RelatedCreations
-                client:only="react"
-                creations={relatedCreations}
-              />
-            </div>
-          )
-        }
-      </div>
-
-      <!-- Mobile Editorial Layout -->
-      <div class="mobile-layout">
-        <!-- Title Sentence -->
-        <div class="title-metadata-row">
-          <h1 class="title-sentence">
-            <>
-              <b>{title}</b>
-              {subtext ? ` is ${subtext}` : ""}
-            </>
-          </h1>
-
-          <!-- Metadata Sidebar -->
-          <div class="metadata-sidebar">
-            {
-              date && (
-                <div class="date">
-                  <FormattedDate date={date} />
-                </div>
-              )
-            }
-            {materials && <div class="materials">Materials: {materials}</div>}
-            {
-              link && (
-                <div class="link">
-                  <a href={link}>visit {linkDomain}</a>
-                </div>
-              )
-            }
-          </div>
-        </div>
-
-        <!-- Interspersed Content -->
-        <div class="mobile-content">
-          {
-            mobileContent.map((item, i) =>
-              item.type === "text" ? (
-                <Fragment key={i} set:html={item.content} />
-              ) : item.type === "video" ? (
-                <div key={i} class="media-block" style={style}>
-                  <video controls autoplay loop>
-                    <source src={item.src} type="video/webm" />
-                  </video>
-                  {item.description && (
-                    <div class="descriptionText">{item.description}</div>
-                  )}
-                </div>
-              ) : (
-                <div key={i} class="media-block" style={style}>
-                  <ImageOrVideo
-                    client:only="react"
-                    src={item.src}
-                    type={item.metadata}
-                  />
-                  {item.description && (
-                    <div class="descriptionText">{item.description}</div>
-                  )}
-                </div>
-              )
-            )
-          }
-        </div>
-
-        <!-- Mobile Related Creations -->
-        {
-          relatedCreations.length > 0 && (
-            <div class="mobile-related">
               <RelatedCreations
                 client:only="react"
                 creations={relatedCreations}

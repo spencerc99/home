@@ -66,6 +66,7 @@ export const creationSchema = z.object({
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
   mediaMetadata: z.array(z.enum(["image", "video"])),
+  descriptionFooter: z.string().optional(),
   related: z.array(z.string()).optional(),
 });
 

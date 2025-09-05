@@ -16,25 +16,22 @@ export function CreationDetailImages({
     <ZoomContextProvider>
       <div className="images">
         {/* TODO: turn into lightbox carousel with photoswipe */}
-        <MasonryLayout columnsCount={3} gutter="1em">
-          {images.map((imgUrl, idx) => (
-            <div
+        {/* <MasonryLayout columnsCount={3} gutter="1em"> */}
+        {images.map((imgUrl, idx) => (
+          <div key={imgUrl}>
+            <ImageOrVideo
+              className="medium-masonry"
+              src={imgUrl}
               key={imgUrl}
-              style={{ display: "flex", flexDirection: "column", gap: "0.2em" }}
-            >
-              <ImageOrVideo
-                className="medium-masonry"
-                src={imgUrl}
-                key={imgUrl}
-                withZoom
-                type={metadata[idx]}
-              />
-              {Boolean(descriptions?.[idx]) && (
-                <p className="descriptionText">{descriptions[idx]}</p>
-              )}
-            </div>
-          ))}
-        </MasonryLayout>
+              withZoom
+              type={metadata[idx]}
+            />
+            {Boolean(descriptions?.[idx]) && (
+              <p className="descriptionText">{descriptions[idx]}</p>
+            )}
+          </div>
+        ))}
+        {/* </MasonryLayout> */}
       </div>
     </ZoomContextProvider>
   ) : null;

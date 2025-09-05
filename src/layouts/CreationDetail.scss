@@ -1,5 +1,10 @@
 @import "../styles/mixins.scss";
 
+.creation-title {
+  // font-family: "VT323", monospace;
+  // font-size: 1.2em;
+}
+
 .creationDetail {
   iframe,
   .iframeWrapper {
@@ -122,16 +127,6 @@
     @include media(xsmallScreen, smallScreen, mediumScreen) {
       grid-template-columns: 1fr;
     }
-
-    .images {
-      max-width: 1200px;
-      margin-top: 1em;
-
-      img {
-        // width: 100%;
-        border-radius: 0.25em;
-      }
-    }
   }
 
   .hero-container-mobile {
@@ -147,6 +142,15 @@
       display: block;
     }
   }
+}
+
+.images {
+  // max-width: 1200px;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
 }
 
 .mobile-related {
@@ -169,30 +173,39 @@
 .editorial {
   .desktop-layout {
     display: block;
-    @include media(xsmallScreen, smallScreen, mediumScreen) {
-      display: none;
-    }
+    // @include media(xsmallScreen, smallScreen, mediumScreen) {
+    //   display: none;
+    // }
   }
 
   .mobile-layout {
     display: none;
-    @include media(xsmallScreen, smallScreen, mediumScreen) {
-      display: block;
-    }
+    // @include media(xsmallScreen, smallScreen, mediumScreen) {
+    //   display: block;
+    // }
   }
 
   // Title and Metadata Row
   .title-metadata-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 3em;
-    margin-bottom: 2em;
+    gap: 1em;
+    margin-bottom: 4em;
     align-items: start;
     max-width: calc($content-size * 2 + 3em);
+
+    @include media(mediumScreen) {
+      margin-bottom: 2em;
+    }
 
     @include media(largeScreen) {
       gap: 2em;
       max-width: calc($content-size * 2 + 2em);
+    }
+
+    @include media(smallScreen) {
+      margin-bottom: 2em;
+      margin-top: 2em;
     }
 
     @include media(xsmallScreen, smallScreen) {
@@ -209,6 +222,7 @@
     line-height: 1;
     margin: 0;
     font-weight: normal;
+    max-width: $content-size;
 
     a {
       color: inherit;
@@ -220,60 +234,53 @@
 
     @include media(xsmallScreen, smallScreen) {
       // font-size: 1.8em;
-      margin-bottom: 1em;
+      margin-bottom: 2em;
     }
   }
 
   // Hero Row with responsive nth-child
   .hero-row {
     display: flex;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    overflow-x: hidden;
     gap: 1rem;
     margin-bottom: 2em;
-    container-type: inline-size;
-    // Max single row
+    align-items: start;
+    contain: layout style; // More specific containment instead of container-type
 
     .media-item {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 0.2em;
-      width: 100%;
-      // flex-shrink: 1;
-      flex: 1 1 auto;
-      min-width: 200px;
 
       img,
       video {
-        width: fit-content;
-        max-height: 400px;
+        width: auto;
+        max-width: 100%;
         object-fit: contain;
-        border-radius: 0.5em;
-        @include image-dropshadow();
+      }
+
+      .descriptionText {
+        display: none;
+        font-size: 11px;
+        color: var(--color-text-muted);
+        margin: 0;
+        padding: 0.25em 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
       }
     }
 
-    // Default: Show first 4 images
-    .media-item:nth-child(-n + 4) {
+    // Default: Show first 3 images (large screens > 1000px)
+    .media-item:nth-child(-n + 3) {
       display: flex;
     }
-    .media-item:nth-child(n + 5) {
+    .media-item:nth-child(n + 4) {
       display: none;
     }
 
-    // Medium screens: Show first 3 images
-    @container (max-width: 1000px) {
-      .media-item:nth-child(-n + 3) {
-        display: flex;
-      }
-      .media-item:nth-child(n + 4) {
-        display: none;
-      }
-    }
-
-    // Small screens: Show first 2 images
-    @container (max-width: 800px) {
+    // Medium screens (≤ 1000px): Show first 2 images
+    @media (max-width: 1400px) {
       .media-item:nth-child(-n + 2) {
         display: flex;
       }
@@ -282,8 +289,18 @@
       }
     }
 
-    // Very small screens: Show just 1 image
-    @container (max-width: 400px) {
+    // Small screens (≤ 1000px): Show first 2 images
+    @media (max-width: 1000px) {
+      .media-item:nth-child(-n + 2) {
+        display: flex;
+      }
+      .media-item:nth-child(n + 3) {
+        display: none;
+      }
+    }
+
+    // Extra small screens (≤ 400px): Show only 1 image
+    @media (max-width: 700px) {
       .media-item:nth-child(-n + 1) {
         display: flex;
       }
@@ -319,6 +336,10 @@
         break-inside: avoid-column;
         line-height: 1.6;
       }
+
+      @include media(xsmallScreen, smallScreen) {
+        columns: 1;
+      }
     }
   }
 
@@ -342,108 +363,56 @@
     }
   }
 
-  // Flow Images - use responsive grid
+  // Flow Images - use responsive grid and hide hero images
   .flow-images {
     margin: 2em 0;
 
-    // Override CreationDetailImages to use better responsive grid
-    // :global(.images) {
-    //   display: grid !important;
-    //   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-    //   gap: 1rem !important;
+    .images div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+      width: min-content;
+      max-width: 100%;
+    }
 
-    //   @include media(xsmallScreen) {
-    //     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
-    //   }
-    // }
+    // Hide the first 3 images that were shown in hero row (large screens > 1000px)
+    .images > div:nth-child(-n + 3) {
+      display: none;
+    }
+
+    // Medium screens (≤ 1000px): Hero showed 2, so hide first 2 and show the rest
+    @media (max-width: 1400px) {
+      .images > div:nth-child(-n + 3) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 2) {
+        display: none;
+      }
+    }
+
+    // Small screens (≤ 1000px): Hero showed 2, so hide first 2 and show the rest
+    @media (max-width: 1000px) {
+      .images > div:nth-child(-n + 3) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 2) {
+        display: none;
+      }
+    }
+
+    // Extra small screens (≤ 400px): Hero showed 1, so hide first 1 and show the rest
+    @media (max-width: 700px) {
+      .images > div:nth-child(-n + 2) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 1) {
+        display: none;
+      }
+    }
   }
 
   // Related Creations
   .related-creations {
     margin-top: 3em;
-  }
-
-  // Mobile Layout Styles
-  .mobile-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-
-    p {
-      margin: 0.75em 0;
-      line-height: 1.6;
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      // Add space before media blocks
-      & + .media-block {
-        margin-top: 1em;
-      }
-    }
-
-    .media-block {
-      position: relative;
-      margin: 1.5em 0;
-
-      img,
-      video {
-        width: 100%;
-        border-radius: 0.5em;
-        @include image-dropshadow();
-      }
-
-      .descriptionText {
-        margin-top: 0.5em;
-        font-size: 0.8em;
-        color: var(--color-text-muted);
-        font-style: italic;
-      }
-
-      // Add space after media blocks
-      & + p {
-        margin-top: 1em;
-      }
-    }
-  }
-
-  .mobile-metadata {
-    margin: 2em 0;
-    padding: 1em;
-    background: var(--color-neutral-background);
-    border-radius: 0.5em;
-    font-size: 0.9em;
-
-    > * {
-      margin: 0.5em 0;
-    }
-
-    .date {
-      @include meta-content();
-    }
-
-    .materials {
-      font-style: italic;
-      color: var(--color-text-muted);
-    }
-
-    .link a {
-      color: var(--color-link);
-      text-decoration: none;
-      font-weight: bold;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .mobile-related {
-    margin-top: 2em;
   }
 }
