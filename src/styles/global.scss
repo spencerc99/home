@@ -166,10 +166,6 @@ body {
   overflow-x: hidden;
   margin: 0;
   font-size: $default-font-size;
-  // background-color: transparent;
-  @include media(xsmallScreen, smallScreen) {
-    font-size: $smaller-font-size;
-  }
 }
 
 #background {
@@ -2019,7 +2015,8 @@ hr.separator {
 
 .descriptionText {
   margin-top: 4px;
-  font-size: 0.7em;
+  font-size: 0.75em;
+  @extend .mono;
   color: var(--color-text-muted);
   line-height: 1.2;
 }
@@ -2335,13 +2332,13 @@ ul {
 
 #construction {
   position: fixed;
-  right: -80px;
+  right: -78px;
   padding-top: 3em;
   text-align: center;
   width: 18em;
-  font-size: 0.5em;
+  font-size: 0.6em;
   padding-right: 1em;
-  top: -30px;
+  top: -29px;
   transform: rotate(45deg);
   background: var(--color-background-lavender);
   opacity: 0.6;
