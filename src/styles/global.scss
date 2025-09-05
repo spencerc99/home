@@ -2582,7 +2582,7 @@ details {
 }
 
 .hide-mobile {
-  @include media(xsmallScreen, smallScreen) {
+  @include media(xsmallScreen) {
     display: none !important;
   }
 }

@@ -21,22 +21,23 @@ export enum DescriptionType {
   Selected = "selected",
 }
 
+// Adjusted breakpoints to account for 200px sidebar width
 const TwoColumnsColumnCountBreakPoints = {
   350: 1,
-  600: 2,
-  900: 3,
-  1024: 1,
-  1250: 2,
-  1500: 3,
-  1900: 4,
-  2400: 5,
+  750: 2,
+  1000: 3,
+  1024: 1, // 1024 + 200px sidebar
+  1350: 2, // 1250 + 200px sidebar
+  1600: 3, // 1500 + 200px sidebar
+  2000: 4, // 1900 + 200px sidebar
+  2600: 5, // 2400 + 200px sidebar
 };
 const OneColumnColumnCountBreakPoints = {
   350: 1,
   600: 2,
   900: 3,
-  1024: 4,
-  1250: 5,
+  1224: 4, // 1024 + 200px sidebar
+  1450: 5, // 1250 + 200px sidebar
 };
 
 function getDescriptionForDescriptionType(descriptionType?: DescriptionType) {

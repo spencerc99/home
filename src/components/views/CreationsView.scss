@@ -5,7 +5,8 @@
   // margin-right: 2em;
   @include media(xsmallScreen, smallScreen) {
     max-width: 100%;
-    overflow-x: hidden;
+    // not sure why this is here but it messes up the gradients showing
+    // overflow-x: hidden;
     margin-right: 0;
   }
 
