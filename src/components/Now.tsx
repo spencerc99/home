@@ -16,14 +16,13 @@ export function NowBlock() {
         </span>
       </div>
       <p>
-        - Watching people interact with{" "}
-        <a href="/creation/computing-shrines">computing shrines</a> at{" "}
-        <a href="https://demofestival.org">DEMO 2025</a>
+        - Creating a public art version of{" "}
+        <a href="/creation/computing-shrines">computing shrines</a> for display
+        in San Francisco 2026...
       </p>
       <p>
-        - (coming out of hibernation) Designing{" "}
-        <a href="/creation/playhtml">playhtml</a>, open-source infrastructure
-        for tiny social networks
+        - Designing <a href="/creation/playhtml">playhtml</a>, open-source
+        infrastructure for tiny social networks
       </p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for

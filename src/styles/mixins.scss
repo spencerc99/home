@@ -82,6 +82,9 @@ $screenMaxWidths: (
   color: var(--color-text-accent);
   @extend .sans-serif;
   font-size: 90%;
+  &.small {
+    font-size: 75%;
+  }
 }
 
 @mixin collapsed-post-summary-container() {

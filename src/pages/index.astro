@@ -35,12 +35,19 @@ const creations = (await getCollection("creation"))
   <div class="two-columns">
     <div class="headerContainer home textContent">
       <div class="textContent">
-        <p>
+        <p style="line-height: 1.2">
           Hi, I'm <Footnote
             asChild
             caption="hi! hover around other parts of the site and you might find other hidden treasures."
             client:only="react">Spencer</Footnote
-          >. Welcome to my internet home.
+          >. Welcome to my internet home.<br /><i class="meta serif small"
+            >hint: this is a living space<Footnote
+              caption="made possible using [playhtml](https://playhtml.fun)"
+              client:only="react"
+            /> and actively shaped by visitors. Try changing the lights, moving the
+            furniture, or leaving a note. Be respectful, treat it like visiting a
+            friend's home.</i
+          >
         </p>
         <Footnote
           asChild

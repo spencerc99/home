@@ -452,6 +452,7 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
+  @extend .sans-serif;
 
   a {
     padding: 4px 8px;
@@ -511,6 +512,8 @@ footer {
 
 #sidebar {
   background: var(--color-background-green);
+  // background: $color-site-background;
+  background: var(--color-background-blue);
   box-shadow: 0 0 2px 0px var(--color-box-shadow);
   position: fixed;
   top: 0;
@@ -2342,8 +2345,8 @@ ul {
 
 .caption.caption {
   text-align: center;
-  font-family: "Gaegu", cursive; /* Use a handwritten-style font */
-  font-size: 18px;
+  @extend .sans-serif;
+  font-size: 12px;
 }
 
 .medium-zoom-overlay {
