@@ -1,7 +1,7 @@
 {
   "title": "status.spencerchang.me",
   "subtext": "a personal API of my latest consumptions and creations",
-  "descriptionMd": "*status.spencerchang.me* is an experiment in sharing the latest updates from my latest digital platforms on my website. Data is continuously pulled every hour from platforms I use daily that track my activity: Spotify, Strava, Goodreads, Substack, and Github. These activities are distilled into the latest things I’m listening to, moving, reading, writing, and building.\nEach activity has a timestamp in **Spencer Epoch Time**, a personal take on UNIX time equal to the number of milliseconds that have elapsed since my birth. It felt meaningful to ascribe a personal timestamp to these activities that are markers of my own life.\nThis project feeds the live activity marquee on my [personal website](https://spencerchang.me/).",
+  "descriptionMd": "status.spencerchang.me is an experiment in sharing the latest updates from my latest digital platforms on my website. Data is continuously pulled every hour from platforms I use daily that track my activity: Spotify, Strava, Goodreads, Substack, and Github. These activities are distilled into the latest things I’m listening to, moving, reading, writing, and building.\nEach activity has a timestamp in Spencer Epoch Time, a personal take on UNIX time equal to the number of milliseconds that have elapsed since my birth. It felt meaningful to ascribe a personal timestamp to these activities that are markers of my own life.\nThis project feeds the live activity marquee on my [personal website](https://spencerchang.me/).",
   "parentCategory": "Project",
   "categories": [
     "Website",

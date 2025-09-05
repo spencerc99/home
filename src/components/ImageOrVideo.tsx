@@ -23,7 +23,7 @@ export function ImageOrVideo({
   const mediaType = forceType || (type ?? null);
 
   return mediaType === "video" ? (
-    <video controls crossOrigin="anonymous" {...props}>
+    <video controls {...props}>
       <source src={src} type="video/mp4" />
       Your browser does not support the video tag.
     </video>

@@ -319,7 +319,7 @@ export function CreationsView({
               fontWeight: "bold",
             }}
           >
-            FORTHCOMING
+            NOW & UPCOMING
           </span>
           <EventCreationsList
             creations={eventCreations.map((c) => ({
