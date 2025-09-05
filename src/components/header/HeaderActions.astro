@@ -6,7 +6,8 @@ const Actions: HeaderActionType[] = [
   { href: "/about", name: "about", icon: "🟠" },
   { href: "/collab", icon: "🌻", name: "collaborations" },
   { href: "/feed", name: "feed", icon: "💽" },
-  { href: "/posts", icon: "🖨️", name: "posts" },
+  { href: "/posts", icon: "🖨️", name: "writing" },
+  { href: "/support", icon: "🫶", name: "support" },
   // {href: "/colophon", name: "creations" , icon: "🪄"},
   // {href: "/workbench", name: "workbench" , icon: "🔩"},
   // { href: "/fits", icon: "🧢", name: "fits" },
@@ -17,9 +18,7 @@ const Actions: HeaderActionType[] = [
 
 <div class="navbarActions">
   {Actions.map((action) => <HeaderAction {...action} />)}
-
   <div class="divider"></div>
-  <button id="darkModeToggle" class="link"><b></b></button>
 </div>
 
 <script is:inline>

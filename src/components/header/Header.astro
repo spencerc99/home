@@ -1,52 +1,23 @@
 ---
+import { Stats } from "../trinkets/Stats";
+import { ClockEmbed } from "../ClockEmbed";
 import HeaderActions from "../header/HeaderActions.astro";
+import Signature from "../Signature";
 ---
 
-<!-- src: https://blog.christopherianmurphy.com/2017/05/expand-collapse-navbar/ -->
-<nav id="navbar">
-  <div class="navbarContainer">
+<nav id="sidebar">
+  <div class="sidebarContainer">
+    <div style="display: flex; justify-content: center;">
+      <ClockEmbed client:only="react" size={100} />
+    </div>
     <a href="/" class="avatarLink">spencer chang</a>
     <HeaderActions />
+
+    <div class="textContent" style="font-size: .8em">
+      <Signature client:only="react" />
+    </div>
+    <div style="margin-top: auto;">
+      <Stats client:only="react" />
+    </div>
   </div>
-
-  <script is:inline>
-    // Store navbar classes
-    var navbarElem = document.getElementById("navbar");
-    var navClasses = navbarElem.classList;
-    var navbarHeight = navbarElem.clientHeight;
-
-    function downAction() {
-      navClasses.remove("open");
-      navClasses.add("collapse");
-    }
-
-    function upAction() {
-      navClasses.remove("collapse");
-      navClasses.add("open");
-    }
-
-    // returns current scroll position
-    var scrollTop = function () {
-      return window.scrollY;
-    };
-
-    // Initial scroll position
-    var scrollState = 0;
-
-    // Primary scroll event function
-    var scrollDetect = function (down, up) {
-      // Current scroll position
-      var currentScroll = scrollTop();
-      if (currentScroll > scrollState && currentScroll > navbarHeight / 3) {
-        down();
-      } else if (currentScroll < scrollState) {
-        up();
-      }
-      // Set previous scroll position
-      scrollState = scrollTop();
-    };
-    window.addEventListener("scroll", function () {
-      scrollDetect(downAction, upAction);
-    });
-  </script>
 </nav>

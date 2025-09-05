@@ -8,7 +8,7 @@ export interface HeaderActionType {
 
 type Props = HeaderActionType;
 
-const { name, icon, href, showName } = Astro.props;
+const { name, icon, href, showName = true } = Astro.props;
 const { pathname, href: currentHref } = Astro.url;
 const isActive = pathname.indexOf(href) > -1;
 ---
