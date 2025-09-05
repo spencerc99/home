@@ -71,28 +71,45 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
   fs.writeFileSync(tempPath, buffer);
   console.log(`Downloaded video: ${tempFilename} (${buffer.length} bytes)`);
 
-  // Convert to MP4 using ffmpeg with fast H.264 encoding
+  // Convert to MP4 using ffmpeg with intelligent compression based on input size
+  const inputSizeMB = buffer.length / (1024 * 1024);
+  let crf = "23";  // Default quality
+  let preset = "medium";
+  let maxBitrate = null;
+  
+  if (inputSizeMB > 50) {
+    // Very large files - moderate compression with higher bitrate
+    crf = "26";
+    preset = "medium";
+    maxBitrate = "2M";
+    console.log(`Large video detected (${inputSizeMB.toFixed(1)}MB), using moderate compression`);
+  } else if (inputSizeMB > 20) {
+    // Medium-large files - slightly higher compression
+    crf = "25";
+    preset = "medium";
+    maxBitrate = "3M";
+    console.log(`Medium-large video detected (${inputSizeMB.toFixed(1)}MB), using higher compression`);
+  }
+  
   const { spawn } = await import("child_process");
-  const ffmpeg = spawn("ffmpeg", [
-    "-i",
-    tempPath,
-    "-c:v",
-    "libx264", // H.264 video codec (fast)
-    "-c:a",
-    "aac", // AAC audio codec (fast)
-    "-crf",
-    "23", // Quality setting (23 is good balance)
-    "-preset",
-    "medium", // Encoding preset (medium = good speed/quality)
-    "-movflags",
-    "faststart", // Optimize for web streaming
-    "-pix_fmt",
-    "yuv420p", // Ensure compatibility
-    "-f",
-    "mp4", // Force MP4 format
-    "-y", // Overwrite output file
-    finalPath,
-  ]);
+  const ffmpegArgs = [
+    "-i", tempPath,
+    "-c:v", "libx264",        // H.264 video codec (fast)
+    "-c:a", "aac",            // AAC audio codec (fast)
+    "-crf", crf,              // Quality setting (adaptive)
+    "-preset", preset,        // Encoding preset (adaptive)
+    "-movflags", "faststart", // Optimize for web streaming
+    "-pix_fmt", "yuv420p",    // Ensure compatibility
+  ];
+  
+  // Add bitrate limit for large files
+  if (maxBitrate) {
+    ffmpegArgs.push("-maxrate", maxBitrate, "-bufsize", "2M");
+  }
+  
+  ffmpegArgs.push("-f", "mp4", "-y", finalPath);
+  
+  const ffmpeg = spawn("ffmpeg", ffmpegArgs);
 
   return new Promise((resolve, reject) => {
     // Capture ffmpeg output for debugging
@@ -113,12 +130,24 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
       if (code === 0) {
         // Verify the output file was created and has content
         if (fs.existsSync(finalPath) && fs.statSync(finalPath).size > 0) {
-          console.log(
-            `Converted to MP4: ${finalFilename} (${
-              fs.statSync(finalPath).size
-            } bytes)`
-          );
-          resolve(`/creation-videos/${finalFilename}`);
+          const finalSizeMB = fs.statSync(finalPath).size / (1024 * 1024);
+          const cloudflareLimit = 25; // MB
+          
+          if (finalSizeMB > cloudflareLimit) {
+            console.warn(
+              `⚠️  OVERSIZED FILE: ${finalFilename} is ${finalSizeMB.toFixed(1)}MB, exceeds Cloudflare Pages limit of ${cloudflareLimit}MB`
+            );
+            console.warn(`📁 File kept at: ${finalPath}`);
+            console.warn(`🔗 Upload this file to R2 and update the JSON manually`);
+            
+            // Keep the file but mark as oversized - fall back to original URL
+            reject(new Error(`Video ${finalFilename} exceeds ${cloudflareLimit}MB limit (${finalSizeMB.toFixed(1)}MB) - file kept at ${finalPath}`));
+          } else {
+            console.log(
+              `Converted to MP4: ${finalFilename} (${finalSizeMB.toFixed(1)}MB)`
+            );
+            resolve(`/creation-videos/${finalFilename}`);
+          }
         } else {
           console.error(
             `ffmpeg output file is empty or missing: ${finalFilename}`
@@ -266,8 +295,15 @@ async function importCreations() {
                 return existingPath;
               } else {
                 // Download video
-                const localPath = await downloadVideo(originalUrl, blobId);
-                return localPath;
+                try {
+                  const localPath = await downloadVideo(originalUrl, blobId);
+                  return localPath;
+                } catch (error) {
+                  console.warn(`Failed to convert video ${blobId}: ${error.message}`);
+                  console.warn(`Falling back to original URL: ${originalUrl}`);
+                  // Fall back to original URL if conversion fails (e.g., file too large)
+                  return originalUrl;
+                }
               }
             } else {
               console.error(`No blob ID found for video: ${originalUrl}`);
