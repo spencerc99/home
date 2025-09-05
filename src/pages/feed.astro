@@ -71,12 +71,12 @@ const finalCreations = Object.values(latestCreations).sort((a, b) => {
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
-  <div class="gridContainer">
-    <!-- post -->
-    <!-- <FeedCard title="WRITING" icon="📰" client:only="react"> -->
-    <!-- <PostsCarousel posts={sortedPosts} client:only="react" /> -->
-    <!-- </FeedCard> -->
-    <!-- <FeedCard
+  <!-- <div class="gridContainer"> -->
+  <!-- post -->
+  <!-- <FeedCard title="WRITING" icon="📰" client:only="react"> -->
+  <!-- <PostsCarousel posts={sortedPosts} client:only="react" /> -->
+  <!-- </FeedCard> -->
+  <!-- <FeedCard
       title="CREATIONS"
       icon="🪄"
       client:only="react"
@@ -84,29 +84,26 @@ const finalCreations = Object.values(latestCreations).sort((a, b) => {
     >
       <CreationsCarousel creations={sortedCreations} client:only="react" />
     </FeedCard> -->
-    <!-- creation -->
-    <!-- experiments -->
+  <!-- creation -->
+  <!-- experiments -->
 
-    <!-- <FeedCard title="PRESS" icon="📰" allLink="/press" client:only="react">
+  <!-- <FeedCard title="PRESS" icon="📰" allLink="/press" client:only="react">
       <PressCarousel press={press} client:only="react" />
     </FeedCard> -->
 
-    <FeedCard
+  <!-- <FeedCard
       title="THE THINGS I PUT ENERGY INTO"
       icon="🪄"
       allLink="/creation"
       client:only="react"
     >
       <CreationsCarousel creations={finalCreations} client:only="react" />
-    </FeedCard>
-    <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
-      <FitsCarousel fits={sortedFits} client:only="react" />
-    </FeedCard>
-    <Status />
-    <!-- Location -->
-    <!-- social media posts across bluesky, instagram, twitter? -->
-    <!-- last video? -->
-  </div>
+    </FeedCard> -->
+
+  <!-- Location -->
+  <!-- social media posts across bluesky, instagram, twitter? -->
+  <!-- last video? -->
+  <!-- </div> -->
   <!-- NOTE: this has to be a constant and not ViewType.GRID, idk why but it breaks otherwise -->
   <!-- @ts-ignore -->
   <CreationsView

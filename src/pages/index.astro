@@ -6,6 +6,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { CreationsView } from "../components/views/CreationsView";
 import Trinkets from "../components/Trinkets.astro";
 import Signature from "../components/Signature";
+import { FeedCard } from "../components/FeedCard";
+import Status from "../components/Status.astro";
+import { FitsCarousel } from "../components/views/FitsCarousel";
+import fitsData from "../data/fits.json";
 
 // const location = await fetch(
 //   "https://status.spencerchang.me/api/metadata"
@@ -29,6 +33,9 @@ const creations = (await getCollection("creation"))
         ? -1
         : 1
   );
+const sortedFits = (fitsData.fits as Fit[]).sort(
+  (a, b) => b.timestamp - a.timestamp
+);
 ---
 
 <BaseLayout>
@@ -119,6 +126,12 @@ const creations = (await getCollection("creation"))
         <Signature client:only="react" />
         <br />
         <NowBlock client:only="react" />
+        <br />
+        <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
+          <FitsCarousel fits={sortedFits} client:only="react" />
+        </FeedCard>
+        <br />
+        <Status />
       </div>
     </div>
     <!-- BODY -->

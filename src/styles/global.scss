@@ -1,5 +1,5 @@
 @import "./base.scss";
-@import url("https://fonts.googleapis.com/css2?family=VT323&family=Sono&family=Play&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Sono&display=swap");
 @import "./variables.scss";
 @import "./mixins.scss";
 
@@ -24,6 +24,27 @@
 @include fontCooper("Cooper-ExtraBoldItalic", 800, italic);
 @include fontCooper("Cooper-Black", 900, normal);
 @include fontCooper("Cooper-BlackItalic", 900, italic);
+
+@mixin fontVulf($name, $weight, $style) {
+  @font-face {
+    font-family: "Vulf Sans";
+    src: url("/fonts/#{$name}.otf") format("opentype");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: fallback;
+  }
+}
+
+@include fontVulf("VulfSansDemo-Light", 300, normal);
+@include fontVulf("VulfSansDemo-LightItalic", 300, italic);
+@include fontVulf("VulfSansDemo-Regular", normal, normal);
+@include fontVulf("VulfSansDemo-Italic", normal, italic);
+@include fontVulf("VulfSansDemo-Medium", 500, normal);
+@include fontVulf("VulfSansDemo-MediumItalic", 500, italic);
+@include fontVulf("VulfSansDemo-Bold", bold, normal);
+@include fontVulf("VulfSansDemo-BoldItalic", bold, italic);
+@include fontVulf("VulfSansDemo-Black", 900, normal);
+@include fontVulf("VulfSansDemo-BlackItalic", 900, italic);
 
 @keyframes roll-and-move-animation {
   25% {
@@ -2496,18 +2517,6 @@ article {
 
 body {
   &.centered {
-    #sidebar {
-      width: 200px !important;
-      left: 0;
-
-      .sidebarContainer {
-        padding: 2em 1em !important;
-      }
-
-      @include media(xsmallScreen) {
-        width: 150px !important;
-      }
-    }
     .footerContent {
       margin-left: 220px !important;
       margin-right: auto !important;

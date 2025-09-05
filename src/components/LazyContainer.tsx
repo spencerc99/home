@@ -1,5 +1,5 @@
 import useIntersectionObserver from "@react-hook/intersection-observer";
-import { useRef, PropsWithChildren } from "react";
+import { useRef, type PropsWithChildren } from "react";
 
 export const LazyContainer = ({
   style,

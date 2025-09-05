@@ -12,6 +12,7 @@ export function ClockEmbed({ size = 200 }) {
           <iframe
             src="https://clock.spencer.place"
             style={{ maxWidth: size, maxHeight: size }}
+            data-astro-transition-persist="clock-iframe"
           ></iframe>
         </Footnote>
       </a>

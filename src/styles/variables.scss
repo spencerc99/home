@@ -54,8 +54,8 @@ $color-box-shadow-dark: hsla(206, 100%, 95%, 0.4);
 $color-glowing-highlight: rgb(255, 235, 12);
 $color-glowing-highlight-dark: rgb(186 172 16);
 // TODO: add font for this
-$site-font: "Vulf Sans Demo", "Cooper", sans-serif;
-$site-font-header: "Vulf Sans Demo";
+$site-font: "Vulf Sans", "Cooper", sans-serif;
+$site-font-header: "Vulf Sans";
 $site-font-serif: "Cooper", "Times", serif;
 $site-font-mono: "Sono", "Cousine";
 
@@ -64,7 +64,7 @@ $color-accent-background-dark: rgb(234, 234, 111);
 $color-peach-background: rgb(255 240 220 / 66%);
 $color-peach-background-dark: rgb(107 92 74 / 66%);
 $color-blue-background: rgba(194, 227, 255, 0.66);
-$color-blue-background-dark: rgb(12 12 74 / 66%);
+$color-blue-background-dark: rgba(12, 48, 74, 0.66);
 $color-green-background: rgb(220 255 222 / 66%);
 $color-green-background-dark: rgb(12 70 15 / 66%);
 
@@ -78,7 +78,6 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
   --color-background-green: #{$color-green-background};
   --color-background-peach: #{$color-peach-background};
   --color-background-blue: #{$color-blue-background};
-  --color-background-blue-dark: #{$color-blue-background-dark};
   --color-text-highlight: #{$color-highlight};
   --color-text-muted: #{$color-light-grey};
   --border-color: #{$color-light-grey};
@@ -135,6 +134,8 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
     --color-neutral-background: #{$color-quote-background-dark};
     --color-accent-background: #{$color-accent-background-dark};
     --color-background-green: #{$color-green-background-dark};
+    --color-background-peach: #{$color-peach-background-dark};
+    --color-background-blue: #{$color-blue-background-dark};
     --color-text-highlight: #{$color-highlight-dark};
     --color-background-lavender: #{$color-dark-lavender};
     --color-background-teal: #{$color-background-teal-dark};

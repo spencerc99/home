@@ -26,7 +26,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:name="root" transition:animate="none">
   <head>
     <BaseHead
       title={`${SITE_TITLE}${title ? ` ༶ ${title}` : ""}`}
@@ -35,8 +35,8 @@ const {
     />
   </head>
   <body class={centered ? "centered" : ""}>
-    <Header />
-    <div id="construction">
+    <Header transition:persist />
+    <div id="construction" transition:persist>
       A
       <br />
       WIP
@@ -49,6 +49,7 @@ const {
     </div>
     <div
       id="background"
+      transition:persist
       style={{
         opacity: backgroundOpacity ? backgroundOpacity : 0.2,
       }}
@@ -57,16 +58,64 @@ const {
     <div id="content">
       <slot />
     </div>
-    <Footer />
+    <Footer transition:persist />
 
-    <div id="snackbar"></div>
+    <div id="snackbar" transition:persist></div>
 
     <script
       src="https://cursor-party.spencerc99.partykit.dev/cursors.js"
-      is:inline></script>
-    <script type="module" is:inline>
+      is:inline
+      data-astro-rerun></script>
+    <script type="module" is:inline data-astro-rerun>
       import { playhtml } from "https://unpkg.com/playhtml@latest";
       playhtml.init();
+    </script>
+
+    <!-- Dark mode script - needs to run on every page -->
+    <script is:inline>
+      function setDarkMode(state, savePreference = true) {
+        document.documentElement.classList.toggle("dark-mode", state);
+        const toggle = document.querySelector("#darkModeToggle");
+        if (toggle && toggle.children[0]) {
+          toggle.children[0].innerHTML = state ? "☀️" : "🌑";
+        }
+
+        // Save the preference to sessionStorage if needed
+        if (savePreference) {
+          sessionStorage.setItem("darkMode", state ? "dark" : "light");
+        }
+      }
+
+      function toggleDarkMode() {
+        setDarkMode(!document.documentElement.classList.contains("dark-mode"));
+      }
+
+      function initDarkMode() {
+        // Initialize dark mode based on the following priority:
+        // 1. Previously saved preference in current session
+        // 2. System preference
+        const savedPreference = sessionStorage.getItem("darkMode");
+        const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+        if (savedPreference) {
+          setDarkMode(savedPreference === "dark", false);
+        } else {
+          setDarkMode(useDark.matches, false);
+        }
+
+        // Update based on system changes only if there's no saved preference
+        useDark.addListener((evt) => {
+          if (!sessionStorage.getItem("darkMode")) {
+            setDarkMode(evt.matches, false);
+          }
+        });
+      }
+
+      // Run on initial load
+      document.addEventListener("DOMContentLoaded", initDarkMode);
+
+      // Run after ViewTransitions navigation
+      document.addEventListener("astro:after-swap", initDarkMode);
     </script>
     <link
       rel="stylesheet"
@@ -150,5 +199,5 @@ const {
       type="font/woff2"
       crossorigin
     />
-  </body>{includeMarquee && <Marquee />}
+  </body>{includeMarquee && <Marquee transition:persist />}
 </html>
