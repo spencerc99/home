@@ -12,15 +12,17 @@ import SocialMediaLinks from "../SocialMediaLinks";
     </div>
     <a href="/" class="avatarLink">spencer chang</a>
     <HeaderActions />
-    <div>Collections</div>
-    <a href="/fits">fits 🧢</a>
-    <a href="shrine.computer">shrine.computer</a>
-    <a href="shrine.computer">playhtml.fun</a>
-    <a href="shrine.computer">internetsculptures.com</a>
-    <a href="shrine.computer">internetsculptures.com</a>
-    <a href="shrine.computer">htmls.garden</a>
-    <div style="margin-top: auto"></div>
-    <SocialMediaLinks />
-    <Stats client:only="react" />
+    <div
+      class="hide-mobile"
+      style="display: flex; flex-direction: column; gap: 0.5em;"
+    >
+      <div>Collections</div>
+      <a href="/fits">fits 🧢</a>
+      <!-- domains? -->
+      <!-- collectins? -->
+      <div style="margin-top: auto"></div>
+      <SocialMediaLinks />
+      <Stats client:only="react" />
+    </div>
   </div>
 </nav>

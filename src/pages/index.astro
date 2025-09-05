@@ -4,16 +4,7 @@ import { NowBlock } from "../components/Now";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { CreationsView } from "../components/views/CreationsView";
-import Trinkets from "../components/Trinkets.astro";
 import Signature from "../components/Signature";
-import { FeedCard } from "../components/FeedCard";
-import Status from "../components/Status.astro";
-import { FitsCarousel } from "../components/views/FitsCarousel";
-import fitsData from "../data/fits.json";
-
-// const location = await fetch(
-//   "https://status.spencerchang.me/api/metadata"
-// ).then((res) => res.json());
 
 // Manually calculat forthcoming because the date is changing
 const creations = (await getCollection("creation"))
@@ -33,9 +24,6 @@ const creations = (await getCollection("creation"))
         ? -1
         : 1
   );
-const sortedFits = (fitsData.fits as Fit[]).sort(
-  (a, b) => b.timestamp - a.timestamp
-);
 ---
 
 <BaseLayout>
@@ -47,7 +35,7 @@ const sortedFits = (fitsData.fits as Fit[]).sort(
             asChild
             caption="hi! hover around other parts of the site and you might find other hidden treasures."
             client:only="react">Spencer</Footnote
-          >. Welcome to my internet home.<br /><i class="meta serif small"
+          >. Welcome to my internet home.<br /><i class="meta serif"
             >hint: this is a living space<Footnote
               caption="made possible using [playhtml](https://playhtml.fun)"
               client:only="react"
@@ -127,11 +115,9 @@ const sortedFits = (fitsData.fits as Fit[]).sort(
         <br />
         <NowBlock client:only="react" />
         <br />
-        <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
+        <!-- <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
           <FitsCarousel fits={sortedFits} client:only="react" />
-        </FeedCard>
-        <br />
-        <Status />
+        </FeedCard> -->
       </div>
     </div>
     <!-- BODY -->

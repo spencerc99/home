@@ -662,7 +662,7 @@ footer {
 
 .headerContainer {
   @extend .serif;
-  margin: $header-container-margin 0 24px 0;
+  margin: 3em 0 24px 0;
 
   &.postHeader {
     margin: $navBar-height 0 24px 0;
@@ -673,7 +673,7 @@ footer {
   }
 
   @include media(xsmallScreen) {
-    margin-top: calc($navBar-height + 30px);
+    margin-top: 0.5em;
   }
 }
 
@@ -2579,4 +2579,10 @@ details {
 
 .home {
   font-size: 18px;
+}
+
+.hide-mobile {
+  @include media(xsmallScreen, smallScreen) {
+    display: none !important;
+  }
 }
