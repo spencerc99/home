@@ -2129,33 +2129,38 @@ img,
 video {
   &.small {
     max-height: 360px;
-    max-width: 560px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
     width: auto;
     border-radius: 0.25em;
   }
 
   &.medium {
     max-height: 500px;
-    max-width: 800px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
     width: auto;
     border-radius: 0.25em;
   }
   &.medium-masonry {
     max-height: 590px;
-    max-width: 790px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
     width: auto;
     border-radius: 0.25em;
   }
 
   &.large {
     max-height: 800px;
-    max-width: 1200px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
     width: auto;
     border-radius: 0.35em;
   }
   &.xlarge {
     max-height: 1200px;
-    max-width: 1500px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
     width: auto;
     border-radius: 0.5em;
   }
@@ -2385,7 +2390,7 @@ ul {
 
 .medium-zoom-overlay {
   background: var(--color-neutral-background) !important;
-  z-index: 11;
+  z-index: $navbar-zindex + 1;
 }
 
 .medium-zoom--opened {
@@ -2398,7 +2403,7 @@ ul {
   object-fit: contain;
   opacity: 1;
   border-radius: 0 !important;
-  z-index: 12;
+  z-index: $navbar-zindex + 2;
 }
 
 // .footnote.footnote.footnote {
