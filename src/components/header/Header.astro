@@ -7,7 +7,7 @@ import SocialMediaLinks from "../SocialMediaLinks";
 
 <nav id="sidebar">
   <div class="sidebarContainer">
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center;" class="hide-mobile">
       <ClockEmbed client:only="react" size={100} />
     </div>
     <a href="/" class="avatarLink">spencer chang</a>
@@ -20,9 +20,15 @@ import SocialMediaLinks from "../SocialMediaLinks";
       <a href="/fits">fits 🧢</a>
       <!-- domains? -->
       <!-- collectins? -->
-      <div style="margin-top: auto"></div>
+    </div>
+    <div
+      style="margin-top: auto"
+      class="flex flex-col gap-2 hide-mobile w-full"
+    >
       <SocialMediaLinks />
-      <Stats client:only="react" />
+      <div>
+        <Stats client:only="react" />
+      </div>
     </div>
   </div>
 </nav>
