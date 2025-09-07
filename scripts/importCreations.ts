@@ -234,7 +234,7 @@ export interface CodaItem {
   title: string;
   subtext: string;
   descriptionMd: string;
-  descriptionFooter?: string;
+  descriptionFooterMd?: string;
   link: string;
   date: string;
   endDate: string;
@@ -381,6 +381,9 @@ async function importCreations() {
 
       const related = item.related
         .map((title) => {
+          if (title.trim() === "") {
+            return null;
+          }
           const relatedCreation = titleToItemMap.get(title);
           if (!relatedCreation) {
             console.warn(`Related creation not found: ${title}`);
@@ -399,7 +402,7 @@ async function importCreations() {
         title: item.title,
         subtext: item.subtext,
         descriptionMd: item.descriptionMd,
-        descriptionFooter: item.descriptionFooter,
+        descriptionFooterMd: item.descriptionFooterMd,
         parentCategory: item.parentCategory,
         categories: item.specificCategory || [],
         date,

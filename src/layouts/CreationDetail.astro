@@ -32,7 +32,7 @@ const {
   mediaMetadata,
   parentCategory,
   relatedCreations = [],
-  descriptionFooter,
+  descriptionFooterMd,
   related,
 } = Astro.props;
 
@@ -51,21 +51,18 @@ const descriptionParsed = descriptionMd
 const relatedPress = related?.filter((r) => r.parentCategory === "Press") || [];
 function formatRelatedPress({
   link,
-  title,
 }: CollectionEntry<"creation">["data"]["related"]) {
   const linkDomain = getDomainFromUrl(link);
 
-  return relatedPress
-    .map((r) => `* <a href="${r.link}">read about on ${linkDomain}</a>`)
-    .join(", ");
+  return `* <a href="${link}">read on ${linkDomain}</a>`;
 }
 
 const relatedProjects =
   related?.filter((r) => r.parentCategory === "Project") || [];
 
-let descriptionFooterWithPress = descriptionFooter;
+let descriptionFooterWithPress = descriptionFooterMd || "";
 if (relatedPress.length > 0) {
-  descriptionFooterWithPress += `\n\n ${relatedPress.map((r) => formatRelatedPress(r)).join("\n")}`;
+  descriptionFooterWithPress += `\n\nIn the press:\n${relatedPress.map((r) => formatRelatedPress(r)).join("\n")}`;
 }
 
 const descriptionFooterParsed = descriptionFooterWithPress
@@ -272,11 +269,14 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
             }
           </div>
           <!-- Two-Column Description -->
-          <div class="flex gap-">
+          <div class="descriptions">
             <div class="description-columns">
               {descriptionParsed && <div set:html={descriptionParsed} />}
             </div>
-            <div class="meta small" set:html={descriptionFooterParsed} />
+            <div
+              class="description-footer meta small"
+              set:html={descriptionFooterParsed}
+            />
           </div>
         </div>
 

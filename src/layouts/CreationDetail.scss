@@ -228,9 +228,19 @@
     }
   }
 
+  .descriptions {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2em;
+    margin-bottom: 2em;
+
+    @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
+      grid-template-columns: 1fr;
+    }
+  }
+
   // Two-Column Description
   .description-columns {
-    margin-bottom: 2em;
     max-width: calc($content-size * 2 + 2rem);
 
     div {
@@ -242,15 +252,21 @@
         margin-top: 0;
       }
 
-      p {
-        margin: 1em 0;
-        break-inside: avoid-column;
-        line-height: 1.6;
-      }
-
       @include media(xsmallScreen, smallScreen) {
         columns: 1;
       }
+    }
+  }
+
+  .description-footer {
+    max-width: calc($content-size);
+
+    p:first-child {
+      margin-top: 0;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1em;
     }
   }
 

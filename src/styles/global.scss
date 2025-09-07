@@ -550,6 +550,7 @@ footer {
   width: $sidebar-width;
   padding: 1em 0.5em;
   z-index: $navbar-zindex;
+  overflow-y: auto;
 
   .socialMediaContainer {
     margin: 0;
