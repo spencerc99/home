@@ -234,6 +234,7 @@ export interface CodaItem {
   title: string;
   subtext: string;
   descriptionMd: string;
+  descriptionFooter?: string;
   link: string;
   date: string;
   endDate: string;
@@ -254,6 +255,15 @@ export interface CodaItem {
   featured: boolean;
   isEvent: boolean;
   assetPreviewIdx?: number;
+  // TODO: handle related, they will be given as a list of creation titles, we have to map those to the actual creation that is somewhere else in the list to 'hydrate' them and then use that logic to separate them into ones that are "press" vs ones that are "project" and get their internal & external links
+  related: string[];
+}
+
+interface RelatedCreation {
+  title: string;
+  slug: string;
+  link: string;
+  parentCategory: string;
 }
 
 export function escapeTitleForFilename(title: string): string {
@@ -363,10 +373,21 @@ async function importCreations() {
       //   heroImage = `creation/${filename}`;
       // }
 
+      const related = item.related.map((title) => {
+        const relatedCreation = data.find((item) => item.title === title);
+        return {
+          title: relatedCreation.title,
+          slug: escapeTitleForFilename(relatedCreation.title),
+          link: relatedCreation.link,
+          parentCategory: relatedCreation.parentCategory,
+        };
+      });
+
       const finalItem = {
         title: item.title,
         subtext: item.subtext,
         descriptionMd: item.descriptionMd,
+        descriptionFooter: item.descriptionFooter,
         parentCategory: item.parentCategory,
         categories: item.specificCategory || [],
         date,
@@ -384,6 +405,7 @@ async function importCreations() {
         imageDescriptions: item.imageDescriptions || [],
         isEvent: item.isEvent,
         mediaMetadata,
+        related,
       };
 
       // Remove empty fields

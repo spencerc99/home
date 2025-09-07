@@ -82,11 +82,6 @@
       line-height: 1;
     }
   }
-  .date {
-    display: flex;
-    @include meta-content();
-    font-size: 100%;
-  }
   .last-updated-on {
     font-style: italic;
   }
@@ -267,6 +262,10 @@
     font-size: 1em;
     line-height: 1;
     align-self: start;
+
+    .category {
+      @include meta-content();
+    }
 
     .date {
       @include meta-content();

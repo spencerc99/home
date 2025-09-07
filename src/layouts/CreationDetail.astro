@@ -30,9 +30,12 @@ const {
   materials,
   imageDescriptions,
   mediaMetadata,
+  parentCategory,
   relatedCreations = [],
   descriptionFooter,
+  related,
 } = Astro.props;
+
 const descriptionParsed = descriptionMd
   ? await marked.parse(
       // Convert any single \n that isn't preceded by two spaces into \n\n
@@ -172,56 +175,6 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
-  <!-- <script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-      const items = document.querySelectorAll(".media-item, .media-block");
-
-      items.forEach((item) => {
-        const media = item.querySelector("img, video");
-        const caption = item.querySelector(".descriptionText");
-
-        if (media && caption) {
-          // Function to set the width and display the caption
-          const setCaptionAndItemWidth = () => {
-            const newWidth = media.clientWidth;
-            if (newWidth) {
-              // Set the caption's width
-              caption.style.width = newWidth + "px";
-              caption.style.display = "block";
-
-              // Set the flex-basis of the parent item to the image's width
-              // This allows the item to be a fluid flex container
-              item.style.flexBasis = newWidth + "px";
-            }
-          };
-
-          // Immediately apply the width in case the media is already loaded
-          setCaptionAndItemWidth();
-
-          // Add a listener for when the media loads
-          media.addEventListener("load", setCaptionAndItemWidth, {
-            once: true,
-          });
-
-          // Add a ResizeObserver to handle changes to the media's size after the initial load
-          const ro = new ResizeObserver((entries) => {
-            for (let entry of entries) {
-              const newWidth = Math.round(entry.contentRect.width);
-              const currentWidth = parseInt(item.style.flexBasis, 10);
-
-              // Only update if the width has changed
-              if (newWidth && newWidth !== currentWidth) {
-                item.style.flexBasis = newWidth + "px";
-                caption.style.width = newWidth + "px";
-              }
-            }
-          });
-
-          ro.observe(media);
-        }
-      });
-    });
-  </script> -->
   <main class="creationDetail editorial">
     <article>
       <!-- Desktop Editorial Layout -->
@@ -239,8 +192,12 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
             <div class="metadata-sidebar">
               {
                 date && (
-                  <div class="date">
-                    <FormattedDate date={date} />
+                  <div class="category">
+                    {/* <!-- TODO: make this clickable and link to this filtered in /creation -->      */}
+                    <span class="date">{parentCategory}</span> |{" "}
+                    <span class="date">
+                      <FormattedDate date={date} />
+                    </span>
                   </div>
                 )
               }
