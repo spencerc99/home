@@ -292,6 +292,12 @@ async function importCreations() {
   // Track all referenced video blob IDs for cleanup
   const referencedBlobIds = new Set<string>();
 
+  // Create lookup map for performance optimization
+  const titleToItemMap = new Map<string, CodaItem>();
+  data.forEach((item) => {
+    titleToItemMap.set(item.title, item);
+  });
+
   // Transform the data with media metadata
   const transformedData: z.infer<typeof creationSchema>[] = await Promise.all(
     data.map(async (item) => {
@@ -373,15 +379,21 @@ async function importCreations() {
       //   heroImage = `creation/${filename}`;
       // }
 
-      const related = item.related.map((title) => {
-        const relatedCreation = data.find((item) => item.title === title);
-        return {
-          title: relatedCreation.title,
-          slug: escapeTitleForFilename(relatedCreation.title),
-          link: relatedCreation.link,
-          parentCategory: relatedCreation.parentCategory,
-        };
-      });
+      const related = item.related
+        .map((title) => {
+          const relatedCreation = titleToItemMap.get(title);
+          if (!relatedCreation) {
+            console.warn(`Related creation not found: ${title}`);
+            return null;
+          }
+          return {
+            title: relatedCreation.title,
+            slug: escapeTitleForFilename(relatedCreation.title),
+            link: relatedCreation.link,
+            parentCategory: relatedCreation.parentCategory,
+          } as RelatedCreation;
+        })
+        .filter(Boolean);
 
       const finalItem = {
         title: item.title,

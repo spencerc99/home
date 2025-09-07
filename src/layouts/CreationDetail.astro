@@ -47,11 +47,35 @@ const descriptionParsed = descriptionMd
     )
   : "";
 
-const descriptionFooterParsed = descriptionFooter
-  ? await marked.parse(descriptionFooter, {
-      breaks: true,
-      gfm: true,
-    })
+// Separate related creations into press and project categories
+const relatedPress = related?.filter((r) => r.parentCategory === "Press") || [];
+function formatRelatedPress({
+  link,
+  title,
+}: CollectionEntry<"creation">["data"]["related"]) {
+  const linkDomain = getDomainFromUrl(link);
+
+  return relatedPress
+    .map((r) => `* <a href="${r.link}">read about on ${linkDomain}</a>`)
+    .join(", ");
+}
+
+const relatedProjects =
+  related?.filter((r) => r.parentCategory === "Project") || [];
+
+let descriptionFooterWithPress = descriptionFooter;
+if (relatedPress.length > 0) {
+  descriptionFooterWithPress += `\n\n ${relatedPress.map((r) => formatRelatedPress(r)).join("\n")}`;
+}
+
+const descriptionFooterParsed = descriptionFooterWithPress
+  ? await marked.parse(
+      descriptionFooterWithPress.trim().replace(/(?<!  )\n&nbsp;/g, "\n\n"),
+      {
+        breaks: true,
+        gfm: true,
+      }
+    )
   : "";
 
 const transformedMovieUrl = movieUrl
