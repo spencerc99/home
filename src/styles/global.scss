@@ -437,7 +437,7 @@ button.icon {
   padding-left: 3em;
   padding-right: 3em;
   padding-bottom: 4em;
-  margin-left: 220px;
+  margin-left: $sidebar-width;
 
   @include media(xsmallScreen) {
     padding-left: 1em;
@@ -449,7 +449,7 @@ button.icon {
 
 footer {
   background: var(--color-background-green);
-  box-shadow: 6px 0 6px 0px var(--color-box-shadow);
+  box-shadow: 2px 0 6px 0px var(--color-box-shadow);
   width: calc(100% - $sidebar-width);
   // Accounts for overlapping with content.
   z-index: $navbar-zindex + 1;
@@ -1304,11 +1304,9 @@ ul.noPadding {
 .imgGallery {
   overflow-x: auto;
   width: 100%;
-  height: 340px;
   position: relative;
 
   .imgContainer {
-    position: absolute;
     display: flex;
     align-items: center;
     gap: 1em;
@@ -2184,7 +2182,7 @@ img {
     gap: 4em;
   }
 
-  @include media(xsmallScreen, smallScreen, mediumScreen) {
+  @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
     grid-template-columns: 1fr;
     gap: 1em;
     &.reverseDirectionMobile {
@@ -2517,20 +2515,12 @@ article {
 
 body {
   &.centered {
-    .footerContent {
-      margin-left: 220px !important;
-      margin-right: auto !important;
-
-      @include media(xsmallScreen) {
-        margin-left: 170px !important;
-      }
-    }
-
     #content {
-      padding-left: 1em;
-      padding-right: 1em;
-      max-width: 800px;
-      margin-left: 220px;
+      padding-left: calc(2em + $sidebar-width);
+      padding-right: 2em;
+      max-width: calc(800px + $sidebar-width);
+      margin-left: auto;
+      margin-right: auto;
 
       @include media(xsmallScreen) {
         margin-left: 170px;
@@ -2579,6 +2569,9 @@ details {
 
 .home {
   font-size: 18px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hide-mobile {

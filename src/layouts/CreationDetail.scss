@@ -103,10 +103,6 @@
       line-height: 1;
     }
   }
-  .header h2 {
-    font-family: "VT323", monospace;
-    font-size: 2em;
-  }
   .date {
     display: flex;
     @include meta-content();

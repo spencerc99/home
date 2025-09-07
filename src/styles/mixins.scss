@@ -11,11 +11,6 @@
   font-family: $site-font-serif;
 }
 
-.accent-title {
-  font-family: "VT323", monospace;
-  color: var(--color-text-accent);
-}
-
 // source: https://gist.github.com/gokulkrishh/242e68d1ee94ad05f488
 // This used to be `320px` but makes no sense that smaller than 320px reverts so changing to 0.
 $screenXsmallMin: 0px;

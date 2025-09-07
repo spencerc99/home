@@ -24,10 +24,10 @@ export enum DescriptionType {
 // Adjusted breakpoints to account for 200px sidebar width
 const TwoColumnsColumnCountBreakPoints = {
   350: 1,
-  750: 2,
-  1000: 3,
-  1024: 1, // 1024 + 200px sidebar
-  1350: 2, // 1250 + 200px sidebar
+  650: 2,
+  1100: 3,
+  1279: 3, // 1024 + 200px sidebar
+  1280: 2, // 1250 + 200px sidebar
   1600: 3, // 1500 + 200px sidebar
   2000: 4, // 1900 + 200px sidebar
   2600: 5, // 2400 + 200px sidebar
