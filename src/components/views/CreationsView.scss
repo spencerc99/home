@@ -202,7 +202,7 @@
   display: flex;
   flex-direction: column;
   max-width: 2000px;
-  margin-top: 1em;
+  margin-top: 4em;
   gap: 1em;
 
   .actions {
@@ -224,6 +224,9 @@
   //     flex-basis: 33%;
   //   }
   // }
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    margin-top: 0em;
+  }
 }
 
 .row {

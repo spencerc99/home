@@ -3,11 +3,13 @@ import DetailLayout from "../layouts/DetailLayout.astro";
 import { LinksView } from "../components/views/Links";
 
 const LayoutProps = {
-    title: "Links",
-    description: "A home for my most relevant links",
-    emojis: ["🖇️"],
-}
+  title: "(domains)",
+  titleClass: "uniform",
+  description: "A home for my most relevant links",
+  emojis: [],
+};
 ---
+
 <DetailLayout {...LayoutProps}>
-    <LinksView/>
+  <LinksView />
 </DetailLayout>
