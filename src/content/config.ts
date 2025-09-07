@@ -56,6 +56,7 @@ export const creationSchema = z.object({
   title: z.string(),
   subtext: z.string().optional(),
   descriptionMd: z.string().optional(),
+  descriptionFooterMd: z.string().optional(),
   parentCategory: z.string().optional(),
   categories: z.array(z.string()),
   date: z.coerce.date().nullable(),
@@ -73,7 +74,6 @@ export const creationSchema = z.object({
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),
   mediaMetadata: z.array(z.enum(["image", "video"])),
-  descriptionFooter: z.string().optional(),
   related: z.array(relatedCreationSchema).optional(),
 });
 

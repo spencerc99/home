@@ -24,5 +24,13 @@
   "isEvent": true,
   "mediaMetadata": [
     "image"
+  ],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
   ]
 }

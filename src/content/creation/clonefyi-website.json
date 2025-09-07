@@ -1,17 +1,44 @@
 {
   "title": "clone.fyi website",
-  "descriptionMd": "Designed and engineered the website and backend CMS for a new brand and curated link aggregation site from [dirt.fyi](dirt.fyi) and Boys Club. The CMS featured support for pulling in  dynamic RSS feeds and a flow for syndicating those to the site with manual approval. The website features a visitor count and an interactive sheep cursor that also “clones” new sheep that hang out and jump around at the bottom of the page on the footer.",
+  "descriptionMd": "I was invited by Daisy Alioto, CEO of Dirt Media, to do the design and development of their new brand Clone.\n&nbsp;\nI designed and engineered the website and backend CMS for a new brand and curated link aggregation site from [dirt.fyi](dirt.fyi) and Boys Club. We went for a web 1.0, classic feel, inspired by the original Yahoo! homepage and terminal-based bulletin boards. The CMS featured support for pulling in dynamic RSS feeds, a flow for syndicating those to the site with manual approval, and for collaborators to add new links manually in real time .The website features a visitor count and an interactive sheep cursor that also “clones” new sheep that hang out and jump around at the bottom of the page on the footer.",
   "parentCategory": "Collaboration",
   "categories": [
     "Website"
   ],
   "date": "2025-05-06T07:00:00.000Z",
-  "media": [],
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3WD1iqY_bA/5e2bf3e79c2f783bf0c8941e74ba8ce39faf08afe9151afce60ecff7061b0cc9e59593f278867819140af3aa8f94870df6c71e1c53c4cb392462863554e3ab7619ea3d31686c3497500a78143ea2f10ccaba73452fa27575dbbbff678ef286a22a4740f2",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3WD1iqY_bA/5e2bf3e79c2f783bf0c8941e74ba8ce39faf08afe9151afce60ecff7061b0cc9e59593f278867819140af3aa8f94870df6c71e1c53c4cb392462863554e3ab7619ea3d31686c3497500a78143ea2f10ccaba73452fa27575dbbbff678ef286a22a4740f2",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-XSO1Y_4oaq/70877a42762ae3d18de52f7478eb4e97c1c7ef1033982e7a78d5577282c0254ef8afa437e93ba0b2df1bbbbfe4ed4890fc7ed29d09b68856b6e79c6f5c11204cca14c88e5b23d75ef4af10e4156b3cfaed4bef367ef5dde1fd09e9e3857efe1679961826",
+    "/creation-videos/bl--uHluvbJhD.mp4"
+  ],
   "link": "clone.fyi",
   "ongoing": false,
   "forthcoming": false,
-  "featured": false,
-  "imageDescriptions": [],
+  "featured": true,
+  "imageDescriptions": [
+    "",
+    "",
+    ""
+  ],
   "isEvent": false,
-  "mediaMetadata": []
+  "mediaMetadata": [
+    "image",
+    "image",
+    "video"
+  ],
+  "related": [
+    {
+      "title": "Designing Clone",
+      "slug": "designing-clone",
+      "link": "https://dirt.fyi/article/2025/05/designing-clone",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Clone is a tech and culture news aggregator with old-school internet flavor",
+      "slug": "clone-is-a-tech-and-culture-news-aggregator-with-old-school-internet-flavor",
+      "link": "https://www.niemanlab.org/2025/05/clone-is-a-tech-and-culture-news-aggregator-with-old-school-internet-flavor/",
+      "parentCategory": "Press"
+    }
+  ]
 }

@@ -2,7 +2,9 @@
   "title": "The feed is now a stage",
   "subtext": "An Instagram gallery show",
   "parentCategory": "Exhibition",
-  "categories": [],
+  "categories": [
+    "Art"
+  ],
   "date": "2025-08-14T07:00:00.000Z",
   "endDate": "2025-08-30T07:00:00.000Z",
   "heroImage": "https://alserkal.online//static/6b13241873d0ff7726a464cc59c89713/logo-alserkal-black.png",
@@ -17,5 +19,6 @@
   "isEvent": true,
   "mediaMetadata": [
     "image"
-  ]
+  ],
+  "related": []
 }

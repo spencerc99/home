@@ -1,0 +1,31 @@
+{
+  "title": "screen symphony",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Software Tool",
+    "Open Source"
+  ],
+  "date": "2025-08-27T07:00:00.000Z",
+  "heroImage": "https://playhtml.fun/playhtml-experiment-06.png",
+  "media": [
+    "https://playhtml.fun/playhtml-experiment-06.png"
+  ],
+  "link": "https://playhtml.fun/experiments/6",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    }
+  ]
+}

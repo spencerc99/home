@@ -1,0 +1,31 @@
+{
+  "title": "when cursors meet",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Software Tool",
+    "Open Source"
+  ],
+  "date": "2025-09-03T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-HKvovwbD_F/9757f8a1dea75183d9bf8404fb9b6d12682b11ba3c2248c43c68df7abbbb68bc05c5161f1cd7ab3ada3a10fad3d8e40aa57433081bbf5a00665a7d5c84a7cdbf5ed76a9f11f8f44a47234a77471dab930fc28bf067c663c3dd3bb4384f77628549c6511b",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-HKvovwbD_F/9757f8a1dea75183d9bf8404fb9b6d12682b11ba3c2248c43c68df7abbbb68bc05c5161f1cd7ab3ada3a10fad3d8e40aa57433081bbf5a00665a7d5c84a7cdbf5ed76a9f11f8f44a47234a77471dab930fc28bf067c663c3dd3bb4384f77628549c6511b"
+  ],
+  "link": "https://playhtml.fun/experiments/7/",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    }
+  ]
+}

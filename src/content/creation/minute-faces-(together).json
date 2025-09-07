@@ -1,0 +1,36 @@
+{
+  "title": "minute faces (together)",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Software Tool",
+    "Open Source"
+  ],
+  "date": "2025-08-20T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tribpox3v1/1d7c39cfc68fd7d38cc81c7fc3115bce1dc65a49105e01fd4d5e7f26c3a14eb884378a5c7dcc45b79345721bfa8bfd50843593661b779283ba9a0f6399a8a8eef16131150872efefe30f50c45b6632afe868e6538b7fc5c8fc23973b62258c0fd5e877a8",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tribpox3v1/1d7c39cfc68fd7d38cc81c7fc3115bce1dc65a49105e01fd4d5e7f26c3a14eb884378a5c7dcc45b79345721bfa8bfd50843593661b779283ba9a0f6399a8a8eef16131150872efefe30f50c45b6632afe868e6538b7fc5c8fc23973b62258c0fd5e877a8",
+    "/creation-videos/bl-UApY84pF0v.mp4"
+  ],
+  "link": "https://playhtml.fun/experiments/5/",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [
+    "",
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "video"
+  ],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    }
+  ]
+}

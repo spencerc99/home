@@ -1,6 +1,7 @@
 {
   "title": "Artist Talk - Perpetual Motion Machine",
-  "subtext": "talk about my artist practice for DEMO2025",
+  "subtext": "a talk about my artist practice for DEMO2025",
+  "descriptionMd": "I was invited to speak at WSA in New York for NEW INC’s [DEMO2025](https://www.demofestival.org/) as part of the Art & Code Track Talks.\n&nbsp;\nI racked my brain for many weeks thinking about how I could talk about my practice, one that has winded in spirals around many different disciplines to the point that it can be confusing to take in as a whole. I considered simplifying to focus on my most recent work, but it felt inauthentic. A couple of nights before rehearsal, I found something that felt like it could encompass most of what I care about.  \n  \nThis talk is about my search for perpetual energy, why I call myself both an artist and an engineer, how combining useless technology and useful art led me to interesting propositions and even more interesting questions.  \n  \nIn the talk, I described Computing Shrines as a culmination of my practice, and in many ways, it is: the combination of intimate, empowering technology and person-to-person connection & community. But rather than a traditional linear narrative, my story feels more like a spiral. All my past work provided the foundation, but they aren’t mere stepping stones towards this final piece. Instead, I will certainly circle back to them over the years—the different perspectives that led me to this particular creation. I imagine my work expanding in all directions, like the birth of a star rather than climbing a ladder to the top. I end with questions rather than a solutions, and if they resonate, I'd love to look for the answers together!",
   "parentCategory": "Speaking, Workshops, Teaching",
   "categories": [],
   "date": "2025-06-04T07:00:00.000Z",
@@ -16,5 +17,6 @@
   "isEvent": true,
   "mediaMetadata": [
     "image"
-  ]
+  ],
+  "related": []
 }
