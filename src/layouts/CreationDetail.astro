@@ -121,7 +121,7 @@ allMediaSources.push(...mediaTransformed);
 const allDescriptions = movieUrl ? [""] : [];
 allDescriptions.push(...(imageDescriptions || []));
 
-const allMetadata = movieUrl ? [{ type: "video" }] : [];
+const allMetadata = movieUrl ? ["video"] : [];
 allMetadata.push(...(mediaMetadata || []));
 
 // Helper function to extract domain from URL
@@ -247,19 +247,14 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
                 <iframe class="movieEmbed" src={movieEmbed} />
               ) : (
                 allMediaSources.slice(0, 4).map((src, i) => (
-                  <div class="media-item" key={i}>
-                    {movieUrl && i === 0 ? (
-                      <video controls autoplay loop>
-                        <source src={src} type="video/webm" />
-                      </video>
-                    ) : (
-                      <ImageOrVideo
-                        client:only="react"
-                        className="medium-masonry"
-                        src={src}
-                        type={allMetadata[i]}
-                      />
-                    )}
+                  <div class="media-item" key={src}>
+                    <ImageOrVideo
+                      client:only="react"
+                      className="medium-masonry"
+                      src={src}
+                      type={allMetadata[i]}
+                    />
+
                     {allDescriptions[i] && (
                       <p class="descriptionText">{allDescriptions[i]}</p>
                     )}
