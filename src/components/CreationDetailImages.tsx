@@ -1,5 +1,4 @@
 import React from "react";
-import { MasonryLayout } from "./MasonryLayout";
 import { ImageOrVideo } from "./ImageOrVideo";
 import { ZoomContextProvider } from "../context/ZoomContext";
 
@@ -16,7 +15,6 @@ export function CreationDetailImages({
     <ZoomContextProvider>
       <div className="images">
         {/* TODO: turn into lightbox carousel with photoswipe */}
-        {/* <MasonryLayout columnsCount={3} gutter="1em"> */}
         {images.map((imgUrl, idx) => (
           <div key={imgUrl}>
             <ImageOrVideo
@@ -31,7 +29,6 @@ export function CreationDetailImages({
             )}
           </div>
         ))}
-        {/* </MasonryLayout> */}
       </div>
     </ZoomContextProvider>
   ) : null;
