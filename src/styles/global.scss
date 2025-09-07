@@ -439,6 +439,11 @@ button.icon {
   padding-bottom: 4em;
   margin-left: $sidebar-width;
 
+  @include media(smallScreen) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
   @include media(xsmallScreen) {
     padding-left: 1em;
     padding-right: 1em;
@@ -456,6 +461,8 @@ footer {
   margin-left: $sidebar-width;
   margin-top: auto;
   @include media(xsmallScreen) {
+    margin-left: 0;
+    width: 100%;
     padding-left: 1em;
     padding-right: 1em;
   }
@@ -543,6 +550,7 @@ footer {
   width: $sidebar-width;
   padding: 1em 0.5em;
   z-index: $navbar-zindex;
+  overflow-y: auto;
 
   .socialMediaContainer {
     margin: 0;
@@ -2118,27 +2126,43 @@ hr.separator {
   flex-direction: column;
 }
 
-img {
+img,
+video {
   &.small {
-    max-width: 360px;
+    max-height: 360px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
+    width: auto;
     border-radius: 0.25em;
   }
 
   &.medium {
-    max-width: 500px;
+    max-height: 500px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
+    width: auto;
     border-radius: 0.25em;
   }
   &.medium-masonry {
-    max-width: 590px;
+    max-height: 590px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
+    width: auto;
     border-radius: 0.25em;
   }
 
   &.large {
-    max-width: 800px;
+    max-height: 800px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
+    width: auto;
     border-radius: 0.35em;
   }
   &.xlarge {
-    max-width: 1200px;
+    max-height: 1200px;
+    // just needs something to allow auto to actually stretch.
+    max-width: 1000000px;
+    width: auto;
     border-radius: 0.5em;
   }
 }
@@ -2367,7 +2391,7 @@ ul {
 
 .medium-zoom-overlay {
   background: var(--color-neutral-background) !important;
-  z-index: 11;
+  z-index: $navbar-zindex + 1;
 }
 
 .medium-zoom--opened {
@@ -2380,7 +2404,7 @@ ul {
   object-fit: contain;
   opacity: 1;
   border-radius: 0 !important;
-  z-index: 12;
+  z-index: $navbar-zindex + 2;
 }
 
 // .footnote.footnote.footnote {

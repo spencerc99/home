@@ -17,10 +17,11 @@
   "link": "https://gifting-interfaces.pages.dev/",
   "ongoing": false,
   "forthcoming": false,
-  "featured": true,
+  "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
-  ]
+  ],
+  "related": []
 }

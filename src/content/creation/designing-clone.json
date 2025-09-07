@@ -18,5 +18,13 @@
   "isEvent": false,
   "mediaMetadata": [
     "image"
+  ],
+  "related": [
+    {
+      "title": "clone.fyi website",
+      "slug": "clonefyi-website",
+      "link": "clone.fyi",
+      "parentCategory": "Collaboration"
+    }
   ]
 }

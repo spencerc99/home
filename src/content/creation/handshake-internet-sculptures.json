@@ -4,7 +4,6 @@
   "parentCategory": "Collaboration",
   "categories": [
     "Object",
-    "Collaboration",
     "Art"
   ],
   "date": "2025-05-07T07:00:00.000Z",
@@ -16,5 +15,6 @@
     ""
   ],
   "isEvent": false,
-  "mediaMetadata": []
+  "mediaMetadata": [],
+  "related": []
 }

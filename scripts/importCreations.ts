@@ -234,6 +234,7 @@ export interface CodaItem {
   title: string;
   subtext: string;
   descriptionMd: string;
+  descriptionFooterMd?: string;
   link: string;
   date: string;
   endDate: string;
@@ -254,6 +255,15 @@ export interface CodaItem {
   featured: boolean;
   isEvent: boolean;
   assetPreviewIdx?: number;
+  // TODO: handle related, they will be given as a list of creation titles, we have to map those to the actual creation that is somewhere else in the list to 'hydrate' them and then use that logic to separate them into ones that are "press" vs ones that are "project" and get their internal & external links
+  related: string[];
+}
+
+interface RelatedCreation {
+  title: string;
+  slug: string;
+  link: string;
+  parentCategory: string;
 }
 
 export function escapeTitleForFilename(title: string): string {
@@ -281,6 +291,12 @@ async function importCreations() {
 
   // Track all referenced video blob IDs for cleanup
   const referencedBlobIds = new Set<string>();
+
+  // Create lookup map for performance optimization
+  const titleToItemMap = new Map<string, CodaItem>();
+  data.forEach((item) => {
+    titleToItemMap.set(item.title, item);
+  });
 
   // Transform the data with media metadata
   const transformedData: z.infer<typeof creationSchema>[] = await Promise.all(
@@ -363,10 +379,30 @@ async function importCreations() {
       //   heroImage = `creation/${filename}`;
       // }
 
+      const related = item.related
+        .map((title) => {
+          if (title.trim() === "") {
+            return null;
+          }
+          const relatedCreation = titleToItemMap.get(title);
+          if (!relatedCreation) {
+            console.warn(`Related creation not found: ${title}`);
+            return null;
+          }
+          return {
+            title: relatedCreation.title,
+            slug: escapeTitleForFilename(relatedCreation.title),
+            link: relatedCreation.link,
+            parentCategory: relatedCreation.parentCategory,
+          } as RelatedCreation;
+        })
+        .filter(Boolean);
+
       const finalItem = {
         title: item.title,
         subtext: item.subtext,
         descriptionMd: item.descriptionMd,
+        descriptionFooterMd: item.descriptionFooterMd,
         parentCategory: item.parentCategory,
         categories: item.specificCategory || [],
         date,
@@ -384,6 +420,7 @@ async function importCreations() {
         imageDescriptions: item.imageDescriptions || [],
         isEvent: item.isEvent,
         mediaMetadata,
+        related,
       };
 
       // Remove empty fields

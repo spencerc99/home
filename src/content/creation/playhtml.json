@@ -45,5 +45,61 @@
     "image",
     "image",
     "image"
+  ],
+  "related": [
+    {
+      "title": "poems we found with the internet",
+      "slug": "poems-we-found-with-the-internet",
+      "link": "https://playhtml.fun/fridge.html",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "playhtml “experiment 01”",
+      "slug": "playhtml-experiment-01",
+      "link": "https://playhtml.fun/experiments/one",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "playhtml “experiment 02”",
+      "slug": "playhtml-experiment-02",
+      "link": "https://playhtml.fun/experiments/two/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "playhtml “experiment 04”",
+      "slug": "playhtml-experiment-04",
+      "link": "https://playhtml.fun/experiments/4/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "neighborhood internets workshop",
+      "slug": "neighborhood-internets-workshop",
+      "link": "https://grayarea.org/event/communal-computing-workshop-neighborhood-internets/",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Walking on the Internet Together",
+      "slug": "walking-on-the-internet-together",
+      "link": "https://spencer.place/creation/walking-on-the-internet-together",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "minute faces (together)",
+      "slug": "minute-faces-(together)",
+      "link": "https://playhtml.fun/experiments/5/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "when cursors meet",
+      "slug": "when-cursors-meet",
+      "link": "https://playhtml.fun/experiments/7/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "screen symphony",
+      "slug": "screen-symphony",
+      "link": "https://playhtml.fun/experiments/6",
+      "parentCategory": "Project"
+    }
   ]
 }

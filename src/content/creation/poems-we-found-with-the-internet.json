@@ -64,5 +64,13 @@
     "image",
     "image",
     "image"
+  ],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    }
   ]
 }

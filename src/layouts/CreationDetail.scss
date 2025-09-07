@@ -22,37 +22,12 @@
   video,
   img {
     @include image-dropshadow();
+    object-fit: contain;
 
     transition: opacity 0.15s linear;
     &.loading {
       animation: pulse-opacity 1.3s infinite ease-in-out;
     }
-  }
-  .iframeWrapper iframe,
-  .hero-image {
-    width: fit-content;
-    max-width: calc(min(950px));
-
-    img,
-    video {
-      width: 100%;
-      max-width: calc(min(950px));
-      max-height: 700px;
-    }
-  }
-
-  .iframeWrapper iframe,
-  .hero-image img,
-  video {
-    // max-width: max-content;
-    // max-width: calc(min(1200px, 40vw));
-    // max-height: calc(min(800px, 50vh));
-    display: block;
-    border-radius: 0.5em;
-  }
-  .hero-image img {
-    object-fit: contain;
-    max-width: fit-content;
   }
 
   width: 100%;
@@ -60,7 +35,6 @@
   margin-top: 2em;
 
   padding-right: 2em;
-  max-width: 2400px;
 
   .creationTitle {
     display: inline-flex;
@@ -103,10 +77,6 @@
       line-height: 1;
     }
   }
-  .date {
-    display: flex;
-    @include meta-content();
-  }
   .last-updated-on {
     font-style: italic;
   }
@@ -122,45 +92,279 @@
     @include media(xsmallScreen, smallScreen, mediumScreen) {
       grid-template-columns: 1fr;
     }
+  }
+}
 
-    .images {
-      max-width: 1200px;
-      margin-top: 1em;
+// Editorial Layout Styles
+.editorial {
+  // Title and Metadata Row
+  .title-metadata-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1em;
+    margin-bottom: 4em;
+    align-items: start;
+    max-width: calc($content-size * 2 + 3em);
 
-      img {
-        // width: 100%;
-        border-radius: 0.25em;
+    @include media(mediumScreen) {
+      margin-bottom: 2em;
+    }
+
+    @include media(largeScreen) {
+      gap: 2em;
+      max-width: calc($content-size * 2 + 2em);
+    }
+
+    @include media(smallScreen) {
+      margin-bottom: 2em;
+      margin-top: 2em;
+    }
+
+    @include media(xsmallScreen, smallScreen) {
+      grid-template-columns: 1fr;
+      gap: 0.5em;
+      h1 {
+        margin-bottom: 0.5em;
       }
     }
   }
 
-  .hero-container-mobile {
-    display: none;
+  .title-sentence {
+    line-height: 1;
+    margin: 0;
+    font-weight: normal;
+    max-width: $content-size;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    @include media(xsmallScreen, smallScreen) {
+      // font-size: 1.8em;
+      margin-bottom: 2em;
+    }
+  }
+
+  // Hero Row with responsive nth-child
+  .hero-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2em;
+    align-items: start;
+    contain: layout style; // More specific containment instead of container-type
+
+    .media-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+      width: min-content;
+      max-width: 100%;
+      min-width: 0; /* Prevents items from forcing the container to expand */
+
+      .descriptionText {
+        // display: none;
+        font-size: 11px;
+        color: var(--color-text-muted);
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+      }
+    }
+
+    // Default: Show first 3 images (large screens > 1000px)
+    .media-item:nth-child(-n + 3) {
+      display: flex;
+    }
+    .media-item:nth-child(n + 4) {
+      display: none;
+    }
+
+    // Medium screens (≤ 1000px): Show first 2 images
+    @media (max-width: 1400px) {
+      .media-item:nth-child(-n + 2) {
+        display: flex;
+      }
+      .media-item:nth-child(n + 3) {
+        display: none;
+      }
+    }
+
+    // Small screens (≤ 1000px): Show first 2 images
+    @media (max-width: 1000px) {
+      .media-item:nth-child(-n + 2) {
+        display: flex;
+      }
+      .media-item:nth-child(n + 3) {
+        display: none;
+      }
+    }
+
+    // Extra small screens (≤ 400px): Show only 1 image
+    @media (max-width: 700px) {
+      .media-item:nth-child(-n + 1) {
+        display: flex;
+      }
+      .media-item:nth-child(n + 2) {
+        display: none;
+      }
+    }
+
+    // Special handling for iframe and movie embeds
+    .iframeWrapper,
+    .movieEmbed {
+      grid-column: 1 / -1; // Span all columns
+      max-height: none;
+    }
+  }
+
+  .descriptions {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2em;
+    margin-bottom: 2em;
+
+    @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Two-Column Description
+  .description-columns {
+    max-width: calc($content-size * 2 + 2rem);
+
+    div {
+      columns: 2;
+      column-gap: 2rem;
+      color: var(--color-text-color);
+
+      p:first-child {
+        margin-top: 0;
+      }
+
+      @include media(xsmallScreen, smallScreen) {
+        columns: 1;
+      }
+    }
+  }
+
+  .description-footer {
+    max-width: calc($content-size);
+
+    p:first-child {
+      margin-top: 0;
+    }
+    ul {
+      margin-top: 0;
+      margin-bottom: 1em;
+    }
+  }
+
+  // Metadata Sidebar
+  .metadata-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    font-size: 1em;
+    line-height: 1;
+    align-self: start;
+
+    .category {
+      @include meta-content();
+    }
+
+    .date {
+      @include meta-content();
+      text-transform: uppercase;
+    }
+
+    .materials {
+      @include meta-content();
+      line-height: 1;
+      font-weight: lighter;
+    }
+
     @include media(xsmallScreen, smallScreen, mediumScreen) {
-      display: block;
+      gap: 0.5em;
+      font-size: 0.85em;
     }
   }
 
-  .hero-container-desktop {
-    display: none;
-    @include media(largeScreen, xlargeScreen) {
-      display: block;
+  // Flow Images - use responsive grid and hide hero images
+  .flow-images {
+    margin: 2em 0;
+
+    .images {
+      // max-width: 1200px;
+      margin-top: 1em;
+      display: flex;
+      flex-direction: row;
+      gap: 1em;
+      flex-wrap: wrap;
+      align-items: center;
+
+      // display: grid;
+      // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+      img,
+      video {
+        width: auto !important;
+      }
+    }
+
+    .images div {
+      flex: 0 1 auto; /* don't grow, allow shrinking, use natural size */
+
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+      width: min-content;
+      max-width: 100%;
+    }
+
+    // Hide the first 3 images that were shown in hero row (large screens > 1000px)
+    .images > div:nth-child(-n + 3) {
+      display: none;
+    }
+
+    // Medium screens (≤ 1000px): Hero showed 2, so hide first 2 and show the rest
+    @media (max-width: 1400px) {
+      .images > div:nth-child(-n + 3) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 2) {
+        display: none;
+      }
+    }
+
+    // Small screens (≤ 1000px): Hero showed 2, so hide first 2 and show the rest
+    @media (max-width: 1000px) {
+      .images > div:nth-child(-n + 3) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 2) {
+        display: none;
+      }
+    }
+
+    // Extra small screens (≤ 400px): Hero showed 1, so hide first 1 and show the rest
+    @media (max-width: 700px) {
+      .images > div:nth-child(-n + 2) {
+        display: flex;
+      }
+      .images > div:nth-child(-n + 1) {
+        display: none;
+      }
     }
   }
-}
 
-.mobile-related {
-  display: none;
-}
-.desktop-related {
-  display: block;
-}
-
-@include media(xsmallScreen, smallScreen, mediumScreen) {
-  .mobile-related {
-    display: block;
-  }
-  .desktop-related {
-    display: none;
+  // Related Creations
+  .related-creations {
+    margin-top: 3em;
   }
 }

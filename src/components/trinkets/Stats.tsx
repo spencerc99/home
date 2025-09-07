@@ -127,9 +127,14 @@ export function Stats() {
         </span>
         :{" "}
         <div className="flex gap-[2px] inline-flex">
-          {visitors.map((color, index) => (
-            <CursorColor key={color} color={color} isFirst={index === 0} />
-          ))}
+          {/* TODO: key isn't unique, with duplicate colors */}
+          {visitors.map((color, index) => {
+            const hasDuplicate = visitors.filter((c) => c === color).length > 1;
+            const key = hasDuplicate ? `${color}-${index}` : color;
+            return (
+              <CursorColor key={key} color={color} isFirst={index === 0} />
+            );
+          })}
         </div>
       </span>
       <span>
