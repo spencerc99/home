@@ -8,7 +8,7 @@ export interface HeaderActionType {
 
 type Props = HeaderActionType;
 
-const { name, icon, href, showName } = Astro.props;
+const { name, icon, href, showName = true } = Astro.props;
 const { pathname, href: currentHref } = Astro.url;
 const isActive = pathname.indexOf(href) > -1;
 ---
@@ -32,7 +32,6 @@ const isActive = pathname.indexOf(href) > -1;
     justify-content: center;
     gap: 0.2em;
     align-items: center;
-    font-family: "Play", sans-serif;
   }
 
   .tooltip {
@@ -52,11 +51,6 @@ const isActive = pathname.indexOf(href) > -1;
     transition:
       opacity 0.2s,
       visibility 0.2s;
-    font-family: "Play", sans-serif;
-  }
-
-  .name {
-    font-size: 0.8em;
   }
 
   a:hover .tooltip {

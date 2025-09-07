@@ -27,6 +27,7 @@ const Links: LinkType[] = [
   },
 ];
 
+// TODO: style this after domains and add the domains
 export function LinksView() {
   return (
     <div className="linksView">

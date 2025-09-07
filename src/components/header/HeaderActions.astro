@@ -3,10 +3,12 @@ import HeaderAction, { type HeaderActionType } from "./HeaderAction.astro";
 
 const Actions: HeaderActionType[] = [
   // {href: "/books", name: "books" , icon: "📚"},
-  { href: "/about", name: "about", icon: "🟠" },
-  { href: "/collab", icon: "🌻", name: "collaborations" },
-  { href: "/feed", name: "feed", icon: "💽" },
-  { href: "/posts", icon: "🖨️", name: "posts" },
+  { href: "/", name: "welcome", icon: "🚪" },
+  { href: "/about", name: "describe", icon: "🟠" },
+  { href: "/collab", icon: "🌻", name: "colaborate" },
+  { href: "/creation", name: "create", icon: "💽" },
+  { href: "/posts", icon: "🖨️", name: "write" },
+  { href: "/support", icon: "🫶", name: "support" },
   // {href: "/colophon", name: "creations" , icon: "🪄"},
   // {href: "/workbench", name: "workbench" , icon: "🔩"},
   // { href: "/fits", icon: "🧢", name: "fits" },
@@ -17,48 +19,5 @@ const Actions: HeaderActionType[] = [
 
 <div class="navbarActions">
   {Actions.map((action) => <HeaderAction {...action} />)}
-
-  <div class="divider"></div>
-  <button id="darkModeToggle" class="link"><b></b></button>
+  <div class="divider hide-mobile"></div>
 </div>
-
-<script is:inline>
-  function setDarkMode(state, savePreference = true) {
-    document.documentElement.classList.toggle("dark-mode", state);
-    document.querySelector("#darkModeToggle").children[0].innerHTML = state
-      ? "☀️"
-      : "🌑";
-
-    // Save the preference to sessionStorage if needed
-    if (savePreference) {
-      sessionStorage.setItem("darkMode", state ? "dark" : "light");
-    }
-  }
-
-  function toggleDarkMode() {
-    setDarkMode(!document.documentElement.classList.contains("dark-mode"));
-  }
-
-  // Initialize dark mode based on the following priority:
-  // 1. Previously saved preference in current session
-  // 2. System preference
-  const savedPreference = sessionStorage.getItem("darkMode");
-  const useDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-  if (savedPreference) {
-    setDarkMode(savedPreference === "dark", false);
-  } else {
-    setDarkMode(useDark.matches, false);
-  }
-
-  document
-    .querySelector("#darkModeToggle")
-    .addEventListener("click", toggleDarkMode);
-
-  // Update based on system changes only if there's no saved preference
-  useDark.addListener((evt) => {
-    if (!sessionStorage.getItem("darkMode")) {
-      setDarkMode(evt.matches, false);
-    }
-  });
-</script>

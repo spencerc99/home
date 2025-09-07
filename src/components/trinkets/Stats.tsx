@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 // Define types for the cursor system
 interface CursorSystem {
@@ -106,10 +106,13 @@ export function Stats() {
       }
     };
   }, []);
+  const batteryDisplay = useMemo(() => {
+    return deviceBattery > 0 ? Math.round(deviceBattery) : "unknown";
+  }, [deviceBattery]);
 
   return (
     <div
-      className="trinket bg-[var(--color-background-teal)] mono h-full text-sm p-2"
+      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2"
       style={{ border: "double", gap: 0 }}
     >
       <span>
@@ -133,7 +136,7 @@ export function Stats() {
         time: <span>{time.toFixed(1)}m</span>
       </span>
       <span>
-        energy: <span>{deviceBattery}%</span>
+        energy: <span>{batteryDisplay}%</span>
       </span>
       {/* movement: # of pixels moved */}
       {/* # of clicks */}

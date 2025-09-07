@@ -4,12 +4,7 @@ import { NowBlock } from "../components/Now";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { CreationsView } from "../components/views/CreationsView";
-import Trinkets from "../components/Trinkets.astro";
 import Signature from "../components/Signature";
-
-// const location = await fetch(
-//   "https://status.spencerchang.me/api/metadata"
-// ).then((res) => res.json());
 
 // Manually calculat forthcoming because the date is changing
 const creations = (await getCollection("creation"))
@@ -35,12 +30,19 @@ const creations = (await getCollection("creation"))
   <div class="two-columns">
     <div class="headerContainer home textContent">
       <div class="textContent">
-        <p>
+        <p style="line-height: 1.2">
           Hi, I'm <Footnote
             asChild
             caption="hi! hover around other parts of the site and you might find other hidden treasures."
             client:only="react">Spencer</Footnote
-          >. Welcome to my internet home.
+          >. Welcome to my internet home.<br /><i class="meta serif"
+            >hint: this is a living space<Footnote
+              caption="made possible using [playhtml](https://playhtml.fun)"
+              client:only="react"
+            /> and actively shaped by visitors. Try changing the lights, moving the
+            furniture, or leaving a note. Be respectful, treat it like visiting a
+            friend's home.</i
+          >
         </p>
         <Footnote
           asChild
@@ -112,6 +114,10 @@ const creations = (await getCollection("creation"))
         <Signature client:only="react" />
         <br />
         <NowBlock client:only="react" />
+        <br />
+        <!-- <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
+          <FitsCarousel fits={sortedFits} client:only="react" />
+        </FeedCard> -->
       </div>
     </div>
     <!-- BODY -->

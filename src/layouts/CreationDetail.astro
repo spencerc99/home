@@ -136,17 +136,6 @@ const style = {
                 <p class="main-description" set:html={descriptionParsed} />
               )
             }
-            <slot />
-            {
-              relatedCreations.length > 0 && (
-                <div class="desktop-related">
-                  <RelatedCreations
-                    client:only="react"
-                    creations={relatedCreations}
-                  />
-                </div>
-              )
-            }
           </div>
         </div>
         <div>

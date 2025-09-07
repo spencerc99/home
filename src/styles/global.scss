@@ -1,5 +1,5 @@
 @import "./base.scss";
-@import url("https://fonts.googleapis.com/css2?family=VT323&family=Sono&family=Play&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Sono&display=swap");
 @import "./variables.scss";
 @import "./mixins.scss";
 
@@ -24,6 +24,27 @@
 @include fontCooper("Cooper-ExtraBoldItalic", 800, italic);
 @include fontCooper("Cooper-Black", 900, normal);
 @include fontCooper("Cooper-BlackItalic", 900, italic);
+
+@mixin fontVulf($name, $weight, $style) {
+  @font-face {
+    font-family: "Vulf Sans";
+    src: url("/fonts/#{$name}.otf") format("opentype");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: fallback;
+  }
+}
+
+@include fontVulf("VulfSansDemo-Light", 300, normal);
+@include fontVulf("VulfSansDemo-LightItalic", 300, italic);
+@include fontVulf("VulfSansDemo-Regular", normal, normal);
+@include fontVulf("VulfSansDemo-Italic", normal, italic);
+@include fontVulf("VulfSansDemo-Medium", 500, normal);
+@include fontVulf("VulfSansDemo-MediumItalic", 500, italic);
+@include fontVulf("VulfSansDemo-Bold", bold, normal);
+@include fontVulf("VulfSansDemo-BoldItalic", bold, italic);
+@include fontVulf("VulfSansDemo-Black", 900, normal);
+@include fontVulf("VulfSansDemo-BlackItalic", 900, italic);
 
 @keyframes roll-and-move-animation {
   25% {
@@ -416,18 +437,23 @@ button.icon {
   padding-left: 3em;
   padding-right: 3em;
   padding-bottom: 4em;
+  margin-left: $sidebar-width;
+
   @include media(xsmallScreen) {
     padding-left: 1em;
     padding-right: 1em;
+    margin-left: 0;
+    padding-top: calc($navBar-height + 1em);
   }
 }
 
 footer {
   background: var(--color-background-green);
-  box-shadow: 0 0 6px 0px var(--color-box-shadow);
-  width: 100%;
+  box-shadow: 2px 0 6px 0px var(--color-box-shadow);
+  width: calc(100% - $sidebar-width);
   // Accounts for overlapping with content.
-  z-index: -1;
+  z-index: $navbar-zindex + 1;
+  margin-left: $sidebar-width;
   margin-top: auto;
   @include media(xsmallScreen) {
     padding-left: 1em;
@@ -443,63 +469,80 @@ footer {
 }
 
 .navbarActions {
-  margin-left: auto;
-  display: grid;
-  grid-gap: 0.25rem;
-  grid-auto-flow: column;
-  margin-top: auto;
-  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  @extend .sans-serif;
 
   a {
-    padding: 1px;
+    padding: 4px 8px;
+    transition: opacity 0.2s ease;
+    display: flex;
+    gap: 0.5rem;
+    text-decoration: none !important;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &.active {
+      font-weight: bold;
+    }
+
+    span.name {
+      display: inline;
+    }
 
     @include media(xsmallScreen) {
       padding: 1px 4px;
       background: $color-link;
       border-radius: 4px;
+
       &.active {
         border: 2px solid $color-blueberry;
       }
-    }
 
-    span.name {
-      @include media(xsmallScreen) {
+      span.name {
         display: none;
       }
     }
+  }
 
-    &.active {
-      border-bottom: 1px dotted $color-blueberry;
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text-color);
+    opacity: 0.2;
+    margin: 0.5rem 0;
+    align-self: center;
+
+    @include media(xsmallScreen) {
+      width: 3px;
+      height: 70%;
+      margin: auto 0.5rem;
     }
+  }
+
+  @include media(xsmallScreen) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
   }
 }
 
-#navbar {
-  border-bottom: 1px $color-lighter-grey solid;
-  background-color: var(--color-neutral-background);
-  box-shadow: 0 2px 4px 0 var(--color-box-shadow);
+#sidebar {
+  background: var(--color-background-green);
+  // background: $color-site-background;
+  background: var(--color-background-blue);
+  box-shadow: 0 0 2px 0px var(--color-box-shadow);
   position: fixed;
-  margin-left: 2em;
   top: 0;
-  max-width: calc(min($viewport-width + 1em, 100vw - 1em));
-  width: 100%;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  padding: 0 0.5em;
-
-  height: $navBar-height;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+  padding: 1em 0.5em;
   z-index: $navbar-zindex;
-  scroll-margin-top: $navBar-height;
-
-  /* Collapse nav bar on scroll down */
-  &.collapse {
-    animation: collapse 0.25s ease forwards;
-  }
-
-  /* Open nav bar on scroll up */
-  &.open {
-    animation: open 0.25s ease forwards;
-  }
 
   .socialMediaContainer {
     margin: 0;
@@ -511,55 +554,62 @@ footer {
   }
 
   @include media(xsmallScreen) {
-    margin-left: 0.5em;
+    // Convert to top navbar on mobile
+    width: 100%;
+    height: $navBar-height;
+    padding: 0 1em;
+    left: 0;
+    right: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
 }
 
-.navbarContainer {
+.sidebarContainer {
   display: flex;
-  max-width: $viewport-width;
-  margin: 0 auto;
-  padding: 0 10px;
+  flex-direction: column;
+  gap: 1em;
   height: 100%;
+  padding: 0 10px;
 
   @include media(xsmallScreen) {
-    font-size: 90%;
-
-    .navbarActions {
-      grid-gap: 0.5rem;
-    }
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25em;
+    height: inherit;
+    padding: 0;
   }
 
   a:not(.socialMediaLink) {
     color: var(--color-text-accent) !important;
+    font-size: 90%;
   }
 
   h2 {
     margin: 0;
   }
-}
 
-@keyframes collapse {
-  from {
-    opacity: 1;
-    top: 0;
+  .avatarLink {
+    text-align: center;
+    text-decoration: none !important;
+
+    @include media(xsmallScreen) {
+      text-align: left;
+      margin-right: auto;
+      margin-bottom: 0;
+    }
   }
 
-  to {
-    opacity: 0;
-    top: -$navBar-height;
-  }
-}
+  // Hide some elements on mobile to save space
+  @include media(xsmallScreen) {
+    .textContent,
+    > div:last-child {
+      display: none;
+    }
 
-@keyframes open {
-  from {
-    opacity: 0;
-    top: -$navBar-height;
-  }
-
-  to {
-    opacity: 1;
-    top: 0;
+    > div:first-child {
+      display: none; // Hide clock embed on mobile
+    }
   }
 }
 
@@ -594,53 +644,22 @@ footer {
 }
 
 .avatarLink {
-  font-family: "Play";
+  font-family: $site-font-header;
   height: fit-content;
-  margin: auto 0;
   line-height: 1;
-  &:hover {
-    .avatar {
-      @include roll-and-move();
-    }
-  }
-
   position: relative;
   display: flex;
   // flex-grow: 1;
   margin-right: 4px;
-  font-weight: bold;
+  font-weight: 500;
   display: flex;
   align-items: center;
   font-size: 1.2em;
 }
 
-.avatar.avatar {
-  border-radius: 50%;
-  border: 1px black solid;
-  width: 150px;
-  height: 150px;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
-  margin-right: 0.5em;
-
-  &.small {
-    width: 32px;
-    height: 32px;
-    vertical-align: middle;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    content: url(/assets/spencer_real_person.png);
-  }
-}
-
 .headerContainer {
   @extend .serif;
-  margin: $header-container-margin 0 24px 0;
+  margin: 3em 0 24px 0;
 
   &.postHeader {
     margin: $navBar-height 0 24px 0;
@@ -648,6 +667,10 @@ footer {
 
   p {
     margin: 12px 0;
+  }
+
+  @include media(xsmallScreen) {
+    margin-top: 0.5em;
   }
 }
 
@@ -1278,11 +1301,9 @@ ul.noPadding {
 .imgGallery {
   overflow-x: auto;
   width: 100%;
-  height: 340px;
   position: relative;
 
   .imgContainer {
-    position: absolute;
     display: flex;
     align-items: center;
     gap: 1em;
@@ -1795,6 +1816,32 @@ button {
       text-align: right;
     }
   }
+
+  // Smaller signature in sidebar
+  #sidebar & {
+    .stamp {
+      margin-left: 6px;
+    }
+
+    #stamp {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @include media(xsmallScreen) {
+    #sidebar & {
+      .signatureContent {
+        transform: scale(0.7);
+        margin-right: -15px;
+      }
+
+      #stamp {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
 }
 
 #expandingLikes {
@@ -2132,7 +2179,7 @@ img {
     gap: 4em;
   }
 
-  @include media(xsmallScreen, smallScreen, mediumScreen) {
+  @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
     grid-template-columns: 1fr;
     gap: 1em;
     &.reverseDirectionMobile {
@@ -2147,10 +2194,22 @@ img {
   aspect-ratio: 1/1;
   width: fit-content;
   height: auto;
+  // Scale down dramatically in mobile navbar
+  #sidebar & {
+    @include media(xsmallScreen) {
+      width: 32px;
+      height: 32px;
+
+      iframe {
+        padding: 2px;
+        border-width: 1px;
+        box-shadow: none;
+      }
+    }
+  }
   iframe {
-    max-width: 200px !important;
-    max-height: 200px !important;
     width: 100%;
+    height: 100%;
     aspect-ratio: 1;
     overflow: hidden;
     background-color: var(--color-text-color);
@@ -2183,7 +2242,7 @@ img {
 .trinket {
   display: flex;
   flex-direction: column;
-  height: 100%;
+
   // justify-content: space-between;
   gap: 0.5em;
   align-self: center;
@@ -2302,8 +2361,8 @@ ul {
 
 .caption.caption {
   text-align: center;
-  font-family: "Gaegu", cursive; /* Use a handwritten-style font */
-  font-size: 18px;
+  @extend .sans-serif;
+  font-size: 12px;
 }
 
 .medium-zoom-overlay {
@@ -2453,29 +2512,16 @@ article {
 
 body {
   &.centered {
-    #navbar {
-      width: 100% !important;
-      max-width: none !important;
-      left: 0;
-      right: 0;
-      margin-left: 0 !important;
-
-      .navbarContainer {
-        max-width: 800px !important;
-        margin: 0 auto !important;
-        padding: 0 1em !important;
-      }
-    }
-    .footerContent {
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-
     #content {
-      padding-left: 1em;
-      padding-right: 1em;
-      max-width: 800px;
-      margin: 0 auto;
+      padding-left: calc(2em + $sidebar-width);
+      padding-right: 2em;
+      max-width: calc(800px + $sidebar-width);
+      margin-left: auto;
+      margin-right: auto;
+
+      @include media(xsmallScreen) {
+        margin-left: 170px;
+      }
     }
   }
 }
@@ -2520,4 +2566,13 @@ details {
 
 .home {
   font-size: 18px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hide-mobile {
+  @include media(xsmallScreen) {
+    display: none !important;
+  }
 }
