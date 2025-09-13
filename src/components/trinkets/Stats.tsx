@@ -112,7 +112,7 @@ export function Stats() {
 
   return (
     <div
-      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2"
+      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2 overflow-hidden"
       style={{ border: "double", gap: 0 }}
     >
       <span>
@@ -162,22 +162,64 @@ const CursorColor = ({
   color: string;
   isFirst?: boolean;
 }) => {
+  const [internalColor, setInternalColor] = useState(color);
   return (
-    <div className="relative">
+    <div className="relative inline-block">
       {isFirst && (
         <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
           you
         </span>
       )}
-      <div
-        style={{
-          width: "8px",
-          height: "8px",
-          borderRadius: "50%",
-          display: "inline-block",
-          backgroundColor: color,
-        }}
-      />
+      {isFirst ? (
+        <div
+          className="relative"
+          style={{
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            display: "inline-block",
+            backgroundColor: color,
+          }}
+        >
+          {/* // TODO: these aren't working for changing the color, something wrong with the on listeners */}
+          <input
+            type="color"
+            value={color}
+            // trigger when user closes the color picker
+            onChange={(e) => {
+              setInternalColor(e.target.value);
+            }}
+            onBlur={() => {
+              if (window.cursors) {
+                if (internalColor !== color) {
+                  window.cursors.color = internalColor;
+                }
+              }
+            }}
+            style={{
+              width: "8px",
+              height: "8px",
+              borderRadius: "50%",
+              display: "inline-block",
+              opacity: 0,
+              backgroundColor: color,
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          style={{
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            display: "inline-block",
+            backgroundColor: color,
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -21,6 +21,14 @@ export function NowBlock() {
         in San Francisco 2026...
       </p>
       <p>
+        - Making the{" "}
+        <a href="/creation/computing-infused-objects">Phone Pillow</a> a real
+        product.
+      </p>
+      <p>
+        - Learning how to reach people and tell stories through social media.
+      </p>
+      <p>
         - Designing <a href="/creation/playhtml">playhtml</a>, open-source
         infrastructure for tiny social networks
       </p>
