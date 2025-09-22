@@ -12,7 +12,6 @@ const Signature: React.FC = () => {
   return (
     <div className="signature" style={{ float: "none" }}>
       <div className="signatureContent">
-        {/* TODO: hover over for photo in lil modal? */}
         <div className="serif">
           Spencer 張正 Chang
           <br />

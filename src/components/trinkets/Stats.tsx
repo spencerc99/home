@@ -127,7 +127,6 @@ export function Stats() {
         </span>
         :{" "}
         <div className="flex gap-[2px] inline-flex">
-          {/* TODO: key isn't unique, with duplicate colors */}
           {visitors.map((color, index) => {
             const hasDuplicate = visitors.filter((c) => c === color).length > 1;
             const key = hasDuplicate ? `${color}-${index}` : color;
@@ -181,7 +180,6 @@ const CursorColor = ({
             backgroundColor: color,
           }}
         >
-          {/* // TODO: these aren't working for changing the color, something wrong with the on listeners */}
           <input
             type="color"
             value={color}

@@ -33,6 +33,21 @@ const {
       description={description || SITE_DESCRIPTION}
       image={image}
     />
+
+    <!-- Blocking dark mode script - must run immediately in head -->
+    <script is:inline>
+      (function () {
+        const savedPreference = sessionStorage.getItem("darkMode");
+        const useDark = window.matchMedia("(prefers-color-scheme: dark)");
+        const shouldUseDark = savedPreference
+          ? savedPreference === "dark"
+          : useDark.matches;
+
+        if (shouldUseDark) {
+          document.documentElement.classList.add("dark-mode");
+        }
+      })();
+    </script>
   </head>
   <body class={centered ? "centered" : ""}>
     <Header transition:persist />
@@ -71,52 +86,6 @@ const {
       playhtml.init();
     </script>
 
-    <!-- Dark mode script - needs to run on every page -->
-    <script is:inline>
-      function setDarkMode(state, savePreference = true) {
-        document.documentElement.classList.toggle("dark-mode", state);
-        const toggle = document.querySelector("#darkModeToggle");
-        if (toggle && toggle.children[0]) {
-          toggle.children[0].innerHTML = state ? "☀️" : "🌑";
-        }
-
-        // Save the preference to sessionStorage if needed
-        if (savePreference) {
-          sessionStorage.setItem("darkMode", state ? "dark" : "light");
-        }
-      }
-
-      function toggleDarkMode() {
-        setDarkMode(!document.documentElement.classList.contains("dark-mode"));
-      }
-
-      function initDarkMode() {
-        // Initialize dark mode based on the following priority:
-        // 1. Previously saved preference in current session
-        // 2. System preference
-        const savedPreference = sessionStorage.getItem("darkMode");
-        const useDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-        if (savedPreference) {
-          setDarkMode(savedPreference === "dark", false);
-        } else {
-          setDarkMode(useDark.matches, false);
-        }
-
-        // Update based on system changes only if there's no saved preference
-        useDark.addListener((evt) => {
-          if (!sessionStorage.getItem("darkMode")) {
-            setDarkMode(evt.matches, false);
-          }
-        });
-      }
-
-      // Run on initial load
-      document.addEventListener("DOMContentLoaded", initDarkMode);
-
-      // Run after ViewTransitions navigation
-      document.addEventListener("astro:after-swap", initDarkMode);
-    </script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/playhtml@latest/dist/style.css"
