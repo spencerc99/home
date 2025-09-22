@@ -299,7 +299,9 @@ export function CreationsView({
             }}
           >
             {Object.values(ViewType).map((viewType) => (
-              <option value={viewType}>{viewType}</option>
+              <option key={viewType} value={viewType}>
+                {viewType}
+              </option>
             ))}
           </select>
         </div>

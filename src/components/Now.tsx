@@ -29,8 +29,8 @@ export function NowBlock() {
         - Learning how to reach people and tell stories through social media.
       </p>
       <p>
-        - Designing <a href="/creation/playhtml">playhtml</a>, open-source
-        infrastructure for tiny social networks
+        - Creating infrastructure for{" "}
+        <a href="/creation/playhtml">tiny social networks</a>
       </p>
       <p>
         - Open to <a href="/collab">invitations & collaborations</a> for

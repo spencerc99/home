@@ -3,7 +3,7 @@ import "./Status.scss";
 import { StatusCarousel } from "./StatusCarousel";
 import { FeedCard } from "./FeedCard";
 
-const stream = await fetch("https://status.spencerchang.me/api/me")
+const stream = await fetch("https://status.spencer.place/me")
   .then((res) => res.json())
   .catch((err) => console.error(err));
 

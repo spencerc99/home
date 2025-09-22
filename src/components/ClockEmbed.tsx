@@ -1,7 +1,13 @@
 import React from "react";
 import { Footnote } from "./Footnote";
 
-export function ClockEmbed({ size = 200 }) {
+export function ClockEmbed({
+  size = 200,
+  timezone,
+}: {
+  size?: number;
+  timezone?: string;
+}) {
   return (
     <div id="clockEmbed">
       <a href="https://clock.spencer.place" className="button">
@@ -10,7 +16,11 @@ export function ClockEmbed({ size = 200 }) {
           asChild={true}
         >
           <iframe
-            src="https://clock.spencer.place"
+            src={
+              timezone
+                ? `https://clock.spencer.place?tz=${timezone}`
+                : "https://clock.spencer.place"
+            }
             style={{ maxWidth: size, maxHeight: size }}
             data-astro-transition-persist="clock-iframe"
           ></iframe>

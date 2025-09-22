@@ -5,6 +5,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { CreationsView } from "../components/views/CreationsView";
 import Signature from "../components/Signature";
+import Status from "../components/Status.astro";
 
 // Manually calculat forthcoming because the date is changing
 const creations = (await getCollection("creation"))
@@ -108,9 +109,6 @@ const creations = (await getCollection("creation"))
         <br />
         <NowBlock client:only="react" />
         <br />
-        <!-- <FeedCard title="FITS" icon="👔" allLink="/fits" client:only="react">
-          <FitsCarousel fits={sortedFits} client:only="react" />
-        </FeedCard> -->
       </div>
     </div>
     <!-- BODY -->
