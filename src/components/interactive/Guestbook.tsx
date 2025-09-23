@@ -10,12 +10,14 @@ interface GuestbookEntry {
   color?: string;
   message: string;
   timestamp: number;
+  website?: string;
 }
 
 interface GuestbookEntryViewProps
   extends Omit<GuestbookEntry, "name" | "message"> {
   message: string | React.ReactNode;
   name: string | React.ReactNode;
+  website?: string;
 }
 
 const GuestbookTimeout = 1000 * 60 * 60 * 24 * 1; // 1 day
@@ -50,8 +52,29 @@ function GuestbookEntryView({
   color,
   message,
   timestamp,
+  website,
 }: GuestbookEntryViewProps) {
   const dateString = getDateString(timestamp);
+  
+  const nameElement = website ? (
+    <a 
+      href={website} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      style={{ 
+        color, 
+        textDecoration: 'underline',
+        textAlign: "right" 
+      }}
+    >
+      {name}
+    </a>
+  ) : (
+    <span style={{ color, textAlign: "right" }}>
+      {name}
+    </span>
+  );
+  
   return (
     <div className="guestbookEntry">
       <span
@@ -64,11 +87,8 @@ function GuestbookEntryView({
       <div className="guestbookEntryMessage">{message}</div>
       <div className="guestbookEntrySignoff">
         <span className="guestbookEntryTimestamp">{dateString}</span>
-        <span
-          className="guestbookEntryName"
-          style={{ color, textAlign: "right" }}
-        >
-          {name}
+        <span className="guestbookEntryName">
+          {nameElement}
         </span>
       </div>
     </div>
@@ -88,6 +108,10 @@ export const GuestbookImpl = withSharedState(
         window.cursors?.setName(newName);
       }
     );
+    const [website, setWebsite] = useStickyState<string | null>(
+      "userwebsite",
+      null
+    );
     const [message, setMessage] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -106,6 +130,7 @@ export const GuestbookImpl = withSharedState(
     function submitMessage() {
       const nameInput = name;
       const messageInput = message;
+      const websiteInput = website;
 
       if (!nameInput || !messageInput) {
         return;
@@ -113,6 +138,7 @@ export const GuestbookImpl = withSharedState(
 
       const nameTransformed = nameInput.trim();
       const messageTransformed = messageInput.trim();
+      const websiteTransformed = websiteInput?.trim();
 
       if (nameTransformed === "") {
         alert("Name cannot be empty.");
@@ -124,11 +150,28 @@ export const GuestbookImpl = withSharedState(
         return;
       }
 
+      // Basic URL validation if website is provided
+      let validWebsite = undefined;
+      if (websiteTransformed && websiteTransformed !== "") {
+        try {
+          // Add protocol if missing
+          const url = websiteTransformed.startsWith('http') 
+            ? websiteTransformed 
+            : `https://${websiteTransformed}`;
+          new URL(url);
+          validWebsite = url;
+        } catch {
+          alert("Please enter a valid website URL.");
+          return;
+        }
+      }
+
       const newEntry: GuestbookEntry = {
         name: nameTransformed,
         color: window?.cursors?.color,
         message: messageTransformed,
         timestamp: Date.now(),
+        website: validWebsite,
       };
 
       setData([...sortedData, newEntry]);
@@ -179,6 +222,9 @@ export const GuestbookImpl = withSharedState(
         <div className="guestbookActions">
           <GuestbookEntryView
             timestamp={time}
+            website={website?.trim() && website.trim() !== "" 
+              ? (website.trim().startsWith('http') ? website.trim() : `https://${website.trim()}`) 
+              : undefined}
             name={
               <input
                 className="guestbookEntryName"
@@ -193,16 +239,36 @@ export const GuestbookImpl = withSharedState(
               />
             }
             message={
-              <textarea
-                placeholder="your message..."
-                maxLength={500}
-                style={{
-                  minHeight: "200px",
-                  width: "100%",
-                }}
-                value={message || ""}
-                onChange={(e) => setMessage(e.target.value)}
-              />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em', width: '100%' }}>
+                <input
+                  type="text"
+                  placeholder="your website (optional)..."
+                  maxLength={100}
+                  value={website || ""}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  style={{
+                    padding: '0.3em',
+                    border: '1px solid var(--color-text-color)',
+                    borderRadius: '4px',
+                    backgroundColor: 'var(--color-neutral-background)',
+                    color: 'var(--color-text-color)',
+                    fontSize: '0.9em',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                  }}
+                />
+                <textarea
+                  placeholder="your message..."
+                  maxLength={500}
+                  style={{
+                    minHeight: "200px",
+                    width: "100%",
+                    boxSizing: 'border-box'
+                  }}
+                  value={message || ""}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </div>
             }
             color={window?.cursors?.color || "black"}
           />

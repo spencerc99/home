@@ -62,9 +62,21 @@
     margin-top: 0.4em;
 
     .guestbookEntryTimestamp {
-      text-align: right;
+      text-align: left;
       line-height: 1;
       font-size: 70%;
+      
+      @media (min-width: 768px) {
+        text-align: right;
+      }
+    }
+    
+    .guestbookEntryName {
+      line-height: 1;
+      
+      a {
+        line-height: 1;
+      }
     }
   }
 }
