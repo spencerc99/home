@@ -6,20 +6,16 @@ import SocialMediaLinks from "../SocialMediaLinks";
 
 let stream;
 try {
-  stream = await fetch("https://status.spencer.place/metadata")
-    .then((res) => res.json());
+  stream = await fetch("https://status.spencer.place/metadata").then((res) =>
+    res.json()
+  );
 } catch (err) {
   console.error(err);
-  stream = {
-    timezone: "America/New_York",
-    timezoneShort: "EST",
-    location: "New York ☁️"
-  };
 }
 
-const timezone = stream?.timezone || "America/New_York";
-const timezoneShort = stream?.timezoneShort || "EST";
-const weatherEmoji = stream?.location?.split(" ").slice(-1)[0] || "☁️";
+const timezone = stream?.timezone || "";
+const timezoneShort = stream?.timezoneShort || "";
+const weatherEmoji = stream?.location?.split(" ").slice(-1)[0] || "";
 ---
 
 <!-- TODO: improve mobile view for expanding / seeing the stuff that is hidden? -->
