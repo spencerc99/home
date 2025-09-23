@@ -465,6 +465,8 @@ footer {
     width: 100%;
     padding-left: 1em;
     padding-right: 1em;
+    // On mobile, footer should be below navbar
+    z-index: $navbar-zindex - 1;
   }
 }
 
@@ -579,6 +581,7 @@ footer {
   gap: 1em;
   height: 100%;
   padding: 0 10px;
+  justify-content: space-between;
 
   @include media(xsmallScreen) {
     flex-direction: row;
@@ -1318,15 +1321,30 @@ ul.noPadding {
   width: 100%;
   position: relative;
 
+  @include media(xsmallScreen, smallScreen) {
+    overflow-x: hidden;
+  }
+
   .imgContainer {
     display: flex;
     align-items: center;
     gap: 1em;
+    
+    @include media(xsmallScreen, smallScreen) {
+      flex-direction: column;
+      gap: 0.5em;
+    }
+    
     & > img,
     & > div {
       max-height: 300px;
       max-width: 500px;
       object-fit: cover;
+      
+      @include media(xsmallScreen, smallScreen) {
+        max-width: 100%;
+        width: 100%;
+      }
     }
   }
 }
@@ -2529,7 +2547,11 @@ body {
       margin-right: auto;
 
       @include media(xsmallScreen) {
-        margin-left: 170px;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 1em;
+        padding-right: 1em;
+        max-width: 100%;
       }
     }
   }

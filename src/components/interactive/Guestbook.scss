@@ -55,16 +55,27 @@
   }
 
   .guestbookEntrySignoff {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: space-between;
     align-items: center;
     gap: 1em;
     margin-top: 0.4em;
 
     .guestbookEntryTimestamp {
-      text-align: right;
+      text-align: left;
+      margin-top: auto;
       line-height: 1;
       font-size: 70%;
+    }
+
+    .guestbookEntryName {
+      line-height: 1;
+      text-align: right;
+
+      a {
+        line-height: 1;
+      }
     }
   }
 }

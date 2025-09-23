@@ -10,7 +10,7 @@ type Props = HeaderActionType;
 
 const { name, icon, href, showName = true } = Astro.props;
 const { pathname, href: currentHref } = Astro.url;
-const isActive = pathname.indexOf(href) > -1;
+const isActive = href === "/" ? pathname === href : pathname.indexOf(href) > -1;
 ---
 
 <a href={href} class={isActive ? "active" : ""}>

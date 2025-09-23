@@ -10,13 +10,19 @@ interface GuestbookEntry {
   color?: string;
   message: string;
   timestamp: number;
+  website?: string;
 }
 
 interface GuestbookEntryViewProps
   extends Omit<GuestbookEntry, "name" | "message"> {
   message: string | React.ReactNode;
   name: string | React.ReactNode;
+  website?: string;
+  isEditing?: boolean;
 }
+
+const httpRegex =
+  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 const GuestbookTimeout = 1000 * 60 * 60 * 24 * 1; // 1 day
 
@@ -50,8 +56,29 @@ function GuestbookEntryView({
   color,
   message,
   timestamp,
+  website,
+  isEditing,
 }: GuestbookEntryViewProps) {
   const dateString = getDateString(timestamp);
+
+  const nameElement =
+    website && !isEditing ? (
+      <a
+        href={website}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color,
+          textDecoration: "underline",
+          textAlign: "right",
+        }}
+      >
+        {name}
+      </a>
+    ) : (
+      <span style={{ color, textAlign: "right" }}>{name}</span>
+    );
+
   return (
     <div className="guestbookEntry">
       <span
@@ -63,13 +90,8 @@ function GuestbookEntryView({
       </span>
       <div className="guestbookEntryMessage">{message}</div>
       <div className="guestbookEntrySignoff">
-        <span className="guestbookEntryTimestamp">{dateString}</span>
-        <span
-          className="guestbookEntryName"
-          style={{ color, textAlign: "right" }}
-        >
-          {name}
-        </span>
+        <div className="guestbookEntryTimestamp">{dateString}</div>
+        <div className="guestbookEntryName">{nameElement}</div>
       </div>
     </div>
   );
@@ -87,6 +109,10 @@ export const GuestbookImpl = withSharedState(
       (newName) => {
         window.cursors?.setName(newName);
       }
+    );
+    const [website, setWebsite] = useStickyState<string | null>(
+      "userwebsite",
+      null
     );
     const [message, setMessage] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -106,13 +132,16 @@ export const GuestbookImpl = withSharedState(
     function submitMessage() {
       const nameInput = name;
       const messageInput = message;
+      const websiteInput = website;
 
       if (!nameInput || !messageInput) {
+        alert("Name and message cannot be empty.");
         return;
       }
 
       const nameTransformed = nameInput.trim();
       const messageTransformed = messageInput.trim();
+      const websiteTransformed = websiteInput?.trim();
 
       if (nameTransformed === "") {
         alert("Name cannot be empty.");
@@ -124,11 +153,17 @@ export const GuestbookImpl = withSharedState(
         return;
       }
 
+      if (websiteTransformed && !httpRegex.test(websiteTransformed)) {
+        alert("Please enter a valid website URL.");
+        return;
+      }
+
       const newEntry: GuestbookEntry = {
         name: nameTransformed,
         color: window?.cursors?.color,
         message: messageTransformed,
         timestamp: Date.now(),
+        website: websiteTransformed,
       };
 
       setData([...sortedData, newEntry]);
@@ -179,18 +214,46 @@ export const GuestbookImpl = withSharedState(
         <div className="guestbookActions">
           <GuestbookEntryView
             timestamp={time}
+            website={website || undefined}
+            isEditing={true}
             name={
-              <input
-                className="guestbookEntryName"
-                type="text"
-                placeholder="your name..."
-                maxLength={20}
-                value={name || ""}
-                onChange={(e) => setName(e.target.value)}
+              <div
                 style={{
-                  color: window?.cursors?.color,
+                  display: "flex",
+                  gap: "0.2em",
+                  flexDirection: "column",
+                  width: "100%",
                 }}
-              />
+              >
+                <input
+                  className="guestbookEntryName"
+                  type="text"
+                  placeholder="your name..."
+                  maxLength={20}
+                  value={name || ""}
+                  onChange={(e) => setName(e.target.value)}
+                  style={{
+                    color: window?.cursors?.color,
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="your website (optional)..."
+                  maxLength={100}
+                  value={website || ""}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  style={{
+                    padding: "0.3em",
+                    border: "1px solid var(--color-text-color)",
+                    borderRadius: "4px",
+                    backgroundColor: "var(--color-neutral-background)",
+                    color: "var(--color-text-color)",
+                    fontSize: "0.9em",
+                    width: "100%",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
             }
             message={
               <textarea
@@ -199,6 +262,7 @@ export const GuestbookImpl = withSharedState(
                 style={{
                   minHeight: "200px",
                   width: "100%",
+                  boxSizing: "border-box",
                 }}
                 value={message || ""}
                 onChange={(e) => setMessage(e.target.value)}
