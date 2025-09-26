@@ -29,7 +29,7 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
     <script is:inline>
       (async function () {
         const savedPreference = sessionStorage.getItem("darkMode");
-        
+
         if (savedPreference) {
           // Use saved preference if exists
           if (savedPreference === "dark") {
@@ -47,16 +47,16 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
           if (timezone) {
             // Get current time in Spencer's timezone
             const now = new Date();
-            const timeInTimezone = new Intl.DateTimeFormat('en-US', {
+            const timeInTimezone = new Intl.DateTimeFormat("en-US", {
               timeZone: timezone,
-              hour: 'numeric',
-              hour12: false
+              hour: "numeric",
+              hour12: false,
             }).format(now);
-            
+
             const hour = parseInt(timeInTimezone);
             // Dark mode between 7 PM (19) and 7 AM (7)
             const isNightTime = hour >= 19 || hour < 7;
-            
+
             if (isNightTime) {
               document.documentElement.classList.add("dark-mode");
             }

@@ -7,7 +7,7 @@ import { CreationsView } from "../components/views/CreationsView";
 import Signature from "../components/Signature";
 import Status from "../components/Status.astro";
 
-// Manually calculat forthcoming because the date is changing
+// Manually calculate forthcoming because the date is changing
 const creations = (await getCollection("creation"))
   .filter(
     (c) =>
@@ -56,6 +56,7 @@ const creations = (await getCollection("creation"))
             id="lamp-akari"
             src="/assets/akari-22n.png"
             can-toggle
+            shared
           />
         </Footnote>
         <p>

@@ -17,12 +17,47 @@ function randomColor() {
   return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, .4)`;
 }
 
-const friendsData: Friend[] =
-  (await fetch(
-    "https://raw.githubusercontent.com/spencerc99/poeticomp-friends/main/webring.json"
-  )
-    .then((c) => c.json())
-    .catch((err) => console.error(err))) || [];
+const webring = [
+  {
+    url: "https://kayserifserif.place/",
+    name: "katherine",
+  },
+  {
+    url: "https://henry.codes",
+    name: "henry",
+  },
+  {
+    url: "https://leiac.me/",
+    name: "leia",
+  },
+  {
+    url: "https://liuleslie.github.io",
+    name: "leslie",
+  },
+  {
+    url: "https://mangotango.mmm.page",
+    name: "alicia",
+  },
+  {
+    url: "https://jzhao.xyz",
+    name: "jacky",
+  },
+  {
+    url: "https://cloudlord.management/",
+    name: "kristoffer",
+  },
+  {
+    url: "https://www.boboland.xyz/",
+    name: "shaobo",
+  },
+  {
+    url: "https://www.matthewsiu.com/",
+    name: "matt",
+  },
+  { url: "https://elan.place/", name: "elan" },
+];
+
+const friendsData: Friend[] = webring;
 ---
 
 <div id="friends">
