@@ -1,0 +1,79 @@
+@import "../styles/global.scss";
+@import "../styles/variables.scss";
+
+.popover-trigger {
+  display: inline-flex;
+}
+
+.popover-content {
+  position: relative;
+  background: var(--color-background-lavender);
+  border: double;
+  color: var(--color-text-color);
+  box-shadow: 0 2px 10px var(--color-box-shadow);
+  width: fit-content;
+  min-width: 150px;
+
+  &.popover-fixed {
+    position: fixed;
+    z-index: 9999;
+  }
+
+  &.popover-bottom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    z-index: 10;
+  }
+
+  &.popover-top {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 4px;
+    z-index: 10;
+  }
+
+  &.popover-left {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    margin-right: 4px;
+    z-index: 10;
+  }
+
+  &.popover-right {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin-left: 4px;
+    z-index: 10;
+  }
+}
+
+.popover-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-color);
+  font-size: 18px;
+  line-height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  font-family: monospace;
+
+  &:hover {
+    opacity: 1;
+  }
+}

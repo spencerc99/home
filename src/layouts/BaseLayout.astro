@@ -105,13 +105,23 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
 
     <div id="snackbar" transition:persist></div>
 
-    <script
-      src="https://cursor-party.spencerc99.partykit.dev/cursors.js"
-      is:inline
-      data-astro-rerun></script>
     <script type="module" is:inline data-astro-rerun>
       import { playhtml } from "https://unpkg.com/playhtml@latest";
-      playhtml.init();
+      playhtml.init({
+        cursors: {
+          enabled: true,
+          room: "domain",
+          getCursorStyle: (presence) => {
+            if (presence.page !== window.location.pathname) {
+              return {
+                opacity: "0.7",
+                filter: "blur(2px)",
+              };
+            }
+            return {};
+          },
+        },
+      });
     </script>
 
     <link

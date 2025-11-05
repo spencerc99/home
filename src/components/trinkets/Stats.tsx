@@ -1,9 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { CursorPopoverContent } from "./CursorPopover";
+import { Popover } from "../Popover";
+import { trackVisit } from "../../utils/roles";
 
 // Define types for the cursor system
 interface CursorSystem {
   allColors: string[];
   count: number;
+  name: string;
   color: string;
   on: (event: string, callback: (data: any) => void) => void;
   off: (event: string, callback: (data: any) => void) => void;
@@ -18,7 +22,6 @@ declare global {
 
 export function Stats() {
   const [visitors, setVisitors] = useState<Array<string>>([]);
-  const [cursorColor, setCursorColor] = useState("#000000");
   // counts up every millisecond
   const startTime = new Date().getTime();
   //  in seconds rounded to 1 place
@@ -26,6 +29,9 @@ export function Stats() {
   const [deviceBattery, setDeviceBattery] = useState(100);
 
   useEffect(() => {
+    // Track visit on component mount
+    trackVisit();
+
     let checkInterval: number | null = null;
     let isSubscribed = false;
 
@@ -36,25 +42,18 @@ export function Stats() {
 
       // Set initial values
       setVisitors(cursors.allColors);
-      setCursorColor(cursors.color);
 
       // Handle cursor updates
       const handleCursorUpdate = (colors: string[]) => {
         setVisitors(colors);
       };
 
-      const handleColorUpdate = (color: string) => {
-        setCursorColor(color);
-      };
-
       // Subscribe to events
       cursors.on("allColors", handleCursorUpdate);
-      cursors.on("color", handleColorUpdate);
 
       // Return cleanup function
       return () => {
         cursors.off("allColors", handleCursorUpdate);
-        cursors.off("color", handleColorUpdate);
         isSubscribed = false;
       };
     };
@@ -161,53 +160,62 @@ const CursorColor = ({
   color: string;
   isFirst?: boolean;
 }) => {
-  const [internalColor, setInternalColor] = useState(color);
-  return (
-    <div className="relative inline-block">
-      {isFirst && (
-        <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
-          you
-        </span>
-      )}
-      {isFirst ? (
-        <div
-          className="relative"
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            display: "inline-block",
-            backgroundColor: color,
-          }}
-        >
-          <input
-            type="color"
-            value={color}
-            // trigger when user closes the color picker
-            onChange={(e) => {
-              setInternalColor(e.target.value);
-            }}
-            onBlur={() => {
-              if (window.cursors) {
-                if (internalColor !== color) {
-                  window.cursors.color = internalColor;
-                }
-              }
-            }}
-            style={{
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              display: "inline-block",
-              opacity: 0,
-              backgroundColor: color,
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          />
-        </div>
-      ) : (
+  const normalizeColorToHex = (colorStr: string): string => {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return colorStr;
+
+    ctx.fillStyle = colorStr;
+    return ctx.fillStyle;
+  };
+
+  const [internalColor, setInternalColor] = useState(() =>
+    normalizeColorToHex(color)
+  );
+  const [showPopover, setShowPopover] = useState(false);
+  const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
+  const dotRef = React.useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setInternalColor(normalizeColorToHex(color));
+  }, [color]);
+
+  useEffect(() => {
+    if (!showPopover) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dotRef.current && !dotRef.current.contains(event.target as Node)) {
+        const popoverElement = document.querySelector(".popover-content");
+        if (popoverElement && !popoverElement.contains(event.target as Node)) {
+          setShowPopover(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPopover]);
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!isFirst) return;
+
+    e.stopPropagation();
+    const rect = dotRef.current?.getBoundingClientRect();
+    if (rect) {
+      setPopoverPosition({
+        x: rect.left,
+        y: rect.top - 4,
+      });
+      setShowPopover(!showPopover);
+    }
+  };
+
+  if (!isFirst) {
+    return (
+      <div className="relative inline-block">
         <div
           style={{
             width: "8px",
@@ -217,7 +225,36 @@ const CursorColor = ({
             backgroundColor: color,
           }}
         />
-      )}
-    </div>
+      </div>
+    );
+  }
+
+  return (
+    <Popover
+      trigger="manual"
+      isOpen={showPopover}
+      onOpenChange={setShowPopover}
+      position="fixed"
+      fixedPosition={popoverPosition}
+      showCloseButton={true}
+    >
+      <div className="relative inline-block" ref={dotRef}>
+        <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
+          you
+        </span>
+        <div
+          onClick={handleClick}
+          className="cursor-pointer"
+          style={{
+            width: "8px",
+            height: "8px",
+            borderRadius: "50%",
+            display: "inline-block",
+            backgroundColor: color,
+          }}
+        />
+      </div>
+      <CursorPopoverContent color={color} />
+    </Popover>
   );
 };
