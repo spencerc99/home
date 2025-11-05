@@ -107,7 +107,9 @@ export const GuestbookImpl = withSharedState(
       "username",
       null,
       (newName) => {
-        window.cursors?.setName(newName);
+        if (window.cursors) {
+          window.cursors.name = newName;
+        }
       }
     );
     const [website, setWebsite] = useStickyState<string | null>(
