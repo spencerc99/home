@@ -1,0 +1,46 @@
+{
+  "title": "Internet Sculptures",
+  "subtext": "a brand & store for handmade computing-infused objects",
+  "descriptionMd": "Internet Sculptures is a small brand that designs, produces, and sells interactive sculptures that originate in Spencer Chang’s art practice.\n&nbsp;\nWe focus on combining playful and functional digital experiences with beautiful art objects to create sites of whimsical ritual in a home. Our design philosophy plays with the everyday tasks and small moments that make up our lives, honoring them in a ritual-specific sculpture.\n&nbsp;\nWe're inspired by toys that feel magical (like interactive Gacha items) and functional sculptures (like Isamu Noguchi's Akari & Yoshitomo Nara's clock) to create beautiful objects with playful twists on everyday function.\n&nbsp;\n- Several sold out drops on independent online store in 1 year of opening\n- Featured in the New Museum store, Rhizome.org’s holiday guide, FWB’s Winter Bazaar, among others.\n- Over 2M+ views across social platforms\n&nbsp;\nSee al[l Computing-Infused Object experiments](https://spencer.place/creation/computing-infused-objects).",
+  "parentCategory": "Project",
+  "categories": [
+    "Object",
+    "Website"
+  ],
+  "date": "2024-09-25T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-j8sLpuaLn8/eea4912d3c1269d69dff02565c8f9c43eca3b7ff7512ce31832159b45a76d187ce11ea2e0657af52126abe882f52b03c7549b87aaf5741c407e026307381ef562ba4bfda00af6a0e88a19e382c4acb5517091e0dff18bb3b22361abdf61ecaf8b1b96d42",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-j8sLpuaLn8/eea4912d3c1269d69dff02565c8f9c43eca3b7ff7512ce31832159b45a76d187ce11ea2e0657af52126abe882f52b03c7549b87aaf5741c407e026307381ef562ba4bfda00af6a0e88a19e382c4acb5517091e0dff18bb3b22361abdf61ecaf8b1b96d42",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-OFtlM5FXWU/82c922bf71a86f7ee8c098118326def9a9588f572dcdf61f1b64ac4c16a750a18c7e511f31381a26d7da016789238b7dec80af288d944a8591e1c135b8fa14eb0784232a61bd08bcb606bbaffdbbafb7e167b6f2c68a90f29408b6abf76c14abfc9585b2",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jihBih8v7_/2bbcc643195fb85c90ac6f074a62c8c387c4486fd04df8f7c3c07638e7d5be78b042fc3f004d3b4e0a3b3e5522a3ecad4e175f6dceefbdce482cb69f2b66930cb1365f83a4c383431befeb4a294f18e1213edaf03895fe6329519b532874db56a9bc7f75",
+    "/creation-videos/bl-abaFoB0oPY.mp4",
+    "/creation-videos/bl-PkmObpZzQs.mp4"
+  ],
+  "link": "https://objects.spencer.place/",
+  "ongoing": true,
+  "forthcoming": false,
+  "featured": true,
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "video",
+    "video"
+  ],
+  "related": [
+    {
+      "title": "Computing-Infused Objects",
+      "slug": "computing-infused-objects",
+      "link": "https://x.com/spencerc99/status/1818721711858368890",
+      "parentCategory": "Project"
+    }
+  ]
+}
