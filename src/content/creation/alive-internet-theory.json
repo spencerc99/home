@@ -8,11 +8,11 @@
     "Art"
   ],
   "date": "2025-11-01T07:00:00.000Z",
-  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-PXj_WN0Hpb/6fdeed4e5833b54aa5877c67048c99327b4466d0c6dfea3598fd3d177f7ff36850ce6381ebf6e19a602a6f7cc0f2b2eb54687a5d22c3dd6bf8c9a53899b5ed7ea9ca6db41ceb804571b90bcb6e33ba2e96b5839158aedd18d49bd2f880c8ad8b61ebe6bd",
+  "heroImage": "/creation-videos/bl-WMZO6IlYNO.mp4",
   "media": [
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-PXj_WN0Hpb/6fdeed4e5833b54aa5877c67048c99327b4466d0c6dfea3598fd3d177f7ff36850ce6381ebf6e19a602a6f7cc0f2b2eb54687a5d22c3dd6bf8c9a53899b5ed7ea9ca6db41ceb804571b90bcb6e33ba2e96b5839158aedd18d49bd2f880c8ad8b61ebe6bd",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rxA1SNC9RC/5054c23e33d1761df4650a2ffac38324890950b085532e7c2830092ce6c7abe94cef20cfc64f1915c088f4dbba63ea3aac42d612d89a8637e60a74f1e03c70b5714aa7060d44aaa68d103ef05da35ba3e1e4f915a15bbfb43f15b40df40ea10091b2959c",
     "/creation-videos/bl-WMZO6IlYNO.mp4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rxA1SNC9RC/5054c23e33d1761df4650a2ffac38324890950b085532e7c2830092ce6c7abe94cef20cfc64f1915c088f4dbba63ea3aac42d612d89a8637e60a74f1e03c70b5714aa7060d44aaa68d103ef05da35ba3e1e4f915a15bbfb43f15b40df40ea10091b2959c",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-PXj_WN0Hpb/6fdeed4e5833b54aa5877c67048c99327b4466d0c6dfea3598fd3d177f7ff36850ce6381ebf6e19a602a6f7cc0f2b2eb54687a5d22c3dd6bf8c9a53899b5ed7ea9ca6db41ceb804571b90bcb6e33ba2e96b5839158aedd18d49bd2f880c8ad8b61ebe6bd",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3vC19v_tda/5e050c6cb5c3938331e86cd91f9c384bce33d4760e8295ef93afe365c6ff42b532eb0fb99062d605932390702333f694fe699926dcda0a3a6ba4c79f8e0415bfb361fdce254b73f7a106fe02935b00f96f4a8ffa02c4cc1cea12a33ecd6f4d754bbe52b6",
     "/creation-videos/bl-7hwugEkYdb.mp4",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GhcKPa26xd/ce264e8d666649421e7d7d20c00d2f077b1abf5728d904742e7e84ae98630cdfbe30f8df9c2cfc2c362016cdf5bdc26ee1b3fb4a9d29f589e9982bf6288f0ab0569b7752eb99c559d96b836f2c189c93c5debf282a6faa16508f4cd8e1a8088757d12f73",
@@ -37,9 +37,9 @@
   ],
   "isEvent": false,
   "mediaMetadata": [
-    "image",
-    "image",
     "video",
+    "image",
+    "image",
     "image",
     "video",
     "image",
