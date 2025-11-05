@@ -1,0 +1,22 @@
+{
+  "title": "Distant Gallery Festival",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Art"
+  ],
+  "date": "2025-11-01T07:00:00.000Z",
+  "heroImage": "https://distant.gallery/favicon.ico",
+  "media": [
+    "https://distant.gallery/favicon.ico"
+  ],
+  "link": "https://distant.gallery/trillionth-webpage",
+  "ongoing": false,
+  "forthcoming": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": []
+}
