@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 80%;
 
     .timestamp {
@@ -22,21 +22,58 @@
       }
     }
 
-    .category-badge {
-      background: var(--color-text-highlight);
-      color: var(--color-text-color);
-      padding: 0.2em 0.6em;
-      border-radius: 4px;
+    .category-link,
+    .category-text {
       font-size: 0.8em;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
+
+    .category-link {
+      color: var(--color-text-accent);
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .category-text {
+      color: var(--color-text-color);
+      opacity: 0.8;
+    }
+  }
+
+  .status-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   .title {
-    margin-bottom: 1rem;
-    font-weight: bold;
+    flex: 1;
     color: var(--color-text-color);
+  }
+
+  .title-link {
+    flex: 1;
+    color: var(--color-text-accent);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .preview-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
   }
 
   .status-text {
@@ -52,29 +89,6 @@
       &:hover {
         opacity: 0.8;
       }
-    }
-  }
-
-  .status-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    color: var(--color-text-accent);
-    text-decoration: none;
-    font-size: 0.7rem;
-    padding: 0.3em 0.6em;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    background: var(--color-neutral-background-hover);
-    letter-spacing: -0.3px;
-
-    .link-icon {
-      font-size: 1.1em;
-    }
-
-    &:hover {
-      background: var(--color-text-highlight);
     }
   }
 }

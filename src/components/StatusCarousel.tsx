@@ -10,6 +10,7 @@ interface StatusItem {
   what: string;
   link?: string;
   emoji: string;
+  previewImg?: string;
 }
 
 function formatDate(date: Date) {
@@ -25,6 +26,13 @@ function formatDate(date: Date) {
     .replace("/", ".");
 }
 
+function getCategoryLink(category: string): string | null {
+  const categoryLower = category.toLowerCase();
+  if (categoryLower === "writing") return "/posts";
+  if (categoryLower === "building") return "/creations";
+  return null;
+}
+
 function StatusItemView({
   date,
   birthdayEpoch,
@@ -32,7 +40,10 @@ function StatusItemView({
   what,
   link,
   emoji,
+  previewImg,
 }: StatusItem) {
+  const categoryLink = getCategoryLink(category);
+
   return (
     <div className="status-card">
       <div className="header">
@@ -45,21 +56,31 @@ function StatusItemView({
             <span className="epoch">{birthdayEpoch}</span>
           </div>
         </Footnote>
-        <div className="category-badge">
-          {emoji} {category}
-        </div>
+        {categoryLink ? (
+          <a href={categoryLink} className="category-link">
+            {emoji} {category}
+          </a>
+        ) : (
+          <span className="category-text">
+            {emoji} {category}
+          </span>
+        )}
       </div>
-      <div className="title">{what}</div>
-      {link && (
-        <a
-          href={link}
-          className="status-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {new URL(link).hostname}
-        </a>
-      )}
+      <div className="status-content">
+        {link ? (
+          <a
+            href={link}
+            className="title-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {what}
+          </a>
+        ) : (
+          <div className="title">{what}</div>
+        )}
+        {previewImg && <img src={previewImg} alt="" className="preview-img" />}
+      </div>
     </div>
   );
 }

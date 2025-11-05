@@ -16,9 +16,9 @@ export function NowBlock() {
         </span>
       </div>
       <p>
-        - Creating a public art version of{" "}
+        - Creating a public art
         <a href="/creation/computing-shrines">computing shrines</a> for display
-        in San Francisco 2026...
+        in 2026...
       </p>
       <p>
         - Making the{" "}
@@ -26,7 +26,9 @@ export function NowBlock() {
         product.
       </p>
       <p>
-        - Learning how to reach people and tell stories through social media.
+        - Shaping culture through{" "}
+        <a href="https://www.instagram.com/spence.r.chang/">social</a>{" "}
+        <a href="https://x.com/spencerc99">media</a>.
       </p>
       <p>
         - Creating infrastructure for{" "}
