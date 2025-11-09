@@ -94,7 +94,7 @@ export function StatusCarousel({ items }: StatusCarouselProps) {
     <Carousel
       items={items}
       renderItem={(item) => <StatusItemView {...item} />}
-      middleText="SPENCER.STATUS.v1"
+      middleText="SPENCER'S STATUS"
     />
   );
 }
