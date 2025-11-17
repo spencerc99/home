@@ -15,15 +15,18 @@ export function NowBlock() {
           Updated 09-06-25
         </span>
       </div>
+
       <p>
-        - Creating a public art
-        <a href="/creation/computing-shrines">computing shrines</a> for display
-        in 2026...
+        - Releasing the{" "}
+        <a href="https://internetsculptures.com/object/phone-pillow">
+          Phone Pillow
+        </a>
+        , a pillow for your phone to rest and for you to take a break from your
+        phone.
       </p>
       <p>
-        - Making the{" "}
-        <a href="/creation/computing-infused-objects">Phone Pillow</a> a real
-        product.
+        - Watching the front page of Hacker News discuss{" "}
+        <a href="/creation/alive-internet-theory">alive internet theory</a>
       </p>
       <p>
         - Shaping culture through{" "}
@@ -31,7 +34,7 @@ export function NowBlock() {
         <a href="https://x.com/spencerc99">media</a>.
       </p>
       <p>
-        - Creating infrastructure for{" "}
+        - Making a game for the internet filled with{" "}
         <a href="/creation/playhtml">tiny social networks</a>
       </p>
       <p>
