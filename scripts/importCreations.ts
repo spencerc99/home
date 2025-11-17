@@ -255,6 +255,7 @@ export interface CodaItem {
   featured: boolean;
   isEvent: boolean;
   assetPreviewIdx?: number;
+  institution?: string[];
   // TODO: handle related, they will be given as a list of creation titles, we have to map those to the actual creation that is somewhere else in the list to 'hydrate' them and then use that logic to separate them into ones that are "press" vs ones that are "project" and get their internal & external links
   related: string[];
 }
@@ -407,6 +408,7 @@ async function importCreations() {
         categories: item.specificCategory || [],
         date,
         endDate: item.endDate ? new Date(item.endDate) : null,
+        institution: item.institution,
         heroImage: finalMedia[0],
         media: finalMedia,
         movieUrl: transformedMovieUrl,

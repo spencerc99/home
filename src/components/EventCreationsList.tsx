@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import "./EventCreationsList.scss";
 import React from "react";
-import { formatDateRange } from "../utils";
+import { formatCompactDateRange } from "../utils";
 
 export function EventCreationsList({
   creations,
@@ -11,47 +11,58 @@ export function EventCreationsList({
   return (
     <ul
       id="EventCreations"
-      className="mono"
       style={{
         fontSize: "16px",
         display: "flex",
         flexDirection: "row",
         flexWrap: "wrap",
         width: "100%",
-        gap: ".25rem",
+        gap: ".5rem",
       }}
     >
       {creations.map((creation) => (
         <li
           key={creation.id}
           style={{
+            width: "100%",
             maxWidth: "400px",
-            minWidth: "250px",
+            minWidth: "300px",
             flex: "1 1 0",
-            margin: "0 .5rem",
+            margin: ".25rem .5rem",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {creation.date && (
-            <>
-              <b>
-                {creation.endDate
-                  ? formatDateRange(
-                      new Date(creation.date),
-                      new Date(creation.endDate)
-                    )
-                  : creation.date.toLocaleDateString("en-us", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-              </b>
-              :{" "}
-            </>
+            <span
+              className="mono"
+              style={{ whiteSpace: "nowrap", fontSize: "14px" }}
+            >
+              <b>{creation.location && `[${creation.location}] `}</b>
+              {formatCompactDateRange(
+                new Date(creation.date),
+                creation.endDate ? new Date(creation.endDate) : null
+              )}
+              {/* {creation.institution && (
+                <span
+                  style={{
+                    whiteSpace: "nowrap",
+                    fontSize: "14px",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  {" "}
+                  {creation.institution.join(", ")}
+                </span>
+              )} */}
+            </span>
           )}
-          <a href={creation.link}>{creation.title}</a>
-          {creation.subtext && (
-            <p className="descriptionText"> {creation.subtext}</p>
-          )}
+          <p>
+            <a href={creation.link}>{creation.title}</a>
+            {creation.subtext && (
+              <span className="descriptionText"> {creation.subtext}</span>
+            )}
+          </p>
         </li>
       ))}
     </ul>

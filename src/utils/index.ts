@@ -56,3 +56,47 @@ export function formatDateRange(startDate: Date, endDate: Date) {
     year: "numeric",
   })}`;
 }
+
+/**
+ * Formats a date or date range in a compact numeric format (MM/DD or MM/DD-MM/DD)
+ * Uses 2-digit years (25/26) and includes year when needed
+ * Format examples: "12/10-12/12" or "12/10/25-01/10/26"
+ */
+export function formatCompactDateRange(
+  startDate: Date,
+  endDate?: Date | null
+): string {
+  const currentYear = new Date().getFullYear();
+  const startYear = startDate.getFullYear();
+  const startYearShort = startYear % 100; // Get last 2 digits
+  const startMonth = startDate.getMonth() + 1; // getMonth() returns 0-11
+  const startDay = startDate.getDate();
+
+  if (!endDate) {
+    // Single date - include year if not current year
+    const yearSuffix =
+      startYear !== currentYear ? `/${startYearShort}` : "";
+    return `${startMonth}/${startDay}${yearSuffix}`;
+  }
+
+  const endYear = endDate.getFullYear();
+  const endYearShort = endYear % 100;
+  const endMonth = endDate.getMonth() + 1;
+  const endDay = endDate.getDate();
+
+  // Same year
+  if (startYear === endYear) {
+    const yearSuffix =
+      startYear !== currentYear ? `/${startYearShort}` : "";
+    
+    // Same month
+    if (startMonth === endMonth) {
+      return `${startMonth}/${startDay}-${endDay}${yearSuffix}`;
+    }
+    // Different months, same year
+    return `${startMonth}/${startDay}-${endMonth}/${endDay}${yearSuffix}`;
+  }
+
+  // Different years - include 2-digit year for both
+  return `${startMonth}/${startDay}/${startYearShort}-${endMonth}/${endDay}/${endYearShort}`;
+}

@@ -12,11 +12,11 @@
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-j8sLpuaLn8/eea4912d3c1269d69dff02565c8f9c43eca3b7ff7512ce31832159b45a76d187ce11ea2e0657af52126abe882f52b03c7549b87aaf5741c407e026307381ef562ba4bfda00af6a0e88a19e382c4acb5517091e0dff18bb3b22361abdf61ecaf8b1b96d42",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-OFtlM5FXWU/82c922bf71a86f7ee8c098118326def9a9588f572dcdf61f1b64ac4c16a750a18c7e511f31381a26d7da016789238b7dec80af288d944a8591e1c135b8fa14eb0784232a61bd08bcb606bbaffdbbafb7e167b6f2c68a90f29408b6abf76c14abfc9585b2",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jihBih8v7_/2bbcc643195fb85c90ac6f074a62c8c387c4486fd04df8f7c3c07638e7d5be78b042fc3f004d3b4e0a3b3e5522a3ecad4e175f6dceefbdce482cb69f2b66930cb1365f83a4c383431befeb4a294f18e1213edaf03895fe6329519b532874db56a9bc7f75",
     "/creation-videos/bl-abaFoB0oPY.mp4",
-    "/creation-videos/bl-PkmObpZzQs.mp4"
+    "/creation-videos/bl-PkmObpZzQs.mp4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jihBih8v7_/2bbcc643195fb85c90ac6f074a62c8c387c4486fd04df8f7c3c07638e7d5be78b042fc3f004d3b4e0a3b3e5522a3ecad4e175f6dceefbdce482cb69f2b66930cb1365f83a4c383431befeb4a294f18e1213edaf03895fe6329519b532874db56a9bc7f75"
   ],
-  "link": "https://objects.spencer.place/",
+  "link": "https://internetsculptures.com/",
   "ongoing": true,
   "forthcoming": false,
   "featured": true,
@@ -31,9 +31,9 @@
   "mediaMetadata": [
     "image",
     "image",
-    "image",
     "video",
-    "video"
+    "video",
+    "image"
   ],
   "related": [
     {

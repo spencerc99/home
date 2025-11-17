@@ -1329,18 +1329,18 @@ ul.noPadding {
     display: flex;
     align-items: center;
     gap: 1em;
-    
+
     @include media(xsmallScreen, smallScreen) {
       flex-direction: column;
       gap: 0.5em;
     }
-    
+
     & > img,
     & > div {
       max-height: 300px;
       max-width: 500px;
       object-fit: cover;
-      
+
       @include media(xsmallScreen, smallScreen) {
         max-width: 100%;
         width: 100%;
@@ -2074,7 +2074,6 @@ hr.separator {
 .descriptionText {
   margin-top: 4px;
   font-size: 0.75em;
-  @extend .mono;
   color: var(--color-text-muted);
   line-height: 1.2;
 }

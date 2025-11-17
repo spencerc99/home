@@ -1,0 +1,22 @@
+{
+  "title": "Future Vision Summit",
+  "subtext": "the future of society and the economy through vision-making through art",
+  "parentCategory": "Exhibition",
+  "categories": ["Art"],
+  "date": "2025-12-10T08:00:00.000Z",
+  "endDate": "2025-12-12T08:00:00.000Z",
+  "location": "Tokyo",
+  "heroImage": "https://marunouchi.g.kuroco-img.app/v=1763098205/files/topics/8323_ext_2_0.png?width=1200&height=630&fit=bounds&format=png",
+  "media": [
+    "https://marunouchi.g.kuroco-img.app/v=1763098205/files/topics/8323_ext_2_0.png?width=1200&height=630&fit=bounds&format=png"
+  ],
+  "link": "https://www.marunouchi.com/en/pickup/event/8323/",
+  "ongoing": false,
+  "forthcoming": true,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": ["image"],
+  "related": [],
+  "institution": ["Tokyo Geidai"]
+}

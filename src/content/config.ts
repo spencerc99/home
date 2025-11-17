@@ -61,6 +61,8 @@ export const creationSchema = z.object({
   categories: z.array(z.string()),
   date: z.coerce.date().nullable(),
   endDate: z.coerce.date().nullable().optional(),
+  location: z.string().optional(),
+  institution: z.array(z.string()).optional(),
   heroImage: z.string().optional(),
   media: z.array(z.string()).optional(),
   imageDescriptions: z.array(z.string()).optional(),

@@ -1,0 +1,30 @@
+#EventCreations {
+  li {
+    // Ensure all items have consistent sizing
+    align-self: stretch;
+    
+    // Prevent the date/location line from breaking
+    > b {
+      display: inline-block;
+      white-space: nowrap;
+    }
+    
+    // Make sure the content inside doesn't overflow
+    > * {
+      flex-shrink: 0;
+    }
+    
+    // Ensure description text doesn't cause height differences
+    .descriptionText {
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+    
+    // Style the links
+    > a {
+      margin-top: 0.25rem;
+      display: inline-block;
+    }
+  }
+}
+
