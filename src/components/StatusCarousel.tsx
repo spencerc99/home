@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "./Carousel";
 import { Footnote } from "./Footnote";
 import "./StatusCarousel.scss";
@@ -85,11 +85,31 @@ function StatusItemView({
   );
 }
 
-interface StatusCarouselProps {
-  items: StatusItem[] | null;
-}
+export function StatusCarousel() {
+  const [items, setItems] = useState<StatusItem[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-export function StatusCarousel({ items }: StatusCarouselProps) {
+  useEffect(() => {
+    fetch("https://status.spencer.place/me")
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="status-loading">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <Carousel
       items={items}
