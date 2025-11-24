@@ -2,11 +2,16 @@
 import { getCollection } from 'astro:content';
 import {EventsView} from "../components/views/EventsView";
 import DetailLayout from '../layouts/DetailLayout.astro';
+import { hydrateCreations } from "../utils/creations";
 
-const events = (await getCollection('creation')).filter(creation => creation.data.isEvent).sort(
-	(a, b) =>   a.data.forthcoming === b.data.forthcoming ? new Date(b.data.date).getTime() - new Date(a.data.date).getTime() : a.data.forthcoming ? -1 : 1
-  
-);
+const events = hydrateCreations(await getCollection('creation'))
+	.filter(creation => creation.data.isEvent)
+	.sort((a, b) => {
+		if (a.data.forthcoming !== b.data.forthcoming) {
+			return a.data.forthcoming ? -1 : 1;
+		}
+		return new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime();
+	});
 
 const LayoutProps = {
     // title: "(creations)",

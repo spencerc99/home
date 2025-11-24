@@ -6,17 +6,18 @@ interface Props {
   events: Array<
     CollectionEntry<"creations">["data"] & {
       id: string;
+      forthcoming: boolean;
     }
   >;
 }
 
 export function EventsView({ events }: Props) {
   const upcomingEvents = useMemo(
-    () => events.filter((creation) => creation.data.forthcoming),
+    () => events.filter((creation) => creation.forthcoming),
     [events]
   );
   const pastEvents = useMemo(
-    () => events.filter((creation) => !creation.data.forthcoming),
+    () => events.filter((creation) => !creation.forthcoming),
     [events]
   );
 

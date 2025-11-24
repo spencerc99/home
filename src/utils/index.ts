@@ -58,6 +58,22 @@ export function formatDateRange(startDate: Date, endDate: Date) {
 }
 
 /**
+ * Determines if an event is currently happening or upcoming based on its end date.
+ * An event is considered forthcoming if it hasn't ended yet (endDate is in the future),
+ * or if it has no endDate, then if the start date is in the future.
+ */
+export function isEventForthcoming(
+  date: Date | null,
+  endDate?: Date | null
+): boolean {
+  const now = new Date();
+  // Use end date if available, otherwise use start date
+  const relevantDate = endDate || date;
+  if (!relevantDate) return false;
+  return relevantDate > now;
+}
+
+/**
  * Formats a date or date range in a compact numeric format (MM/DD or MM/DD-MM/DD)
  * Uses 2-digit years (25/26) and includes year when needed
  * Format examples: "12/10-12/12" or "12/10/25-01/10/26"
@@ -88,7 +104,7 @@ export function formatCompactDateRange(
   if (startYear === endYear) {
     const yearSuffix =
       startYear !== currentYear ? `/${startYearShort}` : "";
-    
+
     // Same month
     if (startMonth === endMonth) {
       return `${startMonth}/${startDay}-${endDay}${yearSuffix}`;

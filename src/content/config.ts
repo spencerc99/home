@@ -71,7 +71,7 @@ export const creationSchema = z.object({
   movieUrl: z.string().optional(),
   movieEmbed: z.string().optional(),
   ongoing: z.boolean().default(false),
-  forthcoming: z.boolean().default(false),
+  forthcoming: z.boolean().optional(), // Computed at runtime via hydrateCreations
   featured: z.boolean().default(false),
   assetPreviewIdx: z.number().default(0),
   isEvent: z.boolean().default(false),

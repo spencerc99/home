@@ -250,7 +250,6 @@ export interface CodaItem {
   movieEmbed: string;
   featuredArt: boolean;
   Materials: string;
-  forthcoming: boolean;
   ongoing: boolean;
   featured: boolean;
   isEvent: boolean;
@@ -416,7 +415,6 @@ async function importCreations() {
         link: item.link,
         materials: item.Materials,
         ongoing: item.ongoing,
-        forthcoming: item.forthcoming || date > new Date(),
         featured: item.featured,
         assetPreviewIdx: item.assetPreviewIdx,
         imageDescriptions: item.imageDescriptions || [],

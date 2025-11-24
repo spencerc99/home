@@ -10,7 +10,7 @@ import "../styles/feed.scss";
 import { getCollection } from "astro:content";
 import { CreationsCarousel } from "../components/views/Carousels";
 import type { CollectionEntry } from "astro:content";
-import { CreationCategory } from "../utils/creations";
+import { CreationCategory, hydrateCreations } from "../utils/creations";
 import { CreationsView } from "../components/views/CreationsView";
 
 const LayoutProps = {
@@ -28,7 +28,7 @@ const posts = ((await getCollection("posts")) || [])
   .filter((post) => !post.data.hidden && !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const creations = await getCollection("creation");
+const creations = hydrateCreations(await getCollection("creation"));
 
 const sortedCreations = creations
   .filter((c) => Boolean(c.data.parentCategory))
@@ -37,12 +37,12 @@ const sortedCreations = creations
     // otherwise if one is forthcoming, it comes first
     // otherwise, sort by date descending
     if (a.data.forthcoming && b.data.forthcoming) {
-      return a.data.date.valueOf() - b.data.date.valueOf();
+      return (a.data.date?.valueOf() || 0) - (b.data.date?.valueOf() || 0);
     }
     if (a.data.forthcoming || b.data.forthcoming) {
       return a.data.forthcoming ? -1 : 1;
     }
-    return b.data.date.valueOf() - a.data.date.valueOf();
+    return (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0);
   });
 
 const groupedCreations = sortedCreations.reduce((acc, creation) => {

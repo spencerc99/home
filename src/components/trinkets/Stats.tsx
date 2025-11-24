@@ -125,15 +125,11 @@ export function Stats() {
           ({visitors.length})
         </span>
         :{" "}
-        <div className="flex gap-[2px] inline-flex">
-          {visitors.map((color, index) => {
-            const hasDuplicate = visitors.filter((c) => c === color).length > 1;
-            const key = hasDuplicate ? `${color}-${index}` : color;
-            return (
-              <CursorColor key={key} color={color} isFirst={index === 0} />
-            );
-          })}
-        </div>
+        {visitors.map((color, index) => {
+          const hasDuplicate = visitors.filter((c) => c === color).length > 1;
+          const key = hasDuplicate ? `${color}-${index}` : color;
+          return <CursorColor key={key} color={color} isFirst={index === 0} />;
+        })}
       </span>
       <span>
         time: <span>{time.toFixed(1)}m</span>
@@ -215,17 +211,15 @@ const CursorColor = ({
 
   if (!isFirst) {
     return (
-      <div className="relative inline-block">
-        <div
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            display: "inline-block",
-            backgroundColor: color,
-          }}
-        />
-      </div>
+      <span
+        style={{
+          width: "8px",
+          height: "8px",
+          borderRadius: "50%",
+          display: "inline-block",
+          backgroundColor: color,
+        }}
+      />
     );
   }
 
@@ -238,22 +232,25 @@ const CursorColor = ({
       fixedPosition={popoverPosition}
       showCloseButton={true}
     >
-      <div className="relative inline-block" ref={dotRef}>
+      <span
+        className="relative inline-block mr-[2px]"
+        ref={dotRef}
+        style={{ height: "8px" }}
+      >
         <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
           you
         </span>
-        <div
+        <span
           onClick={handleClick}
-          className="cursor-pointer"
+          className="cursor-pointer inline-block"
           style={{
             width: "8px",
             height: "8px",
             borderRadius: "50%",
-            display: "inline-block",
             backgroundColor: color,
           }}
         />
-      </div>
+      </span>
       <CursorPopoverContent color={color} />
     </Popover>
   );
