@@ -17,7 +17,7 @@ const creations = hydrateCreations(await getCollection("creation"))
   });
 
 const LayoutProps = {
-  description: "alignment check...",
+  description: "checking in with all my projects...",
   date: "2025-11-27",
   emojis: [],
   titleClass: "uniform",
@@ -29,12 +29,40 @@ const LayoutProps = {
     <div class="headerContainer textContent">
       <h1 class="uniform">(alignment)</h1>
     </div>
-    <em>checking in with my projects</em>
 
     <p>
-      A place to reflect on which projects feel aligned with my values and
-      identity.
+      Over pizzas with <a href="https://leiac.me/">Leia</a>, we were reflecting
+      on the things we made and how it's so hard to distill down the essential
+      question that makes your work "you." What does it look like and how do you
+      know when you've found it?
     </p>
+    <p>The answer is probably to make many many many more things.</p>
+    <p>
+      But it helps to have some scale to compare things against, so we came up
+      with some questions that could create useful contrast. For any <i>thing</i
+      > we've made, we can ask ourselves:
+    </p>
+    <ol class="list-decimal list-inside">
+      <li class="font-bold">Do I love this?</li>
+      <li class="font-bold">Does it feel like me?</li>
+      <li class="font-bold">
+        Do others resonate with it?
+        <em class="font-normal">(optionally, for external alignment)</em>
+      </li>
+    </ol>
+    <p>
+      The most immediate use is to complete this exercise for yourself. But, you
+      can also apply it to projects you admire, to friends' projects (if it
+      matches what you think of them), and to potential future ideas.
+    </p>
+    <p>
+      Taking inspiration from movements like <a
+        href="https://nownownow.com/about"><code>/now</code></a
+      > and <a href="https://uses.tech/"><code>/uses</code></a>, we've created <code
+        >/alignment</code
+      > to host our alignment tables for each of our projects.
+    </p>
+    <p>Let us know if you make your own page!</p>
   </div>
   <AlignmentView creations={creations} client:only="react" />
 </DetailLayout>
