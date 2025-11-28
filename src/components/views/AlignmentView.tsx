@@ -68,7 +68,8 @@ export function AlignmentView({ creations }: Props) {
             }),
           };
 
-          const heroAsset = creation.data.media?.[creation.data.assetPreviewIdx || 0];
+          const heroAsset =
+            creation.data.media?.[creation.data.assetPreviewIdx || 0];
           const transformedHeroAsset = heroAsset
             ? maybeTransformImgixUrl(heroAsset, {
                 auto: "format,compress",
@@ -102,7 +103,11 @@ export function AlignmentView({ creations }: Props) {
                       }}
                       controls={false}
                       withZoom={false}
-                      type={creation.data.mediaMetadata?.[creation.data.assetPreviewIdx || 0]}
+                      type={
+                        creation.data.mediaMetadata?.[
+                          creation.data.assetPreviewIdx || 0
+                        ]
+                      }
                     />
                   </LazyContainer>
                 )}
