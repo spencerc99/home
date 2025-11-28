@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import { AlignmentView } from "../components/views/AlignmentView";
+import DetailLayout from "../layouts/DetailLayout.astro";
+import { CreationCategory, hydrateCreations } from "../utils/creations";
+
+const creations = hydrateCreations(await getCollection("creation"))
+  .filter((c) => c.data.parentCategory === "Project")
+  .sort((a, b) => {
+    if (a.data.forthcoming !== b.data.forthcoming) {
+      return a.data.forthcoming ? -1 : 1;
+    }
+    return (
+      new Date(b.data.date || 0).getTime() -
+      new Date(a.data.date || 0).getTime()
+    );
+  });
+
+const LayoutProps = {
+  description: "alignment check...",
+  date: "2025-11-27",
+  emojis: [],
+  titleClass: "uniform",
+};
+---
+
+<DetailLayout {...LayoutProps} columns={1}>
+  <div class="listDescription textContent">
+    <div class="headerContainer textContent">
+      <h1 class="uniform">(alignment)</h1>
+    </div>
+    <em>checking in with my projects</em>
+
+    <p>
+      A place to reflect on which projects feel aligned with my values and
+      identity.
+    </p>
+  </div>
+  <AlignmentView creations={creations} client:only="react" />
+</DetailLayout>

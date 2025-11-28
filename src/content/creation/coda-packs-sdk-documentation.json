@@ -8,18 +8,22 @@
     "Coda"
   ],
   "date": "2022-02-02T08:00:00.000Z",
+  "institution": [
+    "Coda"
+  ],
   "heroImage": "https://coda.io/packs/build/latest/assets/images/social/index.png",
   "media": [
     "https://coda.io/packs/build/latest/assets/images/social/index.png"
   ],
   "link": "https://coda.io/packs/build/latest",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

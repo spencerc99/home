@@ -9,6 +9,9 @@
     "Community"
   ],
   "date": "2025-04-30T07:00:00.000Z",
+  "institution": [
+    "Rhizome"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
@@ -18,7 +21,6 @@
   ],
   "link": "https://spencer.place/creation/walking-on-the-internet-together",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -40,5 +42,7 @@
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

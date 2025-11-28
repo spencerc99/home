@@ -17,7 +17,6 @@
   ],
   "materials": "ceramic, epoxy putty, and NFC chip",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -32,5 +31,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

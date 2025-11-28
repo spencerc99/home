@@ -8,6 +8,9 @@
     "Writing"
   ],
   "date": "2023-08-31T07:00:00.000Z",
+  "institution": [
+    "Commonplace"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3OOsj0VUj5/1c20cbce1aade42a46c142e861d57d4a4264bc45716d8aacfe31d1c672ec0e42994d50968a440159b1024da63a5ec6d8d16b485eb46fdbc94f592318c1a44136e2dc1866034caa9f0607a5bc2cb5a4402d7356d9fe3d3ba9926ea0a1d0e16a021497db28",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3OOsj0VUj5/1c20cbce1aade42a46c142e861d57d4a4264bc45716d8aacfe31d1c672ec0e42994d50968a440159b1024da63a5ec6d8d16b485eb46fdbc94f592318c1a44136e2dc1866034caa9f0607a5bc2cb5a4402d7356d9fe3d3ba9926ea0a1d0e16a021497db28",
@@ -17,7 +20,6 @@
   ],
   "link": "https://campfire.we-b.site/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "assetPreviewIdx": 3,
   "imageDescriptions": [
@@ -32,5 +34,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "y"
 }

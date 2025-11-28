@@ -255,6 +255,8 @@ export interface CodaItem {
   isEvent: boolean;
   assetPreviewIdx?: number;
   institution?: string[];
+  love?: "y" | "n" | "m";
+  me?: "y" | "n" | "m";
   // TODO: handle related, they will be given as a list of creation titles, we have to map those to the actual creation that is somewhere else in the list to 'hydrate' them and then use that logic to separate them into ones that are "press" vs ones that are "project" and get their internal & external links
   related: string[];
 }
@@ -421,6 +423,8 @@ async function importCreations() {
         isEvent: item.isEvent,
         mediaMetadata,
         related,
+        love: item.love,
+        me: item.me,
       };
 
       // Remove empty fields

@@ -12,7 +12,6 @@
   ],
   "link": "https://spencer.place/experiments/100posts/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -21,5 +20,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

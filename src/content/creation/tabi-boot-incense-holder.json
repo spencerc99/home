@@ -11,7 +11,6 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-QeaNSG4Wsx/317588769a604ddfcc138850b07d3bb46742940a912a8d158d9fc3288daf07abaf237e49dfc5e25057815eab1a1ee940be96c3d229871ef0bc6b4212c8efb12395cb79dbad9d699e156095c23d6ae34a0aba6b2c52b95bd869f68a393c3d5ef295ce2e9d"
   ],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -20,5 +19,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

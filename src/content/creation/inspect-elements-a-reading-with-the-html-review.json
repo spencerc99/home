@@ -7,6 +7,11 @@
   ],
   "date": "2023-05-25T07:00:00.000Z",
   "endDate": "2023-05-26T07:00:00.000Z",
+  "institution": [
+    "CultureHub",
+    "the HTML Review",
+    "La Mama"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-A6Kwy-8Jiz/c1c6b60d93ec7618e579a3a7474ca22361951ad258e226caaec2bb49794aad1bfad05d4eff64dd7036c12706505a92675b520d6b30a40b6e0e1117f6acd186383122dd1f1eeee56ffcad1419f3e9920a361cec21c5f402a8d729085c80d72bcf34d7c84e",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-A6Kwy-8Jiz/c1c6b60d93ec7618e579a3a7474ca22361951ad258e226caaec2bb49794aad1bfad05d4eff64dd7036c12706505a92675b520d6b30a40b6e0e1117f6acd186383122dd1f1eeee56ffcad1419f3e9920a361cec21c5f402a8d729085c80d72bcf34d7c84e",
@@ -14,7 +19,6 @@
   ],
   "link": "https://www.culturehub.org/events/inspect-elements",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -25,5 +29,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

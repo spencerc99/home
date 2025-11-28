@@ -5,9 +5,11 @@
     "Art"
   ],
   "date": "2025-06-01T07:00:00.000Z",
+  "institution": [
+    "San Francisco Arts Commission"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
@@ -19,5 +21,7 @@
       "link": "https://shrine.computer/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

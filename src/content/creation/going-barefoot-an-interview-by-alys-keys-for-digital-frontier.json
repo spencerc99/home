@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2025-03-05T08:00:00.000Z",
+  "institution": [
+    "Digital Frontier"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jnmxYlCl5b/6c31231f5fc31cecd256900a4cef197f212b5386d8ebe27a3550ee615a9c85d81704f31d3104deb69b325ce19e5291932993101362a94dea478c31b696b028eac1021a66717a557b87ed287a8f4a3af5c2134f70faa4514edad74a7ec5511227cedb02eb",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jnmxYlCl5b/6c31231f5fc31cecd256900a4cef197f212b5386d8ebe27a3550ee615a9c85d81704f31d3104deb69b325ce19e5291932993101362a94dea478c31b696b028eac1021a66717a557b87ed287a8f4a3af5c2134f70faa4514edad74a7ec5511227cedb02eb"
   ],
   "link": "https://digitalfrontier.com/articles/creative-computing-barefoot-developers-folk-programmers",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

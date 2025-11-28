@@ -5,12 +5,16 @@
     "Affiliation"
   ],
   "date": "2024-01-18T08:00:00.000Z",
+  "institution": [
+    "Gray Area"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

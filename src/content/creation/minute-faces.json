@@ -22,7 +22,6 @@
   "link": "https://clock.spencer.place/",
   "materials": "website, javascript, color wheel, UNIX timestamp",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "assetPreviewIdx": 3,
   "imageDescriptions": [
@@ -46,5 +45,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "n"
 }

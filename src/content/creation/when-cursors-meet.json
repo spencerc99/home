@@ -13,7 +13,6 @@
   ],
   "link": "https://playhtml.fun/experiments/7/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
@@ -27,5 +26,7 @@
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "m"
 }

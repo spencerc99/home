@@ -4,12 +4,16 @@
   "categories": [],
   "date": "2025-03-17T07:00:00.000Z",
   "endDate": "2025-03-18T07:00:00.000Z",
+  "institution": [
+    "Digital Architecture Lab"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

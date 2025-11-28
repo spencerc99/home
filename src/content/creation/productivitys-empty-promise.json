@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2025-04-25T07:00:00.000Z",
+  "institution": [
+    "Densed Discovery"
+  ],
   "heroImage": "https://www.densediscovery.com/archive/336/head.jpg?v=1746832850",
   "media": [
     "https://www.densediscovery.com/archive/336/head.jpg?v=1746832850"
   ],
   "link": "https://www.densediscovery.com/issues/336",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

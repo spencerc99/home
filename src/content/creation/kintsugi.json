@@ -12,7 +12,6 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-qQXP1Vftfp/5191f8c04c1a667528113ad3b28202ffe45322487bd4efe8c27499bcaaee356e6ff0875ca6293ad76bbec514659830137437d110c04853df00586d072506d153e78f0ad5675d21adf2a8051b40b199dad6c570ce72a3de9b88014409f71a2c443498ae0e"
   ],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -23,5 +22,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

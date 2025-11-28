@@ -5,13 +5,15 @@
     "Community"
   ],
   "date": "2025-03-06T08:00:00.000Z",
+  "institution": [
+    "Digital Architecture Lab"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-oNM9pNGwQg/9ee2b84e2b493f8ae78c11cf41fbbe01a2386a3220383705d8644429cdfd401325f7defe3497c391d367b7fd00bf5e8be5be790dd135f5bbdf4a76572f18401bc6db7e3c61bb6d5a3313d08a8556993dff48ae0c1aeccc2c0e1754e80b69dc01fbd8f3eb",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-oNM9pNGwQg/9ee2b84e2b493f8ae78c11cf41fbbe01a2386a3220383705d8644429cdfd401325f7defe3497c391d367b7fd00bf5e8be5be790dd135f5bbdf4a76572f18401bc6db7e3c61bb6d5a3313d08a8556993dff48ae0c1aeccc2c0e1754e80b69dc01fbd8f3eb"
   ],
   "link": "https://lu.ma/hpvb2ihn",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
@@ -25,5 +27,7 @@
       "link": "https://shrine.computer/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

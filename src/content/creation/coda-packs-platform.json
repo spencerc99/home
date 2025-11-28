@@ -8,6 +8,9 @@
     "Coda"
   ],
   "date": "2021-11-01T07:00:00.000Z",
+  "institution": [
+    "Coda"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3Qk9djtK_i/1e3d0b6b977da036d8495750b9bf5093f3a3fc2e796fa647e1f79bb5049ec29ffee77a7315ed2741aa88620039894da06c191f6e209637e6aa870b08775fbc785c1e8e919af26513c86533605ba885afd4f7df286b6bf15fda1203b0e8399967fbd9737a",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3Qk9djtK_i/1e3d0b6b977da036d8495750b9bf5093f3a3fc2e796fa647e1f79bb5049ec29ffee77a7315ed2741aa88620039894da06c191f6e209637e6aa870b08775fbc785c1e8e919af26513c86533605ba885afd4f7df286b6bf15fda1203b0e8399967fbd9737a",
@@ -19,7 +22,6 @@
   ],
   "link": "http://coda.io/packs",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -38,5 +40,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "y"
 }

@@ -6,12 +6,14 @@
     "Affiliation"
   ],
   "date": "2023-07-05T07:00:00.000Z",
+  "institution": [
+    "Ethereum Foundation"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2fmyBXkJa7/6ebbc4024095866d8453542520518bb07885d460d1f67b30210bcd54df011bc4938c2b093b257f1284fa9173627fb76bb72ffbd7ffd3f6ee1bc0e89f11e9fdb9799411e10ab4ff9e188e0c26f0d0bc22d082ae7e1bd2a4f1f3d8e2b23f814ab7ad4f0e43",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-2fmyBXkJa7/6ebbc4024095866d8453542520518bb07885d460d1f67b30210bcd54df011bc4938c2b093b257f1284fa9173627fb76bb72ffbd7ffd3f6ee1bc0e89f11e9fdb9799411e10ab4ff9e188e0c26f0d0bc22d082ae7e1bd2a4f1f3d8e2b23f814ab7ad4f0e43"
   ],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -20,5 +22,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

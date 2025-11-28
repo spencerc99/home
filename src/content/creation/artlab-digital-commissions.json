@@ -5,18 +5,22 @@
     "Art"
   ],
   "date": "2025-04-02T07:00:00.000Z",
+  "institution": [
+    "Hyundai Artlab"
+  ],
   "heroImage": "https://artlab.hyundai.com/favicon.ico",
   "media": [
     "https://artlab.hyundai.com/favicon.ico"
   ],
   "link": "https://artlab.hyundai.com/project/artlab-digital-commissions",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

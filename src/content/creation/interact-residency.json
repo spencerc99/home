@@ -5,12 +5,16 @@
     "Affiliation"
   ],
   "date": "2022-06-20T07:00:00.000Z",
+  "institution": [
+    "Interact"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

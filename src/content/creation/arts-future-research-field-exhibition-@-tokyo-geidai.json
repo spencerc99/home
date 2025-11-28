@@ -7,19 +7,23 @@
   ],
   "date": "2025-11-21T08:00:00.000Z",
   "endDate": "2026-11-30T08:00:00.000Z",
-  "location": "Tokyo",
+  "institution": [
+    "Tokyo University of the Arts",
+    "NEW INC"
+  ],
   "heroImage": "https://museum.geidai.ac.jp/img/fb.jpg",
   "media": [
     "https://museum.geidai.ac.jp/img/fb.jpg"
   ],
   "link": "https://museum.geidai.ac.jp/en/exhibit/2025/11/gmk2025.html",
   "ongoing": false,
-  "forthcoming": true,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

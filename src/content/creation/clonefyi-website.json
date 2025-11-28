@@ -6,6 +6,9 @@
     "Website"
   ],
   "date": "2025-05-06T07:00:00.000Z",
+  "institution": [
+    "Dirt.fyi"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3WD1iqY_bA/5e2bf3e79c2f783bf0c8941e74ba8ce39faf08afe9151afce60ecff7061b0cc9e59593f278867819140af3aa8f94870df6c71e1c53c4cb392462863554e3ab7619ea3d31686c3497500a78143ea2f10ccaba73452fa27575dbbbff678ef286a22a4740f2",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3WD1iqY_bA/5e2bf3e79c2f783bf0c8941e74ba8ce39faf08afe9151afce60ecff7061b0cc9e59593f278867819140af3aa8f94870df6c71e1c53c4cb392462863554e3ab7619ea3d31686c3497500a78143ea2f10ccaba73452fa27575dbbbff678ef286a22a4740f2",
@@ -14,7 +17,6 @@
   ],
   "link": "clone.fyi",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -40,5 +42,7 @@
       "link": "https://www.niemanlab.org/2025/05/clone-is-a-tech-and-culture-news-aggregator-with-old-school-internet-flavor/",
       "parentCategory": "Press"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

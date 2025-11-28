@@ -22,7 +22,6 @@
   "link": "https://x.com/spencerc99/status/1818721711858368890",
   "materials": "clay, electronics, phone",
   "ongoing": true,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -54,5 +53,7 @@
       "link": "https://internetsculptures.com/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "y",
+  "me": "y"
 }

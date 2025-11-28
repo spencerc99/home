@@ -9,6 +9,9 @@
     "App"
   ],
   "date": "2025-04-02T07:00:00.000Z",
+  "institution": [
+    "Hyundai Artlab"
+  ],
   "heroImage": "/creation-videos/bl-3iG3YRioYt.mp4",
   "media": [
     "/creation-videos/bl-3iG3YRioYt.mp4",
@@ -25,7 +28,6 @@
   "link": "https://artlab.hyundai.com/commissions/spencer-chang-everyday",
   "materials": "interactive website, participant daily movements with their phones, daily app icons",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -53,5 +55,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

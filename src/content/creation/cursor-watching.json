@@ -20,7 +20,6 @@
   "link": "https://cursorwatch.ing/",
   "materials": "20 iframes, a real-time web server, interactive website, visitor cursors, phone participatory interface",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -37,5 +36,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "y"
 }

@@ -12,7 +12,6 @@
   "movieUrl": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-bJEDUkgvRq/6ec8b5b0443da9d190aa481ff6d21f8f80d8a45d77e831f6288aa3bd73ae40f7e9656555bac50ad24140c3f03e4546a88a236327aee68f032fe3f118f614fc2b9a7836dd441a31f389e9f10f39a5aec20bd96f025049c0adc6d714d7eefa9f040b475a63",
   "link": "https://playhtml.fun/experiments/one",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -28,5 +27,7 @@
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

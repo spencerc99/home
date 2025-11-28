@@ -13,7 +13,6 @@
   ],
   "link": "https://spencerchang.substack.com/",
   "ongoing": true,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -22,5 +21,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

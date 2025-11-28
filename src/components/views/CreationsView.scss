@@ -56,7 +56,7 @@
   width: 50%;
 }
 
-.creationAura {
+.creationAura.creationAura.creationAura {
   height: 100%;
   // TODO: this must match the numbers below
   min-width: 130px;
@@ -69,7 +69,13 @@
   );
   border-radius: 50% !important;
   box-shadow: 0 0 32px 16px var(--aura-color-transparent);
-  display: block !important;
+  display: block;
+
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    min-width: 0;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .creationSummary {
@@ -351,4 +357,188 @@
 .kind {
   @extend .mono;
   font-size: 0.75em;
+}
+
+// Alignment view specific styles
+.alignmentView {
+  container-type: inline-size;
+  container-name: alignment-view;
+
+  @include media(xsmallScreen, smallScreen) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .alignmentHeader {
+    // Base styles same as .row
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 2fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    align-items: center;
+    border-bottom: 3px double var(--border-color);
+    @extend .mono;
+    color: var(--color-text-muted);
+    font-size: 0.75em;
+    text-transform: uppercase;
+
+    > * {
+      padding: 0 0.3rem;
+    }
+
+    @include media(xsmallScreen, smallScreen, mediumScreen) {
+      grid-template-columns: 80px 1fr 1fr 2fr 1fr 1fr;
+    }
+
+    @include media(xsmallScreen, smallScreen) {
+      grid-template-columns: 30px 1fr 50px 50px;
+      gap: 0.5rem;
+      padding: 0.5rem;
+
+      > *:nth-child(1) {
+        // Counter - make narrower
+        font-size: 0.7em;
+      }
+      > *:nth-child(3),
+      > *:nth-child(4) {
+        // Hide When and teaser
+        display: none;
+      }
+      > *:nth-child(5),
+      > *:nth-child(6) {
+        // Alignment headers - visible on mobile
+        padding: 0.2rem;
+        white-space: normal;
+        word-wrap: break-word;
+        line-height: 1.2;
+        text-align: center;
+      }
+    }
+  }
+
+  .alignmentRow {
+    // Base styles same as .row
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 2fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+
+    > * {
+      padding: 0 0.3rem;
+    }
+
+    &:hover,
+    &.selected {
+      background-color: var(--color-neutral-background-hover);
+    }
+
+    .subtext {
+      color: var(--color-text-muted);
+    }
+
+    @include media(xsmallScreen, smallScreen, mediumScreen) {
+      grid-template-columns: 80px 1fr 1fr 2fr 1fr 1fr;
+    }
+
+    @include media(xsmallScreen, smallScreen) {
+      grid-template-columns: 30px 1fr 50px 50px;
+      gap: 0.5rem;
+      padding: 0.5rem;
+
+      > *:nth-child(3),
+      > *:nth-child(4) {
+        // Hide When and teaser
+        display: none;
+      }
+
+      .alignmentColumn {
+        font-size: 1.5em;
+        padding: 0.5rem 0.1rem;
+      }
+    }
+  }
+
+  .alignmentColumn {
+    text-align: center;
+    min-height: 1.5em;
+    border-left: 1px solid var(--border-color);
+    padding: 0 0.5rem;
+    font-size: 2em;
+    font-family: monospace;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:empty::before {
+      content: "—";
+      color: var(--color-text-muted);
+      opacity: 0.3;
+    }
+  }
+
+  // Show/hide mobile vs desktop headers based on container width
+  .mobile-only {
+    display: none;
+  }
+  .desktop-only {
+    display: inline;
+  }
+
+  // Use container query - when alignment view is less than 800px wide
+  @container alignment-view (max-width: 800px) {
+    .mobile-only {
+      display: inline;
+    }
+    .desktop-only {
+      display: none;
+    }
+
+    .alignmentHeader {
+      grid-template-columns: 30px 1fr 50px 50px;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      white-space: nowrap;
+
+      > *:nth-child(1) {
+        // Counter - smaller
+        font-size: 0.7em;
+      }
+      > *:nth-child(3),
+      > *:nth-child(4) {
+        // Hide When and teaser
+        display: none;
+      }
+      > *:nth-child(5),
+      > *:nth-child(6) {
+        // Alignment headers
+        padding: 0.2rem;
+        white-space: normal;
+        word-wrap: break-word;
+        line-height: 1.2;
+        text-align: center;
+      }
+    }
+
+    .alignmentRow {
+      grid-template-columns: 30px 1fr 50px 50px;
+      gap: 0.5rem;
+      padding: 0.5rem;
+
+      > *:nth-child(3),
+      > *:nth-child(4) {
+        // Hide When and teaser
+        display: none;
+      }
+
+      .alignmentColumn {
+        font-size: 1.5em;
+        padding: 0.5rem 0.1rem;
+      }
+    }
+  }
 }

@@ -15,7 +15,6 @@
   "link": "https://docs.google.com/document/d/1gxuxSTYS8ta912nr-GY7wToVM3yFe-PFXDa1NLQsSp8/edit",
   "materials": "62 x 40, Google Docs, Character Counter tool, Russel Rollins’ cursorpark tool, iframes.",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -24,5 +23,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "m",
+  "me": "y"
 }

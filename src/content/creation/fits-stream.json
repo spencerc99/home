@@ -15,7 +15,6 @@
   ],
   "link": "https://spencer.place/fits",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     ""
@@ -24,5 +23,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

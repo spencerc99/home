@@ -9,6 +9,9 @@
     "Community"
   ],
   "date": "2025-05-04T07:00:00.000Z",
+  "institution": [
+    "Internet Archive"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-NNVzk3oSgu/cfd75a8e5b77dd703bd20cfeee175b19eaa444bfe543c321c9038b5f63cdb568c68dd8f443a7f40a6ea30d2a33d00480861b61d35c8d0404726812015d848485c8ef625417d7959f001e5ff86bc7942da128772dac2d65ff47dbe9e1cacc0cbbe7e235fd",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-NNVzk3oSgu/cfd75a8e5b77dd703bd20cfeee175b19eaa444bfe543c321c9038b5f63cdb568c68dd8f443a7f40a6ea30d2a33d00480861b61d35c8d0404726812015d848485c8ef625417d7959f001e5ff86bc7942da128772dac2d65ff47dbe9e1cacc0cbbe7e235fd",
@@ -19,7 +22,6 @@
   ],
   "link": "https://lu.ma/w2xi3u4p",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -36,5 +38,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

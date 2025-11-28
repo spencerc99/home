@@ -17,7 +17,6 @@
   ],
   "link": "https://syllabusproject.org/syllabus-for-taking-an-internet-walk/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -34,5 +33,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

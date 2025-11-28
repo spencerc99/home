@@ -9,6 +9,10 @@
     "Art"
   ],
   "date": "2025-11-01T07:00:00.000Z",
+  "institution": [
+    "Internet Archive",
+    "Gray Area"
+  ],
   "heroImage": "/creation-videos/bl-WMZO6IlYNO.mp4",
   "media": [
     "/creation-videos/bl-WMZO6IlYNO.mp4",
@@ -23,7 +27,6 @@
   ],
   "link": "https://alivetheory.net/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -48,5 +51,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

@@ -15,7 +15,6 @@
   ],
   "link": "https://www.spencerchang.me/window",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -24,5 +23,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "y"
 }

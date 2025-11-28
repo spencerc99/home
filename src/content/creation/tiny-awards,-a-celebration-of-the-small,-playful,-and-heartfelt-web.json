@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2023-07-12T07:00:00.000Z",
+  "institution": [
+    "Waxy.org"
+  ],
   "heroImage": "https://waxy.org/wp-content/uploads/2023/07/image-3-1024x542.png",
   "media": [
     "https://waxy.org/wp-content/uploads/2023/07/image-3-1024x542.png"
   ],
   "link": "https://waxy.org/2023/07/vote-on-the-tiny-awards/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

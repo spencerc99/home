@@ -18,7 +18,6 @@
   ],
   "link": "https://internetsculptures.com/",
   "ongoing": true,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -42,5 +41,7 @@
       "link": "https://x.com/spencerc99/status/1818721711858368890",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "y",
+  "me": "y"
 }

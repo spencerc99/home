@@ -7,10 +7,11 @@
   "date": "2024-05-15T07:00:00.000Z",
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

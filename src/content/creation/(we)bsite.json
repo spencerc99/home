@@ -19,7 +19,6 @@
   ],
   "link": "https://we-b.site",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -36,5 +35,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

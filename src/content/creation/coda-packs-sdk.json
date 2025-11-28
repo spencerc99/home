@@ -9,18 +9,22 @@
     "Coda"
   ],
   "date": "2021-11-26T08:00:00.000Z",
+  "institution": [
+    "Coda"
+  ],
   "heroImage": "https://opengraph.githubassets.com/238739f20cabcfdbfb3d5de9885467b70c87db53451168d627c95d841ac69841/coda/packs-sdk",
   "media": [
     "https://opengraph.githubassets.com/238739f20cabcfdbfb3d5de9885467b70c87db53451168d627c95d841ac69841/coda/packs-sdk"
   ],
   "link": "https://github.com/coda/packs-sdk",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

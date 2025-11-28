@@ -7,18 +7,22 @@
     "Website"
   ],
   "date": "2025-11-09T08:00:00.000Z",
+  "institution": [
+    "TIAT"
+  ],
   "heroImage": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fimages.lumacdn.com%2Fcalendars%2Fdy%2F03a7f131-dffd-4ce7-9bac-a31c71eb8fd0.jpg&calendar_name=tiat%20%28the%20intersection%20of%20art%20%26%20technology%29&color0=%23b0f281&color1=%23d982c7&color2=%23c4cde9&color3=%23efa96c&host_avatar=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Favatar_38.png&host_name=spencerc99%40gmail.com&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fb4%2Ff9d67b06-0f9c-4854-9b35-6933677472c6.png&name=playhtml%20get-together",
   "media": [
     "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fimages.lumacdn.com%2Fcalendars%2Fdy%2F03a7f131-dffd-4ce7-9bac-a31c71eb8fd0.jpg&calendar_name=tiat%20%28the%20intersection%20of%20art%20%26%20technology%29&color0=%23b0f281&color1=%23d982c7&color2=%23c4cde9&color3=%23efa96c&host_avatar=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Favatar_38.png&host_name=spencerc99%40gmail.com&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fb4%2Ff9d67b06-0f9c-4854-9b35-6933677472c6.png&name=playhtml%20get-together"
   ],
   "link": "https://luma.com/w4n90met",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

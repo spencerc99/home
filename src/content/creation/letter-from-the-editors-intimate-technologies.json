@@ -5,18 +5,22 @@
     "Art"
   ],
   "date": "2025-03-21T07:00:00.000Z",
+  "institution": [
+    "Hyundai Artlab"
+  ],
   "heroImage": "https://cdn.sanity.io/images/se13eur7/redesign/a9f55d221f7551ebd8e9b31429d0deea7bce24e3-1780x2500.jpg?rect=0,783,1780,935&w=1200&h=630",
   "media": [
     "https://cdn.sanity.io/images/se13eur7/redesign/a9f55d221f7551ebd8e9b31429d0deea7bce24e3-1780x2500.jpg?rect=0,783,1780,935&w=1200&h=630"
   ],
   "link": "https://artlab.hyundai.com/editorial/letter-from-the-editor-intimate-technologies",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -8,6 +8,9 @@
   ],
   "date": "2023-06-01T07:00:00.000Z",
   "endDate": "2024-03-07T08:00:00.000Z",
+  "institution": [
+    "Ethereum Foundation"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TQlEv0T5yH/640e700882d755d9a59e15f3e82bb22aed96d82fc9a8f7da4ba4b8c44b6e63f406d75362c15578ee7e41fbfdc1dabef33099cce6efb0cd14e03fa74145757f70e4e80860011f99b959d40719d60da7f0fbf637028fda90ecbb55022aedd99e11b49ca2d0",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TQlEv0T5yH/640e700882d755d9a59e15f3e82bb22aed96d82fc9a8f7da4ba4b8c44b6e63f406d75362c15578ee7e41fbfdc1dabef33099cce6efb0cd14e03fa74145757f70e4e80860011f99b959d40719d60da7f0fbf637028fda90ecbb55022aedd99e11b49ca2d0",
@@ -27,7 +30,6 @@
   ],
   "link": "https://summerofprotocols.com/memory-pouch-web",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -62,5 +64,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -1,15 +1,14 @@
 import type { CollectionEntry } from "astro:content";
 import React, {
-  useEffect,
   useMemo,
   useState,
-  KeyboardEvent,
-  useRef,
 } from "react";
 import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
+import { CreationListView } from "./CreationListView";
+import classNames from "classnames";
 
 export enum ViewType {
   // FREE = "free",
@@ -75,8 +74,6 @@ export function CreationsView({
   const [view, setView] = useState(defaultView || ViewType.GRID);
   const [category, setCategory] = useState("all");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-  const [isKeyboardNav, setIsKeyboardNav] = useState(false);
   const allCategories = new Set(
     creations.map((creation) => creation.data.parentCategory).filter(Boolean)
   );
@@ -115,134 +112,53 @@ export function CreationsView({
     });
   }, [nonEventCreations, sortDirection]);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (view !== ViewType.LIST) return;
-
-    setIsKeyboardNav(true);
-
-    const getNextValidIndex = (
-      currentIndex: number,
-      direction: "up" | "down"
-    ) => {
-      const increment = direction === "down" ? 1 : -1;
-      let nextIndex = currentIndex;
-
-      while (true) {
-        nextIndex += increment;
-
-        // Check bounds
-        if (nextIndex < 0 || nextIndex >= sortedNonEventCreations.length) {
-          return currentIndex;
-        }
-
-        // If we're showing all categories or if the item matches current category
-        if (
-          category === "all" ||
-          sortedNonEventCreations[nextIndex].data.parentCategory === category
-        ) {
-          return nextIndex;
-        }
-      }
-    };
-
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setSelectedIndex((prev) => getNextValidIndex(prev, "down"));
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setSelectedIndex((prev) => getNextValidIndex(prev, "up"));
-        break;
-      case "Enter":
-        if (selectedIndex >= 0) {
-          window.location.href = `/creation/${sortedNonEventCreations[selectedIndex].id}`;
-        }
-        break;
-    }
-  };
-
-  // Add ref for the list container
-  const listContainerRef = useRef<HTMLDivElement>(null);
-
-  // Add effect to handle scrolling when selection changes
-  useEffect(() => {
-    if (view !== ViewType.LIST || selectedIndex === -1) return;
-
-    const container = listContainerRef.current;
-    const selectedElement = container?.querySelector(
-      `[data-index="${selectedIndex}"]`
-    );
-
-    if (container && selectedElement) {
-      selectedElement.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
-  }, [selectedIndex, view]);
-
   const filteredCreations = useMemo(() => {
     return sortedNonEventCreations.filter(
       (creation) =>
         category === "all" || creation.data.parentCategory === category
     );
   }, [sortedNonEventCreations, category]);
-  const normalizedSelectedIndex = useMemo(() => {
-    return selectedIndex === -1
-      ? -1
-      : filteredCreations.findIndex(
-          (c) => c.id === sortedNonEventCreations[selectedIndex].id
-        );
-  }, [filteredCreations, sortedNonEventCreations, selectedIndex]);
 
   function renderCreations() {
     switch (view) {
       case ViewType.LIST:
         return (
-          <div
-            ref={listContainerRef}
-            className="creations listView"
-            onKeyDown={handleKeyDown}
-            onMouseMove={() => setIsKeyboardNav(false)} // Reset to mouse mode on mouse movement
-            tabIndex={0}
-          >
-            <div className="listViewHeader">
-              <div>
-                {normalizedSelectedIndex > -1
-                  ? normalizedSelectedIndex + 1
-                  : "?"}
-                /{filteredCreations.length}
-              </div>
-              <div>What</div>
-              <div
-                onClick={() =>
-                  setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
-                }
-                style={{ cursor: "pointer" }}
-              >
-                When{sortDirection === "asc" ? "↑" : "↓"}
-              </div>
-              <div>teaser</div>
-              <div>Kind</div>
-            </div>
-            {filteredCreations.map((creation, index) => (
-              <div
-                key={creation.id}
-                data-index={index}
-                onMouseEnter={() => !isKeyboardNav && setSelectedIndex(index)}
-              >
-                <CreationSummary
-                  creation={{
-                    id: creation.id,
-                    ...creation.data,
-                  }}
-                  view={view}
-                  isSelected={index === selectedIndex}
-                />
-              </div>
-            ))}
-          </div>
+          <CreationListView
+            creations={filteredCreations}
+            headerColumns={(selectedIndex) => (
+              <>
+                <div>
+                  {selectedIndex > -1 ? selectedIndex + 1 : "?"}/
+                  {filteredCreations.length}
+                </div>
+                <div>What</div>
+                <div
+                  onClick={() =>
+                    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  When{sortDirection === "asc" ? "↑" : "↓"}
+                </div>
+                <div>teaser</div>
+                <div>Kind</div>
+              </>
+            )}
+            renderRow={(creation, index, isSelected) => (
+              <CreationSummary
+                creation={{
+                  id: creation.id,
+                  ...creation.data,
+                }}
+                view={view}
+                isSelected={isSelected}
+              />
+            )}
+            rowKey={(creation) => creation.id}
+            onNavigate={(creation) => {
+              window.location.href = `/creation/${creation.id}`;
+            }}
+          />
         );
       case ViewType.GRID:
         return (

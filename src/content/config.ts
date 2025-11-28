@@ -77,6 +77,8 @@ export const creationSchema = z.object({
   isEvent: z.boolean().default(false),
   mediaMetadata: z.array(z.enum(["image", "video"])),
   related: z.array(relatedCreationSchema).optional(),
+  love: z.enum(["y", "n", "m"]).optional(),
+  me: z.enum(["y", "n", "m"]).optional(),
 });
 
 const creation = defineCollection({

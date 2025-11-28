@@ -14,7 +14,6 @@
   ],
   "link": "https://github.com/jackyzha0/cursor-chat",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -23,5 +22,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

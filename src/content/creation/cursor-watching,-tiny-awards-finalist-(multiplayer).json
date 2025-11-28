@@ -3,12 +3,17 @@
   "parentCategory": "Fellowships, Residencies, Awards",
   "categories": [],
   "date": "2024-08-12T07:00:00.000Z",
+  "institution": [
+    "Web Curios",
+    "Naive Weekly"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

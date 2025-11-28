@@ -8,13 +8,17 @@
   ],
   "date": "2024-07-11T07:00:00.000Z",
   "endDate": "2024-07-13T07:00:00.000Z",
+  "institution": [
+    "Gray Area"
+  ],
   "media": [],
   "link": "https://grayarea.org/event/gray-area-artist-showcase-summer-2024/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

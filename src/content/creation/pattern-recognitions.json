@@ -5,18 +5,22 @@
     "Art"
   ],
   "date": "2025-04-03T07:00:00.000Z",
+  "institution": [
+    "Hyundai Artlab"
+  ],
   "heroImage": "https://cdn.sanity.io/images/se13eur7/redesign/635d7908834593198bd8c3e976e8b8cd7a552ab1-720x574.gif?rect=0,98,720,378&w=1200&h=630",
   "media": [
     "https://cdn.sanity.io/images/se13eur7/redesign/635d7908834593198bd8c3e976e8b8cd7a552ab1-720x574.gif?rect=0,98,720,378&w=1200&h=630"
   ],
   "link": "https://artlab.hyundai.com/editorial/pattern-recognitions",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -9,6 +9,9 @@
     "Community"
   ],
   "date": "2024-08-18T07:00:00.000Z",
+  "institution": [
+    "Gray Area"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
@@ -20,7 +23,6 @@
   ],
   "link": "https://grayarea.org/event/communal-computing-workshop-neighborhood-internets/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -46,5 +48,7 @@
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

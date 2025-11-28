@@ -5,13 +5,15 @@
     "Community"
   ],
   "date": "2024-06-13T07:00:00.000Z",
+  "institution": [
+    "Are.na Editorial"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-V-YOJqODEm/8b55f1eafbd2ec41d520a9da17726ea241e28514324f4eb7e706ad9b3e42f8fd2750cdd371887878397699877f648d758163677fdc4d398bf8a68c9a8f14e8292510190aa27cf7ceccf986f563f79d10662209ae0a4128aed697961ff58dd22be1966c2d",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-V-YOJqODEm/8b55f1eafbd2ec41d520a9da17726ea241e28514324f4eb7e706ad9b3e42f8fd2750cdd371887878397699877f648d758163677fdc4d398bf8a68c9a8f14e8292510190aa27cf7ceccf986f563f79d10662209ae0a4128aed697961ff58dd22be1966c2d"
   ],
   "link": "https://www.are.na/editorial/an-interview-with-spencer-chang",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -20,5 +22,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

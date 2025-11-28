@@ -20,7 +20,6 @@
   "link": "https://coda.io/@spencer/tiny-internets/our-internet-map-51",
   "materials": "html, javascript, css, projection, printer, QR codes",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -38,5 +37,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

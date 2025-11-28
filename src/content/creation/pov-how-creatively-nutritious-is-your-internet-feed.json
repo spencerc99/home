@@ -4,18 +4,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2024-08-19T07:00:00.000Z",
+  "institution": [
+    "Its Nice That"
+  ],
   "heroImage": "https://admin.itsnicethat.com/images/qCCyh4hIaCwHdAmOsBdItYNGWqA=/256591/width-1440%7Cformat-jpeg/Meta-POV-14.png",
   "media": [
     "https://admin.itsnicethat.com/images/qCCyh4hIaCwHdAmOsBdItYNGWqA=/256591/width-1440%7Cformat-jpeg/Meta-POV-14.png"
   ],
   "link": "https://www.itsnicethat.com/articles/pov-how-creatively-nutritious-is-your-internet-feed-insights-digital-190824",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

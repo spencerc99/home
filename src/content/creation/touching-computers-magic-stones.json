@@ -5,6 +5,9 @@
   "parentCategory": "Speaking, Workshops, Teaching",
   "categories": [],
   "date": "2025-06-22T07:00:00.000Z",
+  "institution": [
+    "Index Space"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-75t__uSiLy/ae0b13150fe67eb16a7febb3d38082bd59df06d703b3f109b1578b0ff77ad14ff079de3fa05320faf65d0acb4acab108971e919694d48204b389c44d8ab25200505dd94dbdc4679a742173fae64edd806c90592ca0b65e18bf073b2023f9054b11a1b9bf",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-75t__uSiLy/ae0b13150fe67eb16a7febb3d38082bd59df06d703b3f109b1578b0ff77ad14ff079de3fa05320faf65d0acb4acab108971e919694d48204b389c44d8ab25200505dd94dbdc4679a742173fae64edd806c90592ca0b65e18bf073b2023f9054b11a1b9bf",
@@ -21,7 +24,6 @@
   ],
   "link": "https://partiful.com/e/seza9nFlQlSKAur6YP1b",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -50,5 +52,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

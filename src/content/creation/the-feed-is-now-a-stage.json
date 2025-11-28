@@ -7,18 +7,22 @@
   ],
   "date": "2025-08-14T07:00:00.000Z",
   "endDate": "2025-08-30T07:00:00.000Z",
+  "institution": [
+    "Alserkal Avenue"
+  ],
   "heroImage": "https://alserkal.online//static/6b13241873d0ff7726a464cc59c89713/logo-alserkal-black.png",
   "media": [
     "https://alserkal.online//static/6b13241873d0ff7726a464cc59c89713/logo-alserkal-black.png"
   ],
   "link": "https://alserkal.online/event/alserkal-avenue-instagram-becomes-a-stage-in-august/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

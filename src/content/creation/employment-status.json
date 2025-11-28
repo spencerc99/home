@@ -16,7 +16,6 @@
   "link": "https://employment-status.vercel.app/",
   "materials": "html, javascript, css",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -25,5 +24,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "n"
 }

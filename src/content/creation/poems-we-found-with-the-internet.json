@@ -29,7 +29,6 @@
   "link": "https://playhtml.fun/fridge.html",
   "materials": "internet cursors, fridge magnet words, communal website, playhtml",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -72,5 +71,7 @@
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "y",
+  "me": "y"
 }

@@ -19,7 +19,6 @@
   ],
   "link": "thing.tube/spencer",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -38,5 +37,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "m",
+  "me": "y"
 }

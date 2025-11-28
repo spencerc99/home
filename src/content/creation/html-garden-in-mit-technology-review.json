@@ -3,13 +3,15 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2023-12-21T08:00:00.000Z",
+  "institution": [
+    "MIT Technology Review"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-PX86_m1cIQ/16f1900caf6082d2da0102dc7cf079c88beb883aa93127b4927f8e5a0ec61b7f63a620b47e2def6f66f26eed119c260a9bd25ec9023dd661299b7d6949abb84a58be36fa1b925cfdaf6c34de836f092821441ccbc7dac8ce6fd986931378ba369d6a62c8",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-PX86_m1cIQ/16f1900caf6082d2da0102dc7cf079c88beb883aa93127b4927f8e5a0ec61b7f63a620b47e2def6f66f26eed119c260a9bd25ec9023dd661299b7d6949abb84a58be36fa1b925cfdaf6c34de836f092821441ccbc7dac8ce6fd986931378ba369d6a62c8"
   ],
   "link": "https://www.technologyreview.com/2023/12/21/1084525/internet-whimsy-html-energy/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -18,5 +20,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

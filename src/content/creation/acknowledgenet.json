@@ -9,6 +9,9 @@
     "Website"
   ],
   "date": "2024-07-11T07:00:00.000Z",
+  "institution": [
+    "Gray Area"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-_nuypn6MBn/dfe6afd738ab26cf4f46bff4fd7ee6904fac0f9008bab9baf0ec9c1e6e75d206cabb8f01cb801c36b9a0616a82312fae7cf3bc009bf31042e9fd14639be049f619a22f41043fa9b3b9443abf2de13adece49bdc5013dd716c8b2652a3d9e3f0ba0e620d4",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-_nuypn6MBn/dfe6afd738ab26cf4f46bff4fd7ee6904fac0f9008bab9baf0ec9c1e6e75d206cabb8f01cb801c36b9a0616a82312fae7cf3bc009bf31042e9fd14639be049f619a22f41043fa9b3b9443abf2de13adece49bdc5013dd716c8b2652a3d9e3f0ba0e620d4",
@@ -26,7 +29,6 @@
   "link": "https://acknowledge.our-inter.net/",
   "materials": "Internet comments, community archives, interactive website, router, white plinth, acrylic display case, phone stand, printed out instruction comments, projector, employed computer, speaker, HDMI & power cables, chair, desk, user link submissions.",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -55,5 +57,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "m",
+  "me": "y"
 }

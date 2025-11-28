@@ -10,13 +10,17 @@
   ],
   "date": "2025-06-04T07:00:00.000Z",
   "endDate": "2025-06-22T07:00:00.000Z",
+  "institution": [
+    "NEW INC",
+    "Rhizome",
+    "New Museum"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-LPlO4n-YTb/01033272c440cba96d71f2872d2d1d5730b5c9007b05e1aea82d5d707da2f0aecdfd16c0ec50b5b86b0a3d67ed86dfeca2e68a164b81be159d1f5ee6ee9c0087e2673701124c6c8f3f9e09d4ab0a7ca3b05c0110d4175cb4cb31e3775a2fcf102e5241fc",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-LPlO4n-YTb/01033272c440cba96d71f2872d2d1d5730b5c9007b05e1aea82d5d707da2f0aecdfd16c0ec50b5b86b0a3d67ed86dfeca2e68a164b81be159d1f5ee6ee9c0087e2673701124c6c8f3f9e09d4ab0a7ca3b05c0110d4175cb4cb31e3775a2fcf102e5241fc"
   ],
   "link": "https://www.demofestival.org/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -32,5 +36,7 @@
       "link": "https://shrine.computer/",
       "parentCategory": "Project"
     }
-  ]
+  ],
+  "love": "n",
+  "me": "n"
 }

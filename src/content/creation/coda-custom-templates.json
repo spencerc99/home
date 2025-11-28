@@ -8,6 +8,9 @@
     "Coda"
   ],
   "date": "2021-05-13T07:00:00.000Z",
+  "institution": [
+    "Coda"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-lAQsOhGgr5/218c73f02b2a598728669749ede00803c6c9f687791de16f32f613ab5b369f1178fa80a9149b4b2a5e9ce11e33603383b857dbefa7557a5e223669def223487706c27cfdfa87bffa4a70d527a6c097c74a0473a8c2c01b854e49682ed9a1491b42a87cf2",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-lAQsOhGgr5/218c73f02b2a598728669749ede00803c6c9f687791de16f32f613ab5b369f1178fa80a9149b4b2a5e9ce11e33603383b857dbefa7557a5e223669def223487706c27cfdfa87bffa4a70d527a6c097c74a0473a8c2c01b854e49682ed9a1491b42a87cf2",
@@ -15,7 +18,6 @@
   ],
   "link": "https://coda.io/@spencer/rituals-at-scale-how-we-remixed-templates",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -26,5 +28,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "y"
 }

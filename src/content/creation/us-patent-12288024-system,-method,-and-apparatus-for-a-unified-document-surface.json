@@ -3,13 +3,17 @@
   "parentCategory": "Fellowships, Residencies, Awards",
   "categories": [],
   "date": "2025-04-29T07:00:00.000Z",
+  "institution": [
+    "Coda"
+  ],
   "media": [],
   "link": "https://ppubs.uspto.gov/api/pdf/downloadPdf/12288024?requestToken=eyJzdWIiOiJhODFjOTlmYi0zMGFiLTQzNTItOTU0Yy1hNzI5ODk0YjA1ZWEiLCJ2ZXIiOiJlZDYzZmEyOC0xZjY0LTQ3NTktYWNlNy0zNzRiNzRlODdiNjUiLCJleHAiOjB9",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -9,6 +9,9 @@
   ],
   "date": "2025-01-17T08:00:00.000Z",
   "endDate": "2025-03-25T07:00:00.000Z",
+  "institution": [
+    "SFPC"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-lat64lD8LK/c4f855cf22972536fde3de2eb9b285d01af66dd8ef38268bc4a5e694de00f068e4038f29f5ee6cf2c2d60f6238efb9604b637e766941fbc49f2eff88c7edd27dfafb8083d56668d2703a4a9cffc62f5153e8699f0a51d7fdbce3d33fac7f0c1308d6ba31",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-lat64lD8LK/c4f855cf22972536fde3de2eb9b285d01af66dd8ef38268bc4a5e694de00f068e4038f29f5ee6cf2c2d60f6238efb9604b637e766941fbc49f2eff88c7edd27dfafb8083d56668d2703a4a9cffc62f5153e8699f0a51d7fdbce3d33fac7f0c1308d6ba31",
@@ -19,7 +22,6 @@
   ],
   "link": "https://sfpc.study/sessions/winter-25/gift-interfaces",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "Design by Sara Martínez @identikitten",
@@ -36,5 +38,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -4,12 +4,14 @@
   "parentCategory": "Speaking, Workshops, Teaching",
   "categories": [],
   "date": "2023-11-13T08:00:00.000Z",
+  "institution": [
+    "University of Pennsylvania"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-1zUlqQkrRl/b517452c30eefd61c6410eebc7446a0adea9f4f50babeb82792a0179499b279cec5de34cb6e76fcff5476085c77e33ecd069d1d979371659460f1dcc71ebd8adaa0ddb9be2b280576b810653a16a12dcafa42461e59b7a71f8885c94f4a856a6d1d64e90",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-1zUlqQkrRl/b517452c30eefd61c6410eebc7446a0adea9f4f50babeb82792a0179499b279cec5de34cb6e76fcff5476085c77e33ecd069d1d979371659460f1dcc71ebd8adaa0ddb9be2b280576b810653a16a12dcafa42461e59b7a71f8885c94f4a856a6d1d64e90"
   ],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -18,5 +20,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

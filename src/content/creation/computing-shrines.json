@@ -12,6 +12,11 @@
     "Community"
   ],
   "date": "2025-04-16T07:00:00.000Z",
+  "institution": [
+    "NEW INC",
+    "APOSSIBLE",
+    "Digital Architecture Lab"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d",
@@ -35,7 +40,6 @@
   "link": "https://shrine.computer/",
   "materials": "location-bound websites, RFID chips, mixed materials including acrylic, ceramics, found stone, and silicone.",
   "ongoing": true,
-  "forthcoming": false,
   "featured": true,
   "assetPreviewIdx": 12,
   "imageDescriptions": [
@@ -102,5 +106,7 @@
       "link": "https://apossible.com/pages/applied-experiments?token=c0fba653d3b0442474bc4a4ff9b2444067a6d6f1",
       "parentCategory": "Fellowships, Residencies, Awards"
     }
-  ]
+  ],
+  "love": "y",
+  "me": "y"
 }

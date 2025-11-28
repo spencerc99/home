@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2024-07-25T07:00:00.000Z",
+  "institution": [
+    "Rock Paper Shotgun"
+  ],
   "heroImage": "https://assetsio.gnwcdn.com/fridge-poetry-header.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp",
   "media": [
     "https://assetsio.gnwcdn.com/fridge-poetry-header.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp"
   ],
   "link": "https://www.rockpapershotgun.com/this-web-game-lets-you-drag-words-around-a-communal-fridge-door-to-create-poetry",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

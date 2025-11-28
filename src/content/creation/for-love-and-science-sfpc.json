@@ -4,11 +4,15 @@
     "Affiliation"
   ],
   "date": "2023-02-15T08:00:00.000Z",
+  "institution": [
+    "SFPC"
+  ],
   "media": [],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

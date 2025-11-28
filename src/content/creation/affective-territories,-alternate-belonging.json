@@ -6,13 +6,18 @@
   ],
   "date": "2025-08-23T07:00:00.000Z",
   "endDate": "2025-09-27T07:00:00.000Z",
+  "institution": [
+    "Prospect Art",
+    "Torrance Art Museum"
+  ],
   "media": [],
   "link": "https://www.torranceartmuseum.com/affective-territories",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

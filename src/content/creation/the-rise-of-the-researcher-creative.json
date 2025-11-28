@@ -6,19 +6,19 @@
   ],
   "date": "2025-11-17T08:00:00.000Z",
   "endDate": "2025-11-19T08:00:00.000Z",
-  "location": "San Francisco",
   "heroImage": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Fcommunity_avatar_12.png&calendar_name&color0=%23eddec2&color1=%2316120d&color2=%23706556&color3=%23c56155&host_avatar=https%3A%2F%2Fimages.lumacdn.com%2Favatars%2Fqe%2F05f2a57e-5f93-493a-a1ef-608ce986b9d8.png&host_name=Jolie%20Gan&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fww%2F7db4aa45-f625-4923-bc67-7a5a154fdf4f.png&name=VOLUME%201%3A%20The%20Rise%20of%20the%20Researcher-Creative%20Opening%20Gala",
   "media": [
     "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fcdn.lu.ma%2Favatars-default%2Fcommunity_avatar_12.png&calendar_name&color0=%23eddec2&color1=%2316120d&color2=%23706556&color3=%23c56155&host_avatar=https%3A%2F%2Fimages.lumacdn.com%2Favatars%2Fqe%2F05f2a57e-5f93-493a-a1ef-608ce986b9d8.png&host_name=Jolie%20Gan&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fww%2F7db4aa45-f625-4923-bc67-7a5a154fdf4f.png&name=VOLUME%201%3A%20The%20Rise%20of%20the%20Researcher-Creative%20Opening%20Gala"
   ],
   "link": "https://luma.com/wu5fa21q?tk=ydmt8g",
   "ongoing": false,
-  "forthcoming": true,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

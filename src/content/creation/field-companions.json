@@ -8,6 +8,9 @@
     "Object"
   ],
   "date": "2024-11-27T08:00:00.000Z",
+  "institution": [
+    "Metalabel"
+  ],
   "heroImage": "/creation-videos/bl-6Dxf01xQ9q.mp4",
   "media": [
     "/creation-videos/bl-6Dxf01xQ9q.mp4",
@@ -26,7 +29,6 @@
   "link": "https://sc.metalabel.com/field-companions",
   "materials": "found stones, dyed polyurethane, electronic chips, audio file, location metadata, website",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "assetPreviewIdx": 1,
   "imageDescriptions": [
@@ -58,5 +60,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "m",
+  "me": "y"
 }

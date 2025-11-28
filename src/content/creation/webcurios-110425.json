@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2025-04-11T07:00:00.000Z",
+  "institution": [
+    "Web Curios"
+  ],
   "heroImage": "https://arc.net/api/redirect-links/link/bakkfkuv",
   "media": [
     "https://arc.net/api/redirect-links/link/bakkfkuv"
   ],
   "link": "https://arc.net/l/quote/bakkfkuv",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

@@ -8,18 +8,24 @@
     "Community"
   ],
   "date": "2024-09-09T07:00:00.000Z",
+  "institution": [
+    "NEW INC",
+    "New Museum",
+    "Rhizome"
+  ],
   "heroImage": "https://images.squarespace-cdn.com/content/v1/5c48ec58d274cb651051d2a6/be08df25-94e5-4c2d-bf0f-809c876fdec0/favicon.ico?format=100w",
   "media": [
     "https://images.squarespace-cdn.com/content/v1/5c48ec58d274cb651051d2a6/be08df25-94e5-4c2d-bf0f-809c876fdec0/favicon.ico?format=100w"
   ],
   "link": "https://www.newinc.org/members",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

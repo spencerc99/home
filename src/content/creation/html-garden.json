@@ -22,7 +22,6 @@
   "link": "https://htmls.garden/",
   "materials": "html, javascript, css, p5.js",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -41,5 +40,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

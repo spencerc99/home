@@ -3,18 +3,22 @@
   "parentCategory": "Press",
   "categories": [],
   "date": "2022-02-12T08:00:00.000Z",
+  "institution": [
+    "Zora"
+  ],
   "heroImage": "https://zine.zora.co/favicon.ico",
   "media": [
     "https://zine.zora.co/favicon.ico"
   ],
   "link": "https://zine.zora.co/verses-artifacts&sa=D&source=docs&ust=1741851378171473&usg=AOvVaw2ih4CmfAZBPCw-zSsRAGQ7",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

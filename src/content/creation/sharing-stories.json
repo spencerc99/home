@@ -8,6 +8,9 @@
   ],
   "date": "2025-08-14T07:00:00.000Z",
   "endDate": "2025-08-21T07:00:00.000Z",
+  "institution": [
+    "Alserkal Avenue"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Tg8EPLyhMh/6d592d93535507e9017d9ec86178c2deb9e4de14e743bef7f4eb25ab7d65719ff388c9887355ccf10b4325c1c7a93c19596fe6866fa0df2665d29367c35222e65077005dea9031fe3d7ae756bca1b267bce29432ef98b91e34251ee5822b1f4f48ba5459",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Tg8EPLyhMh/6d592d93535507e9017d9ec86178c2deb9e4de14e743bef7f4eb25ab7d65719ff388c9887355ccf10b4325c1c7a93c19596fe6866fa0df2665d29367c35222e65077005dea9031fe3d7ae756bca1b267bce29432ef98b91e34251ee5822b1f4f48ba5459",
@@ -23,7 +26,6 @@
   "link": "https://alserkal.online/event/alserkal-avenue-instagram-becomes-a-stage-in-august/",
   "materials": "instagram stories, polls, screenshots, and people’s social media feeds",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -48,5 +50,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "y",
+  "me": "y"
 }

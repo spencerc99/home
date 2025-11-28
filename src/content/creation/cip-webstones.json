@@ -7,6 +7,9 @@
     "Art"
   ],
   "date": "2025-04-30T07:00:00.000Z",
+  "institution": [
+    "Collective Intelligence Project"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rveOfUw4kd/5535c9b2033d19f7d7b282842ef22cbb72bccaad896ba936e0f47275f00f21e806910d52665dd4abdef182586e0abd568981219248772d9b8b91043c66b188b119e49b0a80ef60dad8bc8275d10bd02253e84fae22c81f1d8ceed19ae781064e55769d40",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rveOfUw4kd/5535c9b2033d19f7d7b282842ef22cbb72bccaad896ba936e0f47275f00f21e806910d52665dd4abdef182586e0abd568981219248772d9b8b91043c66b188b119e49b0a80ef60dad8bc8275d10bd02253e84fae22c81f1d8ceed19ae781064e55769d40",
@@ -17,7 +20,6 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-ratYisrutF/34e2b7b9f9a5eeac2cb261a70c999d30c0c9641a7d343f8c2584649279dd7879c653ff04fd2da74da5cf445f54448d2c04eb203aae583e6f9aecd19e1bcbd11658f157c12d6b5e22b63f989c7a86ab7a688d41988708a5d85613250f4ceac56e899a2d6a"
   ],
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     "",
@@ -36,5 +38,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

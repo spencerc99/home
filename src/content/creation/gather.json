@@ -20,7 +20,6 @@
   ],
   "link": "https://gather.directory/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": true,
   "imageDescriptions": [
     "",
@@ -41,5 +40,7 @@
     "image",
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "m",
+  "me": "y"
 }

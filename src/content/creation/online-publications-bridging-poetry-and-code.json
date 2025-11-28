@@ -7,18 +7,22 @@
     "Website"
   ],
   "date": "2023-05-10T07:00:00.000Z",
+  "institution": [
+    "Frieze"
+  ],
   "heroImage": "https://static.frieze.com/files/styles/frieze_teaser/public/article/thumbnail/whispers-from-a-soft-garden-esther-bouquet.jpg?itok=lJrMCML0",
   "media": [
     "https://static.frieze.com/files/styles/frieze_teaser/public/article/thumbnail/whispers-from-a-soft-garden-esther-bouquet.jpg?itok=lJrMCML0"
   ],
   "link": "https://www.frieze.com/article/online-publications-bridging-poetry-and-code",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }

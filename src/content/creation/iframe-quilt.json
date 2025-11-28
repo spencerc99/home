@@ -14,7 +14,6 @@
   "movieUrl": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-WWhDKi1Q-U/cf8eeb4be82428d3e48c541fa4e479063c870f69f3ec549245a14ca8504b6a4f7f8eca9d7b915cf10cbda81b18d2d1ec4d3487b3a4b16c8cecef296ef398c127596a55bc9983fbc29225e90c99523c2dc9e0f817d98734ba7b85d857e7d2ac6dd426b1f5",
   "link": "https://twitter.com/spencerc99/status/1706385150471500094",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [
     ""
@@ -23,5 +22,7 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "m"
 }

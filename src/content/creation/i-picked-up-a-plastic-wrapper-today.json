@@ -6,18 +6,22 @@
     "Poetry"
   ],
   "date": "2023-10-10T07:00:00.000Z",
+  "institution": [
+    "Kernel Magazine"
+  ],
   "heroImage": "https://www.kernelmag.io/site-images/og-image.jpg",
   "media": [
     "https://www.kernelmag.io/site-images/og-image.jpg"
   ],
   "link": "https://www.kernelmag.io/",
   "ongoing": false,
-  "forthcoming": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [],
+  "love": "n",
+  "me": "n"
 }
