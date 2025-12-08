@@ -13,7 +13,7 @@ You can always refer back to this website: https://spencer.place/worn-memory
 
 ## Introduction
 
-My name is Spencer Chang. I am an independent engineer and internet artist based in New York. My work explores communal computing - ways that computers can bring people together and help us shape technology toward what we care about.
+My name is Spencer Chang. I am an independent engineer and internet artist based in San Francisco. My work explores communal computing - ways that computers can bring people together and help us shape technology toward what we care about.
 
 I create experiments that examine our relationship with technology and with each other through technology. These include seasonal websites, open-source tools for building small social networks, and physical objects embedded with digital memories.
 
@@ -23,41 +23,71 @@ You can see more of my work at https://spencer.place
 
 Over the past several years, I have been exploring how we can create more intimate and meaningful relationships with digital technology. This work takes several forms.
 
-### Field Companions
+### Internet Environments
 
-<SelectedCreationSummary slug="field-companions" />
+<div class="flex flex-row gap-4 items-center">
+  <SelectedCreationSummary slug="everyday" />
+  <SelectedCreationSummary slug="alive-internet-theory" />
+  <SelectedCreationSummary slug="poems-we-found-with-the-internet" />
+</div>
 
-Field companions are everyday objects that become portals to digital memories. By embedding NFC chips into found objects and personal items, we create physical touchpoints for accessing digital experiences that matter to us.
+TODO: Internet works, spaces for people to participate, environments to immerse in, experiences that subvert your normal expectations of the internet and technology
 
-### Computing Shrines
+### Infrastructure
 
-<SelectedCreationSummary slug="computing-shrines" />
+<div class="flex flex-row gap-4 items-center">
+  <SelectedCreationSummary slug="playhtml" />
+  <SelectedCreationSummary slug="gift-interfaces" />
+  <SelectedCreationSummary slug="touching-computers-creating-data-talismans" />
+</div>
 
-Computing shrines are site-specific sculptures that create communal web interfaces. These physical installations allow people to access shared digital spaces through their phones at specific locations.
+TODO: Tools, infarstructure, teaching, etc.
 
-### Webstones
+### Interactive Sculpture
 
-<SelectedCreationSummary slug="computing-infused-objects" />
+<div class="flex flex-row gap-4 items-center">
+  <SelectedCreationSummary slug="computing-shrines" />
+  <SelectedCreationSummary slug="computing-infused-objects" />
+  <SelectedCreationSummary slug="field-companions" />
+</div>
 
 These ceramic internet sculptures contain RFID chips. Each piece serves as a physical key to digital content, creating a tangible connection between physical objects and online spaces.
 
-### Teaching Others
+Computing shrines are site-specific sculptures that create communal web interfaces. These physical installations allow people to access shared digital spaces through their phones at specific locations.
 
-<SelectedCreationSummary slug="touching-computers-creating-data-talismans" />
+Field companions are everyday objects that become portals to digital memories. By embedding NFC chips into found objects and personal items, we create physical touchpoints for accessing digital experiences that matter to us.
 
-I regularly teach workshops where participants create their own hybrid objects. These workshops show people how to infuse personal artifacts with digital memory using NFC technology.
-
-## Today's Workshop: Worn Memory
+## [WORKSHOP] Field Companions: Worn Memory
 
 In this workshop, we will embed stories inside clothing and create a system for passing down memories through generations.
 
-The process has several steps:
+One of my favorite things to do is buying secondhand items. Clothing, books, furniture, and art all have stories of their previous owners. Sometimes they are very obvious, like a jacket with the owner's name written on the label. Other times they give you intimate details without knowing who the person is, like the annotations in a book. Sometimes they are more subtle, like the small stains and scratches left in used chairs and tables. These things make these items more valuable to me than new things.
 
-1. You will personalize a clothing item by drawing designs with fabric markers
-2. You will stamp your personal hanko to mark your presence on the garment
-3. You will create a visible alteration that reflects your personal style
-4. You will record a memory about your relationship with this piece of clothing
-5. You will embed this memory using an NFC tag attached inside the clothing
+I love how these common objects start to become historical artifacts because we are giving meaning to them, with our life. There are so many practices and rituals that allow us to imbue pieces of ourselves into objects.
+
+<div class="flex flex-row gap-4">
+  <img
+    style="width: 33%;"
+    src="https://i.insider.com/5b803a613cccd11f008b45b0?width=600&format=jpeg&auto=webp"
+  />
+  <img
+    style="width: 33%;"
+    src="https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-EYraCgKVk2/08136a5e1f0122a1037677701f0c6126f504367483ecf25c0eb8406b3f1d44354d9902f8676c3a9e41a174521f5060d07c23302eaa788769caeedddc89851d92c2b1cc21fc73abc7c83d51a89814879cd6095b7a5db473560ba179bb77591843ee751df8"
+  />
+  <img
+    style="width: 33%;"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Child%27s_Sleeping_Mat_%28boro_Shikimono%29%2C_late_19th_century_%28CH_1108827543%29.jpg/2560px-Child%27s_Sleeping_Mat_%28boro_Shikimono%29%2C_late_19th_century_%28CH_1108827543%29.jpg"
+  />
+</div>
+
+In this workshop, we'll explore how technology can facilitate a new practice for archiving and sharing our personal histories. Together, we will
+
+1. Choose a garment - either one you brought from home or one from Pubrobe's public wardrobe
+2. Scan a pre-programmed NFC chip and use a web interface to document your garment's story
+3. Create a personal patch using fabric collage techniques
+4. Draw designs on your patch using fabric markers
+5. Attach your completed patch to the garment using fabric glue
+6. The visible alteration becomes an invitation for others to discover the digital stories embedded within
 
 <img src="https://yoshinarinishio.net/wp-content/uploads/2024/03/Pubrobe_01.jpg" />
 
@@ -73,8 +103,9 @@ In daily life, the visible alteration creates opportunities for intimate exchang
 
 Please take a moment to introduce yourself and share:
 
-- What clothing item did you bring today?
-- What is your relationship to this piece?
+- What clothing item did you bring today, or are you planning to use a garment from Pubrobe?
+- If you brought something: What is your relationship to this piece?
+- If you're using Pubrobe: What drew you to select a particular garment from the public wardrobe?
 - Have you ever inherited or passed down clothing before?
 
 ## Understanding NFC Technology
@@ -83,11 +114,14 @@ NFC stands for Near Field Communication. This technology allows two devices to c
 
 When you tap your phone to make a payment (Apple Pay, Google Pay, or other mobile payment systems), you are using NFC.
 
-![Apple Pay](/assets/apple-pay.jpg)
+<div class="w-1/2">![Apple Pay](/assets/apple-pay.jpg)</div>
 
 When you tap your phone or card to pay for subway or train tickets, you are using a form of NFC.
 
-![Subway Payment](https://www.japannakama.co.uk/wp-content/uploads/2025/03/Suica.webp)
+<div class="w-1/2">
+  ![Subway
+  Payment](https://www.japannakama.co.uk/wp-content/uploads/2025/03/Suica.webp)
+</div>
 
 Most modern smartphones have NFC capability built in. This technology has become standard over the past several years.
 
@@ -181,45 +215,129 @@ Here are some examples of field companions I have created:
 </blockquote>
 <script async src="//www.instagram.com/embed.js"></script>
 
-## Programming Your NFC Chip
-
-To program your NFC chip, you will need to download the NFC Tools application on your phone.
-
-This application is available for both iOS (iPhone) and Android devices.
-
-![NFC Tools](https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/7e/b8/e3/7eb8e32a-1c19-0a1d-d5fb-ad54c22238bd/AppIcon-0-0-1x_U007emarketing-0-4-85-220.png/1200x630wa.png)
-
 ## Workshop Instructions
 
 Please follow these steps to create your worn memory:
 
-### 1. Consider Your Garment
+### 1. Choose Your Garment
 
-Think about your relationship with the clothing item you brought:
+You have two options:
 
-- Why does this garment matter to you?
-- What memories does it hold?
-- What story do you want to preserve?
+- Bring a garment from home that holds personal meaning
+- Select a garment from Pubrobe's public wardrobe to give new life to
 
-### 2. Design and Mark
+### 2. Scan Your NFC Chip
 
-Use fabric markers to draw designs that represent your story. Stamp your personal hanko to mark your presence on the garment. The design should reflect your personal style.
+Each participant will receive a pre-programmed NFC chip. To connect it to your garment:
 
-### 3. Record Your Story
+1. Hold your phone near the NFC chip (you don't need any special app - your phone's camera or default NFC reader will detect it)
+2. A notification will appear - tap it to open the web interface
+3. You'll see a form where you can record your garment's story
 
-Record a memory about this piece of clothing. Explain why it matters to you, where it came from, and what it represents. This recording will be embedded in the garment through the NFC chip.
+### 3. Using the Digital Interface
 
-### 4. Program the NFC Chip
+The web interface allows you to document your garment's story:
 
-Use the NFC Tools application to program your chip with a link to your recorded story. Attach the chip inside the clothing.
+<div class="w-1/2">
+  <img src="/workshops/worn-memory/worn-memory-ui.jpeg" />
+</div>
 
-### 5. Create a Visible Mark
+In the interface, you can:
 
-Make a design element that shows where someone should tap their phone. This design invites others to discover your story.
+- **Describe the garment**: What is it? What does it look like? What condition is it in?
+- **Share your story**: Why does this garment matter to you? What memories does it hold? Where did it come from?
+- **Add photos**: Capture images of your garment and your alterations
+- **View the archive**: See stories from previous owners (if this garment has been passed down before)
 
-## Questions to Consider
+When you pass the garment to someone else in the future, they will scan the same NFC chip, see your story in the archive, and add their own story to the collection. Each garment becomes a living record of all the people who have worn it.
 
-As you work, think about these questions:
+### 4. Materials Available
+
+You will have access to various materials to create your personal alteration:
+
+<div class="flex flex-row gap-4">
+  <div class="flex-1">
+    <img
+      src="/workshops/worn-memory/spare-fabric.jpg"
+      class="w-full pb-2 aspect-square object-cover"
+    />
+    <strong>Spare Fabrics</strong>
+    <ul style="margin-top: 0;">
+      <li>
+        A variety of fabric pieces in different colors, textures, and patterns
+      </li>
+      <li>Cut these into interesting shapes to create your design</li>
+      <li>
+        Combine different pieces in a collage pattern to make a unique patch
+      </li>
+    </ul>
+  </div>
+
+{" "}
+
+<div class="flex-1">
+  <img
+    src="/workshops/worn-memory/fabric-pens.jpeg"
+    class="w-full aspect-square object-cover pb-2"
+  />
+  <strong>Fabric Pens</strong>
+  <ul style="margin-top: 0;">
+    <li>Black and white fabric markers</li>
+    <li>Use these to draw designs, patterns, or text on your fabric pieces</li>
+    <li>Add personal symbols, dates, or decorative elements</li>
+  </ul>
+</div>
+
+  <div class="flex-1">
+      <img src="/workshops/worn-memory/fabric-glue.jpg" class="w-full aspect-square object-cover pb-2" />
+    <strong>Fabric Glue</strong>
+    <ul style="margin-top: 0;">
+      <li>Use this to attach your collage pieces together</li>
+      <li>Once your patch is complete, glue it onto your garment</li>
+      <li>
+        The glue creates a permanent bond that will last through wear and
+        washing
+      </li>
+    </ul>
+  </div>
+</div>
+
+### 5. Create Your Design
+
+<div class="w-1/2">![](/workshops/worn-memory/worn-memory-patch.jpeg)</div>
+
+Follow these steps to make your alteration:
+
+**Step 1: Design Your Patch**
+
+- Look through the spare fabrics and select pieces that speak to you
+- Cut them into shapes that reflect your story or aesthetic
+- Arrange them in a collage pattern - experiment with different combinations
+
+**Step 2: Add Details**
+
+- Use the fabric pens to draw on your fabric pieces
+- Add patterns, text, symbols, or decorative elements
+- Consider tracing your hand as a way to mark your presence
+
+**Step 3: Assemble Your Patch**
+
+- Use fabric glue to attach your collage pieces together
+- Let the glue dry according to the instructions
+- Make sure all edges are secure
+
+**Step 4: Attach to Garment**
+
+- Choose where on the garment your patch should go
+- Apply fabric glue to the back of your completed patch
+- Press firmly onto the garment and let dry
+- This visible alteration becomes an invitation for others to discover your story
+
+<div class="w-1/2">![](/workshops/worn-memory/worn-memory-garment.jpeg)</div>
+
+### 6. Consider the Future
+
+As you create, think about:
 
 - What makes this garment meaningful to you?
 - What story do you want to preserve about your relationship with it?
@@ -230,28 +348,9 @@ As you work, think about these questions:
 
 Worn memory creates objects that grow over time. When you are ready to pass your garment to someone else, they can:
 
-1. Tap the NFC chip to hear all the previous stories
-2. Add their own memory to the collection
-3. Make their own alteration to the design
+1. Scan the NFC chip to read all the previous stories
+2. Use the same web interface to add their own story to the archive
+3. Create their own alteration or patch to add to the design
 4. Pass it on again when they are ready
 
-Each garment becomes a living archive. It accumulates voices, relationships, and memories as it moves through different hands.
-
-## Advanced Options
-
-If you would like to explore more advanced features:
-
-- If you have trouble getting NFC to work, please check the [troubleshooting guide](https://internetsculptures.com/setup)
-- iPhone users can use Apple Shortcuts to create automatic actions when tapping the NFC chip. This removes the need to click a prompt each time. More [information is available here](https://internetsculptures.com/setup).
-- Android users can use third-party applications such as NFC Tasks to program more complex actions.
-
----
-
-## Sharing Your Work
-
-I would be grateful to see what you create. If you are willing to share your work, you can:
-
-- Send pictures and information about what you made to spencer@spencer.place
-- Add directly to <a href="https://www.are.na/spencer-chang/field-companions-worn-memory">this are.na channel</a>
-
-Thank you for participating in this workshop.
+Each garment becomes a living archive. It accumulates voices, relationships, and memories as it moves through different hands. The physical patches layer upon each other, just as the digital stories accumulate in the archive.
