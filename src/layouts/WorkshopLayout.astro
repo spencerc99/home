@@ -1,0 +1,225 @@
+---
+import DetailSingleLayout, { type Props as DetailProps } from "./DetailSingleLayout.astro";
+
+interface Props extends DetailProps {
+  // Add any workshop-specific props here if needed
+}
+
+const props = Astro.props;
+---
+
+<DetailSingleLayout {...props}>
+  <style is:global>
+    /* Presentation mode styles */
+    body.presentation-mode {
+      overflow-y: auto;
+    }
+
+    body.presentation-mode .slide {
+      display: none;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    body.presentation-mode .slide.active {
+      display: block;
+    }
+
+    body.presentation-mode .presenter-notes {
+      display: none;
+    }
+
+    body.presentation-mode .textContainer {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
+    /* Normal mode - all slides visible */
+    body:not(.presentation-mode) .slide {
+      display: block;
+    }
+
+    /* Presentation mode indicator */
+    .presentation-indicator {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 1000;
+    }
+
+    body.presentation-mode .presentation-indicator {
+      display: block;
+    }
+
+    /* Presenter notes styling in normal mode */
+    .presenter-notes {
+      opacity: 0.6;
+      font-size: 0.9em;
+      font-style: italic;
+      border-left: 3px solid #ccc;
+      padding-left: 1em;
+      margin: 1em 0;
+    }
+  </style>
+
+  <script is:inline>
+    (function() {
+      let currentSlide = 0;
+      let slides = [];
+
+      function initPresentation() {
+        const content = document.querySelector('.prose');
+        if (!content) {
+          console.log('No prose container found');
+          return;
+        }
+
+        // Find all h2 headings
+        const allHeadings = Array.from(content.querySelectorAll('h2'));
+        console.log('Found headings:', allHeadings.length);
+
+        if (allHeadings.length === 0) {
+          console.log('No h2 headings found');
+          return;
+        }
+
+        // Collect all elements before first heading as intro slide
+        const firstHeading = allHeadings[0];
+        const introElements = [];
+        let currentNode = content.firstChild;
+
+        while (currentNode && currentNode !== firstHeading) {
+          if (currentNode.nodeType === 1) {
+            introElements.push(currentNode);
+          }
+          currentNode = currentNode.nextSibling;
+        }
+
+        // Create intro slide if there's content before first h2
+        if (introElements.length > 0) {
+          const introSlide = document.createElement('div');
+          introSlide.className = 'slide';
+          content.insertBefore(introSlide, content.firstChild);
+          introElements.forEach(el => introSlide.appendChild(el));
+          slides.push(introSlide);
+        }
+
+        // Create slides for each h2 section
+        allHeadings.forEach((heading) => {
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+
+          // Insert slide before the heading
+          heading.parentNode.insertBefore(slide, heading);
+
+          // Move heading into slide
+          slide.appendChild(heading);
+
+          // Move all siblings until next h2 into this slide
+          let nextElement = slide.nextElementSibling;
+          while (nextElement && nextElement.tagName !== 'H2') {
+            const current = nextElement;
+            nextElement = nextElement.nextElementSibling;
+            slide.appendChild(current);
+          }
+
+          slides.push(slide);
+        });
+
+        console.log('Created slides:', slides.length);
+      }
+
+      function enterPresentationMode() {
+        document.body.classList.add('presentation-mode');
+        currentSlide = 0;
+        showSlide(currentSlide);
+
+        // Create indicator if it doesn't exist
+        if (!document.querySelector('.presentation-indicator')) {
+          const indicator = document.createElement('div');
+          indicator.className = 'presentation-indicator';
+          document.body.appendChild(indicator);
+        }
+
+        updateIndicator();
+        window.scrollTo(0, 0);
+      }
+
+      function exitPresentationMode() {
+        document.body.classList.remove('presentation-mode');
+        slides.forEach(slide => slide.classList.remove('active'));
+      }
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+        updateIndicator();
+        window.scrollTo(0, 0);
+      }
+
+      function updateIndicator() {
+        const indicator = document.querySelector('.presentation-indicator');
+        if (indicator) {
+          indicator.textContent = 'Slide ' + (currentSlide + 1) + ' / ' + slides.length + ' (Press ESC to exit)';
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          showSlide(currentSlide);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          showSlide(currentSlide);
+        }
+      }
+
+      function handleKeydown(e) {
+        const isPresentationMode = document.body.classList.contains('presentation-mode');
+
+        if (e.key === 'p' && !isPresentationMode) {
+          e.preventDefault();
+          enterPresentationMode();
+          return;
+        }
+
+        if (!isPresentationMode) return;
+
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          exitPresentationMode();
+        } else if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          prevSlide();
+        }
+      }
+
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          initPresentation();
+          document.addEventListener('keydown', handleKeydown);
+        });
+      } else {
+        initPresentation();
+        document.addEventListener('keydown', handleKeydown);
+      }
+    })();
+  </script>
+
+  <slot />
+</DetailSingleLayout>
