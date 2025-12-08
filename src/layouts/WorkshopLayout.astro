@@ -1,5 +1,7 @@
 ---
-import DetailSingleLayout, { type Props as DetailProps } from "./DetailSingleLayout.astro";
+import DetailSingleLayout, {
+  type Props as DetailProps,
+} from "./DetailSingleLayout.astro";
 
 interface Props extends DetailProps {
   // Add any workshop-specific props here if needed
@@ -69,23 +71,23 @@ const props = Astro.props;
   </style>
 
   <script is:inline>
-    (function() {
+    (function () {
       let currentSlide = 0;
       let slides = [];
 
       function initPresentation() {
-        const content = document.querySelector('.prose');
+        const content = document.querySelector(".prose");
         if (!content) {
-          console.log('No prose container found');
+          console.log("No prose container found");
           return;
         }
 
         // Find all h2 headings
-        const allHeadings = Array.from(content.querySelectorAll('h2'));
-        console.log('Found headings:', allHeadings.length);
+        const allHeadings = Array.from(content.querySelectorAll("h2"));
+        console.log("Found headings:", allHeadings.length);
 
         if (allHeadings.length === 0) {
-          console.log('No h2 headings found');
+          console.log("No h2 headings found");
           return;
         }
 
@@ -103,17 +105,17 @@ const props = Astro.props;
 
         // Create intro slide if there's content before first h2
         if (introElements.length > 0) {
-          const introSlide = document.createElement('div');
-          introSlide.className = 'slide';
+          const introSlide = document.createElement("div");
+          introSlide.className = "slide";
           content.insertBefore(introSlide, content.firstChild);
-          introElements.forEach(el => introSlide.appendChild(el));
+          introElements.forEach((el) => introSlide.appendChild(el));
           slides.push(introSlide);
         }
 
         // Create slides for each h2 section
         allHeadings.forEach((heading) => {
-          const slide = document.createElement('div');
-          slide.className = 'slide';
+          const slide = document.createElement("div");
+          slide.className = "slide";
 
           // Insert slide before the heading
           heading.parentNode.insertBefore(slide, heading);
@@ -123,7 +125,7 @@ const props = Astro.props;
 
           // Move all siblings until next h2 into this slide
           let nextElement = slide.nextElementSibling;
-          while (nextElement && nextElement.tagName !== 'H2') {
+          while (nextElement && nextElement.tagName !== "H2") {
             const current = nextElement;
             nextElement = nextElement.nextElementSibling;
             slide.appendChild(current);
@@ -132,18 +134,18 @@ const props = Astro.props;
           slides.push(slide);
         });
 
-        console.log('Created slides:', slides.length);
+        console.log("Created slides:", slides.length);
       }
 
       function enterPresentationMode() {
-        document.body.classList.add('presentation-mode');
+        document.body.classList.add("presentation-mode");
         currentSlide = 0;
         showSlide(currentSlide);
 
         // Create indicator if it doesn't exist
-        if (!document.querySelector('.presentation-indicator')) {
-          const indicator = document.createElement('div');
-          indicator.className = 'presentation-indicator';
+        if (!document.querySelector(".presentation-indicator")) {
+          const indicator = document.createElement("div");
+          indicator.className = "presentation-indicator";
           document.body.appendChild(indicator);
         }
 
@@ -152,22 +154,22 @@ const props = Astro.props;
       }
 
       function exitPresentationMode() {
-        document.body.classList.remove('presentation-mode');
-        slides.forEach(slide => slide.classList.remove('active'));
+        document.body.classList.remove("presentation-mode");
+        slides.forEach((slide) => slide.classList.remove("active"));
       }
 
       function showSlide(index) {
         slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
+          slide.classList.toggle("active", i === index);
         });
         updateIndicator();
         window.scrollTo(0, 0);
       }
 
       function updateIndicator() {
-        const indicator = document.querySelector('.presentation-indicator');
+        const indicator = document.querySelector(".presentation-indicator");
         if (indicator) {
-          indicator.textContent = 'Slide ' + (currentSlide + 1) + ' / ' + slides.length + ' (Press ESC to exit)';
+          indicator.textContent = currentSlide + 1 + " / " + slides.length;
         }
       }
 
@@ -186,9 +188,10 @@ const props = Astro.props;
       }
 
       function handleKeydown(e) {
-        const isPresentationMode = document.body.classList.contains('presentation-mode');
+        const isPresentationMode =
+          document.body.classList.contains("presentation-mode");
 
-        if (e.key === 'p' && !isPresentationMode) {
+        if (e.key === "p" && e.metaKey && e.shiftKey && !isPresentationMode) {
           e.preventDefault();
           enterPresentationMode();
           return;
@@ -196,27 +199,27 @@ const props = Astro.props;
 
         if (!isPresentationMode) return;
 
-        if (e.key === 'Escape') {
+        if (e.key === "Escape") {
           e.preventDefault();
           exitPresentationMode();
-        } else if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+        } else if (e.key === "ArrowRight") {
           e.preventDefault();
           nextSlide();
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        } else if (e.key === "ArrowLeft") {
           e.preventDefault();
           prevSlide();
         }
       }
 
       // Initialize when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
           initPresentation();
-          document.addEventListener('keydown', handleKeydown);
+          document.addEventListener("keydown", handleKeydown);
         });
       } else {
         initPresentation();
-        document.addEventListener('keydown', handleKeydown);
+        document.addEventListener("keydown", handleKeydown);
       }
     })();
   </script>
