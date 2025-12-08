@@ -1,41 +1,14 @@
 ---
 import { Stats } from "../trinkets/Stats";
-import { ClockEmbed } from "../ClockEmbed";
+import { StatusHeader } from "./StatusHeader";
 import HeaderActions from "../header/HeaderActions.astro";
 import SocialMediaLinks from "../SocialMediaLinks";
-
-let stream;
-try {
-  stream = await fetch("https://status.spencer.place/metadata").then((res) =>
-    res.json()
-  );
-} catch (err) {
-  console.error(err);
-}
-
-const timezone = stream?.timezone || "";
-const timezoneShort = stream?.timezoneShort || "";
-const weatherEmoji = stream?.location?.split(" ").slice(-1)[0] || "";
 ---
 
 <!-- TODO: improve mobile view for expanding / seeing the stuff that is hidden? -->
 <nav id="sidebar">
   <div class="sidebarContainer">
-    <div style="display: flex; justify-content: center;" class="hide-mobile">
-      <ClockEmbed
-        client:only="react"
-        size={100}
-        transition:persist="clock-embed"
-        timezone={timezone}
-      />
-    </div>
-    <div class="avatar">
-      <span class="avatarLink">spencer chang</span>{" "}<span
-        class="avatarDescription"
-      >
-        {timezoneShort}{" "}{weatherEmoji}
-      </span>
-    </div>
+    <StatusHeader client:only="react" />
     <HeaderActions />
     <div
       class="hide-mobile"
