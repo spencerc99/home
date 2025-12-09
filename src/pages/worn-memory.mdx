@@ -6,6 +6,7 @@ centered: true
 ---
 
 import SelectedCreationSummary from "../components/SelectedCreationSummary.astro";
+import CreationMediaCarousel from "../components/CreationMediaCarousel.astro";
 
 # Field Companions: Worn Memory
 
@@ -13,43 +14,24 @@ You can always refer back to this website: https://spencer.place/worn-memory
 
 ## Introduction
 
-My name is Spencer Chang. I am an independent engineer and internet artist based in San Francisco. My work explores communal computing - ways that computers can bring people together and help us shape technology toward what we care about.
+My name is Spencer Chang. I'm an artist, designer, and engineer based in San Francisco. My work focuses on "communal computing" — forms of technology that bring people together and help us shape it for our imagination. I create "software you can touch," from websites that play out on your own devices and with personal data to interactive sculptures that invite intimate encounters between strangers to infrastructure that enables others to create their own forms of software.
 
-<div class="presenter-notes">
-  Note: These presenter notes will be visible when reading normally but hidden
-  in presentation mode. You can add your talking points, reminders, or
-  additional context here.
-</div>
+<CreationMediaCarousel
+  slugs={["everyday", "alive-internet-theory", "computing-shrines"]}
+  cycleSpeed={4000}
+/>
 
-I create experiments that examine our relationship with technology and with each other through technology. These include seasonal websites, open-source tools for building small social networks, and physical objects embedded with digital memories.
+I believe the internet and technology broadly is a mirror of our relationships to each other. I want it to feel as accessible of a creation material as writing is today.
 
 You can see more of my work at https://spencer.place
 
-## Background: My Practice
+## Webstones
 
-Over the past several years, I have been exploring how we can create more intimate and meaningful relationships with digital technology. This work takes several forms.
+You may have seen some of this work out there. Computing shrines are site-specific sculptures that create communal web interfaces. These physical installations allow people to access shared digital spaces through their phones at specific locations.
 
-### Internet Environments
+Field companions are everyday objects that become portals to digital memories. By embedding NFC chips into found objects and personal items, we create physical touchpoints for accessing digital experiences that matter to us.
 
-<div class="flex flex-row gap-4 items-center">
-  <SelectedCreationSummary slug="everyday" />
-  <SelectedCreationSummary slug="alive-internet-theory" />
-  <SelectedCreationSummary slug="poems-we-found-with-the-internet" />
-</div>
-
-TODO: Internet works, spaces for people to participate, environments to immerse in, experiences that subvert your normal expectations of the internet and technology
-
-### Infrastructure
-
-<div class="flex flex-row gap-4 items-center">
-  <SelectedCreationSummary slug="playhtml" />
-  <SelectedCreationSummary slug="gift-interfaces" />
-  <SelectedCreationSummary slug="touching-computers-creating-data-talismans" />
-</div>
-
-TODO: Tools, infarstructure, teaching, etc.
-
-### Interactive Sculpture
+All of these are artworks that combine physical and digital craft.
 
 <div class="flex flex-row gap-4 items-center">
   <SelectedCreationSummary slug="computing-shrines" />
@@ -57,11 +39,19 @@ TODO: Tools, infarstructure, teaching, etc.
   <SelectedCreationSummary slug="field-companions" />
 </div>
 
-These ceramic internet sculptures contain RFID chips. Each piece serves as a physical key to digital content, creating a tangible connection between physical objects and online spaces.
+we'll call them webstones to describe objects that are embedded with software that is specific to them.
 
-Computing shrines are site-specific sculptures that create communal web interfaces. These physical installations allow people to access shared digital spaces through their phones at specific locations.
+- idea is creating software for a specific object or place rather than something universal like typical software is created these days. This software is personal.
+- started with webstones created my very first one
+- field companions became a way to incorporate found materials with my own personality
+- more experiments: fortune cookies,
 
-Field companions are everyday objects that become portals to digital memories. By embedding NFC chips into found objects and personal items, we create physical touchpoints for accessing digital experiences that matter to us.
+Then, I started teaching workshops to share these ideas with others, in various forms: 1) creating sculptures out of clay and embedding software function in them, 2) embedding software into found and personal objects.
+
+<div class="flex flex-row gap-4 items-center">
+  <SelectedCreationSummary slug="touching-computers-nfc-as-ritual" />
+  <SelectedCreationSummary slug="touching-computers-creating-data-talismans" />
+</div>
 
 ## [WORKSHOP] Field Companions: Worn Memory
 
@@ -101,7 +91,7 @@ This approach builds on <a href="https://yoshinarinishio.net/works/pubrobe/">Pub
 
 Each garment in that project carries the story that the previous owner had with it.
 
-Our system allows for growth over time. When someone passes the garment on, the next owner can add their own story before giving it away again. This creates evolving narrative objects. Each garment accumulates a growing archive of stories as it moves through different hands.
+We will create a system that supports the accumulation of stories. When someone passes the garment on, the next owner can add their own story before giving it away again. This creates evolving narrative objects. Each garment accumulates a growing archive of stories as it moves through different hands.
 
 In daily life, the visible alteration creates opportunities for intimate exchange. When you meet friends and strangers, the design invites them to discover your story.
 
@@ -137,16 +127,14 @@ Please follow these steps to create your worn memory:
 
 ### 1. Choose Your Garment
 
-You have two options:
-
-- Bring a garment from home that holds personal meaning
-- Select a garment from Pubrobe's public wardrobe to give new life to
+1. Use the garment you brought from home or
+2. Select a garment from Pubrobe's public wardrobe to give new life to
 
 ### 2. Scan Your NFC Chip
 
 Each participant will receive a pre-programmed NFC chip. To connect it to your garment:
 
-1. Hold your phone near the NFC chip (you don't need any special app - your phone's camera or default NFC reader will detect it)
+1. Hold your phone near the NFC chip
 2. A notification will appear - tap it to open the web interface
 3. You'll see a form where you can record your garment's story
 
@@ -160,9 +148,8 @@ The web interface allows you to document your garment's story:
 
 In the interface, you can:
 
-- **Describe the garment**: What is it? What does it look like? What condition is it in?
-- **Share your story**: Why does this garment matter to you? What memories does it hold? Where did it come from?
-- **Add photos**: Capture images of your garment and your alterations
+- **Share your memories**: Did you have a meaningful day with it when you wore it?
+- **Log your wear**: How many times did you wear it? When did you last wear it?
 - **View the archive**: See stories from previous owners (if this garment has been passed down before)
 
 When you pass the garment to someone else in the future, they will scan the same NFC chip, see your story in the archive, and add their own story to the collection. Each garment becomes a living record of all the people who have worn it.

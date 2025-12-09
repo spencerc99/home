@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import { CreationMediaCarousel as CreationMediaCarouselComponent } from "./CreationMediaCarousel";
+
+interface Props {
+  slugs: string[];
+  cycleSpeed?: number;
+  className?: string;
+  coverOnly?: boolean; // If true, only show the cover/preview media; if false, show all media
+}
+
+const {
+  slugs,
+  cycleSpeed = 3000,
+  className = "",
+  coverOnly = false,
+} = Astro.props;
+
+// Get all creations and filter by slugs
+const creations = await getCollection("creation");
+const selectedCreations = creations.filter((creation) =>
+  slugs.includes(creation.id)
+);
+
+// Collect all media items from selected creations
+const mediaItems: Array<{
+  src: string;
+  type: "image" | "video";
+  title: string;
+  date: Date | null;
+  id: string;
+  link?: string;
+  descriptionMd?: string;
+}> = [];
+
+selectedCreations.forEach((creation) => {
+  const {
+    media = [],
+    mediaMetadata = [],
+    assetPreviewIdx = 0,
+    title,
+    date,
+    link,
+    descriptionMd,
+  } = creation.data;
+
+  if (coverOnly) {
+    // Only use the cover/preview media
+    const coverMedia = media[assetPreviewIdx];
+    if (coverMedia) {
+      const mediaType =
+        mediaMetadata[assetPreviewIdx] ||
+        (coverMedia.includes(".mp4") ? "video" : "image");
+      mediaItems.push({
+        src: coverMedia,
+        type: mediaType as "image" | "video",
+        title,
+        date,
+        id: creation.id,
+        link,
+        descriptionMd,
+      });
+    }
+  } else {
+    // Use all media from each creation
+    media.forEach((mediaUrl, index) => {
+      const mediaType =
+        mediaMetadata[index] || (mediaUrl.includes(".mp4") ? "video" : "image");
+      mediaItems.push({
+        src: mediaUrl,
+        type: mediaType as "image" | "video",
+        title,
+        date,
+        id: creation.id,
+        link,
+        descriptionMd,
+      });
+    });
+  }
+});
+
+// If no media found, don't render anything
+if (mediaItems.length === 0) {
+  return null;
+}
+---
+
+<CreationMediaCarouselComponent
+  client:only="react"
+  mediaItems={mediaItems}
+  cycleSpeed={cycleSpeed}
+  className={className}
+/>
