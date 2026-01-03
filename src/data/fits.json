@@ -2,6 +2,334 @@
     "fits": [
         {
             "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-12%3AIMG_1511_edited.jpeg",
+            "date": "2025-12-12",
+            "timestamp": 1765536300.848,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Honshu, Taito, Tokyo, Japan",
+            "city": "Taito",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Jacket",
+                "People"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-11-28%3AIMG_0547_edited.jpeg",
+            "date": "2025-11-28",
+            "timestamp": 1764375393.207,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "San Francisco, California, United States",
+            "city": "San Francisco",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Container",
+                "Luggage",
+                "People",
+                "Plant",
+                "Window"
+            ],
+            "season": "Fall",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-17%3AIMG_1886_edited.jpeg",
+            "date": "2025-12-17",
+            "timestamp": 1765932445.959,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Daan District, Taiwan",
+            "city": "Daan District",
+            "country": "Taiwan",
+            "peopleCount": 1,
+            "labels": [
+                "Outdoor",
+                "People"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-06%3AIMG_0924_edited.jpeg",
+            "date": "2025-12-06",
+            "timestamp": 1765004223.096,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Honshu, Minato, Tokyo, Japan",
+            "city": "Minato",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Footwear",
+                "Interior Room",
+                "Jeans",
+                "People",
+                "Shoes"
+            ],
+            "season": "Winter",
+            "activities": [
+                "Entertainment",
+                "Museum"
+            ],
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-11%3AIMG_1300_edited.jpeg",
+            "date": "2025-12-11",
+            "timestamp": 1765437694.29,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Honshu, Minato, Tokyo, Japan",
+            "city": "Minato",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "People"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": [
+                "Antique Store",
+                "Art Center",
+                "Art Gallery",
+                "Arts",
+                "Secondhand Store",
+                "Store",
+                "Thrift Store",
+                "Travel and Leisure"
+            ]
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-13%3AIMG_1522_edited.jpeg",
+            "date": "2025-12-13",
+            "timestamp": 1765586115.973,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Tokyo City Keiba, Shinagawa, Tokyo, Japan",
+            "city": "Shinagawa",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Outdoor",
+                "People",
+                "Sign",
+                "Sky"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-18%3AIMG_2064_edited.jpeg",
+            "date": "2025-12-18",
+            "timestamp": 1766072287.224,
+            "width": 2268,
+            "height": 4032,
+            "favorite": false,
+            "place": "Green Residence (Fanglin Road), Shanghai, China",
+            "city": "Shanghai",
+            "country": "China",
+            "peopleCount": 1,
+            "labels": [
+                "Chair",
+                "Clothing",
+                "Container",
+                "Furniture",
+                "Luggage",
+                "Necktie",
+                "People",
+                "Shirt",
+                "Suit"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-14%3AIMG_1628_edited.jpeg",
+            "date": "2025-12-14",
+            "timestamp": 1765685496.684,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Narita International Airport, Narita, Chiba, Japan",
+            "city": "Narita",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "People"
+            ],
+            "season": "Winter",
+            "activities": [
+                "Dining",
+                "Lunch"
+            ],
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-05%3AIMG_0840_edited.jpeg",
+            "date": "2025-12-05",
+            "timestamp": 1764921851.721,
+            "width": 3213,
+            "height": 5712,
+            "favorite": true,
+            "place": "Honshu, Chiyoda, Tokyo, Japan",
+            "city": "Chiyoda",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Coat",
+                "Footwear",
+                "Interior Room",
+                "Interior Shop",
+                "Jacket",
+                "People",
+                "Shoes"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-21%3AIMG_2202_edited.jpeg",
+            "date": "2025-12-21",
+            "timestamp": 1766315155.984,
+            "width": 2268,
+            "height": 4032,
+            "favorite": false,
+            "place": "CP Jing'an, Shanghai, China",
+            "city": "Shanghai",
+            "country": "China",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Headgear",
+                "Helmet",
+                "People",
+                "Suit"
+            ],
+            "season": "Winter",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-04%3AIMG_0777_edited.jpeg",
+            "date": "2025-12-04",
+            "timestamp": 1764824923.732,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Roppongi Hills, Minato, Tokyo, Japan",
+            "city": "Minato",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Door",
+                "Elevator",
+                "People"
+            ],
+            "season": "Winter",
+            "activities": [
+                "Dining",
+                "Lunch"
+            ],
+            "venue_types": [
+                "Commercial Complex",
+                "Commercial Sector",
+                "Real Estate",
+                "Shopping",
+                "Shopping Center"
+            ]
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-11-30%3AIMG_0640_edited.jpeg",
+            "date": "2025-11-30",
+            "timestamp": 1764545567.635,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "San Francisco, California, United States",
+            "city": "San Francisco",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Chair",
+                "Clothing",
+                "Furniture",
+                "Interior Room",
+                "People",
+                "Pillow",
+                "Plant",
+                "Tool",
+                "Window"
+            ],
+            "season": "Fall",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-12-08%3AIMG_1038_edited.jpeg",
+            "date": "2025-12-08",
+            "timestamp": 1765175699.442,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Honshu, Chiyoda, Tokyo, Japan",
+            "city": "Chiyoda",
+            "country": "Japan",
+            "peopleCount": 1,
+            "labels": [
+                "Door",
+                "Elevator",
+                "People"
+            ],
+            "season": "Winter",
+            "activities": [
+                "Dining",
+                "Dinner"
+            ],
+            "venue_types": [
+                "Conference Center",
+                "Event Venue",
+                "Travel and Leisure"
+            ]
+        },
+        {
+            "description": "",
             "imgSrc": "https://assets.spencerchang.me/fits-stream/2025-11-17%3AIMG_0270_edited.jpeg",
             "date": "2025-11-17",
             "timestamp": 1763446958.615,
