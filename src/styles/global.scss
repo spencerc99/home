@@ -814,11 +814,11 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
   .socialMediaLink {
     display: flex;
     align-items: center;
-    font-size: 32px;
+    font-size: 24px;
 
     svg {
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
     }
   }
 

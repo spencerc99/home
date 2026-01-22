@@ -75,6 +75,42 @@ const props = Astro.props;
       let currentSlide = 0;
       let slides = [];
 
+      function updateURL() {
+        const url = new URL(window.location);
+        const isPresentationMode = document.body.classList.contains("presentation-mode");
+
+        if (isPresentationMode) {
+          url.searchParams.set("presentation", "true");
+          url.searchParams.set("slide", currentSlide);
+        } else {
+          url.searchParams.delete("presentation");
+          url.searchParams.delete("slide");
+        }
+
+        window.history.replaceState({}, "", url);
+      }
+
+      function loadFromURL() {
+        const url = new URL(window.location);
+        const isPresentationMode = url.searchParams.get("presentation") === "true";
+        const slideParam = url.searchParams.get("slide");
+
+        if (isPresentationMode) {
+          const slideIndex = slideParam ? parseInt(slideParam, 10) : 0;
+          currentSlide = Math.max(0, Math.min(slideIndex, slides.length - 1));
+          document.body.classList.add("presentation-mode");
+          showSlide(currentSlide, false);
+
+          // Create indicator if it doesn't exist
+          if (!document.querySelector(".presentation-indicator")) {
+            const indicator = document.createElement("div");
+            indicator.className = "presentation-indicator";
+            document.body.appendChild(indicator);
+          }
+          updateIndicator();
+        }
+      }
+
       function initPresentation() {
         const content = document.querySelector(".prose");
         if (!content) {
@@ -135,6 +171,9 @@ const props = Astro.props;
         });
 
         console.log("Created slides:", slides.length);
+
+        // Load state from URL after slides are created
+        loadFromURL();
       }
 
       function enterPresentationMode() {
@@ -156,14 +195,19 @@ const props = Astro.props;
       function exitPresentationMode() {
         document.body.classList.remove("presentation-mode");
         slides.forEach((slide) => slide.classList.remove("active"));
+        updateURL();
       }
 
-      function showSlide(index) {
+      function showSlide(index, shouldUpdateURL = true) {
         slides.forEach((slide, i) => {
           slide.classList.toggle("active", i === index);
         });
         updateIndicator();
         window.scrollTo(0, 0);
+
+        if (shouldUpdateURL) {
+          updateURL();
+        }
       }
 
       function updateIndicator() {
