@@ -1,0 +1,23 @@
+---
+// ABOUTME: Development page for browsing and selecting creation media assets
+// ABOUTME: Only accessible in development mode
+
+import { getCollection } from "astro:content";
+import { CreationAssetPicker } from "../../components/CreationAssetPicker";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Only allow in development
+if (import.meta.env.PROD) {
+  return Astro.redirect("/");
+}
+
+const creations = await getCollection("creation");
+// Sort by date or title for consistent ordering
+const sortedCreations = creations.sort((a, b) =>
+  a.data.title.localeCompare(b.data.title)
+);
+---
+
+<BaseLayout title="Creation Asset Picker - Dev Tool">
+  <CreationAssetPicker client:load creations={sortedCreations} />
+</BaseLayout>
