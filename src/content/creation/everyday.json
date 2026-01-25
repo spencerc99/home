@@ -16,6 +16,7 @@
   "media": [
     "/creation-videos/bl-3iG3YRioYt.mp4",
     "/creation-videos/bl-7ueZKvh22a.mp4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-bneGE8V9iq/4bc2441077e6f32e99b52b8c755453c33cf68fc897fcbc06c6e970d9ce7ad5711c6878c09f8e9f39d7caf360e2b52cc23380cb130845b4fe5778fcd76ad370d426815a5e9686afac638e7b1a6f7e1db232cc64f625e98806b0a3cb79a2be1bd236ebc148",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-dCjoaTd532/67fd013e041660f3da15641c3457aef545145e597617a2c389e671b15870ba6c17c5fc966ef9bfd6fd296a96ae0f86572fa3eec69aff81e5b89849174e28d4456448295eb50896e6c46834c9f6eb63e19edc44831f0a314a53751982c9fdd86159ad9772",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-IaR48Q9S1h/16eeaa80759682d81f67ba7b5420dcd2e25b4baa666a46c4ab50ab1e018776e7b2363458941f78b4bd0a8f83875f581a7c1be2a249242cdf768ea00a59eb41f913d1181f402eb00dd43506f0813fb0891058079e20895ea0daff2aaba16a8e7ea3784e43",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GVwO81JqTJ/c8914011b81838da353841a7adc6340db1dc0feb0bc44baa7f9eaaa2c58605c257b03955e76b383258f4eaf65aa4ec9dbf0af0d22cc0afbab418a7d97332145d4dea943953a96fb145f0ceb6aedcdd9c577dcb9755b8c7867a489666acf953af33317974",
@@ -23,13 +24,15 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3eQqD6OLex/8a063b5d17b43efb3d444cc074a977b8f0a07f8039d4d0b50798da6bb4ef44b06c5241230fb872e2a5aad68165e17176dd5e7fac3682eec41044e6baa79c053a365d8788ce7f4b11718839c97d903f1b6b1270312e4f7a4a2036cc4c58765301cd371aa9",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Hqym_CmqvC/8db2d5c93ab399517f74daf16249309e3d5ffba5a7139c0b174cdc2743b6ffb88b96244dac5952824671453cd86e5eaf8de273641350147b8d765017a42052af0fa75979d0de1e10486c87b5c36ce743fc3221132e6b28b68dc41eb2bbb84ae900b6ba93",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-iKqOxC9WrN/5a528d0c9e817d9640e6f2a3871e8620159df650c20872e8c2d08706a8addb0f58945cbfeca54920d6df60910b1f47280ac2c5d55edc678070b97c956d17c432f289917471f6472eb85c28d1084d7a75dd3c172dad15227efbe31691e717ac79a32d7acc",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-b6Ptlql5nS/9fff52446f4cf31d90e447b9e788ba16788eaee0636f762df1f1e3bd66da6f3b394fd35461cf427800c3cec80943b566887378a07f502b3b9f569e08344f4a4c11155024e724acb3f10ee06ecb05eebaba079ab542d1bf552f213f72a67f4d5bceb30e5e"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-b6Ptlql5nS/9fff52446f4cf31d90e447b9e788ba16788eaee0636f762df1f1e3bd66da6f3b394fd35461cf427800c3cec80943b566887378a07f502b3b9f569e08344f4a4c11155024e724acb3f10ee06ecb05eebaba079ab542d1bf552f213f72a67f4d5bceb30e5e",
+    "/creation-videos/bl-RUJmXz6Pbn.mp4"
   ],
   "link": "https://artlab.hyundai.com/commissions/spencer-chang-everyday",
   "materials": "interactive website, participant daily movements with their phones, daily app icons",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [
+    "",
     "",
     "",
     "",
@@ -49,11 +52,13 @@
     "image",
     "image",
     "image",
+    "image",
     "video",
     "image",
     "image",
     "image",
-    "image"
+    "image",
+    "video"
   ],
   "related": [],
   "love": "y",

@@ -310,6 +310,36 @@ async function importCreations() {
 
       const transformedMovieUrl = transformImageUrl(item.movieUrl);
 
+      // Download movieUrl video if it's a video
+      let finalMovieUrl = transformedMovieUrl;
+      if (item.movieUrl) {
+        const movieType = await getMediaType(transformedMovieUrl);
+        if (movieType === "video") {
+          const blobId = extractBlobId(item.movieUrl);
+          if (blobId) {
+            referencedBlobIds.add(blobId);
+            const existingPath = getLocalVideoPath(blobId);
+            if (existingPath) {
+              if (VERBOSE)
+                console.log(
+                  `Using existing movieUrl video for blob ${blobId}: ${existingPath}`
+                );
+              finalMovieUrl = existingPath;
+            } else {
+              try {
+                finalMovieUrl = await downloadVideo(item.movieUrl, blobId);
+              } catch (error) {
+                console.warn(
+                  `Failed to convert movieUrl video ${blobId}: ${error.message}`
+                );
+                console.warn(`Falling back to original URL: ${item.movieUrl}`);
+                finalMovieUrl = item.movieUrl;
+              }
+            }
+          }
+        }
+      }
+
       // Get type for all media items
       const mediaMetadata = await Promise.all(
         media.map(async (url) => {
@@ -412,7 +442,7 @@ async function importCreations() {
         institution: item.institution,
         heroImage: finalMedia[0],
         media: finalMedia,
-        movieUrl: transformedMovieUrl,
+        movieUrl: finalMovieUrl,
         movieEmbed: item.movieEmbed,
         link: item.link,
         materials: item.Materials,

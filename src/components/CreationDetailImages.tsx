@@ -1,3 +1,5 @@
+// ABOUTME: Renders a gallery of images and videos for creation detail pages.
+// ABOUTME: Images get zoom functionality, videos render natively for proper preloading.
 import React from "react";
 import { ImageOrVideo } from "./ImageOrVideo";
 import { ZoomContextProvider } from "../context/ZoomContext";

@@ -6,18 +6,13 @@
   "institution": [
     "Zora"
   ],
-  "heroImage": "https://zine.zora.co/favicon.ico",
-  "media": [
-    "https://zine.zora.co/favicon.ico"
-  ],
+  "media": [],
   "link": "https://zine.zora.co/verses-artifacts&sa=D&source=docs&ust=1741851378171473&usg=AOvVaw2ih4CmfAZBPCw-zSsRAGQ7",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
-  "mediaMetadata": [
-    "image"
-  ],
+  "mediaMetadata": [],
   "related": [],
   "love": "n",
   "me": "n"

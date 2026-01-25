@@ -8,6 +8,9 @@
     "Video"
   ],
   "date": "2024-12-29T08:00:00.000Z",
+  "institution": [
+    "Museum of the Moving Image"
+  ],
   "heroImage": "/creation-videos/bl-pcKpYu0tOF.mp4",
   "media": [
     "/creation-videos/bl-pcKpYu0tOF.mp4",
@@ -18,6 +21,7 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-ogv9TytKaL/d14be299f37b227c1336db975f51a65f0519c12879276eb9d858a36dcfc3445226dd8ac6abdc4d5142a67778febfd12cecf74b7eaea1a0b5c175a3b1ffcd697dd2c5c3fc10c91cd1a65c7857192748b88bf09364663a1d9485041d6e849de1b0cf6a8127"
   ],
   "link": "thing.tube/spencer",
+  "materials": "desktop, screen recording software, 84 pixels, keypresses, and cursor movements",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [

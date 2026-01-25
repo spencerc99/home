@@ -8,13 +8,18 @@
   "institution": [
     "NiemanLab"
   ],
-  "media": [],
+  "heroImage": "https://www.niemanlab.org/favicon.ico",
+  "media": [
+    "https://www.niemanlab.org/favicon.ico"
+  ],
   "link": "https://www.niemanlab.org/2025/05/clone-is-a-tech-and-culture-news-aggregator-with-old-school-internet-flavor/",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "clone.fyi website",
