@@ -1,6 +1,10 @@
 import React from "react";
 
-export function NowBlock() {
+interface NowBlockProps {
+  lastUpdated?: string;
+}
+
+export function NowBlock({ lastUpdated = "01-26-26" }: NowBlockProps) {
   return (
     <div className="now" style={{ position: "relative" }}>
       <div id="nowTitle">
@@ -12,21 +16,19 @@ export function NowBlock() {
           }}
           className="descriptionText"
         >
-          Updated 09-06-25
+          Updated {lastUpdated}
         </span>
       </div>
-      <p>- Eating my way through Tokyo with my elementary Japanese.</p>
+      <p>- Exploring making art with my <a href="https://x.com/spencerc99/status/2013758318016451065">internet debris</a></p>
       <p>
         - Making a game for the internet filled with{" "}
         <a href="/creation/playhtml">tiny social networks</a>
       </p>
       <p>
-        - Sold out the{" "}
-        <a href="https://internetsculptures.com/object/phone-pillow">
-          Phone Pillow
+        - Making an app for your to customize your{" "}
+        <a href="https://internetsculptures.com">
+          Internet Sculptures
         </a>
-        , a pillow for your phone to rest and for you to take a break from your
-        phone.
       </p>
       <p>
         - Shaping culture through{" "}
