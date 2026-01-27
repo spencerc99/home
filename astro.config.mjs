@@ -10,6 +10,9 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ["node:child_process"],
+    },
   },
   image: {
     domains: ["assets.spencerchang.me", "codahosted.io/"],

@@ -7,7 +7,7 @@ import { CreationsView } from "../components/views/CreationsView";
 import Signature from "../components/Signature";
 import Status from "../components/Status.astro";
 import { hydrateCreations } from "../utils/creations";
-import { getGitLastModifiedDate } from "../utils/index";
+import { getGitLastModifiedDate } from "../utils/server";
 
 const creations = hydrateCreations(await getCollection("creation"))
   .filter(
