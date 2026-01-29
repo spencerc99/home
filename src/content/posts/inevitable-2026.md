@@ -48,9 +48,12 @@ Most of all, I want to push the bounds of human relation. I want to tell stories
 
 In 2026, I want to be inevitable. I want to feel like the tide rushing onto shore over and over again. I want to feel like an ember jumping from the campfire. I want to feel like that blade of grass, always raising its head defiantly no matter what pushes it down or how many times it happens.
 
+![](./assets/inevitable-2026/shuzo-matsuoka.gif)
+_Shuzuo Matsuoka is retired Japanese professional tennis player who became a motivational speaker and makes these crazy videos encouraging Internet strangers. I love [them](https://www.youtube.com/watch?v=bavZbQHbuOk&t=0s)._
+
 ---
 
-I want to conduct more "studies" in 2026 that give me the freedom to experiment and iterate towards a final thing. Here are some areas I want to explore. Let me know if any of them spark thoughts or ideas!
+Separately, I want to conduct more "studies" in 2026 that give me the freedom to experiment and iterate towards a final thing. Here are some areas I want to explore. Let me know if any of them spark thoughts or ideas!
 
 1.  the mechanics of social media, the algorithm, virality, presence, brand, video content, media consumption, device usage
 2.  the dynamics of our devices: phones, computers, tablets, and how we use them in private and in public
