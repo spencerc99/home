@@ -15,7 +15,7 @@ const Signature: React.FC = () => {
         <div className="serif">
           Spencer 張正 Chang
           <br />
-          spencer@spencer.place
+          hi@spencer.place
         </div>
         <Footnote
           asChild

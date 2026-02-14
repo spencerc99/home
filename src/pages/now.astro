@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { NowBlock, formatNowDate } from "../components/Now";
+import { nowEntries } from "../data/now-entries";
+
+const current = nowEntries[0];
+const history = nowEntries.slice(1);
+---
+
+<BaseLayout
+  title="What I've been doing"
+  description="What I'm doing now — current and past updates."
+>
+  <div class="one-column">
+    <div class="headerContainer home textContent">
+      <div class="textContent">
+        <h1 class="pageTitle">All my now updates...</h1>
+        {
+          current && (
+            <section class="now-page-current" aria-label="Current status">
+              <NowBlock
+                client:only="react"
+                entry={current}
+                showHistoryLink={false}
+              />
+            </section>
+          )
+        }
+        {
+          history.length > 0 && (
+            <section class="now-page-history" aria-label="History">
+              <h2 class="now-history-heading">History</h2>
+              <ul class="now-feed">
+                {history.map((entry) => (
+                  <li class="now-feed-item">
+                    <time class="now-feed-date" datetime={entry.date}>
+                      {formatNowDate(entry.date)}
+                    </time>
+                    <ul class="now-feed-bullets">
+                      {entry.items.map((item) => (
+                        <li class="now-feed-bullet" set:html={`- ${item}`} />
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .pageTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .now-page-current {
+    margin-bottom: 2rem;
+  }
+  .now-history-heading {
+    font-size: 0.8em;
+    font-family: var(--site-font-mono, "Sono", monospace);
+    margin-bottom: 0.75rem;
+    background: var(--color-glowing-highlight, currentColor);
+    width: fit-content;
+    text-transform: uppercase;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+  }
+  .now-feed {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .now-feed-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+  }
+  .now-feed-item:last-child {
+    border-bottom: none;
+  }
+  .now-feed-date {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+  }
+  .now-feed-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .now-feed-bullet {
+    margin: 0.25em 0;
+    line-height: 1.3;
+  }
+</style>

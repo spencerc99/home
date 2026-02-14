@@ -1,10 +1,28 @@
 import React from "react";
 
-interface NowBlockProps {
-  lastUpdated?: string;
+/** Each item is rendered as "- " + content (content may contain HTML). */
+export interface NowEntry {
+  date: string;
+  items: string[];
 }
 
-export function NowBlock({ lastUpdated = "01-26-26" }: NowBlockProps) {
+interface NowBlockProps {
+  entry: NowEntry;
+  /** When true, shows a small "see history" link to /now. Default true. */
+  showHistoryLink?: boolean;
+}
+
+/** Formats ISO date (YYYY-MM-DD) to MM-DD-YY for display. */
+export function formatNowDate(iso: string): string {
+  const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return iso;
+  const yy = y.slice(-2);
+  return `${m}-${d}-${yy}`;
+}
+
+export function NowBlock({ entry, showHistoryLink = true }: NowBlockProps) {
+  const displayDate = formatNowDate(entry.date);
+
   return (
     <div className="now" style={{ position: "relative" }}>
       <div id="nowTitle">
@@ -16,29 +34,21 @@ export function NowBlock({ lastUpdated = "01-26-26" }: NowBlockProps) {
           }}
           className="descriptionText"
         >
-          Updated {lastUpdated}
+          Updated {displayDate}
         </span>
       </div>
-      <p>- Exploring making art with my <a href="https://x.com/spencerc99/status/2013758318016451065">internet debris</a></p>
-      <p>
-        - Making a game for the internet filled with{" "}
-        <a href="/creation/playhtml">tiny social networks</a>
-      </p>
-      <p>
-        - Making an app for your to customize your{" "}
-        <a href="https://internetsculptures.com">
-          Internet Sculptures
-        </a>
-      </p>
-      <p>
-        - Shaping culture through{" "}
-        <a href="https://www.instagram.com/spence.r.chang/">social</a>{" "}
-        <a href="https://x.com/spencerc99">media</a>.
-      </p>
-      <p>
-        - Open to <a href="/collab">invitations & collaborations</a> for
-        teaching, crafting, and scheming.
-      </p>
+      {entry.items.map((item, i) => (
+        <p key={i}>
+          - <span dangerouslySetInnerHTML={{ __html: item }} />
+        </p>
+      ))}
+      {showHistoryLink && (
+        <div style={{ textAlign: "right", marginTop: "0.5em" }}>
+          <a href="/now" className="descriptionText" style={{ fontSize: "0.9em", opacity: 0.85 }}>
+            see history
+          </a>
+        </div>
+      )}
     </div>
   );
 }

@@ -4,7 +4,10 @@
       "WebSearch",
       "Bash(npm run build:*)",
       "Bash(npm run typecheck:*)",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(bun run build:*)",
+      "Bash(timeout 15 bun run dev:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

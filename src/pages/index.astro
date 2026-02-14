@@ -7,7 +7,6 @@ import { CreationsView } from "../components/views/CreationsView";
 import Signature from "../components/Signature";
 import Status from "../components/Status.astro";
 import { hydrateCreations } from "../utils/creations";
-import { getGitLastModifiedDate } from "../utils/server";
 
 const creations = hydrateCreations(await getCollection("creation"))
   .filter(
@@ -23,8 +22,9 @@ const creations = hydrateCreations(await getCollection("creation"))
     return new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime();
   });
 
-// Get the last modified date of the Now.tsx file from git
-const nowLastUpdated = getGitLastModifiedDate("src/components/Now.tsx");
+import { nowEntries } from "../data/now-entries";
+
+const currentNowEntry = nowEntries[0];
 ---
 
 <BaseLayout>
@@ -108,7 +108,7 @@ const nowLastUpdated = getGitLastModifiedDate("src/components/Now.tsx");
         </p>
         <Signature client:only="react" />
         <br />
-        <NowBlock client:only="react" lastUpdated={nowLastUpdated} />
+        {currentNowEntry && <NowBlock client:only="react" entry={currentNowEntry} />}
         <br />
         <Status />
       </div>
