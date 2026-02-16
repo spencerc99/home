@@ -1670,8 +1670,12 @@ button {
   visibility: visible; /* Show the snackbar */
   /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
   However, delay the fade out process for 2.5 seconds */
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  -webkit-animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
+  animation:
+    fadein 0.5s,
+    fadeout 0.5s 2.5s;
 }
 
 /* Animations to fade the snackbar in and out */
@@ -2376,7 +2380,9 @@ ul {
     rgba(255, 255, 255, 0) 100%
   );
   opacity: 0;
-  transition: opacity 0.5s ease-in-out, left 0.5s ease-in-out;
+  transition:
+    opacity 0.5s ease-in-out,
+    left 0.5s ease-in-out;
   transform: skewX(-25deg);
 }
 
@@ -2625,15 +2631,15 @@ details {
 }
 
 .cursor-gesture-wave {
-  animation: gesture-wave 1.5s ease-in-out;
+  animation: gesture-wave 1.5s linear;
 }
 
 .cursor-gesture-dance {
-  animation: gesture-dance 2s ease-in-out;
+  animation: gesture-dance 2.5s linear;
 }
 
 .cursor-gesture-bounce {
-  animation: gesture-bounce 1s ease-in-out;
+  animation: gesture-bounce 1.2s linear;
 }
 
 .cursor-gesture-spencer-entrance {
@@ -2641,80 +2647,137 @@ details {
 }
 
 @keyframes gesture-wave {
-  0%,
-  100% {
-    transform: rotate(0deg);
+  0% {
+    transform: scale(2) rotate(0deg);
   }
   25% {
-    transform: rotate(20deg);
+    transform: scale(2) rotate(20deg);
   }
   50% {
-    transform: rotate(-15deg);
+    transform: scale(2) rotate(-15deg);
   }
   75% {
-    transform: rotate(10deg);
+    transform: scale(2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
   }
 }
 
 @keyframes gesture-dance {
-  0%,
-  100% {
-    transform: translateX(0) rotate(0deg);
+  0% {
+    transform: scale(2) translateX(0) rotate(0deg);
   }
-  25% {
-    transform: translateX(8px) rotate(10deg);
+  10% {
+    transform: scale(2) translateX(-15px) rotate(-15deg);
+  }
+  20% {
+    transform: scale(2) translateX(-15px) rotate(-10deg);
+  }
+  30% {
+    transform: scale(2) translateX(-15px) rotate(-15deg);
+  }
+  40% {
+    transform: scale(2) translateX(0) rotate(0deg);
   }
   50% {
-    transform: translateX(-8px) rotate(-10deg);
+    transform: scale(2) translateX(15px) rotate(15deg);
   }
-  75% {
-    transform: translateX(4px) rotate(5deg);
+  60% {
+    transform: scale(2) translateX(15px) rotate(10deg);
+  }
+  70% {
+    transform: scale(2) translateX(15px) rotate(15deg);
+  }
+  80% {
+    transform: scale(1.8) translateX(5px) rotate(5deg);
+  }
+  90% {
+    transform: scale(1.4) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) translateX(0) rotate(0deg);
   }
 }
 
 @keyframes gesture-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 1;
+  0% {
+    transform: scale(2) translateY(0) rotate(0deg);
+  }
+  20% {
+    transform: scale(2) translateY(-12px) rotate(80deg);
+  }
+  35% {
+    transform: scale(2) translateY(-16px) rotate(200deg);
   }
   50% {
-    transform: translateY(-20px);
+    transform: scale(2) translateY(-4px) rotate(280deg);
+  }
+  65% {
+    transform: scale(2) translateY(0) rotate(360deg);
+  }
+  80% {
+    transform: scale(1.6) translateY(0) rotate(360deg);
   }
   90% {
-    opacity: 0.5;
+    transform: scale(1.3) translateY(0) rotate(360deg);
+  }
+  100% {
+    transform: scale(1) translateY(0) rotate(360deg);
   }
 }
 
-// Fast circle, then wave
+// Fast circle, then wave — extra large for Spencer's entrance
 @keyframes spencer-entrance {
-  // Circle phase (0-60%)
+  // Circle phase (0-60%) at 5x scale
   0% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: scale(4) translate(0, 0) rotate(0deg);
   }
   15% {
-    transform: translate(15px, -10px) rotate(0deg);
+    transform: scale(4) translate(15px, -10px) rotate(0deg);
   }
   30% {
-    transform: translate(15px, 10px) rotate(0deg);
+    transform: scale(4) translate(15px, 10px) rotate(0deg);
   }
   45% {
-    transform: translate(-5px, 10px) rotate(0deg);
+    transform: scale(4) translate(-5px, 10px) rotate(0deg);
   }
   60% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: scale(4) translate(0, 0) rotate(0deg);
   }
-  // Wave phase (60-100%)
+  // Wave phase (60-100%), scaling back down
   70% {
-    transform: translate(0, 0) rotate(20deg);
+    transform: scale(4) translate(0, 0) rotate(20deg);
   }
   80% {
-    transform: translate(0, 0) rotate(-15deg);
+    transform: scale(3) translate(0, 0) rotate(-15deg);
   }
   90% {
-    transform: translate(0, 0) rotate(10deg);
+    transform: scale(2) translate(0, 0) rotate(10deg);
   }
   100% {
-    transform: translate(0, 0) rotate(0deg);
+    transform: scale(1) translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes emote-menu-open {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes emote-item-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

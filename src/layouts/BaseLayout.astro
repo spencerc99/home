@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { PlayhtmlProvider } from "../components/interactive/PlayhtmlProvider";
 
 export interface BaseLayoutProps {
   title?: string;
@@ -105,24 +106,7 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
 
     <div id="snackbar" transition:persist></div>
 
-    <script type="module" is:inline data-astro-rerun>
-      import { playhtml } from "https://unpkg.com/playhtml@latest";
-      playhtml.init({
-        cursors: {
-          enabled: true,
-          room: "domain",
-          getCursorStyle: (presence) => {
-            if (presence.page !== window.location.pathname) {
-              return {
-                opacity: "0.7",
-                filter: "blur(2px)",
-              };
-            }
-            return {};
-          },
-        },
-      });
-    </script>
+    <PlayhtmlProvider client:only="react" />
 
     <link
       rel="stylesheet"
