@@ -34,10 +34,20 @@ export function CursorPopoverContent({ color }: CursorPopoverContentProps) {
   const [internalColor, setInternalColor] = useState(() =>
     normalizeColorToHex(color)
   );
+  const [internalName, setInternalName] = useState(
+    () => window.cursors?.name || ""
+  );
   const [userIsRegular, setUserIsRegular] = useState(false);
 
   useEffect(() => {
     setUserIsRegular(isRegular());
+  }, []);
+
+  useEffect(() => {
+    if (!window.cursors) return;
+    const handleName = (name?: string) => setInternalName(name || "");
+    window.cursors.on("name", handleName);
+    return () => window.cursors?.off("name", handleName);
   }, []);
 
   useEffect(() => {
@@ -53,6 +63,7 @@ export function CursorPopoverContent({ color }: CursorPopoverContentProps) {
 
   const handleNameChange = (newName: string) => {
     if (!userIsRegular) return;
+    setInternalName(newName);
     if (window.cursors) {
       window.cursors.name = newName;
     }
@@ -84,7 +95,7 @@ export function CursorPopoverContent({ color }: CursorPopoverContentProps) {
             <input
               id="name-input"
               type="text"
-              value={window.cursors?.name || ""}
+              value={internalName}
               onChange={(e) => handleNameChange(e.target.value)}
               placeholder="your name..."
               disabled={!userIsRegular}

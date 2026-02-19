@@ -97,7 +97,9 @@ export function CursorPresenceLayer() {
   const [activeGestures, setActiveGestures] = useState<
     Map<string, GestureOverlayInfo>
   >(new Map());
-  const spencerWasPresent = useRef(false);
+  // Track the stableId of Spencer we already triggered for — prevents retriggering
+  // on unrelated presence changes or reconnects while Spencer stays present.
+  const spencerAnimatedStableId = useRef<string | null>(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const [emoteMenuOpen, setEmoteMenuOpen] = useState(false);
   const [emoteMenuPos, setEmoteMenuPos] = useState({ x: 0, y: 0 });
@@ -208,35 +210,33 @@ export function CursorPresenceLayer() {
     if (!hasSynced) return;
 
     const spencerStableId = getSpencerStableId(cursorPresences);
-    const spencerIsPresent = spencerStableId !== null;
 
-    if (spencerIsPresent && !spencerWasPresent.current) {
+    // Only trigger if this is a new Spencer stableId we haven't animated for yet this session
+    if (spencerStableId && spencerStableId !== spencerAnimatedStableId.current) {
+      spencerAnimatedStableId.current = spencerStableId;
+
       setShowArrival(true);
       setTimeout(() => setShowArrival(false), 4000);
 
-      if (spencerStableId) {
-        const didAnimate =
-          typeof triggerCursorAnimation === "function" &&
-          triggerCursorAnimation(
+      const didAnimate =
+        typeof triggerCursorAnimation === "function" &&
+        triggerCursorAnimation(
+          spencerStableId,
+          "cursor-gesture-spencer-entrance",
+          GESTURE_DURATION["spencer-entrance"],
+        );
+      if (!didAnimate) {
+        const presence = cursorPresences.get(spencerStableId);
+        if (presence?.cursor) {
+          triggerGestureOverlay(
             spencerStableId,
-            "cursor-gesture-spencer-entrance",
-            GESTURE_DURATION["spencer-entrance"],
+            "spencer-entrance",
+            { x: presence.cursor.x, y: presence.cursor.y },
+            SPENCER_COLOR,
           );
-        if (!didAnimate) {
-          const presence = cursorPresences.get(spencerStableId);
-          if (presence?.cursor) {
-            triggerGestureOverlay(
-              spencerStableId,
-              "spencer-entrance",
-              { x: presence.cursor.x, y: presence.cursor.y },
-              SPENCER_COLOR,
-            );
-          }
         }
       }
     }
-
-    spencerWasPresent.current = spencerIsPresent;
   }, [
     cursorPresences,
     hasSynced,
