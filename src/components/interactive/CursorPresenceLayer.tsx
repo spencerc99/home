@@ -97,9 +97,11 @@ export function CursorPresenceLayer() {
   const [activeGestures, setActiveGestures] = useState<
     Map<string, GestureOverlayInfo>
   >(new Map());
-  // Track the stableId of Spencer we already triggered for — prevents retriggering
-  // on unrelated presence changes or reconnects while Spencer stays present.
-  const spencerAnimatedStableId = useRef<string | null>(null);
+  const SPENCER_ARRIVAL_KEY = "playhtml-spencer-arrived";
+  // Initialize from sessionStorage so it survives page navigations
+  const spencerAnimatedStableId = useRef<string | null>(
+    sessionStorage.getItem(SPENCER_ARRIVAL_KEY),
+  );
   const mousePos = useRef({ x: 0, y: 0 });
   const [emoteMenuOpen, setEmoteMenuOpen] = useState(false);
   const [emoteMenuPos, setEmoteMenuPos] = useState({ x: 0, y: 0 });
@@ -214,6 +216,7 @@ export function CursorPresenceLayer() {
     // Only trigger if this is a new Spencer stableId we haven't animated for yet this session
     if (spencerStableId && spencerStableId !== spencerAnimatedStableId.current) {
       spencerAnimatedStableId.current = spencerStableId;
+      sessionStorage.setItem(SPENCER_ARRIVAL_KEY, spencerStableId);
 
       setShowArrival(true);
       setTimeout(() => setShowArrival(false), 4000);
