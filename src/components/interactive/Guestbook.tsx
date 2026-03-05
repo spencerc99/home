@@ -3,7 +3,7 @@ import { Footnote } from "../Footnote";
 import { useStickyState } from "../../hooks/useStickyState";
 import { useTime } from "../../hooks/useTime";
 import "./Guestbook.scss";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 interface GuestbookEntry {
   name: string;
@@ -103,15 +103,15 @@ export const GuestbookImpl = withSharedState(
     defaultData: [] as GuestbookEntry[],
   },
   ({ data, setData }) => {
-    const [name, setName] = useStickyState<string | null>(
-      "username",
-      null,
-      (newName) => {
-        if (window.cursors) {
-          window.cursors.name = newName;
-        }
-      }
+    const [name, setName] = useState<string | null>(
+      () => window.cursors?.name || null,
     );
+    // Sync name changes to the cursor system
+    useEffect(() => {
+      if (window.cursors && name) {
+        window.cursors.name = name;
+      }
+    }, [name]);
     const [website, setWebsite] = useStickyState<string | null>(
       "userwebsite",
       null

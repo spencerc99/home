@@ -24,4 +24,6 @@ pnpm-debug.log*
 fits-export
 
 # python
-**/__pycache__/** 
+**/__pycache__/**
+
+.claude/settings.local.json
