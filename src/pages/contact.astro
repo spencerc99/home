@@ -1,0 +1,82 @@
+---
+// ABOUTME: Presentation-friendly contact page showing social links in large monospace text.
+// ABOUTME: Designed to be projected at the end of talks and presentations.
+import DetailLayout from "../layouts/DetailLayout.astro";
+
+const LayoutProps = {
+  title: "(contact)",
+  description: "links and contact info for spencer chang",
+  metaTitle: "contact ꜱᴘᴇɴᴄᴇʀ",
+  emojis: [],
+  titleClass: "uniform",
+};
+---
+
+<DetailLayout {...LayoutProps}>
+  <div class="contact-links">
+    <dl>
+      <div class="link-row">
+        <dt>email:</dt>
+        <dd><a href="mailto:hi@spencer.place">hi@spencer.place</a></dd>
+      </div>
+      <div class="link-row">
+        <dt>website:</dt>
+        <dd><a href="https://spencer.place">spencer.place</a></dd>
+      </div>
+      <div class="link-row">
+        <dt>bsky:</dt>
+        <dd><a href="https://bsky.app/profile/spencer.place">@spencer.place</a></dd>
+      </div>
+      <div class="link-row">
+        <dt>ig:</dt>
+        <dd><a href="https://www.instagram.com/spence.r.chang/">@spence.r.chang</a></dd>
+      </div>
+      <div class="link-row">
+        <dt>twitter:</dt>
+        <dd><a href="https://twitter.com/spencerc99">@spencerc99</a></dd>
+      </div>
+      <div class="link-row">
+        <dt>newsletter:</dt>
+        <dd><a href="https://news.spencer.place">news.spencer.place</a></dd>
+      </div>
+    </dl>
+  </div>
+</DetailLayout>
+
+<style>
+  .contact-links {
+    padding-top: 0;
+  }
+
+  dl {
+    font-family: "Courier New", Courier, monospace;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    font-weight: bold;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .link-row {
+    display: flex;
+    gap: 0.5em;
+  }
+
+  dt {
+    flex-shrink: 0;
+    min-width: 5em;
+    text-align: left;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
