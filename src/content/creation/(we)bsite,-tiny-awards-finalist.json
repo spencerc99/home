@@ -13,7 +13,15 @@
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "(we)bsite",
+      "slug": "(we)bsite",
+      "link": "https://we-b.site",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "Internet"
 }

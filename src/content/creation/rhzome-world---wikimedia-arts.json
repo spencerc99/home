@@ -12,7 +12,14 @@
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "pluriverse.world",
+      "slug": "pluriverseworld",
+      "link": "https://pluriverse.world/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

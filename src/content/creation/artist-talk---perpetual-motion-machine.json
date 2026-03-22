@@ -22,7 +22,21 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "DEMO2025: Embodied Algorithms / Collective Mechanics",
+      "slug": "demo2025-embodied-algorithms--collective-mechanics",
+      "link": "https://www.demofestival.org/",
+      "parentCategory": "Exhibition"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "New York City"
 }

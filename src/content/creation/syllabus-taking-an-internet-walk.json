@@ -33,7 +33,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Walking on the Internet Together",
+      "slug": "walking-on-the-internet-together",
+      "link": "https://spencer.place/creation/walking-on-the-internet-together",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

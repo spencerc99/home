@@ -1,0 +1,27 @@
+{
+  "title": "everyday @ TIAT for time.place",
+  "subtext": "an exhibit of time!",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Art"
+  ],
+  "date": "2026-03-20T07:00:00.000Z",
+  "endDate": "2026-04-05T07:00:00.000Z",
+  "institution": [
+    "TIAT"
+  ],
+  "heroImage": "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fimages.lumacdn.com%2Fcalendars%2F95%2F077bf97f-9669-4fc2-803e-efc5313b23e5.png&calendar_name=tiat%20%28the%20intersection%20of%20art%20%26%20technology%29&color0=%23daccb8&host_avatar=https%3A%2F%2Fimages.lumacdn.com%2Favatars%2Fa8%2F78524e52-9d2d-4233-ab9c-94c2f3896e56.jpg&host_name=ash&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fu4%2F0eb7ad01-13ab-4cd0-99e2-534166e809b1.gif&name=time.place%20exhibition%20opening&palette_vibrant=%23daccb8%3A24.9",
+  "media": [
+    "https://og.luma.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=800,height=419/api/event-one?calendar_avatar=https%3A%2F%2Fimages.lumacdn.com%2Fcalendars%2F95%2F077bf97f-9669-4fc2-803e-efc5313b23e5.png&calendar_name=tiat%20%28the%20intersection%20of%20art%20%26%20technology%29&color0=%23daccb8&host_avatar=https%3A%2F%2Fimages.lumacdn.com%2Favatars%2Fa8%2F78524e52-9d2d-4233-ab9c-94c2f3896e56.jpg&host_name=ash&img=https%3A%2F%2Fimages.lumacdn.com%2Fevent-covers%2Fu4%2F0eb7ad01-13ab-4cd0-99e2-534166e809b1.gif&name=time.place%20exhibition%20opening&palette_vibrant=%23daccb8%3A24.9"
+  ],
+  "link": "https://luma.com/event/evt-72A485q6DHAMPaL",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [],
+  "location": "San Francisco"
+}

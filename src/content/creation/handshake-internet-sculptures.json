@@ -18,7 +18,14 @@
   ],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "Internet Sculptures",
+      "slug": "internet-sculptures",
+      "link": "https://internetsculptures.com/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

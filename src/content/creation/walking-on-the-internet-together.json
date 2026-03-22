@@ -41,8 +41,15 @@
       "slug": "playhtml",
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
+    },
+    {
+      "title": "Syllabus: Taking an Internet Walk",
+      "slug": "syllabus-taking-an-internet-walk",
+      "link": "https://syllabusproject.org/syllabus-for-taking-an-internet-walk/",
+      "parentCategory": "Writing"
     }
   ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "internet"
 }

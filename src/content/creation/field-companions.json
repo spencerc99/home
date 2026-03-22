@@ -60,7 +60,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Computing-Infused Objects",
+      "slug": "computing-infused-objects",
+      "link": "https://x.com/spencerc99/status/1818721711858368890",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "m",
   "me": "y"
 }

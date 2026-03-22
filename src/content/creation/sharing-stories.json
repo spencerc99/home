@@ -50,7 +50,15 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "The feed is now a stage",
+      "slug": "the-feed-is-now-a-stage",
+      "link": "https://alserkal.online/event/alserkal-avenue-instagram-becomes-a-stage-in-august/",
+      "parentCategory": "Exhibition"
+    }
+  ],
   "love": "y",
-  "me": "y"
+  "me": "y",
+  "location": "online"
 }

@@ -35,7 +35,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "(we)bsite, Tiny Awards Finalist",
+      "slug": "(we)bsite,-tiny-awards-finalist",
+      "link": "",
+      "parentCategory": "Fellowships, Residencies, Awards"
+    }
+  ],
   "love": "y",
   "me": "y"
 }

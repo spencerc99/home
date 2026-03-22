@@ -54,7 +54,51 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Computing-Infused Objects",
+      "slug": "computing-infused-objects",
+      "link": "https://x.com/spencerc99/status/1818721711858368890",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Touching Computers Workshop (Berlin)",
+      "slug": "touching-computers-workshop-(berlin)",
+      "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers Workshop NYC",
+      "slug": "touching-computers-workshop-nyc",
+      "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers: Magic Stones",
+      "slug": "touching-computers-magic-stones",
+      "link": "https://partiful.com/e/seza9nFlQlSKAur6YP1b",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers: NFC as Ritual",
+      "slug": "touching-computers-nfc-as-ritual",
+      "link": "https://partiful.com/e/8ufX29A7gdILRZqaiRdd",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "CIP webstones",
+      "slug": "cip-webstones",
+      "link": "",
+      "parentCategory": "Collaboration"
+    },
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "Bay Area, New York, Berlin"
 }

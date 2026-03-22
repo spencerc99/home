@@ -48,9 +48,45 @@
   ],
   "related": [
     {
+      "title": "CIP webstones",
+      "slug": "cip-webstones",
+      "link": "",
+      "parentCategory": "Collaboration"
+    },
+    {
+      "title": "Touching Computers: Creating Data Talismans",
+      "slug": "touching-computers-creating-data-talismans",
+      "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers Workshop (Berlin)",
+      "slug": "touching-computers-workshop-(berlin)",
+      "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers Workshop NYC",
+      "slug": "touching-computers-workshop-nyc",
+      "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "SIGIL I",
+      "slug": "sigil-i",
+      "link": "",
+      "parentCategory": "Project"
+    },
+    {
       "title": "Internet Sculptures",
       "slug": "internet-sculptures",
       "link": "https://internetsculptures.com/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Field Companions",
+      "slug": "field-companions",
+      "link": "https://sc.metalabel.com/field-companions",
       "parentCategory": "Project"
     }
   ],

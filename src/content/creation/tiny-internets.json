@@ -21,7 +21,26 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "tiny internets presentation",
+      "slug": "tiny-internets-presentation",
+      "link": "https://partiful.com/e/TDR6T4CaVJ3xO8eSDQQf",
+      "parentCategory": "Gathering"
+    },
+    {
+      "title": "POV: How creatively nutritious is your internet feed?",
+      "slug": "pov-how-creatively-nutritious-is-your-internet-feed",
+      "link": "https://www.itsnicethat.com/articles/pov-how-creatively-nutritious-is-your-internet-feed-insights-digital-190824",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Tiny Awards, a celebration of the small, playful, and heartfelt web",
+      "slug": "tiny-awards,-a-celebration-of-the-small,-playful,-and-heartfelt-web",
+      "link": "https://waxy.org/2023/07/vote-on-the-tiny-awards/",
+      "parentCategory": "Press"
+    }
+  ],
   "love": "y",
   "me": "y"
 }

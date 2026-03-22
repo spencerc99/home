@@ -60,7 +60,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Everyday Magic",
+      "slug": "everyday-magic",
+      "link": "https://joinreboot.org/p/everyday-magic",
+      "parentCategory": "Writing"
+    }
+  ],
   "love": "y",
   "me": "y"
 }

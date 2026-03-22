@@ -49,7 +49,15 @@
     "image",
     "video"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Touching Computers: Creating Data Talismans",
+      "slug": "touching-computers-creating-data-talismans",
+      "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "New York City"
 }

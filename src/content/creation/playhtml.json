@@ -83,6 +83,30 @@
       "parentCategory": "Speaking, Workshops, Teaching"
     },
     {
+      "title": "playhtml get-together",
+      "slug": "playhtml-get-together",
+      "link": "https://luma.com/w4n90met",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "This web game lets you drag words around a communal fridge door to create poetry",
+      "slug": "this-web-game-lets-you-drag-words-around-a-communal-fridge-door-to-create-poetry",
+      "link": "https://www.rockpapershotgun.com/this-web-game-lets-you-drag-words-around-a-communal-fridge-door-to-create-poetry",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Multiplayer Web Game 'Fridge Poetry' Turns Words into Collaborative Art",
+      "slug": "multiplayer-web-game-fridge-poetry-turns-words-into-collaborative-art",
+      "link": "https://uk.news.yahoo.com/multiplayer-game-fridge-poetry-turns-131500260.html",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "cursor-chat",
+      "slug": "cursor-chat",
+      "link": "https://github.com/jackyzha0/cursor-chat",
+      "parentCategory": "Project"
+    },
+    {
       "title": "minute faces (together)",
       "slug": "minute-faces-(together)",
       "link": "https://playhtml.fun/experiments/5/",

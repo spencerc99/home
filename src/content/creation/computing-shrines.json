@@ -105,6 +105,30 @@
       "slug": "apossible-applied-experiments",
       "link": "https://apossible.com/pages/applied-experiments?token=c0fba653d3b0442474bc4a4ff9b2444067a6d6f1",
       "parentCategory": "Fellowships, Residencies, Awards"
+    },
+    {
+      "title": "Computing Shrines Case Study",
+      "slug": "computing-shrines-case-study",
+      "link": "https://apossible.com/applied-experiments/shrines",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Artist Talk - Perpetual Motion Machine",
+      "slug": "artist-talk---perpetual-motion-machine",
+      "link": "https://www.youtube.com/watch?v=l-2t-N96Bn8",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "ancient futures",
+      "slug": "ancient-futures",
+      "link": "https://events.stanford.edu/event/ancient-futures",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Touching Computers: Creating Data Talismans",
+      "slug": "touching-computers-creating-data-talismans",
+      "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
+      "parentCategory": "Speaking, Workshops, Teaching"
     }
   ],
   "love": "y",

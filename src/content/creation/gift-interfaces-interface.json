@@ -25,7 +25,14 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Gift Interfaces",
+      "slug": "gift-interfaces",
+      "link": "https://sfpc.study/sessions/winter-25/gift-interfaces",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
   "love": "m",
   "me": "y"
 }

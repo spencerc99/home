@@ -31,7 +31,15 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "html garden",
+      "slug": "html-garden",
+      "link": "https://htmls.garden/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "San Francisco"
 }

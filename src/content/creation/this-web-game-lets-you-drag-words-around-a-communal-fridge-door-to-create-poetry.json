@@ -18,7 +18,20 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "poems we found with the internet",
+      "slug": "poems-we-found-with-the-internet",
+      "link": "https://playhtml.fun/fridge.html",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

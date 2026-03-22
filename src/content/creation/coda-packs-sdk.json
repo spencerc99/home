@@ -24,7 +24,14 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Coda Packs Platform",
+      "slug": "coda-packs-platform",
+      "link": "http://coda.io/packs",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

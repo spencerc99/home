@@ -45,7 +45,21 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Worn Memory at FVS",
+      "slug": "worn-memory-at-fvs",
+      "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Weaving Memory",
+      "slug": "weaving-memory",
+      "link": "https://summerofprotocols.com/memory-pouch-web",
+      "parentCategory": "Writing"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "Tokyo, Japan"
 }

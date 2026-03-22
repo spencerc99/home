@@ -38,7 +38,15 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Gift Interfaces Interface",
+      "slug": "gift-interfaces-interface",
+      "link": "https://gifting-interfaces.pages.dev/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "Internet"
 }

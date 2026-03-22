@@ -64,7 +64,20 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Worn Memory",
+      "slug": "worn-memory",
+      "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
+      "parentCategory": "Workshops & Teaching"
+    },
+    {
+      "title": "Worn Memory at FVS",
+      "slug": "worn-memory-at-fvs",
+      "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

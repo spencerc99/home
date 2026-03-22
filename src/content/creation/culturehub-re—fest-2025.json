@@ -15,7 +15,15 @@
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "AcknowledgeNET",
+      "slug": "acknowledgenet",
+      "link": "https://acknowledge.our-inter.net/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "New York City"
 }

@@ -40,7 +40,32 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "html garden in MIT Technology Review",
+      "slug": "html-garden-in-mit-technology-review",
+      "link": "https://www.technologyreview.com/2023/12/21/1084525/internet-whimsy-html-energy/",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "html garden at DeYoung",
+      "slug": "html-garden-at-deyoung",
+      "link": "https://www.instagram.com/p/CxWf4ajP6os/?img_index=1",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Inspect Elements: A Reading with The HTML Review",
+      "slug": "inspect-elements-a-reading-with-the-html-review",
+      "link": "https://www.culturehub.org/events/inspect-elements",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Online Publications Bridging Poetry and Code",
+      "slug": "online-publications-bridging-poetry-and-code",
+      "link": "https://www.frieze.com/article/online-publications-bridging-poetry-and-code",
+      "parentCategory": "Press"
+    }
+  ],
   "love": "y",
   "me": "y"
 }

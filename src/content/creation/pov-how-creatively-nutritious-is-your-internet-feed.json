@@ -19,7 +19,14 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "tiny internets",
+      "slug": "tiny-internets",
+      "link": "https://tiny-inter.net/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

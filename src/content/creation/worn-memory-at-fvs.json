@@ -20,5 +20,19 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [
+    {
+      "title": "Weaving Memory",
+      "slug": "weaving-memory",
+      "link": "https://summerofprotocols.com/memory-pouch-web",
+      "parentCategory": "Writing"
+    },
+    {
+      "title": "Worn Memory",
+      "slug": "worn-memory",
+      "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
+      "parentCategory": "Workshops & Teaching"
+    }
+  ],
+  "location": "Tokyo, JP"
 }

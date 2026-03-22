@@ -18,7 +18,14 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "status.spencerchang.me",
+      "slug": "statusspencerchangme",
+      "link": "status.spencerchang.me",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

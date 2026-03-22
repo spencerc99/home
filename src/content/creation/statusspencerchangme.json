@@ -27,7 +27,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Live Spencer Monitor",
+      "slug": "live-spencer-monitor",
+      "link": "https://coda.io/@spencer/decoding-your-mind/live-spencer-monitor-22",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n"
 }

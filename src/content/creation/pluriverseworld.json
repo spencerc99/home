@@ -36,7 +36,20 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Promoting the Pluriverse",
+      "slug": "promoting-the-pluriverse",
+      "link": "https://society.mirror.xyz/2JSrCE929TDLmKGf4Td7bruzlxRUX9s-hIyeAgRLuvo",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Rhzome World - Wikimedia Arts",
+      "slug": "rhzome-world---wikimedia-arts",
+      "link": "",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
   "love": "n",
   "me": "y"
 }

@@ -57,7 +57,20 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "acknowledgeNET at tiat",
+      "slug": "acknowledgenet-at-tiat",
+      "link": "https://tiat.place/",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Culturehub Re—Fest 2025",
+      "slug": "culturehub-re—fest-2025",
+      "link": "https://rockcollections.site/#",
+      "parentCategory": "Exhibition"
+    }
+  ],
   "love": "m",
   "me": "y"
 }

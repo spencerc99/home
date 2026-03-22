@@ -23,7 +23,21 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Touching Computers: Creating Data Talismans",
+      "slug": "touching-computers-creating-data-talismans",
+      "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Computing-Infused Objects",
+      "slug": "computing-infused-objects",
+      "link": "https://x.com/spencerc99/status/1818721711858368890",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "Berlin"
 }

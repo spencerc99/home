@@ -1,0 +1,27 @@
+{
+  "title": "we were online",
+  "subtext": "an environment that turns the Internet into a shared space",
+  "descriptionMd": "*we were online* is an online multiplayer world—part game, artwork, and tool—that turns the existing Internet into a living, shared world, actively shaped by its inhabitants.\n&nbsp;\nIn this world, everything on the Internet becomes material for connection. Assets, buttons, and other components can be created, grown, moved, taken, and gifted. Pages have memory and show the wear of use. Cursors become digital appendages that allow us to bump into others who are there at the same time as us. \n&nbsp;\nBy enabling us to see and affect each other and the pages we visit, isolated browsing becomes the site of serendipitous encounters, websites become archives of our collective traces, and the Internet becomes more like a hometown we share and co-create.\n&nbsp;\nBuilt on **[playhtml](https://playhtml.fun/)**, an open-source library for creating communal web experiences, the game is designed to be customized and extended by its players. Individual websites can create interactions that respond to live events on other websites and change behavior depending on a user’s history and personality. Traditional domain silos become open islands that grow dense with connection and come alive with the personality of dozens of personal websites.\n&nbsp;\nRather than one monolithic platform, we were online imagines a world where millions of tiny internets flourish, each finding new ways to express care, whimsy, and joy digitally.\n&nbsp;\n&nbsp;\n&nbsp;\nStill in development but available in beta at [wewere.online](wewere.online) ",
+  "parentCategory": "Project",
+  "categories": [
+    "Art",
+    "Website",
+    "Software Tool"
+  ],
+  "date": "2026-03-19T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vYResx-NmR/6d1366457c5662fdb8d8a12339595e1b9b63b0e0442b02b64309bb80a8fb8af383e38f96dfa514530a6a04b7d225989b2fc978b0b278e45e8c9902c0247972c49990a198c95259cef902193524e390a1114fe7683d5c9acf0285dd5caf1807dd77ad0b79",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vYResx-NmR/6d1366457c5662fdb8d8a12339595e1b9b63b0e0442b02b64309bb80a8fb8af383e38f96dfa514530a6a04b7d225989b2fc978b0b278e45e8c9902c0247972c49990a198c95259cef902193524e390a1114fe7683d5c9acf0285dd5caf1807dd77ad0b79"
+  ],
+  "link": "https://wewere.online/",
+  "ongoing": false,
+  "featured": true,
+  "imageDescriptions": [
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": []
+}

@@ -40,7 +40,26 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Coda packs-sdk ",
+      "slug": "coda-packs-sdk",
+      "link": "https://github.com/coda/packs-sdk",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Coda packs-sdk documentation",
+      "slug": "coda-packs-sdk-documentation",
+      "link": "https://coda.io/packs/build/latest",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Coda Custom Templates",
+      "slug": "coda-custom-templates",
+      "link": "https://coda.io/@spencer/rituals-at-scale-how-we-remixed-templates",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "y"
 }

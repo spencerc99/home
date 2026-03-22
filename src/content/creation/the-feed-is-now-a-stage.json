@@ -22,7 +22,15 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Sharing Stories",
+      "slug": "sharing-stories",
+      "link": "https://alserkal.online/event/alserkal-avenue-instagram-becomes-a-stage-in-august/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
-  "me": "n"
+  "me": "n",
+  "location": "online"
 }
