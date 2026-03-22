@@ -49,12 +49,12 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
   const tempPath = path.join(
     __dirname,
     "../public/creation-videos",
-    tempFilename
+    tempFilename,
   );
   const finalPath = path.join(
     __dirname,
     "../public/creation-videos",
-    finalFilename
+    finalFilename,
   );
 
   // Download to temporary file
@@ -65,7 +65,7 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
   const expectedSize = response.headers.get("content-length");
   if (expectedSize && buffer.length !== parseInt(expectedSize)) {
     throw new Error(
-      `Download incomplete: expected ${expectedSize} bytes, got ${buffer.length}`
+      `Download incomplete: expected ${expectedSize} bytes, got ${buffer.length}`,
     );
   }
 
@@ -85,8 +85,8 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
     maxBitrate = "2M";
     console.log(
       `Large video detected (${inputSizeMB.toFixed(
-        1
-      )}MB), using moderate compression`
+        1,
+      )}MB), using moderate compression`,
     );
   } else if (inputSizeMB > 20) {
     // Medium-large files - slightly higher compression
@@ -95,8 +95,8 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
     maxBitrate = "3M";
     console.log(
       `Medium-large video detected (${inputSizeMB.toFixed(
-        1
-      )}MB), using higher compression`
+        1,
+      )}MB), using higher compression`,
     );
   }
 
@@ -152,42 +152,42 @@ async function downloadVideo(url: string, blobId: string): Promise<string> {
           if (finalSizeMB > cloudflareLimit) {
             console.warn(
               `⚠️  OVERSIZED FILE: ${finalFilename} is ${finalSizeMB.toFixed(
-                1
-              )}MB, exceeds Cloudflare Pages limit of ${cloudflareLimit}MB`
+                1,
+              )}MB, exceeds Cloudflare Pages limit of ${cloudflareLimit}MB`,
             );
             console.warn(`📁 File kept at: ${finalPath}`);
             console.warn(
-              `🔗 Upload this file to R2 and update the JSON manually`
+              `🔗 Upload this file to R2 and update the JSON manually`,
             );
 
             // Keep the file but mark as oversized - fall back to original URL
             reject(
               new Error(
                 `Video ${finalFilename} exceeds ${cloudflareLimit}MB limit (${finalSizeMB.toFixed(
-                  1
-                )}MB) - file kept at ${finalPath}`
-              )
+                  1,
+                )}MB) - file kept at ${finalPath}`,
+              ),
             );
           } else {
             console.log(
-              `Converted to MP4: ${finalFilename} (${finalSizeMB.toFixed(1)}MB)`
+              `Converted to MP4: ${finalFilename} (${finalSizeMB.toFixed(1)}MB)`,
             );
             resolve(`/creation-videos/${finalFilename}`);
           }
         } else {
           console.error(
-            `ffmpeg output file is empty or missing: ${finalFilename}`
+            `ffmpeg output file is empty or missing: ${finalFilename}`,
           );
           console.error(`ffmpeg stderr: ${stderr}`);
           reject(
-            new Error(`ffmpeg produced empty output file: ${finalFilename}`)
+            new Error(`ffmpeg produced empty output file: ${finalFilename}`),
           );
         }
       } else {
         console.error(`ffmpeg conversion failed with code ${code}`);
         console.error(`ffmpeg stderr: ${stderr}`);
         reject(
-          new Error(`ffmpeg conversion failed with code ${code}: ${stderr}`)
+          new Error(`ffmpeg conversion failed with code ${code}: ${stderr}`),
         );
       }
     });
@@ -224,7 +224,7 @@ async function getMediaType(url: string): Promise<"image" | "video" | null> {
       return "video";
     }
   } catch (error) {
-    console.error("Error detecting media type:", error);
+    console.warn(`Could not detect media type for ${url}: ${error.message}`);
   }
 
   return "image";
@@ -254,6 +254,7 @@ export interface CodaItem {
   featured: boolean;
   isEvent: boolean;
   assetPreviewIdx?: number;
+  location?: string;
   institution?: string[];
   love?: "y" | "n" | "m";
   me?: "y" | "n" | "m";
@@ -286,7 +287,7 @@ async function importCreations() {
       headers: {
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   const data: CodaItem[] = await resp.json();
   // put them into content/creation as single json files using the title as the name
@@ -322,7 +323,7 @@ async function importCreations() {
             if (existingPath) {
               if (VERBOSE)
                 console.log(
-                  `Using existing movieUrl video for blob ${blobId}: ${existingPath}`
+                  `Using existing movieUrl video for blob ${blobId}: ${existingPath}`,
                 );
               finalMovieUrl = existingPath;
             } else {
@@ -330,7 +331,7 @@ async function importCreations() {
                 finalMovieUrl = await downloadVideo(item.movieUrl, blobId);
               } catch (error) {
                 console.warn(
-                  `Failed to convert movieUrl video ${blobId}: ${error.message}`
+                  `Failed to convert movieUrl video ${blobId}: ${error.message}`,
                 );
                 console.warn(`Falling back to original URL: ${item.movieUrl}`);
                 finalMovieUrl = item.movieUrl;
@@ -345,7 +346,7 @@ async function importCreations() {
         media.map(async (url) => {
           const type = await getMediaType(url);
           return type;
-        })
+        }),
       );
 
       // Download videos locally and use local paths
@@ -365,7 +366,7 @@ async function importCreations() {
               if (existingPath) {
                 if (VERBOSE)
                   console.log(
-                    `Using existing video for blob ${blobId}: ${existingPath}`
+                    `Using existing video for blob ${blobId}: ${existingPath}`,
                   );
                 return existingPath;
               } else {
@@ -375,7 +376,7 @@ async function importCreations() {
                   return localPath;
                 } catch (error) {
                   console.warn(
-                    `Failed to convert video ${blobId}: ${error.message}`
+                    `Failed to convert video ${blobId}: ${error.message}`,
                   );
                   console.warn(`Falling back to original URL: ${originalUrl}`);
                   // Fall back to original URL if conversion fails (e.g., file too large)
@@ -389,7 +390,7 @@ async function importCreations() {
             }
           }
           return url;
-        })
+        }),
       );
 
       //   console.log(`downloading ${heroImageUrl} to $
@@ -455,6 +456,7 @@ async function importCreations() {
         related,
         love: item.love,
         me: item.me,
+        location: item.location,
       };
 
       // Remove empty fields
@@ -469,7 +471,7 @@ async function importCreations() {
       });
 
       return finalItem;
-    })
+    }),
   );
 
   // Clean up unreferenced videos and temp files
@@ -483,7 +485,7 @@ async function importCreations() {
           file.endsWith(".webm") ||
           file.endsWith(".mov") ||
           file.endsWith(".avi") ||
-          file.includes("_temp")
+          file.includes("_temp"),
       );
 
     existingVideoFiles.forEach((file) => {
@@ -516,7 +518,7 @@ async function importCreations() {
   transformedData.forEach((item) => {
     const filePath = path.join(
       dir,
-      `${escapeTitleForFilename(item.title)}.json`
+      `${escapeTitleForFilename(item.title)}.json`,
     );
     fs.writeFileSync(filePath, JSON.stringify(item, null, 2));
   });

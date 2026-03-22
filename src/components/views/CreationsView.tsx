@@ -9,6 +9,7 @@ import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
 import { CreationListView } from "./CreationListView";
 import classNames from "classnames";
+import { PINNED_CREATIONS } from "../../utils/creations";
 
 export enum ViewType {
   // FREE = "free",
@@ -93,15 +94,19 @@ export function CreationsView({
 
   const sortedNonEventCreations = useMemo(() => {
     return [...nonEventCreations].sort((a, b) => {
-      // First handle forthcoming
       const multiplier = sortDirection === "asc" ? 1 : -1;
-      if (a.data.forthcoming !== b.data.forthcoming) {
-        return (a.data.forthcoming ? 1 : -1) * multiplier;
+
+      // Pinned creations always come first
+      const aPinned = PINNED_CREATIONS.indexOf(a.id);
+      const bPinned = PINNED_CREATIONS.indexOf(b.id);
+      if (aPinned !== -1 || bPinned !== -1) {
+        if (aPinned !== -1 && bPinned !== -1) return aPinned - bPinned;
+        return aPinned !== -1 ? -1 : 1;
       }
 
-      // Then handle ongoing
-      if (a.data.ongoing !== b.data.ongoing) {
-        return (a.data.ongoing ? 1 : -1) * multiplier;
+      // Then handle forthcoming
+      if (a.data.forthcoming !== b.data.forthcoming) {
+        return (a.data.forthcoming ? 1 : -1) * multiplier;
       }
 
       // For regular dates, prefer end date, fallback to start date

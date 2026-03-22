@@ -2,9 +2,17 @@
 import { getCollection } from "astro:content";
 import { CreationsView } from "../../components/views/CreationsView";
 import DetailLayout from "../../layouts/DetailLayout.astro";
-import { hydrateCreations } from "../../utils/creations";
+import { hydrateCreations, PINNED_CREATIONS } from "../../utils/creations";
 
 const creations = hydrateCreations(await getCollection("creation")).sort((a, b) => {
+  // Pinned creations always come first
+  const aPinned = PINNED_CREATIONS.indexOf(a.id);
+  const bPinned = PINNED_CREATIONS.indexOf(b.id);
+  if (aPinned !== -1 || bPinned !== -1) {
+    if (aPinned !== -1 && bPinned !== -1) return aPinned - bPinned;
+    return aPinned !== -1 ? -1 : 1;
+  }
+
   if (a.data.forthcoming !== b.data.forthcoming) {
     return a.data.forthcoming ? -1 : 1;
   }

@@ -4,6 +4,13 @@
 import type { CollectionEntry } from "astro:content";
 import { isEventForthcoming } from "./index";
 
+/** Creation IDs that should always appear at the top of the list. */
+export const PINNED_CREATIONS: string[] = [
+  // Add creation IDs (filenames without .json) here to pin them to the top.
+  "computing-shrines",
+  "playhtml",
+];
+
 export enum CreationCategory {
   "Speaking & Workshops",
   Project,
@@ -22,13 +29,16 @@ export enum CreationCategory {
  * This ensures the forthcoming field is always accurate based on the current date.
  */
 export function hydrateCreation<T extends CollectionEntry<"creation">>(
-  creation: T
+  creation: T,
 ): T & { data: T["data"] & { forthcoming: boolean } } {
   return {
     ...creation,
     data: {
       ...creation.data,
-      forthcoming: isEventForthcoming(creation.data.date, creation.data.endDate),
+      forthcoming: isEventForthcoming(
+        creation.data.date,
+        creation.data.endDate,
+      ),
     },
   };
 }
@@ -37,7 +47,7 @@ export function hydrateCreation<T extends CollectionEntry<"creation">>(
  * Hydrates multiple creations with computed fields.
  */
 export function hydrateCreations<T extends CollectionEntry<"creation">>(
-  creations: T[]
+  creations: T[],
 ): Array<T & { data: T["data"] & { forthcoming: boolean } }> {
   return creations.map(hydrateCreation);
 }

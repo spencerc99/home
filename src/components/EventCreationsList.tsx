@@ -34,16 +34,14 @@ export function EventCreationsList({
           }}
         >
           {creation.date && (
-            <span
-              className="mono"
-              style={{ whiteSpace: "nowrap", fontSize: "14px" }}
-            >
+            <span style={{ whiteSpace: "nowrap", fontSize: "14px" }}>
               <b>{creation.location && `[${creation.location}] `}</b>
               {formatCompactDateRange(
                 new Date(creation.date),
-                creation.endDate ? new Date(creation.endDate) : null
-              )}
-              {/* {creation.institution && (
+                creation.endDate ? new Date(creation.endDate) : null,
+              )}{" "}
+              (
+              {creation.institution && (
                 <span
                   style={{
                     whiteSpace: "nowrap",
@@ -51,14 +49,18 @@ export function EventCreationsList({
                     marginTop: "0.25rem",
                   }}
                 >
-                  {" "}
-                  {creation.institution.join(", ")}
+                  {creation.institution[0]}
                 </span>
-              )} */}
+              )}
+              )
             </span>
           )}
           <p>
-            {creation.link ? <a href={creation.link}>{creation.title}</a> : creation.title}
+            {creation.link ? (
+              <a href={creation.link}>{creation.title}</a>
+            ) : (
+              creation.title
+            )}
             {creation.subtext && (
               <span className="descriptionText"> {creation.subtext}</span>
             )}
