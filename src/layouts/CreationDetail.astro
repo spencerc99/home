@@ -3,17 +3,16 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import { marked } from "marked";
 import { CreationDetailImages } from "../components/CreationDetailImages";
-import { RelatedCreations } from "../components/RelatedCreations";
 import "./CreationDetail.scss";
 import BaseLayout from "./BaseLayout.astro";
 import { ImageOrVideo } from "../components/ImageOrVideo";
 import { stringToColor } from "../utils";
 import { maybeTransformImgixUrl } from "../utils/images";
 
+type ResolvedRelated = CollectionEntry<"creation">["data"] & { id: string };
+
 type Props = CollectionEntry<"collection">["data"] & {
-  relatedCreations?: Array<
-    CollectionEntry<"creation">["data"] & { id: string }
-  >;
+  relatedFooterEntries?: ResolvedRelated[];
 };
 
 const {
@@ -31,7 +30,7 @@ const {
   imageDescriptions,
   mediaMetadata,
   parentCategory,
-  relatedCreations = [],
+  relatedFooterEntries = [],
   descriptionFooterMd,
   related,
 } = Astro.props;
@@ -47,33 +46,125 @@ const descriptionParsed = descriptionMd
     )
   : "";
 
-// Separate related creations into press and project categories
-const relatedPress = related?.filter((r) => r.parentCategory === "Press") || [];
-function formatRelatedPress({
-  link,
-}: CollectionEntry<"creation">["data"]["related"]) {
-  const linkDomain = getDomainFromUrl(link);
-
-  return `* <a href="${link}">read on ${linkDomain}</a>`;
-}
-
-const relatedProjects =
-  related?.filter((r) => r.parentCategory === "Project") || [];
-
-let descriptionFooterWithPress = descriptionFooterMd || "";
-if (relatedPress.length > 0) {
-  descriptionFooterWithPress += `\n\nIn the press:\n${relatedPress.map((r) => formatRelatedPress(r)).join("\n")}`;
-}
-
-const descriptionFooterParsed = descriptionFooterWithPress
+// Parse manual footer markdown if present
+const manualFooterParsed = descriptionFooterMd
   ? await marked.parse(
-      descriptionFooterWithPress.trim().replace(/(?<!  )\n&nbsp;/g, "\n\n"),
-      {
-        breaks: true,
-        gfm: true,
-      }
+      descriptionFooterMd.trim().replace(/(?<!  )\n&nbsp;/g, "\n\n"),
+      { breaks: true, gfm: true }
     )
   : "";
+
+// Category display order for the auto-generated footer
+const categoryOrder = [
+  "Exhibition",
+  "Press",
+  "Speaking, Workshops, Teaching",
+  "Fellowships, Residencies, Awards",
+  "Project",
+];
+
+const headingOverrides: Record<string, string> = {
+  "Exhibition": "Exhibition History",
+  "Fellowships, Residencies, Awards": "Awards & Fellowships",
+  "Project": "Related Projects",
+};
+
+// Group footer entries by parentCategory, sorted by date descending within each group
+function buildFooterSections(entries: ResolvedRelated[]) {
+  const sections: Array<{ heading: string; category: string; items: ResolvedRelated[] }> = [];
+  const categorized = new Set<string>();
+
+  function sortByDate(items: ResolvedRelated[]) {
+    return items.sort((a, b) => {
+      const dateA = a.date ? new Date(a.date).getTime() : 0;
+      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      return dateB - dateA;
+    });
+  }
+
+  for (const category of categoryOrder) {
+    const items = sortByDate(entries.filter((e) => e.parentCategory === category));
+    if (items.length > 0) {
+      sections.push({ heading: headingOverrides[category] || category, category, items });
+      categorized.add(category);
+    }
+  }
+
+  // Catch-all for entries with categories not in categoryOrder
+  const remaining = entries.filter((e) => !categorized.has(e.parentCategory || ""));
+  if (remaining.length > 0) {
+    sections.push({
+      heading: "Related",
+      category: "Related",
+      items: sortByDate(remaining),
+    });
+  }
+
+  return sections;
+}
+
+function formatCompactDate(d: Date): string {
+  return d.toLocaleDateString("en-us", { month: "short", year: "numeric" });
+}
+
+function formatDateRange(item: ResolvedRelated, category: string): string {
+  if (!item.date) return "";
+  const start = new Date(item.date);
+  if (category === "Exhibition" && item.endDate) {
+    const end = new Date(item.endDate);
+    // Same month+year: just show once
+    if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+      return formatCompactDate(start);
+    }
+    return `${formatCompactDate(start)}–${formatCompactDate(end)}`;
+  }
+  // Exhibitions without end date and workshops/teaching: just start
+  if (category === "Exhibition" || category === "Speaking, Workshops, Teaching") {
+    return formatCompactDate(start);
+  }
+  return "";
+}
+
+function formatFooterItem(item: ResolvedRelated, category: string): string {
+  const shouldLinkInternal = Boolean(item.descriptionMd);
+  const href = shouldLinkInternal ? `/creation/${item.id}` : (item.link || "");
+  const forthcomingPrefix = item.forthcoming ? "<em>(forthcoming)</em> " : "";
+  const linkText = item.title;
+  const institutionStr = item.institution?.length ? item.institution.join(", ") : "";
+  const locationStr = item.location || "";
+  const dateStr = formatDateRange(item, category);
+
+  const datePrefix = dateStr
+    ? `<span class="related-date">[${dateStr}]</span> `
+    : "";
+
+  const titleHtml = href
+    ? `<a href="${href}">${linkText}</a>`
+    : linkText;
+
+  let metaParts = "";
+  if (institutionStr) {
+    metaParts += `<span class="related-institution">${institutionStr}</span>`;
+  }
+  if (locationStr) {
+    metaParts += `<span class="related-location">${locationStr}</span>`;
+  }
+
+  return `<li>${datePrefix}${forthcomingPrefix}${titleHtml}${metaParts}</li>`;
+}
+
+const footerSections = buildFooterSections(relatedFooterEntries);
+
+let autoFooterHtml = "";
+for (const section of footerSections) {
+  autoFooterHtml += `<p><strong>${section.heading}</strong></p>`;
+  autoFooterHtml += `<ul>${section.items.map((item) => formatFooterItem(item, section.category)).join("")}</ul>`;
+}
+
+// Combine manual footer (if any) with auto-generated footer
+const descriptionFooterParsed = [manualFooterParsed, autoFooterHtml]
+  .filter(Boolean)
+  .join("");
 
 const transformedMovieUrl = movieUrl
   ? maybeTransformImgixUrl(movieUrl, {
@@ -111,8 +202,6 @@ const style = {
 const descriptionParagraphs = descriptionParsed
   ? descriptionParsed.split("\n").filter((p) => p.trim())
   : [];
-
-console.log(descriptionParagraphs);
 
 // Organize media - all media including movieUrl if present
 const allMediaSources = movieUrl ? [transformedMovieUrl] : [];
@@ -285,17 +374,6 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
           />
         </div>
 
-        <!-- Related Creations -->
-        {
-          relatedCreations.length > 0 && (
-            <div class="related-creations">
-              <RelatedCreations
-                client:only="react"
-                creations={relatedCreations}
-              />
-            </div>
-          )
-        }
       </div>
     </article>
   </main>

@@ -13,7 +13,14 @@
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "cursor watching",
+      "slug": "cursor-watching",
+      "link": "https://cursorwatch.ing/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n",
   "location": "Internet"

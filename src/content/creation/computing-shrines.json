@@ -2,7 +2,6 @@
   "title": "Computing Shrines",
   "subtext": "a collection of site-specific sculptures turning shared spaces into spaces for sharing",
   "descriptionMd": "We face a loneliness epidemic as free third spaces for communities disappear, and our devices have become symbols of isolation. Computing Shrines responds to this crisis by reimagining technology as a public good for fostering local connection rather than replacing it.\n&nbsp;\nEach shrine connects visitors' phones to a custom communal web interface that facilitates the exchange of small intimacies between past and future visitors. These websites can only be accessed at their shrine, anchoring a virtual space to a physical place and turning these shrines into living archives of the collective everyday interactions of the people who steward the space.\n&nbsp;\nFor example, \"Shrine to Voice\" is mobile phone booth that invites visitors to listen to and share their worries and hopes with the last and next stranger. “Shrine to Earth” features a found boulder that invites visitors to share photos of rocks they’ve found, which become pieces in a cairn-making mini-game. And in \"Shrine to Others,\" a clay tablet nestled beside a seating area invites visitors to notice the people they share the space with and vocalize what they admire about strangers.\n&nbsp;\nBeyond an installation, Computing Shrines is an open protocol for creating public good technology that fosters local connection rather than replacing it. Designed with common materials, open-sourcing the interfaces, and collaborating with local stewards, the project transforms the normally solitary and exclusive act of creating technology into a community improvement project for all to shape.\n&nbsp;\nSupported by [APOSSIBLE](https://apossible.com/), [DAL](https://dalab.xyz/en/), [NEW INC](https://newinc.org/), the New Museum’s art and technology incubator, and the San Francisco Arts Commission.",
-  "descriptionFooterMd": "**Exhibition History**\n&nbsp;\n- June 4-22: [Embodied Algorithms / Collective Mechanics](https://www.demofestival.org/showcases/art-and-code) by NEW INC and the New Museum, Curated by Sheldon Gooch",
   "parentCategory": "Project",
   "categories": [
     "Art",
@@ -95,12 +94,6 @@
       "parentCategory": "Speaking, Workshops, Teaching"
     },
     {
-      "title": "San Francisco Artist Grant",
-      "slug": "san-francisco-artist-grant",
-      "link": "",
-      "parentCategory": "Fellowships, Residencies, Awards"
-    },
-    {
       "title": "APOSSIBLE Applied Experiments",
       "slug": "apossible-applied-experiments",
       "link": "https://apossible.com/pages/applied-experiments?token=c0fba653d3b0442474bc4a4ff9b2444067a6d6f1",
@@ -119,16 +112,28 @@
       "parentCategory": "Speaking, Workshops, Teaching"
     },
     {
-      "title": "ancient futures",
-      "slug": "ancient-futures",
-      "link": "https://events.stanford.edu/event/ancient-futures",
-      "parentCategory": "Speaking, Workshops, Teaching"
-    },
-    {
       "title": "Touching Computers: Creating Data Talismans",
       "slug": "touching-computers-creating-data-talismans",
       "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
       "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Computing-Infused Objects",
+      "slug": "computing-infused-objects",
+      "link": "https://x.com/spencerc99/status/1818721711858368890",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Arts Future Research Field Exhibition @ Tokyo Geidai",
+      "slug": "arts-future-research-field-exhibition-@-tokyo-geidai",
+      "link": "https://museum.geidai.ac.jp/en/exhibit/2025/11/gmk2025.html",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Shrine to Earth (Pillars)",
+      "slug": "shrine-to-earth-(pillars)",
+      "link": "",
+      "parentCategory": "Exhibition"
     }
   ],
   "love": "y",

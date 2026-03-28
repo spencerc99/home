@@ -52,7 +52,20 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Trillionth Webpage",
+      "slug": "trillionth-webpage",
+      "link": "https://blog.archive.org/2025/10/24/celebrate-1-trillion-web-pages-with-original-net-art-works-internet-archive-x-gray-area/",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Distant Gallery Festival",
+      "slug": "distant-gallery-festival",
+      "link": "https://distant.gallery/trillionth-webpage",
+      "parentCategory": "Exhibition"
+    }
+  ],
   "love": "y",
   "me": "y"
 }

@@ -107,6 +107,12 @@
       "parentCategory": "Project"
     },
     {
+      "title": "Building Benches for the Web",
+      "slug": "building-benches-for-the-web",
+      "link": "",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
       "title": "minute faces (together)",
       "slug": "minute-faces-(together)",
       "link": "https://playhtml.fun/experiments/5/",
@@ -122,6 +128,12 @@
       "title": "screen symphony",
       "slug": "screen-symphony",
       "link": "https://playhtml.fun/experiments/6",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "we were online",
+      "slug": "we-were-online",
+      "link": "https://wewere.online/",
       "parentCategory": "Project"
     }
   ],

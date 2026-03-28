@@ -17,14 +17,19 @@ interface Props {
 
 const { creation, creations } = Astro.props;
 
-// Get related creations if they exist
-const relatedSlugs = creation.data.related || [];
-const relatedCreations = creations
-  .filter((c) => relatedSlugs.includes(`${c.id}`))
+// Resolve related entries to full creation data
+const relatedEntries = creation.data.related || [];
+const relatedSlugs = relatedEntries.map((r) => r.slug);
+const resolvedRelated = creations
+  .filter((c) => relatedSlugs.includes(c.id))
   .map((c) => ({
     id: c.id,
     ...c.data,
   }));
+
 ---
 
-<CreationDetail {...creation.data} relatedCreations={relatedCreations} />
+<CreationDetail
+  {...creation.data}
+  relatedFooterEntries={resolvedRelated}
+/>

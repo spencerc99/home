@@ -15,6 +15,13 @@
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "Golden Gate Park, San Francisco"
 }

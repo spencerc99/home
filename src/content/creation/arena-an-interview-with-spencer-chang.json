@@ -24,9 +24,15 @@
   ],
   "related": [
     {
-      "title": "are.na pack",
-      "slug": "arena-pack",
-      "link": "https://coda.io/packs/arena-14581",
+      "title": "Artist Talk - Perpetual Motion Machine",
+      "slug": "artist-talk---perpetual-motion-machine",
+      "link": "https://www.youtube.com/watch?v=l-2t-N96Bn8",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Gather",
+      "slug": "gather",
+      "link": "https://gather.directory/",
       "parentCategory": "Project"
     }
   ],

@@ -38,5 +38,12 @@
     "image",
     "video"
   ],
-  "related": []
+  "related": [
+    {
+      "title": "we were online",
+      "slug": "we-were-online",
+      "link": "https://wewere.online/",
+      "parentCategory": "Project"
+    }
+  ]
 }

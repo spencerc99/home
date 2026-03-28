@@ -38,7 +38,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "everyday",
+      "slug": "everyday",
+      "link": "https://artlab.hyundai.com/commissions/spencer-chang-everyday",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n",
   "location": "San Francisco"

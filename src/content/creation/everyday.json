@@ -62,10 +62,40 @@
   ],
   "related": [
     {
-      "title": "Everyday Magic",
-      "slug": "everyday-magic",
-      "link": "https://joinreboot.org/p/everyday-magic",
-      "parentCategory": "Writing"
+      "title": "everyday @ TIAT for time.place",
+      "slug": "everyday-@-tiat-for-timeplace",
+      "link": "https://luma.com/event/evt-72A485q6DHAMPaL",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "everyday - Internet Archive (TIAT 11)",
+      "slug": "everyday---internet-archive-(tiat-11)",
+      "link": "https://lu.ma/w2xi3u4p",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    },
+    {
+      "title": "Artlab Digital Commissions",
+      "slug": "artlab-digital-commissions",
+      "link": "https://artlab.hyundai.com/project/artlab-digital-commissions",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Pattern Recognitions",
+      "slug": "pattern-recognitions",
+      "link": "https://artlab.hyundai.com/editorial/pattern-recognitions",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Letter from the Editors: Intimate Technologies",
+      "slug": "letter-from-the-editors-intimate-technologies",
+      "link": "https://artlab.hyundai.com/editorial/letter-from-the-editor-intimate-technologies",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Webcurios 11/04/25",
+      "slug": "webcurios-110425",
+      "link": "https://arc.net/l/quote/bakkfkuv",
+      "parentCategory": "Press"
     }
   ],
   "love": "y",

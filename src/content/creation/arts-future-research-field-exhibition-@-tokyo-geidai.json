@@ -23,7 +23,14 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n",
   "location": "Tokyo, Japan"

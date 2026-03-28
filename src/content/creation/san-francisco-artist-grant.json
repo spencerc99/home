@@ -14,14 +14,7 @@
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": [
-    {
-      "title": "Computing Shrines",
-      "slug": "computing-shrines",
-      "link": "https://shrine.computer/",
-      "parentCategory": "Project"
-    }
-  ],
+  "related": [],
   "love": "n",
   "me": "n",
   "location": "San Francisco"

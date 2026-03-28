@@ -13,7 +13,14 @@
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "poems we found with the internet",
+      "slug": "poems-we-found-with-the-internet",
+      "link": "https://playhtml.fun/fridge.html",
+      "parentCategory": "Project"
+    }
+  ],
   "love": "n",
   "me": "n",
   "location": "Internet"

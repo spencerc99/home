@@ -36,7 +36,14 @@
     "image",
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "cursor watching, Tiny Awards Finalist (Multiplayer)",
+      "slug": "cursor-watching,-tiny-awards-finalist-(multiplayer)",
+      "link": "",
+      "parentCategory": "Fellowships, Residencies, Awards"
+    }
+  ],
   "love": "n",
   "me": "y"
 }
