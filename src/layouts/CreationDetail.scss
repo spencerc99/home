@@ -225,7 +225,7 @@
 
   .descriptions {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: fit-content(66%) 1fr;
     align-items: start;
     gap: 2em;
     margin-bottom: 2em;
