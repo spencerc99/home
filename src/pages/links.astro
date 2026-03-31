@@ -1,15 +1,58 @@
 ---
 import DetailLayout from "../layouts/DetailLayout.astro";
 import { LinksView } from "../components/views/Links";
+import { nowEntries } from "../data/now-entries";
+import { getCollection } from "astro:content";
+import { hydrateCreations } from "../utils/creations";
 
 const LayoutProps = {
   title: "(domains)",
   titleClass: "uniform",
   description: "A home for my most relevant links",
   emojis: [],
+  columns: 1,
+};
+
+const currentNowEntry = nowEntries[0];
+
+// Get latest post from local content collection
+const posts = ((await getCollection("posts")) || [])
+  .filter((post) => !post.data.hidden && !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const latestPost = posts[0];
+const latestNewsletter = {
+  title: latestPost?.data.title || "Latest newsletter",
+  url: latestPost?.data.externalLink || `/posts/${latestPost?.id}`,
+};
+
+// Fetch latest creation
+const creations = hydrateCreations(await getCollection("creation"))
+  .filter((c) => Boolean(c.data.date) && !c.data.forthcoming)
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
+
+const latestCreation = creations[0];
+const projectUrl = latestCreation?.data.link || `/creation/${latestCreation?.id}`;
+// Use heroImage if available, otherwise grab favicon from the project's external URL
+let projectImg = latestCreation?.data.heroImage || "";
+if (!projectImg && latestCreation?.data.link) {
+  try {
+    const domain = new URL(latestCreation.data.link).origin;
+    projectImg = `${domain}/favicon.ico`;
+  } catch {}
+}
+const latestProject = {
+  title: latestCreation?.data.title || "Latest project",
+  url: projectUrl,
+  img: projectImg,
 };
 ---
 
 <DetailLayout {...LayoutProps}>
-  <LinksView />
+  <LinksView
+    client:only="react"
+    nowEntry={currentNowEntry}
+    latestNewsletter={latestNewsletter}
+    latestProject={latestProject}
+  />
 </DetailLayout>

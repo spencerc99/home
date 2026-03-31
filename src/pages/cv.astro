@@ -1,15 +1,436 @@
 ---
+// ABOUTME: CV page displaying all creations grouped by category
+// ABOUTME: with hardcoded sections for Education, Professional, Statement, and Bio
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { hydrateCreations } from "../utils/creations";
+import "./cv.scss";
+
+type Creation = CollectionEntry<"creation">["data"] & {
+  id: string;
+  forthcoming?: boolean;
+};
+
+const allCreations = hydrateCreations(await getCollection("creation"));
+
+// Category display order matching CV structure
+const cvSections = [
+  { category: "Exhibition", heading: "Exhibitions" },
+  {
+    category: "Speaking, Workshops, Teaching",
+    heading: "Speaking, Workshops & Teaching",
+  },
+  {
+    category: "Fellowships, Residencies, Awards",
+    heading: "Fellowships, Residences & Awards",
+  },
+  { category: "Press", heading: "Selected Press" },
+] as const;
+
+function getCreationsForCategory(category: string): Creation[] {
+  return allCreations
+    .filter((c) => c.data.parentCategory === category)
+    .map((c) => ({ ...c.data, id: c.id, forthcoming: c.data.forthcoming }))
+    .sort((a, b) => {
+      const dateA = a.date ? new Date(a.date).getTime() : 0;
+      const dateB = b.date ? new Date(b.date).getTime() : 0;
+      return dateB - dateA;
+    });
+}
+
+function getYear(d: Date | null): string {
+  if (!d) return "";
+  return new Date(d).getFullYear().toString();
+}
+
+function formatCompactDate(d: Date): string {
+  return d.toLocaleDateString("en-us", { month: "short", year: "numeric" });
+}
+
+function formatDateRange(item: Creation, category: string): string {
+  if (!item.date) return "";
+  const start = new Date(item.date);
+  if (
+    (category === "Exhibition" ||
+      category === "Speaking, Workshops, Teaching") &&
+    item.endDate
+  ) {
+    const end = new Date(item.endDate);
+    if (
+      start.getMonth() === end.getMonth() &&
+      start.getFullYear() === end.getFullYear()
+    ) {
+      return formatCompactDate(start);
+    }
+    return `${formatCompactDate(start)}–${formatCompactDate(end)}`;
+  }
+  return "";
+}
+
+// Group items by year for display
+function groupByYear(items: Creation[]): Map<string, Creation[]> {
+  const groups = new Map<string, Creation[]>();
+  // Find the latest year across all items to use for dateless forthcoming entries
+  let latestYear = new Date().getFullYear().toString();
+  for (const item of items) {
+    const y = getYear(item.date);
+    if (y && y > latestYear) latestYear = y;
+  }
+  for (const item of items) {
+    let year = getYear(item.date);
+    if (!year && item.forthcoming) year = latestYear;
+    if (!year) continue;
+    if (!groups.has(year)) groups.set(year, []);
+    groups.get(year)!.push(item);
+  }
+  return groups;
+}
+
+function getItemHref(item: Creation): string {
+  if (item.descriptionMd) return `/creation/${item.id}`;
+  return item.link || "";
+}
 ---
 
-<BaseLayout centered>
-  <div class="headerContainer">
-    <!-- TODO: embed not working -->
-    <iframe
-      src="https://coda.io/embed/JWcpiiVAow/_surtDyWl"
-      width="900"
-      height="500"
-      style="max-width: 100%;"
-      allow="fullscreen"></iframe>
+<BaseLayout
+  title="cv ꜱᴘᴇɴᴄᴇʀ"
+  description="Spencer Chang's curriculum vitae"
+  centered
+>
+  <div class="cv">
+    <header class="cv-header">
+      <h1>Spencer Chang</h1>
+      <p class="cv-subtitle">
+        b. 1997 Houston, lives and works in San Francisco
+      </p>
+      <p class="cv-contact">
+        <a href="mailto:hi@spencer.place">hi@spencer.place</a> ࿌ <a
+          href="https://spencer.place">https://spencer.place</a
+        >
+      </p>
+    </header>
+
+    <section class="cv-section cv-text-section">
+      <h2>Bio</h2>
+      <p>
+        Spencer Chang is an artist, engineer, and toy maker interested in the
+        play, creation, and care that emerges from our relationships with and
+        through technology. Working across internet spaces, interactive
+        sculpture, and creative tools, they engage with everyday practices to
+        explore our online identities and design public good technology. These
+        works leverage whimsical intimacy to interrogate our systems, invite new
+        imaginations, and provide the means to reinvent them.
+      </p>
+      <p>
+        Chang's work has been showcased by the <a href="https://newmuseum.org/"
+          >New Museum</a
+        > (New York), <a href="https://grayarea.org/">Gray Area</a> & the <a
+          href="https://deyoung.famsf.org/">de Young Museum</a
+        > (San Francisco),
+        <a href="https://artlab.hyundai.com/">Hyundai Artlab</a> (Seoul),
+        <a href="https://www.geidai.ac.jp/english/">Tokyo Geidai</a> (Tokyo), the
+        <a href="https://movingimage.us/">Museum of the Moving Image</a> (New York),
+        and <a href="https://www.alserkal.com/">Alserkal Avenue</a> (Dubai). Their
+        projects have been featured in MIT Technology Review, It's Nice That, and
+        Frieze, and supported by the
+        <a href="https://sfarts.org/">San Francisco Arts Commission</a> and
+        <a href="https://apossible.org/">APOSSIBLE</a>. A
+        <a href="https://newinc.org/">NEW INC</a> Y11 member, they have taught and
+        led workshops internationally for institutions such as the
+        <a href="https://sfpc.study/">School for Poetic Computation</a> and Stanford
+        University.
+      </p>
+    </section>
+
+    <section class="cv-section cv-text-section">
+      <h2>Statement</h2>
+      <p>
+        Technological systems use their abstraction as protection. In fact, they
+        are living things made up of and sustained by human activity. My work
+        reveals this latent humanity by creating spaces where people can touch,
+        play with, and reshape the technological systems that shape them.
+      </p>
+      <p>
+        At the core of my practice is communal computing—technology built for
+        collective agency rather than extracting and consolidating power. I
+        create environments that invite users to become active creators. By
+        turning the Internet into a playground. By making sculptures that hold
+        collective memory. By transforming your phone into your dance partner.
+        By making my desktop a performance. I intervene in everyday spaces and
+        objects, leveraging our natural tendencies to play, create, and care in
+        order to interrogate, and then, reinvent, our systems.
+      </p>
+      <p>
+        I like to play with the boundary of art's definition, working with
+        software, sculpture, tools, processes, and games. I strive to make art
+        that surprises me: the kind that enables others to do things beyond my
+        imagination. Each work is an invitation to discover new ways of seeing,
+        being, and creating. What systems control how we behave? Who dictates
+        them? And what would technology look like if we were all inventing it?
+      </p>
+    </section>
+
+    {
+      cvSections.map(({ category, heading }) => {
+        const items = getCreationsForCategory(category);
+        if (items.length === 0) return null;
+        const grouped = groupByYear(items);
+
+        return (
+          <section class="cv-section">
+            <h2>{heading}</h2>
+            <div class="cv-entries">
+              {[...grouped.entries()].map(([year, yearItems]) => (
+                <div class="cv-year-group">
+                  <div class="cv-year">{year}</div>
+                  <div class="cv-year-items">
+                    {yearItems.map((item) => {
+                      const href = getItemHref(item);
+                      const dateRange = formatDateRange(item, category);
+                      const titleHtml = href
+                        ? `<a href="${href}">${item.title}</a>`
+                        : item.title;
+                      const forthcomingStr = item.forthcoming
+                        ? "<em class='cv-forthcoming'>(forthcoming)</em> "
+                        : "";
+                      const dateStr = dateRange
+                        ? ` <span class="cv-date-range">[${dateRange}]</span>`
+                        : "";
+                      const instStr = item.institution?.length
+                        ? `, <strong>${item.institution.join(", ")}</strong>`
+                        : "";
+                      const locStr = item.location
+                        ? `. ${item.location}.`
+                        : ".";
+                      return (
+                        <div
+                          class="cv-entry"
+                          set:html={`${forthcomingStr}${titleHtml}${dateStr}${instStr}${locStr}`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })
+    }
+
+    <section class="cv-section">
+      <h2>Select Projects</h2>
+      <ul class="cv-projects">
+        <li>
+          <a href="/creation/computing-shrines"><em>Computing Shrines</em></a>,
+          2025, location-bound websites, RFID chips, mixed materials including
+          acrylic, ceramics, found stone, and silicone, mixed dimensions.
+        </li>
+        <li>
+          <a href="/creation/alive-internet-theory"
+            ><em>alive internet theory</em></a
+          >, 2025, interactive website / multi-channel video, mixed dimensions, <a
+            href="https://alivetheory.net">alivetheory.net</a
+          >, commissioned by the Internet Archive and Gray Area.
+        </li>
+        <li>
+          <a href="/creation/everyday"><em>everyday</em></a>, 2025, interactive
+          website / multi-channel video, mixed dimensions, <a
+            href="https://artlab.hyundai.com/commissions/spencer-chang-everyday"
+            >artlab.hyundai.com/commissions/spencer-chang-everyday</a
+          >, commissioned by Hyundai Artlab.
+        </li>
+        <li>
+          <a href="/creation/poems-we-found-with-the-internet"
+            ><em>poems we found with the internet</em></a
+          >, 2024, interactive website and single-channel video, mixed
+          dimensions, <a href="https://playhtml.fun/fridge"
+            >playhtml.fun/fridge</a
+          >.
+        </li>
+      </ul>
+    </section>
+
+    <section class="cv-section">
+      <h2>Education</h2>
+      <div class="cv-entries">
+        <div class="cv-year-group">
+          <div class="cv-year">2023</div>
+          <div class="cv-year-items">
+            <div class="cv-entry">
+              <a href="/creation/solidarity-infrastructure-sfpc"
+                >Solidarity Infrastructures</a
+              >, <strong>School for Poetic Computation</strong>, Internet. March
+              – May.
+            </div>
+            <div class="cv-entry">
+              <a href="https://sfpc.study/sessions/spring-23/love-and-science"
+                >For Love and Science</a
+              >, <strong>School for Poetic Computation</strong>, Internet.
+              January – March.
+            </div>
+          </div>
+        </div>
+        <div class="cv-year-group">
+          <div class="cv-year">2019</div>
+          <div class="cv-year-items">
+            <div class="cv-entry">
+              Master's of Computer Science, <strong>Rice University</strong>,
+              Houston, TX. January – May 2019.
+            </div>
+            <div class="cv-entry">
+              B.A. Computer Science, <strong>Rice University</strong>, Houston,
+              TX. August 2015 – December 2018.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2>Professional</h2>
+      <div class="cv-professional">
+        <div class="cv-job">
+          <div class="cv-job-dates">Jan 2023 – Present</div>
+          <div class="cv-job-content">
+            <div class="cv-job-header">
+              <strong>Independent Artist & Engineer</strong>
+              <span class="cv-job-location">San Francisco, CA</span>
+            </div>
+            <p>
+              Interactive digital-physical experiences, creative tools, and
+              provocative internet spaces with art, software, and storytelling.
+              Commissions range from tangible computing installations and
+              playful websites to open-source infrastructure and communal
+              interfaces.
+            </p>
+            <p>
+              Select clients: <a href="https://wikipedia.org/">Wikipedia</a>, <a
+                href="https://anthropic.com/">Anthropic</a
+              >, <a href="https://artlab.hyundai.com/">Hyundai Artlab</a>, <a
+                href="https://canvas.xyz">Canvas</a
+              >, <a href="https://clone.fyi">Clone</a>, <a
+                href="https://handshake.org/">Handshake</a
+              >, <a href="https://clay.com/">Clay</a>, <a
+                href="https://www.metalabel.com/">Metalabel</a
+              >, <a href="https://cip.org/">Collective Intelligence Project</a>, <a
+                href="https://ethereum.foundation/">Ethereum Foundation</a
+              >, <a href="https://apossible.org/">APOSSIBLE</a>, <a
+                href="https://cursor.com/">Cursor</a
+              >.
+            </p>
+          </div>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-dates">Aug 2019 – Jan 2023</div>
+          <div class="cv-job-content">
+            <div class="cv-job-header">
+              <strong>Software Engineer</strong> @ <a href="https://coda.io"
+                >Coda</a
+              >
+              <span class="cv-job-location">San Francisco, CA</span>
+            </div>
+            <ul>
+              <li>
+                Lead development for <a href="/posts/rituals-remixing"
+                  >Templates</a
+                >, system enabling anyone to create reusable shared snippets and
+                tools, available to drag-and-drop into docs, which dramatically
+                increased the ease of getting started and making things with
+                Coda.
+              </li>
+              <li>
+                Core engineer on <a href="https://coda.io/packs">Packs</a>, a
+                platform for extending Coda's functionality by bringing in and
+                taking action on external apps' data. Worked across the user-
+                and developer-facing experience, platform infrastructure, and
+                the open-source <a href="https://github.com/coda/packs-sdk"
+                  >Packs SDK</a
+                >.
+              </li>
+              <li>
+                Assisted in the creation of backbone infrastructure, including
+                billing, profile systems, ACL management, auditing, copy-paste,
+                and doc organization.
+              </li>
+              <li>
+                Co-founded the engineering blog and helped to edit and solicit
+                new posts.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-dates">Dec 2021 – Dec 2022</div>
+          <div class="cv-job-content">
+            <div class="cv-job-header">
+              <strong>Engineer and Designer</strong> @ <a
+                href="https://verses.xyz">verses</a
+              >
+              <span class="cv-job-location">the Internet</span>
+            </div>
+            <ul>
+              <li>
+                Lead product, design, and development for <a
+                  href="https://pluriverse.world">pluriverse.world</a
+                >, an interactive manifesto putting forth patterns and examples
+                for a new human-oriented "web." 15,000+ signatures and
+                contributions from the planetary community.
+              </li>
+              <li>
+                Co-lead development for <a href="https://poems.verses.xyz"
+                  >poems.verses.xyz</a
+                >, a gallery of shapeshifting poems and an open-source library
+                for transforming text. Included a live playground.
+              </li>
+              <li>
+                Helped co-create and maintain the online community of ~200.
+                Created a Treasury tool to manage payouts to contributors in a
+                transparent manner.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-dates">Jun 2018 – Aug 2018</div>
+          <div class="cv-job-content">
+            <div class="cv-job-header">
+              <strong>Software Engineering Intern</strong> @ <a
+                href="https://airbnb.com">Airbnb</a
+              >
+              <span class="cv-job-location">San Francisco, CA</span>
+            </div>
+            <ul>
+              <li>
+                Extended knowledge graph to associate neighborhoods with
+                inventory to enable querying by what makes locations unique via
+                word embeddings of relationships.
+              </li>
+              <li>
+                Authored <a
+                  href="https://medium.com/airbnb-engineering/scaling-knowledge-access-and-retrieval-at-airbnb-665b6ba21e95"
+                  >blog post</a
+                > on scaling information access at Airbnb.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cv-job">
+          <div class="cv-job-dates">Jun 2017 – Aug 2017</div>
+          <div class="cv-job-content">
+            <div class="cv-job-header">
+              <strong>Software Engineering Intern</strong> @ <a
+                href="https://squareup.com">Square</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

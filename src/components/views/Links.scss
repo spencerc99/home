@@ -1,58 +1,180 @@
-.linksView {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2em;
-  justify-content: space-around;
+// ABOUTME: Styles for the links directory page.
+// ABOUTME: Personal directory / address-book aesthetic with period leaders and icons.
 
-  .link {
+.linksDirectory {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+
+  .linksSection {
     display: flex;
     flex-direction: column;
-    // max-width: 120px;
-    line-height: 1;
-    background-color: var(--color-neutral-background-translucent);
+  }
 
-    position: relative;
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
+  .linksDivider {
+    border: none;
+    border-top: 1px dashed var(--border-color);
+    margin: 1em 0;
+  }
+
+  .linkRow {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding: 0.5em 0.25em;
     color: var(--color-text-color);
-
-    box-shadow: 0 0 12px 2px var(--color-link);
-
-    // img {
-    //   width: 120px;
-    //   height: 120px;
-    //   border-radius: 1em;
-    // }
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+    min-width: 0;
+    max-width: 100%;
 
     &:hover {
-      .linkIcon {
-        opacity: 0.7;
+      background-color: var(--color-neutral-background-hover);
+
+      .linkTitle {
+        color: var(--color-link);
       }
     }
   }
 
-  .title {
-    font-weight: bold;
-    text-align: center;
-  }
-
   .linkIcon {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    border-radius: 50%;
-    z-index: -1;
-    transition: opacity 0.2s ease-in-out;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &--emoji {
+      font-size: 1em;
+    }
   }
 
-  .description {
-    font-size: 80%;
-    margin-top: 0.5em;
-    text-align: center;
+  .linkTitle {
+    font-size: 1.05em;
+    text-transform: uppercase;
+    transition: color 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .linkDots {
+    flex: 1 1 0;
+    min-width: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--color-text-color);
+    opacity: 0.8;
+    line-height: 1;
+
+    &::after {
+      color: var(--color-text-color);
+      display: block;
+      content: "..................................................................................................";
+      font-size: 0.8em;
+    }
+  }
+
+  .linkUrl {
+    font-size: 0.8em;
+    color: var(--color-text-accent);
+    white-space: nowrap;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Labeled link rows for dynamic content (latest newsletter, project, etc.)
+  .labeledLink {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    padding: 0.5em 0.5em;
+    color: var(--color-text-color);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 0.4em;
+
+    &:hover {
+      background-color: var(--color-neutral-background-hover);
+
+      .labeledLink__title {
+        color: var(--color-link);
+      }
+    }
+
+    &__label {
+      font-size: 0.7em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-accent);
+    }
+
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+    }
+
+    &__icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    &__title {
+      font-size: 0.95em;
+      transition: color 0.15s ease;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .linksSocial {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5em;
+    margin-top: 1em;
+    margin-left: 0.5em;
+
+    &__email {
+      white-space: nowrap;
+    }
+  }
+
+  .socialMediaContainer {
+    justify-content: center;
+  }
+
+  .now {
+    margin-top: 1em;
   }
 }
