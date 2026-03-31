@@ -256,6 +256,7 @@
 
   .description-footer {
     max-width: calc($content-size);
+    font-size: 85%;
 
     p:first-child {
       margin-top: 0;
@@ -274,31 +275,27 @@
     ul {
       margin-top: 0;
       margin-bottom: 0.25em;
-      padding-left: 1.2em;
+      padding-left: 0.5em;
 
       li {
-        margin-bottom: 0.15em;
-        line-height: 1.35;
+        margin-bottom: 0.5em;
+        line-height: 1.2;
+        padding-left: 0;
+
+        &::marker {
+          vertical-align: middle;
+          margin-top: 2px;
+        }
       }
     }
 
-    .related-date {
-      opacity: 0.6;
-      font-size: 0.85em;
-    }
-
     .related-institution {
-      opacity: 0.7;
-      font-size: 0.9em;
-
       &::before {
         content: ", ";
       }
     }
 
     .related-location {
-      opacity: 0.55;
-      font-size: 0.85em;
       font-style: italic;
 
       &::before {
