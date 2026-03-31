@@ -21,6 +21,16 @@
 
 .cv-header {
   margin-bottom: 2.5em;
+  position: relative;
+
+  .cv-stamp {
+    position: absolute;
+    top: 0;
+    right: 0.5em;
+    width: 64px;
+    height: 64px;
+    filter: drop-shadow(2px 3px 4px rgba(0, 0, 0, 0.3));
+  }
 
   h1 {
     margin: 0 0 0.15em;
@@ -96,6 +106,12 @@
 
 .cv-location {
   opacity: 0.7;
+}
+
+// All lists in the CV need explicit disc styles (Tailwind resets them)
+.cv ul,
+.cv-projects {
+  list-style-type: disc;
 }
 
 // Select Projects (bullet list format)

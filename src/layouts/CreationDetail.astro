@@ -139,12 +139,12 @@ function formatFooterItem(item: ResolvedRelated, category: string): string {
     : "";
 
   const titleHtml = href
-    ? `<a href="${href}">${linkText}</a>`
-    : linkText;
+    ? `<a href="${href}"><strong>${linkText}</strong></a>`
+    : `<strong>${linkText}</strong>`;
 
   let metaParts = "";
   if (institutionStr) {
-    metaParts += `<span class="related-institution">${institutionStr}</span>`;
+    metaParts += `<span class="related-institution"><strong>${institutionStr}</strong></span>`;
   }
   if (locationStr) {
     metaParts += `<span class="related-location">${locationStr}</span>`;
