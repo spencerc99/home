@@ -49,6 +49,8 @@ export function hydrateCreation<T extends CollectionEntry<"creation">>(
  */
 export function hydrateCreations<T extends CollectionEntry<"creation">>(
   creations: T[],
-): Array<T & { data: T["data"] & { forthcoming: boolean } }> {
+): Array<
+  T & { data: CollectionEntry<"creation">["data"] & { forthcoming: boolean } }
+> {
   return creations.map(hydrateCreation);
 }

@@ -22,7 +22,7 @@ const LayoutProps = {
 };
 
 const sortedFits = (fitsData.fits as Fit[]).sort(
-  (a, b) => b.timestamp - a.timestamp
+  (a, b) => b.timestamp - a.timestamp,
 );
 const posts = ((await getCollection("posts")) || [])
   .filter((post) => !post.data.hidden && !post.data.draft)
@@ -57,7 +57,7 @@ const latestCreations = groupedCreations;
 
 if (
   latestCreations["Writing"] &&
-  latestCreations["Writing"].data.date.getTime() <
+  latestCreations["Writing"].data.date?.getTime() <
     posts[0].data.pubDate.valueOf()
 ) {
   latestCreations["Writing"] = posts[0];
@@ -66,7 +66,10 @@ if (
 const finalCreations = Object.values(latestCreations).sort((a, b) => {
   const aCategory = a.data.parentCategory || "Writing";
   const bCategory = b.data.parentCategory || "Writing";
-  return CreationCategory[aCategory] - CreationCategory[bCategory];
+  return (
+    CreationCategory[aCategory as keyof typeof CreationCategory] -
+    CreationCategory[bCategory as keyof typeof CreationCategory]
+  );
 });
 ---
 
