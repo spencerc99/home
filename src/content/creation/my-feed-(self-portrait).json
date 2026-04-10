@@ -1,0 +1,27 @@
+{
+  "title": "My Feed (Self Portrait)",
+  "subtext": "Self-portraits on how I browse feeds for Kernel Magazine’s FEED issue",
+  "parentCategory": "Writing",
+  "categories": [
+    "Art"
+  ],
+  "date": null,
+  "institution": [
+    "Kernel Magazine",
+    "Reboot"
+  ],
+  "heroImage": "https://www.kernelmag.io/site-images/og-image.jpg",
+  "media": [
+    "https://www.kernelmag.io/site-images/og-image.jpg"
+  ],
+  "link": "https://www.kernelmag.io/",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [],
+  "location": "in print"
+}

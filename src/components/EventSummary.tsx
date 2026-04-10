@@ -2,7 +2,7 @@ import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import { LazyContainer } from "./LazyContainer";
-import { stringToColor } from "../utils";
+import { isEventForthcoming, stringToColor } from "../utils";
 import { ImageOrVideo } from "./ImageOrVideo";
 import { maybeTransformImgixUrl } from "../utils/images";
 
@@ -18,17 +18,19 @@ export function EventSummary({
     title,
     subtext,
     date,
+    endDate,
     movieUrl,
     assetPreviewIdx,
     media,
     link,
-    forthcoming,
     mediaMetadata,
     isEvent,
     parentCategory,
+    forthcoming: forthcomingFlag,
   },
   className,
 }: Props) {
+  const forthcoming = isEventForthcoming(date, endDate, forthcomingFlag);
   const externalLink = link;
   const style = {
     "--aura-color": stringToColor(title),
@@ -108,7 +110,7 @@ export function EventSummary({
   return (
     <div className={`${className} event-summary`}>
       <h3>
-        {date.toLocaleDateString("en-us", {
+        {date && new Date(date).toLocaleDateString("en-us", {
           year: "numeric",
           month: "short",
           day: "numeric",

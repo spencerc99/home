@@ -2218,6 +2218,21 @@ video {
       }
     }
   }
+
+  &.sticky-columns {
+    align-items: start;
+
+    > *:first-child {
+      position: sticky;
+      top: 1em;
+    }
+
+    @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
+      > *:first-child {
+        position: static;
+      }
+    }
+  }
 }
 
 #clockEmbed {

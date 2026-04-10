@@ -8,9 +8,10 @@ interface Props extends BaseLayoutProps {
   titleClass?: string;
   metaTitle?: string;
   columns?: number;
+  stickyColumns?: boolean;
 }
 
-const { title, emojis, titleClass, metaTitle, columns = 2 } = Astro.props;
+const { title, emojis, titleClass, metaTitle, columns = 2, stickyColumns = false } = Astro.props;
 ---
 
 <BaseLayout {...{ ...Astro.props, title: metaTitle || title }}>
@@ -20,7 +21,7 @@ const { title, emojis, titleClass, metaTitle, columns = 2 } = Astro.props;
       <PersonalEmoji hideWee={true} inline={true} emojis={emojis} />
     </h1>
   </div>
-  <div class={`${columns === 2 ? "two-columns" : "one-column"}`}>
+  <div class={`${columns === 2 ? "two-columns" : "one-column"}${stickyColumns ? " sticky-columns" : ""}`}>
     <slot />
   </div>
 </BaseLayout>

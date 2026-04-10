@@ -1,0 +1,68 @@
+// ABOUTME: Styles for the events list view.
+// ABOUTME: Handles upcoming/past sections, year group headers, and event items.
+.eventsView {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.events-section {
+  h3 {
+    text-transform: lowercase;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  &.past {
+    opacity: 0.7;
+
+    h3 {
+      opacity: 0.8;
+    }
+  }
+}
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.event-year-group {
+  .year-header {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+    opacity: 0.5;
+    margin: 0 0 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid currentColor;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+
+    .event-meta {
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .descriptionText {
+      opacity: 0.7;
+    }
+  }
+}

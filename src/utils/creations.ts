@@ -38,6 +38,7 @@ export function hydrateCreation<T extends CollectionEntry<"creation">>(
       forthcoming: isEventForthcoming(
         creation.data.date,
         creation.data.endDate,
+        creation.data.forthcoming,
       ),
     },
   };

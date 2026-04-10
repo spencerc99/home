@@ -63,16 +63,18 @@ export function formatDateRange(startDate: Date, endDate: Date) {
  * Determines if an event is currently happening or upcoming based on its end date.
  * An event is considered forthcoming if it hasn't ended yet (endDate is in the future),
  * or if it has no endDate, then if the start date is in the future.
+ * Falls back to the explicitly set forthcoming flag for events without dates.
  */
 export function isEventForthcoming(
-  date: Date | null,
-  endDate?: Date | null
+  date: Date | string | null,
+  endDate?: Date | string | null,
+  forthcomingFlag?: boolean
 ): boolean {
   const now = new Date();
   // Use end date if available, otherwise use start date
   const relevantDate = endDate || date;
-  if (!relevantDate) return false;
-  return relevantDate > now;
+  if (!relevantDate) return forthcomingFlag ?? true;
+  return new Date(relevantDate) > now;
 }
 
 /**

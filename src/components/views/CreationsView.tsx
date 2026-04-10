@@ -10,6 +10,7 @@ import { EventCreationsList } from "../EventCreationsList";
 import { CreationListView } from "./CreationListView";
 import classNames from "classnames";
 import { PINNED_CREATIONS } from "../../utils/creations";
+import { isEventForthcoming } from "../../utils";
 
 export enum ViewType {
   // FREE = "free",
@@ -80,10 +81,10 @@ export function CreationsView({
   );
 
   const eventCreations = creations
-    .filter((creation) => creation.data.isEvent && creation.data.forthcoming)
+    .filter((creation) => creation.data.isEvent && isEventForthcoming(creation.data.date, creation.data.endDate, creation.data.forthcoming))
     .reverse();
   const nonEventCreations = creations.filter(
-    (creation) => !creation.data.isEvent || !creation.data.forthcoming
+    (creation) => !creation.data.isEvent || !isEventForthcoming(creation.data.date, creation.data.endDate, creation.data.forthcoming)
   );
 
   const columnsCountBreakPoints = useMemo(() => {
@@ -105,8 +106,10 @@ export function CreationsView({
       }
 
       // Then handle forthcoming
-      if (a.data.forthcoming !== b.data.forthcoming) {
-        return (a.data.forthcoming ? 1 : -1) * multiplier;
+      const aForthcoming = isEventForthcoming(a.data.date, a.data.endDate, a.data.forthcoming);
+      const bForthcoming = isEventForthcoming(b.data.date, b.data.endDate, b.data.forthcoming);
+      if (aForthcoming !== bForthcoming) {
+        return (aForthcoming ? 1 : -1) * multiplier;
       }
 
       // For regular dates, prefer end date, fallback to start date
