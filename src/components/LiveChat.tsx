@@ -88,6 +88,9 @@ export function LiveChat() {
         timestamp: number;
       }) => {
         if (!payload?.text) return;
+        // Skip our own messages — already added to local state in sendMessage
+        const myIdentity = playhtml.presence.getMyIdentity();
+        if (payload.stableId === myIdentity?.publicKey) return;
         const msg: ChatMessage = {
           id: `msg-${payload.timestamp}-${payload.stableId}`,
           text: payload.text,
@@ -112,6 +115,7 @@ export function LiveChat() {
 
   // Listen for typing presence changes
   useEffect(() => {
+    if (!hasSynced) return;
     const unsub = playhtml.presence.onPresenceChange("typing", (presences) => {
       const typing = new Set<string>();
       for (const [stableId, view] of presences) {
@@ -122,7 +126,7 @@ export function LiveChat() {
       setTypingStableIds(typing);
     });
     return unsub;
-  }, []);
+  }, [hasSynced]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
