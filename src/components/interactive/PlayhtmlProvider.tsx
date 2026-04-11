@@ -1,8 +1,8 @@
 // ABOUTME: Top-level PlayProvider that initializes playhtml with cursor config.
 // ABOUTME: Mounted in BaseLayout to provide play context to all interactive components.
 
-import { PlayProvider } from "@playhtml/react";
-import type { PropsWithChildren } from "react";
+import { PlayProvider, playhtml } from "@playhtml/react";
+import { useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
 
 // Migrate legacy "username" from localStorage into playhtml's identity if needed.
@@ -32,6 +32,26 @@ function migrateLegacyUsername() {
 
 migrateLegacyUsername();
 
+function PresenceBroadcaster() {
+  useEffect(() => {
+    // Broadcast current page
+    playhtml.presence.setMyPresence("page", window.location.pathname);
+
+    // Broadcast active state
+    playhtml.presence.setMyPresence("active", !document.hidden);
+    const handleVisibility = () => {
+      playhtml.presence.setMyPresence("active", !document.hidden);
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, []);
+
+  return null;
+}
+
 export function PlayhtmlProvider({ children }: PropsWithChildren) {
   return (
     <PlayProvider
@@ -52,6 +72,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
       }}
     >
       <CursorPresenceLayer />
+      <PresenceBroadcaster />
       {children}
     </PlayProvider>
   );
