@@ -86,11 +86,15 @@ export function LiveChat() {
     }
   }, [spencerStableId, hasSynced, visible, spencerLeft]);
 
-  // Listen for chat messages via presence room
+  // HACK: Using presence channel for messaging because play events are page-scoped,
+  // not domain-scoped. Each user's latest message is set as their "chat-msg" presence,
+  // and we accumulate messages locally by deduping on ID. This means new joiners see
+  // stale "last messages" from existing presences, so we filter by joinedAt timestamp.
+  // Ideally playhtml would support domain-scoped events (not just presence) so we
+  // could use dispatchPlayEvent across pages without this workaround.
   useEffect(() => {
     if (!hasSynced) return;
     const room = getChatRoom();
-    // Ignore messages that existed before we joined
     const joinedAt = Date.now();
     const unsub = room.presence.onPresenceChange("chat-msg", (presences) => {
       for (const [, view] of presences) {
