@@ -40,11 +40,8 @@
   width: 320px;
   z-index: 9998;
   font-family: var(--site-font-mono, "Sono", "Courier New", monospace);
-
-  &.animate-entrance {
-    animation: chat-pop-in 0.3s ease-out both;
-  }
   font-size: 13px;
+  animation: chat-pop-in 0.3s ease-out both;
 
   @media (max-width: 480px) {
     width: calc(100vw - 2rem);
