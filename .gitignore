@@ -30,3 +30,4 @@ fits-export
 **/__pycache__/**
 
 .claude/settings.local.json
+docs/superpowers/
