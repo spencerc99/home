@@ -1,5 +1,8 @@
 # build output
 dist/
+
+# superpowers brainstorm sessions
+.superpowers/
 # generated types
 .astro/
 
