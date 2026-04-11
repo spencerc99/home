@@ -90,6 +90,8 @@ export function LiveChat() {
   useEffect(() => {
     if (!hasSynced) return;
     const room = getChatRoom();
+    // Ignore messages that existed before we joined
+    const joinedAt = Date.now();
     const unsub = room.presence.onPresenceChange("chat-msg", (presences) => {
       for (const [, view] of presences) {
         const msg = (view as any)["chat-msg"] as {
@@ -99,7 +101,7 @@ export function LiveChat() {
           name?: string;
           timestamp: number;
         } | undefined;
-        if (!msg?.text) continue;
+        if (!msg?.text || msg.timestamp < joinedAt) continue;
         const msgId = `msg-${msg.timestamp}-${msg.stableId}`;
         const current = $chatMessages.get();
         if (current.some((m) => m.id === msgId)) continue;
