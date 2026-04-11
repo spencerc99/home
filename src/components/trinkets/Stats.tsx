@@ -3,10 +3,12 @@
 
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
+import { useStore } from "@nanostores/react";
 import { CursorPopoverContent } from "./CursorPopover";
 import { Popover } from "../Popover";
 import { trackVisit } from "../../utils/roles";
 import { isSpencer, SPENCER_COLOR } from "../../utils/presence";
+import { $sessionStartTime } from "../../stores/session";
 
 interface PresenceEntry {
   stableId: string;
@@ -79,7 +81,7 @@ function usePresenceEntries(): PresenceEntry[] {
 
 export function Stats() {
   const entries = usePresenceEntries();
-  const startTimeRef = useRef(Date.now());
+  const startTime = useStore($sessionStartTime);
   const [time, setTime] = useState(0);
   const [deviceBattery, setDeviceBattery] = useState(100);
 
@@ -87,7 +89,7 @@ export function Stats() {
     trackVisit();
 
     const timeInterval = setInterval(() => {
-      setTime((Date.now() - startTimeRef.current) / 1000 / 60);
+      setTime((Date.now() - startTime) / 1000 / 60);
     }, 66);
 
     if (navigator.getBattery) {

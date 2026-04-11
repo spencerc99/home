@@ -1,5 +1,5 @@
 // ABOUTME: AIM-style live chat window that appears when Spencer is on the site.
-// ABOUTME: Uses playhtml events for ephemeral messaging and presence for typing indicators.
+// ABOUTME: Uses nanostores for state persistence across Astro view transitions.
 
 import React, {
   useCallback,
@@ -11,7 +11,16 @@ import React, {
 } from "react";
 import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
 import type { PresenceRoom } from "@playhtml/common";
+import { useStore } from "@nanostores/react";
 import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
+import {
+  $chatMessages,
+  $chatVisible,
+  $chatMinimized,
+  $chatSpencerLeft,
+  $chatUnreadCount,
+  type ChatMessage,
+} from "../stores/chat";
 import "./LiveChat.scss";
 
 let chatRoom: PresenceRoom | null = null;
@@ -22,26 +31,15 @@ function getChatRoom(): PresenceRoom {
   return chatRoom;
 }
 
-interface ChatMessage {
-  id: string;
-  text: string;
-  stableId: string;
-  color: string;
-  name?: string;
-  timestamp: number;
-  type: "message" | "system";
-}
-
 export function LiveChat() {
-  const { hasSynced } =
-    useContext(PlayContext);
+  const { hasSynced } = useContext(PlayContext);
   const cursorPresences = useCursorPresences();
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const messages = useStore($chatMessages);
+  const visible = useStore($chatVisible);
+  const minimized = useStore($chatMinimized);
+  const spencerLeft = useStore($chatSpencerLeft);
+  const unreadCount = useStore($chatUnreadCount);
   const [inputValue, setInputValue] = useState("");
-  const [minimized, setMinimized] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [spencerLeft, setSpencerLeft] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
   const [flashTitlebar, setFlashTitlebar] = useState(false);
   const [typingStableIds, setTypingStableIds] = useState<Set<string>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -59,10 +57,10 @@ export function LiveChat() {
   useEffect(() => {
     if (!hasSynced) return;
     if (spencerStableId && !visible) {
-      setVisible(true);
-      setSpencerLeft(false);
-      setMessages((prev) => [
-        ...prev,
+      $chatVisible.set(true);
+      $chatSpencerLeft.set(false);
+      $chatMessages.set([
+        ...messages,
         {
           id: `system-${Date.now()}`,
           text: "spencer just arrived",
@@ -73,9 +71,9 @@ export function LiveChat() {
         },
       ]);
     } else if (!spencerStableId && visible && !spencerLeft) {
-      setSpencerLeft(true);
-      setMessages((prev) => [
-        ...prev,
+      $chatSpencerLeft.set(true);
+      $chatMessages.set([
+        ...messages,
         {
           id: `system-${Date.now()}`,
           text: "spencer has left",
@@ -103,24 +101,23 @@ export function LiveChat() {
         } | undefined;
         if (!msg?.text) continue;
         const msgId = `msg-${msg.timestamp}-${msg.stableId}`;
-        setMessages((prev) => {
-          if (prev.some((m) => m.id === msgId)) return prev;
-          const newMsg: ChatMessage = {
-            id: msgId,
-            text: msg.text,
-            stableId: msg.stableId,
-            color: msg.color,
-            name: msg.name,
-            timestamp: msg.timestamp,
-            type: "message",
-          };
-          if (minimizedRef.current) {
-            setUnreadCount((c) => c + 1);
-            setFlashTitlebar(true);
-            setTimeout(() => setFlashTitlebar(false), 600);
-          }
-          return [...prev, newMsg];
-        });
+        const current = $chatMessages.get();
+        if (current.some((m) => m.id === msgId)) continue;
+        const newMsg: ChatMessage = {
+          id: msgId,
+          text: msg.text,
+          stableId: msg.stableId,
+          color: msg.color,
+          name: msg.name,
+          timestamp: msg.timestamp,
+          type: "message",
+        };
+        $chatMessages.set([...current, newMsg]);
+        if (minimizedRef.current) {
+          $chatUnreadCount.set($chatUnreadCount.get() + 1);
+          setFlashTitlebar(true);
+          setTimeout(() => setFlashTitlebar(false), 600);
+        }
       }
     });
     return unsub;
@@ -192,12 +189,12 @@ export function LiveChat() {
   );
 
   const handleExpand = useCallback(() => {
-    setMinimized(false);
-    setUnreadCount(0);
+    $chatMinimized.set(false);
+    $chatUnreadCount.set(0);
   }, []);
 
   const handleClose = useCallback(() => {
-    setVisible(false);
+    $chatVisible.set(false);
   }, []);
 
   const pplCount = cursorPresences.size;
@@ -258,7 +255,7 @@ export function LiveChat() {
   return (
     <div className="live-chat">
       <div className="live-chat-window">
-        <div className="live-chat-titlebar" onClick={() => setMinimized(true)}>
+        <div className="live-chat-titlebar" onClick={() => $chatMinimized.set(true)}>
           <span>✦ spencer.place chat</span>
           {spencerLeft && (
             <div className="live-chat-titlebar-actions">
