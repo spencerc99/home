@@ -40,6 +40,7 @@ export function LiveChat() {
   const [inputValue, setInputValue] = useState("");
   const [minimized, setMinimized] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const [spencerLeft, setSpencerLeft] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [flashTitlebar, setFlashTitlebar] = useState(false);
@@ -60,6 +61,9 @@ export function LiveChat() {
     if (!hasSynced) return;
     if (spencerStableId && !visible) {
       setVisible(true);
+      setShouldAnimate(true);
+      // Clear animation flag after it plays
+      setTimeout(() => setShouldAnimate(false), 350);
       setSpencerLeft(false);
       setMessages((prev) => [
         ...prev,
@@ -207,7 +211,7 @@ export function LiveChat() {
   // Minimized state
   if (minimized) {
     return (
-      <div className="live-chat">
+      <div className={`live-chat${shouldAnimate ? " animate-entrance" : ""}`}>
         <div className="live-chat-window">
           <div
             className={`live-chat-titlebar ${flashTitlebar ? "flashing" : ""}`}

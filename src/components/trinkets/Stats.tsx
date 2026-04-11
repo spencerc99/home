@@ -79,7 +79,7 @@ function usePresenceEntries(): PresenceEntry[] {
 
 export function Stats() {
   const entries = usePresenceEntries();
-  const startTime = new Date().getTime();
+  const startTimeRef = useRef(Date.now());
   const [time, setTime] = useState(0);
   const [deviceBattery, setDeviceBattery] = useState(100);
 
@@ -87,7 +87,7 @@ export function Stats() {
     trackVisit();
 
     const timeInterval = setInterval(() => {
-      setTime((new Date().getTime() - startTime) / 1000 / 60);
+      setTime((Date.now() - startTimeRef.current) / 1000 / 60);
     }, 66);
 
     if (navigator.getBattery) {
