@@ -1,10 +1,11 @@
 // ABOUTME: Top-level PlayProvider that initializes playhtml with cursor config.
 // ABOUTME: Mounted in BaseLayout to provide play context to all interactive components.
 
-import { PlayProvider, playhtml } from "@playhtml/react";
-import { useEffect, type PropsWithChildren } from "react";
+import { PlayProvider, PlayContext, playhtml } from "@playhtml/react";
+import { useContext, useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
 import { LiveChat } from "../LiveChat";
+import { isRegular } from "../../utils/roles";
 
 // Migrate legacy "username" from localStorage into playhtml's identity if needed.
 // Runs once before PlayProvider initializes the cursor client.
@@ -34,11 +35,14 @@ function migrateLegacyUsername() {
 migrateLegacyUsername();
 
 function PresenceBroadcaster() {
-  useEffect(() => {
-    // Broadcast current page
-    playhtml.presence.setMyPresence("page", window.location.pathname);
+  const { hasSynced } = useContext(PlayContext);
 
-    // Broadcast active state
+  useEffect(() => {
+    if (!hasSynced) return;
+
+    // Broadcast current page, active state, and regular status
+    playhtml.presence.setMyPresence("page", window.location.pathname);
+    playhtml.presence.setMyPresence("regular", isRegular());
     playhtml.presence.setMyPresence("active", !document.hidden);
     const handleVisibility = () => {
       playhtml.presence.setMyPresence("active", !document.hidden);
@@ -48,7 +52,7 @@ function PresenceBroadcaster() {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, []);
+  }, [hasSynced]);
 
   return null;
 }

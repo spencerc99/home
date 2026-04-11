@@ -16,13 +16,14 @@ interface PresenceEntry {
   active: boolean;
   isMe: boolean;
   isSpencer: boolean;
+  regular: boolean;
 }
 
 function usePresenceEntries(): PresenceEntry[] {
   const { hasSynced } = useContext(PlayContext);
   const cursorPresences = useCursorPresences();
   const [presenceData, setPresenceData] = useState<
-    Map<string, { page?: string; active?: boolean }>
+    Map<string, { page?: string; active?: boolean; regular?: boolean }>
   >(new Map());
 
   useEffect(() => {
@@ -30,11 +31,12 @@ function usePresenceEntries(): PresenceEntry[] {
     const unsub = playhtml.presence.onPresenceChange(
       "active",
       (presences) => {
-        const data = new Map<string, { page?: string; active?: boolean }>();
+        const data = new Map<string, { page?: string; active?: boolean; regular?: boolean }>();
         for (const [stableId, view] of presences) {
           data.set(stableId, {
             page: (view as any).page,
             active: (view as any).active,
+            regular: (view as any).regular,
           });
         }
         setPresenceData(data);
@@ -60,6 +62,7 @@ function usePresenceEntries(): PresenceEntry[] {
         active: data?.active ?? true,
         isMe,
         isSpencer: isSpencer(presence),
+        regular: data?.regular ?? false,
       });
     }
 
@@ -235,18 +238,24 @@ function CursorDot({
                 : {}),
             }}
           />
-          {entry.name && <span>{entry.name}</span>}
+          <span>{entry.name || "visitor"}</span>
+          {entry.regular && (
+            <span style={{ opacity: 0.5, fontSize: "10px" }}>✦</span>
+          )}
         </div>
         {entry.page && (
-          <div style={{ opacity: 0.6, marginTop: "2px" }}>{entry.page}</div>
-        )}
-        {entry.page && !isOnSamePage && (
-          <a
-            href={entry.page}
-            style={{ marginTop: "4px", display: "inline-block", fontSize: "11px" }}
-          >
-            go to page →
-          </a>
+          isOnSamePage ? (
+            <div style={{ opacity: 0.4, marginTop: "2px" }}>
+              {entry.page} (here)
+            </div>
+          ) : (
+            <a
+              href={entry.page}
+              style={{ display: "block", marginTop: "2px" }}
+            >
+              {entry.page}
+            </a>
+          )
         )}
       </div>
     </Popover>

@@ -1,7 +1,7 @@
 // ABOUTME: Generic popover component with click and hover support
 // ABOUTME: Provides flexible positioning and animation for popup content
 
-import React, { useRef, useState, type PropsWithChildren } from "react";
+import React, { useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Popover.scss";
 
@@ -74,6 +74,26 @@ export function Popover({
     setIsOpen(!isOpen);
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Dismiss on click outside
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    // Delay to avoid closing from the same click that opened it
+    const timer = setTimeout(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+    }, 0);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   const getPositionClass = () => {
     if (position === "fixed") return "popover-fixed";
     return `popover-${position}`;
@@ -95,7 +115,7 @@ export function Popover({
   const popoverContent = childrenArray[1];
 
   return (
-    <>
+    <div ref={containerRef} style={{ display: "inline" }}>
       {triggerElement && (
         <div
           className={`popover-trigger ${className || ""}`}
@@ -134,6 +154,6 @@ export function Popover({
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
