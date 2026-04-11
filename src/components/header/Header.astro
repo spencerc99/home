@@ -1,5 +1,5 @@
 ---
-import { Stats } from "../trinkets/Stats";
+import { ConnectedStats } from "../trinkets/ConnectedStats";
 import { StatusHeader } from "./StatusHeader";
 import HeaderActions from "../header/HeaderActions.astro";
 import SocialMediaLinks from "../SocialMediaLinks";
@@ -26,7 +26,7 @@ import SocialMediaLinks from "../SocialMediaLinks";
     >
       <SocialMediaLinks />
       <div>
-        <Stats client:only="react" />
+        <ConnectedStats client:only="react" />
       </div>
     </div>
   </div>
