@@ -238,22 +238,25 @@ function CursorDot({
                 : {}),
             }}
           />
-          <span>{entry.name || "visitor"}</span>
-          {entry.regular && (
-            <span style={{ opacity: 0.5, fontSize: "10px" }}>✦</span>
+          {entry.name && <span>{entry.name}</span>}
+          {entry.isSpencer && (
+            <span style={{ fontSize: "10px" }} title="site owner">🏠</span>
+          )}
+          {!entry.isSpencer && entry.regular && (
+            <span style={{ fontSize: "10px" }} title="regular visitor">✦</span>
           )}
         </div>
         {entry.page && (
           isOnSamePage ? (
             <div style={{ opacity: 0.4, marginTop: "2px" }}>
-              {entry.page} (here)
+              {entry.page}
             </div>
           ) : (
             <a
               href={entry.page}
               style={{ display: "block", marginTop: "2px" }}
             >
-              {entry.page}
+              {entry.page} · jump here →
             </a>
           )
         )}

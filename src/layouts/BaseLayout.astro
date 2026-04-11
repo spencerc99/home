@@ -106,7 +106,7 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
 
     <div id="snackbar" transition:persist></div>
 
-    <PlayhtmlProvider client:only="react" />
+    <PlayhtmlProvider client:only="react" transition:persist />
 
     <link
       rel="stylesheet"
