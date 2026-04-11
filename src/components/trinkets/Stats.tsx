@@ -192,17 +192,36 @@ function CursorDot({
     );
   }
 
+  const [showPopover, setShowPopover] = useState(false);
+  const [popoverPos, setPopoverPos] = useState({ x: 0, y: 0 });
+  const dotRef = useRef<HTMLSpanElement>(null);
+
+  const handleDotClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    const rect = dotRef.current?.getBoundingClientRect();
+    if (rect) {
+      setPopoverPos({ x: rect.left, y: rect.top - 4 });
+      setShowPopover((prev) => !prev);
+    }
+  }, []);
+
+  const isOnSamePage = entry.page === window.location.pathname;
+
   return (
-    <Popover trigger="hover" hoverDelay={200} position="top">
+    <Popover
+      trigger="manual"
+      isOpen={showPopover}
+      onOpenChange={setShowPopover}
+      position="fixed"
+      fixedPosition={popoverPos}
+      showCloseButton
+    >
       <span
+        ref={dotRef}
         style={dotStyle}
-        onClick={() => {
-          if (entry.page) {
-            window.location.href = entry.page;
-          }
-        }}
+        onClick={handleDotClick}
       />
-      <div className="bg-[var(--color-background-teal)] mono text-xs p-2">
+      <div className="bg-[var(--color-background-teal)] mono text-xs p-2 pr-5">
         <div className="flex items-center gap-1">
           <span
             style={{
@@ -220,6 +239,14 @@ function CursorDot({
         </div>
         {entry.page && (
           <div style={{ opacity: 0.6, marginTop: "2px" }}>{entry.page}</div>
+        )}
+        {entry.page && !isOnSamePage && (
+          <a
+            href={entry.page}
+            style={{ marginTop: "4px", display: "inline-block", fontSize: "11px" }}
+          >
+            go to page →
+          </a>
         )}
       </div>
     </Popover>
