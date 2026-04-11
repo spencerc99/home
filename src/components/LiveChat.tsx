@@ -10,8 +10,17 @@ import React, {
   useState,
 } from "react";
 import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
+import type { PresenceRoom } from "@playhtml/common";
 import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
 import "./LiveChat.scss";
+
+let chatRoom: PresenceRoom | null = null;
+function getChatRoom(): PresenceRoom {
+  if (!chatRoom) {
+    chatRoom = playhtml.createPresenceRoom("chat");
+  }
+  return chatRoom;
+}
 
 interface ChatMessage {
   id: string;
@@ -24,7 +33,7 @@ interface ChatMessage {
 }
 
 export function LiveChat() {
-  const { dispatchPlayEvent, registerPlayEventListener, removePlayEventListener, hasSynced } =
+  const { hasSynced } =
     useContext(PlayContext);
   const cursorPresences = useCursorPresences();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -38,6 +47,8 @@ export function LiveChat() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const minimizedRef = useRef(false);
+  minimizedRef.current = minimized;
 
   const spencerStableId = useMemo(
     () => getSpencerStableId(cursorPresences),
@@ -77,47 +88,49 @@ export function LiveChat() {
     }
   }, [spencerStableId, hasSynced, visible, spencerLeft]);
 
-  // Listen for chat messages
-  useEffect(() => {
-    const id = registerPlayEventListener("chat-message", {
-      onEvent: (payload: {
-        text: string;
-        stableId: string;
-        color: string;
-        name?: string;
-        timestamp: number;
-      }) => {
-        if (!payload?.text) return;
-        const msgId = `msg-${payload.timestamp}-${payload.stableId}`;
-        // Dedup — skip if we already have this message (e.g. self-sent)
-        setMessages((prev) => {
-          if (prev.some((m) => m.id === msgId)) return prev;
-          return [...prev, {
-            id: msgId,
-            text: payload.text,
-            stableId: payload.stableId,
-            color: payload.color,
-            name: payload.name,
-            timestamp: payload.timestamp,
-            type: "message",
-          }];
-        });
-
-        if (minimized) {
-          setUnreadCount((c) => c + 1);
-          setFlashTitlebar(true);
-          setTimeout(() => setFlashTitlebar(false), 600);
-        }
-      },
-    });
-
-    return () => removePlayEventListener("chat-message", id);
-  }, [registerPlayEventListener, removePlayEventListener, minimized]);
-
-  // Listen for typing presence changes
+  // Listen for chat messages via presence room
   useEffect(() => {
     if (!hasSynced) return;
-    const unsub = playhtml.presence.onPresenceChange("typing", (presences) => {
+    const room = getChatRoom();
+    const unsub = room.presence.onPresenceChange("chat-msg", (presences) => {
+      for (const [, view] of presences) {
+        const msg = (view as any)["chat-msg"] as {
+          text: string;
+          stableId: string;
+          color: string;
+          name?: string;
+          timestamp: number;
+        } | undefined;
+        if (!msg?.text) continue;
+        const msgId = `msg-${msg.timestamp}-${msg.stableId}`;
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === msgId)) return prev;
+          const newMsg: ChatMessage = {
+            id: msgId,
+            text: msg.text,
+            stableId: msg.stableId,
+            color: msg.color,
+            name: msg.name,
+            timestamp: msg.timestamp,
+            type: "message",
+          };
+          if (minimizedRef.current) {
+            setUnreadCount((c) => c + 1);
+            setFlashTitlebar(true);
+            setTimeout(() => setFlashTitlebar(false), 600);
+          }
+          return [...prev, newMsg];
+        });
+      }
+    });
+    return unsub;
+  }, [hasSynced]);
+
+  // Listen for typing presence changes via chat room
+  useEffect(() => {
+    if (!hasSynced) return;
+    const room = getChatRoom();
+    const unsub = room.presence.onPresenceChange("typing", (presences) => {
       const typing = new Set<string>();
       for (const [stableId, view] of presences) {
         if ((view as any).typing && !(view as any).isMe) {
@@ -138,46 +151,31 @@ export function LiveChat() {
     const text = inputValue.trim();
     if (!text) return;
 
-    const myIdentity = playhtml.presence.getMyIdentity();
+    const room = getChatRoom();
+    const myIdentity = room.presence.getMyIdentity();
     const color = myIdentity?.playerStyle.colorPalette[0] ?? "#888";
     const stableId = myIdentity?.publicKey ?? "";
     const name = myIdentity?.name;
     const timestamp = Date.now();
 
-    // Add to local state
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: `msg-${timestamp}-${stableId}`,
-        text,
-        stableId,
-        color,
-        name,
-        timestamp,
-        type: "message",
-      },
-    ]);
-
-    // Broadcast to peers
-    dispatchPlayEvent({
-      type: "chat-message",
-      eventPayload: { text, stableId, color, name, timestamp },
-    });
+    // Broadcast via presence room — the listener will pick it up and dedup
+    room.presence.setMyPresence("chat-msg", { text, stableId, color, name, timestamp });
 
     setInputValue("");
-    playhtml.presence.setMyPresence("typing", null);
-  }, [inputValue, dispatchPlayEvent]);
+    room.presence.setMyPresence("typing", null);
+  }, [inputValue]);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
-      playhtml.presence.setMyPresence("typing", true);
+      const room = getChatRoom();
+      room.presence.setMyPresence("typing", true);
 
       if (typingTimeoutRef.current) {
         clearTimeout(typingTimeoutRef.current);
       }
       typingTimeoutRef.current = setTimeout(() => {
-        playhtml.presence.setMyPresence("typing", null);
+        room.presence.setMyPresence("typing", null);
       }, 2000);
     },
     [],
