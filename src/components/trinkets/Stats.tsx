@@ -1,8 +1,8 @@
 // ABOUTME: Sidebar trinket showing active visitors, session time, and battery.
 // ABOUTME: Uses playhtml presence API for cursor data with hover tooltips and click navigation.
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { playhtml, useCursorPresences } from "@playhtml/react";
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
 import { CursorPopoverContent } from "./CursorPopover";
 import { Popover } from "../Popover";
 import { trackVisit } from "../../utils/roles";
@@ -19,12 +19,14 @@ interface PresenceEntry {
 }
 
 function usePresenceEntries(): PresenceEntry[] {
+  const { hasSynced } = useContext(PlayContext);
   const cursorPresences = useCursorPresences();
   const [presenceData, setPresenceData] = useState<
     Map<string, { page?: string; active?: boolean }>
   >(new Map());
 
   useEffect(() => {
+    if (!hasSynced) return;
     const unsub = playhtml.presence.onPresenceChange(
       "active",
       (presences) => {
@@ -39,7 +41,7 @@ function usePresenceEntries(): PresenceEntry[] {
       },
     );
     return unsub;
-  }, []);
+  }, [hasSynced]);
 
   return useMemo(() => {
     const entries: PresenceEntry[] = [];
@@ -105,7 +107,7 @@ export function Stats() {
 
   return (
     <div
-      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2 overflow-hidden"
+      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2"
       style={{ border: "double", gap: 0 }}
     >
       <span>
