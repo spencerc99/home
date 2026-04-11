@@ -88,19 +88,20 @@ export function LiveChat() {
         timestamp: number;
       }) => {
         if (!payload?.text) return;
-        // Skip our own messages — already added to local state in sendMessage
-        const myIdentity = playhtml.presence.getMyIdentity();
-        if (payload.stableId === myIdentity?.publicKey) return;
-        const msg: ChatMessage = {
-          id: `msg-${payload.timestamp}-${payload.stableId}`,
-          text: payload.text,
-          stableId: payload.stableId,
-          color: payload.color,
-          name: payload.name,
-          timestamp: payload.timestamp,
-          type: "message",
-        };
-        setMessages((prev) => [...prev, msg]);
+        const msgId = `msg-${payload.timestamp}-${payload.stableId}`;
+        // Dedup — skip if we already have this message (e.g. self-sent)
+        setMessages((prev) => {
+          if (prev.some((m) => m.id === msgId)) return prev;
+          return [...prev, {
+            id: msgId,
+            text: payload.text,
+            stableId: payload.stableId,
+            color: payload.color,
+            name: payload.name,
+            timestamp: payload.timestamp,
+            type: "message",
+          }];
+        });
 
         if (minimized) {
           setUnreadCount((c) => c + 1);
