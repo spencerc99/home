@@ -4,6 +4,7 @@
 import { PlayProvider, playhtml } from "@playhtml/react";
 import { useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
+import { LiveChat } from "../LiveChat";
 
 // Migrate legacy "username" from localStorage into playhtml's identity if needed.
 // Runs once before PlayProvider initializes the cursor client.
@@ -73,6 +74,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
     >
       <CursorPresenceLayer />
       <PresenceBroadcaster />
+      <LiveChat />
       {children}
     </PlayProvider>
   );
