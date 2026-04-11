@@ -223,16 +223,18 @@ export function LiveChat() {
                 </span>
               )}
             </span>
-            <div className="live-chat-titlebar-actions">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleClose();
-                }}
-              >
-                ×
-              </button>
-            </div>
+            {spencerLeft && (
+              <div className="live-chat-titlebar-actions">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClose();
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -257,12 +259,20 @@ export function LiveChat() {
   return (
     <div className="live-chat">
       <div className="live-chat-window">
-        <div className="live-chat-titlebar">
+        <div className="live-chat-titlebar" onClick={() => setMinimized(true)}>
           <span>✦ spencer.place chat</span>
-          <div className="live-chat-titlebar-actions">
-            <button onClick={() => setMinimized(true)}>–</button>
-            <button onClick={handleClose}>×</button>
-          </div>
+          {spencerLeft && (
+            <div className="live-chat-titlebar-actions">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClose();
+                }}
+              >
+                ×
+              </button>
+            </div>
+          )}
         </div>
         <div className="live-chat-infobar">
           {pplCount} ppl here
