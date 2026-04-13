@@ -226,7 +226,7 @@ function CursorDot({
         style={dotStyle}
         onClick={handleDotClick}
       />
-      <div className="bg-[var(--color-background-teal)] mono text-xs p-2 pr-5">
+      <div className="bg-[var(--color-background-teal)] mono text-xs p-2 pr-4">
         <div className="flex items-center gap-1">
           <span
             style={{
