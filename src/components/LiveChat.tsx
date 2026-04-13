@@ -56,22 +56,20 @@ export function LiveChat() {
   // Show chat when Spencer arrives
   useEffect(() => {
     if (!hasSynced) return;
-    if (spencerStableId && (!visible || spencerLeft)) {
+    if (spencerStableId && !visible) {
       $chatVisible.set(true);
       $chatSpencerLeft.set(false);
-      if (!visible) {
-        $chatMessages.set([
-          ...messages,
-          {
-            id: `system-${Date.now()}`,
-            text: "spencer just arrived",
-            stableId: "",
-            color: "",
-            timestamp: Date.now(),
-            type: "system",
-          },
-        ]);
-      }
+      $chatMessages.set([
+        ...messages,
+        {
+          id: `system-${Date.now()}`,
+          text: "spencer just arrived",
+          stableId: "",
+          color: "",
+          timestamp: Date.now(),
+          type: "system",
+        },
+      ]);
     } else if (!spencerStableId && visible && !spencerLeft) {
       $chatSpencerLeft.set(true);
       $chatMessages.set([
