@@ -44,13 +44,21 @@ function PresenceBroadcaster() {
     playhtml.presence.setMyPresence("page", window.location.pathname);
     playhtml.presence.setMyPresence("regular", isRegular());
     playhtml.presence.setMyPresence("active", !document.hidden);
+
     const handleVisibility = () => {
       playhtml.presence.setMyPresence("active", !document.hidden);
     };
+    // Update page on view transition navigation
+    const handlePageLoad = () => {
+      playhtml.presence.setMyPresence("page", window.location.pathname);
+    };
+
     document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("astro:page-load", handlePageLoad);
 
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("astro:page-load", handlePageLoad);
     };
   }, [hasSynced]);
 
