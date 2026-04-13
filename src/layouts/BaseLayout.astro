@@ -77,13 +77,24 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
         }
       })();
     </script>
-    <!-- Preserve dark mode class across view transition swaps -->
+    <!-- Preserve state across view transition swaps -->
     <script is:inline>
       document.addEventListener("astro:before-swap", (e) => {
+        // Preserve dark mode
         const isDark = document.documentElement.classList.contains("dark-mode");
         if (isDark) {
           e.newDocument.documentElement.classList.add("dark-mode");
         }
+        // Move playhtml cursor elements and styles to the new document
+        // so they survive the body swap. playhtml holds references to these
+        // DOM nodes and continues updating them.
+        const cursorStyles = document.getElementById("playhtml-cursor-styles");
+        if (cursorStyles) {
+          e.newDocument.head.appendChild(cursorStyles);
+        }
+        document.querySelectorAll(".playhtml-cursor-other").forEach((el) => {
+          e.newDocument.body.appendChild(el);
+        });
       });
     </script>
   </head>
