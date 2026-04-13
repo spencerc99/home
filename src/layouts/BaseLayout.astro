@@ -77,12 +77,12 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
         }
       })();
     </script>
-    <!-- Re-apply dark mode after view transition swaps -->
+    <!-- Preserve dark mode class across view transition swaps -->
     <script is:inline>
-      document.addEventListener("astro:after-swap", () => {
-        const savedPreference = sessionStorage.getItem("darkMode");
-        if (savedPreference === "dark") {
-          document.documentElement.classList.add("dark-mode");
+      document.addEventListener("astro:before-swap", (e) => {
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        if (isDark) {
+          e.newDocument.documentElement.classList.add("dark-mode");
         }
       });
     </script>
