@@ -251,7 +251,7 @@ function CursorDot({
         {entry.page && (
           isOnSamePage ? (
             <div style={{ opacity: 0.4, marginTop: "2px" }}>
-              {entry.page}
+              {entry.page} (here)
             </div>
           ) : (
             <a
