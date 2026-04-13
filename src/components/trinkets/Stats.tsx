@@ -30,21 +30,23 @@ function usePresenceEntries(): PresenceEntry[] {
 
   useEffect(() => {
     if (!hasSynced) return;
-    const unsub = playhtml.presence.onPresenceChange(
-      "active",
-      (presences) => {
-        const data = new Map<string, { page?: string; active?: boolean; regular?: boolean }>();
-        for (const [stableId, view] of presences) {
-          data.set(stableId, {
-            page: (view as any).page,
-            active: (view as any).active,
-            regular: (view as any).regular,
-          });
-        }
-        setPresenceData(data);
-      },
-    );
-    return unsub;
+    const handlePresenceUpdate = (presences: Map<string, any>) => {
+      const data = new Map<string, { page?: string; active?: boolean; regular?: boolean }>();
+      for (const [stableId, view] of presences) {
+        data.set(stableId, {
+          page: view.page,
+          active: view.active,
+          regular: view.regular,
+        });
+      }
+      setPresenceData(data);
+    };
+    const unsubActive = playhtml.presence.onPresenceChange("active", handlePresenceUpdate);
+    const unsubPage = playhtml.presence.onPresenceChange("page", handlePresenceUpdate);
+    return () => {
+      unsubActive();
+      unsubPage();
+    };
   }, [hasSynced]);
 
   return useMemo(() => {
