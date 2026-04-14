@@ -85,16 +85,12 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
         if (isDark) {
           e.newDocument.documentElement.classList.add("dark-mode");
         }
-        // Move playhtml cursor elements and styles to the new document
-        // so they survive the body swap. playhtml holds references to these
-        // DOM nodes and continues updating them.
-        const cursorStyles = document.getElementById("playhtml-cursor-styles");
-        if (cursorStyles) {
-          e.newDocument.head.appendChild(cursorStyles);
+      });
+      // Notify playhtml of navigation so it re-evaluates cursor styles
+      document.addEventListener("astro:page-load", () => {
+        if (window.playhtml) {
+          window.playhtml.handleNavigation();
         }
-        document.querySelectorAll(".playhtml-cursor-other").forEach((el) => {
-          e.newDocument.body.appendChild(el);
-        });
       });
     </script>
   </head>
@@ -125,6 +121,7 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
     <Footer transition:persist />
 
     <div id="snackbar" transition:persist></div>
+    <div id="playhtml-cursor-container" transition:persist></div>
 
     <PlayhtmlProvider client:only="react" transition:persist transition:persist-props />
 
