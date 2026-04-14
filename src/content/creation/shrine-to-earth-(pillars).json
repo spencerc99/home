@@ -1,0 +1,27 @@
+{
+  "title": "Shrine to Earth (Pillars)",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Art"
+  ],
+  "date": null,
+  "institution": [
+    "City of San Francisco",
+    "San Francisco Arts Commission"
+  ],
+  "media": [],
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
+  "location": "Golden Gate Park, San Francisco"
+}
