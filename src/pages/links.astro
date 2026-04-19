@@ -3,7 +3,7 @@ import DetailLayout from "../layouts/DetailLayout.astro";
 import { LinksView } from "../components/views/Links";
 import { nowEntries } from "../data/now-entries";
 import { getCollection } from "astro:content";
-import { hydrateCreations } from "../utils/creations";
+import { CreationCategory, hydrateCreations } from "../utils/creations";
 
 const LayoutProps = {
   title: "(domains)",
@@ -28,11 +28,21 @@ const latestNewsletter = {
 
 // Fetch latest creation
 const creations = hydrateCreations(await getCollection("creation"))
-  .filter((c) => Boolean(c.data.date) && !c.data.forthcoming)
-  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime());
+  .filter(
+    (c) =>
+      Boolean(c.data.date) &&
+      !c.data.forthcoming &&
+      c.data.parentCategory === CreationCategory.Project,
+  )
+  .sort(
+    (a, b) =>
+      new Date(b.data.date || 0).getTime() -
+      new Date(a.data.date || 0).getTime(),
+  );
 
 const latestCreation = creations[0];
-const projectUrl = latestCreation?.data.link || `/creation/${latestCreation?.id}`;
+const projectUrl =
+  latestCreation?.data.link || `/creation/${latestCreation?.id}`;
 // Use heroImage if available, otherwise grab favicon from the project's external URL
 let projectImg = latestCreation?.data.heroImage || "";
 if (!projectImg && latestCreation?.data.link) {

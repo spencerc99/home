@@ -13,15 +13,15 @@ export const PINNED_CREATIONS: string[] = [
 
 export enum CreationCategory {
   "Speaking & Workshops",
-  Project,
-  Exhibition,
-  Writing,
-  Press,
+  Project = "Project",
+  Exhibition = "Exhibition",
+  Writing = "Writing",
+  Press = "Press",
   "Fellowships, Residencies, Awards",
-  Work,
-  Announcements,
-  Gathering,
-  Tinkering,
+  Work = "Work",
+  Announcements = "Announcements",
+  Gathering = "Gathering",
+  Tinkering = "Tinkering",
 }
 
 /**
