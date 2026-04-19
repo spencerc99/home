@@ -42,16 +42,26 @@ const MainLinks: LinkType[] = [
   },
 ];
 
+interface UpcomingEvent {
+  title: string;
+  url?: string;
+  location?: string;
+  dateRange?: string;
+  parentCategory?: string;
+}
+
 interface LinksViewProps {
   nowEntry?: NowEntry;
   latestNewsletter?: { title: string; url: string };
   latestProject?: { title: string; url: string; img?: string };
+  upcomingEvents?: UpcomingEvent[];
 }
 
 export function LinksView({
   nowEntry,
   latestNewsletter,
   latestProject,
+  upcomingEvents = [],
 }: LinksViewProps) {
   const labeledLinks: LabeledLinkType[] = [
     {
@@ -86,16 +96,27 @@ export function LinksView({
           <LinkRow key={link.url} {...link} />
         ))}
       </div>
+      <div className="linksSocial">
+        <span className="linksSocial__email">💌 hi@spencer.place</span>
+        <SocialMediaLinks />
+      </div>
       <div className="linksDivider" />
       <div className="linksSection linksSection--labeled">
         {labeledLinks.map((link) => (
           <LabeledLinkRow key={link.url} {...link} />
         ))}
       </div>
-      <div className="linksSocial">
-        <span className="linksSocial__email">💌 hi@spencer.place</span>
-        <SocialMediaLinks />
-      </div>
+      {upcomingEvents.length > 0 && (
+        <>
+          <div className="linksSection linksSection--labeled upcomingEvents">
+            <div className="upcomingEvents__label">upcoming</div>
+            {upcomingEvents.map((event, i) => (
+              <UpcomingEventRow key={event.url || `${event.title}-${i}`} {...event} />
+            ))}
+          </div>
+          <div className="linksDivider" />
+        </>
+      )}
       {nowEntry && <NowBlock entry={nowEntry} />}
     </div>
   );
@@ -119,6 +140,40 @@ function LinkRow({ url, title, img }: LinkType) {
       <span className="linkTitle">{title}</span>
       <span className="linkDots" />
       <span className="linkUrl">{displayUrl}</span>
+    </a>
+  );
+}
+
+function UpcomingEventRow({
+  title,
+  url,
+  location,
+  dateRange,
+  parentCategory,
+}: UpcomingEvent) {
+  const isExternal = !!url && (url.startsWith("http") || url.startsWith("mailto:"));
+  const meta = [parentCategory, location, dateRange].filter(Boolean).join(" · ");
+  const content = (
+    <>
+      {meta && <span className="labeledLink__label">{meta}</span>}
+      <span className="labeledLink__content">
+        <span className="labeledLink__title">{title}</span>
+      </span>
+    </>
+  );
+
+  if (!url) {
+    return <div className="labeledLink upcomingEvent">{content}</div>;
+  }
+
+  return (
+    <a
+      href={url}
+      className="labeledLink upcomingEvent noanchor"
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener" : undefined}
+    >
+      {content}
     </a>
   );
 }

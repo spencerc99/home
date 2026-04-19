@@ -17,7 +17,7 @@ export enum CreationCategory {
   Exhibition = "Exhibition",
   Writing = "Writing",
   Press = "Press",
-  "Fellowships, Residencies, Awards",
+  FellowshipsResidenciesAwards = "Fellowships, Residencies, Awards",
   Work = "Work",
   Announcements = "Announcements",
   Gathering = "Gathering",

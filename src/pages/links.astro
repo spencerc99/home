@@ -4,6 +4,7 @@ import { LinksView } from "../components/views/Links";
 import { nowEntries } from "../data/now-entries";
 import { getCollection } from "astro:content";
 import { CreationCategory, hydrateCreations } from "../utils/creations";
+import { formatCompactDateRange } from "../utils";
 
 const LayoutProps = {
   title: "(domains)",
@@ -41,6 +42,27 @@ const creations = hydrateCreations(await getCollection("creation"))
   );
 
 const latestCreation = creations[0];
+
+// Upcoming events (mirrors the home page's forthcoming events)
+const upcomingEvents = hydrateCreations(await getCollection("creation"))
+  .filter((c) => c.data.isEvent && c.data.forthcoming)
+  .sort(
+    (a, b) =>
+      new Date(a.data.date || 0).getTime() -
+      new Date(b.data.date || 0).getTime(),
+  )
+  .map((c) => ({
+    title: c.data.title,
+    url: c.data.link,
+    location: c.data.location,
+    parentCategory: c.data.parentCategory,
+    dateRange:
+      c.data.date &&
+      formatCompactDateRange(
+        new Date(c.data.date),
+        c.data.endDate ? new Date(c.data.endDate) : null,
+      ),
+  }));
 const projectUrl =
   latestCreation?.data.link || `/creation/${latestCreation?.id}`;
 // Use heroImage if available, otherwise grab favicon from the project's external URL
@@ -64,5 +86,6 @@ const latestProject = {
     nowEntry={currentNowEntry}
     latestNewsletter={latestNewsletter}
     latestProject={latestProject}
+    upcomingEvents={upcomingEvents}
   />
 </DetailLayout>

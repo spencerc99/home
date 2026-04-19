@@ -62,15 +62,6 @@ if (
 ) {
   latestCreations["Writing"] = posts[0];
 }
-
-const finalCreations = Object.values(latestCreations).sort((a, b) => {
-  const aCategory = a.data.parentCategory || "Writing";
-  const bCategory = b.data.parentCategory || "Writing";
-  return (
-    CreationCategory[aCategory as keyof typeof CreationCategory] -
-    CreationCategory[bCategory as keyof typeof CreationCategory]
-  );
-});
 ---
 
 <DetailLayout {...LayoutProps} columns={1}>
