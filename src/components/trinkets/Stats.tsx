@@ -1,135 +1,134 @@
-import React, { useEffect, useMemo, useState } from "react";
+// ABOUTME: Sidebar trinket showing active visitors, session time, and battery.
+// ABOUTME: Uses playhtml presence API for cursor data with hover tooltips and click navigation.
+
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
+import { useStore } from "@nanostores/react";
 import { CursorPopoverContent } from "./CursorPopover";
 import { Popover } from "../Popover";
 import { trackVisit } from "../../utils/roles";
+import { isSpencer, SPENCER_COLOR } from "../../utils/presence";
+import { $sessionStartTime } from "../../stores/session";
 
-// Define types for the cursor system
-interface CursorSystem {
-  allColors: string[];
-  count: number;
-  name: string;
+interface PresenceEntry {
+  stableId: string;
   color: string;
-  on: (event: string, callback: (data: any) => void) => void;
-  off: (event: string, callback: (data: any) => void) => void;
+  name?: string;
+  page?: string;
+  active: boolean;
+  isMe: boolean;
+  isSpencer: boolean;
+  regular: boolean;
 }
 
-// Extend the Window interface
-declare global {
-  interface Window {
-    cursors?: CursorSystem;
-  }
+function usePresenceEntries(): PresenceEntry[] {
+  const { hasSynced } = useContext(PlayContext);
+  const cursorPresences = useCursorPresences();
+  const [presenceData, setPresenceData] = useState<
+    Map<string, { page?: string; active?: boolean; regular?: boolean }>
+  >(new Map());
+
+  useEffect(() => {
+    if (!hasSynced) return;
+    const handlePresenceUpdate = (presences: Map<string, any>) => {
+      const data = new Map<string, { page?: string; active?: boolean; regular?: boolean }>();
+      for (const [stableId, view] of presences) {
+        data.set(stableId, {
+          page: view.page,
+          active: view.active,
+          regular: view.regular,
+        });
+      }
+      setPresenceData(data);
+    };
+    const unsubActive = playhtml.presence.onPresenceChange("active", handlePresenceUpdate);
+    const unsubPage = playhtml.presence.onPresenceChange("page", handlePresenceUpdate);
+    return () => {
+      unsubActive();
+      unsubPage();
+    };
+  }, [hasSynced]);
+
+  return useMemo(() => {
+    const entries: PresenceEntry[] = [];
+    for (const [stableId, presence] of cursorPresences) {
+      const color =
+        presence.playerIdentity?.playerStyle.colorPalette[0] ?? "#888";
+      const data = presenceData.get(stableId);
+      const myIdentity = playhtml.presence.getMyIdentity();
+      const isMe = presence.playerIdentity?.publicKey === myIdentity?.publicKey;
+
+      entries.push({
+        stableId,
+        color,
+        name: presence.playerIdentity?.name,
+        page: data?.page,
+        active: data?.active ?? true,
+        isMe,
+        isSpencer: isSpencer(presence),
+        regular: data?.regular ?? false,
+      });
+    }
+
+    // Sort: self first, then by page path
+    entries.sort((a, b) => {
+      if (a.isMe) return -1;
+      if (b.isMe) return 1;
+      return (a.page ?? "").localeCompare(b.page ?? "");
+    });
+
+    return entries;
+  }, [cursorPresences, presenceData]);
 }
 
 export function Stats() {
-  const [visitors, setVisitors] = useState<Array<string>>([]);
-  // counts up every millisecond
-  const startTime = new Date().getTime();
-  //  in seconds rounded to 1 place
+  const entries = usePresenceEntries();
+  const startTime = useStore($sessionStartTime);
   const [time, setTime] = useState(0);
   const [deviceBattery, setDeviceBattery] = useState(100);
 
   useEffect(() => {
-    // Track visit on component mount
     trackVisit();
 
-    let checkInterval: number | null = null;
-    let isSubscribed = false;
-
-    // Function to set up cursor listeners
-    const setupCursorListeners = (cursors: CursorSystem) => {
-      if (isSubscribed) return; // Prevent double subscription
-      isSubscribed = true;
-
-      // Set initial values
-      setVisitors(cursors.allColors);
-
-      // Handle cursor updates
-      const handleCursorUpdate = (colors: string[]) => {
-        setVisitors(colors);
-      };
-
-      // Subscribe to events
-      cursors.on("allColors", handleCursorUpdate);
-
-      // Return cleanup function
-      return () => {
-        cursors.off("allColors", handleCursorUpdate);
-        isSubscribed = false;
-      };
-    };
-
-    // Check for cursors initialization
-    const checkForCursors = () => {
-      const cursors = window?.cursors;
-      if (cursors) {
-        if (checkInterval) {
-          window.clearInterval(checkInterval);
-          checkInterval = null;
-        }
-        cleanup = setupCursorListeners(cursors);
-      }
-    };
-
-    // Start polling for cursors
-    checkInterval = window.setInterval(checkForCursors, 100);
-    let cleanup: (() => void) | undefined;
-
-    // Initial check
-    checkForCursors();
-
     const timeInterval = setInterval(() => {
-      setTime((new Date().getTime() - startTime) / 1000 / 60);
+      setTime((Date.now() - startTime) / 1000 / 60);
     }, 66);
 
     if (navigator.getBattery) {
       navigator.getBattery().then((battery) => {
         setDeviceBattery(battery.level * 100);
         battery.addEventListener("levelchange", () => {
-          navigator.getBattery().then((battery) => {
-            setDeviceBattery(battery.level * 100);
+          navigator.getBattery().then((b) => {
+            setDeviceBattery(b.level * 100);
           });
         });
       });
     }
 
-    // Cleanup function
-    return () => {
-      if (checkInterval) {
-        window.clearInterval(checkInterval);
-      }
-      if (cleanup) {
-        cleanup();
-      }
-      if (timeInterval) {
-        window.clearInterval(timeInterval);
-      }
-    };
+    return () => clearInterval(timeInterval);
   }, []);
+
   const batteryDisplay = useMemo(() => {
     return deviceBattery > 0 ? Math.round(deviceBattery) : "unknown";
   }, [deviceBattery]);
 
   return (
     <div
-      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2 overflow-hidden"
+      className="trinket bg-[var(--color-background-teal)] mono text-sm p-2"
       style={{ border: "double", gap: 0 }}
     >
       <span>
         ppl
         <span
           className="text-xs"
-          style={{
-            letterSpacing: "-0.05em",
-          }}
+          style={{ letterSpacing: "-0.05em" }}
         >
-          ({visitors.length})
+          ({entries.length})
         </span>
         :{" "}
-        {visitors.map((color, index) => {
-          const hasDuplicate = visitors.filter((c) => c === color).length > 1;
-          const key = hasDuplicate ? `${color}-${index}` : color;
-          return <CursorColor key={key} color={color} isFirst={index === 0} />;
-        })}
+        {entries.map((entry, index) => (
+          <CursorDot key={entry.stableId} entry={entry} isFirst={index === 0} />
+        ))}
       </span>
       <span>
         time: <span>{time.toFixed(1)}m</span>
@@ -137,91 +136,83 @@ export function Stats() {
       <span>
         energy: <span>{batteryDisplay}%</span>
       </span>
-      {/* movement: # of pixels moved */}
-      {/* # of clicks */}
-      {/* # of typed */}
-      {/* 
-      - location & weather emoji & time for "currently"?
-      */}
-      {/* show device type */}
-      {/* device screen size */}
     </div>
   );
 }
 
-const CursorColor = ({
-  color,
-  isFirst = false,
+function CursorDot({
+  entry,
+  isFirst,
 }: {
-  color: string;
-  isFirst?: boolean;
-}) => {
-  const normalizeColorToHex = (colorStr: string): string => {
-    const canvas = document.createElement("canvas");
-    canvas.width = canvas.height = 1;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return colorStr;
-
-    ctx.fillStyle = colorStr;
-    return ctx.fillStyle;
+  entry: PresenceEntry;
+  isFirst: boolean;
+}) {
+  const dotStyle: React.CSSProperties = {
+    width: "8px",
+    height: "8px",
+    borderRadius: "50%",
+    display: "inline-block",
+    backgroundColor: entry.color,
+    opacity: entry.active ? 1 : 0.4,
+    transition: "opacity 0.3s ease",
+    cursor: "pointer",
+    ...(entry.isSpencer
+      ? { boxShadow: `0 0 4px ${SPENCER_COLOR}` }
+      : {}),
   };
 
-  const [internalColor, setInternalColor] = useState(() =>
-    normalizeColorToHex(color)
-  );
-  const [showPopover, setShowPopover] = useState(false);
+  const [showSelfPopover, setShowSelfPopover] = useState(false);
   const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
-  const dotRef = React.useRef<HTMLDivElement>(null);
+  const selfDotRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => {
-    setInternalColor(normalizeColorToHex(color));
-  }, [color]);
+  const handleSelfClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    const rect = selfDotRef.current?.getBoundingClientRect();
+    if (rect) {
+      setPopoverPosition({ x: rect.left, y: rect.top - 4 });
+      setShowSelfPopover((prev) => !prev);
+    }
+  }, []);
 
-  useEffect(() => {
-    if (!showPopover) return;
+  if (entry.isMe) {
+    return (
+      <Popover
+        trigger="manual"
+        isOpen={showSelfPopover}
+        onOpenChange={setShowSelfPopover}
+        position="fixed"
+        fixedPosition={popoverPosition}
+        showCloseButton
+      >
+        <span
+          className="relative inline-block mr-[2px]"
+          ref={selfDotRef}
+          style={{ height: "8px" }}
+        >
+          <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
+            you
+          </span>
+          <span style={dotStyle} onClick={handleSelfClick} />
+        </span>
+        <CursorPopoverContent color={entry.color} />
+      </Popover>
+    );
+  }
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dotRef.current && !dotRef.current.contains(event.target as Node)) {
-        const popoverElement = document.querySelector(".popover-content");
-        if (popoverElement && !popoverElement.contains(event.target as Node)) {
-          setShowPopover(false);
-        }
-      }
-    };
+  const [showPopover, setShowPopover] = useState(false);
+  const [popoverPos, setPopoverPos] = useState({ x: 0, y: 0 });
+  const dotRef = useRef<HTMLSpanElement>(null);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showPopover]);
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (!isFirst) return;
-
+  const handleDotClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     const rect = dotRef.current?.getBoundingClientRect();
     if (rect) {
-      setPopoverPosition({
-        x: rect.left,
-        y: rect.top - 4,
-      });
-      setShowPopover(!showPopover);
+      setPopoverPos({ x: rect.left, y: rect.top - 4 });
+      setShowPopover((prev) => !prev);
     }
-  };
+  }, []);
 
-  if (!isFirst) {
-    return (
-      <span
-        style={{
-          width: "8px",
-          height: "8px",
-          borderRadius: "50%",
-          display: "inline-block",
-          backgroundColor: color,
-        }}
-      />
-    );
-  }
+  const isOnSamePage = entry.page === window.location.pathname;
 
   return (
     <Popover
@@ -229,29 +220,51 @@ const CursorColor = ({
       isOpen={showPopover}
       onOpenChange={setShowPopover}
       position="fixed"
-      fixedPosition={popoverPosition}
-      showCloseButton={true}
+      fixedPosition={popoverPos}
+      showCloseButton
     >
       <span
-        className="relative inline-block mr-[2px]"
         ref={dotRef}
-        style={{ height: "8px" }}
-      >
-        <span className="absolute -top-[2px] left-1/2 -translate-x-1/2 text-[8px] leading-none">
-          you
-        </span>
-        <span
-          onClick={handleClick}
-          className="cursor-pointer inline-block"
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            backgroundColor: color,
-          }}
-        />
-      </span>
-      <CursorPopoverContent color={color} />
+        style={dotStyle}
+        onClick={handleDotClick}
+      />
+      <div className="bg-[var(--color-background-teal)] mono text-xs p-2 pr-4">
+        <div className="flex items-center gap-1">
+          <span
+            style={{
+              width: "6px",
+              height: "6px",
+              borderRadius: "50%",
+              backgroundColor: entry.color,
+              display: "inline-block",
+              ...(entry.isSpencer
+                ? { boxShadow: `0 0 3px ${SPENCER_COLOR}` }
+                : {}),
+            }}
+          />
+          {entry.name && <span>{entry.name}</span>}
+          {entry.isSpencer && (
+            <span style={{ fontSize: "10px" }} title="site owner">🏠</span>
+          )}
+          {!entry.isSpencer && entry.regular && (
+            <span style={{ fontSize: "10px" }} title="regular visitor">✦</span>
+          )}
+        </div>
+        {entry.page && (
+          isOnSamePage ? (
+            <div style={{ opacity: 0.4, marginTop: "2px" }}>
+              {entry.page} (here)
+            </div>
+          ) : (
+            <a
+              href={entry.page}
+              style={{ display: "block", marginTop: "2px" }}
+            >
+              {entry.page} · jump here →
+            </a>
+          )
+        )}
+      </div>
     </Popover>
   );
-};
+}

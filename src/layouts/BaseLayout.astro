@@ -77,6 +77,22 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
         }
       })();
     </script>
+    <!-- Preserve state across view transition swaps -->
+    <script is:inline>
+      document.addEventListener("astro:before-swap", (e) => {
+        // Preserve dark mode
+        const isDark = document.documentElement.classList.contains("dark-mode");
+        if (isDark) {
+          e.newDocument.documentElement.classList.add("dark-mode");
+        }
+      });
+      // Notify playhtml of navigation so it re-evaluates cursor styles
+      document.addEventListener("astro:page-load", () => {
+        if (window.playhtml) {
+          window.playhtml.handleNavigation();
+        }
+      });
+    </script>
   </head>
   <body class={centered ? "centered" : ""}>
     <Header transition:persist />
@@ -105,8 +121,9 @@ const { title, description, image, backgroundOpacity, centered } = Astro.props;
     <Footer transition:persist />
 
     <div id="snackbar" transition:persist></div>
+    <div id="playhtml-cursor-container" transition:persist></div>
 
-    <PlayhtmlProvider client:only="react" />
+    <PlayhtmlProvider client:only="react" transition:persist transition:persist-props />
 
     <link
       rel="stylesheet"

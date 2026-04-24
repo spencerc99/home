@@ -3,9 +3,7 @@
 
 import { useContext, useEffect, useRef, useState, useCallback } from "react";
 import { PlayContext, useCursorPresences } from "@playhtml/react";
-import type { CursorPresenceView } from "@playhtml/common";
-
-const SPENCER_COLOR = "hsl(41, 100%, 50%)";
+import { SPENCER_COLOR, isSpencer, getSpencerStableId } from "../../utils/presence";
 
 type GestureType = "wave" | "dance" | "bounce" | "spencer-entrance";
 
@@ -36,22 +34,6 @@ const GESTURE_MENU_ITEMS: {
 // Radial menu positioning: items evenly spaced in a circle
 const MENU_RADIUS = 55;
 const MENU_ITEM_ANGLES = [-90, 30, 150]; // degrees: top, bottom-right, bottom-left
-
-function isSpencer(presence: CursorPresenceView): boolean {
-  return (
-    presence.playerIdentity?.name === "spencer" &&
-    presence.playerIdentity?.playerStyle.colorPalette[0] === SPENCER_COLOR
-  );
-}
-
-function getSpencerStableId(
-  presences: Map<string, CursorPresenceView>,
-): string | null {
-  for (const [stableId, presence] of presences) {
-    if (isSpencer(presence)) return stableId;
-  }
-  return null;
-}
 
 // Cursor SVG matching playhtml's mouse cursor shape
 function CursorSVG({ color }: { color: string }) {

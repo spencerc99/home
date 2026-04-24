@@ -1,9 +1,11 @@
 // ABOUTME: Top-level PlayProvider that initializes playhtml with cursor config.
 // ABOUTME: Mounted in BaseLayout to provide play context to all interactive components.
 
-import { PlayProvider } from "@playhtml/react";
-import type { PropsWithChildren } from "react";
+import { PlayProvider, PlayContext, playhtml } from "@playhtml/react";
+import { useContext, useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
+import { LiveChat } from "../LiveChat";
+import { isRegular } from "../../utils/roles";
 
 // Migrate legacy "username" from localStorage into playhtml's identity if needed.
 // Runs once before PlayProvider initializes the cursor client.
@@ -32,6 +34,37 @@ function migrateLegacyUsername() {
 
 migrateLegacyUsername();
 
+function PresenceBroadcaster() {
+  const { hasSynced } = useContext(PlayContext);
+
+  useEffect(() => {
+    if (!hasSynced) return;
+
+    // Broadcast current page, active state, and regular status
+    playhtml.presence.setMyPresence("page", window.location.pathname);
+    playhtml.presence.setMyPresence("regular", isRegular());
+    playhtml.presence.setMyPresence("active", !document.hidden);
+
+    const handleVisibility = () => {
+      playhtml.presence.setMyPresence("active", !document.hidden);
+    };
+    // Update page on view transition navigation
+    const handlePageLoad = () => {
+      playhtml.presence.setMyPresence("page", window.location.pathname);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("astro:page-load", handlePageLoad);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      document.removeEventListener("astro:page-load", handlePageLoad);
+    };
+  }, [hasSynced]);
+
+  return null;
+}
+
 export function PlayhtmlProvider({ children }: PropsWithChildren) {
   return (
     <PlayProvider
@@ -39,6 +72,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
         cursors: {
           enabled: true,
           room: "domain",
+          container: "#playhtml-cursor-container",
           getCursorStyle: (presence) => {
             if (presence.page !== window.location.pathname) {
               return {
@@ -52,6 +86,8 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
       }}
     >
       <CursorPresenceLayer />
+      <PresenceBroadcaster />
+      <LiveChat />
       {children}
     </PlayProvider>
   );
