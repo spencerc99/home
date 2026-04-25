@@ -285,6 +285,7 @@
   @extend .row;
   word-wrap: break-word;
   overflow-wrap: anywhere;
+  line-height: 1.2;
 
   &:hover,
   &.selected {
