@@ -18,6 +18,7 @@ import {
   $chatMinimized,
   $chatSpencerLeft,
   $chatUnreadCount,
+  $chatDismissed,
   type ChatMessage,
 } from "../stores/chat";
 import "./LiveChat.scss";
@@ -31,6 +32,7 @@ export function LiveChat() {
   const minimized = useStore($chatMinimized);
   const spencerLeft = useStore($chatSpencerLeft);
   const unreadCount = useStore($chatUnreadCount);
+  const dismissed = useStore($chatDismissed);
   const [inputValue, setInputValue] = useState("");
   const [flashTitlebar, setFlashTitlebar] = useState(false);
   const [typingStableIds, setTypingStableIds] = useState<Set<string>>(new Set());
@@ -48,6 +50,7 @@ export function LiveChat() {
   // Show chat when Spencer arrives
   useEffect(() => {
     if (!hasSynced) return;
+    if (dismissed) return;
     if (spencerStableId && !visible) {
       $chatVisible.set(true);
       $chatSpencerLeft.set(false);
@@ -76,7 +79,7 @@ export function LiveChat() {
         },
       ]);
     }
-  }, [spencerStableId, hasSynced, visible, spencerLeft]);
+  }, [spencerStableId, hasSynced, visible, spencerLeft, dismissed]);
 
   // HACK: Using presence channel for messaging because play events are page-scoped,
   // not domain-scoped. Each user's latest message is set as their "chat-msg" presence,
@@ -190,6 +193,7 @@ export function LiveChat() {
 
   const handleClose = useCallback(() => {
     $chatVisible.set(false);
+    $chatDismissed.set(true);
   }, []);
 
   const pplCount = cursorPresences.size;
@@ -214,18 +218,16 @@ export function LiveChat() {
                 </span>
               )}
             </span>
-            {spencerLeft && (
-              <div className="live-chat-titlebar-actions">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleClose();
-                  }}
-                >
-                  ×
-                </button>
-              </div>
-            )}
+            <div className="live-chat-titlebar-actions">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleClose();
+                }}
+              >
+                ×
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -252,18 +254,6 @@ export function LiveChat() {
       <div className="live-chat-window">
         <div className="live-chat-titlebar" onClick={() => $chatMinimized.set(true)}>
           <span>✦ spencer.place chat</span>
-          {spencerLeft && (
-            <div className="live-chat-titlebar-actions">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleClose();
-                }}
-              >
-                ×
-              </button>
-            </div>
-          )}
         </div>
         <div className="live-chat-infobar">
           {pplCount} ppl here

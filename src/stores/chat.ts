@@ -20,3 +20,4 @@ export const $chatVisible = atom(false);
 export const $chatMinimized = atom(false);
 export const $chatSpencerLeft = atom(false);
 export const $chatUnreadCount = atom(0);
+export const $chatDismissed = atom(false);
