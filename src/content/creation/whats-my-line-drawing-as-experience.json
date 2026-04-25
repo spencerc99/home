@@ -15,6 +15,13 @@
   "imageDescriptions": [],
   "isEvent": true,
   "mediaMetadata": [],
-  "related": [],
+  "related": [
+    {
+      "title": "self-portrait (internet)",
+      "slug": "self-portrait-(internet)",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "Miami"
 }

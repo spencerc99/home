@@ -18,5 +18,12 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [
+    {
+      "title": "alive internet theory",
+      "slug": "alive-internet-theory",
+      "link": "https://alivetheory.net/",
+      "parentCategory": "Project"
+    }
+  ]
 }

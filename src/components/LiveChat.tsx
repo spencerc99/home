@@ -9,8 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { PlayContext, playhtml, useCursorPresences } from "@playhtml/react";
-import type { PresenceRoom } from "@playhtml/common";
+import { PlayContext, useCursorPresences, usePresenceRoom } from "@playhtml/react";
 import { useStore } from "@nanostores/react";
 import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
 import {
@@ -23,17 +22,10 @@ import {
 } from "../stores/chat";
 import "./LiveChat.scss";
 
-let chatRoom: PresenceRoom | null = null;
-function getChatRoom(): PresenceRoom {
-  if (!chatRoom) {
-    chatRoom = playhtml.createPresenceRoom("chat");
-  }
-  return chatRoom;
-}
-
 export function LiveChat() {
   const { hasSynced } = useContext(PlayContext);
   const cursorPresences = useCursorPresences();
+  const room = usePresenceRoom("chat");
   const messages = useStore($chatMessages);
   const visible = useStore($chatVisible);
   const minimized = useStore($chatMinimized);
@@ -93,8 +85,7 @@ export function LiveChat() {
   // Ideally playhtml would support domain-scoped events (not just presence) so we
   // could use dispatchPlayEvent across pages without this workaround.
   useEffect(() => {
-    if (!hasSynced) return;
-    const room = getChatRoom();
+    if (!room) return;
     const joinedAt = Date.now();
     const unsub = room.presence.onPresenceChange("chat-msg", (presences) => {
       for (const [, view] of presences) {
@@ -127,12 +118,11 @@ export function LiveChat() {
       }
     });
     return unsub;
-  }, [hasSynced]);
+  }, [room]);
 
   // Listen for typing presence changes via chat room
   useEffect(() => {
-    if (!hasSynced) return;
-    const room = getChatRoom();
+    if (!room) return;
     const unsub = room.presence.onPresenceChange("typing", (presences) => {
       const typing = new Set<string>();
       for (const [stableId, view] of presences) {
@@ -143,7 +133,7 @@ export function LiveChat() {
       setTypingStableIds(typing);
     });
     return unsub;
-  }, [hasSynced]);
+  }, [room]);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -152,9 +142,8 @@ export function LiveChat() {
 
   const sendMessage = useCallback(() => {
     const text = inputValue.trim();
-    if (!text) return;
+    if (!text || !room) return;
 
-    const room = getChatRoom();
     const myIdentity = room.presence.getMyIdentity();
     const color = myIdentity?.playerStyle.colorPalette[0] ?? "#888";
     const stableId = myIdentity?.publicKey ?? "";
@@ -166,12 +155,12 @@ export function LiveChat() {
 
     setInputValue("");
     room.presence.setMyPresence("typing", null);
-  }, [inputValue]);
+  }, [inputValue, room]);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
-      const room = getChatRoom();
+      if (!room) return;
       room.presence.setMyPresence("typing", true);
 
       if (typingTimeoutRef.current) {
@@ -181,7 +170,7 @@ export function LiveChat() {
         room.presence.setMyPresence("typing", null);
       }, 2000);
     },
-    [],
+    [room],
   );
 
   const handleKeyDown = useCallback(

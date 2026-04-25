@@ -1,7 +1,7 @@
 {
   "title": "self-portrait (internet)",
-  "subtext": "series of experiments in creating art from my daily internet actions",
-  "descriptionMd": "A series of self-portraits of my Internet self created through capturing all my internet actions in a custom browser extension. Every swipe, scroll, click and drag turn into colored lines, dancing windows, and expanding networks. Subverting existing surveillance and monitoring software for personal expression, it investigates how everyday traces can represent who we are and what we believe. \n&nbsp;\n- [more info](https://www.instagram.com/p/DTy4ftLkXNS/)",
+  "subtext": "a series of experiments in creating art from my daily internet actions",
+  "descriptionMd": "A custom browser extension tracks every action I take on the Internet and turns those datapoints into self-portraits. Every swipe, scroll, click and drag become cursors painting lines, windows dancing across the screen, letters and phrases filling a page, and expanding graphs of URLs. This piece plays off the pervasiveness of surveillance and monitoring software to subvert the hidden layers of control behind the digital platforms we use every day: private companies, government bodies, and sometimes, even other individuals who have infiltrated our systems. Using these same systems for personal expression, self-portrait (internet) investigates how everyday traces represent who we are and what we believe and offers them as material for intimate connection and knowing.\n&nbsp;\nAs others install the extension, they can choose to store their data locally to create their own self-portraits or offer their data to the installation, contributing to a collective portrait of Internet activity. \n&nbsp;\n**Studies**\n&nbsp;\n- self-portrait (internet): cursors\n- self-portrait (internet): keypresses\n- self-portrait (internet): windows\n- self-portrait (internet): surfing",
   "parentCategory": "Project",
   "categories": [
     "Art"
@@ -47,6 +47,18 @@
       "slug": "we-were-online",
       "link": "https://wewere.online/",
       "parentCategory": "Project"
+    },
+    {
+      "title": "What’s My Line? Drawing as Experience",
+      "slug": "whats-my-line-drawing-as-experience",
+      "link": "",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "My Feed (Self Portrait)",
+      "slug": "my-feed-(self-portrait)",
+      "link": "https://www.kernelmag.io/",
+      "parentCategory": "Writing"
     }
   ]
 }
