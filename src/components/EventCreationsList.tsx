@@ -26,15 +26,15 @@ export function EventCreationsList({
           style={{
             width: "100%",
             maxWidth: "400px",
-            minWidth: "300px",
-            flex: "1 1 0",
+            minWidth: 0,
+            flex: "1 1 280px",
             margin: ".25rem .5rem",
             display: "flex",
             flexDirection: "column",
           }}
         >
           {creation.date && (
-            <span style={{ whiteSpace: "nowrap", fontSize: "14px" }}>
+            <span style={{ fontSize: "14px" }}>
               <b>{creation.location && `[${creation.location}] `}</b>
               {formatCompactDateRange(
                 new Date(creation.date),
@@ -44,7 +44,6 @@ export function EventCreationsList({
               {creation.institution && (
                 <span
                   style={{
-                    whiteSpace: "nowrap",
                     fontSize: "14px",
                     marginTop: "0.25rem",
                   }}

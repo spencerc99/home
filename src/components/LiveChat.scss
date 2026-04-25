@@ -44,8 +44,32 @@
   animation: chat-pop-in 0.3s ease-out both;
 
   @media (max-width: 480px) {
-    width: calc(100vw - 2rem);
-    right: 1rem;
+    width: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .live-chat-window {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .live-chat-messages {
+    max-height: 35vh;
+    min-height: 60px;
+    overscroll-behavior: contain;
+  }
+
+  .live-chat-input input {
+    font-size: 16px; // prevent iOS zoom on focus
+    min-width: 0;
   }
 }
 
