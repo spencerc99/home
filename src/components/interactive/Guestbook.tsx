@@ -1,10 +1,9 @@
-import { withSharedState } from "@playhtml/react";
+import { PlayProvider, withSharedState } from "@playhtml/react";
 import { Footnote } from "../Footnote";
 import { useStickyState } from "../../hooks/useStickyState";
 import { useTime } from "../../hooks/useTime";
 import "./Guestbook.scss";
 import React, { useEffect, useMemo, useState } from "react";
-import { PlayhtmlProvider } from "./PlayhtmlProvider";
 
 interface GuestbookEntry {
   name: string;
@@ -283,8 +282,8 @@ export const GuestbookImpl = withSharedState(
 
 export function Guestbook() {
   return (
-    <PlayhtmlProvider>
+    <PlayProvider>
       <GuestbookImpl />
-    </PlayhtmlProvider>
+    </PlayProvider>
   );
 }

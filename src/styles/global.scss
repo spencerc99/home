@@ -189,6 +189,14 @@ body {
   font-size: $default-font-size;
 }
 
+#playhtml-cursor-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 #background {
   background-color: $color-site-background;
   background-image: url(/tiled-texture.png);
