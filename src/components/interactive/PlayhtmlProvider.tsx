@@ -65,10 +65,20 @@ function PresenceBroadcaster() {
   return null;
 }
 
+// Strip trailing slash from the pathname so /about/ and /about resolve to
+// the same playhtml room. Cloudflare Pages serves Astro's directory output
+// with a trailing slash, but earlier site config did not — so the database
+// has data under both forms for the same logical page.
+function normalizedPagePath(): string {
+  const p = window.location.pathname.replace(/\.[^/.]+$/, "");
+  return p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p;
+}
+
 export function PlayhtmlProvider({ children }: PropsWithChildren) {
   return (
     <PlayProvider
       initOptions={{
+        room: normalizedPagePath(),
         cursors: {
           enabled: true,
           room: "domain",
