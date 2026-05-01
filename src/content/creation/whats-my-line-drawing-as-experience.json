@@ -9,12 +9,18 @@
     "Edge Zones",
     "Miami Public Library"
   ],
-  "media": [],
+  "heroImage": "https://mdpls.org/images/favicon/mdpls/mdpls-favicon.png",
+  "media": [
+    "https://mdpls.org/images/favicon/mdpls/mdpls-favicon.png"
+  ],
+  "link": "https://mdpls.org/event/16178665",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "self-portrait (internet)",
