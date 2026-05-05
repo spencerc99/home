@@ -6,13 +6,13 @@
   "institution": [
     "Elysian Press"
   ],
-  "heroImage": "https://substackcdn.com/image/fetch/$s_!u3zA!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F229cb337-8eb1-4814-b575-1db3a3242aad_2688x1792.png",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-v2hb9BZ5XQ/fdd0d43239b068c543198d3db76a9573bf8b4e6fa32585ec75e68f2daa0719743dc774f389b32263015f3c0232f70d05a8eaddcd4bf0cedfded108aab6d5cb3cd1715fae0802fd33549ca5c7e380bd22f816b35e0b565ae8470f171bc1a6f116fc0fe6f5",
   "media": [
-    "https://substackcdn.com/image/fetch/$s_!u3zA!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F229cb337-8eb1-4814-b575-1db3a3242aad_2688x1792.png"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-v2hb9BZ5XQ/fdd0d43239b068c543198d3db76a9573bf8b4e6fa32585ec75e68f2daa0719743dc774f389b32263015f3c0232f70d05a8eaddcd4bf0cedfded108aab6d5cb3cd1715fae0802fd33549ca5c7e380bd22f816b35e0b565ae8470f171bc1a6f116fc0fe6f5"
   ],
   "link": "https://www.elysian.press/p/the-internet-has-no-benches",
   "ongoing": false,
-  "featured": false,
+  "featured": true,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [

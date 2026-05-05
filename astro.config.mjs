@@ -23,6 +23,7 @@ export default defineConfig({
       "/creation/touching-computers-creating-data-talismans",
     "/creation/Gather": "/creation/gather",
     "/creation/internet-movement": "/creation/self-portrait-(internet)",
+    "/creation/on-our-way": "/creation/on-our-way-(home)",
   },
   site: "https://spencer.place",
   integrations: [

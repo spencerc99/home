@@ -20,6 +20,13 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "on our way (home)",
+      "slug": "on-our-way-(home)",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "New York, NY"
 }
