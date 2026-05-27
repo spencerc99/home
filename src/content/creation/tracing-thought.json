@@ -1,0 +1,27 @@
+{
+  "title": "Tracing Thought",
+  "parentCategory": "Press",
+  "categories": [],
+  "date": "2026-05-19T07:00:00.000Z",
+  "media": [],
+  "link": "https://www.miamiherald.com/entertainment/visual-arts/article315817585.html",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [],
+  "related": [
+    {
+      "title": "What’s My Line? Drawing as Experience",
+      "slug": "whats-my-line-drawing-as-experience",
+      "link": "https://mdpls.org/event/16178665",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "self-portrait (internet)",
+      "slug": "self-portrait-(internet)",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ]
+}

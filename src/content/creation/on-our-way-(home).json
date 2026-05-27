@@ -5,19 +5,44 @@
   "parentCategory": "Project",
   "categories": [],
   "date": "2026-05-05T07:00:00.000Z",
-  "institution": [
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-t_-mRiA6Kf/9cafb4552b075c7fa04ca2ec363448618bd7c83c5f589c0f94de3eda3cd0a7724901ce92487e748549defc6dc6c0c6011f07bce3676c5ec2884d0695ee3f978dbf6d5dae0d6785affa6a7ab62acf7c5e295a63cc463d4a339ab9397f5ad5554c1d7445e8",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-t_-mRiA6Kf/9cafb4552b075c7fa04ca2ec363448618bd7c83c5f589c0f94de3eda3cd0a7724901ce92487e748549defc6dc6c0c6011f07bce3676c5ec2884d0695ee3f978dbf6d5dae0d6785affa6a7ab62acf7c5e295a63cc463d4a339ab9397f5ad5554c1d7445e8",
+    "/creation-videos/bl-jVV0JKRYze.mp4",
+    "/creation-videos/bl-BI5v7u36NA.mp4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3dWfcvY835/714cf498de9b20b07dc4b1e701730625d6971f3a791419d4e1f3d07dfb0181d73d2180a9530faf2489dff76396f42b51cd17a88de0cf8c1c67ae9c224d9066b53c7b8165cedd57941e75a5a32d6beb8d2892188e3fb92bad68231ee00cd4c4fbc9db63cc",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Fsu6SkZE_4/715762ad4c33ec289fdc66df9888b4232b79bf5aa8244795932333e32839205791fb127426373903db3dac2687b904dd2bf07a2df3c9771c9a51b661a4e12fb2545077c4ea008c5b95d46e06caa58ced2e347667c018460833871d9eb57dfab9ffeb2619",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-dmCX8aPFx6/545007a355bda4c8c5f7c359585171af84d7e4b60fae3dd4205d20f34a3c264b90b0316a071e9a51b834355f8b5e9d775e79e7212e7877b6dfe5c970f7dd7e665204e90a387f68a421daade2ab98c005671bb538ddd96e575ac4b2b8599157917003dae0",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-NTHYnFqPxm/0c3edc15e0223a7e2c2a6acb8f621563af67b0e90841bca3155e00cc85fa39ec36cb468a3b7f844727e711a1c98f1b6c0bd16b9144fa6743d256dfe6a5f0b6d3e0dbc2a409f447794aaf3ee7dd3809d2bb9f6ea60e7dce2b1ea0c7e518fd0ad64c23f91c",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3HnHIB7OVj/855ab0ed5628d3af652c35396c5a055c2201a5c7f44305f1e724107e636aae1cf05701f6283449fde587a3c0f3533879c0893fb33deff830902c24fdc31f9c3ee910e199ed1232af9a264bc291d50f4c83a594dc5f3212a5042bb99e11951d52c1a72618",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-KmCcAQlPiB/b29ed1cb7437d7ab0b8c7c6a0a0b0dca771c755e69bf99d74261c9add6bcd9bec9006d6bff9f2b4cc07ccf8501342d6a1cad4549bad501aef0b59ebe9731be6fddb72875d4304b93531d7e02b37208ddcb76b741f971236ce7108b040f96833cedfdaed0"
   ],
-  "media": [],
   "materials": "monitor, tickets, aluminum, ink, mobile application, visitors’ location permission and walking data",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [
     "",
     "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
     ""
   ],
   "isEvent": false,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image",
+    "video",
+    "video",
+    "image",
+    "image",
+    "image",
+    "image",
+    "image",
+    "image"
+  ],
   "related": [
     {
       "title": "self-portrait (internet)",
