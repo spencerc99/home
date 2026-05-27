@@ -1,7 +1,7 @@
 {
   "title": "on our way (home)",
   "subtext": "a take-home art piece",
-  "descriptionMd": "\"on our way (home)\" is an exercise in collective trust and exchange to map out the actual paths taken in a place. Our phones carry our whole lives in data: where we've been, what we're interested in, and more. We know how this data can be weaponized against us by governments and institutions or shared as an intimate offering with our closest friends. \n&nbsp;\nThis piece plays with the murky middle, inviting us to share these intimate pieces of data with strangers.\n&nbsp;\nActivating on visitors' phones as you travel home, the piece shares your return path to display on the installation. To view it, you must return to the piece.",
+  "descriptionMd": "*on our way (home)* is an exercise in collective trust and exchange to map out the traces we live in a city. \n&nbsp;\nOur phones carry our whole lives in data: where we've been, what we're interested in, and more. We know how this data can be weaponized against us by governments and institutions or shared as an intimate offering with our closest friends. \n&nbsp;\nThis piece plays with the murky middle, inviting us to share these intimate pieces of data with strangers.\n&nbsp;\nInspired by Félix González-Torres’ [Candy Works](https://www.felixgonzalez-torresfoundation.org/works/c/candy-works), each installation features a seemingly endless supply of tickets that visitors are invited to take to begin their participation. Each ticket contains a QR code linking to the piece’s mobile app. The app invites visitors to grant access to their location as they return from the exhibition. Each participant’s trails slowly accumulates until they arrive home and is added to the piece’s screen which continuously animates the contributed trails. \n&nbsp;\nAfter submitting a trail, the app turns into a compass To see one’s own submitted trail, \n&nbsp;\nActivating on visitors' phones as you travel home, the piece shares your return path to display on the installation. To view it, you must return to the piece.",
   "parentCategory": "Project",
   "categories": [],
   "date": "2026-05-05T07:00:00.000Z",
@@ -17,6 +17,7 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-3HnHIB7OVj/855ab0ed5628d3af652c35396c5a055c2201a5c7f44305f1e724107e636aae1cf05701f6283449fde587a3c0f3533879c0893fb33deff830902c24fdc31f9c3ee910e199ed1232af9a264bc291d50f4c83a594dc5f3212a5042bb99e11951d52c1a72618",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-KmCcAQlPiB/b29ed1cb7437d7ab0b8c7c6a0a0b0dca771c755e69bf99d74261c9add6bcd9bec9006d6bff9f2b4cc07ccf8501342d6a1cad4549bad501aef0b59ebe9731be6fddb72875d4304b93531d7e02b37208ddcb76b741f971236ce7108b040f96833cedfdaed0"
   ],
+  "link": "https://on-our-way.pages.dev/?show=recalculating-route&view=eyJzIjoicmVjYWxjdWxhdGluZy1yb3V0ZSIsIm8iOiJyZWNhbGN1bGF0aW5nLXJvdXRlIiwidiI6WzQwLjcxODg1MSwtNzMuOTcwNDQ0LDAuMTA5MywwLjE0NDMsMF19",
   "materials": "monitor, tickets, aluminum, ink, mobile application, visitors’ location permission and walking data",
   "ongoing": false,
   "featured": true,
@@ -45,8 +46,8 @@
   ],
   "related": [
     {
-      "title": "self-portrait (internet)",
-      "slug": "self-portrait-(internet)",
+      "title": "we were browsing",
+      "slug": "we-were-browsing",
       "link": "",
       "parentCategory": "Project"
     },

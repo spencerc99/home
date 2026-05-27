@@ -31,3 +31,5 @@ fits-export
 
 .claude/settings.local.json
 docs/superpowers/
+
+tsconfig.tsbuildinfo

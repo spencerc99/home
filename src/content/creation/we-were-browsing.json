@@ -1,7 +1,7 @@
 {
-  "title": "self-portrait (internet)",
-  "subtext": "a series of experiments in creating art from my daily internet actions",
-  "descriptionMd": "A custom browser extension tracks every action I take on the Internet and turns those datapoints into self-portraits. Every swipe, scroll, click and drag become cursors painting lines, windows dancing across the screen, letters and phrases filling a page, and expanding graphs of URLs. This piece plays off the pervasiveness of surveillance and monitoring software to subvert the hidden layers of control behind the digital platforms we use every day: private companies, government bodies, and sometimes, even other individuals who have infiltrated our systems. Using these same systems for personal expression, self-portrait (internet) investigates how everyday traces represent who we are and what we believe and offers them as material for intimate connection and knowing.\n&nbsp;\nAs others install the extension, they can choose to store their data locally to create their own self-portraits or offer their data to the installation, contributing to a collective portrait of Internet activity. \n&nbsp;\n**Studies**\n&nbsp;\n- self-portrait (internet): cursors\n- self-portrait (internet): keypresses\n- self-portrait (internet): windows\n- self-portrait (internet): surfing",
+  "title": "we were browsing",
+  "subtext": "a series of experiments in creating art from daily internet actions",
+  "descriptionMd": "Increasingly new generations [feel more themselves online than offline](https://newconsumer.com/2024/09/consumer-trends-highlights-digital-natives-tiktok-china-food-as-medicine/). More and more of the time we spend expressing ourselves, encountering new ideas and people, and discovering who we are is happening in digital space, detached from our bodies. Simultaneously, surveillance is embedded into the networks that we use to communicate and institutions are building detailed profiles of who we are through our browsing habits. \n&nbsp;\n*we were browsing* turns these daily actions and datapoints into beautiful portraits of our Internet selves. A [custom browser extension](https://spencer.place/creation/we-were-online/) tracks every action taken and transforms the data into self-portraits. Every swipe, scroll, click and drag become cursors painting lines, windows dancing across the screen, letters and phrases filling a page, and expanding graphs of URLs. \n&nbsp;\nTransforming the pervasive yet invisible practice of surveillance into explicit paintings, we were browsing reclaims collective control of our data. Using these same systems for personal expression, self-portrait (internet) investigates how everyday traces represent who we are and what we believe and offers them as material for intimate connection and knowing.\n&nbsp;\nSome pieces are made using only my data while others involve the hundreds of participants who have volunteered to contribute their data anonymously to a collective portrait of the Internet. \n&nbsp;\n**Studies**\n&nbsp;\n- we were browsing\n- we were typing\n- we were scrolling\n- we were surfing\n- we were clicking",
   "parentCategory": "Project",
   "categories": [
     "Art"
@@ -18,6 +18,7 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-fLHZIU-957/6113528216709d6af5f8545fbded0c8abaa8746952c63bfeee3eab831785e221ccc5bbab3168fa7d22047ffd5fe69203f0ca6d7d9ae90ee899a42062765d616ef773781b4ce16362456ce41e72bc5cb65530d27031f7139decd73b656fc065506819196a",
     "/creation-videos/bl-pea-x2t4dj.mp4"
   ],
+  "materials": "Custom software, browser extension, millions of datapoints from daily internet browsing",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [
@@ -57,7 +58,7 @@
     {
       "title": "on our way (home)",
       "slug": "on-our-way-(home)",
-      "link": "",
+      "link": "https://on-our-way.pages.dev/?show=recalculating-route&view=eyJzIjoicmVjYWxjdWxhdGluZy1yb3V0ZSIsIm8iOiJyZWNhbGN1bGF0aW5nLXJvdXRlIiwidiI6WzQwLjcxODg1MSwtNzMuOTcwNDQ0LDAuMTA5MywwLjE0NDMsMF19",
       "parentCategory": "Project"
     },
     {
