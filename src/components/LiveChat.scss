@@ -150,6 +150,11 @@
   gap: 5px;
   align-items: baseline;
 
+  .live-chat-text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   &.system {
     font-size: 11px;
     opacity: 0.5;

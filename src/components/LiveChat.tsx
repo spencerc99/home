@@ -23,6 +23,28 @@ import {
 } from "../stores/chat";
 import "./LiveChat.scss";
 
+const URL_PATTERN = /(https?:\/\/[^\s<>"']+[^\s<>"'.,!?)\]}])/g;
+
+function renderMessageText(text: string): React.ReactNode {
+  const parts = text.split(URL_PATTERN);
+  return parts.map((part, i) => {
+    if (i % 2 === 1) {
+      return (
+        <a
+          key={i}
+          className="noanchor"
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 export function LiveChat() {
   const { hasSynced } = useContext(PlayContext);
   const cursorPresences = useCursorPresences();
@@ -308,7 +330,9 @@ export function LiveChat() {
                     <span className="live-chat-name">{msg.name}</span>
                   )}
                 </span>
-                <span>{msg.text}</span>
+                <span className="live-chat-text">
+                  {renderMessageText(msg.text)}
+                </span>
               </div>
             );
           })}
