@@ -135,6 +135,33 @@
   }
 }
 
+.live-chat-you {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.live-chat-name-input {
+  font-family: inherit;
+  font-size: 11px;
+  color: inherit;
+  border: none;
+  border-bottom: 1px dotted currentColor;
+  background: transparent;
+  padding: 0 1px;
+  width: 7em;
+
+  &:focus {
+    outline: none;
+    border-bottom-style: solid;
+  }
+
+  &::placeholder {
+    color: inherit;
+    opacity: 0.6;
+  }
+}
+
 .live-chat-messages {
   padding: 8px 10px;
   min-height: 80px;

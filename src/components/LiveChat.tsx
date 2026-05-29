@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { PlayContext, useCursorPresences, usePresenceRoom } from "@playhtml/react";
+import { PlayContext, playhtml, useCursorPresences, usePresenceRoom } from "@playhtml/react";
 import { useStore } from "@nanostores/react";
 import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
 import {
@@ -56,6 +56,8 @@ export function LiveChat() {
   const unreadCount = useStore($chatUnreadCount);
   const dismissed = useStore($chatDismissed);
   const [inputValue, setInputValue] = useState("");
+  const [name, setName] = useState(() => window.cursors?.name ?? "");
+  const [myColor, setMyColor] = useState(() => window.cursors?.color ?? "#888");
   const [flashTitlebar, setFlashTitlebar] = useState(false);
   const [typingStableIds, setTypingStableIds] = useState<Set<string>>(new Set());
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -63,11 +65,40 @@ export function LiveChat() {
   const inputRef = useRef<HTMLInputElement>(null);
   const minimizedRef = useRef(false);
   minimizedRef.current = minimized;
+  // Stable IDs (→ last-known name) of people who have sent a chat message this
+  // session. Used to scope "left" notifications to participants — silent lurkers
+  // don't get goodbyes. The name is cached here so we can still label a leave
+  // after the user has dropped from cursorPresences.
+  const participantsRef = useRef<Map<string, string>>(new Map());
+  // Snapshot of stable IDs present last tick, for diffing arrivals vs departures.
+  const prevStableIdsRef = useRef<Set<string> | null>(null);
 
   const spencerStableId = useMemo(
     () => getSpencerStableId(cursorPresences),
     [cursorPresences],
   );
+
+  // Keep the displayed name and color in sync with updates from elsewhere (Stats, Guestbook)
+  useEffect(() => {
+    if (!hasSynced || !window.cursors) return;
+    setName(window.cursors.name ?? "");
+    setMyColor(window.cursors.color ?? "#888");
+    const handleName = (next?: string) => setName(next ?? "");
+    const handleColor = (next?: string) => setMyColor(next ?? "#888");
+    window.cursors.on("name", handleName);
+    window.cursors.on("color", handleColor);
+    return () => {
+      window.cursors?.off("name", handleName);
+      window.cursors?.off("color", handleColor);
+    };
+  }, [hasSynced]);
+
+  const handleNameChange = useCallback((next: string) => {
+    setName(next);
+    if (window.cursors) {
+      window.cursors.name = next;
+    }
+  }, []);
 
   // Show chat when Spencer arrives
   useEffect(() => {
@@ -122,6 +153,9 @@ export function LiveChat() {
           timestamp: number;
         } | undefined;
         if (!msg?.text || msg.timestamp < joinedAt) continue;
+        if (msg.stableId) {
+          participantsRef.current.set(msg.stableId, msg.name ?? "someone");
+        }
         const msgId = `msg-${msg.timestamp}-${msg.stableId}`;
         const current = $chatMessages.get();
         if (current.some((m) => m.id === msgId)) continue;
@@ -144,6 +178,63 @@ export function LiveChat() {
     });
     return unsub;
   }, [room]);
+
+  // Announce joins/leaves. Show "joined" for any new arrival (excluding self and
+  // spencer, who has dedicated handling). Show "left" only for participants who
+  // have actually sent a message this session.
+  useEffect(() => {
+    if (!hasSynced) return;
+    if (!visible) {
+      // Reset on hide so a future reopen starts from a fresh snapshot.
+      prevStableIdsRef.current = null;
+      return;
+    }
+    const myStableId = playhtml.presence.getMyIdentity()?.publicKey ?? "";
+    const currentIds = new Set(cursorPresences.keys());
+
+    // First run after open: snapshot without announcing anyone already here.
+    if (prevStableIdsRef.current === null) {
+      prevStableIdsRef.current = currentIds;
+      return;
+    }
+    const prev = prevStableIdsRef.current;
+    const announcements: ChatMessage[] = [];
+
+    for (const stableId of currentIds) {
+      if (prev.has(stableId)) continue;
+      if (stableId === myStableId) continue;
+      if (stableId === spencerStableId) continue;
+      const presence = cursorPresences.get(stableId);
+      const name = presence?.playerIdentity?.name ?? "someone";
+      announcements.push({
+        id: `system-join-${stableId}-${Date.now()}`,
+        text: `${name} joined`,
+        stableId: "",
+        color: "",
+        timestamp: Date.now(),
+        type: "system",
+      });
+    }
+    for (const stableId of prev) {
+      if (currentIds.has(stableId)) continue;
+      if (stableId === myStableId) continue;
+      const name = participantsRef.current.get(stableId);
+      if (!name) continue;
+      announcements.push({
+        id: `system-leave-${stableId}-${Date.now()}`,
+        text: `${name} left`,
+        stableId: "",
+        color: "",
+        timestamp: Date.now(),
+        type: "system",
+      });
+    }
+
+    prevStableIdsRef.current = currentIds;
+    if (announcements.length > 0) {
+      $chatMessages.set([...$chatMessages.get(), ...announcements]);
+    }
+  }, [cursorPresences, hasSynced, visible, spencerStableId]);
 
   // Listen for typing presence changes via chat room
   useEffect(() => {
@@ -278,6 +369,21 @@ export function LiveChat() {
           <span>✦ spencer.place chat</span>
         </div>
         <div className="live-chat-infobar">
+          <span className="live-chat-you">
+            <span
+              className="live-chat-dot"
+              style={{ backgroundColor: myColor }}
+            />
+            <input
+              className="live-chat-name-input"
+              type="text"
+              value={name}
+              onChange={(e) => handleNameChange(e.target.value)}
+              placeholder="set a name..."
+              maxLength={20}
+            />
+          </span>
+          {" · "}
           {pplCount} ppl here
           {spencerStableId && (
             <>
