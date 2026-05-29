@@ -65,13 +65,20 @@ export function LiveChat() {
   const inputRef = useRef<HTMLInputElement>(null);
   const minimizedRef = useRef(false);
   minimizedRef.current = minimized;
-  // Stable IDs (→ last-known name) of people who have sent a chat message this
+  // Stable IDs (→ {name, color}) of people who have sent a chat message this
   // session. Used to scope "left" notifications to participants — silent lurkers
-  // don't get goodbyes. The name is cached here so we can still label a leave
-  // after the user has dropped from cursorPresences.
-  const participantsRef = useRef<Map<string, string>>(new Map());
+  // don't get goodbyes. Cached here so we can still label a leave after the user
+  // has dropped from cursorPresences.
+  const participantsRef = useRef<Map<string, { name?: string; color: string }>>(
+    new Map(),
+  );
   // Snapshot of stable IDs present last tick, for diffing arrivals vs departures.
   const prevStableIdsRef = useRef<Set<string> | null>(null);
+  // Stable IDs we've already announced as joined / left this session. Each
+  // stable ID only gets announced once per kind, so view-transition churn or
+  // brief disconnects can't spam the chat with duplicate notices.
+  const announcedJoinsRef = useRef<Set<string>>(new Set());
+  const announcedLeavesRef = useRef<Set<string>>(new Set());
 
   const spencerStableId = useMemo(
     () => getSpencerStableId(cursorPresences),
@@ -154,7 +161,10 @@ export function LiveChat() {
         } | undefined;
         if (!msg?.text || msg.timestamp < joinedAt) continue;
         if (msg.stableId) {
-          participantsRef.current.set(msg.stableId, msg.name ?? "someone");
+          participantsRef.current.set(msg.stableId, {
+            name: msg.name,
+            color: msg.color || "#888",
+          });
         }
         const msgId = `msg-${msg.timestamp}-${msg.stableId}`;
         const current = $chatMessages.get();
@@ -204,13 +214,17 @@ export function LiveChat() {
       if (prev.has(stableId)) continue;
       if (stableId === myStableId) continue;
       if (stableId === spencerStableId) continue;
+      if (announcedJoinsRef.current.has(stableId)) continue;
+      announcedJoinsRef.current.add(stableId);
       const presence = cursorPresences.get(stableId);
-      const name = presence?.playerIdentity?.name ?? "someone";
+      const name = presence?.playerIdentity?.name;
+      const color =
+        presence?.playerIdentity?.playerStyle.colorPalette[0] ?? "#888";
       announcements.push({
         id: `system-join-${stableId}-${Date.now()}`,
-        text: `${name} joined`,
-        stableId: "",
-        color: "",
+        text: name ? `${name} joined` : "joined",
+        stableId,
+        color,
         timestamp: Date.now(),
         type: "system",
       });
@@ -218,13 +232,15 @@ export function LiveChat() {
     for (const stableId of prev) {
       if (currentIds.has(stableId)) continue;
       if (stableId === myStableId) continue;
-      const name = participantsRef.current.get(stableId);
-      if (!name) continue;
+      const participant = participantsRef.current.get(stableId);
+      if (!participant) continue;
+      if (announcedLeavesRef.current.has(stableId)) continue;
+      announcedLeavesRef.current.add(stableId);
       announcements.push({
         id: `system-leave-${stableId}-${Date.now()}`,
-        text: `${name} left`,
-        stableId: "",
-        color: "",
+        text: participant.name ? `${participant.name} left` : "left",
+        stableId,
+        color: participant.color,
         timestamp: Date.now(),
         type: "system",
       });
@@ -406,6 +422,12 @@ export function LiveChat() {
             if (msg.type === "system") {
               return (
                 <div key={msg.id} className="live-chat-message system">
+                  {msg.color && (
+                    <span
+                      className="live-chat-dot"
+                      style={{ backgroundColor: msg.color }}
+                    />
+                  )}
                   {msg.text}
                 </div>
               );
