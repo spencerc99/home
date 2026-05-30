@@ -74,11 +74,12 @@ export function LiveChat() {
   );
   // Snapshot of stable IDs present last tick, for diffing arrivals vs departures.
   const prevStableIdsRef = useRef<Set<string> | null>(null);
-  // Stable IDs we've already announced as joined / left this session. Each
-  // stable ID only gets announced once per kind, so view-transition churn or
-  // brief disconnects can't spam the chat with duplicate notices.
-  const announcedJoinsRef = useRef<Set<string>>(new Set());
-  const announcedLeavesRef = useRef<Set<string>>(new Set());
+  // Stable IDs we've already announced as joined / left. Each stable ID only
+  // gets announced once per kind, so view-transition churn or brief disconnects
+  // can't spam duplicate notices. Seeded from persisted messages on mount so
+  // dedup survives Astro remounts (refs reset, but the message log doesn't).
+  const announcedJoinsRef = useRef<Set<string> | null>(null);
+  const announcedLeavesRef = useRef<Set<string> | null>(null);
 
   const spencerStableId = useMemo(
     () => getSpencerStableId(cursorPresences),
@@ -195,18 +196,52 @@ export function LiveChat() {
   useEffect(() => {
     if (!hasSynced) return;
     if (!visible) {
-      // Reset on hide so a future reopen starts from a fresh snapshot.
+      // Reset the per-tick snapshot on hide so a future reopen starts fresh.
+      // The announced-* sets are NOT cleared — they survive a reopen, and are
+      // re-seeded from persisted messages below on the next mount.
       prevStableIdsRef.current = null;
       return;
     }
+
+    // Seed announced-* and participants from persisted messages on first run
+    // after mount, so dedup + participant identity survive Astro view-transition
+    // remounts (refs reset, the message store doesn't).
+    if (announcedJoinsRef.current === null) {
+      const joins = new Set<string>();
+      const leaves = new Set<string>();
+      for (const m of $chatMessages.get()) {
+        if (m.type === "message" && m.stableId) {
+          participantsRef.current.set(m.stableId, {
+            name: m.name,
+            color: m.color || "#888",
+          });
+        } else if (m.type === "system" && m.stableId) {
+          if (m.id.startsWith("system-join-")) joins.add(m.stableId);
+          else if (m.id.startsWith("system-leave-")) leaves.add(m.stableId);
+        }
+      }
+      announcedJoinsRef.current = joins;
+      announcedLeavesRef.current = leaves;
+    }
+
     const myStableId = playhtml.presence.getMyIdentity()?.publicKey ?? "";
     const currentIds = new Set(cursorPresences.keys());
 
-    // First run after open: snapshot without announcing anyone already here.
+    // First run after open: snapshot everyone currently present without
+    // announcing them — they were here before us. If presences haven't loaded
+    // yet (size 0), wait for the next tick rather than snapshot empty (which
+    // would announce everyone as fresh arrivals on the next tick).
     if (prevStableIdsRef.current === null) {
+      if (currentIds.size === 0) return;
       prevStableIdsRef.current = currentIds;
+      // Treat the initial snapshot as already-announced so subsequent remounts
+      // (which clear the ref) don't re-announce these stable IDs as joining.
+      for (const stableId of currentIds) {
+        announcedJoinsRef.current.add(stableId);
+      }
       return;
     }
+
     const prev = prevStableIdsRef.current;
     const announcements: ChatMessage[] = [];
 
