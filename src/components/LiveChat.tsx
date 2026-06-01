@@ -477,7 +477,7 @@ export function LiveChat() {
               type="text"
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
-              placeholder="set a name..."
+              placeholder="name"
               maxLength={20}
             />
           </span>
