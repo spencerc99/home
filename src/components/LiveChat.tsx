@@ -26,6 +26,7 @@ import {
   $chatDismissed,
   type ChatMessage,
 } from "../stores/chat";
+import { startReplyDraft } from "../utils/chat";
 import "./LiveChat.scss";
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"']+[^\s<>"'.,!?)\]}])/g;
@@ -41,6 +42,7 @@ function renderMessageText(text: string): React.ReactNode {
           href={part}
           target="_blank"
           rel="noopener noreferrer nofollow"
+          onClick={(e) => e.stopPropagation()}
         >
           {part}
         </a>
@@ -374,6 +376,13 @@ export function LiveChat() {
     [sendMessage],
   );
 
+  const handleReplyToMessage = useCallback((msg: ChatMessage) => {
+    setInputValue((current) => startReplyDraft(current, msg.name));
+    window.requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
+  }, []);
+
   const handleExpand = useCallback(() => {
     $chatMinimized.set(false);
     $chatUnreadCount.set(0);
@@ -504,15 +513,21 @@ export function LiveChat() {
             const msgIsSpencer =
               msg.name === "spencer" && msg.color === SPENCER_COLOR;
             return (
-              <div key={msg.id} className="live-chat-message">
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "3px",
-                    flexShrink: 0,
-                  }}
-                >
+              <div
+                key={msg.id}
+                className="live-chat-message replyable"
+                role="button"
+                tabIndex={0}
+                title={`reply to ${msg.name ?? "someone"}`}
+                onClick={() => handleReplyToMessage(msg)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleReplyToMessage(msg);
+                  }
+                }}
+              >
+                <span className="live-chat-message-meta">
                   <span
                     className="live-chat-dot"
                     style={{
