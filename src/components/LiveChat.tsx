@@ -26,7 +26,7 @@ import {
   $chatDismissed,
   type ChatMessage,
 } from "../stores/chat";
-import { startReplyDraft } from "../utils/chat";
+import { isScrolledNearBottom, startReplyDraft } from "../utils/chat";
 import "./LiveChat.scss";
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"']+[^\s<>"'.,!?)\]}])/g;
@@ -70,9 +70,11 @@ export function LiveChat() {
   const [activePresences, setActivePresences] = useState<
     Map<string, { active?: boolean }>
   >(new Map());
+  const messagesRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const shouldAutoScrollRef = useRef(true);
   const minimizedRef = useRef(false);
   minimizedRef.current = minimized;
   // Stable IDs (→ {name, color}) of people who have sent a chat message this
@@ -328,10 +330,21 @@ export function LiveChat() {
     return unsub;
   }, [room]);
 
-  // Auto-scroll to bottom on new messages
+  // Keep the chat pinned only while the user is already reading the latest messages.
   useEffect(() => {
+    if (!shouldAutoScrollRef.current) return;
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typingStableIds]);
+
+  const handleMessagesScroll = useCallback(() => {
+    const messagesEl = messagesRef.current;
+    if (!messagesEl) return;
+    shouldAutoScrollRef.current = isScrolledNearBottom(
+      messagesEl.scrollTop,
+      messagesEl.clientHeight,
+      messagesEl.scrollHeight,
+    );
+  }, []);
 
   const sendMessage = useCallback(() => {
     const text = inputValue.trim();
@@ -346,6 +359,7 @@ export function LiveChat() {
     // Broadcast via presence room — the listener will pick it up and dedup
     room.presence.setMyPresence("chat-msg", { text, stableId, color, name, timestamp });
 
+    shouldAutoScrollRef.current = true;
     setInputValue("");
     room.presence.setMyPresence("typing", null);
   }, [inputValue, room]);
@@ -494,7 +508,11 @@ export function LiveChat() {
             </>
           )}
         </div>
-        <div className="live-chat-messages">
+        <div
+          ref={messagesRef}
+          className="live-chat-messages"
+          onScroll={handleMessagesScroll}
+        >
           {messages.map((msg) => {
             if (msg.type === "system") {
               return (

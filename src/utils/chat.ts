@@ -12,3 +12,12 @@ export function startReplyDraft(currentDraft: string, name?: string): string {
   if (trimmedDraft.startsWith(`${mention} `)) return currentDraft;
   return trimmedDraft ? `${mention} ${trimmedDraft}` : `${mention} `;
 }
+
+export function isScrolledNearBottom(
+  scrollTop: number,
+  clientHeight: number,
+  scrollHeight: number,
+  threshold = 24,
+): boolean {
+  return scrollHeight - scrollTop - clientHeight <= threshold;
+}
