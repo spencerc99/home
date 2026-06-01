@@ -180,15 +180,6 @@
     overflow-wrap: anywhere;
   }
 
-  &.replyable {
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: 1px dotted currentColor;
-      outline-offset: 2px;
-    }
-  }
-
   &.system {
     display: flex;
     gap: 5px;

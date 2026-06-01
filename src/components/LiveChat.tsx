@@ -24,9 +24,8 @@ import {
   $chatSpencerLeft,
   $chatUnreadCount,
   $chatDismissed,
-  type ChatMessage,
 } from "../stores/chat";
-import { isScrolledNearBottom, startReplyDraft } from "../utils/chat";
+import { isScrolledNearBottom } from "../utils/chat";
 import "./LiveChat.scss";
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"']+[^\s<>"'.,!?)\]}])/g;
@@ -42,7 +41,6 @@ function renderMessageText(text: string): React.ReactNode {
           href={part}
           target="_blank"
           rel="noopener noreferrer nofollow"
-          onClick={(e) => e.stopPropagation()}
         >
           {part}
         </a>
@@ -73,7 +71,6 @@ export function LiveChat() {
   const messagesRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const shouldAutoScrollRef = useRef(true);
   const minimizedRef = useRef(false);
   minimizedRef.current = minimized;
@@ -390,13 +387,6 @@ export function LiveChat() {
     [sendMessage],
   );
 
-  const handleReplyToMessage = useCallback((msg: ChatMessage) => {
-    setInputValue((current) => startReplyDraft(current, msg.name));
-    window.requestAnimationFrame(() => {
-      inputRef.current?.focus();
-    });
-  }, []);
-
   const handleExpand = useCallback(() => {
     $chatMinimized.set(false);
     $chatUnreadCount.set(0);
@@ -533,17 +523,7 @@ export function LiveChat() {
             return (
               <div
                 key={msg.id}
-                className="live-chat-message replyable"
-                role="button"
-                tabIndex={0}
-                title={`reply to ${msg.name ?? "someone"}`}
-                onClick={() => handleReplyToMessage(msg)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    handleReplyToMessage(msg);
-                  }
-                }}
+                className="live-chat-message"
               >
                 <span className="live-chat-message-meta">
                   <span
@@ -585,7 +565,6 @@ export function LiveChat() {
         </div>
         <div className="live-chat-input">
           <input
-            ref={inputRef}
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
