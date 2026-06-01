@@ -11,7 +11,12 @@ import React, {
 } from "react";
 import { PlayContext, playhtml, useCursorPresences, usePresenceRoom } from "@playhtml/react";
 import { useStore } from "@nanostores/react";
-import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
+import {
+  isSpencer,
+  SPENCER_COLOR,
+  getSpencerStableId,
+  getSpencerChatStatus,
+} from "../utils/presence";
 import {
   $chatMessages,
   $chatVisible,
@@ -60,6 +65,9 @@ export function LiveChat() {
   const [myColor, setMyColor] = useState(() => window.cursors?.color ?? "#888");
   const [flashTitlebar, setFlashTitlebar] = useState(false);
   const [typingStableIds, setTypingStableIds] = useState<Set<string>>(new Set());
+  const [activePresences, setActivePresences] = useState<
+    Map<string, { active?: boolean }>
+  >(new Map());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -85,6 +93,10 @@ export function LiveChat() {
     () => getSpencerStableId(cursorPresences),
     [cursorPresences],
   );
+  const spencerChatStatus = useMemo(
+    () => getSpencerChatStatus(cursorPresences, activePresences),
+    [cursorPresences, activePresences],
+  );
 
   // Keep the displayed name and color in sync with updates from elsewhere (Stats, Guestbook)
   useEffect(() => {
@@ -108,15 +120,27 @@ export function LiveChat() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!hasSynced) return;
+    const unsub = playhtml.presence.onPresenceChange("active", (presences) => {
+      const next = new Map<string, { active?: boolean }>();
+      for (const [stableId, view] of presences) {
+        next.set(stableId, { active: (view as any).active });
+      }
+      setActivePresences(next);
+    });
+    return unsub;
+  }, [hasSynced]);
+
   // Show chat when Spencer arrives
   useEffect(() => {
     if (!hasSynced) return;
     if (dismissed) return;
-    if (spencerStableId && !visible) {
+    if (spencerChatStatus !== "absent" && !visible) {
       $chatVisible.set(true);
       $chatSpencerLeft.set(false);
       $chatMessages.set([
-        ...messages,
+        ...$chatMessages.get(),
         {
           id: `system-${Date.now()}`,
           text: "spencer just arrived",
@@ -126,10 +150,10 @@ export function LiveChat() {
           type: "system",
         },
       ]);
-    } else if (!spencerStableId && visible && !spencerLeft) {
+    } else if (spencerChatStatus === "absent" && visible && !spencerLeft) {
       $chatSpencerLeft.set(true);
       $chatMessages.set([
-        ...messages,
+        ...$chatMessages.get(),
         {
           id: `system-${Date.now()}`,
           text: "spencer has left",
@@ -140,7 +164,7 @@ export function LiveChat() {
         },
       ]);
     }
-  }, [spencerStableId, hasSynced, visible, spencerLeft, dismissed]);
+  }, [spencerChatStatus, hasSynced, visible, spencerLeft, dismissed]);
 
   // HACK: Using presence channel for messaging because play events are page-scoped,
   // not domain-scoped. Each user's latest message is set as their "chat-msg" presence,
@@ -436,19 +460,28 @@ export function LiveChat() {
           </span>
           {" · "}
           {pplCount} ppl here
-          {spencerStableId && (
+          {spencerChatStatus !== "absent" && (
             <>
               {" "}·{" "}
               <span
-                className="live-chat-dot"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  backgroundColor: SPENCER_COLOR,
-                  boxShadow: `0 0 3px ${SPENCER_COLOR}`,
-                }}
-              />{" "}
-              spencer is home
+                className={`live-chat-spencer-status ${
+                  spencerChatStatus === "away" ? "away" : ""
+                }`}
+              >
+                <span
+                  className="live-chat-dot live-chat-spencer-dot"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    backgroundColor: SPENCER_COLOR,
+                    boxShadow: `0 0 3px ${SPENCER_COLOR}`,
+                  }}
+                />
+                {spencerChatStatus === "away" && (
+                  <span className="live-chat-away-mark">Z z z</span>
+                )}
+                spencer is {spencerChatStatus}
+              </span>
             </>
           )}
         </div>
