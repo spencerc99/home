@@ -151,6 +151,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
         cursors: {
           enabled: true,
           room: "domain",
+          coordinateMode: "absolute",
           container: "#playhtml-cursor-container",
           getCursorStyle: (presence) => {
             if (presence.page !== window.location.pathname) {
