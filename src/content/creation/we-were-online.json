@@ -1,7 +1,7 @@
 {
   "title": "we were online",
   "subtext": "an environment that turns the Internet into a shared space",
-  "descriptionMd": "*we were online* is an online multiplayer world—part game, artwork, and tool—that turns the existing Internet into a living, shared world, actively shaped by its inhabitants.\n&nbsp;\nIn this world, everything on the Internet becomes material for connection. Assets, buttons, and other components can be created, grown, moved, taken, and gifted. Pages have memory and show the wear of use. Cursors become digital appendages that allow us to bump into others who are there at the same time as us. \n&nbsp;\nBy enabling us to see and affect each other and the pages we visit, isolated browsing becomes the site of serendipitous encounters, websites become archives of our collective traces, and the Internet becomes more like a hometown we share and co-create.\n&nbsp;\nBuilt on **[playhtml](https://playhtml.fun/)**, an open-source library for creating communal web experiences, the game is designed to be customized and extended by its players. Individual websites can create interactions that respond to live events on other websites and change behavior depending on a user’s history and personality. Traditional domain silos become open islands that grow dense with connection and come alive with the personality of dozens of personal websites.\n&nbsp;\nRather than one monolithic platform, we were online imagines a world where millions of tiny internets flourish, each finding new ways to express care, whimsy, and joy digitally.\n&nbsp;\n&nbsp;\n&nbsp;\nStill in development but available in beta at [wewere.online](wewere.online) ",
+  "descriptionMd": "*we were online* (WWO) is an online multiplayer world—part game, artwork, and tool—that turns the existing Internet into a living, shared world, actively shaped by its inhabitants.\n&nbsp;\nIn this world, everything on the Internet becomes material for connection. Assets, buttons, and other components can be created, grown, moved, taken, and gifted. Pages have memory and show the wear of use. Cursors become digital appendages that allow us to bump into others who are there at the same time as us. \n&nbsp;\nBy enabling us to see and affect each other and the pages we visit, isolated browsing becomes the site of serendipitous encounters, websites become archives of our collective traces, and the Internet becomes more like a hometown we share and co-create.\n&nbsp;\nBuilt on **[playhtml](https://playhtml.fun/)**, an open-source library for creating communal web experiences, the game is designed to be customized and extended by its players. Individual websites can create interactions that respond to live events on other websites and change behavior depending on a user’s history and personality. Traditional domain silos become open islands that grow dense with connection and come alive with the personality of dozens of personal websites.\n&nbsp;\nRather than one monolithic platform, WWO imagines a world where millions of tiny internets flourish, each finding new ways to express care, whimsy, and joy digitally.\n&nbsp;\nThis extension also powers *[we were browsing](https://spencer.place/creation/we-were-browsing/)*, a series of browser-based paintings using the data that WWO participants voluntarily contribute. \n&nbsp;\n**Partnerships**: [Wikipedia](https://www.instagram.com/p/DYpRnRAORbE/)\n&nbsp;\n&nbsp;\n&nbsp;\nDownload at [wewere.online](wewere.online) ",
   "parentCategory": "Project",
   "categories": [
     "Art",
@@ -11,16 +11,28 @@
   "date": "2026-03-19T07:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vYResx-NmR/6d1366457c5662fdb8d8a12339595e1b9b63b0e0442b02b64309bb80a8fb8af383e38f96dfa514530a6a04b7d225989b2fc978b0b278e45e8c9902c0247972c49990a198c95259cef902193524e390a1114fe7683d5c9acf0285dd5caf1807dd77ad0b79",
   "media": [
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vYResx-NmR/6d1366457c5662fdb8d8a12339595e1b9b63b0e0442b02b64309bb80a8fb8af383e38f96dfa514530a6a04b7d225989b2fc978b0b278e45e8c9902c0247972c49990a198c95259cef902193524e390a1114fe7683d5c9acf0285dd5caf1807dd77ad0b79"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vYResx-NmR/6d1366457c5662fdb8d8a12339595e1b9b63b0e0442b02b64309bb80a8fb8af383e38f96dfa514530a6a04b7d225989b2fc978b0b278e45e8c9902c0247972c49990a198c95259cef902193524e390a1114fe7683d5c9acf0285dd5caf1807dd77ad0b79",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-VzIjS_aBQ4/cebd6b6468b6dd37bafdbdb1015b50c25ecbb9127a876f7240a61f00f3d02a903f0e31045f32d98c9c57498ae55a75b290f223313e89dfd52bce5084d90fa421f82f6ab66d26347f0b9a760ac53f3ef865f618e65f8348a9a624ff7ac95485cf39a4c250",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-inPkhKHeN1/75e2ceec24049840753ab1e5d5de1806279dff6e44090696395bec0e2418601a87cb3eeb4d7b463248f37fc0e6faf31ac073ea290ba41cb72773c3fc7012977b4f5e0bc2c64f455347e66b67e86e57fe5ac8ee007c6eae94b18281cb00debfe2c4756e6c",
+    "/creation-videos/bl-p9yynh9NmX.mp4",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-FsQKPi6i_E/0f93e76867008dfe92e58a9db1e3e3fb401903866b2e12b86f6a6fccd2e993d126118f8ed7b224914fe03610ce3a4ef9c90a31f19a8bac5658eaaea638b3eb8a032b985e4aafde94922fc380834c7abce289fa48e905c24913d1f54409e73a75abe7daab"
   ],
   "link": "https://wewere.online/",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
     ""
   ],
   "isEvent": false,
   "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "video",
     "image"
   ],
   "related": [

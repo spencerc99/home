@@ -2,6 +2,245 @@
     "fits": [
         {
             "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-30%3AIMG_9101_edited.jpeg",
+            "date": "2026-05-30",
+            "timestamp": 1780177706.921,
+            "width": 3213,
+            "height": 5712,
+            "favorite": true,
+            "place": "Long Island, New York, New York Metropolitan Area, United States",
+            "city": "New York",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Arch",
+                "Bag",
+                "Boot",
+                "Cardboard Box",
+                "Clothing",
+                "Container",
+                "Footwear",
+                "Luggage",
+                "People",
+                "Plant",
+                "Shoes"
+            ],
+            "season": "Spring",
+            "activities": [
+                "Entertainment"
+            ],
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-17%3AIMG_8336_edited.jpeg",
+            "date": "2026-05-17",
+            "timestamp": 1779048915.738,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "London, England, United Kingdom",
+            "city": "London",
+            "country": "United Kingdom",
+            "peopleCount": 1,
+            "labels": [
+                "Elevator",
+                "People"
+            ],
+            "season": "Spring",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-14%3AIMG_8006_edited.jpeg",
+            "date": "2026-05-14",
+            "timestamp": 1778774812.615,
+            "width": 3213,
+            "height": 5712,
+            "favorite": true,
+            "place": "London, England, United Kingdom",
+            "city": "London",
+            "country": "United Kingdom",
+            "peopleCount": 1,
+            "labels": [
+                "Art",
+                "Clothing",
+                "Frame",
+                "People",
+                "Suit"
+            ],
+            "season": "Spring",
+            "activities": [
+                "Entertainment",
+                "Museum"
+            ],
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-31%3AIMG_9134_edited.jpeg",
+            "date": "2026-05-31",
+            "timestamp": 1780264818.202,
+            "width": 3213,
+            "height": 5712,
+            "favorite": true,
+            "place": "Long Island, Brooklyn, New York Metropolitan Area, United States",
+            "city": "Brooklyn",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Cardboard Box",
+                "Clothing",
+                "Container",
+                "Decorative Plant",
+                "Hat",
+                "Headgear",
+                "People",
+                "Plant"
+            ],
+            "season": "Spring",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-21%3AIMG_8537_edited.jpeg",
+            "date": "2026-05-21",
+            "timestamp": 1779348588.016,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Paris, \u00cele-de-France, France",
+            "city": "Paris",
+            "country": "France",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Door",
+                "People"
+            ],
+            "season": "Spring",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-15%3AIMG_8072_edited.jpeg",
+            "date": "2026-05-15",
+            "timestamp": 1778849152.097,
+            "width": 2752,
+            "height": 4895,
+            "favorite": false,
+            "place": "London, England, United Kingdom",
+            "city": "London",
+            "country": "United Kingdom",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Foliage",
+                "Formal Wear",
+                "Grass",
+                "Ivy",
+                "Land",
+                "Necktie",
+                "Outdoor",
+                "Path",
+                "People",
+                "Plant",
+                "Shrub",
+                "Suit",
+                "Window"
+            ],
+            "season": "Spring",
+            "activities": [
+                "Celebration"
+            ],
+            "venue_types": [
+                "History Museum",
+                "Landmark",
+                "Museum",
+                "Travel and Leisure"
+            ]
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-20%3AIMG_8467_edited.jpeg",
+            "date": "2026-05-20",
+            "timestamp": 1779266043.028,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Paris, \u00cele-de-France, France",
+            "city": "Paris",
+            "country": "France",
+            "peopleCount": 1,
+            "labels": [
+                "Camera",
+                "Door",
+                "People",
+                "Recreation"
+            ],
+            "season": "Spring",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-27%3AIMG_8969_edited.jpeg",
+            "date": "2026-05-27",
+            "timestamp": 1779886278.105,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Long Island, Brooklyn, New York Metropolitan Area, United States",
+            "city": "Brooklyn",
+            "country": "United States",
+            "peopleCount": 1,
+            "labels": [
+                "Clothing",
+                "Cord",
+                "Footwear",
+                "People",
+                "Shoes"
+            ],
+            "season": "Spring",
+            "activities": "",
+            "venue_types": ""
+        },
+        {
+            "description": "",
+            "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-05-24%3AIMG_8773_edited.jpeg",
+            "date": "2026-05-24",
+            "timestamp": 1779582709.785,
+            "width": 3213,
+            "height": 5712,
+            "favorite": false,
+            "place": "Paris, \u00cele-de-France, France",
+            "city": "Paris",
+            "country": "France",
+            "peopleCount": 1,
+            "labels": [
+                "Boot",
+                "Clothing",
+                "Container",
+                "Door",
+                "Footwear",
+                "Luggage",
+                "Machine",
+                "People",
+                "Purse",
+                "Shoes"
+            ],
+            "season": "Spring",
+            "activities": [
+                "Entertainment",
+                "Performance"
+            ],
+            "venue_types": ""
+        },
+        {
+            "description": "",
             "imgSrc": "https://assets.spencerchang.me/fits-stream/2026-04-22%3AIMG_7453_edited.jpeg",
             "date": "2026-04-22",
             "timestamp": 1776917409.484,
