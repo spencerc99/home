@@ -480,7 +480,7 @@ export function LiveChat() {
                 {spencerChatStatus === "away" && (
                   <span className="live-chat-away-mark">Z z z</span>
                 )}
-                spencer is {spencerChatStatus}
+                {spencerChatStatus === "away" ? "spencer is away" : "spencer home"}
               </span>
             </>
           )}
