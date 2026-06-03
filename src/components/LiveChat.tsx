@@ -489,10 +489,11 @@ export function LiveChat() {
                     backgroundColor: SPENCER_COLOR,
                     boxShadow: `0 0 3px ${SPENCER_COLOR}`,
                   }}
-                />
-                {spencerChatStatus === "away" && (
-                  <span className="live-chat-away-mark">Z z z</span>
-                )}
+                >
+                  {spencerChatStatus === "away" && (
+                    <span className="live-chat-away-mark">z</span>
+                  )}
+                </span>
                 {spencerChatStatus === "away" ? "spencer is away" : "spencer home"}
               </span>
             </>
