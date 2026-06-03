@@ -39,7 +39,7 @@
     opacity: 0;
   }
   35% {
-    opacity: 0.8;
+    opacity: 1;
   }
   100% {
     transform: translate(2px, -12px);
@@ -248,12 +248,23 @@
 
 .live-chat-away-mark {
   animation: away-z-drift 1.4s steps(3, end) infinite;
-  color: #777;
+  color: #1a1a1a;
   font-size: 9px;
+  font-weight: 700;
   line-height: 1;
   position: absolute;
   right: -2px;
+  text-shadow:
+    0 0 2px #fff,
+    0 0 2px #fff;
   top: -2px;
+
+  .dark-mode & {
+    color: #fff;
+    text-shadow:
+      0 0 2px #000,
+      0 0 2px #000;
+  }
 }
 
 .live-chat-name {
