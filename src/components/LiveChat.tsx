@@ -11,7 +11,12 @@ import React, {
 } from "react";
 import { PlayContext, playhtml, useCursorPresences, usePresenceRoom } from "@playhtml/react";
 import { useStore } from "@nanostores/react";
-import { isSpencer, SPENCER_COLOR, getSpencerStableId } from "../utils/presence";
+import {
+  isSpencer,
+  SPENCER_COLOR,
+  getSpencerStableId,
+  getSpencerChatStatus,
+} from "../utils/presence";
 import {
   $chatMessages,
   $chatVisible,
@@ -19,8 +24,8 @@ import {
   $chatSpencerLeft,
   $chatUnreadCount,
   $chatDismissed,
-  type ChatMessage,
 } from "../stores/chat";
+import { isScrolledNearBottom } from "../utils/chat";
 import "./LiveChat.scss";
 
 const URL_PATTERN = /(https?:\/\/[^\s<>"']+[^\s<>"'.,!?)\]}])/g;
@@ -60,9 +65,13 @@ export function LiveChat() {
   const [myColor, setMyColor] = useState(() => window.cursors?.color ?? "#888");
   const [flashTitlebar, setFlashTitlebar] = useState(false);
   const [typingStableIds, setTypingStableIds] = useState<Set<string>>(new Set());
+  const [activePresences, setActivePresences] = useState<
+    Map<string, { active?: boolean }>
+  >(new Map());
+  const messagesRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const shouldAutoScrollRef = useRef(true);
   const minimizedRef = useRef(false);
   minimizedRef.current = minimized;
   // Stable IDs (→ {name, color}) of people who have sent a chat message this
@@ -84,6 +93,10 @@ export function LiveChat() {
   const spencerStableId = useMemo(
     () => getSpencerStableId(cursorPresences),
     [cursorPresences],
+  );
+  const spencerChatStatus = useMemo(
+    () => getSpencerChatStatus(cursorPresences, activePresences),
+    [cursorPresences, activePresences],
   );
 
   // Keep the displayed name and color in sync with updates from elsewhere (Stats, Guestbook)
@@ -108,15 +121,27 @@ export function LiveChat() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!hasSynced) return;
+    const unsub = playhtml.presence.onPresenceChange("active", (presences) => {
+      const next = new Map<string, { active?: boolean }>();
+      for (const [stableId, view] of presences) {
+        next.set(stableId, { active: (view as any).active });
+      }
+      setActivePresences(next);
+    });
+    return unsub;
+  }, [hasSynced]);
+
   // Show chat when Spencer arrives
   useEffect(() => {
     if (!hasSynced) return;
     if (dismissed) return;
-    if (spencerStableId && !visible) {
+    if (spencerChatStatus !== "absent" && !visible) {
       $chatVisible.set(true);
       $chatSpencerLeft.set(false);
       $chatMessages.set([
-        ...messages,
+        ...$chatMessages.get(),
         {
           id: `system-${Date.now()}`,
           text: "spencer just arrived",
@@ -126,10 +151,10 @@ export function LiveChat() {
           type: "system",
         },
       ]);
-    } else if (!spencerStableId && visible && !spencerLeft) {
+    } else if (spencerChatStatus === "absent" && visible && !spencerLeft) {
       $chatSpencerLeft.set(true);
       $chatMessages.set([
-        ...messages,
+        ...$chatMessages.get(),
         {
           id: `system-${Date.now()}`,
           text: "spencer has left",
@@ -140,7 +165,7 @@ export function LiveChat() {
         },
       ]);
     }
-  }, [spencerStableId, hasSynced, visible, spencerLeft, dismissed]);
+  }, [spencerChatStatus, hasSynced, visible, spencerLeft, dismissed]);
 
   // HACK: Using presence channel for messaging because play events are page-scoped,
   // not domain-scoped. Each user's latest message is set as their "chat-msg" presence,
@@ -302,10 +327,21 @@ export function LiveChat() {
     return unsub;
   }, [room]);
 
-  // Auto-scroll to bottom on new messages
+  // Keep the chat pinned only while the user is already reading the latest messages.
   useEffect(() => {
+    if (!shouldAutoScrollRef.current) return;
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typingStableIds]);
+
+  const handleMessagesScroll = useCallback(() => {
+    const messagesEl = messagesRef.current;
+    if (!messagesEl) return;
+    shouldAutoScrollRef.current = isScrolledNearBottom(
+      messagesEl.scrollTop,
+      messagesEl.clientHeight,
+      messagesEl.scrollHeight,
+    );
+  }, []);
 
   const sendMessage = useCallback(() => {
     const text = inputValue.trim();
@@ -320,6 +356,7 @@ export function LiveChat() {
     // Broadcast via presence room — the listener will pick it up and dedup
     room.presence.setMyPresence("chat-msg", { text, stableId, color, name, timestamp });
 
+    shouldAutoScrollRef.current = true;
     setInputValue("");
     room.presence.setMyPresence("typing", null);
   }, [inputValue, room]);
@@ -430,29 +467,43 @@ export function LiveChat() {
               type="text"
               value={name}
               onChange={(e) => handleNameChange(e.target.value)}
-              placeholder="set a name..."
+              placeholder="name"
               maxLength={20}
             />
           </span>
           {" · "}
           {pplCount} ppl here
-          {spencerStableId && (
+          {spencerChatStatus !== "absent" && (
             <>
               {" "}·{" "}
               <span
-                className="live-chat-dot"
-                style={{
-                  width: "6px",
-                  height: "6px",
-                  backgroundColor: SPENCER_COLOR,
-                  boxShadow: `0 0 3px ${SPENCER_COLOR}`,
-                }}
-              />{" "}
-              spencer is home
+                className={`live-chat-spencer-status ${
+                  spencerChatStatus === "away" ? "away" : ""
+                }`}
+              >
+                <span
+                  className="live-chat-dot live-chat-spencer-dot"
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    backgroundColor: SPENCER_COLOR,
+                    boxShadow: `0 0 3px ${SPENCER_COLOR}`,
+                  }}
+                >
+                  {spencerChatStatus === "away" && (
+                    <span className="live-chat-away-mark">z</span>
+                  )}
+                </span>
+                {spencerChatStatus === "away" ? "spencer is away" : "spencer home"}
+              </span>
             </>
           )}
         </div>
-        <div className="live-chat-messages">
+        <div
+          ref={messagesRef}
+          className="live-chat-messages"
+          onScroll={handleMessagesScroll}
+        >
           {messages.map((msg) => {
             if (msg.type === "system") {
               return (
@@ -471,15 +522,11 @@ export function LiveChat() {
             const msgIsSpencer =
               msg.name === "spencer" && msg.color === SPENCER_COLOR;
             return (
-              <div key={msg.id} className="live-chat-message">
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "3px",
-                    flexShrink: 0,
-                  }}
-                >
+              <div
+                key={msg.id}
+                className="live-chat-message"
+              >
+                <span className="live-chat-message-meta">
                   <span
                     className="live-chat-dot"
                     style={{
@@ -519,7 +566,6 @@ export function LiveChat() {
         </div>
         <div className="live-chat-input">
           <input
-            ref={inputRef}
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}

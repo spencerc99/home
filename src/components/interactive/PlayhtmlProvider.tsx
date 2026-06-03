@@ -6,6 +6,13 @@ import { useContext, useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
 import { LiveChat } from "../LiveChat";
 import { isRegular } from "../../utils/roles";
+import {
+  VISITOR_AWAY_DELAY_MS,
+  getVisitorAvailability,
+} from "../../utils/presence";
+
+const VISIBLE_TAB_HEARTBEAT_KEY = "spencer-place-visible-tab-at";
+const VISIBLE_TAB_HEARTBEAT_INTERVAL_MS = 5_000;
 
 // Migrate legacy "username" from localStorage into playhtml's identity if needed.
 // Runs once before PlayProvider initializes the cursor client.
@@ -40,23 +47,85 @@ function PresenceBroadcaster() {
   useEffect(() => {
     if (!hasSynced) return;
 
+    let hiddenSince = document.hidden ? Date.now() : null;
+    let awayTimer: ReturnType<typeof setTimeout> | null = null;
+    let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+
+    const getLastVisibleAt = () => {
+      const value = localStorage.getItem(VISIBLE_TAB_HEARTBEAT_KEY);
+      if (!value) return null;
+      const timestamp = Number(value);
+      return Number.isFinite(timestamp) ? timestamp : null;
+    };
+
+    const writeVisibleHeartbeat = () => {
+      localStorage.setItem(VISIBLE_TAB_HEARTBEAT_KEY, String(Date.now()));
+    };
+
+    const broadcastAvailability = () => {
+      const availability = getVisitorAvailability(
+        document.hidden,
+        hiddenSince,
+        getLastVisibleAt(),
+      );
+      playhtml.presence.setMyPresence("active", availability === "available");
+    };
+
+    const clearAwayTimer = () => {
+      if (awayTimer) {
+        clearTimeout(awayTimer);
+        awayTimer = null;
+      }
+    };
+
+    const scheduleAwayTimer = () => {
+      clearAwayTimer();
+      awayTimer = setTimeout(() => {
+        broadcastAvailability();
+      }, VISITOR_AWAY_DELAY_MS);
+    };
+
     // Broadcast current page, active state, and regular status
     playhtml.presence.setMyPresence("page", window.location.pathname);
     playhtml.presence.setMyPresence("regular", isRegular());
-    playhtml.presence.setMyPresence("active", !document.hidden);
+    if (!document.hidden) {
+      writeVisibleHeartbeat();
+    } else {
+      scheduleAwayTimer();
+    }
+    broadcastAvailability();
 
     const handleVisibility = () => {
-      playhtml.presence.setMyPresence("active", !document.hidden);
+      if (document.hidden) {
+        hiddenSince = Date.now();
+        broadcastAvailability();
+        scheduleAwayTimer();
+      } else {
+        hiddenSince = null;
+        clearAwayTimer();
+        writeVisibleHeartbeat();
+        broadcastAvailability();
+      }
     };
     // Update page on view transition navigation
     const handlePageLoad = () => {
       playhtml.presence.setMyPresence("page", window.location.pathname);
     };
 
+    heartbeatTimer = setInterval(() => {
+      if (!document.hidden) {
+        writeVisibleHeartbeat();
+        broadcastAvailability();
+      }
+    }, VISIBLE_TAB_HEARTBEAT_INTERVAL_MS);
     document.addEventListener("visibilitychange", handleVisibility);
     document.addEventListener("astro:page-load", handlePageLoad);
 
     return () => {
+      clearAwayTimer();
+      if (heartbeatTimer) {
+        clearInterval(heartbeatTimer);
+      }
       document.removeEventListener("visibilitychange", handleVisibility);
       document.removeEventListener("astro:page-load", handlePageLoad);
     };
@@ -82,6 +151,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
         cursors: {
           enabled: true,
           room: "domain",
+          coordinateMode: "absolute",
           container: "#playhtml-cursor-container",
           getCursorStyle: (presence) => {
             if (presence.page !== window.location.pathname) {
