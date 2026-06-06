@@ -1,3 +1,5 @@
+// ABOUTME: Renders creation previews in list and grid layouts.
+// ABOUTME: Handles links, metadata, and progressive media loading for summaries.
 import type { CollectionEntry } from "astro:content";
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
@@ -7,6 +9,8 @@ import { ImageOrVideo } from "./ImageOrVideo";
 import dayjs from "dayjs";
 import { stringToColor } from "../utils";
 import { maybeTransformImgixUrl } from "../utils/images";
+import { getProgressivePreviewImage } from "../utils/creationPreviewMedia";
+
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
     id: string;
@@ -75,6 +79,45 @@ export function CreationSummary({
       w: "300",
     });
   }, [media, assetPreviewIdx]);
+
+  const transformedProgressivePreviewImage = useMemo(() => {
+    const previewImage = getProgressivePreviewImage({
+      media,
+      mediaMetadata,
+      assetPreviewIdx,
+    });
+    if (!previewImage) {
+      return null;
+    }
+    return maybeTransformImgixUrl(previewImage, {
+      auto: "format,compress",
+      fit: "max",
+      w: "300",
+    });
+  }, [media, mediaMetadata, assetPreviewIdx]);
+
+  const previewMediaType = mediaMetadata?.[assetPreviewIdx];
+  const progressivePreviewImage =
+    transformedProgressivePreviewImage && !hasLoadedMedia ? (
+      <ImageOrVideo
+        src={transformedProgressivePreviewImage}
+        className="registryImage"
+        loading="lazy"
+        style={{
+          gridArea: "1 / 1",
+          objectFit: "cover",
+          pointerEvents: "none",
+        }}
+        controls={false}
+        withZoom={false}
+        type="image"
+      />
+    ) : null;
+  const hasProgressivePreviewImage = Boolean(progressivePreviewImage);
+  const loadingVideoStyle = {
+    gridArea: "1 / 1",
+    opacity: hasProgressivePreviewImage ? 0 : undefined,
+  };
 
   switch (view) {
     // case ViewType.FREE:
@@ -181,21 +224,30 @@ export function CreationSummary({
                 borderRadius: "inherit",
               }}
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className={classNames({
-                  loading: !hasLoadedMedia,
-                })}
-                onLoadedData={() => {
-                  setHasLoadedMedia(true);
+              <div
+                style={{
+                  display: "grid",
+                  borderRadius: "inherit",
                 }}
               >
-                {/* NOTE: this type is required for webm videos to work in safari. not all videos are webm but other ones work too with this so 🤷 */}
-                <source src={transformedMovieUrl} type="video/webm" />
-              </video>
+                {progressivePreviewImage}
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className={classNames({
+                    loading: !hasLoadedMedia && !hasProgressivePreviewImage,
+                  })}
+                  style={loadingVideoStyle}
+                  onLoadedData={() => {
+                    setHasLoadedMedia(true);
+                  }}
+                >
+                  {/* NOTE: this type is required for webm videos to work in safari. not all videos are webm but other ones work too with this so 🤷 */}
+                  <source src={transformedMovieUrl} type="video/webm" />
+                </video>
+              </div>
             </LazyContainer>
           ) : transformedHeroAsset ? (
             <LazyContainer
@@ -203,27 +255,58 @@ export function CreationSummary({
                 borderRadius: "inherit",
               }}
             >
-              <ImageOrVideo
-                data-src={transformedHeroAsset}
-                className={classNames("lazyload registryImage", {
-                  loading: !hasLoadedMedia,
-                })}
-                loading="lazy"
-                onLoad={() => {
-                  setHasLoadedMedia(true);
-                }}
-                // video props
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls={false}
-                onLoadedData={() => {
-                  setHasLoadedMedia(true);
-                }}
-                withZoom={false}
-                type={mediaMetadata?.[assetPreviewIdx]}
-              />
+              {previewMediaType === "video" &&
+              transformedProgressivePreviewImage ? (
+                <div
+                  style={{
+                    display: "grid",
+                    borderRadius: "inherit",
+                  }}
+                >
+                  {progressivePreviewImage}
+                  <ImageOrVideo
+                    data-src={transformedHeroAsset}
+                    className={classNames("lazyload registryImage", {
+                      loading: !hasLoadedMedia && !hasProgressivePreviewImage,
+                    })}
+                    loading="lazy"
+                    style={loadingVideoStyle}
+                    // video props
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls={false}
+                    onLoadedData={() => {
+                      setHasLoadedMedia(true);
+                    }}
+                    withZoom={false}
+                    type={previewMediaType}
+                  />
+                </div>
+              ) : (
+                <ImageOrVideo
+                  data-src={transformedHeroAsset}
+                  className={classNames("lazyload registryImage", {
+                    loading: !hasLoadedMedia,
+                  })}
+                  loading="lazy"
+                  onLoad={() => {
+                    setHasLoadedMedia(true);
+                  }}
+                  // video props
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls={false}
+                  onLoadedData={() => {
+                    setHasLoadedMedia(true);
+                  }}
+                  withZoom={false}
+                  type={previewMediaType}
+                />
+              )}
             </LazyContainer>
           ) : null}
         </div>
