@@ -334,8 +334,30 @@
     }
   }
 
-  // Flow Images - use responsive grid and hide hero images
-  .flow-images {
+  // Continued description sections (after the first) span without the
+  // footer column
+  .descriptions-continued {
+    grid-template-columns: 1fr;
+  }
+
+  // Footer renders twice: as a sidebar next to the first text section on
+  // wide screens, and after all sections on stacked layouts
+  .description-footer-stacked {
+    display: none;
+    margin-bottom: 2em;
+  }
+  @include media(xsmallScreen, smallScreen, mediumScreen) {
+    .description-footer-sidebar {
+      display: none;
+    }
+    .description-footer-stacked {
+      display: block;
+    }
+  }
+
+  // Shared layout for trailing gallery and interleaved section media rows
+  .flow-images,
+  .section-media {
     margin: 2em 0;
 
     .images {
@@ -365,7 +387,10 @@
       width: min-content;
       max-width: 100%;
     }
+  }
 
+  // Trailing gallery hides the items already shown in the hero row
+  .flow-images {
     // Hide the first 3 images that were shown in hero row (large screens > 1000px)
     .images > div:nth-child(-n + 3) {
       display: none;

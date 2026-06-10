@@ -35,22 +35,18 @@ const {
   related,
 } = Astro.props;
 
-const descriptionParsed = descriptionMd
-  ? await marked.parse(
-      // Convert any single \n that isn't preceded by two spaces into \n\n
-      descriptionMd.replace(/(?<!  )\n&nbsp;/g, "\n\n"),
-      {
-        breaks: true,
-        gfm: true,
-      }
-    )
+const markedOptions = { breaks: true, gfm: true };
+
+// Convert any single \n that isn't preceded by two spaces into \n\n
+const normalizedDescription = descriptionMd
+  ? descriptionMd.replace(/(?<!  )\n&nbsp;/g, "\n\n")
   : "";
 
 // Parse manual footer markdown if present
 const manualFooterParsed = descriptionFooterMd
   ? await marked.parse(
       descriptionFooterMd.trim().replace(/(?<!  )\n&nbsp;/g, "\n\n"),
-      { breaks: true, gfm: true }
+      markedOptions
     )
   : "";
 
@@ -198,11 +194,6 @@ const style = {
   }),
 };
 
-// Parse description into paragraphs for mobile interspersing
-const descriptionParagraphs = descriptionParsed
-  ? descriptionParsed.split("\n").filter((p) => p.trim())
-  : [];
-
 // Organize media - all media including movieUrl if present
 const allMediaSources = movieUrl ? [transformedMovieUrl] : [];
 allMediaSources.push(...mediaTransformed);
@@ -225,63 +216,97 @@ function getDomainFromUrl(url: string): string {
 
 const linkDomain = link ? getDomainFromUrl(link) : "";
 
-// // Function to create mobile interspersed content
-// function createMobileContent(
-//   paragraphs: string[],
-//   mediaSources: string[],
-//   descriptions: string[],
-//   metadata: any[]
-// ) {
-//   const content: Array<{
-//     type: "text" | "image" | "video";
-//     content?: string;
-//     src?: string;
-//     description?: string;
-//     metadata?: any;
-//     index?: number;
-//   }> = [];
-//   let mediaIndex = 0;
+// --- Interleaved text/media sections ---
+// Curated mode: a line like `[media: 2, 4-5]` in descriptionMd pulls those
+// items (1-based indices into `media`, ignoring movieUrl) out of the trailing
+// gallery and renders them at that point in the text.
+// Auto mode (no markers): remaining gallery items are interleaved between
+// every couple of paragraphs instead of all dumped at the end.
 
-//   // Add first media item
-//   if (mediaSources[0]) {
-//     content.push({
-//       type: movieUrl ? "video" : "image",
-//       src: mediaSources[0],
-//       description: descriptions[0],
-//       metadata: metadata[0],
-//       index: 0,
-//     });
-//     mediaIndex = 1;
-//   }
+// movieUrl is prepended to allMediaSources, shifting authored media indices
+const mediaIndexOffset = movieUrl ? 1 : 0;
+// Hero shows up to 3 items; auto mode only intersperses items beyond those
+const HERO_RESERVED = 3;
+const AUTO_PARAGRAPHS_PER_SECTION = 2;
+const AUTO_IMAGES_PER_BREAK = 2;
 
-//   // Intersperse paragraphs with media every 2 paragraphs
-//   paragraphs.forEach((paragraph, i) => {
-//     // Only add non-empty paragraphs
-//     if (paragraph.trim()) {
-//       content.push({ type: "text", content: paragraph });
+// Parses "2, 4-6" into allMediaSources indices
+function parseMarkerSpec(spec: string): number[] {
+  const indices: number[] = [];
+  for (const token of spec.split(",")) {
+    const trimmed = token.trim();
+    const range = trimmed.match(/^(\d+)\s*-\s*(\d+)$/);
+    if (range) {
+      for (let i = Number(range[1]); i <= Number(range[2]); i++) {
+        indices.push(i);
+      }
+    } else if (/^\d+$/.test(trimmed)) {
+      indices.push(Number(trimmed));
+    }
+  }
+  return indices
+    .map((oneBased) => oneBased - 1 + mediaIndexOffset)
+    .filter((i) => i >= 0 && i < allMediaSources.length);
+}
 
-//       if ((i + 1) % 2 === 0 && mediaIndex < mediaSources.length) {
-//         content.push({
-//           type: "image",
-//           src: mediaSources[mediaIndex],
-//           description: descriptions[mediaIndex],
-//           metadata: metadata[mediaIndex],
-//           index: mediaIndex,
-//         });
-//         mediaIndex++;
-//       }
-//     }
-//   });
+interface DescriptionSection {
+  html: string;
+  mediaIndices: number[];
+}
 
-//   return content;
-// }
+const sections: DescriptionSection[] = [];
+// split() with a capture group alternates [text, spec, text, spec, ..., text]
+const markerParts = normalizedDescription.split(
+  /^\s*\[media:\s*([\d\s,-]+)\]\s*$/m
+);
 
-// const mobileContent = createMobileContent(
-//   descriptionParagraphs,
-//   allMediaSources,
-//   allDescriptions,
-//   allMetadata
-// );
+if (markerParts.length > 1) {
+  for (let i = 1; i <= markerParts.length; i += 2) {
+    const text = markerParts[i - 1].trim();
+    const spec = markerParts[i];
+    sections.push({
+      html: text ? await marked.parse(text, markedOptions) : "",
+      mediaIndices: spec ? parseMarkerSpec(spec) : [],
+    });
+  }
+} else if (normalizedDescription.trim()) {
+  const paragraphs = normalizedDescription
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  let nextMediaIdx = HERO_RESERVED;
+  for (let p = 0; p < paragraphs.length; p += AUTO_PARAGRAPHS_PER_SECTION) {
+    const group = paragraphs
+      .slice(p, p + AUTO_PARAGRAPHS_PER_SECTION)
+      .join("\n\n");
+    const isLastGroup = p + AUTO_PARAGRAPHS_PER_SECTION >= paragraphs.length;
+    const mediaIndices: number[] = [];
+    // No break after the final paragraphs — leftovers flow in the tail gallery
+    if (!isLastGroup) {
+      while (
+        mediaIndices.length < AUTO_IMAGES_PER_BREAK &&
+        nextMediaIdx < allMediaSources.length
+      ) {
+        mediaIndices.push(nextMediaIdx++);
+      }
+    }
+    sections.push({
+      html: await marked.parse(group, markedOptions),
+      mediaIndices,
+    });
+  }
+}
+
+// Items placed within sections; everything else stays in hero + tail gallery,
+// which share the responsive nth-child show/hide pairing
+const referencedIndices = new Set(sections.flatMap((s) => s.mediaIndices));
+const galleryItems = allMediaSources
+  .map((src, i) => ({
+    src,
+    description: allDescriptions[i] || "",
+    type: allMetadata[i],
+  }))
+  .filter((_, i) => !referencedIndices.has(i));
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
@@ -335,42 +360,92 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
               ) : movieEmbed ? (
                 <iframe class="movieEmbed" src={movieEmbed} />
               ) : (
-                allMediaSources.slice(0, 4).map((src, i) => (
-                  <div class="media-item" key={src}>
+                galleryItems.slice(0, 4).map((item) => (
+                  <div class="media-item" key={item.src}>
                     <ImageOrVideo
                       client:only="react"
                       className="medium-masonry"
-                      src={src}
-                      type={allMetadata[i]}
+                      src={item.src}
+                      type={item.type}
                     />
 
-                    {allDescriptions[i] && (
-                      <p class="descriptionText">{allDescriptions[i]}</p>
+                    {item.description && (
+                      <p class="descriptionText">{item.description}</p>
                     )}
                   </div>
                 ))
               )
             }
           </div>
-          <!-- Two-Column Description -->
-          <div class="descriptions">
-            <div class="description-columns">
-              {descriptionParsed && <div set:html={descriptionParsed} />}
-            </div>
-            <div
-              class="description-footer meta small"
-              set:html={descriptionFooterParsed}
-            />
-          </div>
+          <!-- Interleaved Description + Media Sections -->
+          {
+            sections.map((section, i) => (
+              <>
+                {(section.html || (i === 0 && descriptionFooterParsed)) && (
+                  <div
+                    class={`descriptions${i === 0 ? "" : " descriptions-continued"}`}
+                  >
+                    <div class="description-columns">
+                      {section.html && <div set:html={section.html} />}
+                    </div>
+                    {i === 0 && descriptionFooterParsed && (
+                      <div
+                        class="description-footer description-footer-sidebar meta small"
+                        set:html={descriptionFooterParsed}
+                      />
+                    )}
+                  </div>
+                )}
+                {section.mediaIndices.length > 0 && (
+                  <div class="section-media">
+                    <CreationDetailImages
+                      client:only="react"
+                      images={section.mediaIndices.map(
+                        (idx) => allMediaSources[idx]
+                      )}
+                      descriptions={section.mediaIndices.map(
+                        (idx) => allDescriptions[idx] || ""
+                      )}
+                      metadata={section.mediaIndices.map(
+                        (idx) => allMetadata[idx]
+                      )}
+                      renderSingle
+                    />
+                  </div>
+                )}
+              </>
+            ))
+          }
+          {
+            // On stacked layouts the sidebar footer would interrupt the text
+            // after the first section, so it renders at the end instead
+            sections.length > 0 && descriptionFooterParsed && (
+              <div
+                class="description-footer description-footer-stacked meta small"
+                set:html={descriptionFooterParsed}
+              />
+            )
+          }
+          {
+            sections.length === 0 && descriptionFooterParsed && (
+              <div class="descriptions">
+                <div class="description-columns" />
+                <div
+                  class="description-footer meta small"
+                  set:html={descriptionFooterParsed}
+                />
+              </div>
+            )
+          }
         </div>
 
         <!-- Flow Images -->
         <div class="flow-images">
           <CreationDetailImages
-            images={allMediaSources}
-            descriptions={allDescriptions}
+            images={galleryItems.map((item) => item.src)}
+            descriptions={galleryItems.map((item) => item.description)}
             client:only="react"
-            metadata={allMetadata}
+            metadata={galleryItems.map((item) => item.type)}
           />
         </div>
 

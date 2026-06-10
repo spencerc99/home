@@ -8,12 +8,16 @@ export function CreationDetailImages({
   images,
   descriptions,
   metadata,
+  renderSingle = false,
 }: {
   images: string[];
   descriptions: string[];
   metadata: ("image" | "video")[];
+  // The trailing gallery skips rendering for a lone image (it's already the
+  // hero); interleaved section rows want it shown.
+  renderSingle?: boolean;
 }) {
-  return images.length > 1 ? (
+  return images.length > (renderSingle ? 0 : 1) ? (
     <ZoomContextProvider>
       <div className="images">
         {/* TODO: turn into lightbox carousel with photoswipe */}
