@@ -1,3 +1,5 @@
+// ABOUTME: Renders an image element with medium-zoom behavior attached.
+// ABOUTME: Preserves normal image props while wiring the zoom ref callback.
 import { ComponentProps, RefCallback } from "react";
 import React from "react";
 import { useZoom } from "../hooks/useZoom";
@@ -9,10 +11,6 @@ type MediaZoomProps = Omit<ComponentProps<"img">, "ref"> & {
 
 export function ImageZoom({ options, src, ...props }: MediaZoomProps) {
   const { attachZoom } = useZoom({ options });
-
-  if (!attachZoom) {
-    console.log("attachZoom", attachZoom);
-  }
 
   return (
     <img

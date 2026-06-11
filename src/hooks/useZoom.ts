@@ -1,84 +1,43 @@
-import mediumZoom, { type ZoomOptions, type Zoom } from "medium-zoom";
+// ABOUTME: Attaches image elements to the nearest shared zoom session.
+// ABOUTME: Uses the page-level zoom session when no provider is present.
+import { type ZoomOptions } from "medium-zoom";
 import { useCallback, useRef, type RefCallback } from "react";
 import { useContext } from "react";
 import { ZoomContext } from "../context/ZoomContext";
+import { getPageZoom } from "../utils/imageZoom";
 
 // TODO: this is so much weird overhead + needs the context which is super annoying. should be easier to do this without needing the context to understand all the zoom images on the same page.
 // Also it should work with videos..
 // maybe https://www.lightgalleryjs.com/docs/react-image-video-gallery/?
 export function useZoom({ options }: { options?: ZoomOptions }) {
   const { getZoom: getZoomInit } = useContext(ZoomContext);
+  const attachedNodeRef = useRef<HTMLImageElement | null>(null);
 
   const getZoom = useCallback(() => {
-    const zoom = mediumZoom(options);
-    return zoom;
-    // const zoominit = getZoomInit();
-    // TODO: this is failing intermittently lol just forget it
-    // return zoominit || zoom;
-  }, [getZoomInit]);
+    const zoominit = getZoomInit();
+    if (zoominit) return zoominit;
 
-  const attachZoom: RefCallback<HTMLImageElement | HTMLVideoElement> =
-    useCallback(
-      (node) => {
-        const zoom = getZoom();
-        zoom.on("open", attachKeyEvents);
-        zoom.on("close", detachKeyEvents);
+    return getPageZoom(options);
+  }, [getZoomInit, options]);
 
-        if (node) {
-          zoom.attach(node);
-        } else {
-          zoom.detach();
-        }
-      },
-      [getZoom]
-    );
+  const attachZoom: RefCallback<HTMLImageElement> = useCallback(
+    (node) => {
+      const zoom = getZoom();
 
-  const attachKeyEvents = (e) => {
-    document.addEventListener("keyup", handleKey, false);
-  };
-  const detachKeyEvents = (e) => {
-    document.removeEventListener("keyup", handleKey, false);
-  };
-  const handleKey = (e) => {
-    // console.log("handleKey", e);
-    const zoom = getZoom();
-    const images = zoom.getImages();
-    const currentImageIndex = images.indexOf(zoom.getZoomedImage());
-    let target;
+      if (attachedNodeRef.current && attachedNodeRef.current !== node) {
+        zoom.detach(attachedNodeRef.current);
+      }
 
-    if (images.length <= 1) {
-      return;
-    }
-
-    switch (e.code) {
-      case "ArrowLeft":
-        target =
-          currentImageIndex - 1 < 0
-            ? images[images.length - 1]
-            : images[currentImageIndex - 1];
-        zoom.close().then(() => {
-          target.scrollIntoView();
-          zoom.open({
-            target: target,
-          });
-        });
-        break;
-      case "ArrowRight":
-        target =
-          currentImageIndex + 1 >= images.length
-            ? images[0]
-            : images[currentImageIndex + 1];
-        zoom.close().then(() => {
-          target.scrollIntoView();
-          zoom.open({
-            target: target,
-          });
-        });
-        break;
-      default:
-        break;
-    }
-  };
+      if (node) {
+        zoom.attach(node);
+        attachedNodeRef.current = node;
+      } else if (attachedNodeRef.current) {
+        zoom.detach(attachedNodeRef.current);
+        attachedNodeRef.current = null;
+      }
+    },
+    [getZoom]
+  );
 
   return {
     getZoom,

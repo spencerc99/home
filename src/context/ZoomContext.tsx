@@ -1,6 +1,9 @@
+// ABOUTME: Provides access to the page-level image zoom session.
+// ABOUTME: Lets grouped gallery components share the same zoom instance.
 import { type Zoom } from "medium-zoom";
-import mediumZoom, { type ZoomOptions } from "medium-zoom";
-import { createContext, useRef } from "react";
+import { type ZoomOptions } from "medium-zoom";
+import { createContext } from "react";
+import { getPageZoom } from "../utils/imageZoom";
 
 export const ZoomContext = createContext<{
   getZoom: () => Zoom | null;
@@ -15,14 +18,8 @@ export function ZoomContextProvider({
   children: React.ReactNode;
   options?: ZoomOptions;
 }) {
-  const zoomRef = useRef<Zoom | null>(null);
-
   function getZoom() {
-    if (zoomRef.current === null) {
-      zoomRef.current = mediumZoom(options);
-    }
-
-    return zoomRef.current;
+    return getPageZoom(options);
   }
 
   return (
