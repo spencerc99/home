@@ -1,0 +1,30 @@
+{
+  "title": "Browsing the Internet Together",
+  "parentCategory": "Speaking, Workshops, Teaching",
+  "categories": [],
+  "date": "2026-06-06T07:00:00.000Z",
+  "institution": [
+    "NYU ITP"
+  ],
+  "heroImage": "https://partiful.imgix.net/external/user/s6iNDklrsmXhM9KLVQK9p0M0mwB3/SvIeKE3vRo6_76TPYx_vd?w=500&h=500&fit=clip",
+  "media": [
+    "https://partiful.imgix.net/external/user/s6iNDklrsmXhM9KLVQK9p0M0mwB3/SvIeKE3vRo6_76TPYx_vd?w=500&h=500&fit=clip"
+  ],
+  "link": "https://partiful.com/e/OaMuPHbkv4A3c4MJxwW5",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "Walking on the Internet Together",
+      "slug": "walking-on-the-internet-together",
+      "link": "https://spencer.place/creation/walking-on-the-internet-together",
+      "parentCategory": "Speaking, Workshops, Teaching"
+    }
+  ],
+  "location": "New York"
+}
