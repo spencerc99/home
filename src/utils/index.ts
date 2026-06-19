@@ -80,7 +80,7 @@ export function isEventForthcoming(
 /**
  * Formats a date or date range in a compact numeric format (MM/DD or MM/DD-MM/DD)
  * Uses 2-digit years (25/26) and includes year when needed
- * Format examples: "12/10-12/12" or "12/10/25-01/10/26"
+ * Format examples: "12/10-12/12", "12/10-12/12/30", or "9/26-4/27"
  */
 export function formatCompactDateRange(
   startDate: Date,
@@ -117,7 +117,6 @@ export function formatCompactDateRange(
     return `${startMonth}/${startDay}-${endMonth}/${endDay}${yearSuffix}`;
   }
 
-  // Different years - include 2-digit year for both
-  return `${startMonth}/${startDay}/${startYearShort}-${endMonth}/${endDay}/${endYearShort}`;
+  // Different years show month and 2-digit year for both endpoints.
+  return `${startMonth}/${startYearShort}-${endMonth}/${endYearShort}`;
 }
-
