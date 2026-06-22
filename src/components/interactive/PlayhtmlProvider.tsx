@@ -147,7 +147,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
   return (
     <PlayProvider
       initOptions={{
-        room: normalizedPagePath(),
+        room: normalizedPagePath,
         cursors: {
           enabled: true,
           room: "domain",
