@@ -1,9 +1,10 @@
-import { PlayProvider, withSharedState } from "@playhtml/react";
+import { withSharedState } from "@playhtml/react";
 import { Footnote } from "../Footnote";
 import { useStickyState } from "../../hooks/useStickyState";
 import { useTime } from "../../hooks/useTime";
 import "./Guestbook.scss";
 import React, { useEffect, useMemo, useState } from "react";
+import { PlayhtmlProvider } from "./PlayhtmlProvider";
 
 interface GuestbookEntry {
   name: string;
@@ -13,8 +14,10 @@ interface GuestbookEntry {
   website?: string;
 }
 
-interface GuestbookEntryViewProps
-  extends Omit<GuestbookEntry, "name" | "message"> {
+interface GuestbookEntryViewProps extends Omit<
+  GuestbookEntry,
+  "name" | "message"
+> {
   message: string | React.ReactNode;
   name: string | React.ReactNode;
   website?: string;
@@ -114,7 +117,7 @@ export const GuestbookImpl = withSharedState(
     }, [name]);
     const [website, setWebsite] = useStickyState<string | null>(
       "userwebsite",
-      null
+      null,
     );
     const [message, setMessage] = useState("");
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -174,7 +177,7 @@ export const GuestbookImpl = withSharedState(
 
     const sortedData = useMemo(
       () => data.sort((a, b) => b.timestamp - a.timestamp),
-      [data]
+      [data],
     );
 
     const time = useTime();
@@ -277,13 +280,13 @@ export const GuestbookImpl = withSharedState(
         </div>
       </div>
     );
-  }
+  },
 );
 
 export function Guestbook() {
   return (
-    <PlayProvider>
+    <PlayhtmlProvider>
       <GuestbookImpl />
-    </PlayProvider>
+    </PlayhtmlProvider>
   );
 }
