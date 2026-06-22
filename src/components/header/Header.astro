@@ -2,6 +2,7 @@
 import { ConnectedStats } from "../trinkets/ConnectedStats";
 import { StatusHeader } from "./StatusHeader";
 import HeaderActions from "../header/HeaderActions.astro";
+import SidebarSchedule from "./SidebarSchedule.astro";
 import SocialMediaLinks from "../SocialMediaLinks";
 ---
 
@@ -10,6 +11,7 @@ import SocialMediaLinks from "../SocialMediaLinks";
   <div class="sidebarContainer">
     <StatusHeader client:only="react" />
     <HeaderActions />
+    <SidebarSchedule />
     <div
       class="hide-mobile"
       style="display: flex; flex-direction: column; gap: 0.5em;"
