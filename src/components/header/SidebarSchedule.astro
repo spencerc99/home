@@ -1,15 +1,9 @@
 ---
-// ABOUTME: Compact sidebar block showing current "now" status + upcoming events.
-// ABOUTME: Rendered server-side from the now-entries data and the creation collection.
+// ABOUTME: Compact sidebar block showing current + upcoming events.
+// ABOUTME: Rendered server-side from the creation collection (forthcoming/ongoing only).
 import { getCollection } from "astro:content";
 import { hydrateCreations } from "../../utils/creations";
 import { isEventForthcoming, formatCompactDateRange } from "../../utils";
-import { nowEntries } from "../../data/now-entries";
-import { formatNowDate } from "../Now";
-
-const currentNow = nowEntries[0];
-const nowItems = currentNow?.items.slice(0, 3) ?? [];
-const hasMoreNow = (currentNow?.items.length ?? 0) > nowItems.length;
 
 const upcomingEvents = hydrateCreations(await getCollection("creation"))
   .filter((c) => c.data.isEvent)
@@ -24,29 +18,9 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
   .slice(0, 4);
 ---
 
-<div class="sidebarSchedule hide-mobile">
-  {
-    currentNow && (
-      <section class="sidebarBlock">
-        <div class="sidebarLabel">
-          now{" "}
-          <span class="descriptionText">{formatNowDate(currentNow.date)}</span>
-        </div>
-        <ul class="nowItems">
-          {nowItems.map((item) => (
-            <li set:html={item} />
-          ))}
-        </ul>
-        {hasMoreNow && (
-          <a href="/now" class="sidebarMore">
-            more →
-          </a>
-        )}
-      </section>
-    )
-  }
-  {
-    upcomingEvents.length > 0 && (
+{
+  upcomingEvents.length > 0 && (
+    <div class="sidebarSchedule hide-mobile">
       <section class="sidebarBlock">
         <div class="sidebarLabel">upcoming</div>
         <ul class="upcomingItems">
@@ -75,9 +49,9 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
         </ul>
         <a href="/events" class="sidebarMore">all events →</a>
       </section>
-    )
-  }
-</div>
+    </div>
+  )
+}
 
 <style lang="scss">
   .sidebarSchedule {
@@ -104,11 +78,6 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     border-bottom: 1px solid currentColor;
     padding-bottom: 0.2em;
     opacity: 0.85;
-
-    .descriptionText {
-      font-size: 10px;
-      font-style: normal;
-    }
   }
 
   ul {
@@ -118,18 +87,6 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     display: flex;
     flex-direction: column;
     gap: 0.45em;
-  }
-
-  .nowItems li {
-    position: relative;
-    padding-left: 0.85em;
-
-    &::before {
-      content: "–";
-      position: absolute;
-      left: 0;
-      opacity: 0.6;
-    }
   }
 
   .upcomingItems li {
