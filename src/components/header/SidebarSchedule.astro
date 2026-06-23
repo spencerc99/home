@@ -1,9 +1,10 @@
 ---
-// ABOUTME: Compact sidebar block showing current + upcoming events.
-// ABOUTME: Rendered server-side from the creation collection (forthcoming/ongoing only).
+// ABOUTME: Sidebar wrapper that renders upcoming/current events using the shared
+// ABOUTME: EventsView component, sourced from the creation collection.
 import { getCollection } from "astro:content";
 import { hydrateCreations } from "../../utils/creations";
-import { isEventForthcoming, formatCompactDateRange } from "../../utils";
+import { isEventForthcoming } from "../../utils";
+import { EventsView } from "../views/EventsView";
 
 const upcomingEvents = hydrateCreations(await getCollection("creation"))
   .filter((c) => c.data.isEvent)
@@ -14,100 +15,45 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     (a, b) =>
       new Date(a.data.date || 0).getTime() -
       new Date(b.data.date || 0).getTime()
-  )
-  .slice(0, 4);
+  );
 ---
 
 {
   upcomingEvents.length > 0 && (
-    <div class="sidebarSchedule hide-mobile">
-      <section class="sidebarBlock">
-        <div class="sidebarLabel">upcoming</div>
-        <ul class="upcomingItems">
-          {upcomingEvents.map((event) => (
-            <li>
-              {event.data.date && (
-                <span class="eventDate">
-                  {formatCompactDateRange(
-                    new Date(event.data.date),
-                    event.data.endDate ? new Date(event.data.endDate) : null
-                  )}
-                </span>
-              )}
-              <span class="eventTitle">
-                {event.data.link ? (
-                  <a href={event.data.link}>{event.data.title}</a>
-                ) : (
-                  event.data.title
-                )}
-                {event.data.location && (
-                  <span class="eventLoc"> · {event.data.location}</span>
-                )}
-              </span>
-            </li>
-          ))}
-        </ul>
-        <a href="/events" class="sidebarMore">all events →</a>
-      </section>
+    <div class="sidebarEvents hide-mobile">
+      <EventsView events={upcomingEvents} />
+      <a href="/events" class="sidebarEventsMore">all events →</a>
     </div>
   )
 }
 
 <style lang="scss">
-  .sidebarSchedule {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    font-size: 12px;
-    line-height: 1.35;
-  }
-
-  .sidebarBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em;
-  }
-
-  .sidebarLabel {
-    text-transform: lowercase;
-    font-style: italic;
+  .sidebarEvents {
     font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 0.2em;
-    opacity: 0.85;
+
+    :global(.eventsView) {
+      gap: 1rem;
+    }
+
+    :global(.event-list) {
+      gap: 0.75rem;
+    }
+
+    :global(.events-section h3) {
+      margin-bottom: 0.35rem;
+    }
+
+    // keep long meta lines from overflowing the narrow sidebar
+    :global(.event-year-group .event-meta) {
+      white-space: normal;
+    }
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.45em;
-  }
-
-  .upcomingItems li {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .eventDate {
-    font-size: 10px;
-    opacity: 0.6;
-    white-space: nowrap;
-  }
-
-  .eventLoc {
-    opacity: 0.6;
-  }
-
-  .sidebarMore {
-    font-size: 10px;
+  .sidebarEventsMore {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 11px;
     opacity: 0.7;
-    align-self: flex-end;
 
     &:hover {
       opacity: 1;
