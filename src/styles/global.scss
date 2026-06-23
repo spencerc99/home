@@ -604,6 +604,12 @@ footer {
     font-size: 90%;
   }
 
+  // events keep the default orange (internal) / green (external) link styling
+  .sidebarEvents a:not(.socialMediaLink):not(.avatarLink) {
+    color: var(--color-link) !important;
+    font-size: inherit;
+  }
+
   h2 {
     margin: 0;
   }

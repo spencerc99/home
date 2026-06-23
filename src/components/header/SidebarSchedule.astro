@@ -43,6 +43,11 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
       margin-bottom: 0.35rem;
     }
 
+    // drop the per-year header in the compact sidebar list
+    :global(.event-year-group .year-header) {
+      display: none;
+    }
+
     // keep long meta lines from overflowing the narrow sidebar
     :global(.event-year-group .event-meta) {
       white-space: normal;
