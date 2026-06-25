@@ -215,9 +215,8 @@ export function LiveChat() {
     return unsub;
   }, [room]);
 
-  // Announce joins/leaves. Show "joined" for any new arrival (excluding self and
-  // spencer, who has dedicated handling). Show "left" only for participants who
-  // have actually sent a message this session.
+  // Announce leaves. Show "left" only for participants who have actually sent a
+  // message this session (excluding self and spencer, who has dedicated handling).
   useEffect(() => {
     if (!hasSynced) return;
     if (!visible) {
@@ -270,25 +269,6 @@ export function LiveChat() {
     const prev = prevStableIdsRef.current;
     const announcements: ChatMessage[] = [];
 
-    for (const stableId of currentIds) {
-      if (prev.has(stableId)) continue;
-      if (stableId === myStableId) continue;
-      if (stableId === spencerStableId) continue;
-      if (announcedJoinsRef.current.has(stableId)) continue;
-      announcedJoinsRef.current.add(stableId);
-      const presence = cursorPresences.get(stableId);
-      const name = presence?.playerIdentity?.name;
-      const color =
-        presence?.playerIdentity?.playerStyle.colorPalette[0] ?? "#888";
-      announcements.push({
-        id: `system-join-${stableId}-${Date.now()}`,
-        text: name ? `${name} joined` : "joined",
-        stableId,
-        color,
-        timestamp: Date.now(),
-        type: "system",
-      });
-    }
     for (const stableId of prev) {
       if (currentIds.has(stableId)) continue;
       if (stableId === myStableId) continue;
