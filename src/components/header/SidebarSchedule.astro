@@ -1,0 +1,67 @@
+---
+// ABOUTME: Sidebar wrapper that renders upcoming/current events using the shared
+// ABOUTME: EventsView component, sourced from the creation collection.
+import { getCollection } from "astro:content";
+import { hydrateCreations } from "../../utils/creations";
+import { isEventForthcoming } from "../../utils";
+import { EventsView } from "../views/EventsView";
+
+const upcomingEvents = hydrateCreations(await getCollection("creation"))
+  .filter((c) => c.data.isEvent)
+  .filter((c) =>
+    isEventForthcoming(c.data.date, c.data.endDate, c.data.forthcoming)
+  )
+  .sort(
+    (a, b) =>
+      new Date(a.data.date || 0).getTime() -
+      new Date(b.data.date || 0).getTime()
+  );
+---
+
+{
+  upcomingEvents.length > 0 && (
+    <div class="sidebarEvents hide-mobile">
+      <EventsView events={upcomingEvents} />
+      <a href="/events" class="sidebarEventsMore">all events →</a>
+    </div>
+  )
+}
+
+<style lang="scss">
+  .sidebarEvents {
+    font-size: 13px;
+
+    :global(.eventsView) {
+      gap: 1rem;
+    }
+
+    :global(.event-list) {
+      gap: 0.75rem;
+    }
+
+    :global(.events-section h3) {
+      margin-bottom: 0.35rem;
+    }
+
+    // drop the per-year header in the compact sidebar list
+    :global(.event-year-group .year-header) {
+      display: none;
+    }
+
+    // keep long meta lines from overflowing the narrow sidebar
+    :global(.event-year-group .event-meta) {
+      white-space: normal;
+    }
+  }
+
+  .sidebarEventsMore {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 11px;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+</style>
