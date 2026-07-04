@@ -1,0 +1,90 @@
+---
+// ABOUTME: Sidebar wrapper that renders upcoming/current events using the shared
+// ABOUTME: EventsView component, sourced from the creation collection.
+import { getCollection } from "astro:content";
+import { hydrateCreations } from "../../utils/creations";
+import { isEventForthcoming } from "../../utils";
+import { EventsView } from "../views/EventsView";
+
+const upcomingEvents = hydrateCreations(await getCollection("creation"))
+  .filter((c) => c.data.isEvent)
+  .filter((c) =>
+    isEventForthcoming(c.data.date, c.data.endDate, c.data.forthcoming)
+  )
+  .sort(
+    (a, b) =>
+      new Date(a.data.date || 0).getTime() -
+      new Date(b.data.date || 0).getTime()
+  );
+---
+
+{
+  upcomingEvents.length > 0 && (
+    <div class="sidebarEvents hide-mobile">
+      <div class="sidebarEventsHeading">Now &amp; Upcoming</div>
+      <EventsView events={upcomingEvents} />
+      <a href="/events" class="sidebarEventsMore">all events →</a>
+    </div>
+  )
+}
+
+<style lang="scss">
+  .sidebarEvents {
+    // become its own bounded, scrollable region so the header/nav above and the
+    // social + stats block below stay fixed; only the events list scrolls.
+    // min-height keeps a few events visible instead of collapsing on short screens.
+    flex: 1 1 auto;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
+
+    :global(.eventsView) {
+      font-size: 13px;
+      gap: 1rem;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding-right: 4px;
+    }
+
+    :global(.event-list) {
+      gap: 0.75rem;
+    }
+
+    // hide EventsView's own italic "upcoming" heading; we render our own that
+    // matches the other sidebar section headings (e.g. Collections)
+    :global(.events-section h3) {
+      display: none;
+    }
+
+    // drop the per-year header in the compact sidebar list
+    :global(.event-year-group .year-header) {
+      display: none;
+    }
+
+    // keep long meta lines from overflowing the narrow sidebar
+    :global(.event-year-group .event-meta) {
+      white-space: normal;
+    }
+  }
+
+  // plain heading matching the other sidebar section headings (Collections);
+  // inherits the container font instead of the compact 13px event text
+  .sidebarEventsHeading {
+    flex: 0 0 auto;
+    margin-bottom: 0.5em;
+  }
+
+  .sidebarEventsMore {
+    flex: 0 0 auto;
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 11px;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+</style>
