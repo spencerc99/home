@@ -5,6 +5,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
 import { CreationListView } from "./CreationListView";
+import { CreationShowcase } from "../CreationShowcase";
 import {
   PINNED_CREATIONS,
   FEATURED_CATEGORY,
@@ -17,6 +18,7 @@ export enum ViewType {
   // FREE = "free",
   GRID = "grid",
   LIST = "list",
+  TABLE = "table",
 }
 
 export enum DescriptionType {
@@ -139,6 +141,10 @@ export function CreationsView({
   function renderCreations() {
     switch (view) {
       case ViewType.LIST:
+        return (
+          <CreationShowcase creations={filteredCreations} columns={columns} />
+        );
+      case ViewType.TABLE:
         return (
           <CreationListView
             creations={filteredCreations}
@@ -264,7 +270,7 @@ export function SimpleCreationsList({ creations }: Props) {
             id: creation.id,
             ...creation.data,
           }}
-          view={ViewType.LIST}
+          view={ViewType.TABLE}
         />
       ))}
     </div>

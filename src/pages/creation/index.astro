@@ -2,7 +2,12 @@
 import { getCollection } from "astro:content";
 import { CreationsView } from "../../components/views/CreationsView";
 import DetailLayout from "../../layouts/DetailLayout.astro";
-import { hydrateCreations, PINNED_CREATIONS } from "../../utils/creations";
+import { CreationShowcase } from "../../components/CreationShowcase";
+import {
+  hydrateCreations,
+  isFeaturedCreation,
+  PINNED_CREATIONS,
+} from "../../utils/creations";
 
 const creations = hydrateCreations(await getCollection("creation")).sort(
   (a, b) => {
@@ -23,6 +28,10 @@ const creations = hydrateCreations(await getCollection("creation")).sort(
     );
   },
 );
+
+const showcaseCreations = creations
+  .filter((c) => isFeaturedCreation(c.data))
+  .slice(0, 12);
 
 const LayoutProps = {
   // title: "(creations)",
@@ -51,11 +60,30 @@ const LayoutProps = {
       forward a world that looks like that.
     </p>
   </div>
+  <div class="showcaseSection">
+    <span
+      class="mono"
+      style="font-size: 18px; text-transform: uppercase; font-weight: bold;"
+    >
+      UP CLOSE
+    </span>
+    <CreationShowcase
+      creations={showcaseCreations}
+      columns={1}
+      client:only="react"
+    />
+    <span
+      class="mono"
+      style="font-size: 18px; text-transform: uppercase; font-weight: bold;"
+    >
+      THE FULL CATALOG
+    </span>
+  </div>
   <CreationsView
     creations={creations}
     columns={1}
     client:only="react"
-    defaultView="list"
+    defaultView="table"
     showEvents={false}
   />
 </DetailLayout>
