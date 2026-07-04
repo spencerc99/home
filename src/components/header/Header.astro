@@ -6,7 +6,6 @@ import SidebarSchedule from "./SidebarSchedule.astro";
 import SocialMediaLinks from "../SocialMediaLinks";
 ---
 
-<!-- TODO: improve mobile view for expanding / seeing the stuff that is hidden? -->
 <nav id="sidebar">
   <div class="sidebarContainer">
     <StatusHeader client:only="react" />
@@ -24,7 +23,7 @@ import SocialMediaLinks from "../SocialMediaLinks";
     <SidebarSchedule />
     <div
       style="margin-top: auto"
-      class="flex flex-col gap-2 hide-mobile w-full"
+      class="flex flex-col gap-2 w-full sidebarFooter"
     >
       <SocialMediaLinks />
       <div>

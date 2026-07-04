@@ -574,12 +574,109 @@ footer {
   @include media(xsmallScreen) {
     // Convert to top navbar on mobile
     width: 100%;
-    height: $navBar-height;
+    height: auto;
+    max-height: $navBar-height;
+    overflow: hidden;
     padding: 0 1em;
     left: 0;
     right: 0;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      -webkit-backdrop-filter 0.45s ease, backdrop-filter 0.45s ease;
+
+    // Tapping the name unfolds the navbar into the full desktop sidebar
+    .avatar {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform 0.15s ease;
+
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+
+    // Desktop-only sidebar content stays in the layout but hidden until expanded
+    .sidebarClock,
+    .sidebarEvents,
+    .sidebarFooter {
+      width: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease,
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.35s;
+    }
+
+    .sidebarClock {
+      order: 2;
+    }
+    .sidebarEvents {
+      order: 3;
+      // Long event lists scroll inside their own bounded region in the drawer
+      max-height: 14em;
+    }
+    .sidebarFooter {
+      order: 4;
+    }
+
+    &.expanded {
+      max-height: 94vh;
+      max-height: 94dvh;
+      overflow-y: auto;
+      // The translucent background needs a blur to stay legible over page content
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+
+      .sidebarClock,
+      .sidebarEvents,
+      .sidebarFooter {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+
+      .sidebarClock {
+        transition-delay: 0.08s;
+      }
+      .sidebarEvents {
+        transition-delay: 0.16s;
+      }
+      .sidebarFooter {
+        transition-delay: 0.24s;
+      }
+
+      .navbarActions a span.name {
+        display: inline;
+        animation: sidebar-name-in 0.3s ease 0.1s backwards;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      .sidebarClock,
+      .sidebarEvents,
+      .sidebarFooter {
+        transition: none;
+      }
+
+      &.expanded .navbarActions a span.name {
+        animation: none;
+      }
+    }
+  }
+}
+
+@keyframes sidebar-name-in {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -594,9 +691,16 @@ footer {
   @include media(xsmallScreen) {
     flex-direction: row;
     align-items: center;
-    gap: 0.25em;
-    height: inherit;
-    padding: 0;
+    flex-wrap: wrap;
+    gap: 0.75em 0.25em;
+    height: auto;
+    padding: 0 0 1em;
+
+    > .navbarActions {
+      min-height: $navBar-height;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
   }
 
   a:not(.socialMediaLink):not(.avatarLink) {
@@ -627,13 +731,8 @@ footer {
 
   // Hide some elements on mobile to save space
   @include media(xsmallScreen) {
-    .textContent,
-    > div:last-child {
+    .textContent {
       display: none;
-    }
-
-    > div:first-child {
-      display: none; // Hide clock embed on mobile
     }
   }
 }
@@ -2236,8 +2335,8 @@ video {
   aspect-ratio: 1/1;
   width: fit-content;
   height: auto;
-  // Scale down dramatically in mobile navbar
-  #sidebar & {
+  // Scale down dramatically in mobile navbar; full size in the expanded drawer
+  #sidebar:not(.expanded) & {
     @include media(xsmallScreen) {
       width: 32px;
       height: 32px;
