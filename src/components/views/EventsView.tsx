@@ -10,7 +10,7 @@ interface Props {
 }
 
 function groupByYear(
-  events: Props["events"]
+  events: Props["events"],
 ): Array<{ year: string; events: Props["events"] }> {
   const groups: Map<string, Props["events"]> = new Map();
   for (const event of events) {
@@ -44,14 +44,10 @@ function EventList({ events }: { events: Props["events"] }) {
               <li key={event.id}>
                 {event.data.date && (
                   <span className="event-meta">
-                    <b>
-                      {event.data.location && `[${event.data.location}] `}
-                    </b>
+                    <b>{event.data.location && `[${event.data.location}] `}</b>
                     {formatCompactDateRange(
                       new Date(event.data.date),
-                      event.data.endDate
-                        ? new Date(event.data.endDate)
-                        : null
+                      event.data.endDate ? new Date(event.data.endDate) : null,
                     )}
                     {event.data.institution && (
                       <> ({event.data.institution[0]})</>
@@ -85,24 +81,29 @@ function hasEnoughInfo(event: Props["events"][number]): boolean {
 }
 
 export function EventsView({ events }: Props) {
-  const visibleEvents = useMemo(
-    () => events.filter(hasEnoughInfo),
-    [events]
-  );
+  const visibleEvents = useMemo(() => events.filter(hasEnoughInfo), [events]);
   const upcomingEvents = useMemo(
     () =>
       visibleEvents.filter((event) =>
-        isEventForthcoming(event.data.date, event.data.endDate, event.data.forthcoming)
+        isEventForthcoming(
+          event.data.date,
+          event.data.endDate,
+          event.data.forthcoming,
+        ),
       ),
-    [visibleEvents]
+    [visibleEvents],
   );
   const pastEvents = useMemo(
     () =>
       visibleEvents.filter(
         (event) =>
-          !isEventForthcoming(event.data.date, event.data.endDate, event.data.forthcoming)
+          !isEventForthcoming(
+            event.data.date,
+            event.data.endDate,
+            event.data.forthcoming,
+          ),
       ),
-    [visibleEvents]
+    [visibleEvents],
   );
 
   return (
@@ -119,6 +120,9 @@ export function EventsView({ events }: Props) {
           <EventList events={pastEvents} />
         </section>
       )}
+      <a href="/events" className="sidebarEventsMore">
+        all events →
+      </a>
     </div>
   );
 }

@@ -8,7 +8,7 @@ const Actions: HeaderActionType[] = [
   { href: "/collab", icon: "🌻", name: "collaborate" },
   { href: "/creation", name: "create", icon: "💽" },
   { href: "/posts", icon: "🖨️", name: "write" },
-  { href: "/support", icon: "🫶", name: "support" },
+  // { href: "/support", icon: "🫶", name: "support" },
   // {href: "/colophon", name: "creations" , icon: "🪄"},
   // {href: "/workbench", name: "workbench" , icon: "🔩"},
   // { href: "/fits", icon: "🧢", name: "fits" },
@@ -19,5 +19,4 @@ const Actions: HeaderActionType[] = [
 
 <div class="navbarActions">
   {Actions.map((action) => <HeaderAction {...action} />)}
-  <div class="divider hide-mobile"></div>
 </div>

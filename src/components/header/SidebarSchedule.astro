@@ -9,12 +9,12 @@ import { EventsView } from "../views/EventsView";
 const upcomingEvents = hydrateCreations(await getCollection("creation"))
   .filter((c) => c.data.isEvent)
   .filter((c) =>
-    isEventForthcoming(c.data.date, c.data.endDate, c.data.forthcoming)
+    isEventForthcoming(c.data.date, c.data.endDate, c.data.forthcoming),
   )
   .sort(
     (a, b) =>
       new Date(a.data.date || 0).getTime() -
-      new Date(b.data.date || 0).getTime()
+      new Date(b.data.date || 0).getTime(),
   );
 ---
 
@@ -23,7 +23,6 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     <div class="sidebarEvents hide-mobile">
       <div class="sidebarEventsHeading">Now &amp; Upcoming</div>
       <EventsView events={upcomingEvents} />
-      <a href="/events" class="sidebarEventsMore">all events →</a>
     </div>
   )
 }
@@ -80,7 +79,6 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     flex: 0 0 auto;
     display: block;
     margin-top: 0.5rem;
-    font-size: 11px;
     opacity: 0.7;
 
     &:hover {

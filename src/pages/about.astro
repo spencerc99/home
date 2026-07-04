@@ -130,20 +130,16 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       imgSrc="/assets/spencer_headshot.jpg"
       className="float"
       aspectRatio="inherit"
-      style={{ marginLeft: "1em" }}
+      style={{ marginLeft: "1em", marginBottom: "1em" }}
     />
 
     <p>
-      Spencer Chang is an artist, engineer, and toymaker interested in the play,
-      creation, and care that emerges from our relationships with and through
-      technology.
-    </p>
-    <p>
-      They make <a
+      Spencer Chang makes <b>software we can touch</b>, like <a
         href="https://www.are.na/spencer-chang/communal-computing-infrastructure"
-        >communal computing infrastructure</a
-      >—playful, intimate, and empowering forms of technology made to be used
-      and loved by people. These include:
+        >communal computers</a
+      >, <a href="https://internetsculptures.com">internet objects</a>, and <a
+        href="/creation/playhtml">online spaces</a
+      >. These include:
     </p>
     <ol class="list-decimal list-inside pl-8">
       <!-- TODO: add floating image hover preview for each of these, support for hosted creations to show their preview -->
@@ -179,48 +175,6 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       </li>
     </ol>
 
-    <p>
-      Their practice—spanning internet spaces, interactive sculpture, and
-      creative infrastructure—transforms technology from a tool for
-      institutional control into one for collective well-being. These works
-      leverage whimsical intimacy to interrogate our systems, invite active
-      imagination to reinvent them, and finally, equip us with the means to do
-      so. Combining design and art into “useful art”, their tools, games, and
-      spaces question what websites are, who we can be through the internet, and
-      how technology might become a public good.
-    </p>
-
-    <p>
-      Chang's work has been showcased and supported internationally, including
-      <a href="https://artlab.hyundai.com/">Hyundai Artlab</a> (Seoul), <a
-        href="https://www.geidai.ac.jp/english/">Tokyo Geidai</a
-      >
-      (Tokyo), <a href="https://grayarea.org/">Gray Area</a> (San Francisco), <a
-        href="https://culturehub.org/">CultureHub</a
-      >
-      (New York), <a href="https://wsa.nyc/">WSA</a> (New York), the <a
-        href="https://movingimage.us/">Museum of Moving Image</a
-      > (New York), <a href="https://www.alserkal.com/">Alserkal Avenue</a> (Dubai),
-      and the <a href="https://deyoung.famsf.org/">de Young Museum</a> (San Francisco).
-      Their projects have been featured in MIT Technology Review, It's Nice That,
-      and Frieze, and supported through grants by the <a
-        href="https://sfarts.org/">San Francisco Arts Commission</a
-      >,
-      <a href="https://apossible.org/">APOSSIBLE</a>, and the <a
-        href="https://ethereum.foundation/">Ethereum Foundation</a
-      >. A <a href="https://newinc.org/">NEW INC</a> (New Museum) Y11 member, they
-      have taught and led workshops for institutions such as the <a
-        href="https://sfpc.study/"
-      >
-        School for Poetic Computation
-      </a>, Stanford University, and the <a href="https://asianart.org/"
-        >Asian Art Museum</a
-      >, among others around the world.
-    </p>
-
-    <p>
-      <a href="/cv">CV</a>
-    </p>
     <p id="expandingWork"></p>
     <script define:vars={{ workDescription }}>
       let node = createTelescopicTextFromBulletedList(workDescription, {
@@ -231,7 +185,14 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     </script>
 
     <p>
-      They are always open to collaborations <span class="italic"
+      <b>
+        For a professional statement, bio, and full work information, refer to
+        my <a href="/cv">CV</a>
+      </b>
+    </p>
+
+    <p>
+      They are open to collaborations <span class="italic"
         >(with people or brands)</span
       >, invitations <span class="italic">(to teach or speak)</span>, and
       commissions <span class="italic">(of objects or digital experiences)</span
@@ -306,12 +267,20 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
         <summary class="text-lg"> 3. what do you enjoy?</summary>
         <p id="expandingLikes"></p>
       </details>
-      <!-- <details>
+      <details>
         <summary class="text-lg"> 4. why orange?</summary>
-        <p></p>
-      </details> -->
+        <p>
+          I like how radiant it is, how it is equally found in nature (sunsets,
+          poppies, delicious fruit) and in our built environment (contemporary
+          objects, industry, and warm lighting). It can be striking yet still
+          welcoming, signal play while being couragerous and poised. I've always
+          loved it, but I hid it as a child because I didn't want to stand out.
+          Now, I like how different it is. Someone told me that orange is one
+          the of the least favorite colors, so it's also nice to bond with
+          others who love it.
+        </p>
+      </details>
     </div>
-    <EmailEmbed />
 
     <p class="descriptionText">
       p.s. like these highlighted paragraphs that expand when you touch them?
@@ -355,7 +324,7 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     onMoreNode.setAttribute("tabindex", "0");
     onMoreNode.setAttribute(
       "title",
-      "click me to see more! try tabbing to me and using enter or space to go even faster!"
+      "click me to see more! try tabbing to me and using enter or space to go even faster!",
     );
     onMoreNode.innerHTML = "and...";
     onMoreNode.addEventListener("click", onClickMore);
@@ -363,7 +332,7 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     const likesContainer = document.getElementById("expandingLikes");
     likesContainer.appendChild(likesNode);
     likesNode.appendChild(
-      document.createTextNode("A non-exhaustive list of the things I enjoy:")
+      document.createTextNode("A non-exhaustive list of the things I enjoy:"),
     );
     likesNode.appendChild(document.createElement("br"));
     likesNode.appendChild(onMoreNode);
