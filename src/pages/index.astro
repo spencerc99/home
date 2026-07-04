@@ -25,94 +25,98 @@ const currentNowEntry = nowEntries[0];
 ---
 
 <BaseLayout>
-  <div class="two-columns">
-    <div class="headerContainer home textContent">
-      <div class="textContent">
-        <p style="line-height: 1.2">
-          Hi, I'm <Footnote
+  <div class="two-columns home-page">
+    <div class="home-sidebar">
+      <div class="headerContainer home textContent">
+        <div class="textContent">
+          <p style="line-height: 1.2">
+            Hi, I'm <Footnote
+              asChild
+              caption="hi! hover around other parts of the site and you might find other hidden treasures."
+              client:only="react">Spencer</Footnote
+            >. Welcome to my internet home.<br /><i class="meta serif"
+              >hint: this is a living space<Footnote
+                caption="made possible using [playhtml](https://playhtml.fun)"
+                client:only="react"
+              /> actively shaped by visitors. Change the lights, wave hi, and leave
+              a note. Pretend you're visiting a friend's home.</i
+            >
+          </p>
+          <Footnote
             asChild
-            caption="hi! hover around other parts of the site and you might find other hidden treasures."
-            client:only="react">Spencer</Footnote
-          >. Welcome to my internet home.<br /><i class="meta serif"
-            >hint: this is a living space<Footnote
-              caption="made possible using [playhtml](https://playhtml.fun)"
-              client:only="react"
-            /> actively shaped by visitors. Change the lights, wave hi, and leave
-            a note. Pretend you're visiting a friend's home.</i
+            caption="this is one of my favorite Noguchi lamps... and anyone who visits can turn it on or off for everyone else (in real-time)!"
+            client:only="react"
+            containerStyle={{ float: "right" }}
           >
-        </p>
-        <Footnote
-          asChild
-          caption="this is one of my favorite Noguchi lamps... and anyone who visits can turn it on or off for everyone else (in real-time)!"
-          client:only="react"
-          containerStyle={{ float: "right" }}
-        >
-          <img
-            class="lamp"
-            id="lamp-akari"
-            src="/assets/akari-22n.png"
-            can-toggle
-            shared
-          />
-        </Footnote>
-        <p>
-          I make software we can touch<Footnote
-            client:only="react"
-            caption="tangible, communal, and playful"
-          /> that gather people around play, connection, and creation. I'm an artist,
-          engineer, and toymaker making things like open-source infrastructure<Footnote
-            client:only="react"
-            caption="for making a more handmade and cared for internet"
-          />, <HoverGlow id="small-apps" client:only="react">small apps</HoverGlow><Footnote
-            client:only="react"
-            imageSrc="/playhtml-icon.png"
-            caption="an open-source <a href='/creation/playhtml'>tool</a> for creating shared websites"
-            isHtmlCaption
-          />, <CursorUnderline client:only="react">internet art</CursorUnderline
-          >, and interactive sculptures<Footnote
-            client:only="react"
-            imageSrc="/footnotes/shrine-to-earth-boulder-transparent.png"
-            hoverImg="https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-By4jZ5quAS/a6ab5688737e5095469329720c877b9767da537c4626f9cf0f188988faafb95ae10fff398f79289e8b3c48101565cad1275b674a71ffeaf08fa42ac9c939adeca307e122d4453c9aa0d56311d46f2488d0d4f25cbddb95764c95b85cc50c8bfc130ed078?auto=format%2Ccompress&fit=max&w=400&h=400"
-            caption="a series of public sculptures embedded with intimate web experiences."
-            isHtmlCaption
-          />.
-        </p>
-        <p>
-          These works are installed in spaces, taught with organizations, and
-          most importantly, live in the world among us—as interventions in our
-          digital habits, sites in public, and objects in people's homes. I care
-          about "art [as] an engineering, sculpture a structuring"<Footnote
-            client:only="react"
-            caption="from Isamu Noguchi's autobiography"
-            hoverImg="/footnotes/noguchi-art-as-engineering.jpeg"
-          />, design that provokes and instigates, and artifacts that entangle
-          with our everyday lives and each other.
-        </p>
-        <p>
-          In all I do, I try to create <a
-            href="https://www.youtube.com/watch?v=l-2t-N96Bn8"
-            >perpetual energy</a
-          >, stewarding technology and the internet towards a medium for
-          collective flourishing, rather than institutional control.
-        </p>
-        <Signature client:only="react" />
-        <br />
+            <img
+              class="lamp"
+              id="lamp-akari"
+              src="/assets/akari-22n.png"
+              can-toggle
+              shared
+            />
+          </Footnote>
+          <p>
+            I make software we can touch<Footnote
+              client:only="react"
+              caption="tangible, communal, and playful"
+            /> that gather people around play, connection, and creation. I'm an artist,
+            engineer, and toymaker making things like open-source infrastructure<Footnote
+              client:only="react"
+              caption="for making a more handmade and cared for internet"
+            />, <HoverGlow id="small-apps" client:only="react">small apps</HoverGlow><Footnote
+              client:only="react"
+              imageSrc="/playhtml-icon.png"
+              caption="an open-source <a href='/creation/playhtml'>tool</a> for creating shared websites"
+              isHtmlCaption
+            />, <CursorUnderline client:only="react">internet art</CursorUnderline
+            >, and interactive sculptures<Footnote
+              client:only="react"
+              imageSrc="/footnotes/shrine-to-earth-boulder-transparent.png"
+              hoverImg="https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-By4jZ5quAS/a6ab5688737e5095469329720c877b9767da537c4626f9cf0f188988faafb95ae10fff398f79289e8b3c48101565cad1275b674a71ffeaf08fa42ac9c939adeca307e122d4453c9aa0d56311d46f2488d0d4f25cbddb95764c95b85cc50c8bfc130ed078?auto=format%2Ccompress&fit=max&w=400&h=400"
+              caption="a series of public sculptures embedded with intimate web experiences."
+              isHtmlCaption
+            />.
+          </p>
+          <p>
+            These works are installed in spaces, taught with organizations, and
+            most importantly, live in the world among us—as interventions in our
+            digital habits, sites in public, and objects in people's homes. I care
+            about "art [as] an engineering, sculpture a structuring"<Footnote
+              client:only="react"
+              caption="from Isamu Noguchi's autobiography"
+              hoverImg="/footnotes/noguchi-art-as-engineering.jpeg"
+            />, design that provokes and instigates, and artifacts that entangle
+            with our everyday lives and each other.
+          </p>
+          <p>
+            In all I do, I try to create <a
+              href="https://www.youtube.com/watch?v=l-2t-N96Bn8"
+              >perpetual energy</a
+            >, stewarding technology and the internet towards a medium for
+            collective flourishing, rather than institutional control.
+          </p>
+          <Signature client:only="react" />
+        </div>
+      </div>
+      <div class="home-now-status textContent">
         {
           currentNowEntry && (
             <NowBlock client:only="react" entry={currentNowEntry} />
           )
         }
-        <br />
         <Status />
       </div>
     </div>
     <!-- BODY -->
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
-    <CreationsView
-      creations={creations}
-      description={"selected"}
-      columns={2}
-      client:only="react"
-    />
+    <div class="home-creations">
+      <CreationsView
+        creations={creations}
+        description={"selected"}
+        columns={2}
+        client:only="react"
+      />
+    </div>
   </div>
 </BaseLayout>

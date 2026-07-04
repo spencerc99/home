@@ -1,38 +1,29 @@
 // ABOUTME: Inline text that glows in each hoverer's playhtml cursor color.
 // ABOUTME: Multiple simultaneous hovers merge into a shared gradient glow.
 
-import { withSharedState } from "@playhtml/react";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type PropsWithChildren,
-} from "react";
-
-type HoverAwareness = {
-  hover: boolean;
-  color: string;
-};
+import { CanHoverElement, useCursorPresences } from "@playhtml/react";
+import React, { type CSSProperties, type PropsWithChildren } from "react";
+import { PlayhtmlProvider } from "./interactive/PlayhtmlProvider";
 
 type HoverGlowProps = PropsWithChildren<{
   id: string;
   className?: string;
 }>;
 
-function getCursorColor(): string {
-  return window.cursors?.color ?? "#888";
-}
-
-function uniqueColors(awareness: HoverAwareness[] | undefined): string[] {
+function uniqueHoverColors(
+  awarenessByStableId: Map<string, { hover?: boolean }>,
+  cursorPresences: ReturnType<typeof useCursorPresences>,
+): string[] {
   const seen = new Set<string>();
   const colors: string[] = [];
-  for (const entry of awareness ?? []) {
-    if (!entry?.hover || !entry.color || seen.has(entry.color)) continue;
-    seen.add(entry.color);
-    colors.push(entry.color);
+  for (const [stableId, entry] of awarenessByStableId) {
+    if (!entry?.hover) continue;
+    const color =
+      cursorPresences.get(stableId)?.playerIdentity?.playerStyle
+        .colorPalette[0];
+    if (!color || seen.has(color)) continue;
+    seen.add(color);
+    colors.push(color);
   }
   return colors;
 }
@@ -48,69 +39,37 @@ function buildShadow(colors: string[]): string {
   return colors.map((c) => `0 0 4px ${c}, 0 0 8px ${c}`).join(", ");
 }
 
-export const HoverGlow = withSharedState<
-  Record<string, never>,
-  HoverAwareness,
-  HoverGlowProps
->(
-  {
-    defaultData: {},
-    myDefaultAwareness: { hover: false, color: "#888" },
-  },
-  ({ awareness, setMyAwareness }, { id, className, children }) => {
-    const hoveringRef = useRef(false);
-    const [myColor, setMyColor] = useState(getCursorColor);
+function HoverGlowInner({ id, className, children }: HoverGlowProps) {
+  const cursorPresences = useCursorPresences();
 
-    const publish = useCallback(
-      (hover: boolean, color: string) => {
-        setMyAwareness({ hover, color });
-      },
-      [setMyAwareness],
-    );
+  return (
+    <CanHoverElement>
+      {({ awarenessByStableId }) => {
+        const colors = uniqueHoverColors(awarenessByStableId, cursorPresences);
+        const style =
+          colors.length > 0
+            ? ({
+                "--playhtml-hover-gradient": buildGradient(colors),
+                "--playhtml-hover-shadow": buildShadow(colors),
+              } as CSSProperties)
+            : undefined;
 
-    // Keep awareness color in sync with the live cursor color (e.g. Stats popover).
-    useEffect(() => {
-      if (!window.cursors) return;
-      setMyColor(window.cursors.color ?? "#888");
-      const handleColor = (next?: string) => {
-        const color = next ?? "#888";
-        setMyColor(color);
-        if (hoveringRef.current) {
-          publish(true, color);
-        }
-      };
-      window.cursors.on("color", handleColor);
-      return () => window.cursors?.off("color", handleColor);
-    }, [publish]);
+        return (
+          <span id={id} className={className} style={style}>
+            {children}
+          </span>
+        );
+      }}
+    </CanHoverElement>
+  );
+}
 
-    const colors = useMemo(() => uniqueColors(awareness), [awareness]);
-    const isHovered = colors.length > 0;
-
-    const style = useMemo(() => {
-      if (!isHovered) return undefined;
-      return {
-        "--playhtml-hover-gradient": buildGradient(colors),
-        "--playhtml-hover-shadow": buildShadow(colors),
-      } as CSSProperties;
-    }, [colors, isHovered]);
-
-    return (
-      <span
-        id={id}
-        className={className}
-        style={style}
-        data-playhtml-hover={isHovered ? "" : undefined}
-        onMouseEnter={() => {
-          hoveringRef.current = true;
-          publish(true, myColor);
-        }}
-        onMouseLeave={() => {
-          hoveringRef.current = false;
-          publish(false, myColor);
-        }}
-      >
-        {children}
-      </span>
-    );
-  },
-);
+// Separate Astro island from the layout PlayhtmlProvider, so it needs its own
+// provider in-tree (same pattern as ConnectedStats / Guestbook).
+export function HoverGlow(props: HoverGlowProps) {
+  return (
+    <PlayhtmlProvider>
+      <HoverGlowInner {...props} />
+    </PlayhtmlProvider>
+  );
+}

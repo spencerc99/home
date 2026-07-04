@@ -2609,6 +2609,40 @@ details {
   margin-right: auto;
 }
 
+// Home: now/status under the intro while two-column; after creations when stacked.
+.two-columns.home-page {
+  .home-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .home-now-status {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  // Same breakpoints as .two-columns stacking: intro, creations, then now/status.
+  @include media(xsmallScreen, smallScreen, mediumScreen, largeScreen) {
+    .home-sidebar {
+      display: contents;
+    }
+
+    .headerContainer {
+      order: 1;
+    }
+
+    .home-creations {
+      order: 2;
+    }
+
+    .home-now-status {
+      order: 3;
+    }
+  }
+}
+
 .hide-mobile {
   @include media(xsmallScreen) {
     display: none !important;
