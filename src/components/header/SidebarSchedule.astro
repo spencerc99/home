@@ -30,9 +30,21 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
 <style lang="scss">
   .sidebarEvents {
     font-size: 13px;
+    // become its own bounded, scrollable region so the header/nav above and the
+    // social + stats block below stay fixed; only the events list scrolls.
+    // min-height keeps a few events visible instead of collapsing on short screens.
+    flex: 1 1 auto;
+    min-height: 8rem;
+    display: flex;
+    flex-direction: column;
 
     :global(.eventsView) {
       gap: 1rem;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      padding-right: 4px;
     }
 
     :global(.event-list) {
@@ -55,6 +67,7 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
   }
 
   .sidebarEventsMore {
+    flex: 0 0 auto;
     display: block;
     margin-top: 0.5rem;
     font-size: 11px;
