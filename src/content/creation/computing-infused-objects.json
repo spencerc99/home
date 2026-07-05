@@ -3,9 +3,7 @@
   "subtext": "a series on everyday computation",
   "descriptionMd": "My first experiment in computing-infusion was [SIGIL I](https://spencer.place/creation/sigil-i). After I taught several public workshops teaching people how to make their own webstones, I started experimenting with other forms and functions. The first collection focuses on the everyday objects in our homes and how they might become artifacts that not only center but facilitate important rituals in our lives.\n&nbsp;\n*everyday computers*\n&nbsp;\n- [Pillow](https://x.com/spencerc99/status/1818721711858368890): a pillow that puts your phone into “Do Not Disturb” mode when you rest your phone on it\n- [Fortune](https://twitter.com/spencerc99/status/1820919721639997849): a fortune cookie that gives you a new fortune every time you tap your phone\n- [Boot](https://x.com/spencerc99/status/1824159633583509796):  a tabi boot that holds incense & starts a meditation timer\n- [Bathtub](https://x.com/spencerc99/status/1832102568530735457): a bathtub to hold your phone that plays your shower playlist\n- [Router](https://x.com/spencerc99/status/1833186639746634027): a wifi temple that grants guests wifi access\n- [Plant](https://x.com/spencerc99/status/1841535286616195231): a plant that hosts a digital plant from [html garden](https://spencer.place/creation/html-garden/)\n- [Album](https://x.com/spencerc99/status/1842273621202575648): modular photo frames that share a random photo from a designated album\n- Lucky Cat: a lucky cat that prompts a venmo request\n- Guestbook: an apartment guestbook that prompts guests to draw a 30-second self-portrait\n&nbsp;\n&nbsp;\n&nbsp;\nA select number have been produced for sale in small batches for [Internet Sculptures](https://spencer.place/creation/internet-sculptures).",
   "parentCategory": "Project",
-  "categories": [
-    "Object"
-  ],
+  "categories": ["Object"],
   "date": "2024-07-31T07:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-bOiPmOVQPb/7f9142c4753985f62fa8d4be3115622f79332b481b1c58f5d6fc2da1aa79438f660fe119082ad16f7134960f425b8a6a58d13a2e7537bb52b169562d02156c194bd4a9f9a3ad6896bab74d1aaf064ff99da528236d634e70e6c9fc9a44a058081c94ba51",
   "media": [
@@ -23,17 +21,7 @@
   "materials": "clay, electronics, phone",
   "ongoing": true,
   "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "imageDescriptions": ["", "", "", "", "", "", "", "", ""],
   "isEvent": false,
   "mediaMetadata": [
     "image",
@@ -57,19 +45,19 @@
       "title": "Touching Computers: Creating Data Talismans",
       "slug": "touching-computers-creating-data-talismans",
       "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Touching Computers Workshop (Berlin)",
       "slug": "touching-computers-workshop-(berlin)",
       "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Touching Computers Workshop NYC",
       "slug": "touching-computers-workshop-nyc",
       "link": "https://coda.io/form/Touching-Computers-at-Hex-House-09-08-24_diZAE54UdmV",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "SIGIL I",

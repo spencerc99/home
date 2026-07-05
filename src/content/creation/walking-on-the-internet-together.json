@@ -2,16 +2,10 @@
   "title": "Walking on the Internet Together",
   "subtext": "a stroll through the Internet together, collecting links, sharing hubs, pointing out sights.",
   "descriptionMd": "[Kristoffer Tjalve](https://cloudlord.management) and I made a [Syllabus for Taking an Internet Walk](https://spencer.place/creation/syllabus-taking-an-internet-walk) for the Syllabus Project in 2023. In it, we collected all of our years of research, exploring, and making on the tiny, poetic, personal, handmade web to create a set of prompts for discovering the Internets outside of the mainstream search engines and social platforms. With over 70 hyperlinks shared in the piece, many of which contain tens-hundreds of links themselves that grow over time, the syllabus is a live environment that can be actively explored for several months.\n&nbsp;\nFor this event, we introduced our syllabus and stewarded a collaborative internet walk. We started with our [walking hub](https://playhtml.fun/events/walking-together) with live cursors and chat for participants to share URLs dear to them and those they find on their walk along with “cursor icebreakers” that invited people to embody their cursor by completing tasks together, such as making a circle, imagining their cursor as a raindrop, and playing tag. Then, we walked the web, using prompts in the syllabus and other resources people already had available to them, shared live about the sights we noticed, and had volunteers screenshare to walk through neighborhoods together. To conclude, we invited participants to invent fictional domains and URLs to share with themselves, each other, and the broader web (e.g. [https://hug.me/](https://hug.me/), [https://www.gone.fishing](https://www.gone.fishing/), [https://attendingalovelything.com](https://attendingalovelything.com/), [https://where-did-i-smell-that.hmm](https://where-did-i-smell-that.hmm/), [https://getyourself.librarycard](https://getyourself.librarycard/), [https://freepastafordaniel.forever/](https://freepastafordaniel.forever/) among others)\n&nbsp;\nA full archive of URLs is available on the [event website](https://playhtml.fun/events/walking-together/), powered by [playhtml](https://spencer.place/creation/playhtml).\n&nbsp;\n*over 160 signups, planned in coordination with* *[Rhizome World](https://rhizome.org/editorial/2025/apr/03/rhizome-world/)*.",
-  "parentCategory": "Speaking, Workshops, Teaching",
-  "categories": [
-    "Art",
-    "Website",
-    "Community"
-  ],
+  "parentCategory": "Talks & Teaching",
+  "categories": ["Art", "Website", "Community"],
   "date": "2025-04-30T07:00:00.000Z",
-  "institution": [
-    "Rhizome"
-  ],
+  "institution": ["Rhizome"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-zJ-UL8mNlz/375b22bb6b10b2e511c7b59e2ab905dae5592e76777a0202ea72c1817540b2282516a39502a4948a09eab168ed1159ab630b2ef56bde9f2eed717d43dd8d5b9d9c9efc5af23f2e322ed28ac1fa49dd7275e188a0ab68e073a21dfb9f1f74ccac14f8ea20",
@@ -22,19 +16,9 @@
   "link": "https://spencer.place/creation/walking-on-the-internet-together",
   "ongoing": false,
   "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    ""
-  ],
+  "imageDescriptions": ["", "", "", ""],
   "isEvent": true,
-  "mediaMetadata": [
-    "image",
-    "image",
-    "image",
-    "image"
-  ],
+  "mediaMetadata": ["image", "image", "image", "image"],
   "related": [
     {
       "title": "playhtml",
@@ -52,7 +36,7 @@
       "title": "Browsing the Internet Together",
       "slug": "browsing-the-internet-together",
       "link": "https://partiful.com/e/OaMuPHbkv4A3c4MJxwW5",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     }
   ],
   "love": "n",

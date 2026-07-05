@@ -2,14 +2,9 @@
   "title": "CIP webstones",
   "descriptionMd": "A commission from the [Collective Intelligence Project](https://cip.org/) to create a set of ceramic internet sculptures for each member of the team that links to their website. The sculptures feature their tree trunk icon in an unglazed finish surrounded by a smooth brown glaze to emulate the trunk. On the back, RFID chips are encased in resin that give a slight light to allow spinning the sculptures smoothly on a table as a fidget toy and feature an “exposed” electronic look that matches the internal view captured by the icon’s tree rings. The logo on the front extrudes out and can also be used as a stamp.\n&nbsp;\nWe also designed how the stones could each link to an individual’s profile on the website with direct access to their contact info, but implementation is waiting on a pending website infrastructure migration.\n&nbsp;\n",
   "parentCategory": "Collaboration",
-  "categories": [
-    "Object",
-    "Art"
-  ],
+  "categories": ["Object", "Art"],
   "date": "2025-04-30T07:00:00.000Z",
-  "institution": [
-    "Collective Intelligence Project"
-  ],
+  "institution": ["Collective Intelligence Project"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rveOfUw4kd/5535c9b2033d19f7d7b282842ef22cbb72bccaad896ba936e0f47275f00f21e806910d52665dd4abdef182586e0abd568981219248772d9b8b91043c66b188b119e49b0a80ef60dad8bc8275d10bd02253e84fae22c81f1d8ceed19ae781064e55769d40",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-rveOfUw4kd/5535c9b2033d19f7d7b282842ef22cbb72bccaad896ba936e0f47275f00f21e806910d52665dd4abdef182586e0abd568981219248772d9b8b91043c66b188b119e49b0a80ef60dad8bc8275d10bd02253e84fae22c81f1d8ceed19ae781064e55769d40",
@@ -21,29 +16,15 @@
   ],
   "ongoing": false,
   "featured": false,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "imageDescriptions": ["", "", "", "", "", ""],
   "isEvent": false,
-  "mediaMetadata": [
-    "image",
-    "image",
-    "image",
-    "image",
-    "image",
-    "image"
-  ],
+  "mediaMetadata": ["image", "image", "image", "image", "image", "image"],
   "related": [
     {
       "title": "Touching Computers: Creating Data Talismans",
       "slug": "touching-computers-creating-data-talismans",
       "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Computing-Infused Objects",

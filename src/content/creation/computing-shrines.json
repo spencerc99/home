@@ -3,19 +3,9 @@
   "subtext": "a collection of site-specific sculptures turning shared spaces into spaces for sharing",
   "descriptionMd": "We face a loneliness epidemic as free third spaces for communities disappear, and our devices have become symbols of isolation. Computing Shrines responds to this crisis by reimagining technology as a public good for fostering local connection rather than replacing it.\n&nbsp;\nEach shrine connects visitors' phones to a custom communal web interface that facilitates the exchange of small intimacies between past and future visitors. These websites can only be accessed at their shrine, anchoring a virtual space to a physical place and turning these shrines into living archives of the collective everyday interactions of the people who steward the space.\n&nbsp;\nFor example, \"Shrine to Voice\" is mobile phone booth that invites visitors to listen to and share their worries and hopes with strangers. “Shrine to Earth” is a boulder that turns rocks from visitors’ camera rolls into a shared landscape. And in \"Shrine to Others,\" a clay tablet nestled beside a seating area invites visitors to notice someone nearby and write what they admire about them.\n&nbsp;\nBeyond an installation, Computing Shrines is an open protocol for creating public good technology that fosters local connection rather than replacing it. Designed with common materials, open-sourcing the interfaces, and collaborating with local stewards, the project transforms the normally solitary and exclusive act of creating technology into a community improvement project for all to shape.\n&nbsp;\nSupported by [APOSSIBLE](https://apossible.com/), [DAL](https://dalab.xyz/en/), [NEW INC](https://newinc.org/), the New Museum’s art and technology incubator, and the San Francisco Arts Commission.",
   "parentCategory": "Project",
-  "categories": [
-    "Art",
-    "Website",
-    "Installation",
-    "Hardware",
-    "Community"
-  ],
+  "categories": ["Art", "Website", "Installation", "Hardware", "Community"],
   "date": "2025-04-16T07:00:00.000Z",
-  "institution": [
-    "NEW INC",
-    "APOSSIBLE",
-    "Digital Architecture Lab"
-  ],
+  "institution": ["NEW INC", "APOSSIBLE", "Digital Architecture Lab"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d",
@@ -97,7 +87,7 @@
       "title": "MESH Public Showcase",
       "slug": "mesh-public-showcase",
       "link": "https://lu.ma/hpvb2ihn",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "APOSSIBLE Applied Experiments",
@@ -115,13 +105,13 @@
       "title": "Artist Talk - Perpetual Motion Machine",
       "slug": "artist-talk---perpetual-motion-machine",
       "link": "https://www.youtube.com/watch?v=l-2t-N96Bn8",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Touching Computers: Creating Data Talismans",
       "slug": "touching-computers-creating-data-talismans",
       "link": "https://spencer.place/creation/touching-computers-creating-data-talismans",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Computing-Infused Objects",

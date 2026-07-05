@@ -3,9 +3,7 @@
   "subtext": "with Kristoffer Tjalve",
   "descriptionMd": "Kristoffer Tjalve and I collected the parts of the internet we don't see often anymore: the hole-in-the-walls, the shrines by the street, neighborhood cafes, and secret sunset nooks into a syllabus.\n&nbsp;\nWe explore practices for discovering, maintaining, and adding to the many internets blossoming beneath app hedges and large platforms: from visiting local neighborhoods, to foraging for messages in source code, to cultivating and publishing your own lists to the internet & more.\n&nbsp;\nThrough these practices, we imagine our ability to create a plurality of internets as opposed to a single, monolithic Internet. \n&nbsp;\npublished in the [Syllabus Project](https://syllabusproject.org/)",
   "parentCategory": "Writing",
-  "categories": [
-    "Writing"
-  ],
+  "categories": ["Writing"],
   "date": "2023-11-08T08:00:00.000Z",
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vo4stgPu9h/c1a2325145e61b111900d53231e9e0325a78647acc2a1b00e8dae2bb4b95a900c1eb405c8619eb7d18d372737d5043f0f3a9237f8aa6f963ce834229f9cf06a7157cd0e63dce0cf91e4187372d73b6a80bbd19dcb9da6e9ef7cbaca37642207663cf28c4",
   "media": [
@@ -17,28 +15,16 @@
   ],
   "link": "https://syllabusproject.org/syllabus-for-taking-an-internet-walk/",
   "ongoing": false,
-  "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "featured": false,
+  "imageDescriptions": ["", "", "", "", ""],
   "isEvent": false,
-  "mediaMetadata": [
-    "image",
-    "image",
-    "image",
-    "image",
-    "image"
-  ],
+  "mediaMetadata": ["image", "image", "image", "image", "image"],
   "related": [
     {
       "title": "Walking on the Internet Together",
       "slug": "walking-on-the-internet-together",
       "link": "https://spencer.place/creation/walking-on-the-internet-together",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     }
   ],
   "love": "n",

@@ -1,15 +1,16 @@
 import type { CollectionEntry } from "astro:content";
-import React, {
-  useMemo,
-  useState,
-} from "react";
+import React, { useMemo, useState } from "react";
 import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
 import { CreationListView } from "./CreationListView";
-import classNames from "classnames";
-import { PINNED_CREATIONS } from "../../utils/creations";
+import {
+  PINNED_CREATIONS,
+  FEATURED_CATEGORY,
+  isFeaturedCreation,
+  type AllCreationCategories,
+} from "../../utils/creations";
 import { isEventForthcoming } from "../../utils";
 
 export enum ViewType {
@@ -65,6 +66,8 @@ interface Props {
   // Accounts for if it is in display with something else
   columns: 1 | 2;
   defaultView?: ViewType;
+  showEvents?: boolean;
+  defaultCategory?: AllCreationCategories;
 }
 
 export function CreationsView({
@@ -72,19 +75,35 @@ export function CreationsView({
   description,
   columns,
   defaultView,
+  showEvents = true,
+  defaultCategory = "all",
 }: Props) {
   const [view, setView] = useState(defaultView || ViewType.GRID);
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(defaultCategory);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const allCategories = new Set(
-    creations.map((creation) => creation.data.parentCategory).filter(Boolean)
+    creations.map((creation) => creation.data.parentCategory).filter(Boolean),
   );
 
   const eventCreations = creations
-    .filter((creation) => creation.data.isEvent && isEventForthcoming(creation.data.date, creation.data.endDate, creation.data.forthcoming))
+    .filter(
+      (creation) =>
+        creation.data.isEvent &&
+        isEventForthcoming(
+          creation.data.date,
+          creation.data.endDate,
+          creation.data.forthcoming,
+        ),
+    )
     .reverse();
   const nonEventCreations = creations.filter(
-    (creation) => !creation.data.isEvent || !isEventForthcoming(creation.data.date, creation.data.endDate, creation.data.forthcoming)
+    (creation) =>
+      !creation.data.isEvent ||
+      !isEventForthcoming(
+        creation.data.date,
+        creation.data.endDate,
+        creation.data.forthcoming,
+      ),
   );
 
   const columnsCountBreakPoints = useMemo(() => {
@@ -106,8 +125,16 @@ export function CreationsView({
       }
 
       // Then handle forthcoming
-      const aForthcoming = isEventForthcoming(a.data.date, a.data.endDate, a.data.forthcoming);
-      const bForthcoming = isEventForthcoming(b.data.date, b.data.endDate, b.data.forthcoming);
+      const aForthcoming = isEventForthcoming(
+        a.data.date,
+        a.data.endDate,
+        a.data.forthcoming,
+      );
+      const bForthcoming = isEventForthcoming(
+        b.data.date,
+        b.data.endDate,
+        b.data.forthcoming,
+      );
       if (aForthcoming !== bForthcoming) {
         return (aForthcoming ? 1 : -1) * multiplier;
       }
@@ -121,10 +148,12 @@ export function CreationsView({
   }, [nonEventCreations, sortDirection]);
 
   const filteredCreations = useMemo(() => {
-    return sortedNonEventCreations.filter(
-      (creation) =>
-        category === "all" || creation.data.parentCategory === category
-    );
+    return sortedNonEventCreations.filter((creation) => {
+      if (category === "all") return true;
+      if (category === FEATURED_CATEGORY)
+        return isFeaturedCreation(creation.data);
+      return creation.data.parentCategory === category;
+    });
   }, [sortedNonEventCreations, category]);
 
   function renderCreations() {
@@ -142,7 +171,9 @@ export function CreationsView({
                 <div>What</div>
                 <div
                   onClick={() =>
-                    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"))
+                    setSortDirection((prev) =>
+                      prev === "asc" ? "desc" : "asc",
+                    )
                   }
                   style={{ cursor: "pointer" }}
                 >
@@ -183,6 +214,7 @@ export function CreationsView({
                       ...creation.data,
                     }}
                     view={view}
+                    onCategoryClick={setCategory}
                   />
                 ))}
               </Masonry>
@@ -206,6 +238,7 @@ export function CreationsView({
             }}
           >
             <option value="all">All</option>
+            <option value={FEATURED_CATEGORY}>{FEATURED_CATEGORY}</option>
             {Array.from(allCategories).map((category) => (
               <option key={category} value={category}>
                 {category}
@@ -236,7 +269,7 @@ export function CreationsView({
         </div>
       </div>
       {/* EVENTS */}
-      {eventCreations.length > 0 && (
+      {showEvents && eventCreations.length > 0 && (
         <div className="events">
           <span
             className="mono"

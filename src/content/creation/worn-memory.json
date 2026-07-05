@@ -2,12 +2,10 @@
   "title": "Worn Memory",
   "subtext": "a workshop for mending clothes to carry memories",
   "descriptionMd": "In this workshop, participants embed used clothes with an iron-on NFC chip that holds a website for past and future owners to pass down memories. We created visible alterations using scrap fabric, following visible mending practices, to create a personalized container to hold the digital system.\n&nbsp;\nAfter embedding their garment, participants record a memory about their relationship with the piece and record it on the website. The digital system allows for multiple stories to be added over time - when someone passes the garment on, the next owner can add their own story before giving it away again. This creates evolving narrative objects where each garment accumulates a growing archive of voices and relationships as it moves through different hands.​​​​​​​​​​​​​​​​ \n&nbsp;\nAnd in daily life, the alteration allows for an intimate exchange of this story when meeting friends and strangers: forcing others to hold their phones in strange areas on your body in order to access these precious memories.\n&nbsp;\n**Occurences:**\n&nbsp;\n- 12/2025 for Future Vision Summit in Tokyo, Japan in collaboration with [Yoshinari Nishio](yoshinarinishio.net) and his [Pubrobe](https://yoshinarinishio.net/works/pubrobe/) project, which takes donated clothes from the public and transforms them into a public wardrobe along with the stories from the original owner. Participants were also invited to do the alterations on the Pubrobe clothes, which were first seeded with the original story and then added onto by the workshop participant. All photos credit to Ryuichi Maruo.",
-  "parentCategory": "Speaking, Workshops, Teaching",
+  "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2025-12-10T08:00:00.000Z",
-  "institution": [
-    "Tokyo University of the Arts"
-  ],
+  "institution": ["Tokyo University of the Arts"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GbL05qDnuJ/0f3885b77ccc2522bbd7febeda136ce92471e159b08029856a39a4d8f068ad8d0381d4f4bfb8b361944e2bde7e2eeb5eebbc65aaf0d7727190afdc65c40a4ac70fda915086095f9588725417e565a727759c13e61e0ae3180a997530da96fb0c07892a82",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GbL05qDnuJ/0f3885b77ccc2522bbd7febeda136ce92471e159b08029856a39a4d8f068ad8d0381d4f4bfb8b361944e2bde7e2eeb5eebbc65aaf0d7727190afdc65c40a4ac70fda915086095f9588725417e565a727759c13e61e0ae3180a997530da96fb0c07892a82",
@@ -22,18 +20,7 @@
   "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
   "ongoing": false,
   "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "imageDescriptions": ["", "", "", "", "", "", "", "", "", ""],
   "isEvent": true,
   "mediaMetadata": [
     "image",
@@ -50,7 +37,7 @@
       "title": "Worn Memory at FVS",
       "slug": "worn-memory-at-fvs",
       "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Weaving Memory",

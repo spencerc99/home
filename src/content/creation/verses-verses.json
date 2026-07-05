@@ -22,7 +22,7 @@
   "link": "https://poems.verses.xyz/",
   "materials": "html, javascript, css, bullet lists",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "imageDescriptions": [
     "",
     ""

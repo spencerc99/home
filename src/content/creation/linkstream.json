@@ -1,0 +1,22 @@
+{
+  "title": "linkstream",
+  "descriptionMd": "a firehose of links, surfacing from Bluesky in real time.",
+  "parentCategory": "Project",
+  "categories": [],
+  "date": "2024-12-28T08:00:00.000Z",
+  "heroImage": "https://hah.spencer.place/vite.svg",
+  "media": [
+    "https://hah.spencer.place/vite.svg"
+  ],
+  "link": "https://hah.spencer.place/linkstream",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [],
+  "love": "n",
+  "me": "n"
+}

@@ -18,7 +18,7 @@
   "link": "https://on-our-way.pages.dev/?show=recalculating-route&view=eyJzIjoicmVjYWxjdWxhdGluZy1yb3V0ZSIsIm8iOiJyZWNhbGN1bGF0aW5nLXJvdXRlIiwidiI6WzQwLjcxODg1MSwtNzMuOTcwNDQ0LDAuMTA5MywwLjE0NDMsMF19",
   "materials": "monitor, tickets, aluminum, ink, mobile application, visitors’ location permission and walking data",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "imageDescriptions": [
     "",
     "",

@@ -11,8 +11,26 @@ export const PINNED_CREATIONS: string[] = [
   "playhtml",
 ];
 
+/**
+ * Special filter value representing the home page's "featured" selection.
+ * Kept distinct from parentCategory values so it can coexist in the same filter.
+ */
+export const FEATURED_CATEGORY = "Featured";
+
+/**
+ * The single source of truth for what counts as "featured" (i.e. what the
+ * home page shows): a creation that opts into `featured` and has a hero image.
+ * Used both by the home page and the creations filter so they never drift.
+ */
+export function isFeaturedCreation(data: {
+  heroImage?: unknown;
+  featured?: boolean;
+}): boolean {
+  return Boolean(data.heroImage) && Boolean(data.featured);
+}
+
 export enum CreationCategory {
-  "Speaking & Workshops",
+  "Talks & Teaching",
   Project = "Project",
   Exhibition = "Exhibition",
   Writing = "Writing",
@@ -23,6 +41,11 @@ export enum CreationCategory {
   Gathering = "Gathering",
   Tinkering = "Tinkering",
 }
+
+export type AllCreationCategories =
+  | CreationCategory
+  | typeof FEATURED_CATEGORY
+  | "all";
 
 /**
  * Hydrates a creation with computed fields like forthcoming status.

@@ -29,7 +29,7 @@
   "link": "https://sc.metalabel.com/field-companions",
   "materials": "found stones, dyed polyurethane, electronic chips, audio file, location metadata, website",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "assetPreviewIdx": 1,
   "imageDescriptions": [
     "",

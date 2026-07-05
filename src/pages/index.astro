@@ -8,16 +8,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { CreationsView } from "../components/views/CreationsView";
 import Signature from "../components/Signature";
 import Status from "../components/Status.astro";
-import { hydrateCreations } from "../utils/creations";
+import { FEATURED_CATEGORY, hydrateCreations } from "../utils/creations";
 
-const creations = hydrateCreations(await getCollection("creation"))
-  .filter((c) => Boolean(c.data.heroImage) && c.data.featured)
-  .sort((a, b) => {
+const creations = hydrateCreations(await getCollection("creation")).sort(
+  (a, b) => {
     return (
       new Date(b.data.date || 0).getTime() -
       new Date(a.data.date || 0).getTime()
     );
-  });
+  },
+);
 
 import { nowEntries } from "../data/now-entries";
 
@@ -64,12 +64,15 @@ const currentNowEntry = nowEntries[0];
             engineer, and toymaker making things like open-source infrastructure<Footnote
               client:only="react"
               caption="for making a more handmade and cared for internet"
-            />, <HoverGlow id="small-apps" client:only="react">small apps</HoverGlow><Footnote
+            />, <HoverGlow id="small-apps" client:only="react"
+              >small apps</HoverGlow
+            ><Footnote
               client:only="react"
               imageSrc="/playhtml-icon.png"
               caption="an open-source <a href='/creation/playhtml'>tool</a> for creating shared websites"
               isHtmlCaption
-            />, <CursorUnderline client:only="react">internet art</CursorUnderline
+            />, <CursorUnderline client:only="react"
+              >internet art</CursorUnderline
             >, and interactive sculptures<Footnote
               client:only="react"
               imageSrc="/footnotes/shrine-to-earth-boulder-transparent.png"
@@ -81,8 +84,8 @@ const currentNowEntry = nowEntries[0];
           <p>
             These works are installed in spaces, taught with organizations, and
             most importantly, live in the world among us—as interventions in our
-            digital habits, sites in public, and objects in people's homes. I care
-            about "art [as] an engineering, sculpture a structuring"<Footnote
+            digital habits, sites in public, and objects in people's homes. I
+            care about "art [as] an engineering, sculpture a structuring"<Footnote
               client:only="react"
               caption="from Isamu Noguchi's autobiography"
               hoverImg="/footnotes/noguchi-art-as-engineering.jpeg"
@@ -112,7 +115,9 @@ const currentNowEntry = nowEntries[0];
     <!-- TODO: replace this with kaleidoscope or feral.earth stuff -->
     <div class="home-creations">
       <CreationsView
+        showEvents={false}
         creations={creations}
+        defaultCategory={FEATURED_CATEGORY}
         description={"selected"}
         columns={2}
         client:only="react"

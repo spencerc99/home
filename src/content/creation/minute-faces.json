@@ -22,7 +22,7 @@
   "link": "https://clock.spencer.place/",
   "materials": "website, javascript, color wheel, UNIX timestamp",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "assetPreviewIdx": 3,
   "imageDescriptions": [
     "",

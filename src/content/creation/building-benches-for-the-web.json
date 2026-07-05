@@ -1,25 +1,24 @@
 {
   "title": "Building Benches for the Web",
-  "subtext": "a 5-week class on making internet 3rd spaces with Munus Shih",
-  "parentCategory": "Speaking, Workshops, Teaching",
+  "subtext": "a class on making internet 3rd spaces",
+  "descriptionMd": "Building Benches for the Web is an exploration of the internet’s potential as community-led social media through **[playhtml](https://playhtml.fun/)**, an open-source library for shared web elements.\n&nbsp;\nWe will learn to code digital third spaces using presence, collaboration, and participation as our core building materials. Inspired by our physical community infrastructure—living rooms, cafes, libraries, and local events—students will create online spaces to facilitate new ways of relating to one another.\n&nbsp;\nThrough a mix of demos, discussions, and prototypes, we will explore how tiny social spaces fit into a platform-capitalist internet that promises permanent connection but leaves people feeling more alone. What does it mean to create digital spaces that nourish our collective social well-being? And how can we make the internet a home that feels like ours?\n&nbsp;\nBy the end of the class, each student will craft a live, public site that embodies the spirit of a chosen communal space. Linked together in a shared town, these sites will form a small network of digital places, built with care, intention, and the desire to make the internet feel a little more like a place where we meet.",
+  "descriptionFooterMd": "- [Summer 2026] 5-week class of 50 students (2 sections) with Munus Shih in conjunction with [SFPC](https://sfpc.study/sessions/summer-26/building-benches-for-the-web)\n&nbsp;\n",
+  "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2026-06-22T07:00:00.000Z",
   "endDate": "2026-07-30T07:00:00.000Z",
-  "institution": [
-    "SFPC"
-  ],
-  "heroImage": "https://sfpc.study/images/sessions/meta.jpg",
+  "institution": ["SFPC"],
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TZ8L8ahjmh/b38a0f5c646ada5067556542afb2d44f8b1b6ec7658d418e79b431539cca3306325f09f9c30a26882280937b17d65e92fa249b255185970aa942b3bcf247e3cf6729daccd61b67046ee9ca3a0480412b1d9aefd15e097e39a963472b144cd64cb718e77a",
   "media": [
-    "https://sfpc.study/images/sessions/meta.jpg"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TZ8L8ahjmh/b38a0f5c646ada5067556542afb2d44f8b1b6ec7658d418e79b431539cca3306325f09f9c30a26882280937b17d65e92fa249b255185970aa942b3bcf247e3cf6729daccd61b67046ee9ca3a0480412b1d9aefd15e097e39a963472b144cd64cb718e77a",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-wBIdhiUhoi/4942935b8642fd11fac141272a8b6431da22ce9a78b7049da84db9a5f523aa59ca089ffd04af2451fb71937f65bb55b220a6fd3b76f7864eb259bf8b5ab3b780ae858a30940f9170a0c244357653a7335b8a2ede076ea73d440631f78a8c0c75d25a5f16"
   ],
   "link": "https://sfpc.study/sessions/summer-26/building-benches-for-the-web",
   "ongoing": false,
   "featured": false,
-  "imageDescriptions": [],
+  "imageDescriptions": ["", ""],
   "isEvent": true,
-  "mediaMetadata": [
-    "image"
-  ],
+  "mediaMetadata": ["image", "image"],
   "related": [
     {
       "title": "playhtml",

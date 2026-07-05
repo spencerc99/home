@@ -7,12 +7,18 @@
   "institution": [
     "National Communication Museum (NCM)"
   ],
-  "media": [],
+  "heroImage": "https://cdn.sanity.io/images/gqf9k77w/production/571719de7b6470086f1aeaf22573cee0fc2f28c9-1920x1080.jpg",
+  "media": [
+    "https://cdn.sanity.io/images/gqf9k77w/production/571719de7b6470086f1aeaf22573cee0fc2f28c9-1920x1080.jpg"
+  ],
+  "link": "https://ncm.org.au/knowledge/ncm-2026-a-new-network-is-forming",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [],
   "location": "Melbourne, Austrailia"
 }

@@ -2,16 +2,10 @@
   "title": "neighborhood internets workshop",
   "subtext": "creating tiny social networks using playhtml @ Gray Area",
   "descriptionMd": "We live in the age of the \"personal computer\" these days. Even as the internet connects billions around the world every day, we still feel alone on the web. Our devices and interfaces were designed for individual experiences rather than collective ones. **Communal Computing** explores the shape of a world of \"communal computers,\" filled with software made for people to create together and love each other and made by people who care about maintaining it for the long-term. How can technology bring us together and give us space to support one another and create together? How can we build it in a way that lets the human behind the design shine through the bits and circuits?\n&nbsp;\nIn this one day workshop, we'll explore alternative device interfaces and internet environments that foster intimacy, co-creation, and solidarity. The workshop is hands-on and experiential: each participant is expected to walk away with a functional \"communal computing\" interface.",
-  "parentCategory": "Speaking, Workshops, Teaching",
-  "categories": [
-    "Website",
-    "Software Tool",
-    "Community"
-  ],
+  "parentCategory": "Talks & Teaching",
+  "categories": ["Website", "Software Tool", "Community"],
   "date": "2024-08-18T07:00:00.000Z",
-  "institution": [
-    "Gray Area"
-  ],
+  "institution": ["Gray Area"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gJeK22pxMj/026f6b64aacc00c60fd953a617e0f69a0a829d6088f5bab78c7455e5be53a19e99982c869956c3f32f61a57046ea05965d14eef21d05e38809c23c833aa7ab3bcebe22cfa4d540d657344cbc1ecd27b4b21283f72d5c5040a7e5e02efc349f8e19c482ee",
@@ -23,24 +17,10 @@
   ],
   "link": "https://grayarea.org/event/communal-computing-workshop-neighborhood-internets/",
   "ongoing": false,
-  "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "featured": false,
+  "imageDescriptions": ["", "", "", "", "", ""],
   "isEvent": true,
-  "mediaMetadata": [
-    "image",
-    "image",
-    "image",
-    "image",
-    "image",
-    "image"
-  ],
+  "mediaMetadata": ["image", "image", "image", "image", "image", "image"],
   "related": [
     {
       "title": "playhtml",

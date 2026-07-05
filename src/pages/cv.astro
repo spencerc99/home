@@ -18,7 +18,7 @@ const allCreations = hydrateCreations(await getCollection("creation"));
 const cvSections = [
   { category: "Exhibition", heading: "Exhibitions" },
   {
-    category: "Speaking, Workshops, Teaching",
+    category: "Talks & Teaching",
     heading: "Speaking, Workshops & Teaching",
   },
   {
@@ -52,8 +52,7 @@ function formatDateRange(item: Creation, category: string): string {
   if (!item.date) return "";
   const start = new Date(item.date);
   if (
-    (category === "Exhibition" ||
-      category === "Speaking, Workshops, Teaching") &&
+    (category === "Exhibition" || category === "Talks & Teaching") &&
     item.endDate
   ) {
     const end = new Date(item.endDate);
@@ -100,7 +99,11 @@ function getItemHref(item: Creation): string {
 >
   <div class="cv">
     <header class="cv-header">
-      <img src="/name-stamp.png" alt="Spencer Chang name stamp" class="cv-stamp" />
+      <img
+        src="/name-stamp.png"
+        alt="Spencer Chang name stamp"
+        class="cv-stamp"
+      />
       <h1>Spencer Chang</h1>
       <p class="cv-subtitle">
         b. 1997 Houston, lives and works in San Francisco

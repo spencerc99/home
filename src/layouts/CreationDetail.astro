@@ -42,7 +42,7 @@ const descriptionParsed = descriptionMd
       {
         breaks: true,
         gfm: true,
-      }
+      },
     )
   : "";
 
@@ -50,7 +50,7 @@ const descriptionParsed = descriptionMd
 const manualFooterParsed = descriptionFooterMd
   ? await marked.parse(
       descriptionFooterMd.trim().replace(/(?<!  )\n&nbsp;/g, "\n\n"),
-      { breaks: true, gfm: true }
+      { breaks: true, gfm: true },
     )
   : "";
 
@@ -58,20 +58,24 @@ const manualFooterParsed = descriptionFooterMd
 const categoryOrder = [
   "Exhibition",
   "Press",
-  "Speaking, Workshops, Teaching",
+  "Talks & Teaching",
   "Fellowships, Residencies, Awards",
   "Project",
 ];
 
 const headingOverrides: Record<string, string> = {
-  "Exhibition": "Exhibition History",
+  Exhibition: "Exhibition History",
   "Fellowships, Residencies, Awards": "Awards & Fellowships",
-  "Project": "Related Projects",
+  Project: "Related Projects",
 };
 
 // Group footer entries by parentCategory, sorted by date descending within each group
 function buildFooterSections(entries: ResolvedRelated[]) {
-  const sections: Array<{ heading: string; category: string; items: ResolvedRelated[] }> = [];
+  const sections: Array<{
+    heading: string;
+    category: string;
+    items: ResolvedRelated[];
+  }> = [];
   const categorized = new Set<string>();
 
   function sortByDate(items: ResolvedRelated[]) {
@@ -83,15 +87,23 @@ function buildFooterSections(entries: ResolvedRelated[]) {
   }
 
   for (const category of categoryOrder) {
-    const items = sortByDate(entries.filter((e) => e.parentCategory === category));
+    const items = sortByDate(
+      entries.filter((e) => e.parentCategory === category),
+    );
     if (items.length > 0) {
-      sections.push({ heading: headingOverrides[category] || category, category, items });
+      sections.push({
+        heading: headingOverrides[category] || category,
+        category,
+        items,
+      });
       categorized.add(category);
     }
   }
 
   // Catch-all for entries with categories not in categoryOrder
-  const remaining = entries.filter((e) => !categorized.has(e.parentCategory || ""));
+  const remaining = entries.filter(
+    (e) => !categorized.has(e.parentCategory || ""),
+  );
   if (remaining.length > 0) {
     sections.push({
       heading: "Related",
@@ -113,13 +125,16 @@ function formatDateRange(item: ResolvedRelated, category: string): string {
   if (category === "Exhibition" && item.endDate) {
     const end = new Date(item.endDate);
     // Same month+year: just show once
-    if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
+    if (
+      start.getMonth() === end.getMonth() &&
+      start.getFullYear() === end.getFullYear()
+    ) {
       return formatCompactDate(start);
     }
     return `${formatCompactDate(start)}–${formatCompactDate(end)}`;
   }
   // Exhibitions without end date and workshops/teaching: just start
-  if (category === "Exhibition" || category === "Speaking, Workshops, Teaching") {
+  if (category === "Exhibition" || category === "Talks & Teaching") {
     return formatCompactDate(start);
   }
   return "";
@@ -127,10 +142,12 @@ function formatDateRange(item: ResolvedRelated, category: string): string {
 
 function formatFooterItem(item: ResolvedRelated, category: string): string {
   const shouldLinkInternal = Boolean(item.descriptionMd);
-  const href = shouldLinkInternal ? `/creation/${item.id}` : (item.link || "");
+  const href = shouldLinkInternal ? `/creation/${item.id}` : item.link || "";
   const forthcomingPrefix = item.forthcoming ? "<em>(forthcoming)</em> " : "";
   const linkText = item.title;
-  const institutionStr = item.institution?.length ? item.institution.join(", ") : "";
+  const institutionStr = item.institution?.length
+    ? item.institution.join(", ")
+    : "";
   const locationStr = item.location || "";
   const dateStr = formatDateRange(item, category);
 
@@ -373,7 +390,6 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
             metadata={allMetadata}
           />
         </div>
-
       </div>
     </article>
   </main>

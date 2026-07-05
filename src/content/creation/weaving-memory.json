@@ -3,14 +3,10 @@
   "subtext": "an exploration of memory as a protocol for ritualizing perception",
   "descriptionMd": "According to Ursula Le Guin’s carrier-bag theory of narrative, bags were the original tool of society. They allowed us to gather and take with us not only the things we needed to survive, like food, but also the things that we *wanted* because they spoke to us. Memories may be considered the original human bag, a phenomenon that initially evolved due to its adaptive value but has since also acquired sacred ritual aspects. Our memories form the stories we tell both ourselves and the world, which makes developing methods to influence our memory an invaluable practice.\n&nbsp;\nThe Memory Pouch is a historical reconstruction of the devices worn by the Time Rangers of the New Time Machines Working Group (described elsewhere in this document), and a speculative DIY design for creating your own Pouch in the present day. The Pouch is a device for the wearer to memorialize the kinds of things they want to pay attention to, through the collection of everyday objects. Memory Pouches offer a human-first method for memory influence by allowing wearers to cultivate their own personal practice and relationship with their different senses of memory. Wearers must confront the question of what they care about, what they want to see more of, and what they think belongs in their own history. \n&nbsp;\nIn a world of overwhelming information, Memory Pouches offer an aid for anchoring our memory to tangible containers and objects so that we may all choose which memories matter to us.\n&nbsp;\npublished as part of the [Summer of Protocols](https://summerofprotocols.com/) 2023 Program.",
   "parentCategory": "Writing",
-  "categories": [
-    "Writing"
-  ],
+  "categories": ["Writing"],
   "date": "2023-06-01T07:00:00.000Z",
   "endDate": "2024-03-07T08:00:00.000Z",
-  "institution": [
-    "Ethereum Foundation"
-  ],
+  "institution": ["Ethereum Foundation"],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TQlEv0T5yH/640e700882d755d9a59e15f3e82bb22aed96d82fc9a8f7da4ba4b8c44b6e63f406d75362c15578ee7e41fbfdc1dabef33099cce6efb0cd14e03fa74145757f70e4e80860011f99b959d40719d60da7f0fbf637028fda90ecbb55022aedd99e11b49ca2d0",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TQlEv0T5yH/640e700882d755d9a59e15f3e82bb22aed96d82fc9a8f7da4ba4b8c44b6e63f406d75362c15578ee7e41fbfdc1dabef33099cce6efb0cd14e03fa74145757f70e4e80860011f99b959d40719d60da7f0fbf637028fda90ecbb55022aedd99e11b49ca2d0",
@@ -30,23 +26,8 @@
   ],
   "link": "https://summerofprotocols.com/memory-pouch-web",
   "ongoing": false,
-  "featured": true,
-  "imageDescriptions": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-  ],
+  "featured": false,
+  "imageDescriptions": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
   "isEvent": false,
   "mediaMetadata": [
     "image",
@@ -69,13 +50,13 @@
       "title": "Worn Memory",
       "slug": "worn-memory",
       "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     },
     {
       "title": "Worn Memory at FVS",
       "slug": "worn-memory-at-fvs",
       "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
-      "parentCategory": "Speaking, Workshops, Teaching"
+      "parentCategory": "Talks & Teaching"
     }
   ],
   "love": "n",
