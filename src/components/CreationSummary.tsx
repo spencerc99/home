@@ -44,7 +44,6 @@ export function CreationSummary({
     media,
     assetPreviewIdx,
     parentCategory,
-    categories,
     mediaMetadata,
   } = creation;
   const internalLink = `/creation/${id}`;
@@ -66,6 +65,38 @@ export function CreationSummary({
         }),
       } as React.CSSProperties)
     : undefined;
+  // Shared category stamp/chip reused by both grid overlays and the list view's
+  // "kind" column. When onCategoryClick is provided it becomes a filter toggle.
+  const categoryStamp = parentCategory ? (
+    onCategoryClick ? (
+      <span
+        className="categoryStamp interactive"
+        style={categoryStampStyle}
+        role="button"
+        tabIndex={0}
+        title={`Filter by ${parentCategory}`}
+        onClick={(e) => {
+          // Stamp may live inside a cover link, so suppress navigation.
+          e.preventDefault();
+          e.stopPropagation();
+          onCategoryClick(parentCategory);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            e.stopPropagation();
+            onCategoryClick(parentCategory);
+          }
+        }}
+      >
+        {parentCategory}
+      </span>
+    ) : (
+      <span className="categoryStamp" style={categoryStampStyle}>
+        {parentCategory}
+      </span>
+    )
+  ) : null;
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
 
   const shouldLinkInternal = Boolean(descriptionMd);
@@ -212,11 +243,7 @@ export function CreationSummary({
                 : ""}
           </div>
           <div className="subtext">{subtext}</div>
-          <div className="kind">
-            <b>{parentCategory}</b>
-            {categories.filter((c) => c !== parentCategory).length > 0 &&
-              `: ${categories.filter((c) => c !== parentCategory).join(", ")}`}
-          </div>
+          <div className="kind">{categoryStamp}</div>
         </div>
       );
     case ViewType.GRID:
@@ -232,35 +259,7 @@ export function CreationSummary({
               <p>{subtext}</p>
             </div>
           )}
-          {parentCategory &&
-            (onCategoryClick ? (
-              <span
-                className="categoryStamp interactive"
-                style={categoryStampStyle}
-                role="button"
-                tabIndex={0}
-                title={`Filter by ${parentCategory}`}
-                onClick={(e) => {
-                  // Stamp lives inside the cover link, so suppress navigation.
-                  e.preventDefault();
-                  e.stopPropagation();
-                  onCategoryClick(parentCategory);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onCategoryClick(parentCategory);
-                  }
-                }}
-              >
-                {parentCategory}
-              </span>
-            ) : (
-              <span className="categoryStamp" style={categoryStampStyle}>
-                {parentCategory}
-              </span>
-            ))}
+          {categoryStamp}
           {!useImageForPreview && movieUrl ? (
             <LazyContainer
               style={{

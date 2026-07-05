@@ -5,15 +5,23 @@
   "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2025-06-04T07:00:00.000Z",
-  "institution": ["New Museum", "NEW INC", "Rhizome"],
+  "institution": [
+    "New Museum",
+    "NEW INC",
+    "Rhizome"
+  ],
   "heroImage": "https://i.ytimg.com/vi/l-2t-N96Bn8/hqdefault.jpg",
-  "media": ["https://i.ytimg.com/vi/l-2t-N96Bn8/hqdefault.jpg"],
+  "media": [
+    "https://i.ytimg.com/vi/l-2t-N96Bn8/hqdefault.jpg"
+  ],
   "link": "https://www.youtube.com/watch?v=l-2t-N96Bn8",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": ["image"],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Computing Shrines",

@@ -66,7 +66,6 @@ interface Props {
   // Accounts for if it is in display with something else
   columns: 1 | 2;
   defaultView?: ViewType;
-  showEvents?: boolean;
   defaultCategory?: AllCreationCategories;
 }
 
@@ -75,45 +74,26 @@ export function CreationsView({
   description,
   columns,
   defaultView,
-  showEvents = true,
   defaultCategory = "all",
 }: Props) {
   const [view, setView] = useState(defaultView || ViewType.GRID);
   const [category, setCategory] = useState(defaultCategory);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  // Category values come in as plain strings (select values, creation
+  // parentCategory), so funnel them through one place that narrows the type.
+  const handleCategoryChange = (value: string) =>
+    setCategory(value as AllCreationCategories);
   const allCategories = new Set(
     creations.map((creation) => creation.data.parentCategory).filter(Boolean),
   );
-
-  const eventCreations = creations
-    .filter(
-      (creation) =>
-        creation.data.isEvent &&
-        isEventForthcoming(
-          creation.data.date,
-          creation.data.endDate,
-          creation.data.forthcoming,
-        ),
-    )
-    .reverse();
-  const nonEventCreations = creations.filter(
-    (creation) =>
-      !creation.data.isEvent ||
-      !isEventForthcoming(
-        creation.data.date,
-        creation.data.endDate,
-        creation.data.forthcoming,
-      ),
-  );
-
   const columnsCountBreakPoints = useMemo(() => {
     return columns === 1
       ? OneColumnColumnCountBreakPoints
       : TwoColumnsColumnCountBreakPoints;
   }, [columns]);
 
-  const sortedNonEventCreations = useMemo(() => {
-    return [...nonEventCreations].sort((a, b) => {
+  const sortedCreations = useMemo(() => {
+    return [...creations].sort((a, b) => {
       const multiplier = sortDirection === "asc" ? 1 : -1;
 
       // Pinned creations always come first
@@ -145,16 +125,16 @@ export function CreationsView({
 
       return (dateA.getTime() - dateB.getTime()) * multiplier;
     });
-  }, [nonEventCreations, sortDirection]);
+  }, [creations, sortDirection]);
 
   const filteredCreations = useMemo(() => {
-    return sortedNonEventCreations.filter((creation) => {
+    return sortedCreations.filter((creation) => {
       if (category === "all") return true;
       if (category === FEATURED_CATEGORY)
         return isFeaturedCreation(creation.data);
       return creation.data.parentCategory === category;
     });
-  }, [sortedNonEventCreations, category]);
+  }, [sortedCreations, category]);
 
   function renderCreations() {
     switch (view) {
@@ -191,6 +171,7 @@ export function CreationsView({
                 }}
                 view={view}
                 isSelected={isSelected}
+                onCategoryClick={handleCategoryChange}
               />
             )}
             rowKey={(creation) => creation.id}
@@ -214,7 +195,7 @@ export function CreationsView({
                       ...creation.data,
                     }}
                     view={view}
-                    onCategoryClick={setCategory}
+                    onCategoryClick={handleCategoryChange}
                   />
                 ))}
               </Masonry>
@@ -234,7 +215,7 @@ export function CreationsView({
           <select
             value={category}
             onChange={(e) => {
-              setCategory(e.target.value);
+              handleCategoryChange(e.target.value);
             }}
           >
             <option value="all">All</option>
@@ -268,27 +249,6 @@ export function CreationsView({
           {getDescriptionForDescriptionType(description)}
         </div>
       </div>
-      {/* EVENTS */}
-      {showEvents && eventCreations.length > 0 && (
-        <div className="events">
-          <span
-            className="mono"
-            style={{
-              fontSize: "18px",
-              textTransform: "uppercase",
-              fontWeight: "bold",
-            }}
-          >
-            NOW & UPCOMING
-          </span>
-          <EventCreationsList
-            creations={eventCreations.map((c) => ({
-              ...c.data,
-              id: c.id,
-            }))}
-          />
-        </div>
-      )}
       {renderCreations()}
     </div>
   );

@@ -84,6 +84,48 @@
   }
 }
 
+// Shared category "stamp/chip" appearance. Color is driven by
+// --category-stamp-color (per-category, set inline), falling back to the aura
+// color. Used both as an overlay on grid previews and inline in the list
+// view's "kind" column, so the two stay visually consistent.
+.categoryStamp {
+  --stamp-color: var(--category-stamp-color, var(--aura-color));
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  white-space: nowrap;
+  color: var(--color-text-color);
+  // Mostly a frosted neutral surface with just a hint of the category hue,
+  // so categories read as distinct without drawing attention.
+  background: color-mix(
+    in srgb,
+    var(--stamp-color) 22%,
+    var(--color-neutral-background-translucent)
+  );
+  backdrop-filter: blur(4px);
+  border: 1px solid color-mix(in srgb, var(--stamp-color) 40%, transparent);
+  border-radius: 0.35em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+
+  &.interactive {
+    cursor: pointer;
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: scale(1.05);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      outline: none;
+    }
+  }
+}
+
 .creationSummary {
   // width: 300px;
   position: relative;
@@ -130,50 +172,24 @@
     display: flex;
   }
 
-  // Small offset "stamp" showing the parent category, tucked into a corner
-  // of the preview image like a sticker/postmark.
-  .categoryStamp {
+  // Category stamp placement over the grid preview image: a small offset
+  // sticker tucked into the top-left corner. Visual appearance is defined by
+  // the shared top-level .categoryStamp rule.
+  .previewWrapper .categoryStamp {
     position: absolute;
     z-index: 11;
     top: 6px;
     left: 6px;
-    padding: 0.1em 0.5em;
-    font-size: 0.7rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    text-transform: lowercase;
-    white-space: nowrap;
-    color: var(--color-text-color);
-    // Falls back to the aura color if a category color wasn't provided.
-    --stamp-color: var(--category-stamp-color, var(--aura-color));
-    // Mostly a frosted neutral surface with just a hint of the category hue,
-    // so categories read as distinct without drawing attention.
-    background: color-mix(
-      in srgb,
-      var(--stamp-color) 22%,
-      var(--color-neutral-background-translucent)
-    );
-    backdrop-filter: blur(4px);
-    border: 1px solid color-mix(in srgb, var(--stamp-color) 40%, transparent);
-    border-radius: 0.35em;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     transform: rotate(-3deg);
     transform-origin: top left;
     pointer-events: none;
 
     &.interactive {
       pointer-events: auto;
-      cursor: pointer;
-      transition:
-        transform 0.12s ease,
-        box-shadow 0.12s ease;
 
       &:hover,
       &:focus-visible {
         transform: rotate(-3deg) scale(1.06);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        outline: none;
       }
     }
   }
@@ -212,7 +228,7 @@
         content: "";
         display: block;
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
       }
     }

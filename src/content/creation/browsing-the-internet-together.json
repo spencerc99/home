@@ -3,7 +3,9 @@
   "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2026-06-06T07:00:00.000Z",
-  "institution": ["NYU ITP"],
+  "institution": [
+    "NYU ITP"
+  ],
   "heroImage": "https://partiful.imgix.net/external/user/s6iNDklrsmXhM9KLVQK9p0M0mwB3/SvIeKE3vRo6_76TPYx_vd?w=500&h=500&fit=clip",
   "media": [
     "https://partiful.imgix.net/external/user/s6iNDklrsmXhM9KLVQK9p0M0mwB3/SvIeKE3vRo6_76TPYx_vd?w=500&h=500&fit=clip"
@@ -13,7 +15,9 @@
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": ["image"],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Walking on the Internet Together",

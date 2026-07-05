@@ -5,7 +5,9 @@
   "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2025-12-10T08:00:00.000Z",
-  "institution": ["Tokyo University of the Arts"],
+  "institution": [
+    "Tokyo University of the Arts"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GbL05qDnuJ/0f3885b77ccc2522bbd7febeda136ce92471e159b08029856a39a4d8f068ad8d0381d4f4bfb8b361944e2bde7e2eeb5eebbc65aaf0d7727190afdc65c40a4ac70fda915086095f9588725417e565a727759c13e61e0ae3180a997530da96fb0c07892a82",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-GbL05qDnuJ/0f3885b77ccc2522bbd7febeda136ce92471e159b08029856a39a4d8f068ad8d0381d4f4bfb8b361944e2bde7e2eeb5eebbc65aaf0d7727190afdc65c40a4ac70fda915086095f9588725417e565a727759c13e61e0ae3180a997530da96fb0c07892a82",
@@ -19,8 +21,19 @@
   ],
   "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
   "ongoing": false,
-  "featured": true,
-  "imageDescriptions": ["", "", "", "", "", "", "", "", "", ""],
+  "featured": false,
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
   "isEvent": true,
   "mediaMetadata": [
     "image",

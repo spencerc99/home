@@ -13,12 +13,19 @@
   ],
   "link": "https://news.spencer.place/p/the-internet-has-no-benches",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Building Benches for the Web",
+      "slug": "building-benches-for-the-web",
+      "link": "https://sfpc.study/sessions/summer-26/building-benches-for-the-web",
+      "parentCategory": "Talks & Teaching"
+    }
+  ],
   "location": "online"
 }

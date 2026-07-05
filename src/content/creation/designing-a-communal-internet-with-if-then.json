@@ -13,7 +13,9 @@
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": ["image"],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [],
   "love": "n",
   "me": "n",

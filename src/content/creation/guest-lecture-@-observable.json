@@ -1,7 +1,9 @@
 {
   "title": "Guest Lecture @ Observable",
   "parentCategory": "Talks & Teaching",
-  "categories": ["Community"],
+  "categories": [
+    "Community"
+  ],
   "date": "2024-05-15T07:00:00.000Z",
   "media": [],
   "ongoing": false,

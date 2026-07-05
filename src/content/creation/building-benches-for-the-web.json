@@ -1,30 +1,68 @@
 {
   "title": "Building Benches for the Web",
   "subtext": "a class on making internet 3rd spaces",
-  "descriptionMd": "Building Benches for the Web is an exploration of the internet’s potential as community-led social media through **[playhtml](https://playhtml.fun/)**, an open-source library for shared web elements.\n&nbsp;\nWe will learn to code digital third spaces using presence, collaboration, and participation as our core building materials. Inspired by our physical community infrastructure—living rooms, cafes, libraries, and local events—students will create online spaces to facilitate new ways of relating to one another.\n&nbsp;\nThrough a mix of demos, discussions, and prototypes, we will explore how tiny social spaces fit into a platform-capitalist internet that promises permanent connection but leaves people feeling more alone. What does it mean to create digital spaces that nourish our collective social well-being? And how can we make the internet a home that feels like ours?\n&nbsp;\nBy the end of the class, each student will craft a live, public site that embodies the spirit of a chosen communal space. Linked together in a shared town, these sites will form a small network of digital places, built with care, intention, and the desire to make the internet feel a little more like a place where we meet.",
+  "descriptionMd": "Building Benches for the Web is an exploration of the internet’s potential as community-led social media through **[playhtml](https://playhtml.fun/)**, an open-source library for shared web elements.\n&nbsp;\nWe will learn to code digital third spaces using presence, collaboration, and participation as our core building materials. Inspired by our physical community infrastructure—living rooms, cafes, libraries, and local events—students will create online spaces to facilitate new ways of relating to one another.\n&nbsp;\nThrough a mix of demos, discussions, and prototypes, we will explore how tiny social spaces fit into a platform-capitalist internet that promises permanent connection but leaves people feeling more alone. What does it mean to create digital spaces that nourish our collective social well-being? And how can we make the internet a home that feels like ours?\n&nbsp;\nBy the end of the class, each student will craft a live, public site that embodies the spirit of a chosen communal space. Linked together in a shared town, these sites will form a small network of digital places, built with care, intention, and the desire to make the internet feel a little more like a place where we meet.\n&nbsp;\nMore about the philosophy in [The Internet has no Benches](https://news.spencer.place/p/the-internet-has-no-benches).",
   "descriptionFooterMd": "- [Summer 2026] 5-week class of 50 students (2 sections) with Munus Shih in conjunction with [SFPC](https://sfpc.study/sessions/summer-26/building-benches-for-the-web)\n&nbsp;\n",
   "parentCategory": "Talks & Teaching",
   "categories": [],
   "date": "2026-06-22T07:00:00.000Z",
   "endDate": "2026-07-30T07:00:00.000Z",
-  "institution": ["SFPC"],
+  "institution": [
+    "SFPC"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TZ8L8ahjmh/b38a0f5c646ada5067556542afb2d44f8b1b6ec7658d418e79b431539cca3306325f09f9c30a26882280937b17d65e92fa249b255185970aa942b3bcf247e3cf6729daccd61b67046ee9ca3a0480412b1d9aefd15e097e39a963472b144cd64cb718e77a",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-TZ8L8ahjmh/b38a0f5c646ada5067556542afb2d44f8b1b6ec7658d418e79b431539cca3306325f09f9c30a26882280937b17d65e92fa249b255185970aa942b3bcf247e3cf6729daccd61b67046ee9ca3a0480412b1d9aefd15e097e39a963472b144cd64cb718e77a",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-wBIdhiUhoi/4942935b8642fd11fac141272a8b6431da22ce9a78b7049da84db9a5f523aa59ca089ffd04af2451fb71937f65bb55b220a6fd3b76f7864eb259bf8b5ab3b780ae858a30940f9170a0c244357653a7335b8a2ede076ea73d440631f78a8c0c75d25a5f16"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-wBIdhiUhoi/4942935b8642fd11fac141272a8b6431da22ce9a78b7049da84db9a5f523aa59ca089ffd04af2451fb71937f65bb55b220a6fd3b76f7864eb259bf8b5ab3b780ae858a30940f9170a0c244357653a7335b8a2ede076ea73d440631f78a8c0c75d25a5f16",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-n64028g4Nf/10f652d6973d5509f7508ac3bc11f1db41c22ef58471fa36f1cc26f3a4f21752b16e3b52a3336807c890334de288066cafabcaf72cf7cc9285eb1382c52a669b0cfbc4afcffa20685cfd26b6b7017ae311838e41e97e00fa94d3137740056e5260f40228",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-RKVvcsu9xA/7443a1be574b245aa10a6eb6c6ea1230ae762b48cee60034ab9aa8fb2cfeebf4c0b13220a155cdbf4ff6aa372ab47cf7109d93d0ed9b571ffa142ea5eabf072cd763e18dbfcb4e750f939bb7952334d2e729d8819fab7f90fd36e71b56d9a2e6b940a952"
   ],
   "link": "https://sfpc.study/sessions/summer-26/building-benches-for-the-web",
   "ongoing": false,
-  "featured": false,
-  "imageDescriptions": ["", ""],
+  "featured": true,
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "a collective vinyl website by Jerald "
+  ],
   "isEvent": true,
-  "mediaMetadata": ["image", "image"],
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "image"
+  ],
   "related": [
     {
       "title": "playhtml",
       "slug": "playhtml",
       "link": "https://playhtml.fun/",
       "parentCategory": "Project"
+    },
+    {
+      "title": "The Internet has no Benches",
+      "slug": "the-internet-has-no-benches",
+      "link": "https://news.spencer.place/p/the-internet-has-no-benches",
+      "parentCategory": "Writing"
+    },
+    {
+      "title": "tiny internets",
+      "slug": "tiny-internets",
+      "link": "https://tiny-inter.net/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "alive internet theory",
+      "slug": "alive-internet-theory",
+      "link": "https://alivetheory.net/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Walking on the Internet Together",
+      "slug": "walking-on-the-internet-together",
+      "link": "https://spencer.place/creation/walking-on-the-internet-together",
+      "parentCategory": "Talks & Teaching"
     }
   ],
   "location": "online"

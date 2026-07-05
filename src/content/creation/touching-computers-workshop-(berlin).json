@@ -2,9 +2,15 @@
   "title": "Touching Computers Workshop (Berlin)",
   "subtext": "making webstones and other computing-infused objects out of clay @ Hex House",
   "parentCategory": "Talks & Teaching",
-  "categories": ["Art", "Object", "Community"],
+  "categories": [
+    "Art",
+    "Object",
+    "Community"
+  ],
   "date": "2024-07-21T07:00:00.000Z",
-  "institution": ["trust.support"],
+  "institution": [
+    "trust.support"
+  ],
   "heroImage": "https://cdn-codaio.imgix.net/external/img/doc-banner-compressed-2x-v3.jpg?fit=crop&ar=1.91%3A1&fm=jpg",
   "media": [
     "https://cdn-codaio.imgix.net/external/img/doc-banner-compressed-2x-v3.jpg?fit=crop&ar=1.91%3A1&fm=jpg"
@@ -14,7 +20,9 @@
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": ["image"],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Touching Computers: Creating Data Talismans",

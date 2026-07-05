@@ -9,13 +9,17 @@
     "Mitsubishi Estate"
   ],
   "heroImage": "https://arturbanism.jp/images/common/ogp_2025.png",
-  "media": ["https://arturbanism.jp/images/common/ogp_2025.png"],
+  "media": [
+    "https://arturbanism.jp/images/common/ogp_2025.png"
+  ],
   "link": "https://arturbanism.jp/project/futurevisionsummit2025_workshop/",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": ["image"],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Weaving Memory",
