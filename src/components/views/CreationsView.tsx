@@ -5,6 +5,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import "./CreationsView.scss";
 import { EventCreationsList } from "../EventCreationsList";
 import { CreationListView } from "./CreationListView";
+import { CreationShowcase } from "../CreationShowcase";
 import {
   PINNED_CREATIONS,
   FEATURED_CATEGORY,
@@ -17,6 +18,7 @@ export enum ViewType {
   // FREE = "free",
   GRID = "grid",
   LIST = "list",
+  TABLE = "table",
 }
 
 export enum DescriptionType {
@@ -140,6 +142,13 @@ export function CreationsView({
     switch (view) {
       case ViewType.LIST:
         return (
+          <CreationShowcase
+            creations={filteredCreations}
+            onCategoryClick={handleCategoryChange}
+          />
+        );
+      case ViewType.TABLE:
+        return (
           <CreationListView
             creations={filteredCreations}
             headerColumns={(selectedIndex) => (
@@ -236,11 +245,14 @@ export function CreationsView({
               setView(e.target.value);
             }}
           >
-            {Object.values(ViewType).map((viewType) => (
-              <option key={viewType} value={viewType}>
-                {viewType}
-              </option>
-            ))}
+            {/* TODO: offer LIST once the showcase design settles */}
+            {Object.values(ViewType)
+              .filter((viewType) => viewType !== ViewType.LIST)
+              .map((viewType) => (
+                <option key={viewType} value={viewType}>
+                  {viewType}
+                </option>
+              ))}
           </select>
         </div>
         {/* TODO: sort */}
@@ -264,7 +276,7 @@ export function SimpleCreationsList({ creations }: Props) {
             id: creation.id,
             ...creation.data,
           }}
-          view={ViewType.LIST}
+          view={ViewType.TABLE}
         />
       ))}
     </div>

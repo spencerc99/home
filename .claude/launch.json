@@ -5,7 +5,8 @@
       "name": "astro",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["dev"],
-      "port": 4321
+      "port": 4321,
+      "autoPort": true
     }
   ]
 }
