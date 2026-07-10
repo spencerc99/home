@@ -2,7 +2,7 @@
 // ABOUTME: On mobile, tapping the name toggles the sidebar's expanded drawer revealing desktop-only content.
 
 import React, { useEffect, useState } from "react";
-import { ClockEmbed } from "../ClockEmbed";
+import { ClockEmbed, CLOCK_CAPTION } from "../ClockEmbed";
 
 interface StatusData {
   timezone?: string;
@@ -63,11 +63,17 @@ export function StatusHeader() {
   return (
     <>
       <div
-        style={{ display: "flex", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         className="sidebarClock"
         data-astro-transition-persist="clock-embed"
       >
         <ClockEmbed size={100} timezone={timezone} />
+        <span className="sidebarClockCaption">{CLOCK_CAPTION}</span>
       </div>
       <div
         className="avatar"
