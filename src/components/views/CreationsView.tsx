@@ -245,11 +245,14 @@ export function CreationsView({
               setView(e.target.value);
             }}
           >
-            {Object.values(ViewType).map((viewType) => (
-              <option key={viewType} value={viewType}>
-                {viewType}
-              </option>
-            ))}
+            {/* TODO: offer LIST once the showcase design settles */}
+            {Object.values(ViewType)
+              .filter((viewType) => viewType !== ViewType.LIST)
+              .map((viewType) => (
+                <option key={viewType} value={viewType}>
+                  {viewType}
+                </option>
+              ))}
           </select>
         </div>
         {/* TODO: sort */}

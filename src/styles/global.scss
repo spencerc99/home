@@ -647,6 +647,41 @@ footer {
       -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px);
 
+      // Grid keeps the name + nav row identical to the collapsed bar while
+      // pinning socials/stats to the bottom and letting events fill the middle.
+      .sidebarContainer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: $navBar-height auto minmax(0, 1fr) auto;
+        align-items: center;
+        height: 100%;
+        row-gap: 0.75em;
+
+        .avatar {
+          grid-row: 1;
+          grid-column: 1;
+        }
+        > .navbarActions {
+          grid-row: 1;
+          grid-column: 2;
+        }
+        .sidebarClock {
+          grid-row: 2;
+          grid-column: 1 / -1;
+        }
+        .sidebarEvents {
+          grid-row: 3;
+          grid-column: 1 / -1;
+          align-self: stretch;
+          max-height: none;
+          min-height: 0;
+        }
+        .sidebarFooter {
+          grid-row: 4;
+          grid-column: 1 / -1;
+        }
+      }
+
       .sidebarClock,
       .sidebarEvents,
       .sidebarFooter {
