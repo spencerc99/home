@@ -1,0 +1,26 @@
+---
+// ABOUTME: Development page for comparing candidate showcase card designs
+// ABOUTME: Only accessible in development mode
+
+import { getCollection } from "astro:content";
+import { hydrateCreations, isFeaturedCreation } from "../../utils/creations";
+import { ShowcaseOptions } from "../../components/dev/ShowcaseOptions";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// Only allow in development
+if (import.meta.env.PROD) {
+  return Astro.redirect("/");
+}
+
+const creations = hydrateCreations(await getCollection("creation"))
+  .filter((c) => isFeaturedCreation(c.data))
+  .sort(
+    (a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime(),
+  )
+  .slice(0, 8);
+---
+
+<BaseLayout title="Showcase Options - Dev Tool">
+  <h1>showcase options</h1>
+  <ShowcaseOptions creations={creations} client:only="react" />
+</BaseLayout>

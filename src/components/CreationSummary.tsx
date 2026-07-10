@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { stringToColor } from "../utils";
 import { maybeTransformImgixUrl } from "../utils/images";
 import { CreationPreviewMedia } from "./CreationPreviewMedia";
+import { CategoryStamp } from "./CategoryStamp";
 
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
@@ -53,49 +54,6 @@ export function CreationSummary({
       alpha: 0.3,
     }),
   };
-  // Category stamp color is derived from the category name (not the title) so
-  // every creation in the same category shares the same stamp color. Kept
-  // low-saturation so categories stay distinguishable without shouting.
-  const categoryStampStyle = parentCategory
-    ? ({
-        "--category-stamp-color": stringToColor(parentCategory, {
-          saturation: 45,
-          lightness: 55,
-        }),
-      } as React.CSSProperties)
-    : undefined;
-  // Shared category stamp/chip reused by both grid overlays and the list view's
-  // "kind" column. When onCategoryClick is provided it becomes a filter toggle.
-  const categoryStamp = parentCategory ? (
-    onCategoryClick ? (
-      <span
-        className="categoryStamp interactive"
-        style={categoryStampStyle}
-        role="button"
-        tabIndex={0}
-        title={`Filter by ${parentCategory}`}
-        onClick={(e) => {
-          // Stamp may live inside a cover link, so suppress navigation.
-          e.preventDefault();
-          e.stopPropagation();
-          onCategoryClick(parentCategory);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            e.stopPropagation();
-            onCategoryClick(parentCategory);
-          }
-        }}
-      >
-        {parentCategory}
-      </span>
-    ) : (
-      <span className="categoryStamp" style={categoryStampStyle}>
-        {parentCategory}
-      </span>
-    )
-  ) : null;
   const [hasLoadedMedia, setHasLoadedMedia] = useState(false);
 
   const shouldLinkInternal = Boolean(descriptionMd);
@@ -191,7 +149,12 @@ export function CreationSummary({
                 : ""}
           </div>
           <div className="subtext">{subtext}</div>
-          <div className="kind">{categoryStamp}</div>
+          <div className="kind">
+            <CategoryStamp
+              parentCategory={parentCategory}
+              onCategoryClick={onCategoryClick}
+            />
+          </div>
         </div>
       );
     case ViewType.GRID:
@@ -207,7 +170,10 @@ export function CreationSummary({
               <p>{subtext}</p>
             </div>
           )}
-          {categoryStamp}
+          <CategoryStamp
+            parentCategory={parentCategory}
+            onCategoryClick={onCategoryClick}
+          />
           <CreationPreviewMedia creation={creation} />
         </div>
       );

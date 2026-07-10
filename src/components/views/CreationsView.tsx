@@ -142,7 +142,11 @@ export function CreationsView({
     switch (view) {
       case ViewType.LIST:
         return (
-          <CreationShowcase creations={filteredCreations} columns={columns} />
+          <CreationShowcase
+            creations={filteredCreations}
+            columns={columns}
+            onCategoryClick={handleCategoryChange}
+          />
         );
       case ViewType.TABLE:
         return (

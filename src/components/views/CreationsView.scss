@@ -649,16 +649,41 @@
   }
 }
 
-// Showcase view: a few projects, up close
+// Showcase view: a few projects, up close, on trinket-style cards
 .creationShowcase {
   margin: 1.5em 0 2em;
+  columns: 1;
+  column-gap: 2em;
+
+  &.fullWidth {
+    @media (min-width: 800px) {
+      columns: 2;
+    }
+  }
+
+  &.sharedWidth {
+    @media (min-width: 1280px) {
+      columns: 2;
+    }
+  }
 
   .showcaseCard {
     display: block;
+    break-inside: avoid;
+    margin-bottom: 2em;
+    background: var(--color-neutral-background);
+    border: 3px double var(--border-color);
+    border-radius: 0.25em;
+    padding: 0.5em;
     color: inherit;
     text-decoration: none !important;
 
     &:hover {
+      .showcaseMedia img,
+      .showcaseMedia video {
+        opacity: 0.6;
+      }
+
       .showcaseTitle {
         text-decoration: underline;
       }
@@ -667,14 +692,8 @@
 
   .showcaseMedia {
     position: relative;
-    border-radius: 6px;
+    border-radius: 0.25em;
     overflow: hidden;
-    background: radial-gradient(
-      circle,
-      var(--aura-color) 0%,
-      var(--aura-color) 20%,
-      var(--aura-color-transparent) 100%
-    );
 
     img,
     video {
@@ -683,6 +702,33 @@
       height: auto;
       max-height: 400px;
       object-fit: cover;
+      background: radial-gradient(
+        circle,
+        var(--aura-color) 0%,
+        var(--aura-color) 20%,
+        var(--aura-color-transparent) 100%
+      );
+      @include image-dropshadow();
+      transition: opacity 0.15s linear;
+    }
+
+    .categoryStamp {
+      position: absolute;
+      z-index: 11;
+      top: 6px;
+      left: 6px;
+      transform: rotate(-3deg);
+      transform-origin: top left;
+      pointer-events: none;
+
+      &.interactive {
+        pointer-events: auto;
+
+        &:hover,
+        &:focus-visible {
+          transform: rotate(-3deg) scale(1.06);
+        }
+      }
     }
 
     &.forthcoming::after {
@@ -702,37 +748,30 @@
   }
 
   .showcaseCaption {
-    margin-top: 0.7em;
-    padding: 0 0.15em;
-  }
-
-  .showcaseTitleRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75em;
+    margin-top: 10px;
+    padding: 0 4px 4px;
   }
 
   .showcaseTitle {
-    font-family: $site-font-header;
-    font-size: 1.15em;
+    font-style: italic;
     font-weight: 500;
+    font-size: 1.25em;
     line-height: 1.25;
   }
 
-  .showcasePostmark {
-    @extend .mono;
-    flex-shrink: 0;
-    font-size: 0.7em;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+  .showcaseSubtext {
+    margin: 4px 0 0;
     color: var(--color-text-muted);
+    font-size: 1em;
+    line-height: 1.45;
   }
 
-  .showcaseSubtext {
-    margin: 0.3em 0 0;
+  .showcaseMeta {
+    @extend .mono;
+    margin-top: 6px;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--color-text-muted);
-    font-size: 0.95em;
-    line-height: 1.4;
   }
 }
