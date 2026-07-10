@@ -87,6 +87,9 @@ export function StatusHeader() {
         <span className="avatarDescription">
           {timezoneShort} {weatherEmoji}
         </span>
+        <span className="avatarExpandIcon" aria-hidden="true">
+          ▾
+        </span>
       </div>
     </>
   );

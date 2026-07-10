@@ -590,10 +590,25 @@ footer {
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
 
       &:active {
         transform: scale(0.96);
       }
+
+      .avatarExpandIcon {
+        display: inline-block;
+        margin-left: 2px;
+        font-size: 0.75em;
+        opacity: 0.55;
+        transition: rotate 0.3s ease;
+      }
+    }
+
+    &.expanded .avatar .avatarExpandIcon {
+      rotate: 180deg;
     }
 
     // Desktop-only sidebar content stays in the layout but hidden until expanded
@@ -622,8 +637,11 @@ footer {
     }
 
     &.expanded {
-      max-height: 94vh;
-      max-height: 94dvh;
+      max-height: 100vh;
+      max-height: 100dvh;
+      height: 100dvh;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
       overflow-y: auto;
       // The translucent background needs a blur to stay legible over page content
       -webkit-backdrop-filter: blur(12px);
@@ -646,11 +664,6 @@ footer {
       .sidebarFooter {
         transition-delay: 0.24s;
       }
-
-      .navbarActions a span.name {
-        display: inline;
-        animation: sidebar-name-in 0.3s ease 0.1s backwards;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -661,22 +674,7 @@ footer {
       .sidebarFooter {
         transition: none;
       }
-
-      &.expanded .navbarActions a span.name {
-        animation: none;
-      }
     }
-  }
-}
-
-@keyframes sidebar-name-in {
-  from {
-    opacity: 0;
-    transform: translateX(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -772,6 +770,11 @@ footer {
   word-break: break-all;
   white-space: wrap;
   @extend .meta;
+}
+
+// Drawer toggle indicator; only meaningful on mobile where the sidebar collapses
+.avatarExpandIcon {
+  display: none;
 }
 
 .avatarLink {
