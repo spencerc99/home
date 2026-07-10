@@ -15,8 +15,6 @@ interface ShowcaseProps {
       data: CollectionEntry<"creation">["data"] & { forthcoming: boolean };
     }
   >;
-  // Accounts for if it is in display with something else (matches CreationsView)
-  columns?: 1 | 2;
   onCategoryClick?: (category: string) => void;
 }
 
@@ -97,25 +95,18 @@ function ShowcaseCard({ creation, onCategoryClick }: ShowcaseCardProps) {
   );
 }
 
-export function CreationShowcase({
-  creations,
-  columns = 1,
-  onCategoryClick,
-}: ShowcaseProps) {
+export function CreationShowcase({ creations, onCategoryClick }: ShowcaseProps) {
   return (
-    <div
-      className={classNames(
-        "creationShowcase",
-        columns === 2 ? "sharedWidth" : "fullWidth",
-      )}
-    >
-      {creations.map((creation) => (
-        <ShowcaseCard
-          key={creation.id}
-          creation={{ id: creation.id, ...creation.data }}
-          onCategoryClick={onCategoryClick}
-        />
-      ))}
+    <div className="creationShowcaseContainer">
+      <div className="creationShowcase">
+        {creations.map((creation) => (
+          <ShowcaseCard
+            key={creation.id}
+            creation={{ id: creation.id, ...creation.data }}
+            onCategoryClick={onCategoryClick}
+          />
+        ))}
+      </div>
     </div>
   );
 }

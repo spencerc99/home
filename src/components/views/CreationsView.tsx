@@ -144,7 +144,6 @@ export function CreationsView({
         return (
           <CreationShowcase
             creations={filteredCreations}
-            columns={columns}
             onCategoryClick={handleCategoryChange}
           />
         );

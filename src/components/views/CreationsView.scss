@@ -649,22 +649,21 @@
   }
 }
 
-// Showcase view: a few projects, up close, on trinket-style cards
+// Showcase view: a few projects, up close, on trinket-style cards.
+// Column count keys off the showcase's own width (not the viewport) so cards
+// never get squished when the showcase shares the page with other content.
+.creationShowcaseContainer {
+  container-type: inline-size;
+  container-name: creation-showcase;
+}
+
 .creationShowcase {
   margin: 1.5em 0 2em;
   columns: 1;
   column-gap: 2em;
 
-  &.fullWidth {
-    @media (min-width: 800px) {
-      columns: 2;
-    }
-  }
-
-  &.sharedWidth {
-    @media (min-width: 1280px) {
-      columns: 2;
-    }
+  @container creation-showcase (min-width: 720px) {
+    columns: 2;
   }
 
   .showcaseCard {
