@@ -662,8 +662,12 @@
   columns: 1;
   column-gap: 2em;
 
-  @container creation-showcase (min-width: 720px) {
+  @container creation-showcase (min-width: 640px) {
     columns: 2;
+  }
+
+  @container creation-showcase (min-width: 1080px) {
+    columns: 3;
   }
 
   .showcaseCard {
@@ -699,7 +703,7 @@
       display: block;
       width: 100%;
       height: auto;
-      max-height: 400px;
+      max-height: 260px;
       object-fit: cover;
       background: radial-gradient(
         circle,
