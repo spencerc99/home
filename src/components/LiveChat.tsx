@@ -69,7 +69,6 @@ export function LiveChat() {
     Map<string, { active?: boolean }>
   >(new Map());
   const messagesRef = useRef<HTMLDivElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const shouldAutoScrollRef = useRef(true);
   const minimizedRef = useRef(false);
@@ -308,9 +307,14 @@ export function LiveChat() {
   }, [room]);
 
   // Keep the chat pinned only while the user is already reading the latest messages.
+  // Scroll the messages container itself rather than using scrollIntoView, which
+  // also scrolls ancestor scroll containers (the window) and yanks the whole page
+  // up on load because the chat is fixed to the viewport bottom.
   useEffect(() => {
     if (!shouldAutoScrollRef.current) return;
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
   }, [messages, typingStableIds]);
 
   const handleMessagesScroll = useCallback(() => {
@@ -542,7 +546,6 @@ export function LiveChat() {
               </span>
             </div>
           ))}
-          <div ref={messagesEndRef} />
         </div>
         <div className="live-chat-input">
           <input

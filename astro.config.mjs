@@ -10,6 +10,17 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    // @playhtml/react lists react/react-dom as dependencies, which lets Vite
+    // discover and pre-bundle a second React instance. When two copies exist,
+    // hook dispatch reads from the wrong instance and every island crashes with
+    // "Cannot read properties of null (reading 'useState')". Dedupe + force a
+    // single optimized copy so all islands share one React.
+    resolve: {
+      dedupe: ["react", "react-dom"],
+    },
+    optimizeDeps: {
+      include: ["react", "react-dom", "react/jsx-runtime"],
+    },
     ssr: {
       external: ["node:child_process"],
     },

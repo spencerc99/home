@@ -585,25 +585,44 @@ footer {
     transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
       -webkit-backdrop-filter 0.45s ease, backdrop-filter 0.45s ease;
 
-    // Tapping the name unfolds the navbar into the full desktop sidebar
+    // Tapping the name unfolds the navbar into the full desktop sidebar.
+    // Name + chevron share the top row; the timezone/weather sits on its own
+    // row below so it never wraps awkwardly beside the name.
     .avatar {
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       transition: transform 0.15s ease;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto auto;
       align-items: center;
-      gap: 4px;
+      column-gap: 4px;
+      row-gap: 0;
+      line-height: 1.05;
 
       &:active {
         transform: scale(0.96);
       }
 
+      .avatarLink {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
       .avatarExpandIcon {
+        grid-row: 1;
+        grid-column: 2;
         display: inline-block;
-        margin-left: 2px;
         font-size: 0.75em;
         opacity: 0.55;
         transition: rotate 0.3s ease;
+      }
+
+      .avatarDescription {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        font-size: 0.7em;
+        line-height: 1.1;
+        white-space: nowrap;
       }
     }
 
@@ -643,6 +662,9 @@ footer {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       overflow-y: auto;
+      // The full-height drawer must sit above the live chat (z-index 9998)
+      // so it covers it instead of rendering behind it.
+      z-index: 9999;
       // The translucent background needs a blur to stay legible over page content
       -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px);
