@@ -45,7 +45,11 @@ export function CreationSummary({
     assetPreviewIdx,
     parentCategory,
     mediaMetadata,
+    location,
+    institution,
   } = creation;
+  const institutions = institution?.length ? institution.join(", ") : "";
+  const hasVenue = Boolean(institutions || location);
   const internalLink = `/creation/${id}`;
   const externalLink = link;
   const style = {
@@ -154,6 +158,15 @@ export function CreationSummary({
               parentCategory={parentCategory}
               onCategoryClick={onCategoryClick}
             />
+            {hasVenue && (
+              <span className="venue">
+                {institutions && (
+                  <span className="venueInstitution">{institutions}</span>
+                )}
+                {institutions && location ? " " : null}
+                {location ? `[${location}]` : null}
+              </span>
+            )}
           </div>
         </div>
       );

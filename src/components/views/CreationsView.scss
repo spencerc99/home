@@ -461,8 +461,21 @@
 }
 
 .kind {
-  @extend .mono;
   font-size: 0.75em;
+  display: inline-block;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+
+  .venue {
+    opacity: 0.8;
+    line-height: 1.3;
+    margin-left: 8px;
+
+    .venueInstitution {
+      font-style: italic;
+    }
+  }
 }
 
 // Alignment view specific styles

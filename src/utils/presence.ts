@@ -4,34 +4,19 @@
 import type { CursorPresenceView } from "@playhtml/common";
 
 export const SPENCER_COLOR = "hsl(41, 100%, 50%)";
+
+export const SPENCER_IDS = [
+  "pk_04934976d2bc13f0a3a1e62a9124a3edb1e236b2eef64b618c646e25e3ade8ec77d2b56bedb39b78150d141be1b6b41a85b86010930941e02e82e96ce61af35d53",
+  "pk_0494b0d6b651671ea6ac0e8540b77f622ef971834e4e4a3d540ea78860b1fcd982a37c5a306070303b7869542697f06987987e51980c08b5f3237dd0fee64dfbe1",
+];
 export const VISITOR_AWAY_DELAY_MS = 30_000;
 
 export type SpencerChatStatus = "absent" | "home" | "away";
 export type VisitorAvailability = "available" | "away";
 
-let normalizedSpencerColor: string | null = null;
-
-function normalizeColor(color: string): string {
-  if (typeof document === "undefined") return color;
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 1;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return color;
-  ctx.fillStyle = color;
-  return ctx.fillStyle;
-}
-
-function getSpencerColorHex(): string {
-  if (!normalizedSpencerColor) {
-    normalizedSpencerColor = normalizeColor(SPENCER_COLOR);
-  }
-  return normalizedSpencerColor;
-}
-
 export function isSpencer(presence: CursorPresenceView): boolean {
-  const color = presence.playerIdentity?.playerStyle.colorPalette[0];
-  if (!color || presence.playerIdentity?.name !== "spencer") return false;
-  return normalizeColor(color) === getSpencerColorHex();
+  if (!SPENCER_IDS.includes(presence.playerIdentity?.publicKey)) return false;
+  return true;
 }
 
 export function getSpencerStableId(

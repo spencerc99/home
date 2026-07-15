@@ -582,8 +582,10 @@ footer {
     right: 0;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      -webkit-backdrop-filter 0.45s ease, backdrop-filter 0.45s ease;
+    transition:
+      max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      -webkit-backdrop-filter 0.45s ease,
+      backdrop-filter 0.45s ease;
 
     // Tapping the name unfolds the navbar into the full desktop sidebar.
     // Name + chevron share the top row; the timezone/weather sits on its own
@@ -638,7 +640,8 @@ footer {
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
-      transition: opacity 0.3s ease,
+      transition:
+        opacity 0.3s ease,
         transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         visibility 0s linear 0.35s;
     }
@@ -940,15 +943,27 @@ a:not(#{$internal-link-selectors}):not(.socialMediaLink):not(.anchor):not(
   color: $color-external-link;
   --color-link: #{$color-external-link};
   --color-link-translucent: #{$color-external-link-translucent};
+  --external-link-arrow: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23000" d="M9 0h10v1h-10zM9 1h11v1h-11zM9 2h11v1h-11zM14 3h6v1h-6zM13 4h7v1h-7zM12 5h8v1h-8zM11 6h5v1h-5zM17 6h3v1h-3zM10 7h5v1h-5zM17 7h3v1h-3zM9 8h5v1h-5zM17 8h3v1h-3zM8 9h5v1h-5zM17 9h3v1h-3zM7 10h5v1h-5zM17 10h3v1h-3zM6 11h5v1h-5zM5 12h5v1h-5zM4 13h5v1h-5zM3 14h5v1h-5zM2 15h5v1h-5zM1 16h5v1h-5zM0 17h5v1h-5zM1 18h3v1h-3zM2 19h1v1h-1z"/></svg>');
   cursor: ne-resize;
 
+  // Pixel-style ↗ traced from the VT323 glyph as an inline SVG mask, so the
+  // whole font no longer has to load just to render this one arrow. Masked (not
+  // a background image) so the arrow tracks the link's currentColor.
   &::after {
-    content: "↗";
-    @extend .mono;
+    content: "";
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    // Sit the arrow down near the text baseline instead of riding high like a
+    // superscript, matching how the old font glyph rested.
+    vertical-align: -0.08em;
+    background-color: currentColor;
+    -webkit-mask: var(--external-link-arrow) no-repeat center / contain;
+    mask: var(--external-link-arrow) no-repeat center / contain;
   }
   &.noanchor::after,
   &.footnote::after {
-    content: "";
+    display: none;
   }
 }
 
