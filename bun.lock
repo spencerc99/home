@@ -26,7 +26,7 @@
         "medium-zoom": "^1.1.0",
         "nanostores": "^1.2.0",
         "photoswipe": "^5.4.3",
-        "playhtml": "^2.12.0",
+        "playhtml": "^2.13.2",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -301,7 +301,7 @@
 
     "@parcel/watcher-win32-x64": ["@parcel/watcher-win32-x64@2.5.6", "", { "os": "win32", "cpu": "x64" }, "sha512-hbQlYcCq5dlAX9Qx+kFb0FHue6vbjlf0FrNzSKdYK2APUf7tGfGxQCk2ihEREmbR6ZMc0MVAD5RIX/41gpUzTw=="],
 
-    "@playhtml/common": ["@playhtml/common@0.8.0", "", {}, "sha512-h02vjL06kohbF8gJ879h/UF/9nEXRWMmvDru7rWluE15aHvVq1aCboNJorflTxqIJdDWekzrSuRU69HxBAfmvg=="],
+    "@playhtml/common": ["@playhtml/common@0.8.2", "", {}, "sha512-gDqyU1733kdyDBGnLa1cWhRmsGqaVhBHEG6/DJWK9bUglPSD+g3hJviPj7Zzew3lto7w+V3WQ6asL9jiJ3YXaA=="],
 
     "@playhtml/react": ["@playhtml/react@1.0.1", "", { "dependencies": { "react": "^16.8.0  || ^17.0.0 || ^18.2.0 || ^19.0.0", "react-dom": "^16.8.0  || ^17.0.0 || ^18.2.0 || ^19.0.0" }, "peerDependencies": { "playhtml": "^2.11.2" } }, "sha512-neMYPfqWeH2zRzwcWTKT6LwgZ77phbH5xOQUx7QeBazFG84ERQWo1mmjmhU7QORXYwHYRDvG6HF7QBXtahJekw=="],
 
@@ -1083,7 +1083,7 @@
 
     "pkg-dir": ["pkg-dir@4.2.0", "", { "dependencies": { "find-up": "^4.0.0" } }, "sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ=="],
 
-    "playhtml": ["playhtml@2.12.0", "", { "dependencies": { "@playhtml/common": "^0.8.0", "@syncedstore/core": "^0.6.0", "lit-html": "^3.2.1", "partysocket": "^1.2.0", "y-partyserver": "^2.2.0", "yjs": "13.6.18" } }, "sha512-VJawRtIvY76pJTWqJQC+7rZaURCpIzqF5sOXaqnuwKBlThLEnb5F1bB2QiU4oBuQOfghX3ta4r9ou2gC5c9EDg=="],
+    "playhtml": ["playhtml@2.13.2", "", { "dependencies": { "@playhtml/common": "^0.8.2", "@syncedstore/core": "^0.6.0", "lit-html": "^3.2.1", "partysocket": "^1.2.0", "y-partyserver": "^2.2.0", "yjs": "13.6.18" } }, "sha512-OFTDOimr38ooBqTFXm0aycio6FAwGGD8B3vGlVBShqxonPOCsa+Bfom20A2Feia66rQz0BrkybPGjh3IvXG4DA=="],
 
     "postcss": ["postcss@8.5.10", "", { "dependencies": { "nanoid": "^3.3.11", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ=="],
 
