@@ -1,7 +1,7 @@
 // ABOUTME: Unit tests for compact date range formatting.
 // ABOUTME: Covers event date labels shown in upcoming and event lists.
 import { describe, expect, test } from "bun:test";
-import { formatCompactDateRange } from "../src/utils";
+import { formatCompactDateRange, isEventForthcoming } from "../src/utils";
 
 const date = (year: number, month: number, day: number) =>
   new Date(year, month - 1, day);
@@ -17,5 +17,25 @@ describe("formatCompactDateRange", () => {
     expect(formatCompactDateRange(date(2026, 9, 4), date(2027, 4, 6))).toBe(
       "9/26-4/27",
     );
+  });
+});
+
+describe("isEventForthcoming", () => {
+  test("hides an event after its end date", () => {
+    expect(
+      isEventForthcoming(
+        new Date(Date.now() - 120_000),
+        new Date(Date.now() - 60_000),
+      ),
+    ).toBe(false);
+  });
+
+  test("keeps an event visible until its end date", () => {
+    expect(
+      isEventForthcoming(
+        new Date(Date.now() - 60_000),
+        new Date(Date.now() + 60_000),
+      ),
+    ).toBe(true);
   });
 });

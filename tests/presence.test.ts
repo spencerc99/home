@@ -5,16 +5,21 @@ import { describe, expect, test } from "bun:test";
 import type { CursorPresenceView } from "@playhtml/common";
 import {
   SPENCER_COLOR,
+  SPENCER_IDS,
   VISITOR_AWAY_DELAY_MS,
   getSpencerChatStatus,
   getVisitorAvailability,
 } from "../src/utils/presence";
 
-function presence(name: string, color: string): CursorPresenceView {
+function presence(
+  name: string,
+  color: string,
+  publicKey = `${name}-key`,
+): CursorPresenceView {
   return {
     playerIdentity: {
       name,
-      publicKey: `${name}-key`,
+      publicKey,
       playerStyle: {
         colorPalette: [color],
       },
@@ -33,7 +38,7 @@ describe("getSpencerChatStatus", () => {
 
   test("returns home when Spencer is present and active", () => {
     const presences = new Map<string, CursorPresenceView>([
-      ["spencer-key", presence("spencer", SPENCER_COLOR)],
+      ["spencer-key", presence("spencer", SPENCER_COLOR, SPENCER_IDS[0])],
     ]);
     const activePresences = new Map<string, { active?: boolean }>([
       ["spencer-key", { active: true }],
@@ -44,7 +49,7 @@ describe("getSpencerChatStatus", () => {
 
   test("returns away when Spencer is present and inactive", () => {
     const presences = new Map<string, CursorPresenceView>([
-      ["spencer-key", presence("spencer", SPENCER_COLOR)],
+      ["spencer-key", presence("spencer", SPENCER_COLOR, SPENCER_IDS[0])],
     ]);
     const activePresences = new Map<string, { active?: boolean }>([
       ["spencer-key", { active: false }],
@@ -55,7 +60,7 @@ describe("getSpencerChatStatus", () => {
 
   test("returns home when Spencer is present without active presence data", () => {
     const presences = new Map<string, CursorPresenceView>([
-      ["spencer-key", presence("spencer", SPENCER_COLOR)],
+      ["spencer-key", presence("spencer", SPENCER_COLOR, SPENCER_IDS[0])],
     ]);
 
     expect(getSpencerChatStatus(presences, new Map())).toBe("home");

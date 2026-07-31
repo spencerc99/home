@@ -7,6 +7,7 @@ import "./EventsView.scss";
 
 interface Props {
   events: Array<CollectionEntry<"creation">>;
+  upcomingOnly?: boolean;
 }
 
 function groupByYear(
@@ -80,7 +81,7 @@ function hasEnoughInfo(event: Props["events"][number]): boolean {
   return Boolean(event.data.date || event.data.link || event.data.location);
 }
 
-export function EventsView({ events }: Props) {
+export function EventsView({ events, upcomingOnly = false }: Props) {
   const visibleEvents = useMemo(() => events.filter(hasEnoughInfo), [events]);
   const upcomingEvents = useMemo(
     () =>
@@ -114,7 +115,7 @@ export function EventsView({ events }: Props) {
           <EventList events={upcomingEvents} />
         </section>
       )}
-      {pastEvents.length > 0 && (
+      {!upcomingOnly && pastEvents.length > 0 && (
         <section className="events-section past">
           <h3>past</h3>
           <EventList events={pastEvents} />

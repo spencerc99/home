@@ -22,7 +22,7 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
   upcomingEvents.length > 0 && (
     <div class="sidebarEvents">
       <div class="sidebarEventsHeading">Now &amp; Upcoming</div>
-      <EventsView events={upcomingEvents} />
+      <EventsView events={upcomingEvents} upcomingOnly client:only="react" />
     </div>
   )
 }
