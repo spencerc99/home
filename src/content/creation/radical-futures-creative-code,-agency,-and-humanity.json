@@ -1,5 +1,6 @@
 {
   "title": "Radical Futures: Creative Code, Agency, and Humanity",
+  "subtext": "presented at Ars Electronica with Processing Foundation",
   "parentCategory": "Exhibition",
   "categories": [],
   "date": "2026-09-09T07:00:00.000Z",
@@ -20,6 +21,13 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "we were browsing",
+      "slug": "we-were-browsing",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "Linz, Austria"
 }

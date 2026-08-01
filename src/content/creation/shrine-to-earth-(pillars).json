@@ -1,0 +1,29 @@
+{
+  "title": "Shrine to Earth (Pillars)",
+  "subtext": "a public art installation of Computing Shrines",
+  "parentCategory": "Exhibition",
+  "categories": [
+    "Art"
+  ],
+  "date": "2026-09-18T07:00:00.000Z",
+  "endDate": "2027-09-18T07:00:00.000Z",
+  "institution": [
+    "City of San Francisco",
+    "San Francisco Arts Commission"
+  ],
+  "media": [],
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [],
+  "related": [
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
+  "location": "Golden Gate Park, San Francisco"
+}
