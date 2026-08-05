@@ -62,6 +62,12 @@
       "slug": "we-were-browsing",
       "link": "",
       "parentCategory": "Project"
+    },
+    {
+      "title": "Tech Without Bros",
+      "slug": "tech-without-bros",
+      "link": "https://www.thecut.com/article/cyberdecks-anti-ai-resistance-trend.html",
+      "parentCategory": "Press"
     }
   ]
 }

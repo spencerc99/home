@@ -146,6 +146,18 @@
       "slug": "soft-internet-theory",
       "link": "https://artgalleryofguelph.ca/exhibition/soft-internet-theory/",
       "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Installing Hope",
+      "slug": "installing-hope",
+      "link": "https://orbitalstudies.com/",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Spencer Chang is a Creative Technologist",
+      "slug": "spencer-chang-is-a-creative-technologist",
+      "link": "https://apossible.com/interviews/spencer-chang-is-a-creative-technologist",
+      "parentCategory": "Press"
     }
   ],
   "love": "y",

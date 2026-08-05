@@ -19,5 +19,18 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [
+    {
+      "title": "we were online",
+      "slug": "we-were-online",
+      "link": "https://wewere.online/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    }
+  ]
 }
