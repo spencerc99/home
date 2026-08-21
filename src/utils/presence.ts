@@ -28,6 +28,19 @@ export function getSpencerStableId(
   return null;
 }
 
+export function hasLoadedCursorPresences(
+  presences: Map<string, CursorPresenceView>,
+): boolean {
+  return presences.size > 0;
+}
+
+export function getPresencePage(
+  presence: CursorPresenceView,
+  reportedPage?: string,
+): string | undefined {
+  return reportedPage ?? presence.page;
+}
+
 export function getSpencerChatStatus(
   presences: Map<string, CursorPresenceView>,
   activePresences: Map<string, { active?: boolean }>,

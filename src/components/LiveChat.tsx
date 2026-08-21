@@ -16,6 +16,7 @@ import {
   SPENCER_COLOR,
   getSpencerStableId,
   getSpencerChatStatus,
+  hasLoadedCursorPresences,
 } from "../utils/presence";
 import {
   $chatMessages,
@@ -97,6 +98,7 @@ export function LiveChat() {
     () => getSpencerChatStatus(cursorPresences, activePresences),
     [cursorPresences, activePresences],
   );
+  const hasCursorPresenceSnapshot = hasLoadedCursorPresences(cursorPresences);
 
   // Keep the displayed name and color in sync with updates from elsewhere (Stats, Guestbook)
   useEffect(() => {
@@ -135,6 +137,7 @@ export function LiveChat() {
   // Show chat when Spencer arrives
   useEffect(() => {
     if (!hasSynced) return;
+    if (!hasCursorPresenceSnapshot) return;
     if (dismissed) return;
     if (spencerChatStatus !== "absent" && !visible) {
       $chatVisible.set(true);
@@ -164,7 +167,14 @@ export function LiveChat() {
         },
       ]);
     }
-  }, [spencerChatStatus, hasSynced, visible, spencerLeft, dismissed]);
+  }, [
+    spencerChatStatus,
+    hasSynced,
+    hasCursorPresenceSnapshot,
+    visible,
+    spencerLeft,
+    dismissed,
+  ]);
 
   // HACK: Using presence channel for messaging because play events are page-scoped,
   // not domain-scoped. Each user's latest message is set as their "chat-msg" presence,

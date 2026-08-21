@@ -7,7 +7,11 @@ import { useStore } from "@nanostores/react";
 import { CursorPopoverContent } from "./CursorPopover";
 import { Popover } from "../Popover";
 import { trackVisit } from "../../utils/roles";
-import { isSpencer, SPENCER_COLOR } from "../../utils/presence";
+import {
+  getPresencePage,
+  isSpencer,
+  SPENCER_COLOR,
+} from "../../utils/presence";
 import { $sessionStartTime } from "../../stores/session";
 
 interface PresenceEntry {
@@ -62,7 +66,7 @@ function usePresenceEntries(): PresenceEntry[] {
         stableId,
         color,
         name: presence.playerIdentity?.name,
-        page: data?.page,
+        page: getPresencePage(presence, data?.page),
         active: data?.active ?? true,
         isMe,
         isSpencer: isSpencer(presence),
