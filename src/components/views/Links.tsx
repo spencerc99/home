@@ -9,38 +9,10 @@ import "./Links.scss";
 interface LinkType {
   url: string;
   title: string;
-  img: string;
-}
-
-interface LabeledLinkType {
-  label: string;
-  url: string;
-  title: string;
+  detail: string;
   img?: string;
+  preserveTitleCase?: boolean;
 }
-
-const MainLinks: LinkType[] = [
-  {
-    url: "https://spencer.place",
-    title: "Home",
-    img: "/name-stamp.png",
-  },
-  {
-    url: "https://internetsculptures.com",
-    title: "Shop",
-    img: "/internet-sculptures-logo-transparent.png",
-  },
-  {
-    url: "https://news.spencer.place",
-    title: "Newsletter",
-    img: "https://news.spencer.place/favicon.ico",
-  },
-  {
-    url: "/support",
-    title: "Support",
-    img: "🫶",
-  },
-];
 
 interface UpcomingEvent {
   title: string;
@@ -53,46 +25,52 @@ interface UpcomingEvent {
 interface LinksViewProps {
   nowEntry?: NowEntry;
   latestNewsletter?: { title: string; url: string };
-  latestProject?: { title: string; url: string; img?: string };
   upcomingEvents?: UpcomingEvent[];
 }
 
 export function LinksView({
   nowEntry,
   latestNewsletter,
-  latestProject,
   upcomingEvents = [],
 }: LinksViewProps) {
-  const labeledLinks: LabeledLinkType[] = [
+  const mainLinks: LinkType[] = [
     {
-      label: "latest newsletter",
+      url: "https://spencer.place",
+      title: "Home",
+      detail: "spencer.place",
+      img: "/name-stamp.png",
+    },
+    {
+      url: "https://internetsculptures.com",
+      title: "Shop",
+      detail: "internetsculptures.com",
+      img: "/internet-sculptures-logo-transparent.png",
+    },
+    {
+      url: "https://wewere.online",
+      title: "we were online",
+      detail: "Browse Together",
+      img: "https://wewere.online/favicon.png",
+      preserveTitleCase: true,
+    },
+    {
       url: latestNewsletter?.url || "https://news.spencer.place",
-      title: latestNewsletter?.title || "Newsletter",
+      title: "Newsletter",
+      detail: latestNewsletter?.title || "Read the latest issue",
+      img: "https://news.spencer.place/favicon.ico",
     },
     {
-      label: "latest project",
-      url: latestProject?.url || "/creations",
-      title: latestProject?.title || "Project",
-      img: latestProject?.img,
-    },
-    {
-      label: "make an internet 3rd space!",
       url: "https://playhtml.fun",
       title: "playhtml",
+      detail: "Make an internet 3rd space!",
       img: "https://playhtml.fun/icon.png",
-    },
-    {
-      label: "steward a shrine for local intimacy!",
-      url: "https://shrine.computer",
-      title: "computing shrines",
-      img: "https://shrine.computer/icons/shrines.svg",
     },
   ];
 
   return (
     <div className="linksDirectory">
       <div className="linksSection">
-        {MainLinks.map((link) => (
+        {mainLinks.map((link) => (
           <LinkRow key={link.url} {...link} />
         ))}
       </div>
@@ -100,15 +78,10 @@ export function LinksView({
         <span className="linksSocial__email">💌 hi@spencer.place</span>
         <SocialMediaLinks />
       </div>
-      <div className="linksDivider" />
-      <div className="linksSection linksSection--labeled">
-        {labeledLinks.map((link) => (
-          <LabeledLinkRow key={link.url} {...link} />
-        ))}
-      </div>
       {upcomingEvents.length > 0 && (
         <>
-          <div className="linksSection linksSection--labeled upcomingEvents">
+          <div className="linksDivider" />
+          <div className="linksSection upcomingEvents">
             <div className="upcomingEvents__label">upcoming</div>
             {upcomingEvents.map((event, i) => (
               <UpcomingEventRow key={event.url || `${event.title}-${i}`} {...event} />
@@ -122,9 +95,8 @@ export function LinksView({
   );
 }
 
-function LinkRow({ url, title, img }: LinkType) {
-  const isEmoji = !img.startsWith("/") && !img.startsWith("http");
-  const displayUrl = url.replace(/^(https?:\/\/|mailto:)/, "");
+function LinkRow({ url, title, detail, img, preserveTitleCase }: LinkType) {
+  const isEmoji = img && !img.startsWith("/") && !img.startsWith("http");
   const isExternal = url.startsWith("http") || url.startsWith("mailto:");
 
   return (
@@ -134,12 +106,16 @@ function LinkRow({ url, title, img }: LinkType) {
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener" : undefined}
     >
-      <span className={`linkIcon ${isEmoji ? "linkIcon--emoji" : ""}`}>
-        {isEmoji ? img : <img src={img} alt="" />}
+      {img && (
+        <span className={`linkIcon ${isEmoji ? "linkIcon--emoji" : ""}`}>
+          {isEmoji ? img : <img src={img} alt="" />}
+        </span>
+      )}
+      <span className={`linkTitle ${preserveTitleCase ? "linkTitle--preserveCase" : ""}`}>
+        {title}
       </span>
-      <span className="linkTitle">{title}</span>
       <span className="linkDots" />
-      <span className="linkUrl">{displayUrl}</span>
+      <span className="linkDetail">{detail}</span>
     </a>
   );
 }
@@ -155,49 +131,24 @@ function UpcomingEventRow({
   const meta = [parentCategory, location, dateRange].filter(Boolean).join(" · ");
   const content = (
     <>
-      {meta && <span className="labeledLink__label">{meta}</span>}
-      <span className="labeledLink__content">
-        <span className="labeledLink__title">{title}</span>
-      </span>
+      <span className="linkTitle">{title}</span>
+      <span className="linkDots" />
+      {meta && <span className="linkDetail">{meta}</span>}
     </>
   );
 
   if (!url) {
-    return <div className="labeledLink upcomingEvent">{content}</div>;
+    return <div className="linkRow upcomingEvent">{content}</div>;
   }
 
   return (
     <a
       href={url}
-      className="labeledLink upcomingEvent noanchor"
+      className="linkRow upcomingEvent noanchor"
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener" : undefined}
     >
       {content}
-    </a>
-  );
-}
-
-function LabeledLinkRow({ label, url, title, img }: LabeledLinkType) {
-  const isExternal = url.startsWith("http") || url.startsWith("mailto:");
-  const hasImg = img && (img.startsWith("/") || img.startsWith("http"));
-
-  return (
-    <a
-      href={url}
-      className="labeledLink noanchor"
-      target={isExternal ? "_blank" : undefined}
-      rel={isExternal ? "noopener" : undefined}
-    >
-      <span className="labeledLink__label">{label}</span>
-      <span className="labeledLink__content">
-        {hasImg && (
-          <span className="labeledLink__icon">
-            <img src={img} alt="" />
-          </span>
-        )}
-        <span className="labeledLink__title">{title}</span>
-      </span>
     </a>
   );
 }

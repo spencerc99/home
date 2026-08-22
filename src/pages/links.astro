@@ -3,7 +3,7 @@ import DetailLayout from "../layouts/DetailLayout.astro";
 import { LinksView } from "../components/views/Links";
 import { nowEntries } from "../data/now-entries";
 import { getCollection } from "astro:content";
-import { CreationCategory, hydrateCreations } from "../utils/creations";
+import { hydrateCreations } from "../utils/creations";
 import { formatCompactDateRange } from "../utils";
 
 const LayoutProps = {
@@ -27,22 +27,6 @@ const latestNewsletter = {
   url: latestPost?.data.externalLink || `/posts/${latestPost?.id}`,
 };
 
-// Fetch latest creation
-const creations = hydrateCreations(await getCollection("creation"))
-  .filter(
-    (c) =>
-      Boolean(c.data.date) &&
-      !c.data.forthcoming &&
-      c.data.parentCategory === CreationCategory.Project,
-  )
-  .sort(
-    (a, b) =>
-      new Date(b.data.date || 0).getTime() -
-      new Date(a.data.date || 0).getTime(),
-  );
-
-const latestCreation = creations[0];
-
 // Upcoming events (mirrors the home page's forthcoming events)
 const upcomingEvents = hydrateCreations(await getCollection("creation"))
   .filter((c) => c.data.isEvent && c.data.forthcoming)
@@ -63,21 +47,6 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
         c.data.endDate ? new Date(c.data.endDate) : null,
       ),
   }));
-const projectUrl =
-  latestCreation?.data.link || `/creation/${latestCreation?.id}`;
-// Use heroImage if available, otherwise grab favicon from the project's external URL
-let projectImg = latestCreation?.data.heroImage || "";
-if (!projectImg && latestCreation?.data.link) {
-  try {
-    const domain = new URL(latestCreation.data.link).origin;
-    projectImg = `${domain}/favicon.ico`;
-  } catch {}
-}
-const latestProject = {
-  title: latestCreation?.data.title || "Latest project",
-  url: projectUrl,
-  img: projectImg,
-};
 ---
 
 <DetailLayout {...LayoutProps}>
@@ -85,7 +54,6 @@ const latestProject = {
     client:only="react"
     nowEntry={currentNowEntry}
     latestNewsletter={latestNewsletter}
-    latestProject={latestProject}
     upcomingEvents={upcomingEvents}
   />
 </DetailLayout>

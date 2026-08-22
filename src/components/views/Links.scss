@@ -70,6 +70,10 @@
     max-width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    &--preserveCase {
+      text-transform: none;
+    }
   }
 
   .linkDots {
@@ -89,7 +93,7 @@
     }
   }
 
-  .linkUrl {
+  .linkDetail {
     font-size: 0.8em;
     color: var(--color-text-accent);
     white-space: nowrap;
@@ -97,64 +101,6 @@
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  // Labeled link rows for dynamic content (latest newsletter, project, etc.)
-  .labeledLink {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15em;
-    padding: 0.5em 0.5em;
-    color: var(--color-text-color);
-    text-decoration: none;
-    transition: background-color 0.15s ease;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    margin-bottom: 0.4em;
-
-    &:hover {
-      background-color: var(--color-neutral-background-hover);
-
-      .labeledLink__title {
-        color: var(--color-link);
-      }
-    }
-
-    &__label {
-      font-size: 0.7em;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-text-accent);
-    }
-
-    &__content {
-      display: flex;
-      align-items: center;
-      gap: 0.4em;
-    }
-
-    &__icon {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-
-    &__title {
-      font-size: 0.95em;
-      transition: color 0.15s ease;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
   }
 
   .upcomingEvents {
@@ -165,6 +111,10 @@
       color: var(--color-text-accent);
       margin-bottom: 0.4em;
       padding: 0 0.25em;
+    }
+
+    .linkTitle {
+      text-transform: none;
     }
   }
 
