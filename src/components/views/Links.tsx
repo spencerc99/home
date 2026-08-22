@@ -48,22 +48,24 @@ export function LinksView({
     },
     {
       url: "https://wewere.online",
-      title: "we were online",
-      detail: "Browse Together",
+      title: "Browse Together",
+      detail: "wewere.online",
       img: "https://wewere.online/favicon.png",
       preserveTitleCase: true,
     },
     {
       url: latestNewsletter?.url || "https://news.spencer.place",
-      title: "Newsletter",
-      detail: latestNewsletter?.title || "Read the latest issue",
+      title: latestNewsletter?.title || "Newsletter",
+      detail: "news.spencer.place",
       img: "https://news.spencer.place/favicon.ico",
+      preserveTitleCase: true,
     },
     {
       url: "https://playhtml.fun",
-      title: "playhtml",
-      detail: "Make an internet 3rd space!",
+      title: "Make an internet 3rd space!",
+      detail: "playhtml.fun",
       img: "https://playhtml.fun/icon.png",
+      preserveTitleCase: true,
     },
   ];
 
@@ -81,7 +83,7 @@ export function LinksView({
       {upcomingEvents.length > 0 && (
         <>
           <div className="linksDivider" />
-          <div className="linksSection upcomingEvents">
+          <div className="linksSection linksSection--labeled upcomingEvents">
             <div className="upcomingEvents__label">upcoming</div>
             {upcomingEvents.map((event, i) => (
               <UpcomingEventRow key={event.url || `${event.title}-${i}`} {...event} />
@@ -131,20 +133,21 @@ function UpcomingEventRow({
   const meta = [parentCategory, location, dateRange].filter(Boolean).join(" · ");
   const content = (
     <>
-      <span className="linkTitle">{title}</span>
-      <span className="linkDots" />
-      {meta && <span className="linkDetail">{meta}</span>}
+      {meta && <span className="labeledLink__label">{meta}</span>}
+      <span className="labeledLink__content">
+        <span className="labeledLink__title">{title}</span>
+      </span>
     </>
   );
 
   if (!url) {
-    return <div className="linkRow upcomingEvent">{content}</div>;
+    return <div className="labeledLink upcomingEvent">{content}</div>;
   }
 
   return (
     <a
       href={url}
-      className="linkRow upcomingEvent noanchor"
+      className="labeledLink upcomingEvent noanchor"
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener" : undefined}
     >
