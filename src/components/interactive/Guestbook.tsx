@@ -1,3 +1,5 @@
+// ABOUTME: Renders the shared guestbook and appends visitor submissions safely.
+// ABOUTME: Keeps guestbook presentation separate from persistent PlayHTML writes.
 import { withSharedState } from "@playhtml/react";
 import { Footnote } from "../Footnote";
 import { useStickyState } from "../../hooks/useStickyState";
@@ -171,12 +173,14 @@ export const GuestbookImpl = withSharedState(
         website: websiteTransformed,
       };
 
-      setData([...sortedData, newEntry]);
+      setData((guestbook) => {
+        guestbook.push(newEntry);
+      });
       setMessage("");
     }
 
     const sortedData = useMemo(
-      () => data.sort((a, b) => b.timestamp - a.timestamp),
+      () => [...data].sort((a, b) => b.timestamp - a.timestamp),
       [data],
     );
 
