@@ -2,13 +2,12 @@
 import EmailEmbed from "../components/EmailEmbed.astro";
 import Trinkets from "../components/Trinkets.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Polaroid } from "../components/Polaroid";
 import { Guestbook } from "../components/interactive/Guestbook";
 import { Footnote } from "../components/Footnote";
 import "../styles/tailwind.css";
 
 const workDescription = `
-- In the past, they 
+- In the past, they
 - crafted
   - designed and developed
 - tools for tinkers
@@ -16,7 +15,7 @@ const workDescription = `
 - at <a id="coda" href="https://coda.io">Coda</a> for several years
   - at <a id="coda" href="https://coda.io">Coda</a> for several years (I built out our <a href="/posts/rituals-remixing">custom templates platform</a> and helped extend the <a href="https://coda.io/packs">Packs platform</a>)
     - tools for tinkers at <a id="coda" href="https://coda.io">Coda</a> for several years (I built out our <a href="/posts/rituals-remixing">custom templates platform</a> and helped extend the <a href="https://coda.io/packs">Packs platform</a> so that anyone can extend Coda's capabilities, maintaining an <a href="https://github.com/coda/packs-sdk">open-source SDK</a>)
-- and conjured 
+- and conjured
 - interactive essays and poetic tools at <a href="https://verses.xyz" id="verses">verses</a>.
   - interactive essays and poetic tools at <a href="https://verses.xyz" id="verses">verses</a>
   - (I co-stewarded the creation of <b id="pluriverse"><a href="https://pluriverse.world">pluriverse.world</a></b>).
@@ -126,15 +125,10 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 
 <BaseLayout centered>
   <div class="headerContainer home" style="margin-right: 2em;">
-    <Polaroid
-      imgSrc="/assets/spencer_headshot.jpg"
-      className="float"
-      aspectRatio="inherit"
-      style={{ marginLeft: "1em", marginBottom: "1em" }}
-    />
-
+    <img src="/headshots/studio-projection-small.png"/>
+    <br/>
     <p>
-      Spencer Chang makes <b>software we can touch</b>, like <a
+        Spencer Chang makes <a href="https://news.spencer.place/p/software-you-can-touch"><b>software we can touch</b></a>, like <a
         href="https://www.are.na/spencer-chang/communal-computing-infrastructure"
         >communal computers</a
       >, <a href="https://internetsculptures.com">internet objects</a>, and <a
