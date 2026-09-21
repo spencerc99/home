@@ -2,7 +2,7 @@
 // ABOUTME: Mounted in BaseLayout to provide play context to all interactive components.
 
 import { PlayProvider, PlayContext, playhtml } from "@playhtml/react";
-import { useContext, useEffect, type PropsWithChildren } from "react";
+import { useContext, useEffect, useState, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
 import { LiveChat } from "../LiveChat";
 import { isRegular } from "../../utils/roles";
@@ -10,6 +10,7 @@ import {
   VISITOR_AWAY_DELAY_MS,
   getVisitorAvailability,
 } from "../../utils/presence";
+import { isPlayhtmlReadyForConsumers } from "../../utils/playhtmlReady";
 
 const VISIBLE_TAB_HEARTBEAT_KEY = "spencer-place-visible-tab-at";
 const VISIBLE_TAB_HEARTBEAT_INTERVAL_MS = 5_000;
@@ -134,6 +135,40 @@ function PresenceBroadcaster() {
   return null;
 }
 
+function SyncedPlayhtmlContent({ children }: PropsWithChildren) {
+  const { hasSynced } = useContext(PlayContext);
+  const [hasConfirmedSync, setHasConfirmedSync] = useState(false);
+
+  useEffect(() => {
+    if (!hasSynced) {
+      setHasConfirmedSync(false);
+      return;
+    }
+
+    let canceled = false;
+    Promise.resolve().then(() => {
+      if (!canceled) {
+        setHasConfirmedSync(true);
+      }
+    });
+
+    return () => {
+      canceled = true;
+    };
+  }, [hasSynced]);
+
+  if (!isPlayhtmlReadyForConsumers(hasSynced, hasConfirmedSync)) return null;
+
+  return (
+    <>
+      <CursorPresenceLayer />
+      <PresenceBroadcaster />
+      <LiveChat />
+      {children}
+    </>
+  );
+}
+
 // Strip trailing slash from the pathname so /about/ and /about resolve to
 // the same playhtml room. Cloudflare Pages serves Astro's directory output
 // with a trailing slash, but earlier site config did not — so the database
@@ -165,10 +200,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
         },
       }}
     >
-      <CursorPresenceLayer />
-      <PresenceBroadcaster />
-      <LiveChat />
-      {children}
+      <SyncedPlayhtmlContent>{children}</SyncedPlayhtmlContent>
     </PlayProvider>
   );
 }
