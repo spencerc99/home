@@ -1,0 +1,25 @@
+{
+  "title": "Modal x Gray Area",
+  "parentCategory": "Exhibition",
+  "categories": [],
+  "date": "2026-10-28T07:00:00.000Z",
+  "endDate": "2026-11-01T07:00:00.000Z",
+  "institution": [
+    "Gray Area",
+    "Modal"
+  ],
+  "heroImage": "https://modal.art/preview.gif",
+  "media": [
+    "https://modal.art/preview.gif"
+  ],
+  "link": "https://modal.art/",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [],
+  "location": "San Francisco"
+}
