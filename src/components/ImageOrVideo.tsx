@@ -1,6 +1,5 @@
 // ABOUTME: Renders either an image or video element based on the media type.
 // ABOUTME: Supports optional zoom for images and poster images for videos.
-import classNames from "classnames";
 import React, { ComponentProps, useState } from "react";
 import { ImageZoom } from "./ImageZoom";
 
@@ -48,9 +47,9 @@ export function ImageOrVideo({
    *   4. Pass to component - Update CreationDetail.astro and CreationDetailImages.tsx to pass the poster URL from posterUrls[i] to ImageOrVideo component
    *   5. Cleanup - Update the cleanup logic (line 459) to also remove unreferenced .jpg thumbnails
    */
-  const className = classNames(props.className, {
-    loading: withLoadingState && !hasLoaded,
-  });
+  // A data attribute rather than a class: React re-rendering className would
+  // wipe the classes medium-zoom adds to the image and break closing the zoom.
+  const loadingAttr = withLoadingState && !hasLoaded ? "" : undefined;
   const markLoaded = () => setHasLoaded(true);
 
   return mediaType === "video" ? (
@@ -60,7 +59,7 @@ export function ImageOrVideo({
       playsInline
       poster={poster}
       {...props}
-      className={className}
+      data-loading={loadingAttr}
       onLoadedData={(e) => {
         markLoaded();
         props.onLoadedData?.(e);
@@ -77,7 +76,7 @@ export function ImageOrVideo({
     <ImageZoom
       src={src}
       {...props}
-      className={className}
+      data-loading={loadingAttr}
       onLoad={(e) => {
         markLoaded();
         props.onLoad?.(e);
@@ -91,7 +90,7 @@ export function ImageOrVideo({
     <img
       src={src}
       {...props}
-      className={className}
+      data-loading={loadingAttr}
       onLoad={(e) => {
         markLoaded();
         props.onLoad?.(e);

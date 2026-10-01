@@ -25,7 +25,7 @@
     object-fit: contain;
 
     transition: opacity 0.15s linear;
-    &.loading {
+    &[data-loading] {
       // Media has no intrinsic size until it loads, so hold a square aura
       // placeholder open in the meantime.
       min-width: 240px;
