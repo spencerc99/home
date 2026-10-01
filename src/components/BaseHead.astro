@@ -67,6 +67,10 @@ const { title, description, image = "/name-stamp.png", draft } = Astro.props;
 <!-- lazy load images to prioritize those in view -->
 <script async src="/lazysizes.min.js"></script>
 
+<script>
+  import "../scripts/scrollRestoration";
+</script>
+
 <!-- External link UTM handler -->
 <script>
   function addUtmToExternalLinks() {
