@@ -177,6 +177,11 @@
 
 html {
   margin: 0;
+
+  // Keep in-page anchor targets (footnotes) clear of the fixed mobile navbar.
+  @include media(xsmallScreen) {
+    scroll-padding-top: 60px;
+  }
 }
 
 body {
@@ -1427,6 +1432,10 @@ section.footnotes {
   -webkit-background-clip: text;
 
   animation: shine 2s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 
   &:not(:hover) {
     text-fill-color: transparent;

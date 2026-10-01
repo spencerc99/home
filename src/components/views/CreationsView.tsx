@@ -1,5 +1,10 @@
 import type { CollectionEntry } from "astro:content";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
+import { useStore } from "@nanostores/react";
+import {
+  $creationsViewControls,
+  type CreationsViewControls,
+} from "../../stores/creationsView";
 import { CreationSummary } from "../CreationSummary";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import "./CreationsView.scss";
@@ -78,9 +83,22 @@ export function CreationsView({
   defaultView,
   defaultCategory = "all",
 }: Props) {
-  const [view, setView] = useState(defaultView || ViewType.GRID);
-  const [category, setCategory] = useState(defaultCategory);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const pageKey = window.location.pathname;
+  const savedControls = useStore($creationsViewControls)[pageKey];
+  const view = (savedControls?.view ?? defaultView ?? ViewType.GRID) as ViewType;
+  const category = (savedControls?.category ??
+    defaultCategory) as AllCreationCategories;
+  const sortDirection = savedControls?.sortDirection ?? "desc";
+  const updateControls = (changes: Partial<CreationsViewControls>) =>
+    $creationsViewControls.setKey(pageKey, {
+      view,
+      category,
+      sortDirection,
+      ...changes,
+    });
+  const setView = (value: ViewType) => updateControls({ view: value });
+  const setCategory = (value: AllCreationCategories) =>
+    updateControls({ category: value });
   // Category values come in as plain strings (select values, creation
   // parentCategory), so funnel them through one place that narrows the type.
   const handleCategoryChange = (value: string) =>
@@ -160,9 +178,9 @@ export function CreationsView({
                 <div>What</div>
                 <div
                   onClick={() =>
-                    setSortDirection((prev) =>
-                      prev === "asc" ? "desc" : "asc",
-                    )
+                    updateControls({
+                      sortDirection: sortDirection === "asc" ? "desc" : "asc",
+                    })
                   }
                   style={{ cursor: "pointer" }}
                 >
@@ -242,7 +260,7 @@ export function CreationsView({
           <select
             value={view}
             onChange={(e) => {
-              setView(e.target.value);
+              setView(e.target.value as ViewType);
             }}
           >
             {/* TODO: offer LIST once the showcase design settles */}

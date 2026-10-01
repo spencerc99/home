@@ -1,5 +1,7 @@
 // ABOUTME: Styles for the events list view.
 // ABOUTME: Handles upcoming/past sections, year group headers, and event items.
+@import "../../styles/mixins.scss";
+
 .eventsView {
   display: flex;
   flex-direction: column;
@@ -55,6 +57,10 @@
     .event-meta {
       font-size: 14px;
       white-space: nowrap;
+
+      @include media(xsmallScreen) {
+        white-space: normal;
+      }
     }
 
     p {

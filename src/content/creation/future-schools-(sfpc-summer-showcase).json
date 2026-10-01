@@ -1,0 +1,33 @@
+{
+  "title": "Future Schools (SFPC summer showcase)",
+  "subtext": "a showcase of students’ works from Building Benches for the Web",
+  "parentCategory": "Exhibition",
+  "categories": [],
+  "date": "2026-08-20T07:00:00.000Z",
+  "endDate": "2026-08-22T07:00:00.000Z",
+  "institution": [
+    "SFPC",
+    "National Academy of Design"
+  ],
+  "heroImage": "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/769024858_18607258339037232_8681103965626849230_n.jpg?stp=c216.0.648.648a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=w309NzQiNEUQ7kNvwG1MnRo&_nc_oc=Ado8YMxo-nxTuP_sgQ3IwSILX7z1Eqc7K5E5T_HBl4YPR7XGwF_ziJbGzbhpsegbem8&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=XfzNHzId0EhXVAfd0JI0bA&_nc_ss=7360f&oh=00_AQJxAeY6482M_FjS1BSUgHqg_NSbJO532I_oqS7LMKmaLw&oe=6AAAD2A8",
+  "media": [
+    "https://scontent-sea5-1.cdninstagram.com/v/t51.82787-15/769024858_18607258339037232_8681103965626849230_n.jpg?stp=c216.0.648.648a_dst-jpg_e35_s640x640_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=w309NzQiNEUQ7kNvwG1MnRo&_nc_oc=Ado8YMxo-nxTuP_sgQ3IwSILX7z1Eqc7K5E5T_HBl4YPR7XGwF_ziJbGzbhpsegbem8&_nc_zt=23&_nc_ht=scontent-sea5-1.cdninstagram.com&_nc_gid=XfzNHzId0EhXVAfd0JI0bA&_nc_ss=7360f&oh=00_AQJxAeY6482M_FjS1BSUgHqg_NSbJO532I_oqS7LMKmaLw&oe=6AAAD2A8"
+  ],
+  "link": "https://www.instagram.com/p/DcBly8NDD_R/",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "Building Benches for the Web",
+      "slug": "building-benches-for-the-web",
+      "link": "https://sfpc.study/sessions/summer-26/building-benches-for-the-web",
+      "parentCategory": "Talks & Teaching"
+    }
+  ],
+  "location": "New York"
+}

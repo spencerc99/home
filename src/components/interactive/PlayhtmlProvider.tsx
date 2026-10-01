@@ -143,7 +143,9 @@ function normalizedPagePath(): string {
   return p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p;
 }
 
-export function PlayhtmlProvider({ children }: PropsWithChildren) {
+// Connects an island to the shared playhtml client. Every React island that
+// uses playhtml needs one, since islands don't share a React tree.
+export function PlayhtmlIslandProvider({ children }: PropsWithChildren) {
   return (
     <PlayProvider
       initOptions={{
@@ -165,10 +167,20 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
         },
       }}
     >
+      {children}
+    </PlayProvider>
+  );
+}
+
+// The layout-level provider: also mounts the site-wide presence widgets, which
+// must exist exactly once per page.
+export function PlayhtmlProvider({ children }: PropsWithChildren) {
+  return (
+    <PlayhtmlIslandProvider>
       <CursorPresenceLayer />
       <PresenceBroadcaster />
       <LiveChat />
       {children}
-    </PlayProvider>
+    </PlayhtmlIslandProvider>
   );
 }

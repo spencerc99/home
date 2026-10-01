@@ -302,7 +302,7 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
 ---
 
 <BaseLayout title={title} description={subtext} image={heroImage}>
-  <main class="creationDetail editorial">
+  <main class="creationDetail editorial" style={style}>
     <article>
       <!-- Desktop Editorial Layout -->
       <div class="desktop-layout">
@@ -340,7 +340,7 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
             </div>
           </div>
           <!-- Hero Row -->
-          <div class="hero-row" style={style}>
+          <div class="hero-row">
             {
               shouldIframe ? (
                 <div class="iframeWrapper">
@@ -359,6 +359,7 @@ const linkDomain = link ? getDomainFromUrl(link) : "";
                       className="medium-masonry"
                       src={src}
                       type={allMetadata[i]}
+                      withLoadingState
                     />
 
                     {allDescriptions[i] && (

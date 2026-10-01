@@ -1,6 +1,8 @@
 // ABOUTME: Provides page-level image zoom behavior across Astro React islands.
 // ABOUTME: Keeps zoom navigation focused on images that have visible layout boxes.
-import mediumZoom, { type Zoom, type ZoomOptions } from "medium-zoom";
+// medium-zoom styles are bundled via BaseHead so they survive view-transition head swaps.
+import mediumZoom, { type Zoom, type ZoomOptions } from "medium-zoom/dist/pure";
+import type { TransitionBeforePreparationEvent } from "astro:transitions/client";
 
 type ZoomImageElement = {
   getBoundingClientRect(): Pick<DOMRect, "width" | "height">;
@@ -21,11 +23,26 @@ export function getPageZoom(options?: ZoomOptions): Zoom {
   if (pageZoom === null) {
     pageZoom = mediumZoom(options);
     document.addEventListener("keydown", handleZoomKey, false);
+    document.addEventListener("astro:before-preparation", closeZoomBeforeNavigation);
   } else if (options) {
     pageZoom.update(options);
   }
 
   return pageZoom;
+}
+
+// If the page swaps while an image is zoomed, medium-zoom loses its overlay
+// mid-animation and stays stuck "open", so finish closing before the swap.
+function closeZoomBeforeNavigation(event: Event) {
+  const zoom = pageZoom;
+  if (!zoom?.getZoomedImage()) return;
+
+  const navigationEvent = event as TransitionBeforePreparationEvent;
+  const loadPage = navigationEvent.loader;
+  navigationEvent.loader = async () => {
+    await zoom.close();
+    await loadPage();
+  };
 }
 
 function handleZoomKey(e: KeyboardEvent) {

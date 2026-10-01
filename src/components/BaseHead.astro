@@ -1,6 +1,7 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
+import "medium-zoom/dist/style.css";
 import "../styles/global.scss";
 import { ViewTransitions } from "astro:transitions";
 
@@ -27,6 +28,7 @@ const { title, description, image = "/name-stamp.png", draft } = Astro.props;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
+<link rel="alternate" type="application/rss+xml" title="Spencer Chang" href="/rss.xml" />
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 
@@ -66,6 +68,10 @@ const { title, description, image = "/name-stamp.png", draft } = Astro.props;
 <!-- lazy load images to prioritize those in view -->
 <script async src="/lazysizes.min.js"></script>
 
+<script>
+  import "../scripts/scrollRestoration";
+</script>
+
 <!-- External link UTM handler -->
 <script>
   function addUtmToExternalLinks() {
@@ -102,7 +108,8 @@ const { title, description, image = "/name-stamp.png", draft } = Astro.props;
     });
   }
 
-  document.addEventListener("DOMContentLoaded", addUtmToExternalLinks);
+  // astro:page-load fires on first load and after every view-transition navigation.
+  document.addEventListener("astro:page-load", addUtmToExternalLinks);
 </script>
 
 <!-- telescopic text -->

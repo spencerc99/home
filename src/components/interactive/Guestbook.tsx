@@ -6,7 +6,7 @@ import { useStickyState } from "../../hooks/useStickyState";
 import { useTime } from "../../hooks/useTime";
 import "./Guestbook.scss";
 import React, { useEffect, useMemo, useState } from "react";
-import { PlayhtmlProvider } from "./PlayhtmlProvider";
+import { PlayhtmlIslandProvider } from "./PlayhtmlProvider";
 
 interface GuestbookEntry {
   name: string;
@@ -289,8 +289,8 @@ export const GuestbookImpl = withSharedState(
 
 export function Guestbook() {
   return (
-    <PlayhtmlProvider>
+    <PlayhtmlIslandProvider>
       <GuestbookImpl />
-    </PlayhtmlProvider>
+    </PlayhtmlIslandProvider>
   );
 }

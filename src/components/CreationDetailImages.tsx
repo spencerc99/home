@@ -24,6 +24,7 @@ export function CreationDetailImages({
               src={imgUrl}
               key={imgUrl}
               withZoom
+              withLoadingState
               type={metadata[idx]}
             />
             {Boolean(descriptions?.[idx]) && (

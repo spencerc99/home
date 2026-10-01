@@ -9,6 +9,9 @@ import { ImageOrVideo } from "./ImageOrVideo";
 import { maybeTransformImgixUrl } from "../utils/images";
 import { getProgressivePreviewImage } from "../utils/creationPreviewMedia";
 
+// Matches the min-width/min-height of preview media in CreationsView.scss.
+const PREVIEW_MIN_SIZE_PX = 150;
+
 interface Props {
   creation: CollectionEntry<"creation">["data"] & {
     id: string;
@@ -89,6 +92,7 @@ export function CreationPreviewMedia({ creation, imgixWidth = 300 }: Props) {
         style={{
           borderRadius: "inherit",
         }}
+        placeholderSize={PREVIEW_MIN_SIZE_PX}
       >
         <div
           style={{
@@ -124,6 +128,7 @@ export function CreationPreviewMedia({ creation, imgixWidth = 300 }: Props) {
         style={{
           borderRadius: "inherit",
         }}
+        placeholderSize={PREVIEW_MIN_SIZE_PX}
       >
         {previewMediaType === "video" && transformedProgressivePreviewImage ? (
           <div

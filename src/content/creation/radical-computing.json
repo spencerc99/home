@@ -19,6 +19,19 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "we were browsing",
+      "slug": "we-were-browsing",
+      "link": "",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "Melbourne, Austrailia"
 }
