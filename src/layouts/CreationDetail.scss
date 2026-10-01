@@ -26,6 +26,16 @@
 
     transition: opacity 0.15s linear;
     &.loading {
+      // Media has no intrinsic size until it loads, so hold a square aura
+      // placeholder open in the meantime.
+      min-width: 240px;
+      aspect-ratio: 1;
+      background: radial-gradient(
+        circle,
+        var(--aura-color) 0%,
+        var(--aura-color) 20%,
+        var(--aura-color-transparent) 100%
+      );
       animation: pulse-opacity 1.3s infinite ease-in-out;
     }
   }
