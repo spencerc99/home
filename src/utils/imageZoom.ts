@@ -1,6 +1,7 @@
 // ABOUTME: Provides page-level image zoom behavior across Astro React islands.
 // ABOUTME: Keeps zoom navigation focused on images that have visible layout boxes.
-import mediumZoom, { type Zoom, type ZoomOptions } from "medium-zoom";
+// medium-zoom styles are bundled via BaseHead so they survive view-transition head swaps.
+import mediumZoom, { type Zoom, type ZoomOptions } from "medium-zoom/dist/pure";
 
 type ZoomImageElement = {
   getBoundingClientRect(): Pick<DOMRect, "width" | "height">;
