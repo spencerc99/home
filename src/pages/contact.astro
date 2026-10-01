@@ -58,7 +58,8 @@ const LayoutProps = {
 
   .link-row {
     display: flex;
-    gap: 0.5em;
+    flex-wrap: wrap;
+    column-gap: 0.5em;
   }
 
   dt {
@@ -69,6 +70,8 @@ const LayoutProps = {
 
   dd {
     margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   a {
