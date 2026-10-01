@@ -2,12 +2,12 @@
 // ABOUTME: Needed because Stats is mounted as a separate Astro island from the init-owning PlayhtmlProvider.
 
 import { Stats } from "./Stats";
-import { PlayhtmlProvider } from "../interactive/PlayhtmlProvider";
+import { PlayhtmlIslandProvider } from "../interactive/PlayhtmlProvider";
 
 export function ConnectedStats() {
   return (
-    <PlayhtmlProvider>
+    <PlayhtmlIslandProvider>
       <Stats />
-    </PlayhtmlProvider>
+    </PlayhtmlIslandProvider>
   );
 }

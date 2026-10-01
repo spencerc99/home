@@ -3,7 +3,7 @@
 
 import { CanHoverElement, useCursorPresences } from "@playhtml/react";
 import React, { type CSSProperties, type PropsWithChildren } from "react";
-import { PlayhtmlProvider } from "./interactive/PlayhtmlProvider";
+import { PlayhtmlIslandProvider } from "./interactive/PlayhtmlProvider";
 
 type HoverGlowProps = PropsWithChildren<{
   id: string;
@@ -68,8 +68,8 @@ function HoverGlowInner({ id, className, children }: HoverGlowProps) {
 // provider in-tree (same pattern as ConnectedStats / Guestbook).
 export function HoverGlow(props: HoverGlowProps) {
   return (
-    <PlayhtmlProvider>
+    <PlayhtmlIslandProvider>
       <HoverGlowInner {...props} />
-    </PlayhtmlProvider>
+    </PlayhtmlIslandProvider>
   );
 }
