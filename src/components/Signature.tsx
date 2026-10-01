@@ -27,6 +27,7 @@ const Signature: React.FC = () => {
             id="stamp"
             className="stamp"
             src="/assets/name-stamp.png"
+            alt="Spencer Chang name stamp"
           />
         </Footnote>
         <SocialMediaLinks />

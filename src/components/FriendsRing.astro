@@ -130,6 +130,13 @@ const friendsData: Friend[] = webring;
     @include distribute-in-circle(7em, 2em, 13);
     animation: spin 45s linear infinite;
 
+    @media (prefers-reduced-motion: reduce) {
+      &,
+      & > * {
+        animation: none;
+      }
+    }
+
     a {
       text-decoration: none;
     }

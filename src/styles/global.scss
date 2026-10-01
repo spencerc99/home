@@ -1433,6 +1433,10 @@ section.footnotes {
 
   animation: shine 2s linear infinite;
 
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
   &:not(:hover) {
     text-fill-color: transparent;
     -webkit-text-fill-color: transparent;

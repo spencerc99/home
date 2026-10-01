@@ -11,7 +11,7 @@ export const nowEntries: NowEntry[] = [
   {
     date: "2026-03-22",
     items: [
-      'Exploring making art with my <a href="/creation/internet-movement">internet debris</a>',
+      'Exploring making art with my <a href="/creation/we-were-browsing">internet debris</a>',
       'Making a <a href="/creation/we-were-online">game for the internet</a> filled with <a href="/creation/playhtml">tiny social networks</a>',
       "Collecting boulders to put in a park",
       'Shaping culture through <a href=\"https://www.instagram.com/spence.r.chang/\">social</a> <a href=\"https://x.com/spencerc99\">media</a>.',
