@@ -85,15 +85,16 @@ export function CursorPresenceLayer() {
     sessionStorage.getItem(SPENCER_ARRIVAL_KEY),
   );
   const mousePos = useRef({ x: 0, y: 0 });
+  const hasMouseMoved = useRef(false);
   const [emoteMenuOpen, setEmoteMenuOpen] = useState(false);
   const [emoteMenuPos, setEmoteMenuPos] = useState({ x: 0, y: 0 });
   const [showInteractHint, setShowInteractHint] = useState(false);
-  const hintShownThisSession = useRef(false);
 
   // Track mouse position for self-gesture overlay positioning
   useEffect(() => {
     function onMouseMove(e: MouseEvent) {
       mousePos.current = { x: e.clientX, y: e.clientY };
+      hasMouseMoved.current = true;
     }
     window.addEventListener("mousemove", onMouseMove);
     return () => window.removeEventListener("mousemove", onMouseMove);
@@ -101,7 +102,13 @@ export function CursorPresenceLayer() {
 
   // Show "press E to interact" hint once per session when other cursors are nearby
   useEffect(() => {
-    if (hintShownThisSession.current) return;
+    if (hasShownInteractHint) return;
+    // The hint is anchored to the mouse and E is a keyboard shortcut, so skip
+    // touch devices and wait until the mouse has actually moved.
+    if (!hasMouseMoved.current || !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+    const mouse = mousePos.current;
 
     // Check if there are other cursors (more than just yourself)
     const myIdentity = getMyPlayerIdentity();
@@ -113,13 +120,13 @@ export function CursorPresenceLayer() {
     // Check proximity — any other cursor within 400px
     const nearby = otherCursors.some(([, presence]) => {
       if (!presence.cursor) return false;
-      const dx = presence.cursor.x - mousePos.current.x;
-      const dy = presence.cursor.y - mousePos.current.y;
+      const dx = presence.cursor.x - mouse.x;
+      const dy = presence.cursor.y - mouse.y;
       return Math.sqrt(dx * dx + dy * dy) < 400;
     });
 
     if (nearby) {
-      hintShownThisSession.current = true;
+      hasShownInteractHint = true;
       setShowInteractHint(true);
       setTimeout(() => setShowInteractHint(false), 4000);
     }
@@ -368,6 +375,9 @@ function ArrivalNotification() {
     </div>
   );
 }
+
+// Module-level so it survives the island re-mounting on every navigation.
+let hasShownInteractHint = false;
 
 function InteractHint({ x, y }: { x: number; y: number }) {
   return (

@@ -103,7 +103,8 @@ const { title, description, image = "/name-stamp.png", draft } = Astro.props;
     });
   }
 
-  document.addEventListener("DOMContentLoaded", addUtmToExternalLinks);
+  // astro:page-load fires on first load and after every view-transition navigation.
+  document.addEventListener("astro:page-load", addUtmToExternalLinks);
 </script>
 
 <!-- telescopic text -->
