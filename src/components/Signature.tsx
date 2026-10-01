@@ -2,13 +2,21 @@ import React, { useEffect } from "react";
 import SocialMediaLinks from "./SocialMediaLinks";
 import { Footnote } from "./Footnote";
 
-const Signature: React.FC = () => {
+// The home page shows its own signature in the body, so the footer copy skips
+// it there. A second copy would also duplicate the shared #stamp element.
+function isHomePage() {
+  return window.location.pathname === "/";
+}
+
+const Signature: React.FC<{ hideOnHome?: boolean }> = ({ hideOnHome }) => {
   const nameStampRef = React.useRef<HTMLImageElement>(null);
+  const isHidden = hideOnHome && isHomePage();
   useEffect(() => {
     if (!nameStampRef.current) return;
 
     window.playhtml?.setupPlayElement?.(nameStampRef.current);
-  }, [nameStampRef]);
+  }, [nameStampRef, isHidden]);
+  if (isHidden) return null;
   return (
     <div className="signature" style={{ float: "none" }}>
       <div className="signatureContent">
