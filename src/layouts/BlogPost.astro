@@ -124,3 +124,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     }
   </style>
 </BaseLayout>
+
+<script>
+  import { getPageZoom } from "../utils/imageZoom";
+
+  // Post bodies are static markdown, so wire their images into the shared
+  // page zoom after each navigation. Linked images keep their link behavior.
+  function attachPostImageZoom() {
+    const images = [
+      ...document.querySelectorAll<HTMLImageElement>(
+        ".postMain .prose img:not(.medium-zoom-image)",
+      ),
+    ].filter((image) => !image.closest("a"));
+    if (images.length === 0) return;
+    getPageZoom().attach(...images);
+  }
+
+  document.addEventListener("astro:page-load", attachPostImageZoom);
+</script>
