@@ -289,7 +289,14 @@ async function importCreations() {
       },
     },
   );
+  if (!resp.ok) {
+    throw new Error(`Coda fetch failed: ${resp.status} ${resp.statusText}`);
+  }
   const data: CodaItem[] = await resp.json();
+  // Guard against wiping every creation when Coda returns nothing
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error("Coda returned no creations, refusing to overwrite");
+  }
   // put them into content/creation as single json files using the title as the name
 
   // Track all referenced video blob IDs for cleanup
@@ -524,5 +531,8 @@ async function importCreations() {
   });
 }
 
-await importCreations();
-console.log("done importing");
+// Only run when executed directly, not when imported by importNewsletter
+if (import.meta.main) {
+  await importCreations();
+  console.log("done importing");
+}
