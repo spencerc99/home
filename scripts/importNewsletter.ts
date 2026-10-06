@@ -24,6 +24,9 @@ async function importNewsletter() {
   const resp = await fetch(
     `https://opencoda.spencerc99.workers.dev/${docId}/${gridId}`
   );
+  if (!resp.ok) {
+    throw new Error(`Coda fetch failed: ${resp.status} ${resp.statusText}`);
+  }
   const data: NewsletterItem[] = await resp.json();
 
   // Exclude newsletter items that have a real post
