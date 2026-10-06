@@ -60,13 +60,19 @@
     {
       "title": "we were browsing",
       "slug": "we-were-browsing",
-      "link": "",
+      "link": "https://wewere.online/portrait/",
       "parentCategory": "Project"
     },
     {
       "title": "Tech Without Bros",
       "slug": "tech-without-bros",
       "link": "https://www.thecut.com/article/cyberdecks-anti-ai-resistance-trend.html",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Interview with Spencer Chang",
+      "slug": "interview-with-spencer-chang",
+      "link": "https://www.culturehub.org/read/scribble-spencer-chang",
       "parentCategory": "Press"
     }
   ]

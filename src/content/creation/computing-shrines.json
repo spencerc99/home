@@ -144,7 +144,7 @@
     {
       "title": "Soft Internet Theory",
       "slug": "soft-internet-theory",
-      "link": "https://artgalleryofguelph.ca/exhibition/soft-internet-theory/",
+      "link": "https://confederationcentre.com/exhibition/soft-internet-theory/",
       "parentCategory": "Exhibition"
     },
     {
@@ -163,6 +163,12 @@
       "title": "Spencer Chang is a Creative Technologist",
       "slug": "spencer-chang-is-a-creative-technologist",
       "link": "https://apossible.com/interviews/spencer-chang-is-a-creative-technologist",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "Interview with Spencer Chang",
+      "slug": "interview-with-spencer-chang",
+      "link": "https://www.culturehub.org/read/scribble-spencer-chang",
       "parentCategory": "Press"
     }
   ],

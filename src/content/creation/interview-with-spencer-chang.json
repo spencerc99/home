@@ -1,0 +1,47 @@
+{
+  "title": "Interview with Spencer Chang",
+  "parentCategory": "Press",
+  "categories": [],
+  "date": "2026-08-13T07:00:00.000Z",
+  "institution": [
+    "CultureHub"
+  ],
+  "heroImage": "https://static1.squarespace.com/static/5b2bb6b44611a0340651820a/t/6aa2f50ae54f7b443c438363/1790096304247/Spencer+Chang+-+0+edited2.png?format=1500w",
+  "media": [
+    "https://static1.squarespace.com/static/5b2bb6b44611a0340651820a/t/6aa2f50ae54f7b443c438363/1790096304247/Spencer+Chang+-+0+edited2.png?format=1500w"
+  ],
+  "link": "https://www.culturehub.org/read/scribble-spencer-chang",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "we were browsing",
+      "slug": "we-were-browsing",
+      "link": "https://wewere.online/portrait/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "we were online",
+      "slug": "we-were-online",
+      "link": "https://wewere.online/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "Computing Shrines",
+      "slug": "computing-shrines",
+      "link": "https://shrine.computer/",
+      "parentCategory": "Project"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "title": "@Mesages ",
   "subtext": "a social experiment showing all Bluesky posts in your message inbox",
+  "parentCategory": "Project",
   "categories": [],
   "date": "2026-06-04T07:00:00.000Z",
   "heroImage": "https://hah.spencer.place/vite.svg",
@@ -11,6 +12,7 @@
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
+  "isEvent": false,
   "mediaMetadata": [
     "image"
   ],
