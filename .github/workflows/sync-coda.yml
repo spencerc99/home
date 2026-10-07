@@ -6,6 +6,8 @@ name: Sync creations and writing from Coda
 # A manual run on any other branch is a dry run: it imports and builds but
 # does not commit or push.
 on:
+  push:
+    branches: [fix-coda-sync-newsletter-fetch]
   schedule:
     - cron: "17 */3 * * *"
   workflow_dispatch:
