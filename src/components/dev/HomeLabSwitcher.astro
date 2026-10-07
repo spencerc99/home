@@ -1,0 +1,27 @@
+---
+// ABOUTME: Small nav between the /home-lab layout prototypes.
+interface Props {
+  current: "tiers" | "collage" | "garden";
+}
+const { current } = Astro.props;
+const options = [
+  ["tiers", "A · tiers"],
+  ["collage", "B · collage"],
+  ["garden", "C · garden"],
+];
+---
+
+<p class="labSwitcher">
+  layout prototypes:{" "}
+  {
+    options.map(([slug, label], idx) => (
+      <>
+        {idx > 0 && " · "}
+        <a href={`/home-lab/${slug}`} class={slug === current ? "current" : ""}>
+          {label}
+        </a>
+      </>
+    ))
+  }{" "}
+  · <a href="/">current home</a>
+</p>

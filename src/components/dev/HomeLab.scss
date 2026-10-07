@@ -1,0 +1,391 @@
+// ABOUTME: Styles for the /home-lab layout prototypes and their shared blocks.
+// ABOUTME: Reuses the site's aura, stamp, and double-border card language.
+
+@import "../../styles/mixins.scss";
+
+// ---------- shared blocks ----------
+
+.labHeading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  flex-wrap: wrap;
+  margin: 0 0 1em;
+  font-size: 1rem;
+  font-weight: 500;
+
+  .labHeadingNote {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    font-size: 0.9em;
+  }
+}
+
+.tendingCards {
+  display: grid;
+  gap: 1.5em;
+
+  &.hero-pair {
+    grid-template-columns: 1fr 1fr;
+    .tendingCard.hero {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &.row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  &.tiles {
+    display: contents;
+  }
+
+  @include media(xsmallScreen) {
+    &.hero-pair,
+    &.row {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.tendingCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-neutral-background);
+  border: 3px double var(--border-color);
+  border-radius: 0.25em;
+  padding: 0.5em;
+  color: inherit;
+  text-decoration: none !important;
+  box-shadow: 0 0 28px 6px var(--aura-color-transparent);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 0 40px 14px var(--aura-color-transparent);
+    .tendingTitle {
+      text-decoration: underline;
+    }
+  }
+
+  .tendingMedia {
+    position: relative;
+    border-radius: 0.25em;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+
+    > :not(.categoryStamp),
+    > :not(.categoryStamp) * {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    img,
+    video {
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: 100% !important;
+      object-fit: cover;
+      background: radial-gradient(
+        circle,
+        var(--aura-color) 0%,
+        var(--aura-color-transparent) 100%
+      );
+    }
+
+    .categoryStamp {
+      position: absolute;
+      z-index: 2;
+      top: 8px;
+      left: 8px;
+      transform: rotate(-3deg);
+    }
+  }
+
+  &.hero .tendingMedia {
+    aspect-ratio: 16 / 9;
+  }
+
+  .tendingCaption {
+    padding: 0.75em 0.35em 0.25em;
+    color: var(--color-text-color);
+  }
+
+  .tendingTitle {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.35em;
+    line-height: 1.2;
+  }
+
+  &.hero .tendingTitle {
+    font-size: 1.75em;
+  }
+
+  .tendingStatement {
+    margin: 0.3em 0 0;
+    font-size: 1.05em;
+    line-height: 1.35;
+  }
+
+  .tendingNow {
+    margin: 0.5em 0 0;
+    font-size: 0.85em;
+    color: var(--color-text-muted);
+  }
+
+  .nowDot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 0.45em;
+    border-radius: 50%;
+    background: hsl(118, 60%, 45%);
+    box-shadow: 0 0 6px hsl(118, 60%, 55%);
+    vertical-align: 1px;
+    animation: labPulse 2.4s ease-in-out infinite;
+  }
+}
+
+@keyframes labPulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.worksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2.5em 2em;
+  align-items: start;
+
+  .creationSummary {
+    width: 100%;
+  }
+}
+
+.smallThings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25em 1.5em;
+  align-items: flex-start;
+}
+
+.smallThing {
+  width: 96px;
+  color: inherit;
+  text-decoration: none !important;
+  font-size: 0.8em;
+  line-height: 1.25;
+  text-align: center;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: rotate(0deg) scale(1.08);
+    .smallThingTitle {
+      text-decoration: underline;
+    }
+  }
+
+  .smallThingTitle {
+    color: var(--color-text-color);
+  }
+
+  .smallThingMedia {
+    width: 96px;
+    height: 96px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.35em;
+    box-shadow: 0 0 10px 3px var(--aura-color-transparent);
+    background: radial-gradient(
+      circle,
+      var(--aura-color) 0%,
+      var(--aura-color-transparent) 100%
+    );
+
+    img,
+    video {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      object-fit: cover;
+    }
+  }
+}
+
+.placesStamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em 0.5em;
+
+  .categoryStamp {
+    font-size: 0.8rem;
+    &:nth-child(3n) {
+      transform: rotate(-2deg);
+    }
+    &:nth-child(3n + 1) {
+      transform: rotate(1.5deg);
+    }
+  }
+}
+
+.breadthLine {
+  font-size: 0.95em;
+  color: var(--color-text-muted);
+  a {
+    white-space: nowrap;
+  }
+}
+
+.labSwitcher {
+  font-size: 0.85em;
+  margin-bottom: 2em;
+  color: var(--color-text-muted);
+  a.current {
+    font-weight: 700;
+    color: var(--color-text-color);
+  }
+}
+
+// ---------- A: tiers ----------
+
+.homeLab.tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+
+  .two-columns {
+    align-items: start;
+  }
+}
+
+// ---------- B: collage ----------
+
+.homeLab.collage {
+  .collageGrid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-auto-flow: row dense;
+    gap: 2em;
+    align-items: start;
+
+    astro-island,
+    .worksGrid,
+    .smallThings,
+    .tendingCards {
+      display: contents;
+    }
+
+    > .introTile {
+      grid-column: span 3;
+      grid-row: span 2;
+    }
+
+    .tendingCard {
+      grid-column: span 3;
+    }
+
+    .tendingCard.hero {
+      grid-column: span 3;
+      grid-row: span 2;
+    }
+
+    .placesTile,
+    .nowTile {
+      grid-column: span 2;
+      background: var(--color-neutral-background);
+      border: 1px dashed var(--border-color);
+      border-radius: 0.25em;
+      padding: 1em;
+      transform: rotate(-0.6deg);
+    }
+
+    .nowTile {
+      transform: rotate(0.8deg);
+    }
+
+    .creationSummary {
+      grid-column: span 1;
+    }
+
+    .smallThing {
+      justify-self: center;
+    }
+
+    @include media(xsmallScreen, smallScreen) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      > .introTile,
+      .tendingCard,
+      .tendingCard.hero,
+      .placesTile,
+      .nowTile {
+        grid-column: 1 / -1;
+        grid-row: auto;
+      }
+    }
+
+    @include media(mediumScreen, largeScreen) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      > .introTile,
+      .tendingCard.hero {
+        grid-column: span 4;
+      }
+      .tendingCard {
+        grid-column: span 2;
+      }
+    }
+  }
+}
+
+// ---------- C: garden ----------
+
+.homeLab.garden {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+
+  .gardenIntro {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .bed {
+    border-top: 3px double var(--border-color);
+    padding-top: 1.25em;
+  }
+
+  .bedLabel {
+    display: flex;
+    gap: 0.75em;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-bottom: 1.25em;
+
+    .bedName {
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.3em;
+    }
+
+    .bedNote {
+      color: var(--color-text-muted);
+      font-size: 0.9em;
+    }
+  }
+
+  .gardenFooter {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 3em;
+    align-items: start;
+
+    @include media(xsmallScreen, smallScreen) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

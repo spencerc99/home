@@ -1,0 +1,54 @@
+---
+// ABOUTME: Home layout prototype C: garden. A short centered welcome, then
+// ABOUTME: full-width "beds" from big ongoing work down to tiny seedlings.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NowBlock } from "../../components/Now";
+import Status from "../../components/Status.astro";
+import HomeLabIntro from "../../components/dev/HomeLabIntro.astro";
+import HomeLabExtras from "../../components/dev/HomeLabExtras.astro";
+import HomeLabSwitcher from "../../components/dev/HomeLabSwitcher.astro";
+import { TendingCards, WorksGrid, SmallThings } from "../../components/dev/HomeLab";
+import { getHomeLabData } from "../../components/dev/homeLabData";
+import { nowEntries } from "../../data/now-entries";
+
+const { tending, works, small, counts } = await getHomeLabData();
+---
+
+<BaseLayout title="home layout C">
+  <HomeLabSwitcher current="garden" />
+  <div class="homeLab garden">
+    <div class="gardenIntro"><HomeLabIntro /></div>
+
+    <section class="bed">
+      <div class="bedLabel">
+        <span class="bedName">perennials</span>
+        <span class="bedNote">what i'm tending to right now</span>
+      </div>
+      <TendingCards creations={tending} layout="row" client:only="react" />
+    </section>
+
+    <section class="bed">
+      <div class="bedLabel">
+        <span class="bedName">in bloom</span>
+        <span class="bedNote">selected works that found their people</span>
+      </div>
+      <WorksGrid creations={works} client:only="react" />
+    </section>
+
+    <section class="bed">
+      <div class="bedLabel">
+        <span class="bedName">seedlings</span>
+        <span class="bedNote">small things, toys, and sketches</span>
+      </div>
+      <SmallThings creations={small} client:only="react" />
+    </section>
+
+    <section class="bed gardenFooter">
+      <HomeLabExtras counts={counts} heading="where it's grown" />
+      <div class="textContent">
+        {nowEntries[0] && <NowBlock client:only="react" entry={nowEntries[0]} />}
+        <Status />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

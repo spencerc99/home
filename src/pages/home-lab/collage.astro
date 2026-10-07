@@ -1,0 +1,31 @@
+---
+// ABOUTME: Home layout prototype B: collage. One playful grid where size says
+// ABOUTME: importance: big ongoing tiles, medium works, tiny small things, notes.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NowBlock } from "../../components/Now";
+import HomeLabIntro from "../../components/dev/HomeLabIntro.astro";
+import HomeLabExtras from "../../components/dev/HomeLabExtras.astro";
+import HomeLabSwitcher from "../../components/dev/HomeLabSwitcher.astro";
+import { TendingCards, WorksGrid, SmallThings } from "../../components/dev/HomeLab";
+import { getHomeLabData } from "../../components/dev/homeLabData";
+import { nowEntries } from "../../data/now-entries";
+
+const { tending, works, small, counts } = await getHomeLabData();
+---
+
+<BaseLayout title="home layout B">
+  <HomeLabSwitcher current="collage" />
+  <div class="homeLab collage">
+    <div class="collageGrid">
+      <div class="introTile"><HomeLabIntro /></div>
+      <TendingCards creations={tending} layout="tiles" client:only="react" />
+      <div class="placesTile"><HomeLabExtras counts={counts} /></div>
+      <WorksGrid creations={works.slice(0, 6)} client:only="react" />
+      <div class="nowTile">
+        {nowEntries[0] && <NowBlock client:only="react" entry={nowEntries[0]} />}
+      </div>
+      <WorksGrid creations={works.slice(6)} client:only="react" />
+      <SmallThings creations={small} client:only="react" />
+    </div>
+  </div>
+</BaseLayout>
