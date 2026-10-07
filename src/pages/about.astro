@@ -284,6 +284,25 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       </details>
     </div>
 
+    <h2 class="about-heading">interviews</h2>
+    <ul class="about-interviews">
+      <li>
+        <a href="https://www.are.na/editorial/an-interview-with-spencer-chang"
+          >An Interview with Spencer Chang</a
+        > <span class="about-outlet">Are.na Editorial, 2024</span>
+      </li>
+      <li>
+        <a href="https://www.culturehub.org/read/scribble-spencer-chang"
+          >Scribble: Spencer Chang</a
+        > <span class="about-outlet">CultureHub, 2026</span>
+      </li>
+      <li>
+        <a href="https://naiveweekly.com/articles/spencer-chang-playhtml-fun"
+          >Spencer Chang on playhtml</a
+        > <span class="about-outlet">Naive Weekly</span>
+      </li>
+    </ul>
+
     <p class="descriptionText">
       p.s. like these highlighted paragraphs that expand when you touch them?
       they're made with the <a href="/creation/verses-verses"
@@ -366,35 +385,27 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      padding-bottom: 2rem;
+      padding-bottom: 0;
     }
 
     .about-page .about-questions summary {
-      cursor: pointer;
       font-size: inherit;
     }
 
-    /* The global toggle is the 🔽/🆙 emoji, which Apple renders blue. Draw an
-       orange box with a triangle instead so it matches on every platform. */
-    .about-page .about-questions summary::before {
-      content: "";
-      display: inline-block;
-      width: 1.1em;
-      height: 1.1em;
-      margin-right: 0.4em;
-      vertical-align: middle;
-      position: relative;
-      top: -0.1em;
-      border-radius: 3px;
-      background:
-        no-repeat center / 60%
-          url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path fill="white" d="M1 3h8L5 8z"/></svg>'),
-        hsl(33, 100%, 56%);
-      transition: transform 0.15s ease;
+
+    .about-page .about-interviews {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
-    .about-page .about-questions details[open] summary::before {
-      transform: rotate(180deg);
+    .about-page .about-outlet {
+      color: #6b665c;
+      font-size: 0.875rem;
+      margin-left: 0.35em;
     }
 
     .about-page .descriptionText {
