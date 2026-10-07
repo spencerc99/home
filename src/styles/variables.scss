@@ -93,6 +93,47 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
   --color-glowing-highlight: #{$color-glowing-highlight};
   --color-neutral-background-hover: rgba(0, 0, 0, 0.05);
 
+  // Design system tokens (see design-system.md in the project's site-design notes).
+  // Fonts: one job each. Body/UI = Vulf, display statements = Cooper, labels/meta = Sono.
+  --font-body: #{$site-font};
+  --font-display: #{$site-font-serif};
+  --font-mono: #{$site-font-mono}, monospace;
+
+  // Type scale: 1.25 ratio on a 16px base.
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5625rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-body: #{$default-line-height};
+
+  // Spacing (4px base).
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --measure: 65ch;
+  --content-wide: #{$large-content-width};
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+
+  // Color roles. The bright brand orange is for fills, glows and underlines;
+  // link text uses the darker orange so it passes 4.5:1 on the peach background.
+  --color-accent: #{$color-link};
+  --color-link-text: #b35400;
+  --color-text-subtle: #6b665c;
+  --color-meta: #{$color-blueberry};
+
   // For email subscription widget
   #custom-substack-embed .custom-substack-widget {
     --csw-primary-color: #{$color-link};
@@ -148,6 +189,8 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
     --color-box-shadow: #{$color-box-shadow-dark};
     --color-glowing-highlight: #{$color-glowing-highlight-dark};
     --color-neutral-background-hover: rgba(255, 255, 255, 0.05);
+    --color-link-text: #{$color-link};
+    --color-text-subtle: #a8a294;
 
     // For email subscription widget
     #custom-substack-embed .custom-substack-widget {
