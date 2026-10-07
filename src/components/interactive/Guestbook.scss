@@ -1,87 +1,422 @@
+// Guestbook letters sit on real paper, so their ink stays dark in both themes.
+$gb-ink: #2b2620;
+$gb-ink-soft: #4f4a42;
+$gb-accent: #ff9a1f;
+
+.gbPaper-drawing { background: #f6f3ea url(/textures/guestbook/paper-drawing.webp) 0 0 / 320px; }
+.gbPaper-kraft { background: #d8b994 url(/textures/guestbook/paper-kraft.webp) 0 0 / 320px; }
+.gbPaper-cardboard { background: #b88c55 url(/textures/guestbook/paper-cardboard.webp) 0 0 / 320px; }
+.gbPaper-crumpled { background: #c9c9c7 url(/textures/guestbook/paper-crumpled.webp) 0 0 / 320px; }
+.gbPaper-pink { background: #f9c9b8 url(/textures/guestbook/paper-pink.webp) 0 0 / 320px; }
+.gbPaper-yellow { background: #fbefd2 url(/textures/guestbook/paper-yellow.webp) 0 0 / 320px; }
+.gbPaper-grainy { background: #e9e9e7 url(/textures/guestbook/paper-grainy.webp) 0 0 / 320px; }
+.gbPaper-grain {
+  background:
+    linear-gradient(rgba(255, 253, 242, 0.55), rgba(255, 253, 242, 0.55)),
+    #f3eee0 url(/texture.jpeg) center / cover;
+}
+.gbPaper-riso {
+  background:
+    linear-gradient(rgba(255, 253, 242, 0.7), rgba(255, 253, 242, 0.7)),
+    #f3eee0 url(/texture2-dither.png) center / 420px;
+}
+
 #guestbook {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8em;
+  margin-top: 2rem;
+  color: $gb-ink;
 
   button {
-    padding: 0.3em 1em;
-    background-color: var(--color-text-highlight);
-    color: var(--color-text-color);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: filter 0.3s;
-    opacity: 1;
-
-    &:disabled {
-      background-color: var(--color-neutral-background-translucent);
-      cursor: not-allowed;
-    }
-
-    &:hover:not(:disabled) {
-      filter: brightness(1.1);
-    }
+    font: inherit;
   }
 }
 
-.guestbookActions {
+.gbSr {
+  position: absolute;
+  left: -9999px;
+}
+
+.gbSheet {
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid $gb-ink;
+  box-shadow: 0 2px 4px rgba(43, 38, 32, 0.18);
+  color: $gb-ink;
   display: flex;
   flex-direction: column;
-  gap: 0.4em;
+  gap: 10px;
+}
 
-  button {
-    align-self: flex-start;
+.gbDear {
+  font-size: 0.9em;
+}
+
+.gbMessage {
+  margin: 0;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.gbSignoff {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.gbWhen {
+  font-size: 12px;
+  color: $gb-ink-soft;
+  flex-shrink: 0;
+}
+
+.gbName {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-weight: 700;
+  text-align: right;
+}
+
+a.gbNameLink {
+  text-decoration: none;
+
+  .gbName > span:last-child {
+    text-decoration: underline;
   }
 }
 
-.guestbookEntries {
-  display: flex;
-  gap: 0.4em;
-  margin-top: 1em;
+.gbFav {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
 }
-.guestbookEntry {
+
+.gbFavLetter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $gb-ink;
+  color: #fffbe6;
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+// Pile + blank letter side by side; stacked on narrow screens.
+.gbTable {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.gbPileCol,
+.gbWriteCol {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-neutral-background);
-  border: 1px solid var(--color-text-color);
-  border-radius: 8px;
-  padding: 1em;
-  box-shadow: 0 2px 4px var(--color-box-shadow);
-  min-height: 200px;
+  gap: 14px;
+  width: min(330px, 100%);
+}
+
+.gbPileCol {
+  align-items: center;
+}
+
+.gbPile {
+  position: relative;
+  display: block;
   width: 100%;
+  height: 320px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $gb-ink;
+  text-align: left;
+  cursor: pointer;
 
-  .guestbookEntryMessage {
-    height: 100%;
-  }
-
-  .guestbookEntrySignoff {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1em;
-    margin-top: 0.4em;
-
-    .guestbookEntryTimestamp {
-      text-align: left;
-      margin-top: auto;
-      line-height: 1;
-      font-size: 70%;
-    }
-
-    .guestbookEntryName {
-      line-height: 1;
-      text-align: right;
-
-      a {
-        line-height: 1;
-      }
-    }
+  &.landed .gbPileInner {
+    animation: gbThump 0.35s ease-out;
   }
 }
 
-.carouselControls {
+.gbPileEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed $gb-ink-soft;
+  border-radius: 6px;
+  cursor: default;
+  font-style: italic;
+  color: $gb-ink-soft;
+}
+
+.gbPileInner {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.gbUnder {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.25s;
+
+  &.u1 { transform: rotate(4deg) translate(8px, 2px); }
+  &.u2 { transform: rotate(-3deg) translate(-4px, 4px); }
+  &.u3 { transform: rotate(-5deg) translate(-6px, 8px); }
+}
+
+.gbTop {
+  position: absolute;
+  inset: 0;
+  padding: 22px 22px 18px;
+  transition: transform 0.25s;
+}
+
+.gbTopMessage {
+  flex-grow: 1;
+  font-size: 1.1em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+}
+
+@media (hover: hover) {
+  .gbPile:hover {
+    .gbTop { transform: translate(-6px, -8px) rotate(-1.5deg); }
+    .u1 { transform: rotate(7deg) translate(14px, 6px); }
+    .u2 { transform: rotate(-8deg) translate(-12px, 10px); }
+  }
+}
+
+.gbBrowse {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gbHint {
+  font-size: 14px;
+  font-style: italic;
+  color: #6b665c;
+}
+
+.gbHintNarrow { display: none; }
+
+@media (hover: none) {
+  .gbHintWide { display: none; }
+  .gbHintNarrow { display: inline; }
+}
+
+#guestbook .gbArrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: #8a8478;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s, background 0.15s;
+
+  &:hover:not(:disabled) {
+    color: $gb-ink;
+    background: rgba(43, 38, 32, 0.07);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.gbWriteCol {
+  transform: rotate(1.5deg);
+}
+
+.gbBlank {
+  min-height: 320px;
+  padding: 22px 22px 18px;
+  border-style: dashed;
+}
+
+.gbInk {
+  font: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dashed rgba(43, 38, 32, 0.35);
+  color: $gb-ink;
+  padding: 4px 0;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: rgba(43, 38, 32, 0.5);
+  }
+
+  &:focus {
+    border-bottom-color: $gb-accent;
+  }
+}
+
+.gbGrow {
+  display: flex;
+  flex-grow: 1;
+}
+
+textarea.gbMessageInput {
+  border-bottom: 0;
+  resize: none;
+  min-height: 150px;
+  font-size: 1.05em;
+  line-height: 1.5;
+
+  &.compact {
+    min-height: 110px;
+  }
+}
+
+.gbSignoffEdit {
+  align-items: flex-end;
+}
+
+.gbFromFields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  width: min(190px, 65%);
+
+  label {
+    width: 100%;
+  }
+}
+
+.gbNameInput {
+  text-align: right;
+  font-weight: 700;
+  min-height: 36px;
+}
+
+.gbSiteInput {
+  text-align: right;
+  font-size: 13px;
+  min-height: 30px;
+}
+
+.gbPapers {
   display: flex;
   justify-content: space-between;
-  margin-top: 1em;
+  gap: 4px;
+  padding: 4px;
+}
+
+#guestbook .gbSwatch {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid $gb-ink;
+  box-sizing: border-box;
+  padding: 0;
+  cursor: pointer;
+
+  &.on {
+    outline: 2px solid $gb-accent;
+    outline-offset: 2px;
+  }
+}
+
+#guestbook .gbSend {
+  align-self: flex-end;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 8px;
+  background: $gb-accent;
+  color: $gb-ink;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+#guestbook .gbGather {
+  display: block;
+  margin-bottom: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text-color);
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+// All letters, spilled out. Three columns on wide screens, one on phones.
+.gbWall {
+  column-count: 3;
+  column-gap: 20px;
+
+  > * {
+    break-inside: avoid;
+    margin: 0 0 20px;
+    padding: 20px 20px 16px;
+    position: relative;
+  }
+
+  .gbSpillMine {
+    min-height: 0;
+
+    .gbSignoffEdit {
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+
+    .gbFromFields {
+      width: 100%;
+    }
+
+    .gbPapers {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 4px 0;
+    }
+
+    .gbSwatch {
+      width: 22px;
+      height: 22px;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .gbWall { column-count: 2; }
+}
+
+@media (max-width: 600px) {
+  .gbWall { column-count: 1; }
+  .gbTable { gap: 40px; }
+  .gbWriteCol { transform: none; }
+}
+
+@keyframes gbThump {
+  0% { transform: none; }
+  35% { transform: translateY(7px) scale(0.99); }
+  70% { transform: translateY(-2px); }
+  100% { transform: none; }
 }
