@@ -1112,29 +1112,37 @@ details > div {
   }
 }
 
-// Custom icons for collapsing since the default one doesn't show on
-// Chrome-based browsers when display: inline on for some reason.
-summary:before {
-  box-sizing: border-box;
-  // content: '\e804';
-  // font-family: unicons-solid;
-  content: "🔽";
-  margin-right: 3px;
-  font-style: normal;
-  speak: none;
+// Custom disclosure toggle: an orange box with a white triangle, drawn in CSS
+// so it looks the same everywhere (the old 🔽/🆙 emoji rendered blue on Apple
+// devices). The summary is a flex row so the box stays centered on the text
+// line when hovered, focused or open.
+$summary-arrow-down: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path fill="white" d="M1 3h8L5 8z"/></svg>');
+$summary-arrow-up: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path fill="white" d="M1 7h8L5 2z"/></svg>');
+
+summary {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  -webkit-font-smoothing: antialiased;
+  gap: 0.4em;
+  cursor: pointer;
+  padding: 0 0.25em 0 0;
+  border-radius: 4px;
+}
+
+summary:before {
+  content: "";
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 3px;
+  background: $summary-arrow-down no-repeat center / 60%, $color-link;
 }
 
 details[open] summary:before {
-  // content: '\e80d';
-  content: "🆙";
+  background-image: $summary-arrow-up;
 }
 
 summary:hover,
-summary:focus {
+summary:focus-visible {
   background: var(--color-text-highlight);
 
   &:before {
@@ -1142,8 +1150,7 @@ summary:focus {
     animation-name: wave-animation;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
-    transform-origin: 70% 70%;
-    display: inline-block;
+    transform-origin: 50% 50%;
   }
 }
 

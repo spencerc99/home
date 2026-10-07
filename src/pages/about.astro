@@ -7,7 +7,7 @@ import { Footnote } from "../components/Footnote";
 import "../styles/tailwind.css";
 
 const workDescription = `
-- In the past, they
+- In the past, I
 - crafted
   - designed and developed
 - tools for tinkers
@@ -124,55 +124,58 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 ---
 
 <BaseLayout centered title="about">
-  <div class="headerContainer home" style="margin-right: 2em;">
-    <img
-      src="/headshots/studio-projection-small.webp"
-      alt="Spencer standing in a studio, lit by colorful projected lines"
-      width="1500"
-      height="1125"
-    />
-    <br/>
+  <div class="home about-page">
+    <div class="about-intro">
+      <img
+        class="about-portrait"
+        src="/headshots/studio-projection-small.webp"
+        alt="Spencer standing in a studio, lit by colorful projected lines"
+        width="1500"
+        height="1125"
+      />
+      <div class="about-statement">
+        <p class="about-lede">
+          Spencer makes <a href="https://news.spencer.place/p/software-you-can-touch"
+            ><b>software you can touch</b></a
+          >.
+        </p>
+        <p>
+          I'm an artist and toymaker interested in activating the care and
+          creativity in our everyday interactions with and through technology.
+          I wield <a
+            href="https://news.spencer.place/p/the-whimsy-theory-of-change"
+            >play seriously</a
+          > as a tool to interrogate our systems, invite
+          different imaginations, and provide the means to reinvent them.
+        </p>
+      </div>
+    </div>
+
     <p>
-        Spencer Chang makes <a href="https://news.spencer.place/p/software-you-can-touch"><b>software we can touch</b></a>, like <a
-        href="https://www.are.na/spencer-chang/communal-computing-infrastructure"
-        >communal computers</a
-      >, <a href="https://internetsculptures.com">internet objects</a>, and <a
-        href="/creation/playhtml">online spaces</a
-      >. These include:
+      At the core of my practice is <a
+        href="https://www.are.na/editorial/an-interview-with-spencer-chang"
+        >communal computing</a
+      >—technology built for collective agency. I create environments that
+      invite users to <a href="/creation/playhtml">become active creators</a>.
+      By turning the <a href="/creation/we-were-online"
+        >Internet into a playground</a
+      >. By making <a href="/creation/computing-shrines"
+        >sculptures that hold collective memory</a
+      >. By transforming your <a href="/creation/everyday"
+        >phone into your dance partner</a
+      >.
     </p>
-    <ol class="list-decimal list-inside pl-8">
-      <!-- TODO: add floating image hover preview for each of these, support for hosted creations to show their preview -->
-      <li>
-        <i><b style="font-weight: 600">infrastructure</b></i> (
-        <span class="">
-          <a href="/creation/playhtml">creative tools</a>,
-          <a href="/creation/touching-computers-creating-data-talismans"
-            >experimental interfaces</a
-          >,
-          <a href="/creation/gather">local-first apps</a>,
-          <a href="/creation/verses-verses">text playgrounds</a>,
-          <a href="/creation/i-love-living">archival automations</a>,
-          <a href="/creation/syllabus-taking-an-internet-walk"
-            >instruction manuals</a
-          >
-        </span>)
-      </li>
-      <li class="mt-2">
-        <i><b style="font-weight: 600">environments</b></i> (
-        <span class="">
-          <a href="/creation/html-garden">living ecosystems</a>,
-          <a href="/creation/poems-we-found-with-the-internet">playful spaces</a
-          >,
-          <a href="/creation/everyday">phone interventions</a>,
-          <a href="/creation/cursor-watching">live windows</a>,
-          <a href="/creation/neighborhood-internets-workshop"
-            >creating neighborhood internets</a
-          >,
-          <a href="/creation/(we)bsite">collections of dreams</a>,
-          <a href="/creation/8-bite">games</a>
-        </span>)
-      </li>
-    </ol>
+    <p>
+      A core focus of my work is being environment-agnostic. Whether showing
+      work in art institutions, online, through social media, or in everyday
+      tools, I care about shaping the culture and material conditions around
+      technology to be more communal, empowering, and human.
+    </p>
+    <p>
+      Each piece is an invitation to discover new ways of seeing, creating, and
+      co-existing. What systems control how we behave? Who dictates them? And
+      what would technology look like if we all had the means to invent it?
+    </p>
 
     <p id="expandingWork"></p>
     <script define:vars={{ workDescription }}>
@@ -184,26 +187,26 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     </script>
 
     <p>
-      <b>
-        For a professional statement, bio, and full work information, refer to
-        my <a href="/cv">CV</a>
-      </b>
-    </p>
-
-    <p>
-      They are open to collaborations <span class="italic"
+      I'm open to collaborations <span class="aside"
         >(with people or brands)</span
-      >, invitations <span class="italic">(to teach or speak)</span>, and
-      commissions <span class="italic">(of objects or digital experiences)</span
-      >. Say hi to them <a
-        href="mailto:spencer@spencer.place?subject=collab%20pls">over email</a
+      >, invitations <span class="aside">(to teach or speak)</span>, and
+      commissions <span class="aside"
+        >(of objects or digital experiences)</span
+      >. Say hi to me <a href="mailto:spencer@spencer.place?subject=collab%20pls"
+        >over email</a
       > or <a href="/collab">learn more</a>.
     </p>
 
-    <h4 class="font-bold mb-2">some questions & some ever-evolving answers</h4>
-    <div class="flex flex-col gap-2 pb-8 text-base">
+    <p>
+      For a professional statement, bio, and full work information, see the <a
+        href="/cv">CV</a
+      >.
+    </p>
+
+    <h2 class="about-heading">some questions &amp; ever-evolving answers</h2>
+    <div class="about-questions">
       <details>
-        <summary class="text-lg"> 1. why the internet? </summary>
+        <summary> 1. why the internet? </summary>
         <p>
           Growing up, I never felt like I fit in at school or local communities.
           Instead, I grew up on the internet. The internet was where I found my
@@ -227,7 +230,7 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
         </p>
       </details>
       <details>
-        <summary class="text-lg"> 2. what is your goal? </summary>
+        <summary> 2. what is your goal? </summary>
         <p>
           That we live in a world where the technology we make and advance feels
           as fundamentally human as humanities or cultural work. That we live in
@@ -263,11 +266,11 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
         </p>
       </details>
       <details>
-        <summary class="text-lg"> 3. what do you enjoy?</summary>
+        <summary> 3. what do you enjoy?</summary>
         <p id="expandingLikes"></p>
       </details>
       <details>
-        <summary class="text-lg"> 4. why orange?</summary>
+        <summary> 4. why orange?</summary>
         <p>
           I like how radiant it is, how it is equally found in nature (sunsets,
           poppies, delicious fruit) and in our built environment (contemporary
@@ -281,6 +284,13 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       </details>
     </div>
 
+    <p class="about-more">
+      Have more questions? They might be answered in these interviews with
+      <a href="https://www.culturehub.org/read/scribble-spencer-chang">CultureHub</a>,
+      <a href="https://naiveweekly.com/articles/spencer-chang-playhtml-fun">Naive Weekly</a>,
+      or <a href="https://www.are.na/editorial/an-interview-with-spencer-chang">Are.na</a>.
+    </p>
+
     <p class="descriptionText">
       p.s. like these highlighted paragraphs that expand when you touch them?
       they're made with the <a href="/creation/verses-verses"
@@ -290,6 +300,117 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
   </div>
   <Guestbook client:only="react" />
   <br />
+
+
+  <style is:global>
+    /* Page-scoped, following the site design system: Vulf Sans throughout,
+       1.25 type scale. Values are literal because Tailwind (loaded on this
+       page) already defines --text-*, --font-* and --radius-* vars. */
+    /* Not using .headerContainer: it @extends .serif, which forces Cooper
+       onto every paragraph. .home sets 18px, hence the doubled class. */
+    .home.about-page {
+      font-family: "Vulf Sans", sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 3em 0 24px;
+    }
+
+    .about-page p {
+      margin: 12px 0;
+    }
+
+    .about-page .about-intro {
+      display: grid;
+      grid-template-columns: minmax(200px, 260px) 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .about-page .about-portrait {
+      width: 100%;
+      height: auto;
+      max-height: 45vh;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: 50% 35%;
+      border-radius: 8px;
+    }
+
+    .about-page .about-lede {
+      font-size: clamp(1.5625rem, 2.3vw, 1.953rem);
+      line-height: 1.2;
+      margin-top: 0;
+      margin-bottom: 0.6em;
+    }
+
+    .about-page .about-lede b {
+      font-weight: 700;
+    }
+
+    .about-page .aside {
+      font-style: italic;
+    }
+
+    /* Project names inside the expanding text keep their colors but use the
+       page's typeface instead of one-off fonts. */
+    .about-page #expandingWork #coda,
+    .about-page #expandingWork #verses {
+      font-family: inherit;
+      font-size: inherit;
+      font-style: normal;
+    }
+
+    .about-page .about-heading {
+      font-family: "Vulf Sans", sans-serif;
+      font-size: 1.5625rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 2em 0 0.75em;
+    }
+
+    .about-page .about-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: 0;
+    }
+
+    .about-page .about-questions summary {
+      font-size: inherit;
+    }
+
+    .about-page .about-more {
+      font-size: 0.875rem;
+      color: #6b665c;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .about-page .descriptionText {
+      font-size: 0.75rem;
+      color: #6b665c;
+    }
+
+    @media (max-width: 700px) {
+      .home.about-page {
+        margin-top: 0;
+      }
+
+      .about-page .about-intro {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .about-page .about-lede {
+        font-size: 1.5625rem;
+        line-height: 1.25;
+      }
+
+      .about-page .about-portrait {
+        aspect-ratio: 4 / 3;
+      }
+    }
+  </style>
 
   <!-- Likes logic -->
   <script define:vars={{ likesData: likes, enjoyPrompt }}>
