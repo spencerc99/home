@@ -877,7 +877,8 @@ footer {
 }
 
 .headerContainer {
-  @extend .serif;
+  // Body text uses the site sans (Vulf); Cooper is reserved for display statements.
+  // Opt a block back into the serif with the `.serif` class.
   margin: 3em 0 24px 0;
 
   &.postHeader {
