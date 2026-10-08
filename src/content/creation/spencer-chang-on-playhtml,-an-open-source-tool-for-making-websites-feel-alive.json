@@ -1,0 +1,36 @@
+{
+  "title": "Spencer Chang on Playhtml, an open-source tool for making websites feel alive",
+  "subtext": "an interview about playhtml and making the web feel like a public space",
+  "parentCategory": "Press",
+  "categories": [],
+  "date": "2026-10-07T07:00:00.000Z",
+  "institution": [
+    "Naive Weekly"
+  ],
+  "heroImage": "https://naiveweekly.com/media/pages/articles/spencer-chang-playhtml-fun/806bea7baf-1791352455/spencer-chang-playhtml-studio.jpg",
+  "media": [
+    "https://naiveweekly.com/media/pages/articles/spencer-chang-playhtml-fun/806bea7baf-1791352455/spencer-chang-playhtml-studio.jpg"
+  ],
+  "link": "https://naiveweekly.com/articles/spencer-chang-playhtml-fun",
+  "ongoing": false,
+  "featured": true,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "we were online",
+      "slug": "we-were-online",
+      "link": "https://wewere.online/",
+      "parentCategory": "Project"
+    }
+  ]
+}
