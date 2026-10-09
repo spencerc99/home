@@ -1,0 +1,37 @@
+{
+  "title": "A Place to Sit, a Place to Learn",
+  "subtext": "on teaching Building Benches for the Web, with Munus Shih",
+  "descriptionMd": "An interview-style post about the Summer 2026 class Building Benches for the Web, where students made small multiplayer webpages with playhtml. It covers the bench metaphor for shared online spaces and student project highlights.",
+  "parentCategory": "Writing",
+  "categories": [],
+  "date": "2026-10-02T07:00:00.000Z",
+  "institution": [
+    "SFPC"
+  ],
+  "heroImage": "https://sfpc.study/images/sessions/meta.jpg",
+  "media": [
+    "https://sfpc.study/images/sessions/meta.jpg"
+  ],
+  "link": "https://sfpc.study/blog/a-place-to-sit",
+  "ongoing": false,
+  "featured": true,
+  "imageDescriptions": [],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image"
+  ],
+  "related": [
+    {
+      "title": "Future Schools (SFPC summer showcase)",
+      "slug": "future-schools-(sfpc-summer-showcase)",
+      "link": "https://www.instagram.com/p/DcBly8NDD_R/",
+      "parentCategory": "Exhibition"
+    },
+    {
+      "title": "Building Benches for the Web",
+      "slug": "building-benches-for-the-web",
+      "link": "https://sfpc.study/sessions/summer-26/building-benches-for-the-web",
+      "parentCategory": "Talks & Teaching"
+    }
+  ]
+}
