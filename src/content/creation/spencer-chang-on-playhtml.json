@@ -1,5 +1,5 @@
 {
-  "title": "Spencer Chang on Playhtml, an open-source tool for making websites feel alive",
+  "title": "Spencer Chang on Playhtml",
   "subtext": "an interview about playhtml and making the web feel like a public space",
   "parentCategory": "Press",
   "categories": [],
@@ -13,7 +13,7 @@
   ],
   "link": "https://naiveweekly.com/articles/spencer-chang-playhtml-fun",
   "ongoing": false,
-  "featured": true,
+  "featured": false,
   "imageDescriptions": [],
   "isEvent": false,
   "mediaMetadata": [
