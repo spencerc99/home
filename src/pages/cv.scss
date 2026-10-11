@@ -203,9 +203,24 @@
   }
 }
 
-.cv-print-button {
+.cv-print-controls {
   @include meta-content();
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75em;
   margin-top: 0.75em;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    cursor: pointer;
+  }
+}
+
+.cv-print-button {
+  font: inherit;
   padding: 0.25em 0.75em;
   border: 1px solid currentColor;
   border-radius: 999px;
@@ -217,27 +232,38 @@
   }
 }
 
-// Print / Save as PDF: strip site chrome and keep entries intact across pages
+// Print / Save as PDF: keep the site's texture and link styling edge to edge,
+// strip site chrome, and keep entries intact across pages
 @media print {
   @page {
     size: letter;
-    margin: 0.6in 0.65in;
+    margin: 0;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   #sidebar,
   footer,
   #construction,
-  #background,
   #snackbar,
   #playhtml-cursor-container,
-  .cv-print-button {
+  .cv-print-controls {
     display: none !important;
   }
 
-  html,
+  // Fixed elements repeat on every printed page, so the texture fills each
+  // sheet including what would otherwise be white page margins
+  #background {
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+  }
+
   body {
-    background: #fff !important;
-    color: #000;
     font-size: 10.5pt;
   }
 
@@ -249,29 +275,21 @@
     min-width: 0 !important;
   }
 
+  // Page margins live here (not on @page) so the texture runs to the edge;
+  // clone repeats the padding at the top and bottom of every page
   .cv {
     max-width: none;
     margin: 0;
-    padding: 0;
+    padding: 0.55in 0.65in;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
 
-    // Site link colors and ↗ arrows read as noise on paper; keep links
-    // clickable but quiet
-    a {
-      color: inherit !important;
-      background: none !important;
-      text-decoration: underline !important;
-      text-decoration-color: rgba(0, 0, 0, 0.35) !important;
-      text-decoration-thickness: 0.5px !important;
-      text-underline-offset: 2px;
-
-      &::after {
-        display: none !important;
-      }
-    }
+  body:not(.cv-print-professional) .cv-professional-section {
+    display: none;
   }
 
   .cv-header .cv-stamp {
-    filter: none;
     width: 52px;
     height: 52px;
   }
@@ -288,12 +306,6 @@
   .cv-text-section p {
     break-inside: avoid;
     page-break-inside: avoid;
-  }
-
-  // Keep the year label with at least its first entries
-  .cv-year-group {
-    orphans: 3;
-    widows: 2;
   }
 
   // Print is always the desktop layout, even on narrow paper sizes
