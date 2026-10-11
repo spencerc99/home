@@ -113,6 +113,9 @@ function getItemHref(item: Creation): string {
           href="https://spencer.place">https://spencer.place</a
         >
       </p>
+      <button type="button" class="cv-print-button" id="cv-print">
+        download / print pdf
+      </button>
     </header>
 
     <section class="cv-section cv-text-section">
@@ -438,3 +441,25 @@ function getItemHref(item: Creation): string {
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  // Relative links (/creation/...) should point at the live site in the PDF,
+  // even when printing from localhost.
+  function absolutizeCvLinks() {
+    document.querySelectorAll<HTMLAnchorElement>(".cv a[href^='/']").forEach(
+      (a) => {
+        a.href = `https://spencer.place${a.getAttribute("href")}`;
+      },
+    );
+  }
+
+  function setupCvPrint() {
+    window.addEventListener("beforeprint", absolutizeCvLinks);
+    document
+      .getElementById("cv-print")
+      ?.addEventListener("click", () => window.print());
+  }
+
+  setupCvPrint();
+  document.addEventListener("astro:page-load", setupCvPrint);
+</script>

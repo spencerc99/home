@@ -202,3 +202,113 @@
     }
   }
 }
+
+.cv-print-button {
+  @include meta-content();
+  margin-top: 0.75em;
+  padding: 0.25em 0.75em;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+// Print / Save as PDF: strip site chrome and keep entries intact across pages
+@media print {
+  @page {
+    size: letter;
+    margin: 0.6in 0.65in;
+  }
+
+  #sidebar,
+  footer,
+  #construction,
+  #background,
+  #snackbar,
+  #playhtml-cursor-container,
+  .cv-print-button {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000;
+    font-size: 10.5pt;
+  }
+
+  body.centered #content,
+  #content {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  .cv {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    // Site link colors and ↗ arrows read as noise on paper; keep links
+    // clickable but quiet
+    a {
+      color: inherit !important;
+      background: none !important;
+      text-decoration: underline !important;
+      text-decoration-color: rgba(0, 0, 0, 0.35) !important;
+      text-decoration-thickness: 0.5px !important;
+      text-underline-offset: 2px;
+
+      &::after {
+        display: none !important;
+      }
+    }
+  }
+
+  .cv-header .cv-stamp {
+    filter: none;
+    width: 52px;
+    height: 52px;
+  }
+
+  .cv-section h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .cv-entry,
+  .cv-projects li,
+  .cv-job,
+  .cv-job-content li,
+  .cv-text-section p {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  // Keep the year label with at least its first entries
+  .cv-year-group {
+    orphans: 3;
+    widows: 2;
+  }
+
+  // Print is always the desktop layout, even on narrow paper sizes
+  .cv-year-group {
+    grid-template-columns: 4.5em 1fr;
+    gap: 1em;
+  }
+
+  .cv-job {
+    grid-template-columns: 8.5em 1fr;
+    gap: 1em;
+  }
+
+  .cv-job-header .cv-job-location {
+    float: right;
+    display: inline;
+  }
+}
