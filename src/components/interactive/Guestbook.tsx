@@ -530,6 +530,13 @@ export const GuestbookImpl = withSharedState(
 
     return (
       <div id="guestbook">
+        <h3>
+          my guestbook
+          <Footnote
+            isHtmlCaption
+            caption="a guestbook made with <a href='/creation/playhtml'>playhtml</a>. i'll be reviewing letters :)"
+          ></Footnote>
+        </h3>
         {!open ? (
           <div className="gbTable">
             <div className="gbPileCol">
@@ -567,10 +574,6 @@ export const GuestbookImpl = withSharedState(
                     <span className="gbHint">
                       <span className="gbHintWide">click</span>
                       <span className="gbHintNarrow">tap</span> to browse all
-                      <Footnote
-                        isHtmlCaption
-                        caption="a guestbook made with <a href='/creation/playhtml'>playhtml</a>. i'll be reviewing letters :)"
-                      ></Footnote>
                     </span>
                     <button
                       className="gbArrow"

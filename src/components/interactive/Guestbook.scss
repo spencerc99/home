@@ -28,6 +28,11 @@ $gb-accent: #ff9a1f;
   button {
     font: inherit;
   }
+
+  h3 {
+    margin: 0 0 1.25rem;
+    color: var(--color-text-color);
+  }
 }
 
 .gbSr {
@@ -287,6 +292,7 @@ textarea.gbMessageInput {
 }
 
 .gbSignoffEdit {
+  flex-wrap: nowrap;
   align-items: flex-end;
 }
 
