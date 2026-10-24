@@ -29,7 +29,8 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 10;
+  // Above the category stamps on creation cards (z-index 11), below the navbar.
+  z-index: 50;
   background: var(--color-background-lavender);
   border: 1px solid #ccc;
   border-radius: 8px;
