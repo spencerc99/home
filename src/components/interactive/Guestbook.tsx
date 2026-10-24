@@ -184,6 +184,9 @@ function PaperPicker({ paper, setPaper }: Pick<LetterDraft, "paper" | "setPaper"
           onClick={() => setPaper(p.id)}
         />
       ))}
+      <span className="gbPapersNote">
+        <Footnote caption="these papers come from some of my favorite textures i've collected"></Footnote>
+      </span>
     </div>
   );
 }
@@ -196,7 +199,7 @@ function BlankLetterFields({ draft, compact }: { draft: LetterDraft; compact?: b
         <span className="gbSr">your letter</span>
         <textarea
           className={`gbInk gbMessageInput ${compact ? "compact" : ""}`}
-          placeholder="your turn. write something..."
+          placeholder="you are great..."
           maxLength={500}
           value={draft.message}
           onChange={(e) => draft.setMessage(e.target.value)}
@@ -210,7 +213,7 @@ function BlankLetterFields({ draft, compact }: { draft: LetterDraft; compact?: b
             <input
               className="gbInk gbNameInput"
               type="text"
-              placeholder="your name"
+              placeholder="your name..."
               maxLength={20}
               value={draft.name}
               onChange={(e) => draft.setName(e.target.value)}
@@ -223,7 +226,7 @@ function BlankLetterFields({ draft, compact }: { draft: LetterDraft; compact?: b
               className="gbInk gbSiteInput"
               type="text"
               inputMode="url"
-              placeholder="your website (optional)"
+              placeholder="your website (optional)..."
               maxLength={100}
               value={draft.website}
               onChange={(e) => draft.setWebsite(e.target.value)}
