@@ -9,6 +9,16 @@ export interface NowEntry {
 
 export const nowEntries: NowEntry[] = [
   {
+    date: "2026-10-09",
+    items: [
+      'Making internet <a href="/creation/we-were-browsing">portraits</a> and <a href="/creation/browsing-collages">collages</a>',
+      'Making a <a href="/creation/we-were-online">social browser</a> filled with <a href="/creation/playhtml">tiny shared spaces</a>',
+      'Installing a <a href="/creation/computing-shrines"">public art sculpture</a> in Golden Gate Park',
+      'Saying yes to <a href="https://naiveweekly.com/articles/spencer-chang-playhtml-fun">lots</a> of <a href="https://www.culturehub.org/read/scribble-spencer-chang">interviews</a>',
+      'Shaping culture through <a href=\"https://www.instagram.com/spence.r.chang/\">social</a> <a href=\"https://x.com/spencerc99\">media</a>.',
+    ],
+  },
+  {
     date: "2026-03-22",
     items: [
       'Exploring making art with my <a href="/creation/we-were-browsing">internet debris</a>',
