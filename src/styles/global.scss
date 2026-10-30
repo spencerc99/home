@@ -17,6 +17,7 @@
 @include fontCooper("Cooper-Italic", normal, italic);
 @include fontCooper("Cooper-Medium", 500, normal);
 @include fontCooper("Cooper-MediumItalic", 500, italic);
+@include fontCooper("Cooper-SemiBold", 600, normal);
 @include fontCooper("Cooper-SemiBoldItalic", 600, italic);
 @include fontCooper("Cooper-Bold", bold, normal);
 @include fontCooper("Cooper-BoldItalic", bold, italic);
@@ -876,7 +877,8 @@ footer {
 }
 
 .headerContainer {
-  @extend .serif;
+  // Body text uses the site sans (Vulf); Cooper is reserved for display statements.
+  // Opt a block back into the serif with the `.serif` class.
   margin: 3em 0 24px 0;
 
   &.postHeader {
