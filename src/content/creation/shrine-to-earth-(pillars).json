@@ -5,18 +5,24 @@
   "categories": [
     "Art"
   ],
-  "date": "2026-09-18T07:00:00.000Z",
+  "date": "2026-11-02T08:00:00.000Z",
   "endDate": "2027-09-18T07:00:00.000Z",
   "institution": [
     "City of San Francisco",
     "San Francisco Arts Commission"
   ],
-  "media": [],
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-gQzonji_-f/2f7a9f0bc46bf37a27af1a3bf7e8a9c7cb44320ade5897893b1c5407ca117264e66def5fa03efec8baf503aabc87fe2bef3551e03afe26088e4ef3741387a76337f37fd91e1a74aeea6c8660432d5eca4af23130c1e6a2dbb4ee542c3a253fd7c010783d"
+  ],
+  "link": "https://spencer.place/creation/computing-shrines/",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Computing Shrines",
