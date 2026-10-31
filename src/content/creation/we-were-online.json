@@ -74,6 +74,18 @@
       "slug": "interview-with-spencer-chang",
       "link": "https://www.culturehub.org/read/scribble-spencer-chang",
       "parentCategory": "Press"
+    },
+    {
+      "title": "Spencer Chang on Playhtml",
+      "slug": "spencer-chang-on-playhtml",
+      "link": "https://naiveweekly.com/articles/spencer-chang-playhtml-fun",
+      "parentCategory": "Press"
+    },
+    {
+      "title": "browsing collages",
+      "slug": "browsing-collages",
+      "link": "",
+      "parentCategory": "Project"
     }
   ]
 }

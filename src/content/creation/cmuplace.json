@@ -1,0 +1,40 @@
+{
+  "title": "CMU.PLACE",
+  "subtext": "a publication and community site for Cooper Union architecture, with a shared building playground",
+  "descriptionMd": "CMU.PLACE (Cooper Media Unit) is a digital publication and community space for architecture students, faculty, and events at the Cooper Union. Interviews, reviews, reports, essays, peer review, videos, print issues, and a calendar sit in a grid of drawers that slide open as you pass over them. Each section opens into folder tabs for browsing by topic, and the archive stacks folders by month.\n&nbsp;\nAcross every page is a building layer: cinderblocks, bricks, wood posts, aluminum, and PVC elbows you can pull up and stack on top of whatever you're reading. In the building playground you can switch between your own build, kept on your device, and a shared one where everyone on the site builds together in real time.",
+  "descriptionFooterMd": "Site design by Ryan Jang, Jinseo Lee, Belinda Lin, and Violet Caleca. Developed by Spencer Chang. Communal elements made with [playhtml](https://playhtml.fun). Thank you to Matt Shaw, Steven Hillyer, Chris Dierks, and Dean Michael Young at the Cooper Union for bringing me on.",
+  "parentCategory": "Project",
+  "categories": [
+    "Website",
+    "Community"
+  ],
+  "date": "2026-10-26T07:00:00.000Z",
+  "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DGM_1aTIqP/783324fc026791d83af99da4395d7d39410840e0c3309f94b5f010a8bb80b07911c54654bd4fce001b8911aa64ff21e60be5cee15ab3d80b6a688a33961ec386176f981cf086e865254f1f264ef4a6ed13a8872dc6452ec31cc79fd02caae5eba39910ab",
+  "media": [
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DGM_1aTIqP/783324fc026791d83af99da4395d7d39410840e0c3309f94b5f010a8bb80b07911c54654bd4fce001b8911aa64ff21e60be5cee15ab3d80b6a688a33961ec386176f981cf086e865254f1f264ef4a6ed13a8872dc6452ec31cc79fd02caae5eba39910ab",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-97fv6zC8Yj/3f4160148fd19da7d7d53ffaf4421ea7af7f6e23e6a0324772ca8a196ac00b8cf705a38c8bcf8b317621641976b3c8364b866c4343f11eee60f0272a27e635ad34d9e80df73d164b7bf6c634cdf637953f739299374abc0bffaba8a1b30248edb7ca6e3d",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-6glwKCUdVl/a7b9fa803e99eb2df68f4f3dc8e909956897320f34171c88b0661680d8f7fbc357d3c248153dedcade2f256fe71ee168b3d619806879992aa65f7d1b1beb9f937f48563468bd7ae96e2e850d9c426034e3aa1fe7be21d6f2580e3d1a512280533b5430a9",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jrjLSh76J2/4059df57ec6ec7224f1f01c2ae15ae586d7b19f2bb0e6cb3958ee70e9ecfde257a81c2eb0165d2a3abc51906f138c4d45c638c6ced583ec7e6fd91b7c0d7d4970ae4cf8bf3581d087dc861f4c0b7d9d282dddddf70c1c67936ebd66d3848c4e9b751f251",
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-yBveBBWKgY/690b36285b38a1daa628c1f143d8ec5f82027f9c8602a75ca564003627f2e323b9a51decdf86b928f81c5542690de6229c51c4e9d4fbb8cd053c9f1e28be5837a77962a75b8f275a7fd8189642c6855ae30028f3e9da88d86b952bbc3d2629e000cb69a1"
+  ],
+  "link": "https://cmu.place",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "image",
+    "image",
+    "image",
+    "image",
+    "image"
+  ],
+  "related": [],
+  "location": "New York"
+}
