@@ -389,3 +389,241 @@
     }
   }
 }
+
+// ---------- D: rows ----------
+
+.projectRows {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  max-width: 760px;
+
+  &.medium {
+    gap: 1.4em;
+  }
+}
+
+.projectRowHeader {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1.5em;
+  align-items: center;
+  color: var(--color-text-color);
+  transition: grid-template-columns 0.25s ease;
+
+  .medium & {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 1.1em;
+  }
+
+  // Opening a row grows it: the photo goes full width above the text.
+  .projectRow.open &,
+  .medium .projectRow.open & {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+
+  &:hover .projectRowTitle {
+    text-decoration: underline;
+  }
+
+  &:hover .projectRowMedia {
+    box-shadow: 0 0 24px 8px var(--aura-color-transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px dashed var(--aura-color);
+    outline-offset: 4px;
+  }
+
+  @include media(xsmallScreen) {
+    grid-template-columns: 1fr;
+    .medium & {
+      grid-template-columns: 96px minmax(0, 1fr);
+    }
+    .projectRow.open & {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.projectRowToggle {
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 0.4em;
+  color: var(--color-text-muted);
+}
+
+.projectRowDetail {
+  margin: 0.9em 0 0.4em;
+  padding: 0.9em 1em;
+  max-width: 640px;
+  border: 3px double var(--border-color);
+  border-radius: 0.25em;
+  background: var(--color-neutral-background);
+  font-size: 0.95em;
+
+  p {
+    margin: 0 0 0.5em;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.projectRowLinks {
+  display: flex;
+  gap: 1.2em;
+  flex-wrap: wrap;
+}
+
+.smallFoldToggle {
+  all: unset;
+  cursor: pointer;
+  font-style: italic;
+  color: var(--color-text-muted);
+  border-bottom: 1px dashed currentColor;
+  margin-bottom: 1em;
+  &:hover {
+    color: var(--color-text-color);
+  }
+}
+
+.smallFold .smallList {
+  margin-top: 1em;
+}
+
+.projectRowMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.25em;
+  overflow: hidden;
+  box-shadow: 0 0 14px 4px var(--aura-color-transparent);
+  transition: box-shadow 0.2s ease;
+  background: radial-gradient(
+    circle,
+    var(--aura-color) 0%,
+    var(--aura-color-transparent) 100%
+  );
+
+  > *,
+  > * * {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+  }
+
+  img,
+  video {
+    object-fit: cover;
+  }
+}
+
+.projectRowTitle {
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.3em;
+  line-height: 1.2;
+
+  .medium & {
+    font-size: 1.05em;
+  }
+}
+
+.projectRowStatement {
+  margin: 0.25em 0 0;
+  font-size: 1.05em;
+  line-height: 1.35;
+
+  .medium & {
+    font-size: 0.95em;
+  }
+}
+
+.projectRowMeta,
+.projectRowNow {
+  margin: 0.35em 0 0;
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+}
+
+.projectRowNow .nowDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  background: hsl(118, 60%, 45%);
+  box-shadow: 0 0 6px hsl(118, 60%, 55%);
+  vertical-align: 1px;
+  animation: labPulse 2.4s ease-in-out infinite;
+}
+
+.smallList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6em 2em;
+  max-width: 760px;
+  font-size: 0.9em;
+
+  @include media(xsmallScreen) {
+    grid-template-columns: 1fr;
+  }
+
+  a {
+    display: flex;
+    gap: 0.6em;
+    align-items: center;
+    color: var(--color-text-color) !important;
+    text-decoration: none !important;
+    &:hover .smallListTitle {
+      text-decoration: underline;
+    }
+  }
+
+  .smallListThumb {
+    position: relative;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 8px 2px var(--aura-color-transparent);
+    background: radial-gradient(
+      circle,
+      var(--aura-color) 0%,
+      var(--aura-color-transparent) 100%
+    );
+
+    > *,
+    > * * {
+      position: absolute;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+    }
+    img,
+    video {
+      object-fit: cover;
+    }
+  }
+
+  .smallListTitle {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .smallListSub {
+    color: var(--color-text-muted);
+  }
+}

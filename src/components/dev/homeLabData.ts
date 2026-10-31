@@ -55,5 +55,18 @@ export async function getHomeLabData() {
     press: count("Press"),
   };
 
-  return { tending, works, small, counts };
+  const constellation = flat.map((c) => ({
+    id: c.id,
+    title: c.title,
+    category: c.parentCategory || "other",
+    tier: TENDING_IDS.includes(c.id)
+      ? ("big" as const)
+      : isFeaturedCreation(c)
+        ? ("selected" as const)
+        : ("other" as const),
+    related: (c.related || []).map((r) => r.slug).filter(Boolean) as string[],
+    href: c.descriptionMd ? `/creation/${c.id}` : c.link || `/creation/${c.id}`,
+  }));
+
+  return { tending, works, small, counts, constellation };
 }
