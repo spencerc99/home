@@ -1,11 +1,12 @@
 ---
 // ABOUTME: Small nav between the /home-lab layout prototypes.
 interface Props {
-  current: "tiers" | "collage" | "garden" | "rows" | "constellation";
+  current: "tiers" | "collage" | "garden" | "rows" | "constellation" | "spotlight";
 }
 const { current } = Astro.props;
 const options = [
-  ["constellation", "E · constellation (newest)"],
+  ["spotlight", "D2 · spotlight (newest)"],
+  ["constellation", "E · constellation"],
   ["rows", "D · rows"],
   ["tiers", "A · tiers"],
   ["collage", "B · collage"],

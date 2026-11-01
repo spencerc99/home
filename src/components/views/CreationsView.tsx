@@ -74,6 +74,9 @@ interface Props {
   columns: 1 | 2;
   defaultView?: ViewType;
   defaultCategory?: AllCreationCategories;
+  // Optional: the biggest ongoing works, lifted to the top of whichever view
+  // is chosen and drawn larger. `note` is a short "what's happening now" line.
+  spotlight?: Array<{ id: string; note?: string }>;
 }
 
 export function CreationsView({
@@ -82,6 +85,7 @@ export function CreationsView({
   columns,
   defaultView,
   defaultCategory = "all",
+  spotlight,
 }: Props) {
   const pageKey = window.location.pathname;
   const savedControls = useStore($creationsViewControls)[pageKey];
@@ -156,7 +160,75 @@ export function CreationsView({
     });
   }, [sortedCreations, category]);
 
+  // Spotlit works only lift out of the "everything" and "featured" views; a
+  // specific category keeps its plain order.
+  const spotlightOn =
+    !!spotlight?.length &&
+    (category === "all" || category === FEATURED_CATEGORY);
+  const spotlightIds = new Set(spotlightOn ? spotlight!.map((s) => s.id) : []);
+  const spotlitCreations = spotlightOn
+    ? spotlight!
+        .map((s) => ({
+          note: s.note,
+          creation: creations.find((c) => c.id === s.id),
+        }))
+        .filter((s) => s.creation)
+    : [];
+  const restCreations = filteredCreations.filter(
+    (c) => !spotlightIds.has(c.id),
+  );
+
+  function renderSpotlight() {
+    if (!spotlitCreations.length) return null;
+    if (view === ViewType.TABLE) {
+      return (
+        <div className="creations listView spotlightRows">
+          {spotlitCreations.map(({ creation, note }) => (
+            <div className="spotlightRow" key={creation!.id}>
+              <CreationSummary
+                creation={{ id: creation!.id, ...creation!.data }}
+                view={ViewType.TABLE}
+                onCategoryClick={handleCategoryChange}
+              />
+              {note && (
+                <p className="spotlightNote">
+                  <span className="spotlightDot" aria-hidden="true" />
+                  {note}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return (
+      <div className="spotlightCards">
+        {spotlitCreations.map(({ creation, note }) => (
+          <div className="spotlightCard" key={creation!.id}>
+            <CreationSummary
+              creation={{ id: creation!.id, ...creation!.data }}
+              view={ViewType.GRID}
+              onCategoryClick={handleCategoryChange}
+            />
+            {creation!.data.subtext && (
+              <p className="spotlightStatement serif">
+                {creation!.data.subtext}
+              </p>
+            )}
+            {note && (
+              <p className="spotlightNote">
+                <span className="spotlightDot" aria-hidden="true" />
+                {note}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   function renderCreations() {
+    const filteredCreations = restCreations;
     switch (view) {
       case ViewType.LIST:
         return (
@@ -279,6 +351,7 @@ export function CreationsView({
           {getDescriptionForDescriptionType(description)}
         </div>
       </div>
+      {renderSpotlight()}
       {renderCreations()}
     </div>
   );
