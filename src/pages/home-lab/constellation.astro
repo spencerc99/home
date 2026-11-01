@@ -1,0 +1,60 @@
+---
+// ABOUTME: Home layout prototype E: constellation. The three big ongoing projects
+// ABOUTME: as clear rows up top, then every work as one explorable web of related things.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NowBlock } from "../../components/Now";
+import Status from "../../components/Status.astro";
+import HomeLabIntro from "../../components/dev/HomeLabIntro.astro";
+import HomeLabExtras from "../../components/dev/HomeLabExtras.astro";
+import HomeLabSwitcher from "../../components/dev/HomeLabSwitcher.astro";
+import { ProjectRows } from "../../components/dev/HomeLab";
+import { Constellation } from "../../components/dev/Constellation";
+import { getHomeLabData } from "../../components/dev/homeLabData";
+import { nowEntries } from "../../data/now-entries";
+
+const { tending, works, counts, constellation } = await getHomeLabData();
+const projectWorks = works.filter((c) => c.parentCategory === "Project");
+---
+
+<BaseLayout title="home layout E">
+  <HomeLabSwitcher current="constellation" />
+  <div class="homeLab two-columns home-page">
+    <div class="home-sidebar">
+      <HomeLabIntro />
+      <div class="home-now-status textContent">
+        {nowEntries[0] && <NowBlock client:only="react" entry={nowEntries[0]} />}
+        <HomeLabExtras counts={counts} />
+        <Status />
+      </div>
+    </div>
+    <div class="home-creations constellationColumn">
+      <section>
+        <h2 class="labHeading">
+          what i'm tending to <span class="labHeadingNote">tap one to open it up</span>
+        </h2>
+        <ProjectRows creations={tending} size="big" client:only="react" />
+      </section>
+      <section>
+        <h2 class="labHeading">
+          everything else, all tangled up <span class="labHeadingNote">each line is a thread between two works</span>
+        </h2>
+        <Constellation nodes={constellation} client:only="react" />
+      </section>
+      <section>
+        <h2 class="labHeading">
+          a few favorites <span class="labHeadingNote">if you only look at five more</span>
+        </h2>
+        <ProjectRows creations={projectWorks.slice(0, 5)} size="medium" client:only="react" />
+        <p class="breadthLine"><a href="/creation">or browse everything as a list →</a></p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .constellationColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5em;
+  }
+</style>

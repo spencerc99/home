@@ -1,0 +1,52 @@
+---
+// ABOUTME: Home layout prototype A: tiers. Intro beside the big ongoing projects,
+// ABOUTME: then places, a full-width works grid, and a wall of small things.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { NowBlock } from "../../components/Now";
+import Status from "../../components/Status.astro";
+import HomeLabIntro from "../../components/dev/HomeLabIntro.astro";
+import HomeLabExtras from "../../components/dev/HomeLabExtras.astro";
+import HomeLabSwitcher from "../../components/dev/HomeLabSwitcher.astro";
+import { TendingCards, WorksGrid, SmallThings } from "../../components/dev/HomeLab";
+import { getHomeLabData } from "../../components/dev/homeLabData";
+import { nowEntries } from "../../data/now-entries";
+
+const { tending, works, small, counts } = await getHomeLabData();
+---
+
+<BaseLayout title="home layout A">
+  <HomeLabSwitcher current="tiers" />
+  <div class="homeLab tiers">
+    <div class="two-columns home-page">
+      <div class="home-sidebar">
+        <HomeLabIntro />
+        <div class="home-now-status textContent">
+          {nowEntries[0] && <NowBlock client:only="react" entry={nowEntries[0]} />}
+          <Status />
+        </div>
+      </div>
+      <div class="home-creations">
+        <h2 class="labHeading">
+          what i'm tending to <span class="labHeadingNote">ongoing, and growing</span>
+        </h2>
+        <TendingCards creations={tending} layout="hero-pair" client:only="react" />
+      </div>
+    </div>
+
+    <HomeLabExtras counts={counts} />
+
+    <section>
+      <h2 class="labHeading">
+        selected works <span class="labHeadingNote">things that found their people</span>
+      </h2>
+      <WorksGrid creations={works} client:only="react" />
+    </section>
+
+    <section>
+      <h2 class="labHeading">
+        small things <span class="labHeadingNote">sketches, toys, and tiny experiments</span>
+      </h2>
+      <SmallThings creations={small} client:only="react" />
+    </section>
+  </div>
+</BaseLayout>

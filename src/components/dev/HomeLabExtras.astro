@@ -1,0 +1,54 @@
+---
+// ABOUTME: Prestige + breadth strip for the /home-lab prototypes:
+// ABOUTME: institution stamps and counts that link into the full archive.
+import { stringToColor } from "../../utils";
+import { PLACES } from "./homeLabData";
+import "./HomeLab.scss";
+
+interface Props {
+  counts: { projects: number; exhibitions: number; talks: number; press: number };
+  heading?: string;
+  note?: string;
+}
+const { counts, heading = "where the work has lived", note } = Astro.props;
+---
+
+<div class="homeLabExtras">
+  <h2 class="labHeading">
+    {heading}
+    {note && <span class="labHeadingNote">{note}</span>}
+  </h2>
+  <div class="placesStamps">
+    {
+      PLACES.map((place) => (
+        <span
+          class="categoryStamp"
+          style={`--category-stamp-color: ${stringToColor(place, { saturation: 45, lightness: 55 })}`}
+        >
+          {place}
+        </span>
+      ))
+    }
+  </div>
+  <p class="breadthLine">
+    and a whole lot more: <a href="/creation">{counts.projects} projects</a>, <a
+      href="/creation">{counts.exhibitions} exhibitions</a
+    >, <a href="/creation">{counts.talks} talks &amp; workshops</a>, and <a
+      href="/creation">{counts.press} bits of press</a
+    >.
+  </p>
+</div>
+
+<style>
+  .homeLabExtras {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+  }
+  .homeLabExtras .labHeading {
+    margin: 0;
+  }
+  .homeLabExtras .breadthLine {
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,82 @@
+// ABOUTME: Styles for the /home-lab constellation of related works.
+
+.constellation {
+  max-width: 760px;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .edges line {
+    stroke: var(--color-text-muted);
+    stroke-width: 0.8;
+    opacity: 0.45;
+    transition: opacity 0.15s ease;
+
+    &.lit {
+      opacity: 1;
+      stroke-width: 1.4;
+      stroke: var(--color-text-color);
+    }
+
+    &.dim {
+      opacity: 0.08;
+    }
+  }
+
+  .node {
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+
+    circle {
+      stroke: var(--color-neutral-background);
+      stroke-width: 1;
+    }
+
+    &.tier-big circle {
+      filter: drop-shadow(0 0 8px currentColor);
+      stroke: var(--color-text-color);
+      stroke-width: 1.5;
+    }
+
+    &.tier-selected circle {
+      stroke: var(--color-text-color);
+      stroke-width: 0.8;
+    }
+
+    &.dim {
+      opacity: 0.15;
+    }
+
+    .label {
+      font-size: 10px;
+      fill: var(--color-text-color);
+      paint-order: stroke;
+      stroke: var(--color-site-background, #fff9e0);
+      stroke-width: 3px;
+      pointer-events: none;
+    }
+
+    &.tier-big .label {
+      font-size: 13px;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    &:focus-visible circle {
+      outline: none;
+      stroke: var(--color-text-color);
+      stroke-width: 2.5;
+    }
+  }
+
+  .constellationCaption {
+    margin: 0.5em 0 0;
+    font-size: 0.85em;
+    color: var(--color-text-muted);
+    min-height: 1.5em;
+  }
+}

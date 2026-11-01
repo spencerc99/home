@@ -1,0 +1,70 @@
+---
+// ABOUTME: Home layout prototype D2: a two-column welcome (intro beside now/status),
+// ABOUTME: then the usual works view full width, with the big ongoing works spotlit inside it.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { NowBlock } from "../../components/Now";
+import Status from "../../components/Status.astro";
+import HomeLabIntro from "../../components/dev/HomeLabIntro.astro";
+import HomeLabExtras from "../../components/dev/HomeLabExtras.astro";
+import HomeLabSwitcher from "../../components/dev/HomeLabSwitcher.astro";
+import { CreationsView } from "../../components/views/CreationsView";
+import { getHomeLabData } from "../../components/dev/homeLabData";
+import { FEATURED_CATEGORY, hydrateCreations } from "../../utils/creations";
+import { nowEntries } from "../../data/now-entries";
+
+const { counts } = await getHomeLabData();
+const creations = hydrateCreations(await getCollection("creation")).sort(
+  (a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime(),
+);
+const spotlight = [
+  { id: "computing-shrines", note: "installed in Golden Gate Park, on view in Charlottetown and Melbourne" },
+  { id: "we-were-online", note: "live on Chrome, Firefox, Edge, and the Mac App Store" },
+  { id: "playhtml", note: "the open-source engine under we were online and other shared web spaces" },
+];
+---
+
+<BaseLayout title="home layout D2">
+  <HomeLabSwitcher current="spotlight" />
+  <div class="homeLab spotlightHome">
+    <div class="welcomeBand">
+      <HomeLabIntro />
+      <div class="welcomeSide textContent">
+        {nowEntries[0] && <NowBlock client:only="react" entry={nowEntries[0]} />}
+        <HomeLabExtras counts={counts} />
+        <Status />
+      </div>
+    </div>
+    <div class="worksBand">
+      <CreationsView
+        creations={creations}
+        defaultCategory={FEATURED_CATEGORY}
+        description={"selected"}
+        columns={1}
+        spotlight={spotlight}
+        client:only="react"
+      />
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .spotlightHome .welcomeBand {
+    display: grid;
+    grid-template-columns: minmax(0, 620px) minmax(0, 520px);
+    gap: 5em;
+    align-items: start;
+    margin-bottom: 3em;
+  }
+  .spotlightHome .welcomeSide {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+  }
+  @media (max-width: 1000px) {
+    .spotlightHome .welcomeBand {
+      grid-template-columns: 1fr;
+      gap: 2em;
+    }
+  }
+</style>

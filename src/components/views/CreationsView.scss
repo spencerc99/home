@@ -13,6 +13,30 @@
   .creationSummary {
     width: 100%;
   }
+
+  // Same 4:3 frame for every spotlit work, whatever its image shape.
+  .creationSummary > a {
+    display: block;
+    width: 100%;
+  }
+  .previewWrapper,
+  .previewWrapper.creationAura {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+    }
+  }
 }
 
 .creations {
@@ -794,5 +818,114 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--color-text-muted);
+  }
+}
+
+// Spotlight: the biggest ongoing works, lifted above the rest in any view.
+.spotlightCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 340px));
+  gap: 2em 2.5em;
+  margin: 1.5em 0 3em;
+  padding-bottom: 2.5em;
+  border-bottom: 3px double var(--border-color);
+
+  .creationSummary {
+    width: 100%;
+  }
+
+  // Same 4:3 frame for every spotlit work, whatever its image shape.
+  .creationSummary > a {
+    display: block;
+    width: 100%;
+  }
+  .previewWrapper,
+  .previewWrapper.creationAura {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+    }
+  }
+}
+
+.spotlightStatement {
+  margin: 0.4em 0 0;
+  font-size: 1.1em;
+  line-height: 1.3;
+}
+
+.spotlightNote {
+  margin: 0.4em 0 0;
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+}
+
+.spotlightDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.45em;
+  border-radius: 50%;
+  background: #3fbf5f;
+  vertical-align: 0.1em;
+  animation: spotlightPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes spotlightPulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.creations.listView.spotlightRows {
+  margin: 1em 0 2.5em;
+  border-bottom: 3px double var(--border-color);
+
+  .spotlightRow {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.9rem;
+
+    .listViewRow {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  .listViewRow {
+    grid-template-columns: 140px 1fr 1fr 2fr 2fr;
+    border-bottom: none;
+
+    .thumbnail {
+      max-width: 140px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .title {
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .subtext {
+      font-family: var(--sp-font-display, "Cooper", "Times", serif);
+      font-size: 1.1em;
+    }
+
+    @include media(xsmallScreen, smallScreen, mediumScreen) {
+      grid-template-columns: 100px 1fr 1fr 2fr;
+    }
+  }
+
+  .spotlightNote {
+    margin: 0 0 0 calc(140px + 2.3rem);
   }
 }
