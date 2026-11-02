@@ -1,6 +1,6 @@
 {
   "title": "CMU.PLACE",
-  "subtext": "a publication and community site for Cooper Union architecture, with a shared building playground",
+  "subtext": "a publication and community site for Cooper Union architecture school",
   "descriptionMd": "CMU.PLACE (Cooper Media Unit) is a digital publication and community space for architecture students, faculty, and events at the Cooper Union. Interviews, reviews, reports, essays, peer review, videos, print issues, and a calendar sit in a grid of drawers that slide open as you pass over them. Each section opens into folder tabs for browsing by topic, and the archive stacks folders by month.\n&nbsp;\nAcross every page is a building layer: cinderblocks, bricks, wood posts, aluminum, and PVC elbows you can pull up and stack on top of whatever you're reading. In the building playground you can switch between your own build, kept on your device, and a shared one where everyone on the site builds together in real time.",
   "descriptionFooterMd": "Site design by Ryan Jang, Jinseo Lee, Belinda Lin, and Violet Caleca. Developed by Spencer Chang. Communal elements made with [playhtml](https://playhtml.fun). Thank you to Matt Shaw, Steven Hillyer, Chris Dierks, and Dean Michael Young at the Cooper Union for bringing me on.",
   "parentCategory": "Project",
@@ -9,6 +9,9 @@
     "Community"
   ],
   "date": "2026-10-26T07:00:00.000Z",
+  "institution": [
+    "Cooper Union"
+  ],
   "heroImage": "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DGM_1aTIqP/783324fc026791d83af99da4395d7d39410840e0c3309f94b5f010a8bb80b07911c54654bd4fce001b8911aa64ff21e60be5cee15ab3d80b6a688a33961ec386176f981cf086e865254f1f264ef4a6ed13a8872dc6452ec31cc79fd02caae5eba39910ab",
   "media": [
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-DGM_1aTIqP/783324fc026791d83af99da4395d7d39410840e0c3309f94b5f010a8bb80b07911c54654bd4fce001b8911aa64ff21e60be5cee15ab3d80b6a688a33961ec386176f981cf086e865254f1f264ef4a6ed13a8872dc6452ec31cc79fd02caae5eba39910ab",
@@ -35,6 +38,5 @@
     "image",
     "image"
   ],
-  "related": [],
-  "location": "New York"
+  "related": []
 }

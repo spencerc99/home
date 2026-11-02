@@ -20,6 +20,13 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Free Agents",
+      "slug": "free-agents",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "San Francisco"
 }
