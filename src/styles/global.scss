@@ -2772,8 +2772,19 @@ details {
 }
 
 .home {
-  font-size: 18px;
+  // Vulf's x-height is ~15% taller than Cooper's (0.489 vs 0.424 em), so 16px
+  // Vulf reads the same size as the 18px Cooper this block used before.
+  font-size: 16px;
   width: 100%;
+
+  // Bits still set in Cooper (hint line, signature) keep their old 18px-based size.
+  .serif {
+    font-size: 1.125em;
+
+    &.meta {
+      font-size: 0.9em * 1.125;
+    }
+  }
   margin-left: auto;
   margin-right: auto;
 }
