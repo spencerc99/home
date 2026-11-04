@@ -1,98 +1,202 @@
-// ABOUTME: Wraps inline text and periodically sends a small cursor scratching a
-// ABOUTME: hand-drawn scribble underline beneath it, in the style of "we were browsing" cursor trails.
+// ABOUTME: Wraps inline text and periodically sends three cursors drawing staggered,
+// ABOUTME: slightly wobbly lines beneath it, using the same trail drawing as playhtml's "we were online" portraits.
 
-import { useEffect, useRef, useState, type PropsWithChildren } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, type PropsWithChildren } from "react";
+import { getStroke } from "perfect-freehand";
 
-// Trail colors evoke the multi-colored browsing cursor trails from we-were-online.
-const TRAIL_COLORS = ["#ff5c8a", "#3aa0ff", "#2fbf71", "#ffb020", "#a86bff"];
+// Cursor shapes and hotspots from playhtml extension/website/shared/cursors.tsx.
+const ARROW = "M12 4 L12 16.5 L14.7 14 L16.7 18.5 L18.3 17.8 L16.3 13.4 L20 13.4 Z";
+const HAND = "M11.3,20.4c-0.3-0.4-0.6-1.1-1.2-2c-0.3-0.5-1.2-1.5-1.5-1.9c-0.2-0.4-0.2-0.6-0.1-1c0.1-0.6,0.7-1.1,1.4-1.1c0.5,0,1,0.4,1.4,0.7c0.2,0.2,0.5,0.6,0.7,0.8c0.2,0.2,0.2,0.3,0.4,0.5c0.2,0.3,0.3,0.5,0.2,0.1c-0.1-0.5-0.2-1.3-0.4-2.1c-0.1-0.6-0.2-0.7-0.3-1.1c-0.1-0.5-0.2-0.8-0.3-1.3c-0.1-0.3-0.2-1.1-0.3-1.5c-0.1-0.5-0.1-1.4,0.3-1.8c0.3-0.3,0.9-0.4,1.3-0.2c0.5,0.3,0.8,1,0.9,1.3c0.2,0.5,0.4,1.2,0.5,2c0.2,1,0.5,2.5,0.5,2.8c0-0.4-0.1-1.1,0-1.5c0.1-0.3,0.3-0.7,0.7-0.8c0.3-0.1,0.6-0.1,0.9-0.1c0.3,0.1,0.6,0.3,0.8,0.5c0.4,0.6,0.4,1.9,0.4,1.8c0.1-0.4,0.1-1.2,0.3-1.6c0.1-0.2,0.5-0.4,0.7-0.5c0.3-0.1,0.7-0.1,1,0c0.2,0,0.6,0.3,0.7,0.5c0.2,0.3,0.3,1.3,0.4,1.7c0,0.1,0.1-0.4,0.3-0.7c0.4-0.6,1.8-0.8,1.9,0.6c0,0.7,0,0.6,0,1.1c0,0.5,0,0.8,0,1.2c0,0.4-0.1,1.3-0.2,1.7c-0.1,0.3-0.4,1-0.7,1.4c0,0-1.1,1.2-1.2,1.8c-0.1,0.6-0.1,0.6-0.1,1c0,0.4,0.1,0.9,0.1,0.9s-0.8,0.1-1.2,0c-0.4-0.1-0.9-0.8-1-1.1c-0.2-0.3-0.5-0.3-0.7,0c-0.2,0.4-0.7,1.1-1.1,1.1c-0.7,0.1-2.1,0-3.1,0c0,0,0.2-1-0.2-1.4c-0.3-0.3-0.8-0.8-1.1-1.1L11.3,20.4z";
+const OPEN_HAND = "M12.6,16.6c-0.1-0.4-0.2-0.8-0.4-1.6c-0.2-0.6-0.3-0.9-0.5-1.2c-0.2-0.5-0.3-0.7-0.5-1.2c-0.1-0.3-0.4-1-0.5-1.4c-0.1-0.5,0-0.9,0.2-1.2c0.3-0.3,1-0.5,1.4-0.4c0.4,0.1,0.7,0.5,0.9,0.8c0.3,0.5,0.4,0.6,0.7,1.5c0.4,1,0.6,1.9,0.6,2.2l0.1,0.5c0,0,0-1.1,0-1.2c0-1-0.1-1.8,0-2.9c0-0.1,0.1-0.6,0.1-0.7c0.1-0.5,0.3-0.8,0.7-1c0.4-0.2,0.9-0.2,1.4,0c0.4,0.2,0.6,0.5,0.7,1c0,0.1,0.1,1,0.1,1.1c0,1,0,1.6,0,2.2c0,0.2,0,1.6,0,1.5c0.1-0.7,0.1-3.2,0.3-3.9c0.1-0.4,0.4-0.7,0.8-0.9c0.4-0.2,1.1-0.1,1.4,0.2c0.3,0.3,0.4,0.7,0.5,1.2c0,0.4,0,0.9,0,1.2c0,0.9,0,1.3,0,2.1c0,0,0,0.3,0,0.2c0.1-0.3,0.2-0.5,0.3-0.7c0-0.1,0.2-0.6,0.4-0.9c0.1-0.2,0.2-0.4,0.4-0.7c0.2-0.3,0.4-0.4,0.7-0.6c0.5-0.2,1.1,0.1,1.3,0.6c0.1,0.2,0,0.7,0,1.1c-0.1,0.6-0.3,1.3-0.4,1.6c-0.1,0.4-0.3,1.2-0.3,1.6c-0.1,0.4-0.2,1.4-0.4,1.8c-0.1,0.3-0.4,1-0.7,1.4c0,0-1.1,1.2-1.2,1.8c-0.1,0.6-0.1,0.6-0.1,1c0,0.4,0.1,0.9,0.1,0.9s-0.8,0.1-1.2,0c-0.4-0.1-0.9-0.8-1-1.1c-0.2-0.3-0.5-0.3-0.7,0c-0.2,0.4-0.7,1.1-1.1,1.1c-0.7,0.1-2.1,0-3.1,0c0,0,0.2-1-0.2-1.4c-0.3-0.3-0.8-0.8-1.1-1.1l-0.8-0.9c-0.3-0.4-0.6-1.1-1.2-2c-0.3-0.5-1-1.1-1.3-1.6c-0.2-0.4-0.3-1-0.2-1.3c0.2-0.6,0.7-0.9,1.4-0.8c0.5,0,0.8,0.2,1.2,0.5c0.2,0.2,0.6,0.5,0.8,0.7c0.2,0.2,0.2,0.3,0.4,0.5C12.6,16.8,12.6,16.9,12.6,16.6";
+const FINGERS = '<line x1="19.6" y1="20.7" x2="19.6" y2="17.3" stroke="black" stroke-width="0.75" stroke-linecap="round"/><line x1="17.6" y1="20.7" x2="17.5" y2="17.3" stroke="black" stroke-width="0.75" stroke-linecap="round"/><line x1="15.6" y1="17.3" x2="15.6" y2="20.7" stroke="black" stroke-width="0.75" stroke-linecap="round"/>';
 
-// Duration of the cursor scratching across the word and drawing the scribble.
+type CursorShape = { hotspot: [number, number]; unit: number; svg: (color: string) => string };
+
+const CURSORS: CursorShape[] = [
+  {
+    hotspot: [12, 4],
+    unit: 24,
+    svg: (c) =>
+      `<path d="${ARROW}" fill="white"/><path d="${ARROW}" fill="${c}" stroke="white" stroke-width="0.5" stroke-linejoin="round" transform="translate(-0.4,-0.4)"/>`,
+  },
+  {
+    hotspot: [12.3, 8.4],
+    unit: 32,
+    svg: (c) =>
+      `<path d="${HAND}" fill="${c}" fill-opacity="0.85" stroke="black" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>${FINGERS}`,
+  },
+  {
+    hotspot: [15.9, 8.7],
+    unit: 32,
+    svg: (c) =>
+      `<path d="${OPEN_HAND}" fill="${c}" fill-opacity="0.7" stroke="black" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>${FINGERS}`,
+  },
+];
+
+const LINES = 3;
+// Each lower line sits this many px further down and starts about this much later.
+const LINE_GAP = 5;
+const STAGGER_MS = 220;
+// Amplitude of the hand-drawn waviness, in px.
+const WOBBLE = 2.5;
 const DRAW_MS = 1500;
-// How long the finished scribble lingers before it fades out.
 const HOLD_MS = 1100;
+const FADE_MS = 600;
+const STROKE_WIDTH = 4;
+const TRAIL_OPACITY = 0.7;
+const CURSOR_SIZE = 32;
 
-// Cursor tip offset within the 28px-rendered SVG (arrow tip sits near this point),
-// so the tip rides along the scribble rather than the SVG's top-left corner.
-const TIP_OFFSET_X = 9;
-const TIP_OFFSET_Y = 6;
-
-// Vertical center of the scribble within its overlay.
-const MID_Y = 6;
-
-// Cursor shape matches playhtml's mouse cursor (see CursorPresenceLayer).
-function CursorSVG({ color }: { color: string }) {
-  return (
-    <svg
-      height="28"
-      viewBox="0 0 32 32"
-      width="28"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ display: "block", pointerEvents: "none" }}
-    >
-      <g fill="none" fillRule="evenodd" transform="translate(10 7)">
-        <path
-          d="m6.148 18.473 1.863-1.003 1.615-.839-2.568-4.816h4.332l-11.379-11.408v16.015l3.316-3.221z"
-          fill="#fff"
-        />
-        <path
-          d="m6.431 17 1.765-.941-2.775-5.202h3.604l-8.025-8.043v11.188l2.53-2.442z"
-          fill={color}
-        />
-      </g>
-    </svg>
-  );
-}
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 type Point = { x: number; y: number };
 
-// Smooths a series of points into a flowing curve (Catmull-Rom -> cubic bezier),
-// so the scribble reads as an organic hand motion rather than sharp segments.
-function pointsToSmoothPath(pts: Point[]): string {
-  if (pts.length < 2) return "";
-  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
-  for (let i = 0; i < pts.length - 1; i++) {
-    const p0 = pts[i - 1] ?? pts[i];
-    const p1 = pts[i];
-    const p2 = pts[i + 1];
-    const p3 = pts[i + 2] ?? p2;
-    const cp1x = p1.x + (p2.x - p0.x) / 6;
-    const cp1y = p1.y + (p2.y - p0.y) / 6;
-    const cp2x = p2.x - (p3.x - p1.x) / 6;
-    const cp2y = p2.y - (p3.y - p1.y) / 6;
-    d += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(
-      1,
-    )} ${cp2y.toFixed(1)}, ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`;
-  }
-  return d;
+// Same range playhtml uses for a new player's cursor color.
+function randomHslColor(): string {
+  const hue = Math.floor(Math.random() * 360);
+  const s = 65 + Math.floor(Math.random() * 15);
+  const l = 55 + Math.floor(Math.random() * 15);
+  return `hsl(${hue}, ${s}%, ${l}%)`;
 }
 
-// Builds a scratchy scribble: a coil of overlapping loops that progresses left->right.
-// `phase` (stable per run) varies the wobble so each scribble looks a little different.
-function buildScribblePath(width: number, phase: number): string {
-  if (width <= 0) return `M 0 ${MID_Y}`;
+const ease = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 
-  const turns = Math.max(5, Math.round(width / 16));
-  const spacing = width / turns;
-  const loopRadius = Math.min(9, spacing * 0.62); // wide enough that loops overlap
-  const amplitude = 5;
-  const steps = turns * 14;
-
+// A left-to-right line with a slight tilt, two slow random waves and a little
+// hand jitter. Point spacing varies so the cursor speeds up and slows down.
+function buildPoints(width: number): Point[] {
+  const n = Math.max(12, Math.round(width / 6));
+  const tilt = (Math.random() - 0.5) * (3 + WOBBLE * 1.5);
+  const waves = [0, 1].map((j) => ({
+    amp: WOBBLE * (j ? 0.4 : 0.7) * (0.6 + Math.random() * 0.8),
+    freq: (j ? 2.5 : 0.8) + Math.random() * (j ? 2.5 : 1.2),
+    phase: Math.random() * Math.PI * 2,
+  }));
   const pts: Point[] = [];
-  for (let i = 0; i <= steps; i++) {
-    const t = i / steps;
-    const theta = t * turns * Math.PI * 2;
-    // Amplitude breathes a little and a gentle slope keeps it from looking mechanical.
-    const ampT = amplitude * (0.82 + 0.18 * Math.sin(theta * 0.5 + phase));
-    const slope = (t - 0.5) * 1.6;
-    // Deterministic (phase-seeded) jitter adds hand tremor without reshuffling per render.
-    const jitterX = Math.sin(i * 12.9898 + phase) * 0.6;
-    const jitterY = Math.cos(i * 4.1414 + phase) * 0.6;
-    const x = t * width + Math.cos(theta) * loopRadius + jitterX;
-    const y = MID_Y + Math.sin(theta) * ampT + slope + jitterY;
-    pts.push({ x, y });
+  const step = (width + 4) / n;
+  let x = -2;
+  for (let i = 0; i <= n; i++) {
+    const t = i / n;
+    const wave = waves.reduce(
+      (sum, w) => sum + w.amp * Math.sin(w.phase + t * w.freq * Math.PI * 2),
+      0,
+    );
+    pts.push({ x, y: 4 + tilt * t + wave + (Math.random() - 0.5) * (0.8 + WOBBLE * 0.3) });
+    x += step * (0.6 + Math.random() * 0.8);
   }
-  return pointsToSmoothPath(pts);
+  const scale = (width + 4) / (pts[pts.length - 1].x + 2);
+  return pts.map((p) => ({ x: -2 + (p.x + 2) * scale, y: p.y }));
+}
+
+// perfect-freehand outline -> closed SVG path, as in playhtml's trailAnimation.ts.
+function strokePath(pts: Point[], done: boolean): string {
+  const outline = getStroke(
+    pts.map((p) => [p.x, p.y]),
+    {
+      size: STROKE_WIDTH,
+      thinning: 0,
+      smoothing: 0.5,
+      streamline: 0.05,
+      simulatePressure: false,
+      last: done,
+      start: { taper: 20 },
+      end: done ? { taper: 20 } : { taper: 0, cap: true },
+    },
+  );
+  if (outline.length < 3) return "";
+  let d = `M ${outline[0][0].toFixed(2)} ${outline[0][1].toFixed(2)} Q`;
+  for (let i = 0; i < outline.length; i++) {
+    const a = outline[i];
+    const b = outline[(i + 1) % outline.length];
+    d += ` ${a[0].toFixed(2)} ${a[1].toFixed(2)} ${((a[0] + b[0]) / 2).toFixed(2)} ${((a[1] + b[1]) / 2).toFixed(2)}`;
+  }
+  return d + " Z";
+}
+
+type Run = { path: SVGPathElement; cursor: SVGGElement; pts: Point[]; color: string; delay: number };
+
+// Draws one pass of staggered lines into `wrap`; calls `onDone` once it has faded out.
+function drawPass(wrap: HTMLElement, onDone: () => void): () => void {
+  const width = wrap.offsetWidth;
+  const svg = document.createElementNS(SVG_NS, "svg");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("width", String(width));
+  svg.setAttribute("height", String(12 + (LINES - 1) * LINE_GAP));
+  Object.assign(svg.style, {
+    position: "absolute",
+    left: "0",
+    top: "calc(100% - 6px)",
+    overflow: "visible",
+    pointerEvents: "none",
+  });
+  const cursorLayer = document.createElementNS(SVG_NS, "g");
+
+  // Deal the cursors out without repeats, each with its own color.
+  const deck = CURSORS.slice().sort(() => Math.random() - 0.5);
+  const runs: Run[] = Array.from({ length: LINES }, (_, k) => {
+    const shape = deck[k % deck.length];
+    const color = randomHslColor();
+    const scale = CURSOR_SIZE / shape.unit;
+    const path = document.createElementNS(SVG_NS, "path");
+    path.setAttribute("opacity", String(TRAIL_OPACITY));
+    path.setAttribute("fill", color);
+    const cursor = document.createElementNS(SVG_NS, "g");
+    cursor.style.display = "none";
+    cursor.innerHTML = `<g transform="translate(${-shape.hotspot[0] * scale},${-shape.hotspot[1] * scale}) scale(${scale})">${shape.svg(color)}</g>`;
+    svg.appendChild(path);
+    cursorLayer.appendChild(cursor);
+    const pts = buildPoints(width).map((p) => ({ x: p.x, y: p.y + k * LINE_GAP }));
+    return { path, cursor, pts, color, delay: k * STAGGER_MS + Math.random() * STAGGER_MS * 0.3 };
+  });
+  svg.appendChild(cursorLayer);
+  wrap.appendChild(svg);
+
+  const paint = ({ pts, path, cursor }: Run, progress: number) => {
+    if (progress <= 0) return;
+    const done = progress >= 1;
+    const exact = (pts.length - 1) * progress;
+    const i = Math.floor(exact);
+    const f = exact - i;
+    const visible = pts.slice(0, Math.min(i, pts.length - 1) + 1);
+    // Interpolated head between points, so the cursor glides instead of stepping.
+    const head =
+      !done && f > 0
+        ? { x: pts[i].x + (pts[i + 1].x - pts[i].x) * f, y: pts[i].y + (pts[i + 1].y - pts[i].y) * f }
+        : null;
+    const input = head ? visible.concat([head]) : visible;
+    if (input.length >= 2) path.setAttribute("d", strokePath(input, done));
+    const tip = input[input.length - 1];
+    cursor.setAttribute("transform", `translate(${tip.x.toFixed(1)},${tip.y.toFixed(1)})`);
+    cursor.style.display = done ? "none" : "";
+  };
+
+  let raf = 0;
+  let timer: ReturnType<typeof setTimeout>;
+  const t0 = performance.now();
+  const frame = (now: number) => {
+    let finished = true;
+    for (const run of runs) {
+      const p = Math.min(1, Math.max(0, (now - t0 - run.delay) / DRAW_MS));
+      if (p < 1) finished = false;
+      paint(run, ease(p));
+    }
+    if (!finished) {
+      raf = requestAnimationFrame(frame);
+      return;
+    }
+    timer = setTimeout(() => {
+      svg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: FADE_MS, easing: "ease-out", fill: "forwards" });
+      timer = setTimeout(() => {
+        svg.remove();
+        onDone();
+      }, FADE_MS);
+    }, HOLD_MS);
+  };
+  raf = requestAnimationFrame(frame);
+
+  return () => {
+    cancelAnimationFrame(raf);
+    clearTimeout(timer);
+    svg.remove();
+  };
 }
 
 interface CursorUnderlineProps {
@@ -100,54 +204,35 @@ interface CursorUnderlineProps {
   maxDelayMs?: number;
 }
 
-type Run = { width: number; color: string; phase: number };
-
 export function CursorUnderline({
   children,
   minDelayMs = 12000,
   maxDelayMs = 24000,
 }: PropsWithChildren<CursorUnderlineProps>) {
   const wrapRef = useRef<HTMLSpanElement>(null);
-  const [run, setRun] = useState<Run | null>(null);
 
   useEffect(() => {
     // Respect users who prefer reduced motion: never animate.
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let mounted = true;
     let timer: ReturnType<typeof setTimeout>;
+    let cancelPass: (() => void) | undefined;
 
     const scheduleNext = (initial = false) => {
-      const delay = initial
-        ? 3500
-        : minDelayMs + Math.random() * (maxDelayMs - minDelayMs);
-
+      const delay = initial ? 3500 : minDelayMs + Math.random() * (maxDelayMs - minDelayMs);
       timer = setTimeout(() => {
         if (!mounted) return;
-
-        const width = wrapRef.current?.getBoundingClientRect().width ?? 0;
+        const wrap = wrapRef.current;
         // Skip (and retry later) when hidden or unmeasurable so we don't animate offscreen.
-        if (width <= 0 || document.hidden) {
+        if (!wrap || wrap.offsetWidth <= 0 || document.hidden) {
           scheduleNext();
           return;
         }
-
-        setRun({
-          width,
-          color: TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)],
-          phase: Math.random() * Math.PI * 2,
+        cancelPass = drawPass(wrap, () => {
+          cancelPass = undefined;
+          if (mounted) scheduleNext();
         });
-
-        timer = setTimeout(() => {
-          if (!mounted) return;
-          setRun(null);
-          scheduleNext();
-        }, DRAW_MS + HOLD_MS);
       }, delay);
     };
 
@@ -155,11 +240,9 @@ export function CursorUnderline({
     return () => {
       mounted = false;
       clearTimeout(timer);
+      cancelPass?.();
     };
   }, [minDelayMs, maxDelayMs]);
-
-  const width = run?.width ?? 0;
-  const path = run ? buildScribblePath(width, run.phase) : "";
 
   return (
     <span
@@ -167,61 +250,6 @@ export function CursorUnderline({
       style={{ position: "relative", display: "inline-block", whiteSpace: "nowrap" }}
     >
       {children}
-      <AnimatePresence>
-        {run && (
-          <motion.span
-            aria-hidden="true"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{
-              position: "absolute",
-              left: 0,
-              top: "calc(100% - 4px)",
-              width: `${width}px`,
-              height: "18px",
-              pointerEvents: "none",
-            }}
-          >
-            <svg
-              width={width}
-              height="18"
-              style={{ position: "absolute", left: 0, top: 0, overflow: "visible" }}
-            >
-              <motion.path
-                d={path}
-                fill="none"
-                stroke={run.color}
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: DRAW_MS / 1000, ease: "easeInOut" }}
-              />
-            </svg>
-            <motion.span
-              initial={{ offsetDistance: "0%", opacity: 0 }}
-              animate={{ offsetDistance: "100%", opacity: 1 }}
-              transition={{
-                offsetDistance: { duration: DRAW_MS / 1000, ease: "easeInOut" },
-                opacity: { duration: 0.2 },
-              }}
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                offsetPath: `path('${path}')`,
-                offsetRotate: "0deg",
-                offsetAnchor: `${TIP_OFFSET_X}px ${TIP_OFFSET_Y}px`,
-                pointerEvents: "none",
-              }}
-            >
-              <CursorSVG color={run.color} />
-            </motion.span>
-          </motion.span>
-        )}
-      </AnimatePresence>
     </span>
   );
 }

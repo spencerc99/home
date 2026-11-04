@@ -29,9 +29,83 @@ export interface NewsletterRSSItem {
 }
 
 const newsletterFeedUrl = 'https://spencerchang.substack.com/feed';
-const rssFeed = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${newsletterFeedUrl}`);
-const data = await rssFeed.json();
-const posts: NewsletterRSSItem[] = data.items;
+
+async function fetchWithTimeout(url: string, ms = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// rss2json sometimes answers with an HTML error page instead of JSON, so check
+// the response before parsing and retry a couple of times.
+async function fetchFromRss2Json(): Promise<NewsletterRSSItem[]> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetchWithTimeout(`https://api.rss2json.com/v1/api.json?rss_url=${newsletterFeedUrl}`);
+      const text = await res.text();
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = JSON.parse(text);
+      if (data.status !== 'ok' || !Array.isArray(data.items)) {
+        throw new Error(data.message || 'unexpected response');
+      }
+      return data.items;
+    } catch (e) {
+      lastError = e;
+      await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+    }
+  }
+  throw lastError;
+}
+
+function decodeEntities(s: string) {
+  return s
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+}
+
+function readTag(xml: string, tag: string) {
+  const match = xml.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`));
+  if (!match) return '';
+  const value = match[1].trim();
+  const cdata = value.match(/^<!\[CDATA\[([\s\S]*)\]\]>$/);
+  return cdata ? cdata[1] : decodeEntities(value);
+}
+
+// Fallback: read the Substack RSS feed directly.
+async function fetchFromSubstack(): Promise<NewsletterRSSItem[]> {
+  const res = await fetchWithTimeout(newsletterFeedUrl);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const xml = await res.text();
+  const items = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
+  return items.map(item => ({
+    title: readTag(item, 'title'),
+    pubDate: new Date(readTag(item, 'pubDate')),
+    link: readTag(item, 'link'),
+    guid: readTag(item, 'guid'),
+    thumbnail: '',
+    description: readTag(item, 'description'),
+    content: '',
+    enclosure: { link: item.match(/<enclosure[^>]*url="([^"]+)"/)?.[1] ?? '' },
+    categories: [],
+  }));
+}
+
+let posts: NewsletterRSSItem[] = [];
+try {
+  posts = await fetchFromRss2Json();
+} catch (e) {
+  console.warn(`[newsletter] rss2json failed (${e}), reading Substack feed directly`);
+  try {
+    posts = await fetchFromSubstack();
+  } catch (e2) {
+    console.warn(`[newsletter] Substack feed failed too (${e2}), rendering without posts`);
+  }
+}
 
 const transformedPosts = posts?.map(post => ({
   slug: post.guid,
@@ -39,7 +113,7 @@ const transformedPosts = posts?.map(post => ({
     title: post.title,
     description: post.description,
     pubDate: new Date(post.pubDate),
-    heroImage: post.enclosure.link,
+    heroImage: post.enclosure?.link,
     externalLink: post.link,
   }
 })) || [];

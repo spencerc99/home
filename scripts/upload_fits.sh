@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# ABOUTME: Exports the fits Photos album and generates website photo data and previews.
+# ABOUTME: Uploads exported images to S3 after confirmation.
+set -e
+
 # NOTE: this assumes running from root directory.
 # TODO: clean up using this file so that it works properly and test that it works for future updates.
 # TODO: allow variable for verbose
@@ -28,7 +32,7 @@ echo $restart
 # --only-new seems to exclude preview??
 # --ignore-signature handles photos that have been exported and then updated
 # --force-update, this will handle updated metadata
-osxphotos export --download-missing --album fits\ 🧢 --skip-live --skip-original-if-edited --only-new --filename "{created.date}:{original_name}" --force-update --ignore-signature --convert-to-jpeg --post-function ./scripts/transform_exported_fits_into_db.py::post_function ./fits-export
+osxphotos export --download-missing --album "photo a days/fits 🧢" --skip-live --skip-original-if-edited --only-new --filename "{created.date}:{original_name}" --force-update --ignore-signature --convert-to-jpeg --post-function ./scripts/transform_exported_fits_into_db.py::post_function ./fits-export
 # osxphotos export --download-missing --album fits\ 🧢 --use-photokit  --skip-live --skip-original-if-edited --only-new --filename "{created.date}:{original_name}" --force-update --ignore-signature --convert-to-jpeg --post-function ./scripts/transform_exported_fits_into_db.py::post_function ./fits-export
 
 # normal --update, this caches "last exported" so might miss some if out of order?

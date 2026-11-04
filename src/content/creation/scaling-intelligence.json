@@ -1,5 +1,5 @@
 {
-  "title": "Modal x Gray Area",
+  "title": "Scaling Intelligence",
   "parentCategory": "Exhibition",
   "categories": [],
   "date": "2026-10-28T07:00:00.000Z",
@@ -20,6 +20,13 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Free Agents",
+      "slug": "free-agents",
+      "link": "",
+      "parentCategory": "Project"
+    }
+  ],
   "location": "San Francisco"
 }

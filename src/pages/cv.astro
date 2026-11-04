@@ -113,6 +113,15 @@ function getItemHref(item: Creation): string {
           href="https://spencer.place">https://spencer.place</a
         >
       </p>
+      <div class="cv-print-controls">
+        <button type="button" class="cv-print-button" id="cv-print">
+          download / print pdf
+        </button>
+        <label>
+          <input type="checkbox" id="cv-print-professional" />
+          include professional
+        </label>
+      </div>
     </header>
 
     <section class="cv-section cv-text-section">
@@ -292,7 +301,7 @@ function getItemHref(item: Creation): string {
       </div>
     </section>
 
-    <section class="cv-section">
+    <section class="cv-section cv-professional-section">
       <h2>Professional</h2>
       <div class="cv-professional">
         <div class="cv-job">
@@ -438,3 +447,35 @@ function getItemHref(item: Creation): string {
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  // Relative links (/creation/...) should point at the live site in the PDF,
+  // even when printing from localhost.
+  function absolutizeCvLinks() {
+    document.querySelectorAll<HTMLAnchorElement>(".cv a[href^='/']").forEach(
+      (a) => {
+        a.href = `https://spencer.place${a.getAttribute("href")}`;
+      },
+    );
+  }
+
+  window.addEventListener("beforeprint", absolutizeCvLinks);
+
+  // astro:page-load fires on first load and after each view transition
+  function setupCvPrint() {
+    document
+      .getElementById("cv-print")
+      ?.addEventListener("click", () => window.print());
+    // Professional is left out of the PDF unless asked for
+    document
+      .getElementById("cv-print-professional")
+      ?.addEventListener("change", (e) => {
+        document.body.classList.toggle(
+          "cv-print-professional",
+          (e.target as HTMLInputElement).checked,
+        );
+      });
+  }
+
+  document.addEventListener("astro:page-load", setupCvPrint);
+</script>
