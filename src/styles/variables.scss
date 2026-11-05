@@ -93,6 +93,49 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
   --color-glowing-highlight: #{$color-glowing-highlight};
   --color-neutral-background-hover: rgba(0, 0, 0, 0.05);
 
+  // Design system tokens (see design-system.md in the project's site-design notes).
+  // Prefixed --sp- so they don't collide with Tailwind v4's :root theme vars
+  // (--text-*, --font-mono, --radius-*), which load site-wide via Trinkets.
+  // Fonts: one job each. Body/UI = Vulf, display statements = Cooper, labels/meta = Sono.
+  --sp-font-body: #{$site-font};
+  --sp-font-display: #{$site-font-serif};
+  --sp-font-mono: #{$site-font-mono}, monospace;
+
+  // Type scale: 1.25 ratio on a 16px base.
+  --sp-text-xs: 0.75rem;
+  --sp-text-sm: 0.875rem;
+  --sp-text-base: 1rem;
+  --sp-text-lg: 1.25rem;
+  --sp-text-xl: 1.5625rem;
+  --sp-text-2xl: 1.953rem;
+  --sp-text-3xl: 2.441rem;
+  --sp-leading-tight: 1.2;
+  --sp-leading-snug: 1.4;
+  --sp-leading-body: #{$default-line-height};
+
+  // Spacing (4px base).
+  --sp-space-1: 4px;
+  --sp-space-2: 8px;
+  --sp-space-3: 12px;
+  --sp-space-4: 16px;
+  --sp-space-6: 24px;
+  --sp-space-8: 32px;
+  --sp-space-12: 48px;
+  --sp-space-16: 64px;
+  --sp-measure: 65ch;
+  --sp-content-wide: #{$large-content-width};
+
+  --sp-radius-sm: 4px;
+  --sp-radius-md: 8px;
+  --sp-radius-pill: 999px;
+
+  // Color roles. The bright brand orange is for fills, glows and underlines;
+  // link text uses the darker orange so it passes 4.5:1 on the peach background.
+  --sp-color-accent: #{$color-link};
+  --sp-color-link-text: #b35400;
+  --sp-color-text-subtle: #6b665c;
+  --sp-color-meta: #{$color-blueberry};
+
   // For email subscription widget
   #custom-substack-embed .custom-substack-widget {
     --csw-primary-color: #{$color-link};
@@ -148,6 +191,8 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
     --color-box-shadow: #{$color-box-shadow-dark};
     --color-glowing-highlight: #{$color-glowing-highlight-dark};
     --color-neutral-background-hover: rgba(255, 255, 255, 0.05);
+    --sp-color-link-text: #{$color-link};
+    --sp-color-text-subtle: #a8a294;
 
     // For email subscription widget
     #custom-substack-embed .custom-substack-widget {
