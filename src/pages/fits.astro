@@ -6,7 +6,9 @@ import DetailLayout from '../layouts/DetailLayout.astro';
 const fitsPagePermalink = Astro.url.href;
 const sortedFits = fitsData.fits.sort((a, b) => b.timestamp - a.timestamp);
 const LayoutProps = {
-    title: "Fits",
+    title: "(fits)",
+    titleClass: "uniform",
+    metaTitle: "fits",
     description: "A permanent space for my outfits of the day.",
     date: "2021-10-12",
     image: "https://personal-apple-photos.s3.us-west-2.amazonaws.com/fits-stream/,2021-06-27_edited.jpeg",

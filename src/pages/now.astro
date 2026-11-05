@@ -14,7 +14,8 @@ const history = nowEntries.slice(1);
   <div class="one-column">
     <div class="headerContainer home textContent">
       <div class="textContent">
-        <h1 class="pageTitle">All my now updates...</h1>
+        <h1 class="uniform">(now)</h1>
+        <p><i>all my now updates.</i></p>
         {
           current && (
             <section class="now-page-current" aria-label="Current status">
@@ -53,10 +54,6 @@ const history = nowEntries.slice(1);
 </BaseLayout>
 
 <style>
-  .pageTitle {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
   .now-page-current {
     margin-bottom: 2rem;
   }
