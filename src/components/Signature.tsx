@@ -20,7 +20,7 @@ const Signature: React.FC<{ hideOnHome?: boolean }> = ({ hideOnHome }) => {
   return (
     <div className="signature" style={{ float: "none" }}>
       <div className="signatureContent">
-        <div className="serif">
+        <div className="signatureName">
           Spencer 張正 Chang
           <br />
           hi@spencer.place

@@ -3,28 +3,6 @@
 @import "./variables.scss";
 @import "./mixins.scss";
 
-@mixin fontCooper($name, $weight, $style) {
-  @font-face {
-    font-family: "Cooper";
-    src: url("/fonts/#{$name}.woff2") format("woff");
-    font-weight: $weight;
-    font-style: $style;
-    font-display: fallback;
-  }
-}
-
-@include fontCooper("Cooper-Regular", normal, normal);
-@include fontCooper("Cooper-Italic", normal, italic);
-@include fontCooper("Cooper-Medium", 500, normal);
-@include fontCooper("Cooper-MediumItalic", 500, italic);
-@include fontCooper("Cooper-SemiBold", 600, normal);
-@include fontCooper("Cooper-SemiBoldItalic", 600, italic);
-@include fontCooper("Cooper-Bold", bold, normal);
-@include fontCooper("Cooper-BoldItalic", bold, italic);
-@include fontCooper("Cooper-ExtraBold", 800, normal);
-@include fontCooper("Cooper-ExtraBoldItalic", 800, italic);
-@include fontCooper("Cooper-Black", 900, normal);
-@include fontCooper("Cooper-BlackItalic", 900, italic);
 
 @mixin fontVulf($name, $weight, $style) {
   @font-face {
@@ -360,6 +338,8 @@ p {
 h1 {
   font-size: 2em;
   &.uniform.uniform {
+    // Page title pattern: "(page)" in mono. rem so it is the same size on every page.
+    font-size: 2rem;
     font-weight: normal;
     @extend .mono;
     color: var(--color-text-accent);
@@ -877,8 +857,6 @@ footer {
 }
 
 .headerContainer {
-  // Body text uses the site sans (Vulf); Cooper is reserved for display statements.
-  // Opt a block back into the serif with the `.serif` class.
   margin: 3em 0 24px 0;
 
   &.postHeader {
@@ -2052,7 +2030,7 @@ button {
     width: fit-content;
     margin-left: auto;
 
-    .serif {
+    .signatureName {
       text-align: right;
     }
   }
@@ -2745,10 +2723,12 @@ select {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5em;
+  // Logos share one box height; object-fit keeps each logo's aspect ratio.
   img {
-    max-width: 120px;
-    max-height: 100px;
-    height: 100%;
+    height: 80px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
   }
 }
 
@@ -2772,19 +2752,9 @@ details {
 }
 
 .home {
-  // Vulf's x-height is ~15% taller than Cooper's (0.489 vs 0.424 em), so 16px
-  // Vulf reads the same size as the 18px Cooper this block used before.
+  // 16px: Vulf's x-height is ~15% taller than the 18px Cooper this used to be.
   font-size: 16px;
   width: 100%;
-
-  // Bits still set in Cooper (hint line, signature) keep their old 18px-based size.
-  .serif {
-    font-size: 1.125em;
-
-    &.meta {
-      font-size: 0.9em * 1.125;
-    }
-  }
   margin-left: auto;
   margin-right: auto;
 }
