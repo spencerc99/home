@@ -31,12 +31,20 @@ const cvSections = [
 function getCreationsForCategory(category: string): Creation[] {
   return allCreations
     .filter((c) => c.data.parentCategory === category)
-    .map((c) => ({ ...c.data, id: c.id, forthcoming: c.data.forthcoming }))
+    .map((c) => ({ ...c.data, id: c.id, forthcoming: isNotYetStarted(c.data) }))
     .sort((a, b) => {
       const dateA = a.date ? new Date(a.date).getTime() : 0;
       const dateB = b.date ? new Date(b.date).getTime() : 0;
       return dateB - dateA;
     });
+}
+
+// On the CV, "forthcoming" means it hasn't started yet. The shared
+// hydrated flag stays true until an event *ends*, which is right for the
+// schedule but wrong here (an open exhibition isn't forthcoming).
+function isNotYetStarted(data: CollectionEntry<"creation">["data"]): boolean {
+  if (!data.date) return Boolean(data.forthcoming);
+  return new Date(data.date).getTime() > Date.now();
 }
 
 function getYear(d: Date | null): string {
