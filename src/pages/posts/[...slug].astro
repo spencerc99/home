@@ -2,10 +2,12 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
 import PostSummary from "../../components/PostSummary.astro";
+import { isExternalOnlyPost } from "../../utils/externalPosts.mjs";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("posts")) || [];
-  return posts.map((post) => ({
+  // Empty posts that only link elsewhere are 301'd in astro.config.mjs.
+  return posts.filter((post) => !isExternalOnlyPost(post)).map((post) => ({
     params: { slug: post.slug },
     props: post,
   }));
