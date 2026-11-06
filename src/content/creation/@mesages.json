@@ -16,5 +16,12 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": []
+  "related": [
+    {
+      "title": "HAH (Hijacking Algorithm Hacking)",
+      "slug": "hah-(hijacking-algorithm-hacking)",
+      "link": "https://hah.spencer.place/",
+      "parentCategory": "Project"
+    }
+  ]
 }

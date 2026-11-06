@@ -1,0 +1,39 @@
+{
+  "title": "HAH (Hijacking Algorithm Hacking)",
+  "subtext": "a series of scores/studies on subverting the algorithm",
+  "descriptionMd": "Hijacking Algorithm Hacking (HAH) takes after Search Engine Optimization (SEO), a phenomenon which has led the web to be flooded with AI slop designed to capture keywords, and co-opts its hacky mechanisms to trick the algorithm into centering people. We start with a series of interactive studies that expose the interpersonal mechanics of the algorithm. Based on these studies, we will create scores / instructions that can be carried out by anyone with a social media account to make anti-viral viral content (human-centered, raw, and slow content but designed to trick the algorithm).\n&nbsp;\nSubverting the escalating arms race in social media content creation to create slicker edits, promote products, and create the artificial scarcity, HAH turns the algorithm against itself through mass individual action to demonstrate the power we have in shaping our technology and flipping the power dynamics even when it is designed to control us.",
+  "parentCategory": "Project",
+  "categories": [],
+  "date": "2026-08-06T07:00:00.000Z",
+  "heroImage": "/creation-videos/bl-lzD-AU2oMe.mp4",
+  "media": [
+    "/creation-videos/bl-lzD-AU2oMe.mp4",
+    "/creation-videos/bl-X5R0VKYZlx.mp4"
+  ],
+  "link": "https://hah.spencer.place/",
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [
+    "",
+    ""
+  ],
+  "isEvent": false,
+  "mediaMetadata": [
+    "video",
+    "video"
+  ],
+  "related": [
+    {
+      "title": "linkstream",
+      "slug": "linkstream",
+      "link": "https://hah.spencer.place/linkstream",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "@Mesages ",
+      "slug": "@mesages",
+      "link": "https://hah.spencer.place/messages",
+      "parentCategory": "Project"
+    }
+  ]
+}

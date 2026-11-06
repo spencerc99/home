@@ -19,6 +19,13 @@
   "mediaMetadata": [
     "image"
   ],
-  "related": [],
+  "related": [
+    {
+      "title": "Play Together: From Personal to Communal Computing",
+      "slug": "play-together-from-personal-to-communal-computing",
+      "link": "",
+      "parentCategory": "Talks & Teaching"
+    }
+  ],
   "location": "Idyllwild, CA"
 }

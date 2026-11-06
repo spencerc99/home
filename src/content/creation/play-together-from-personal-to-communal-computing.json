@@ -1,0 +1,32 @@
+{
+  "title": "Play Together: From Personal to Communal Computing",
+  "parentCategory": "Talks & Teaching",
+  "categories": [
+    "Art"
+  ],
+  "date": "2026-11-26T08:00:00.000Z",
+  "institution": [
+    "National Communication Museum (NCM)"
+  ],
+  "media": [],
+  "ongoing": false,
+  "featured": false,
+  "imageDescriptions": [],
+  "isEvent": true,
+  "mediaMetadata": [],
+  "related": [
+    {
+      "title": "Artist Talk - Perpetual Motion Machine",
+      "slug": "artist-talk---perpetual-motion-machine",
+      "link": "https://www.youtube.com/watch?v=l-2t-N96Bn8",
+      "parentCategory": "Talks & Teaching"
+    },
+    {
+      "title": "Perpetual Play: FWB Fest",
+      "slug": "perpetual-play-fwb-fest",
+      "link": "https://www.fwbfest.info/",
+      "parentCategory": "Talks & Teaching"
+    }
+  ],
+  "location": "Melbourne"
+}
