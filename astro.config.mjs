@@ -5,6 +5,26 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
 import cloudflare from "@astrojs/cloudflare";
+import { appendFile } from "node:fs/promises";
+import { getExternalPostRedirects } from "./src/utils/externalPostRedirects.mjs";
+
+const externalPostRedirects = getExternalPostRedirects();
+
+// Astro warns on (and doesn't officially support) external redirect targets,
+// so write these straight into Cloudflare's _redirects file as real 301s.
+// /posts/* is already excluded from the worker in _routes.json, so Pages
+// serves these before any static file.
+const externalPostRedirectsIntegration = {
+  name: "external-post-redirects",
+  hooks: {
+    "astro:build:done": async ({ dir }) => {
+      const lines = Object.entries(externalPostRedirects).flatMap(
+        ([from, to]) => [`${from} ${to} 301`, `${from}/ ${to} 301`]
+      );
+      await appendFile(new URL("./_redirects", dir), `\n${lines.join("\n")}\n`);
+    },
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,7 +70,11 @@ export default defineConfig({
         allowDangerousHtml: true,
       },
     }),
-    sitemap(),
+    sitemap({
+      filter: (page) =>
+        !(new URL(page).pathname.replace(/\/$/, "") in externalPostRedirects),
+    }),
+    externalPostRedirectsIntegration,
     react({
       experimentalReactChildren: true,
     }),
