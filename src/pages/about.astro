@@ -126,13 +126,18 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
 <BaseLayout centered title="about">
   <div class="home about-page">
     <div class="about-intro">
-      <img
-        class="about-portrait"
-        src="/headshots/studio-projection-small.webp"
-        alt="Spencer standing in a studio, lit by colorful projected lines"
-        width="1500"
-        height="1125"
-      />
+      <figure class="about-portrait-figure">
+        <img
+          class="about-portrait"
+          src="/headshots/studio-projection-small.webp"
+          alt="Spencer standing in a studio, lit by colorful projected lines"
+          width="1500"
+          height="1125"
+        />
+        <figcaption class="about-portrait-credit">
+          photo by <a href="https://umamiboy.com">Jeremy Chiu</a>
+        </figcaption>
+      </figure>
       <div class="about-statement">
         <p class="about-lede">
           Spencer makes <a href="https://news.spencer.place/p/software-you-can-touch"
@@ -192,6 +197,9 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
     <p>
       For a full professional bio, you can view my <a
         href="/cv">CV</a
+      > or grab <a
+        href="https://drive.google.com/drive/folders/193NTEeEoYv6jVYfcaXBOZ4tpeGHPIpS0"
+        >more headshots</a
       >.
     </p>
 
@@ -338,6 +346,18 @@ const enjoyPrompt = `<a href="https://coda.io/form/spencers-enjoy-list_dGFsXoodV
       object-fit: cover;
       object-position: 50% 35%;
       border-radius: 8px;
+    }
+
+    .about-page .about-portrait-figure {
+      margin: 0;
+    }
+
+    .about-page .about-portrait-credit {
+      margin-top: 0.35rem;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--sp-color-text-subtle);
+      text-align: center;
     }
 
     .about-page .about-lede {
