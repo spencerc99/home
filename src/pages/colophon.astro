@@ -7,76 +7,289 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="How this site & my practices have been made"
 >
   <div class="one-column">
-    <div class="headerContainer home textContent">
-      <div class="textContent">
+    <div class="headerContainer textContent colophon">
+      <header class="colophon-intro">
         <h1 class="uniform">(colophon)</h1>
-        <p><i>how this site & my practices have been made.</i></p>
-        <h2>Site</h2>
-        <p>
-          The site is built with <a href="https://astro.build/">Astro</a>,
-          React, and <a href="https://playhtml.fun/">playhtml</a>, and hosted on
-          Cloudflare. The fonts are Vulf by Oh No! Type Co. and Sono by Simon
-          Høiberg. The background
-          texture is a photo of the sunlight seeping through my jacket lining
-          from a sunny day in Alamo Square.
+        <p class="colophon-lede">
+          <i>how this site & my practices have been made.</i>
         </p>
-        <h2>Inspirations</h2>
-        <ul>
+        <p>
+          This site is a home I keep tending rather than a portfolio I finish.
+          It's hand-built, open source, and a little bit alive: you're rarely
+          the only one here.
+        </p>
+      </header>
+
+      <section class="colophon-section">
+        <h2>Site</h2>
+        <dl class="colophon-list">
+          <dt>framework</dt>
+          <dd>
+            <a href="https://astro.build/">Astro</a>, with
+            <a href="https://react.dev/">React</a> islands for the interactive
+            bits and view transitions so the sidebar and footer persist between
+            pages.
+          </dd>
+
+          <dt>multiplayer</dt>
+          <dd>
+            <a href="/creation/playhtml">playhtml</a>, my open-source library
+            for shared, real-time web elements. It powers the live cursors, the
+            guestbook, reactions, and the objects you can move around.
+            <a href="https://github.com/nanostores/nanostores">Nanostores</a>
+            keep things like chat around as you navigate.
+          </dd>
+
+          <dt>styles</dt>
+          <dd>
+            Hand-written SCSS on a small set of shared tokens (one type scale,
+            one spacing scale), plus a bit of Tailwind.
+          </dd>
+
+          <dt>content</dt>
+          <dd>
+            Creations and newsletter issues live in a
+            <a href="https://coda.io/">Coda</a> doc and get imported at build
+            time. Posts are MDX. The status line pulls from
+            <a href="/creation/statusspencerchangme">my status feed</a>, which
+            checks the platforms I use every hour.
+          </dd>
+
+          <dt>hosting</dt>
+          <dd>
+            <a href="https://www.cloudflare.com/">Cloudflare</a> Pages and
+            Workers, built with <a href="https://bun.sh/">Bun</a>.
+          </dd>
+
+          <dt>source</dt>
+          <dd>
+            Open on <a href="https://github.com/spencerc99/home">GitHub</a>.
+            Feel free to borrow anything you like.
+          </dd>
+
+          <dt>feeds</dt>
+          <dd>
+            <a href="/rss.xml">RSS</a>, or
+            <a href="https://spencerchang.substack.com">the newsletter</a> if
+            you prefer email.
+          </dd>
+        </dl>
+      </section>
+
+      <section class="colophon-section">
+        <h2>Type & texture</h2>
+        <dl class="colophon-list">
+          <dt>body</dt>
+          <dd>
+            <a href="https://ohnotype.co/fonts/vulf-sans">Vulf Sans</a> by Oh
+            No Type Co., for everything you read.
+          </dd>
+
+          <dt>labels</dt>
+          <dd>
+            <span class="colophon-mono">Sono</span>, a monospace by Tyler Finck
+            (<a href="https://fonts.google.com/specimen/Sono">Google Fonts</a>),
+            for page titles, dates, and these little labels.
+          </dd>
+
+          <dt>background</dt>
+          <dd>
+            A photo of sunlight seeping through my jacket lining on a sunny day
+            in Alamo Square.
+          </dd>
+
+          <dt>nav</dt>
+          <dd>Emoji, because every page deserves a little mascot.</dd>
+        </dl>
+      </section>
+
+      <section class="colophon-section">
+        <h2>Little details</h2>
+        <ul class="colophon-details">
           <li>
-            Thank you to <a href="https://robinsloan.com/">Robin Sloan</a> for inspiring me to add the "invited_by_Spencer_Chang" UTM source
-            to all my outbound links as he does.
+            Other visitors show up as cursors. Each page has its own room, so
+            you'll only see people reading the same thing you are.
+          </li>
+          <li>
+            The <a href="/about">about page</a> has a guestbook. I read every
+            letter.
+          </li>
+          <li>
+            The footer holds trinkets: the last vignette I took and
+            <a href="/friends">my friends webring</a>.
+          </li>
+          <li>
+            Every outbound link carries
+            <span class="colophon-mono">utm_source=invited_by_Spencer_Chang</span
+            >, so the other side knows who sent you.
           </li>
         </ul>
+      </section>
+
+      <section class="colophon-section">
+        <h2>Inspirations</h2>
+        <ul class="colophon-details">
+          <li>
+            Thank you to <a href="https://robinsloan.com/">Robin Sloan</a> for
+            the "invited_by" UTM idea, which I borrowed directly from him.
+          </li>
+          <li>
+            Thank you to the personal websites of
+            <a href="/friends">my friends</a>, which make me want to keep this
+            one weird.
+          </li>
+        </ul>
+      </section>
+
+      <section class="colophon-section">
         <h2>People</h2>
-        <p>
-          a non-exhaustive, sporadically updated list of people who have
-          inspired me
+        <p class="colophon-note">
+          A non-exhaustive, sporadically updated list of people (and
+          collectives) who have inspired me.
         </p>
-      </div>
+        <ul class="colophon-people">
+          <li>Sarah Sze</li>
+          <li>Nam June Paik</li>
+          <li>Yoko Ono & Fluxus</li>
+          <li>
+            <a href="https://lauren-mccarthy.com/">Lauren Lee McCarthy</a>
+          </li>
+          <li>Olafur Eliasson</li>
+          <li>Lee Mingwei</li>
+          <li>Isamu Noguchi</li>
+          <li>Oki Sato</li>
+          <li><a href="https://worrydream.com/">Bret Victor</a></li>
+          <li><a href="https://mschf.com/">MSCHF</a></li>
+          <li><a href="https://wiki.xxiivv.com/site/merveilles.html">Merveilles</a></li>
+          <li><a href="https://panic.com/">Panic</a></li>
+        </ul>
+      </section>
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .now-page-current {
-    margin-bottom: 2rem;
+  .colophon {
+    max-width: var(--sp-measure);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-12);
+    padding-bottom: var(--sp-space-16);
   }
-  .now-history-heading {
-    font-size: 0.8em;
-    font-family: var(--site-font-mono, "Sono", monospace);
-    margin-bottom: 0.75rem;
-    background: var(--color-glowing-highlight, currentColor);
-    width: fit-content;
-    text-transform: uppercase;
-    padding: 0.25em 0.5em;
-    border-radius: 0.25em;
-  }
-  .now-feed {
-    list-style: none;
-    padding: 0;
+
+  .colophon p {
     margin: 0;
   }
-  .now-feed-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+
+  .colophon-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-3);
   }
-  .now-feed-item:last-child {
-    border-bottom: none;
-  }
-  .now-feed-date {
-    display: block;
-    font-size: 0.9rem;
-    opacity: 0.85;
-    margin-bottom: 0.5rem;
-  }
-  .now-feed-bullets {
-    list-style: none;
-    padding: 0;
+
+  .colophon-intro h1 {
     margin: 0;
   }
-  .now-feed-bullet {
-    margin: 0.25em 0;
+
+  .colophon-lede {
+    font-size: var(--sp-text-lg);
+    line-height: 1.5;
+  }
+
+  .colophon-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-4);
+  }
+
+  .colophon-section h2 {
+    margin: 0;
+    font-size: var(--sp-text-xl);
     line-height: 1.3;
+    padding-bottom: var(--sp-space-2);
+    border-bottom: 1px dashed var(--sp-color-accent);
+  }
+
+  /* Label / value rows: Sono label on the left, Vulf text on the right. */
+  .colophon-list {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: var(--sp-space-4) var(--sp-space-6);
+    margin: 0;
+  }
+
+  .colophon-list dt {
+    font-family: var(--sp-font-mono);
+    font-size: var(--sp-text-sm);
+    line-height: var(--sp-leading-body);
+    color: var(--sp-color-text-subtle);
+    /* Nudge the smaller label onto the first line's baseline. */
+    padding-top: 0.1em;
+  }
+
+  .colophon-list dd {
+    margin: 0;
+    line-height: var(--sp-leading-body);
+  }
+
+  .colophon-details {
+    margin: 0;
+    padding-left: var(--sp-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-3);
+    line-height: var(--sp-leading-body);
+  }
+
+  .colophon-details li {
+    margin: 0;
+    list-style: disc;
+  }
+
+  .colophon-details li::marker {
+    color: var(--sp-color-accent);
+  }
+
+  .colophon-note {
+    color: var(--sp-color-text-subtle);
+    font-style: italic;
+  }
+
+  .colophon-people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+    gap: var(--sp-space-2) var(--sp-space-6);
+  }
+
+  .colophon-people li {
+    margin: 0;
+  }
+
+  .colophon-mono {
+    font-family: var(--sp-font-mono);
+    font-size: 0.9em;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 600px) {
+    .colophon {
+      gap: var(--sp-space-8);
+    }
+
+    .colophon-list {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .colophon-list dt {
+      padding-top: 0;
+    }
+
+    .colophon-list dd + dt {
+      margin-top: var(--sp-space-4);
+    }
   }
 </style>
