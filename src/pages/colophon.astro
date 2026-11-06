@@ -8,75 +8,95 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <div class="one-column">
     <div class="headerContainer home textContent">
-      <div class="textContent">
-        <h1 class="uniform">(colophon)</h1>
-        <p><i>how this site & my practices have been made.</i></p>
-        <h2>Site</h2>
-        <p>
-          The site is built with <a href="https://astro.build/">Astro</a>,
-          React, and <a href="https://playhtml.fun/">playhtml</a>, and hosted on
-          Cloudflare. The fonts are Vulf by Oh No! Type Co. and Sono by Simon
-          Høiberg. The background
-          texture is a photo of the sunlight seeping through my jacket lining
-          from a sunny day in Alamo Square.
-        </p>
-        <h2>Inspirations</h2>
-        <ul>
-          <li>
-            Thank you to <a href="https://robinsloan.com/">Robin Sloan</a> for inspiring me to add the "invited_by_Spencer_Chang" UTM source
-            to all my outbound links as he does.
-          </li>
-        </ul>
-        <h2>People</h2>
-        <p>
-          a non-exhaustive, sporadically updated list of people who have
-          inspired me
-        </p>
+      <div class="textContent colophon">
+        <header class="colophon-intro">
+          <h1 class="uniform">(colophon)</h1>
+          <p><i>how this site & my practices have been made.</i></p>
+        </header>
+
+        <section class="colophon-section">
+          <h2>Site</h2>
+          <p>
+            The site is built with <a href="https://astro.build/">Astro</a>,
+            React, and <a href="https://playhtml.fun/">playhtml</a>, and hosted
+            on Cloudflare. The fonts are Vulf by Oh No! Type Co. and Sono by
+            Tyler Finck. The background texture is a photo of the sunlight
+            seeping through my jacket lining from a sunny day in Alamo Square.
+          </p>
+          <p>
+            The status line comes from
+            <a href="/creation/statusspencerchangme">my status feed</a>. The
+            source is open on
+            <a href="https://github.com/spencerc99/home">GitHub</a>.
+          </p>
+          <p>
+            playhtml is what makes the site feel alive: you'll see other
+            visitors' cursors on the same page, and you can leave a note in the
+            guestbook on the <a href="/about">about page</a>.
+          </p>
+        </section>
+
+        <section class="colophon-section">
+          <h2>Inspirations</h2>
+          <ul>
+            <li>
+              Thank you to <a href="https://robinsloan.com/">Robin Sloan</a> for
+              inspiring me to add the "invited_by_Spencer_Chang" UTM source to
+              all my outbound links as he does.
+            </li>
+          </ul>
+        </section>
+
+        <section class="colophon-section">
+          <h2>People</h2>
+          <p>
+            a non-exhaustive, sporadically updated list of people who have
+            inspired me
+          </p>
+        </section>
       </div>
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .now-page-current {
-    margin-bottom: 2rem;
+  .colophon {
+    max-width: var(--sp-measure);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-8);
   }
-  .now-history-heading {
-    font-size: 0.8em;
-    font-family: var(--site-font-mono, "Sono", monospace);
-    margin-bottom: 0.75rem;
-    background: var(--color-glowing-highlight, currentColor);
-    width: fit-content;
-    text-transform: uppercase;
-    padding: 0.25em 0.5em;
-    border-radius: 0.25em;
-  }
-  .now-feed {
-    list-style: none;
-    padding: 0;
+
+  .colophon p,
+  .colophon h1,
+  .colophon h2,
+  .colophon ul {
     margin: 0;
   }
-  .now-feed-item {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border, rgba(255, 255, 255, 0.1));
+
+  .colophon-intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-3);
   }
-  .now-feed-item:last-child {
-    border-bottom: none;
+
+  .colophon-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-3);
+    line-height: var(--sp-leading-body);
   }
-  .now-feed-date {
-    display: block;
-    font-size: 0.9rem;
-    opacity: 0.85;
-    margin-bottom: 0.5rem;
+
+  .colophon-section ul {
+    padding-left: var(--sp-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-space-3);
   }
-  .now-feed-bullets {
-    list-style: none;
-    padding: 0;
+
+  .colophon-section li {
     margin: 0;
+    line-height: var(--sp-leading-body);
   }
-  .now-feed-bullet {
-    margin: 0.25em 0;
-    line-height: 1.3;
-  }
+
 </style>
