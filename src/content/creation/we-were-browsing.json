@@ -21,7 +21,8 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-tk7OgBYwkk/10d606c789ef638643a40172c42ce3c5df34226ac5df51d147a875a4fbcf39e137ada058dfc16ed6447073073c17e4f6b895f96c0c23ef1d61caf61a43633a02da17c57459638eb3fbf29b15a5c97f6adc9678faa6ff35c82b95c345152647162d00cb66",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-5zZFsPVvcp/abfe843219c18b16b0b58730a54579c01deec46220919a73759cbfff25a1fbab47d65262283406b05559469211a46648040984200124299422398e40d2f97ee8d739bd2f5bc35f2202815cc5f3f1b5a6ca7910eb25189ae2014b7ccc3df8460138308d26",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-jXCAcaFYLn/1ede2786226500684c34106c485066bcc2af63bb24c994b30efda528af7af0cd85b548df2135513b1e1d4e44746542a50250b3915017db1201d17a852d6ea62c0982be41c92cacd3439928a8b04ad1e4c2d1d46a84a1b04cc239bc094f5e5ff8a5de00b2",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-aOA51hy3ph/7a2567ac2f358eb2eaa2e3d78af1313f7f6bbba4bff3f68371b68d824114e4ceeed15e4ffaed76f69134158542dda653de9622974fb4732d0dae3b20c27872c818da85b95734e17a80e820e7a86a5d3b21258c8a56b11c8001fce4a30da392617539a0b1"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-aOA51hy3ph/7a2567ac2f358eb2eaa2e3d78af1313f7f6bbba4bff3f68371b68d824114e4ceeed15e4ffaed76f69134158542dda653de9622974fb4732d0dae3b20c27872c818da85b95734e17a80e820e7a86a5d3b21258c8a56b11c8001fce4a30da392617539a0b1",
+    "/creation-videos/bl-PiG8vRlvyN.mp4"
   ],
   "link": "https://wewere.online/portrait/",
   "materials": "Custom software, browser extension, millions of datapoints from daily internet browsing",
@@ -40,6 +41,7 @@
     "install at Ars Electronica",
     "",
     "",
+    "",
     ""
   ],
   "isEvent": false,
@@ -56,7 +58,8 @@
     "image",
     "image",
     "image",
-    "image"
+    "image",
+    "video"
   ],
   "related": [
     {
