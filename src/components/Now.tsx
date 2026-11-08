@@ -44,7 +44,7 @@ export function NowBlock({ entry, showHistoryLink = true }: NowBlockProps) {
       ))}
       {showHistoryLink && (
         <div style={{ textAlign: "right", marginTop: "0.5em" }}>
-          <a href="/now" className="descriptionText" style={{ fontSize: "0.9em", opacity: 0.85 }}>
+          <a href="/now" className="descriptionText" style={{ opacity: 0.85 }}>
             see history
           </a>
         </div>

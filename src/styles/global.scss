@@ -321,7 +321,7 @@ p {
     font-size: 95%;
   }
   figcaption > & {
-    font-size: 90%;
+    @include type(meta, false);
   }
 }
 
@@ -336,10 +336,10 @@ p {
 }
 
 h1 {
-  font-size: 2em;
+  @include type(title);
   &.uniform.uniform {
     // Page title pattern: "(page)" in mono. rem so it is the same size on every page.
-    font-size: 2rem;
+    @include type(title);
     font-weight: normal;
     @extend .mono;
     color: var(--color-text-accent);
@@ -347,7 +347,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.4em;
+  @include type(heading);
 }
 
 h1,
@@ -608,7 +608,7 @@ footer {
       .avatarDescription {
         grid-row: 2;
         grid-column: 1 / -1;
-        font-size: 0.7em;
+        @include type(label, false);
         line-height: 1.1;
         white-space: nowrap;
       }
@@ -687,7 +687,7 @@ footer {
             max-width: 36ch;
             margin-top: 6px;
             text-align: center;
-            font-size: 0.8em;
+            @include type(label);
             font-style: italic;
             color: var(--color-text-muted);
             line-height: 1.35;
@@ -762,7 +762,7 @@ footer {
 
   a:not(.socialMediaLink):not(.avatarLink) {
     color: var(--color-text-accent) !important;
-    font-size: 90%;
+    @include type(meta, false);
   }
 
   // events keep the default orange (internal) / green (external) link styling
@@ -852,7 +852,7 @@ footer {
   font-weight: 500;
   display: flex;
   align-items: center;
-  font-size: 1.2em;
+  @include type(lead, false);
   white-space: nowrap;
 }
 
@@ -1207,7 +1207,7 @@ details div {
   margin-bottom: 0px;
 
   i {
-    font-size: 90%;
+    @include type(meta, false);
     display: inline-flex;
     vertical-align: middle;
   }
@@ -1301,7 +1301,7 @@ section.footnotes {
 
     // copy over default h3 styling
     display: block;
-    font-size: 1.17em;
+    @include type(lead);
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
@@ -1499,7 +1499,7 @@ ul.noPadding {
 }
 
 .galleryCaption {
-  font-size: 90%;
+  @include type(meta);
   font-style: italic;
   color: var(--co);
   text-align: right;
@@ -1630,7 +1630,7 @@ ul.noPadding {
 .clickme {
   position: absolute;
   left: 334px;
-  font-size: 10px;
+  @include type(label);
   top: -6px;
   transform: rotate(33deg);
 }
@@ -1639,7 +1639,7 @@ ul.noPadding {
   animation: 4s jiggle-animation 5;
   animation-delay: 1s;
   margin-bottom: 0px;
-  font-size: 1.2em;
+  @include type(lead);
   margin-top: 0;
   position: relative;
 }
@@ -1706,7 +1706,7 @@ ul.noPadding {
 button {
   border-radius: 16px;
   font-family: $site-font;
-  font-size: $default-font-size * 0.9;
+  @include type(meta, false);
   background: var(--color-background-lavender);
   border: 1px solid var(--color-text-color);
   padding: 2px 8px;
@@ -1865,7 +1865,7 @@ button {
   z-index: 1; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
   bottom: 30px; /* 30px from the bottom */
-  font-size: 90%;
+  @include type(meta);
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -1953,7 +1953,7 @@ button {
   position: fixed;
   bottom: 0px;
   width: 100%;
-  font-size: 0.7em;
+  @include type(label, false);
   margin: 0 auto;
   white-space: nowrap;
   overflow: hidden;
@@ -1965,7 +1965,7 @@ button {
 
   @extend .mono;
   @include media(xsmallScreen, smallScreen) {
-    font-size: 0.6em;
+    @include type(label, false);
   }
 }
 
@@ -2259,7 +2259,7 @@ hr.separator {
 }
 
 #custom-substack-embed .error {
-  font-size: 0.8em !important;
+  font-size: var(--sp-type-meta-size) !important;
 }
 
 .custom-substack-widget {
@@ -2280,7 +2280,7 @@ hr.separator {
 
 .descriptionText {
   margin-top: 4px;
-  font-size: 0.75em;
+  @include type(label, false);
   color: var(--color-text-muted);
   line-height: 1.2;
 }
@@ -2500,7 +2500,7 @@ summary {
   position: absolute;
 
   margin-bottom: 8px;
-  font-size: 0.8em;
+  @include type(label, false);
   box-shadow: 0px 0px 10px 4px rgba(255, 235, 12, 0.5);
 
   @extend .mono;
@@ -2542,7 +2542,7 @@ ul {
 .caption.caption {
   text-align: center;
   @extend .sans-serif;
-  font-size: 12px;
+  @include type(label, false);
 }
 
 .medium-zoom-overlay {
@@ -2575,7 +2575,7 @@ ul {
   padding-top: 3em;
   text-align: center;
   width: 18em;
-  font-size: 0.6em;
+  @include type(label, false);
   padding-right: 1em;
   top: -29px;
   transform: rotate(45deg);
@@ -2753,7 +2753,7 @@ details {
 
 .home {
   // 16px: Vulf's x-height is ~15% taller than the 18px Cooper this used to be.
-  font-size: 16px;
+  @include type(body, false);
   width: 100%;
   margin-left: auto;
   margin-right: auto;

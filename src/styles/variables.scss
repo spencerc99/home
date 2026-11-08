@@ -43,6 +43,20 @@ $default-font-size: 16px;
 // $scaled-font-size: calc(min(max(18px, .75vw), 20px));
 $paragraph-vertical-margin: 24px;
 $default-line-height: 1.6;
+
+// Type scale, named by job (rem so sizes never compound like em/% did).
+// label: tags, stamps, counters | meta: dates, captions, sidebar
+// body: running text | lead: intros, card titles | heading: h2
+// title: page titles | display: one big moment per page
+$type-scale: (
+  label: (size: 0.75rem, leading: 1.3),
+  meta: (size: 0.875rem, leading: 1.4),
+  body: (size: 1rem, leading: 1.6),
+  lead: (size: 1.25rem, leading: 1.5),
+  heading: (size: 1.5625rem, leading: 1.3),
+  title: (size: 2rem, leading: 1.2),
+  display: (size: 3rem, leading: 1.1),
+);
 $navbar-zindex: 999;
 $color-text-color: #282828;
 $color-text-color-white: rgb(235, 232, 227);
@@ -100,14 +114,12 @@ $color-green-background-dark: rgb(12 70 15 / 66%);
   --sp-font-body: #{$site-font};
   --sp-font-mono: #{$site-font-mono}, monospace;
 
-  // Type scale: 1.25 ratio on a 16px base.
-  --sp-text-xs: 0.75rem;
-  --sp-text-sm: 0.875rem;
-  --sp-text-base: 1rem;
-  --sp-text-lg: 1.25rem;
-  --sp-text-xl: 1.5625rem;
-  --sp-text-2xl: 1.953rem;
-  --sp-text-3xl: 2.441rem;
+  // Type scale: seven sizes named by job. Use `@include type(<name>)` in SCSS,
+  // or var(--sp-type-<name>-size) in plain CSS. Don't add new sizes.
+  @each $name, $t in $type-scale {
+    --sp-type-#{$name}-size: #{map-get($t, size)};
+    --sp-type-#{$name}-leading: #{map-get($t, leading)};
+  }
   --sp-leading-tight: 1.2;
   --sp-leading-snug: 1.4;
   --sp-leading-body: #{$default-line-height};

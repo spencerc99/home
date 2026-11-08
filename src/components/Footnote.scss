@@ -17,7 +17,7 @@
   vertical-align: super; // Superscript styling for the asterisk or image
   text-decoration: none !important;
   display: inline;
-  font-size: 90%;
+  font-size: var(--sp-type-label-size);
   &.hasHover {
     text-shadow: 0 0 4px var(--color-glowing-highlight);
     filter: drop-shadow(0 0 3px var(--color-glowing-highlight));
@@ -44,7 +44,7 @@
   gap: 6px;
 
   .footnote-caption {
-    font-size: 14px;
+    font-size: var(--sp-type-meta-size);
     font-family: $site-font;
     padding: 0.25em 0.4em;
     padding-bottom: 0.4em;

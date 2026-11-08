@@ -1,5 +1,17 @@
 @import "./variables.scss";
 
+// Sets size + line height for one job in the type scale (see variables.scss).
+// Pass $leading: false for inline bits that should keep their parent's line height.
+@mixin type($name, $leading: true) {
+  @if not map-has-key($type-scale, $name) {
+    @error "Unknown type size `#{$name}`. Use one of: #{map-keys($type-scale)}";
+  }
+  font-size: var(--sp-type-#{$name}-size);
+  @if $leading {
+    line-height: var(--sp-type-#{$name}-leading);
+  }
+}
+
 .mono {
   font-family: $site-font-mono !important;
 }
@@ -76,9 +88,9 @@ $screenMaxWidths: (
 @mixin meta-content() {
   color: var(--color-text-accent);
   @extend .sans-serif;
-  font-size: 90%;
+  @include type(meta, false);
   &.small {
-    font-size: 80%;
+    @include type(label, false);
   }
 }
 

@@ -366,7 +366,7 @@ function ArrivalNotification() {
           borderRadius: "3em",
           boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
           fontFamily: "inherit",
-          fontSize: "0.95rem",
+          fontSize: "var(--sp-type-meta-size)",
           pointerEvents: "none",
         }}
       >
@@ -390,7 +390,7 @@ function InteractHint({ x, y }: { x: number; y: number }) {
         pointerEvents: "none",
         animation: "arrival-fade-in 0.3s ease-out",
         fontFamily: "monospace",
-        fontSize: "0.75rem",
+        fontSize: "var(--sp-type-label-size)",
         color: "var(--color-text-color, #666)",
         opacity: 0.8,
         whiteSpace: "nowrap",
@@ -402,7 +402,7 @@ function InteractHint({ x, y }: { x: number; y: number }) {
           border: "1px solid currentColor",
           borderRadius: "3px",
           padding: "0 4px",
-          fontSize: "0.7rem",
+          fontSize: "var(--sp-type-label-size)",
         }}
       >
         E
@@ -509,7 +509,7 @@ function EmoteMenu({
               alignItems: "center",
               justifyContent: "center",
               fontFamily: "monospace",
-              fontSize: "0.7rem",
+              fontSize: "var(--sp-type-label-size)",
               color: "var(--color-text-color, #333)",
               padding: 0,
               transition: "transform 0.1s ease, background 0.1s ease",
@@ -522,7 +522,7 @@ function EmoteMenu({
               (e.target as HTMLElement).style.transform = "scale(1)";
             }}
           >
-            <span style={{ fontSize: ".8rem", lineHeight: 1 }}>
+            <span style={{ fontSize: "var(--sp-type-label-size)", lineHeight: 1 }}>
               {item.icon}
             </span>
             <span

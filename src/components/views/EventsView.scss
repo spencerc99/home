@@ -32,7 +32,7 @@
 
 .event-year-group {
   .year-header {
-    font-size: 14px;
+    font-size: var(--sp-type-meta-size);
     font-weight: normal;
     font-style: italic;
     opacity: 0.5;
@@ -55,7 +55,7 @@
     flex-direction: column;
 
     .event-meta {
-      font-size: 14px;
+      font-size: var(--sp-type-meta-size);
       white-space: nowrap;
 
       @include media(xsmallScreen) {
