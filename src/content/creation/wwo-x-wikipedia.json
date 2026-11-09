@@ -27,6 +27,12 @@
   ],
   "related": [
     {
+      "title": "playhtml",
+      "slug": "playhtml",
+      "link": "https://playhtml.fun/",
+      "parentCategory": "Project"
+    },
+    {
       "title": "we were online",
       "slug": "we-were-online",
       "link": "https://wewere.online/",

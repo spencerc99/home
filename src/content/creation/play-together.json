@@ -1,5 +1,6 @@
 {
-  "title": "Play Together: From Personal to Communal Computing",
+  "title": "Play Together",
+  "subtext": "Participatory talk at the National Communication Museum",
   "parentCategory": "Talks & Teaching",
   "categories": [
     "Art"
@@ -8,12 +9,18 @@
   "institution": [
     "National Communication Museum (NCM)"
   ],
-  "media": [],
+  "heroImage": "https://cdn.sanity.io/images/gqf9k77w/production/fe69d2e3723fbb4a020421dc73d0daca2bf16c0b-11523x8642.jpg",
+  "media": [
+    "https://cdn.sanity.io/images/gqf9k77w/production/fe69d2e3723fbb4a020421dc73d0daca2bf16c0b-11523x8642.jpg"
+  ],
+  "link": "https://ncm.org.au/events/participatory-talk-with-spencer-chang",
   "ongoing": false,
   "featured": false,
   "imageDescriptions": [],
   "isEvent": true,
-  "mediaMetadata": [],
+  "mediaMetadata": [
+    "image"
+  ],
   "related": [
     {
       "title": "Artist Talk - Perpetual Motion Machine",

@@ -143,6 +143,18 @@
       "parentCategory": "Project"
     },
     {
+      "title": "CMU.PLACE",
+      "slug": "cmuplace",
+      "link": "https://cmu.place",
+      "parentCategory": "Project"
+    },
+    {
+      "title": "WWO x Wikipedia",
+      "slug": "wwo-x-wikipedia",
+      "link": "https://www.instagram.com/p/DYpRnRAORbE/",
+      "parentCategory": "Collaboration"
+    },
+    {
       "title": "minute faces (together)",
       "slug": "minute-faces-(together)",
       "link": "https://playhtml.fun/experiments/5/",
