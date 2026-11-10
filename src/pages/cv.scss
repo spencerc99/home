@@ -45,7 +45,7 @@
 
   .cv-contact {
     margin-top: 0.25em;
-    font-size: 0.9em;
+    font-size: var(--sp-type-meta-size);
   }
 }
 
@@ -53,7 +53,7 @@
   margin-bottom: 2em;
 
   h2 {
-    font-size: 1.4em;
+    font-size: var(--sp-type-heading-size);
     font-weight: 600;
     margin: 0 0 0.5em;
     text-transform: uppercase;
@@ -92,7 +92,7 @@
 
 .cv-entry {
   line-height: 1.4;
-  font-size: 0.95em;
+  font-size: var(--sp-type-body-size);
 }
 
 .cv-forthcoming {
@@ -101,7 +101,7 @@
 
 .cv-date-range {
   opacity: 0.6;
-  font-size: 0.85em;
+  font-size: var(--sp-type-meta-size);
 }
 
 .cv-location {
@@ -123,7 +123,7 @@
 
   li {
     line-height: 1.4;
-    font-size: 0.95em;
+    font-size: var(--sp-type-body-size);
   }
 }
 
@@ -167,7 +167,7 @@
 }
 
 .cv-job-content {
-  font-size: 0.95em;
+  font-size: var(--sp-type-body-size);
   line-height: 1.4;
 
   > p {
@@ -193,7 +193,7 @@
     margin-bottom: 0.25em;
   }
   p {
-    font-size: 0.95em;
+    font-size: var(--sp-type-body-size);
     line-height: 1.6;
     max-width: $content-size * 1.5;
     margin: 0.5em 0;

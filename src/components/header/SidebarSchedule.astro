@@ -38,7 +38,7 @@ const upcomingEvents = hydrateCreations(await getCollection("creation"))
     flex-direction: column;
 
     :global(.eventsView) {
-      font-size: 13px;
+      font-size: var(--sp-type-meta-size);
       gap: 1rem;
       flex: 1 1 auto;
       min-height: 0;

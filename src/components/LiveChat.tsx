@@ -407,7 +407,7 @@ export function LiveChat() {
             <span>
               ✦ spencer.place chat
               {unreadCount > 0 && (
-                <span style={{ fontSize: "10px", opacity: 0.7 }}>
+                <span style={{ fontSize: "var(--sp-type-label-size)", opacity: 0.7 }}>
                   {" "}
                   ({unreadCount})
                 </span>

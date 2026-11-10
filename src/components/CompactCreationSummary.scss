@@ -1,5 +1,5 @@
 .compact-creation-summary {
-  font-size: 16px;
+  font-size: var(--sp-type-body-size);
   h3 {
     color: var(--color-text-muted);
   }
@@ -47,6 +47,6 @@
   }
 
   .creation-link {
-    font-size: 80%;
+    font-size: var(--sp-type-meta-size);
   }
 }

@@ -9,19 +9,23 @@ interface Props extends BaseLayoutProps {
   metaTitle?: string;
   columns?: number;
   stickyColumns?: boolean;
+  /** Narrow, centered column: the title lines up with the content instead of the page's left edge. */
+  narrow?: boolean;
 }
 
-const { title, emojis, titleClass, metaTitle, columns = 2, stickyColumns = false } = Astro.props;
+const { title, emojis, titleClass, metaTitle, columns = 2, stickyColumns = false, narrow = false } = Astro.props;
 ---
 
 <BaseLayout {...{ ...Astro.props, title: metaTitle || title }}>
-  <div class="headerContainer textContent">
-    <h1 class={titleClass}>
-      {title}
-      <PersonalEmoji hideWee={true} inline={true} emojis={emojis} />
-    </h1>
-  </div>
-  <div class={`${columns === 2 ? "two-columns" : "one-column"}${stickyColumns ? " sticky-columns" : ""}`}>
-    <slot />
+  <div class={narrow ? "detailCentered" : undefined}>
+    <div class="headerContainer textContent">
+      <h1 class={titleClass}>
+        {title}
+        <PersonalEmoji hideWee={true} inline={true} emojis={emojis} />
+      </h1>
+    </div>
+    <div class={`${columns === 2 ? "two-columns" : "one-column"}${stickyColumns ? " sticky-columns" : ""}`}>
+      <slot />
+    </div>
   </div>
 </BaseLayout>

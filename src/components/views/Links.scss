@@ -62,7 +62,7 @@
   }
 
   .linkTitle {
-    font-size: 1.05em;
+    font-size: var(--sp-type-body-size);
     text-transform: uppercase;
     transition: color 0.15s ease;
     white-space: nowrap;
@@ -97,7 +97,7 @@
   }
 
   .linkDetail {
-    font-size: 0.8em;
+    font-size: var(--sp-type-meta-size);
     color: var(--color-text-accent);
     white-space: nowrap;
     flex-shrink: 0;
@@ -127,7 +127,7 @@
     }
 
     &__label {
-      font-size: 0.7em;
+      font-size: var(--sp-type-label-size);
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--color-text-accent);
@@ -140,7 +140,7 @@
     }
 
     &__title {
-      font-size: 0.95em;
+      font-size: var(--sp-type-body-size);
       transition: color 0.15s ease;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -150,7 +150,7 @@
 
   .upcomingEvents {
     &__label {
-      font-size: 0.75em;
+      font-size: var(--sp-type-label-size);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--color-text-accent);
