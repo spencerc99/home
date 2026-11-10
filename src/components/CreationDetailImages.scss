@@ -1,0 +1,137 @@
+@import "../styles/mixins.scss";
+
+// Thumbnails in the flow gallery are Ramka triggers (buttons); strip button chrome
+// so they lay out exactly like the old bare images.
+.galleryTrigger {
+  all: unset;
+  // Mirror the parent's flex column so the image shrinks to fit exactly as it
+  // did when it was a direct child.
+  display: flex;
+  flex-direction: column;
+  cursor: zoom-in;
+  max-width: 100%;
+  border-radius: 0.25em;
+
+  &:focus-visible {
+    outline: 2px solid var(--sp-color-accent);
+    outline-offset: 3px;
+  }
+}
+
+// Portal mounts on document.body, so these are top-level. They sit above every
+// site overlay (trinkets bar, construction ribbon).
+.ramkaBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000000;
+  background: var(--color-neutral-background);
+  opacity: calc(0.97 * (1 - var(--lightbox-pull-progress, 0)));
+}
+
+.ramkaContent {
+  position: fixed;
+  inset: 0;
+  z-index: 2000001;
+  overflow: hidden;
+  outline: none;
+}
+
+.ramkaSlides {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ramkaSlide {
+  flex: 0 0 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 3.5em 4em 4em;
+
+  @include media(xsmallScreen, smallScreen) {
+    padding: 3.5em 0.5em 4.5em;
+  }
+}
+
+.ramkaItem {
+  width: 100%;
+  height: 100%;
+
+  img {
+    object-fit: contain;
+    border-radius: 0.25em;
+  }
+}
+
+.ramkaTopBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75em 1em;
+}
+
+.ramkaCounter {
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-meta-size);
+  color: var(--sp-color-text-subtle);
+}
+
+.ramkaButton {
+  all: unset;
+  cursor: pointer;
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-meta-size);
+  color: var(--sp-color-meta);
+  padding: 0.4em 0.6em;
+  border-radius: 0.25em;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--sp-color-accent);
+  }
+  &[data-disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.ramkaPrev,
+.ramkaNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--sp-type-lead-size);
+
+  // Swiping covers navigation on phones.
+  @include media(xsmallScreen, smallScreen) {
+    display: none;
+  }
+}
+.ramkaPrev {
+  left: 0.5em;
+}
+.ramkaNext {
+  right: 0.5em;
+}
+
+.ramkaCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  text-align: center;
+  font-size: var(--sp-type-meta-size);
+  font-style: italic;
+  color: var(--sp-color-text-subtle);
+}
