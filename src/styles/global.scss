@@ -2371,6 +2371,12 @@ video {
   }
 }
 
+.detailCentered {
+  // Narrow centered pages (e.g. /links): title and content share one column.
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .one-column {
   display: grid;
   grid-template-columns: 1fr;
