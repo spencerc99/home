@@ -1510,15 +1510,6 @@ ul.noPadding {
   }
 }
 
-// Photoswipe, hide download button
-.pswp__share-tooltip a.pswp__share--download {
-  display: none;
-}
-
-.pswp img {
-  object-fit: contain;
-}
-
 .imgGallery {
   overflow-x: auto;
   width: 100%;

@@ -1,0 +1,19 @@
+@import "../styles/mixins.scss";
+
+// Thumbnails in the flow gallery are Ramka triggers (buttons); strip button chrome
+// so they lay out exactly like the old bare images.
+.galleryTrigger {
+  all: unset;
+  // Mirror the parent's flex column so the image shrinks to fit exactly as it
+  // did when it was a direct child.
+  display: flex;
+  flex-direction: column;
+  cursor: zoom-in;
+  max-width: 100%;
+  border-radius: 0.25em;
+
+  &:focus-visible {
+    outline: 2px solid var(--sp-color-accent);
+    outline-offset: 3px;
+  }
+}
