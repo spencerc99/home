@@ -1,0 +1,172 @@
+// ABOUTME: Styles for the "met in person" frame and note card (bottom-left, opposite LiveChat).
+// ABOUTME: Uses --sp- tokens; the viewport frame is pointer-events: none so it never blocks the page.
+
+@keyframes met-pop-in {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.met-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  border: 3px dashed var(--sp-color-accent);
+  animation: met-pop-in 0.4s ease-out both;
+}
+
+.met-frame-label {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 0 var(--sp-space-2);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  color: var(--sp-color-accent);
+  white-space: nowrap;
+  top: 1.5px;
+
+  .dark-mode & {
+    background: var(--color-background-dark, #1a1a1a);
+  }
+}
+
+.met-tab,
+.met-card {
+  position: fixed;
+  left: var(--sp-space-3);
+  bottom: var(--sp-space-3);
+  z-index: 9998;
+  font-family: var(--sp-font-body);
+  animation: met-pop-in 0.3s ease-out both;
+  transform-origin: bottom left;
+}
+
+.met-tab {
+  background: var(--sp-color-accent);
+  color: #1a1a1a;
+  border: none;
+  border-radius: var(--sp-radius-pill);
+  padding: var(--sp-space-1) var(--sp-space-3);
+  font-size: var(--sp-type-meta-size);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.met-card {
+  width: 320px;
+  max-width: calc(100vw - 2 * var(--sp-space-3));
+  box-sizing: border-box;
+  background: #fff;
+  border: double 3px #282828;
+
+  .dark-mode & {
+    background: var(--color-background-dark, #1a1a1a);
+    border-color: rgb(235, 232, 227);
+  }
+}
+
+.met-card-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--sp-color-accent);
+  color: #1a1a1a;
+  padding: var(--sp-space-1) var(--sp-space-2);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  font-weight: bold;
+}
+
+.met-card-actions {
+  display: flex;
+  gap: var(--sp-space-1);
+
+  button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0 var(--sp-space-1);
+    line-height: 1;
+  }
+}
+
+.met-card-body {
+  padding: var(--sp-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-2);
+  font-size: var(--sp-type-meta-size);
+  line-height: var(--sp-leading-snug);
+}
+
+.met-card-intro {
+  margin: 0;
+}
+
+.met-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-family: var(--sp-font-mono);
+    font-size: var(--sp-type-label-size);
+    color: var(--sp-color-text-subtle);
+  }
+
+  input,
+  textarea {
+    font-family: var(--sp-font-body);
+    font-size: 16px; // prevent iOS zoom on focus
+    padding: var(--sp-space-1) var(--sp-space-2);
+    border: 1px solid currentColor;
+    border-radius: var(--sp-radius-sm);
+    background: transparent;
+    color: inherit;
+    resize: vertical;
+  }
+}
+
+.met-send {
+  display: block;
+  text-align: center;
+  background: #282828;
+  color: #fff !important;
+  border-radius: var(--sp-radius-sm);
+  padding: var(--sp-space-2);
+  text-decoration: none;
+
+  .dark-mode & {
+    background: rgb(235, 232, 227);
+    color: #1a1a1a !important;
+  }
+}
+
+.met-card-meta {
+  margin: 0;
+  font-size: var(--sp-type-label-size);
+  color: var(--sp-color-text-subtle);
+}
+
+.met-copy {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
