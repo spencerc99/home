@@ -1,0 +1,19 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Chang;Spencer;;;
+FN:Spencer Chang
+NICKNAME:張正
+EMAIL;TYPE=INTERNET:hi@spencer.place
+URL:https://spencer.place
+item1.URL:https://www.instagram.com/spence.r.chang/
+item1.X-ABLabel:instagram
+item2.URL:https://bsky.app/profile/spencer.place
+item2.X-ABLabel:bluesky
+item3.URL:https://www.tiktok.com/@spencer.place
+item3.X-ABLabel:tiktok
+item4.URL:https://twitter.com/spencerc99
+item4.X-ABLabel:twitter
+item5.URL:https://news.spencer.place
+item5.X-ABLabel:newsletter
+NOTE:we met in person! spencer.place/met
+END:VCARD

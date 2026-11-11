@@ -1,24 +1,20 @@
-// ABOUTME: State for the "met in person" frame shown to people who scan Spencer's NFC keychain.
+// ABOUTME: State for people who tapped Spencer's NFC keychain (lands on /met, or any page with ?met).
 // ABOUTME: Nanostores keep it alive across view transitions; localStorage remembers the visitor.
 
 import { atom } from "nanostores";
 
-export const MET_PARAM = "met";
+export const MET_PATH = "/met";
+const LEGACY_PARAM = "met"; // ?met / ?met=<tag> on any page redirects to /met
+const TAG_PARAM = "at"; // /met?at=zine-fair tags where we met
 const STORAGE_KEY = "sp-met-in-person";
 
 export interface MetRecord {
-  firstScan: number; // ms timestamp of the first scan on this device
-  lastScan: number;
-  scans: number;
-  tag?: string; // optional value of ?met=<tag>, e.g. an event name
-  dismissed?: boolean;
-  sent?: boolean; // visitor opened the email draft
-  draft?: { name: string; note: string };
+  firstScan: number; // ms timestamp of the first visit to /met on this device
+  tag?: string;
+  dismissed?: boolean; // closed the minimized bar; a new scan brings it back
+  draft?: { name: string; note: string; reach: string };
 }
 
-// Whether the frame is mounted at all this session.
-export const $metActive = atom(false);
-export const $metCollapsed = atom(false);
 export const $metRecord = atom<MetRecord | null>(null);
 
 function read(): MetRecord | null {
@@ -40,35 +36,45 @@ export function saveMetRecord(update: Partial<MetRecord>) {
   } catch {}
 }
 
-// Reads ?met from the URL (and strips it so shared links don't carry it),
-// then decides whether to show the frame. Safe to call on every page load.
+export function isMetPage(pathname = window.location.pathname) {
+  return pathname.replace(/\/$/, "") === MET_PATH;
+}
+
+let initialized = false;
+
+// Call on every page load. Records a scan when the visitor lands on /met,
+// redirects old ?met links there, and loads the remembered record otherwise.
 export function initMetInPerson() {
-  if ($metRecord.get()) return; // already initialized this session
-
   const url = new URL(window.location.href);
-  const scanned = url.searchParams.has(MET_PARAM);
-  const tag = url.searchParams.get(MET_PARAM) || undefined;
-  const existing = read();
 
-  if (scanned) {
-    url.searchParams.delete(MET_PARAM);
-    history.replaceState(history.state, "", url.toString());
-
-    const now = Date.now();
-    const record: MetRecord = existing
-      ? { ...existing, lastScan: now, scans: existing.scans + 1, dismissed: false, tag: tag ?? existing.tag }
-      : { firstScan: now, lastScan: now, scans: 1, tag };
-    $metRecord.set(record);
-    saveMetRecord({});
-    $metActive.set(true);
-    $metCollapsed.set(false);
+  if (url.searchParams.has(LEGACY_PARAM)) {
+    const tag = url.searchParams.get(LEGACY_PARAM);
+    const target = new URL(MET_PATH, url.origin);
+    if (tag) target.searchParams.set(TAG_PARAM, tag);
+    window.location.replace(target.toString());
     return;
   }
 
-  // Returning visitor who scanned before: show a collapsed tab unless they closed it.
-  if (existing && !existing.dismissed) {
-    $metRecord.set(existing);
-    $metActive.set(true);
-    $metCollapsed.set(true);
+  if (isMetPage(url.pathname)) {
+    const tag = url.searchParams.get(TAG_PARAM) || undefined;
+    const existing = $metRecord.get() ?? read();
+    // Landing on /met (re)opens the frame; the first visit is remembered as when we met.
+    $metRecord.set(
+      existing
+        ? { ...existing, dismissed: false, tag: tag ?? existing.tag }
+        : { firstScan: Date.now(), tag },
+    );
+    saveMetRecord({});
+    if (tag) {
+      url.searchParams.delete(TAG_PARAM);
+      history.replaceState(history.state, "", url.toString());
+    }
+    initialized = true;
+    return;
+  }
+
+  if (!initialized) {
+    $metRecord.set(read());
+    initialized = true;
   }
 }

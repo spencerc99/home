@@ -1,0 +1,26 @@
+---
+// ABOUTME: Landing page for Spencer's NFC keychain: write a note about how we met and save his contact.
+// ABOUTME: The site-wide MetInPerson frame records the scan; this page holds the windows.
+import DetailLayout from "../layouts/DetailLayout.astro";
+import { MetPage } from "../components/MetPage";
+
+const LayoutProps = {
+  title: "(we met)",
+  description: "you tapped my keychain, which means we met in real life",
+  metaTitle: "we met ꜱᴘᴇɴᴄᴇʀ",
+  emojis: [],
+  titleClass: "uniform",
+  columns: 1,
+};
+---
+
+<DetailLayout {...LayoutProps}>
+  <p class="met-subtitle"><em>you tapped my keychain, which means we met in real life.</em></p>
+  <MetPage client:only="react" />
+</DetailLayout>
+
+<style>
+  .met-subtitle {
+    margin-top: 0;
+  }
+</style>
