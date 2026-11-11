@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import * as Lightbox from "@ramka/react/lightbox";
 import { ImageOrVideo } from "./ImageOrVideo";
+import { GalleryViewer, type GalleryItem } from "./GalleryLightbox";
 import "./CreationDetailImages.scss";
 
 function GalleryThumb({
@@ -38,7 +39,7 @@ export function CreationDetailImages({
   if (images.length <= 1) return null;
 
   // Only images go in the lightbox. Map each media index to its lightbox index.
-  const lightboxItems: { src: string; caption?: string }[] = [];
+  const lightboxItems: GalleryItem[] = [];
   const lightboxIndexFor = images.map((src, idx) => {
     if (metadata[idx] === "video") return -1;
     lightboxItems.push({ src, caption: descriptions?.[idx] || undefined });
@@ -82,51 +83,7 @@ export function CreationDetailImages({
         ))}
       </div>
 
-      <Lightbox.Portal>
-        <Lightbox.Backdrop className="ramkaBackdrop" />
-        <Lightbox.Content className="ramkaContent" aria-label="Image viewer">
-          <Lightbox.Slides
-            className="ramkaSlides"
-            aria-label="Images"
-            aria-roledescription="carousel"
-          >
-            {lightboxItems.map((item, i) => (
-              <Lightbox.Slide key={item.src} className="ramkaSlide">
-                <Lightbox.Item
-                  index={i}
-                  caption={item.caption}
-                  className="ramkaItem"
-                  aria-roledescription="slide"
-                  aria-label={`${i + 1} of ${total}`}
-                >
-                  <Lightbox.Zoom>
-                    <Lightbox.Media>
-                      <img src={item.src} alt={item.caption ?? ""} />
-                    </Lightbox.Media>
-                  </Lightbox.Zoom>
-                </Lightbox.Item>
-              </Lightbox.Slide>
-            ))}
-          </Lightbox.Slides>
-
-          <div className="ramkaTopBar">
-            <Lightbox.Counter className="ramkaCounter" />
-            <Lightbox.Close className="ramkaButton" aria-label="Close">
-              close
-            </Lightbox.Close>
-          </div>
-          <Lightbox.Previous
-            className="ramkaButton ramkaPrev"
-            aria-label="Previous image"
-          >
-            ←
-          </Lightbox.Previous>
-          <Lightbox.Next className="ramkaButton ramkaNext" aria-label="Next image">
-            →
-          </Lightbox.Next>
-          <Lightbox.Caption className="ramkaCaption" />
-        </Lightbox.Content>
-      </Lightbox.Portal>
+      <GalleryViewer items={lightboxItems} />
     </Lightbox.Root>
   );
 }
