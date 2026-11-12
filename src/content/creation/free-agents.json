@@ -22,13 +22,19 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-vhCg8Nuytt/43193aaa7ca59ea42fa33f63a31eb6f883ba77736fb7838a2df4eed1af149d341eb6e475eac677a70586bccacc71364f4502b2b70728552a7682e2f20fbd9e07a26d45312f5bef8f67f7a4b1a543a65375914942aad813ea9a0f5640ae9c602d015bcc5d",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-Sj7-IHH8gF/1e43cf445487b5ce6a16888b0308668f05e270120078a7c46e60df97f64ee86e179cc5a64c3c38c8e30dc0251a5640b2de57c2b919daab842ea7c291c6fe7383237d4010286b40da44aceaee3835ddf7cffb0273e62da1572319b9091fb98bcccbda6f96",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-0kmONxe8vf/52cec91a900ad24694a31668305ad1cbd7de1aade5d8a7aa72a0056123ca43d5d35948057ce883076ab25f29120f9420cbc5fe3d824ca22fdcfd3165f9dd254ac53b37d07643be09ca6c604ccfeeb41a2347f787b73fdc36f4f152e66912207fba7645a0",
-    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-fod-AxHJyC/817b233f00698862690a7493ba9e3e7da0f6a4f2e060dcef91327c71d39f902f36741c2be57c9bb01c3464cb5aaa836c4b25b1657059cd0af8bfdb6409a0c4bd67b3d5eede890f3b448c5951eacc48d807113f4720be4025e3f8429caa2ee3b3bc38d260"
+    "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-fod-AxHJyC/817b233f00698862690a7493ba9e3e7da0f6a4f2e060dcef91327c71d39f902f36741c2be57c9bb01c3464cb5aaa836c4b25b1657059cd0af8bfdb6409a0c4bd67b3d5eede890f3b448c5951eacc48d807113f4720be4025e3f8429caa2ee3b3bc38d260",
+    "/creation-videos/bl-_1DHAWsaB2.mp4",
+    "/creation-videos/bl-xtll1PGCo5.mp4",
+    "/creation-videos/bl-izo9xNdtHP.mp4"
   ],
   "materials": "custom software, machine intelligence agents, iPhones, Mac minis, home furnishings (mirror, couch, desk), plaster casts of the artist's hands and arm",
   "ongoing": false,
   "featured": true,
   "imageDescriptions": [
     "Photos by Barak Shrama",
+    "",
+    "",
+    "",
     "",
     "",
     "",
@@ -50,7 +56,10 @@
     "image",
     "image",
     "image",
-    "image"
+    "image",
+    "video",
+    "video",
+    "video"
   ],
   "related": [
     {
