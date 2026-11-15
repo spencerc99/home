@@ -1,7 +1,7 @@
 {
   "title": "Webcollages",
   "subtext": "a collection of sketches made with found browsing materials",
-  "descriptionMd": "*browsing collages* are sketches made entirely using materials found while browsing (images, buttons, headings, etc.) saved by [we were online](https://spencer.place/creation/we-were-online/).\n&nbsp;\nEvery element keeps its provenance, so anything in a collage can be traced back to the page (and the people) it came from. Each collage becomes an artifact representing a browsing session, the questions and interests I chased, arranged into a meaningful composition.\n&nbsp;\nInspired by David Hockney’s [photographic collages](https://www.hockney.com/index.php/works/photos/photographic-collages) and other artists leveraging found internet imagery like [ODESSO](https://www.instagram.com/odessoart/), these assemblages explore the everyday, personal imagery that makes up so much of our internet life and provides a tool for others to create with the materials that hold so much of our attention. ",
+  "descriptionMd": "*browsing collages* are sketches made entirely using materials found while browsing (images, buttons, headings, etc.) saved by [we were online](https://spencer.place/creation/we-were-online/).\n&nbsp;\nEvery element keeps its provenance, so anything in a collage can be traced back to the page (and the people) it came from. Each collage becomes an artifact representing a browsing session, the questions and interests I chased, arranged into a meaningful composition.\n&nbsp;\nInspired by David Hockney’s [photographic collages](https://www.hockney.com/index.php/works/photos/photographic-collages) and Kurt Schwitters' Merz assemblages, these compositions explore the everyday, personal imagery that makes up so much of our internet life and provides a tool for others to create with the materials that hold so much of our attention. ",
   "parentCategory": "Project",
   "categories": [
     "Art"
@@ -21,6 +21,7 @@
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-F7DETqq93Z/789185613834bc5e43dda3fe9658eb48f044069fe24e452f53eeb739ec0efc7d7f7c2b2e4b3e9bb25950d2f2f7b26689bf6c43459136b2fe4a59a5dc29aec22affc0595338e6cd700bbf9063364852ca3e66ccc787c35299a684656cf25f81f6ee98301d",
     "https://codaio.imgix.net/docs/_ObKm8enqO/blobs/bl-hH_M-Ay6Q8/5e3dff0ce152b32a768d120a7aad3f6dbfb82959bec70cb4704f9387d6ac476aef160a9721075f9af5d33ef3d0aeafdcd39dc29fc4e72a3a93885c58379f2192d7829df8bcda1316eb3a3f8abb7beecda1b2ab289a6dc2d152402b22ba9cd1e6c466ef9c"
   ],
+  "link": "http://wewere.online/collages",
   "materials": "found images, buttons, and headings collected while browsing; custom collage tool",
   "ongoing": true,
   "featured": true,
