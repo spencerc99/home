@@ -56,6 +56,7 @@ export default defineConfig({
     "/creation/internet-movement": "/creation/we-were-browsing",
     "/creation/self-portrait-(internet)": "/creation/we-were-browsing",
     "/creation/on-our-way": "/creation/on-our-way-(home)",
+    "/creation/browsing-collages": "/creation/webcollages",
   },
   site: "https://spencer.place",
   integrations: [
