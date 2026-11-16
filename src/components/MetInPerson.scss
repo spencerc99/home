@@ -1,0 +1,204 @@
+// ABOUTME: Styles for the /met page windows and the site-wide met-in-person frame + minimized bar.
+// ABOUTME: Windows reuse LiveChat's look (double border, orange title bar); uses --sp- tokens.
+
+.met-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  border: 3px dashed var(--sp-color-accent);
+}
+
+.met-frame-label {
+  position: absolute;
+  top: 1.5px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 var(--sp-space-2);
+  background: var(--color-site-background, #fffae0);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  color: var(--sp-color-link-text);
+  white-space: nowrap;
+
+  .dark-mode & {
+    background: var(--color-background-dark, #1a1a1a);
+  }
+}
+
+// Minimized window: just the title bar, bottom-left (LiveChat lives bottom-right).
+.met-bar {
+  position: fixed;
+  left: var(--sp-space-3);
+  bottom: var(--sp-space-3);
+  z-index: 9998;
+  display: flex;
+  align-items: stretch;
+  background: var(--sp-color-accent);
+  border: double 3px #282828;
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  font-weight: 500;
+
+  // Beat the site-wide link color (orange, invisible on this bar) and button pill styles.
+  a,
+  button {
+    color: #1a1a1a !important;
+    background: none;
+    border: none;
+    border-radius: 0;
+    font: inherit;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    cursor: pointer;
+  }
+
+  .met-bar-open {
+    display: flex;
+    gap: var(--sp-space-3);
+    align-items: center;
+    padding: var(--sp-space-2) var(--sp-space-3);
+  }
+
+  .met-bar-close {
+    padding: 0 var(--sp-space-3);
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: var(--sp-type-meta-size);
+  }
+}
+
+.met-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-4);
+  max-width: 480px;
+  margin-bottom: var(--sp-space-12);
+}
+
+.met-window {
+  background: #fff;
+  border: double 3px #282828;
+
+  .dark-mode & {
+    background: var(--color-background-dark, #1a1a1a);
+    border-color: rgb(235, 232, 227);
+  }
+}
+
+.met-window-titlebar {
+  background: var(--sp-color-accent);
+  color: #1a1a1a;
+  padding: var(--sp-space-1) var(--sp-space-2);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  font-weight: 500;
+}
+
+.met-window-body {
+  padding: var(--sp-space-3) var(--sp-space-4) var(--sp-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-3);
+  font-size: var(--sp-type-body-size);
+  line-height: var(--sp-leading-snug);
+
+  p {
+    margin: 0;
+  }
+}
+
+.met-stamp-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-3);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  color: var(--sp-color-meta);
+
+  img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+}
+
+.met-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    font-family: var(--sp-font-mono);
+    font-size: var(--sp-type-label-size);
+    color: var(--sp-color-text-subtle);
+  }
+
+  input,
+  textarea {
+    font-family: var(--sp-font-body);
+    font-size: 16px; // prevent iOS zoom on focus
+    padding: var(--sp-space-2);
+    border: 1px solid currentColor;
+    border-radius: var(--sp-radius-sm);
+    background: transparent;
+    color: inherit;
+    resize: vertical;
+  }
+}
+
+.met-button {
+  display: block;
+  text-align: center;
+  padding: var(--sp-space-3);
+  border-radius: var(--sp-radius-sm);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.met-button-dark {
+  background: #282828;
+  color: #fff !important;
+
+  .dark-mode & {
+    background: rgb(235, 232, 227);
+    color: #1a1a1a !important;
+  }
+}
+
+.met-button-accent {
+  background: var(--sp-color-accent);
+  color: #1a1a1a !important;
+}
+
+.met-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.met-chip {
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  border-radius: var(--sp-radius-sm);
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-type-label-size);
+  color: inherit !important;
+  text-decoration: none;
+}
+
+.met-hint {
+  margin: 0;
+  font-size: var(--sp-type-meta-size);
+  font-style: italic;
+  color: var(--sp-color-meta);
+}
+
+.met-browse {
+  align-self: center;
+  font-size: var(--sp-type-lead-size);
+}
+
+.met-browse-hint {
+  text-align: center;
+  margin-top: calc(-1 * var(--sp-space-3));
+}

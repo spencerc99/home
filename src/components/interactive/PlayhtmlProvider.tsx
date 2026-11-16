@@ -5,6 +5,7 @@ import { PlayProvider, PlayContext, playhtml } from "@playhtml/react";
 import { useContext, useEffect, type PropsWithChildren } from "react";
 import { CursorPresenceLayer } from "./CursorPresenceLayer";
 import { LiveChat } from "../LiveChat";
+import { MetInPerson } from "../MetInPerson";
 import { isRegular } from "../../utils/roles";
 import {
   VISITOR_AWAY_DELAY_MS,
@@ -180,6 +181,7 @@ export function PlayhtmlProvider({ children }: PropsWithChildren) {
       <CursorPresenceLayer />
       <PresenceBroadcaster />
       <LiveChat />
+      <MetInPerson />
       {children}
     </PlayhtmlIslandProvider>
   );
