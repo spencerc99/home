@@ -71,11 +71,8 @@ export default defineConfig({
       },
     }),
     sitemap({
-      filter: (page) => {
-        const path = new URL(page).pathname.replace(/\/$/, "");
-        // /design is an internal design board.
-        return !(path in externalPostRedirects) && path !== "/design";
-      },
+      filter: (page) =>
+        !(new URL(page).pathname.replace(/\/$/, "") in externalPostRedirects),
     }),
     externalPostRedirectsIntegration,
     react({

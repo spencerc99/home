@@ -1,5 +1,5 @@
 // ABOUTME: Shared Ramka lightbox viewer (portal, slides, chrome) used by image galleries.
-// ABOUTME: `variant` picks one of the site-styled looks; see /design for all of them.
+// ABOUTME: `variant` picks one of four site-styled looks (paper, gallery wall, darkroom, aura).
 import React, { useState } from "react";
 import * as Lightbox from "@ramka/react/lightbox";
 import "./GalleryLightbox.scss";
@@ -35,37 +35,6 @@ function FitImage({ item }: { item: GalleryItem }) {
   );
 }
 export type GalleryVariant = "paper" | "mat" | "darkroom" | "aura";
-
-export const GALLERY_VARIANTS: {
-  id: GalleryVariant;
-  name: string;
-  blurb: string;
-}[] = [
-  {
-    id: "paper",
-    name: "paper",
-    blurb:
-      "The current PR. Near-opaque page color, Sono controls in the corners, italic caption underneath.",
-  },
-  {
-    id: "mat",
-    name: "gallery wall",
-    blurb:
-      "The image is hung on a mat with the site drop shadow, and the caption becomes a wall label with a numbered entry.",
-  },
-  {
-    id: "darkroom",
-    name: "darkroom",
-    blurb:
-      "Always dark so the work glows. A filmstrip of thumbnails runs along the bottom for long galleries.",
-  },
-  {
-    id: "aura",
-    name: "aura",
-    blurb:
-      "The page blurs behind frosted glass, the image gets the orange loading aura, and all controls live in one floating pill.",
-  },
-];
 
 function Caption({ variant }: { variant: GalleryVariant }) {
   if (variant === "mat") {
