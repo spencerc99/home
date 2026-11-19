@@ -11,6 +11,7 @@ import {
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
+import { readAudience, readStage } from "./roomData";
 import "./phone.scss";
 
 // What a phone shows: the door, the colour pick, then whatever the stage is
@@ -71,7 +72,7 @@ function useRoom(ready: boolean) {
     const readStage = () => {
       let found: StagePresence | null = null;
       for (const view of playhtml.presence.getPresences().values()) {
-        const value = view[STAGE_CHANNEL] as StagePresence | undefined;
+        const value = readStage(view[STAGE_CHANNEL]);
         if (value) found = value;
       }
       setStage(found);
@@ -83,7 +84,7 @@ function useRoom(ready: boolean) {
       pending = null;
       const people: AudiencePresence[] = [];
       for (const view of playhtml.presence.getPresences().values()) {
-        const value = view[AUDIENCE_CHANNEL] as AudiencePresence | undefined;
+        const value = readAudience(view[AUDIENCE_CHANNEL]);
         if (value) people.push(value);
       }
       setAudience(people);

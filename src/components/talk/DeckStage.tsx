@@ -10,6 +10,7 @@ import {
   writeSlideToHash,
   type DeckMessage,
 } from "./deckSync";
+import { LiveBoundary } from "./live/LiveBoundary";
 import { LiveLayer } from "./live/LiveLayer";
 import { joinTalkRoom } from "./live/talkRoom";
 import "./talk.scss";
@@ -196,14 +197,16 @@ export function DeckStage() {
             className="talk-stage__slide talk-stage__live"
             style={{ transform: `translate(-50%, -50%) scale(${scale})` }}
           >
-            <LiveLayer
-              ready={roomReady}
-              slide={index}
-              moment={deck[index].live ?? null}
-              presenting={presenting}
-              joinOpen={joinOpen}
-              wakeForced={wakeForced}
-            />
+            <LiveBoundary>
+              <LiveLayer
+                ready={roomReady}
+                slide={index}
+                moment={deck[index].live ?? null}
+                presenting={presenting}
+                joinOpen={joinOpen}
+                wakeForced={wakeForced}
+              />
+            </LiveBoundary>
           </div>
         )}
       </div>

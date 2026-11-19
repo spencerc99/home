@@ -10,6 +10,7 @@ import {
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
+import { readAudience, readLoops } from "./roomData";
 
 // What the audience adds on top of the slide on the big screen. Drawn in
 // slide pixels (1920x1080) over the current slide; the deck never waits on it.
@@ -28,7 +29,7 @@ function useAudience(ready: boolean) {
       frame = null;
       const next = new Map<string, AudiencePresence>();
       for (const [id, view] of playhtml.presence.getPresences()) {
-        const value = view[AUDIENCE_CHANNEL] as AudiencePresence | undefined;
+        const value = readAudience(view[AUDIENCE_CHANNEL]);
         if (value) next.set(id, value);
       }
       setAudience(next);
@@ -50,8 +51,8 @@ function useLoops(ready: boolean, on: boolean) {
   useEffect(() => {
     if (!ready || !on) return;
     const channel = titleLoops();
-    setLoops(channel.getData());
-    return channel.onUpdate(setLoops);
+    setLoops(readLoops(channel.getData()));
+    return channel.onUpdate((data) => setLoops(readLoops(data)));
   }, [ready, on]);
   return loops;
 }
