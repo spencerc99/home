@@ -1,0 +1,252 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
+import { Slide, type MediaMode } from "./Slide";
+import { useFitScale, type FitMode } from "./useFitScale";
+import {
+  recallSlide,
+  rememberSlide,
+  slideFromHash,
+  useDeckChannel,
+  writeSlideToHash,
+  type DeckMessage,
+} from "./deckSync";
+import { LiveLayer } from "./live/LiveLayer";
+import { joinTalkRoom } from "./live/talkRoom";
+import "./talk.scss";
+
+const LAST = deck.length - 1;
+const FIT_KEY = "talk:fit";
+const clamp = (n: number) => Math.min(LAST, Math.max(0, n));
+
+function linkFor(index: number): string | null {
+  for (const layer of deck[index].layers) {
+    if (layer.kind === "label" && layer.link) return `https://${layer.link}`;
+  }
+  return null;
+}
+
+export function DeckStage() {
+  const [index, setIndex] = useState(() => slideFromHash(deck.length) ?? recallSlide(deck.length) ?? 0);
+  const [playing, setPlaying] = useState(true);
+  const [chromeVisible, setChromeVisible] = useState(true);
+  const [typed, setTyped] = useState("");
+  // Live audience: the room connects in the background and the deck never
+  // waits on it. Phones only follow this stage once `presenting` is on (l).
+  const [roomReady, setRoomReady] = useState(false);
+  const [presenting, setPresenting] = useState(false);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [wakeForced, setWakeForced] = useState(false);
+  const [fit, setFit] = useState<FitMode>(() => {
+    try {
+      return localStorage.getItem(FIT_KEY) === "fill" ? "fill" : "fit";
+    } catch {
+      return "fit";
+    }
+  });
+  const { ref, scale } = useFitScale<HTMLDivElement>(fit);
+  const hideTimer = useRef<ReturnType<typeof setTimeout>>();
+  // The slide shown before this render, so a single step can glide shared
+  // pictures across (see Slide). Updated after each change has been drawn.
+  const shownIndex = useRef(index);
+  const cameFrom = Math.abs(shownIndex.current - index) === 1 ? deck[shownIndex.current] : null;
+  useEffect(() => {
+    shownIndex.current = index;
+  }, [index]);
+
+  const goto = useCallback((n: number) => {
+    setIndex(clamp(n));
+    setPlaying(true);
+  }, []);
+
+  const send = useDeckChannel((message: DeckMessage) => {
+    if (message.type === "goto") goto(message.index);
+    if (message.type === "step") setIndex((i) => clamp(i + message.by));
+    if (message.type === "set-playing") setPlaying(message.playing);
+    if (message.type === "hello") send({ type: "state", state: { index, playing } });
+  });
+
+  useEffect(() => {
+    writeSlideToHash(index);
+    rememberSlide(index);
+    send({ type: "state", state: { index, playing } });
+    // send is rebuilt every render; only a state change should broadcast.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, playing]);
+
+  // Coming back to the tab (browser back, or a hash typed in the address bar).
+  useEffect(() => {
+    const onHash = () => {
+      const fromHash = slideFromHash(deck.length);
+      if (fromHash !== null) setIndex(fromHash);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  const toggleFit = useCallback(() => {
+    setFit((current) => {
+      const next: FitMode = current === "fit" ? "fill" : "fit";
+      try {
+        localStorage.setItem(FIT_KEY, next);
+      } catch (error) {
+        console.warn("[talk] could not remember the fit setting", error);
+      }
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    joinTalkRoom().then(
+      () => setRoomReady(true),
+      (error: unknown) => console.error("[talk] the live room did not connect; the deck runs without it", error),
+    );
+  }, []);
+
+  const showChrome = useCallback(() => {
+    setChromeVisible(true);
+    clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setChromeVisible(false), 2200);
+  }, []);
+
+  const openNotes = useCallback(() => {
+    const notes = window.open("/talk/notes", "perpetual-play-notes", "popup,width=1280,height=800");
+    if (!notes) console.warn("[talk] the notes window was blocked; allow pop-ups for this site");
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen().catch((error: unknown) => {
+        console.warn("[talk] fullscreen was refused", error);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const key = event.key;
+      if (/^\d$/.test(key)) {
+        setTyped((t) => (t + key).slice(-2));
+        return;
+      }
+      if (key === "Enter" && typed) {
+        goto(Number(typed) - 1);
+        setTyped("");
+        return;
+      }
+      setTyped("");
+      // Keys follow Figma's presenter: space and Enter go forward, shift
+      // goes back, R restarts from the first slide, Z switches fit and fill.
+      const back = event.shiftKey && (key === " " || key === "Enter");
+      if (!back && ["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(key)) {
+        event.preventDefault();
+        setIndex((i) => clamp(i + 1));
+      } else if (back || ["ArrowLeft", "ArrowUp", "PageUp"].includes(key)) {
+        event.preventDefault();
+        setIndex((i) => clamp(i - 1));
+      } else if (key === "Home" || key === "r" || key === "R") goto(0);
+      else if (key === "End") goto(LAST);
+      else if (key === "k" || key === "p") setPlaying((p) => !p);
+      else if (key === "n") openNotes();
+      else if (key === "f") toggleFullscreen();
+      else if (key === "z" || key === "Z") toggleFit();
+      else if (key === "l") setPresenting((p) => !p);
+      else if (key === "j") setJoinOpen((open) => !open);
+      else if (key === "w") setWakeForced(true);
+      else if (key === "o") {
+        const link = linkFor(index);
+        if (link) window.open(link, "_blank", "noopener");
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [goto, index, openNotes, toggleFit, toggleFullscreen, typed]);
+
+  const hasVideo = deck[index].layers.some((l) => l.kind === "video");
+  const link = linkFor(index);
+
+  return (
+    <div className="talk-stage" data-chrome={chromeVisible || undefined} onPointerMove={showChrome}>
+      <div className="talk-stage__frame" ref={ref}>
+        {scale > 0 &&
+          deck.map((slide, i) => {
+            if (Math.abs(i - index) > 1) return null;
+            const mode: MediaMode = i === index ? (playing ? "play" : "pause") : i === index + 1 ? "ready" : "still";
+            return (
+              <div
+                key={slide.figmaId}
+                className="talk-stage__slide"
+                aria-hidden={i !== index}
+                style={{
+                  transform: `translate(-50%, -50%) scale(${scale})`,
+                  visibility: i === index ? "visible" : "hidden",
+                }}
+              >
+                <Slide slide={slide} mode={mode} active={i === index} from={i === index ? cameFrom : null} />
+
+              </div>
+            );
+          })}
+        {scale > 0 && (
+          // The audience layer sits over whichever slide is up, in its own
+          // frame, so it stays mounted (and keeps its room state) across slides.
+          <div
+            className="talk-stage__slide talk-stage__live"
+            style={{ transform: `translate(-50%, -50%) scale(${scale})` }}
+          >
+            <LiveLayer
+              ready={roomReady}
+              slide={index}
+              moment={deck[index].live ?? null}
+              presenting={presenting}
+              joinOpen={joinOpen}
+              wakeForced={wakeForced}
+            />
+          </div>
+        )}
+      </div>
+
+      <nav className="talk-chrome" aria-label="Slide controls">
+        <button type="button" onClick={() => setIndex((i) => clamp(i - 1))} aria-label="Previous slide">
+          ←
+        </button>
+        <span className="talk-chrome__count">
+          {typed ? `go to ${typed}` : `${index + 1} / ${deck.length}`}
+        </span>
+        <button type="button" onClick={() => setIndex((i) => clamp(i + 1))} aria-label="Next slide">
+          →
+        </button>
+        {hasVideo && (
+          <button type="button" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause video" : "Play video"}>
+            {playing ? "❙❙" : "▸"}
+          </button>
+        )}
+        {link && (
+          <a href={link} target="_blank" rel="noopener">
+            {link.replace("https://", "")} ↗
+          </a>
+        )}
+        <button
+          type="button"
+          className="talk-chrome__live"
+          aria-pressed={presenting}
+          onClick={() => setPresenting((p) => !p)}
+          title="Phones follow this screen while live (l). j shows the join card, w wakes slide 2."
+        >
+          {presenting ? "● live" : "go live"}
+        </button>
+        <button type="button" onClick={openNotes}>
+          notes
+        </button>
+        <button type="button" onClick={toggleFit} title="Fit or fill the screen (z)">
+          {fit}
+        </button>
+        <button type="button" onClick={toggleFullscreen} aria-label="Full screen">
+          ⛶
+        </button>
+      </nav>
+    </div>
+  );
+}

@@ -1,0 +1,36 @@
+---
+// A bare page for presenting talks: no site header, chat, cursors or
+// playhtml provider, so nothing but the slides reaches the projector.
+interface Props {
+  title: string;
+  // "stage" for the deck and notes on a laptop, "phone" for the audience page.
+  surface?: "stage" | "phone";
+}
+const { title, surface = "stage" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class={surface === "phone" ? "talk-phone" : "talk-page"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content={surface === "phone" ? "width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" : "width=device-width,initial-scale=1"}
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preload" href="/fonts/VulfSansDemo-Regular.otf" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="/fonts/VulfSansDemo-Bold.otf" as="font" type="font/otf" crossorigin />
+    <!-- Sono for the notes window; Lora and Martian Mono are the We Were Online gallery's, for the shared collages slide. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@600&family=Martian+Mono:wght@400;700&family=Sono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -72,8 +72,13 @@ export default defineConfig({
       },
     }),
     sitemap({
-      filter: (page) =>
-        !(new URL(page).pathname.replace(/\/$/, "") in externalPostRedirects),
+      filter: (page) => {
+        const path = new URL(page).pathname.replace(/\/$/, "");
+        // Talk pages (the audience phone page and the presenter's deck and
+        // notes) are tools for a live event, not site pages.
+        if (path === "/talk" || path.startsWith("/talk/")) return false;
+        return !(path in externalPostRedirects);
+      },
     }),
     externalPostRedirectsIntegration,
     react({
