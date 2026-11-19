@@ -115,6 +115,14 @@
   keepsake card are next.
 - Testing two people needs two browsers (or a phone): tabs in one browser
   share a playhtml identity and count as one person.
+- Everything in the room is written by browsers, so it is checked before use
+  (`live/roomData.ts`): wrong shapes and non-hsl/hex colors are skipped, loops
+  are capped. The live layer and the phone page each sit in an error boundary.
+- Accepted risk (2026-11-19, Spencer): playhtml cannot verify who sent a
+  presence message, so anyone who reads the code could pose as the presenting
+  stage and switch phones between screens. Slides themselves are unaffected.
+  If a talk needs it, add a small server that only relays stage messages
+  signed with a presenter secret.
 
 ## Still open
 
