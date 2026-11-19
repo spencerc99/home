@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { Component, useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import {
   AUDIENCE_CHANNEL,
   STAGE_CHANNEL,
@@ -11,7 +11,7 @@ import {
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
-import { readAudience, readStage } from "./roomData";
+import { parseAudience, parseStage } from "./roomData";
 import "./phone.scss";
 
 // What a phone shows: the door, the colour pick, then whatever the stage is
@@ -72,7 +72,7 @@ function useRoom(ready: boolean) {
     const readStage = () => {
       let found: StagePresence | null = null;
       for (const view of playhtml.presence.getPresences().values()) {
-        const value = readStage(view[STAGE_CHANNEL]);
+        const value = parseStage(view[STAGE_CHANNEL]);
         if (value) found = value;
       }
       setStage(found);
@@ -84,7 +84,7 @@ function useRoom(ready: boolean) {
       pending = null;
       const people: AudiencePresence[] = [];
       for (const view of playhtml.presence.getPresences().values()) {
-        const value = readAudience(view[AUDIENCE_CHANNEL]);
+        const value = parseAudience(view[AUDIENCE_CHANNEL]);
         if (value) people.push(value);
       }
       setAudience(people);
@@ -322,7 +322,39 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
   );
 }
 
+/** If the phone page ever breaks, say so plainly instead of going blank. */
+class PhoneBoundary extends Component<{ children: React.ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.error("[talk] the phone page failed", error);
+  }
+  render() {
+    if (!this.state.failed) return this.props.children;
+    return (
+      <main className="phone">
+        <div className="phone__screen phone__screen--quiet">
+          <p>Something went wrong on this page.</p>
+          <button type="button" className="phone__pill" onClick={() => window.location.reload()}>
+            Reload
+          </button>
+        </div>
+      </main>
+    );
+  }
+}
+
 export function PhoneApp() {
+  return (
+    <PhoneBoundary>
+      <Phone />
+    </PhoneBoundary>
+  );
+}
+
+function Phone() {
   const [ready, setReady] = useState(false);
   // Someone who already picked a color (a reload, or the phone dropping the
   // tab mid-talk) goes straight back into the room.

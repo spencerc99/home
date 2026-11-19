@@ -19,7 +19,7 @@ export function safeColor(value: unknown): string | null {
 
 const unit = (v: unknown, lo: number, hi: number) => typeof v === "number" && Number.isFinite(v) && v >= lo && v <= hi;
 
-export function readStage(value: unknown): StagePresence | null {
+export function parseStage(value: unknown): StagePresence | null {
   if (!value || typeof value !== "object") return null;
   const v = value as Record<string, unknown>;
   if (!Number.isInteger(v.slide) || (v.slide as number) < 0 || (v.slide as number) > 200) return null;
@@ -28,7 +28,7 @@ export function readStage(value: unknown): StagePresence | null {
   return { slide: v.slide as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen };
 }
 
-export function readAudience(value: unknown): AudiencePresence | null {
+export function parseAudience(value: unknown): AudiencePresence | null {
   if (!value || typeof value !== "object") return null;
   const v = value as Record<string, unknown>;
   const color = safeColor(v.color);
@@ -39,7 +39,7 @@ export function readAudience(value: unknown): AudiencePresence | null {
   return { color, touch: { x: t.x as number, y: t.y as number } };
 }
 
-function readLoop(value: unknown): Loop | null {
+function parseLoop(value: unknown): Loop | null {
   if (!value || typeof value !== "object") return null;
   const v = value as Record<string, unknown>;
   const color = safeColor(v.color);
@@ -49,13 +49,13 @@ function readLoop(value: unknown): Loop | null {
 }
 
 /** The loops that are safe to draw, at most MAX_DRAWN_LOOPS of them. */
-export function readLoops(data: unknown): Loops {
+export function parseLoops(data: unknown): Loops {
   if (!data || typeof data !== "object") return {};
   const out: Loops = {};
   const entries = Object.entries(data as Record<string, unknown>);
   for (const [key, value] of entries.slice(-MAX_DRAWN_LOOPS)) {
     if (key.length > 200) continue;
-    const loop = readLoop(value);
+    const loop = parseLoop(value);
     if (loop) out[key] = loop;
   }
   return out;
