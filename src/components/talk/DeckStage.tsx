@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide, type MediaMode } from "./Slide";
+import { SlideOverview } from "./SlideOverview";
 import { useFitScale, type FitMode } from "./useFitScale";
 import {
   recallSlide,
@@ -31,6 +32,7 @@ export function DeckStage() {
   const [playing, setPlaying] = useState(true);
   const [chromeVisible, setChromeVisible] = useState(true);
   const [typed, setTyped] = useState("");
+  const [overview, setOverview] = useState(false);
   // Live audience: the room connects in the background and the deck never
   // waits on it. Phones only follow this stage once `presenting` is on (l).
   const [roomReady, setRoomReady] = useState(false);
@@ -58,6 +60,26 @@ export function DeckStage() {
     setIndex(clamp(n));
     setPlaying(true);
   }, []);
+
+  const pickFromOverview = useCallback(
+    (n: number) => {
+      goto(n);
+      setOverview(false);
+    },
+    [goto],
+  );
+  const closeOverview = useCallback(() => setOverview(false), []);
+
+  // The slide before and after are always drawn. Start fetching the pictures
+  // two and three ahead too, so on a slow connection they are ready by the
+  // time a glide or a cut reaches them.
+  useEffect(() => {
+    for (const ahead of [index + 2, index + 3]) {
+      for (const layer of deck[ahead]?.layers ?? []) {
+        if (layer.kind === "image") new Image().src = layer.src;
+      }
+    }
+  }, [index]);
 
   const send = useDeckChannel((message: DeckMessage) => {
     if (message.type === "goto") goto(message.index);
@@ -156,6 +178,7 @@ export function DeckStage() {
       else if (key === "l") setPresenting((p) => !p);
       else if (key === "j") setJoinOpen((open) => !open);
       else if (key === "w") setWakeForced(true);
+      else if (key === "g") setOverview(true);
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -243,6 +266,9 @@ export function DeckStage() {
         <button type="button" onClick={openNotes}>
           notes
         </button>
+        <button type="button" onClick={() => setOverview(true)} title="All slides (g)">
+          all
+        </button>
         <button type="button" onClick={toggleFit} title="Fit or fill the screen (z)">
           {fit}
         </button>
@@ -250,6 +276,7 @@ export function DeckStage() {
           ⛶
         </button>
       </nav>
+      {overview && <SlideOverview deck={deck} current={index} onPick={pickFromOverview} onClose={closeOverview} />}
     </div>
   );
 }

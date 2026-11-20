@@ -109,6 +109,135 @@ html.talk-page body {
   color: var(--talk-muted);
 }
 
+// Every slide at once (g), like Figma's grid view.
+.talk-overview {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  background: #111;
+  color: #d8d4cb;
+  cursor: default;
+  font-family: "Martian Mono", ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.talk-overview__bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 40px;
+  background: linear-gradient(#111 70%, rgba(17, 17, 17, 0));
+
+  button {
+    margin-left: auto;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  kbd {
+    margin-left: 6px;
+    color: #8c877d;
+    font: inherit;
+  }
+}
+
+.talk-overview__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #8c877d;
+}
+
+.talk-overview__grid {
+  display: grid;
+  margin: 0;
+  list-style: none;
+}
+
+.talk-overview__tile {
+  position: relative;
+}
+
+.talk-overview__pick {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.talk-overview__thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  content-visibility: auto;
+  transition: outline-color 120ms ease;
+
+  .talk-overview__tile:hover &,
+  .talk-overview__tile[data-cursor] & {
+    outline: 2px solid rgba(255, 255, 255, 0.55);
+  }
+  .talk-overview__tile[aria-current] & {
+    outline: 3px solid var(--talk-accent);
+  }
+}
+
+.talk-overview__slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+.talk-overview__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 2px 0;
+  color: #8c877d;
+  font-variant-numeric: tabular-nums;
+
+  .talk-overview__tile[aria-current] & > span:first-child {
+    color: var(--talk-accent);
+  }
+}
+
+.talk-overview__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #d8d4cb;
+}
+
+.talk-overview__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--talk-accent);
+  box-shadow: 0 0 6px rgba(255, 137, 1, 0.6);
+}
+
 // Shared collages on the scraps slide, styled like the wewere.online/collages/
 // gallery (extension/website/collages/galleryStyles.ts in the playhtml repo).
 .talk-pins {
