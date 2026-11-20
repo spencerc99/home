@@ -7,7 +7,6 @@ import {
   playhtml,
   throttle,
   type AudiencePresence,
-  type Loops,
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
@@ -29,8 +28,13 @@ const COLOR_KEY = "talk:color";
 // Fingers reach the stage at most five times a second, so a full room does
 // not swamp the venue wifi; the stage eases between updates.
 const TOUCH_EVERY_MS = 200;
-const MAX_LOOP_POINTS = 160;
-const MAX_LOOPS_EACH = 24;
+// Loops: a point is added once the finger moves this far (pad units, -1..1),
+// new points go to the room this often, and each loop is capped in size.
+const POINT_STEP = 0.02;
+const SEND_EVERY_MS = 100;
+const MIN_LOOP_POINTS = 8;
+const MAX_LOOP_POINTS = 300;
+const MAX_LOOPS_EACH = 40;
 
 type Step = "door" | "pick" | "room";
 
@@ -251,44 +255,82 @@ function TouchPad({
 
 /** Draw loops; each one is saved to the room when the finger lifts. */
 function DrawPad({ color, pid }: { color: string; pid: string }) {
-  const [points, setPoints] = useState<number[]>([]);
-  const [count, setCount] = useState(0);
-  const drawing = useRef(false);
+  // The whole gesture as drawn here, in pad units (-1..1).
+  const [drawn, setDrawn] = useState<number[]>([]);
+  const [count, setCount] = useState(
+    () => Object.keys(titleLoops().getData()).filter((key) => key.startsWith(`${pid}:`)).length,
+  );
+  const countRef = useRef(count);
+  // The loop being saved: its key, its points, and how many are already in the room.
+  const loop = useRef<{ key: string; points: number[]; sent: number } | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    const channel = titleLoops();
-    const mine = (data: Loops) => Object.keys(data).filter((key) => key.startsWith(`${pid}:`)).length;
-    setCount(mine(channel.getData()));
-    return channel.onUpdate((data) => setCount(mine(data)));
-  }, [pid]);
+  // The room gets each loop while it is drawn: only the new points go out,
+  // a few times a second, so the stage draws along and the loop is kept.
+  const send = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+    const current = loop.current;
+    if (!current || current.sent === current.points.length) return;
+    const fresh = current.points.slice(current.sent);
+    const first = current.sent === 0;
+    current.sent = current.points.length;
+    titleLoops().setData((draft) => {
+      if (first) draft[current.key] = { color, points: fresh };
+      else draft[current.key]?.points.push(...fresh);
+    });
+  };
+
+  const begin = (x: number, y: number) => {
+    loop.current =
+      countRef.current < MAX_LOOPS_EACH ? { key: `${pid}:${Date.now().toString(36)}`, points: [x, y], sent: 0 } : null;
+  };
+
+  // Ends the loop being saved. Taps and tiny scribbles are taken back out.
+  const end = () => {
+    send();
+    const current = loop.current;
+    loop.current = null;
+    if (!current || current.sent === 0) return;
+    if (current.points.length < MIN_LOOP_POINTS * 2) {
+      titleLoops().setData((draft) => {
+        delete draft[current.key];
+      });
+      return;
+    }
+    countRef.current += 1;
+    setCount(countRef.current);
+  };
+
+  useEffect(
+    () => () => {
+      end();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   const at = (event: ReactPointerEvent<SVGSVGElement>): [number, number] => {
     const r = event.currentTarget.getBoundingClientRect();
-    // -1..1 from the pad's centre, so the stage can place it on the title.
+    // -1..1 from the pad's centre. The pad is the slide turned on its side,
+    // and the stage turns it back, so a loop lands where it was drawn.
     const x = ((event.clientX - r.left) / r.width) * 2 - 1;
     const y = ((event.clientY - r.top) / r.height) * 2 - 1;
     return [Math.round(x * 1000) / 1000, Math.round(y * 1000) / 1000];
   };
 
+  const drawing = useRef(false);
+  const last = useRef<[number, number]>([0, 0]);
+
   const finish = () => {
     if (!drawing.current) return;
     drawing.current = false;
-    const channel = titleLoops();
-    if (points.length >= 16 && count < MAX_LOOPS_EACH) {
-      // Keep every nth point so a long loop stays small in the room's data.
-      const step = Math.max(1, Math.ceil(points.length / 2 / MAX_LOOP_POINTS));
-      const kept: number[] = [];
-      for (let i = 0; i < points.length; i += 2 * step) kept.push(points[i], points[i + 1]);
-      const key = `${pid}:${count}`;
-      channel.setData((draft) => {
-        draft[key] = { color, points: kept };
-      });
-    }
-    setPoints([]);
+    end();
+    setDrawn([]);
   };
 
-  const path = points.reduce(
-    (d, v, i) => (i % 2 === 0 ? `${d}${i === 0 ? "M" : "L"}${(v + 1) * 50} ` : `${d}${(v + 1) * 50} `),
+  const path = drawn.reduce(
+    (d, v, i) => (i % 2 === 0 ? `${d}${i === 0 ? "M" : "L"}${(v + 1) * 45} ` : `${d}${(v + 1) * 80} `),
     "",
   );
 
@@ -300,21 +342,37 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
       </div>
       <svg
         className="phone__draw"
-        viewBox="0 0 100 100"
+        viewBox="0 0 90 160"
         onPointerDown={(event) => {
           capture(event);
           drawing.current = true;
-          setPoints(at(event));
+          const [x, y] = at(event);
+          last.current = [x, y];
+          begin(x, y);
+          setDrawn([x, y]);
+          send();
         }}
         onPointerMove={(event) => {
           if (!drawing.current) return;
           const [x, y] = at(event);
-          setPoints((p) => [...p, x, y]);
+          const [lx, ly] = last.current;
+          if (Math.hypot(x - lx, y - ly) < POINT_STEP) return;
+          last.current = [x, y];
+          setDrawn((points) => [...points, x, y]);
+          const current = loop.current;
+          if (!current) return;
+          current.points.push(x, y);
+          // A long gesture becomes several loops, each small enough to keep.
+          if (current.points.length >= MAX_LOOP_POINTS * 2) {
+            end();
+            begin(x, y);
+          }
+          timer.current ??= setTimeout(send, SEND_EVERY_MS);
         }}
         onPointerUp={finish}
         onPointerCancel={finish}
       >
-        <circle cx="50" cy="50" r="34" className="phone__guide" />
+        <circle cx="45" cy="80" r="30" className="phone__guide" />
         <path d={path} stroke={color} />
       </svg>
       <p className="phone__meta">{count === 1 ? "your loops: 1" : `your loops: ${count}`}</p>

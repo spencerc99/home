@@ -259,9 +259,13 @@ html.talk-phone body {
   }
 }
 
+// The slide's shape turned on its side (9:16), as tall as the screen allows.
 .phone__draw {
-  width: 100%;
-  aspect-ratio: 1;
+  width: min(100%, calc(62svh * 9 / 16));
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border: 1px solid rgba(97, 110, 129, 0.18);
+  border-radius: 12px;
   touch-action: none;
 
   path {

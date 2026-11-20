@@ -51,17 +51,22 @@ function useLoops(ready: boolean, on: boolean) {
   useEffect(() => {
     if (!ready || !on) return;
     const channel = titleLoops();
-    setLoops(parseLoops(channel.getData()));
-    return channel.onUpdate((data) => setLoops(parseLoops(data)));
+    // Loops grow while people draw, so updates come often; redraw once a frame.
+    let frame: number | null = null;
+    const read = () => {
+      frame = null;
+      setLoops(parseLoops(channel.getData()));
+    };
+    read();
+    const off = channel.onUpdate(() => {
+      frame ??= requestAnimationFrame(read);
+    });
+    return () => {
+      off();
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
   }, [ready, on]);
   return loops;
-}
-
-/** A steady number in 0..1 from a string, so a person's loops always sit in the same place. */
-function hash01(text: string, salt: number): number {
-  let h = salt * 2654435761;
-  for (const c of text) h = Math.imul(h ^ c.charCodeAt(0), 2654435761);
-  return ((h >>> 0) % 10000) / 10000;
 }
 
 function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
@@ -146,18 +151,19 @@ function Warmup({
   );
 }
 
-/** Everyone's loops on the title, each person a little off, so they spiral. */
+/**
+ * Everyone's loops over the title. A phone's pad is the slide turned on its
+ * side, so each point is turned back: the pad's top is the slide's right.
+ */
 function TitleLoops({ loops }: { loops: Loops }) {
   return (
     <svg className="talk-live__loops" viewBox={`0 0 ${W} ${H}`} width={W} height={H}>
       {Object.entries(loops).map(([key, loop]) => {
-        const person = key.split(":")[0];
-        const radius = 300 + hash01(person, 1) * 160;
-        const cx = W / 2 + (hash01(person, 2) - 0.5) * 140;
-        const cy = H / 2 + (hash01(person, 3) - 0.5) * 100;
         let d = "";
         for (let i = 0; i + 1 < loop.points.length; i += 2) {
-          d += `${i === 0 ? "M" : "L"}${(cx + loop.points[i] * radius).toFixed(1)} ${(cy + loop.points[i + 1] * radius).toFixed(1)} `;
+          const x = ((1 - loop.points[i + 1]) / 2) * W;
+          const y = ((1 + loop.points[i]) / 2) * H;
+          d += `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)} `;
         }
         return <path key={key} d={d} stroke={loop.color} />;
       })}
