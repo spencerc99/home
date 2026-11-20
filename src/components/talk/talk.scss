@@ -1,0 +1,767 @@
+@font-face {
+  font-family: "Vulf Sans";
+  src: url("/fonts/VulfSansDemo-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: "Vulf Sans";
+  src: url("/fonts/VulfSansDemo-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --talk-ink: #1a1a1a;
+  --talk-paper: #f5f2ea;
+  --talk-muted: #77736a;
+  --talk-accent: #ff8901;
+  --talk-line: rgba(26, 26, 26, 0.14);
+}
+
+html.talk-page,
+html.talk-page body {
+  margin: 0;
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+}
+
+.talk-stage {
+  position: fixed;
+  inset: 0;
+  background: #111;
+  cursor: none;
+  font-family: "Vulf Sans", sans-serif;
+
+  &[data-chrome] {
+    cursor: default;
+  }
+}
+
+.talk-stage__frame {
+  position: absolute;
+  inset: 0;
+}
+
+.talk-stage__slide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: center;
+}
+
+.talk-chrome {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: var(--talk-paper);
+  color: var(--talk-ink);
+  border: 1px solid var(--talk-line);
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  pointer-events: none;
+
+  .talk-stage[data-chrome] & {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  button,
+  a {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(26, 26, 26, 0.08);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--talk-accent);
+      outline-offset: 1px;
+    }
+  }
+}
+
+.talk-chrome__count {
+  padding: 0 8px;
+  font-variant-numeric: tabular-nums;
+  color: var(--talk-muted);
+}
+
+// Every slide at once (g), like Figma's grid view.
+.talk-overview {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  background: #111;
+  color: #d8d4cb;
+  cursor: default;
+  font-family: "Martian Mono", ui-monospace, monospace;
+  font-size: 12px;
+}
+
+.talk-overview__bar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 40px;
+  background: linear-gradient(#111 70%, rgba(17, 17, 17, 0));
+
+  button {
+    margin-left: auto;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  kbd {
+    margin-left: 6px;
+    color: #8c877d;
+    font: inherit;
+  }
+}
+
+.talk-overview__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #8c877d;
+}
+
+.talk-overview__grid {
+  display: grid;
+  margin: 0;
+  list-style: none;
+}
+
+.talk-overview__tile {
+  position: relative;
+}
+
+.talk-overview__pick {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.talk-overview__thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  content-visibility: auto;
+  transition: outline-color 120ms ease;
+
+  .talk-overview__tile:hover &,
+  .talk-overview__tile[data-cursor] & {
+    outline: 2px solid rgba(255, 255, 255, 0.55);
+  }
+  .talk-overview__tile[aria-current] & {
+    outline: 3px solid var(--talk-accent);
+  }
+}
+
+.talk-overview__slide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+.talk-overview__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 2px 0;
+  color: #8c877d;
+  font-variant-numeric: tabular-nums;
+
+  .talk-overview__tile[aria-current] & > span:first-child {
+    color: var(--talk-accent);
+  }
+}
+
+.talk-overview__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #d8d4cb;
+}
+
+.talk-overview__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--talk-accent);
+  box-shadow: 0 0 6px rgba(255, 137, 1, 0.6);
+}
+
+// Shared collages on the scraps slide, styled like the wewere.online/collages/
+// gallery (extension/website/collages/galleryStyles.ts in the playhtml repo).
+.talk-pins {
+  --c-mat: #e6e3dc;
+  --c-ink: #3a3734;
+  --c-rule: #dcd8cf;
+  position: absolute;
+  display: grid;
+  align-items: start;
+  transform-origin: top left;
+  color: #3d3833;
+  line-height: 1.5;
+}
+
+.talk-pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  [data-arrive] > & {
+    animation: talk-pin-arrive 420ms cubic-bezier(0.2, 0.9, 0.25, 1.05) both;
+  }
+
+  &:hover .talk-pin__mat,
+  &:focus-visible .talk-pin__mat {
+    transform: translateY(-3px);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
+      0 0 0 1px var(--c-rule),
+      0 16px 30px color-mix(in srgb, var(--c-ink) 14%, transparent);
+  }
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+@keyframes talk-pin-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.talk-pin__mat {
+  position: relative;
+  padding: 14px 14px 0;
+  background: var(--c-mat);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
+    0 0 0 1px var(--c-rule),
+    0 10px 24px color-mix(in srgb, var(--c-ink) 8%, transparent);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.talk-pin__window {
+  position: relative;
+  overflow: hidden;
+  background: #fdfcfa;
+  box-shadow:
+    inset 1px 1px 0 color-mix(in srgb, var(--c-ink) 14%, transparent),
+    0 0 0 1px color-mix(in srgb, #fff 80%, transparent);
+}
+
+.talk-pin__cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.talk-pin__caption {
+  display: flex;
+  align-items: baseline;
+  min-height: 40px;
+  padding: 8px 0;
+  box-sizing: border-box;
+}
+
+.talk-pin__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--c-ink);
+  font-family: "Lora", Georgia, serif;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.talk-pin__card {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 88%;
+  margin: -6px 10px 0 auto;
+  padding: 16px 18px 14px;
+  box-sizing: border-box;
+  background-color: #fbf8f3;
+  box-shadow: 0 1px 3px rgba(90, 78, 65, 0.18);
+
+  // The studio's paper grain over the wash, so the colour reads as soaked in.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--paper-grain);
+    background-size: 240px 240px;
+    mix-blend-mode: multiply;
+  }
+}
+
+.talk-pin__blot {
+  position: absolute;
+  z-index: -2;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+.talk-pin__byline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.talk-pin__name {
+  padding: 1px 8px;
+  border-radius: 3px;
+  color: #2d2a27;
+  font-family: "Martian Mono", ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.talk-pin__date,
+.talk-pin__meta {
+  color: #3f3a35;
+  font-family: "Martian Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.talk-pin__meta {
+  align-self: stretch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .talk-pin {
+    animation-duration: 1ms !important;
+  }
+}
+
+// A collage opened from the slide: the real wewere.online viewer over the deck.
+.talk-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  background: rgba(17, 17, 17, 0.72);
+  font-family: "Vulf Sans", sans-serif;
+  animation: talk-viewer-in 180ms ease both;
+}
+
+@keyframes talk-viewer-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.talk-viewer__frame {
+  display: flex;
+  flex-direction: column;
+  width: min(1500px, 94vw);
+  height: 90vh;
+  background: var(--talk-paper);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+
+  iframe {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    background: #f6f5f1;
+  }
+}
+
+.talk-viewer__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 8px 8px 16px;
+  border-bottom: 1px solid var(--talk-line);
+  font-size: 16px;
+  color: var(--talk-ink);
+}
+
+.talk-viewer__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  a,
+  button {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(26, 26, 26, 0.08);
+    }
+  }
+
+  button {
+    font-size: 22px;
+  }
+}
+
+// Speaker notes window: the "Script" design. The words are the biggest thing
+// on screen; current and next slide on the left, clock and timer up top.
+.talk-notes {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: hsl(50 100% 96%);
+  color: var(--talk-ink);
+  font-family: "Vulf Sans", sans-serif;
+
+  button {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid rgba(112, 128, 144, 0.35);
+    border-radius: 999px;
+    background: hsl(50 100% 97%);
+    color: inherit;
+    font: inherit;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--talk-ink);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--talk-accent);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.talk-notes--waiting {
+  place-items: center;
+  font-size: 20px;
+  color: var(--talk-muted);
+}
+
+.talk-notes__bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(112, 128, 144, 0.25);
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+
+  button {
+    min-height: 34px;
+    font-family: "Sono", ui-monospace, monospace;
+  }
+}
+
+.talk-notes__clock {
+  color: rgb(97 110 129);
+}
+
+.talk-notes__body {
+  display: grid;
+  grid-template-columns: minmax(280px, 440px) minmax(0, 1fr);
+  gap: 36px;
+  padding: 28px 32px;
+  min-height: 0;
+}
+
+.talk-notes__slides {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.talk-notes__next {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 60%;
+  opacity: 0.85;
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 13px;
+  color: rgb(97 110 129);
+}
+
+.talk-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ddd;
+  box-shadow: 0 0 0 1px rgba(112, 128, 144, 0.3);
+}
+
+.talk-thumb__end {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--talk-muted);
+}
+
+.talk-notes__text {
+  overflow-y: auto;
+  font-size: 30px;
+  line-height: 1.4;
+
+  p {
+    margin: 0 0 0.6em;
+  }
+  strong {
+    background: hsla(33, 100%, 56%, 0.3);
+  }
+}
+
+.talk-notes__controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 24px;
+  border-top: 1px solid rgba(112, 128, 144, 0.25);
+
+  .talk-notes__forward {
+    background: hsl(33, 100%, 56%);
+    border-color: hsl(33, 100%, 46%);
+  }
+}
+
+.talk-stage__live {
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+}
+
+// The audience's layer over the current slide (live/LiveLayer.tsx), in slide
+// pixels. It never takes clicks: the deck stays the presenter's.
+.talk-live {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: "Vulf Sans", sans-serif;
+}
+
+.talk-live__glow {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  margin: -120px 0 0 -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0 36%, transparent 72%);
+  opacity: 0.8;
+  // Phones send five updates a second; easing fills the gaps.
+  transition:
+    left 220ms linear,
+    top 220ms linear;
+}
+
+.talk-live__sleep {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(16px) grayscale(1);
+  background: rgba(245, 242, 234, 0.55);
+  transition: opacity 600ms ease;
+}
+
+.talk-live__count {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 56px;
+  text-align: center;
+  font-size: 32px;
+  color: rgb(30, 28, 26);
+}
+
+.talk-live__loops {
+  position: absolute;
+  inset: 0;
+
+  path {
+    fill: none;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.85;
+    animation: talk-live-draw 1.2s ease-out both;
+    stroke-dasharray: 4000;
+  }
+}
+
+@keyframes talk-live-draw {
+  from {
+    stroke-dashoffset: 4000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.talk-live__qr {
+  position: absolute;
+  right: 150px;
+  top: 300px;
+  width: 360px;
+  height: 360px;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  // Matches the hole left in the middle of join-qr.svg.
+  .talk-live__stamp {
+    inset: auto;
+    left: 40.5%;
+    top: 40.5%;
+    width: 21.5%;
+    height: 21.5%;
+    border-radius: 6%;
+  }
+}
+
+.talk-live__label {
+  position: absolute;
+  left: 0;
+  top: 974px;
+  width: 262px;
+  height: 106px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #ff8901;
+  font-size: 24px;
+  line-height: 1;
+  color: #000;
+}
+
+.talk-live__link {
+  color: #007fd9;
+}
+
+.talk-live__here {
+  position: absolute;
+  left: 300px;
+  top: 1000px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 32px;
+  color: rgb(30, 28, 26);
+}
+
+.talk-live__dots {
+  display: flex;
+  gap: 4px;
+
+  span {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--glow) 0 50%, transparent 74%);
+  }
+}
+
+.talk-chrome__live[aria-pressed="true"] {
+  color: #d13b1f;
+}
