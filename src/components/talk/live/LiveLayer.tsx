@@ -80,12 +80,15 @@ function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
   );
 }
 
+const JOIN_QR = "/talk/perpetual-play/join-qr.svg";
+const NAME_STAMP = "/assets/name-stamp.png";
+
 function JoinCard({ here }: { here: AudiencePresence[] }) {
   return (
     <>
       <div className="talk-live__qr">
-        <img src="/talk/perpetual-play/join-qr.svg" alt="QR code for spencer.place/talk" />
-        <img className="talk-live__stamp" src="/assets/name-stamp.png" alt="" />
+        <img src={JOIN_QR} alt="QR code for spencer.place/talk" />
+        <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
       </div>
       <div className="talk-live__label">
         <span>join on your phone</span>
@@ -182,6 +185,11 @@ export function LiveLayer({
   const wake = useCallback(() => setAwake(true), []);
   const loops = useLoops(ready, moment === "title");
 
+  // Fetch the join card's pictures with the deck, so `j` shows it at once.
+  useEffect(() => {
+    for (const src of [JOIN_QR, NAME_STAMP]) new Image().src = src;
+  }, []);
+
   // Phones follow only a stage that has been switched to presenting, so
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
@@ -191,7 +199,15 @@ export function LiveLayer({
   }, [ready, presenting, slide, moment, joinOpen]);
 
   const here = useMemo(() => [...audience.values()], [audience]);
-  if (!ready) return null;
+  // The join card needs nothing from the room, so it shows while the room is
+  // still connecting; only the count of people waits.
+  if (!ready) {
+    return joinOpen ? (
+      <div className="talk-live" aria-hidden="true">
+        <JoinCard here={here} />
+      </div>
+    ) : null;
+  }
 
   return (
     <div className="talk-live" aria-hidden="true">
