@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
-import type { Box, Layer, Slide as SlideData, TextRun } from "./perpetualPlayDeck";
+import { buildCount, type Box, type Layer, type Slide as SlideData, type TextRun } from "./perpetualPlayDeck";
 import { SharedCollages } from "./SharedCollages";
 
 export const SLIDE_W = 1920;
@@ -220,12 +220,16 @@ export function Slide({
   mode,
   active,
   from = null,
+  build = Infinity,
 }: {
   slide: SlideData;
   mode: MediaMode;
   active: boolean;
   // The slide just left, when this one was reached by a single step.
   from?: SlideData | null;
+  // How many builds are revealed; layers with a higher build stay hidden.
+  // Left out, every layer shows (the overview, a slide already passed).
+  build?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -234,6 +238,26 @@ export function Slide({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     glideFrom(root, slide, from);
   }, [active, from, slide]);
+
+  // Layers wait for their build. Set on the drawn elements rather than in
+  // each layer's own style, so the glide above still lines elements up with
+  // layers; a layer revealed by pressing next fades in.
+  const shownBuild = useRef(build);
+  useLayoutEffect(() => {
+    const root = ref.current;
+    if (!root || buildCount(slide) === 0) return;
+    const reveal = active && build > shownBuild.current && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    slide.layers.forEach((layer, i) => {
+      const el = root.children[i] as HTMLElement | undefined;
+      if (!el) throw new Error(`[talk] slide ${slide.figmaId} has no element for layer ${i}`);
+      const at = layer.build ?? 0;
+      el.style.visibility = at > build ? "hidden" : "";
+      if (reveal && at > shownBuild.current && at <= build) {
+        el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: "ease-out" });
+      }
+    });
+    shownBuild.current = build;
+  }, [active, build, slide]);
 
   return (
     <div

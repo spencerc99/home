@@ -7,7 +7,13 @@ export type Box = [number, number, number, number];
 
 export type TextRun = { text: string; color?: string; bold?: boolean; underline?: boolean };
 
-export type Layer =
+export type Layer = LayerContent & {
+  // Hidden when the slide comes up; each press of next reveals the layers of
+  // the next build number, 1 first, before moving on to the next slide.
+  build?: number;
+};
+
+type LayerContent =
   | {
       kind: "image";
       src: string;
@@ -42,6 +48,11 @@ export type Layer =
   | { kind: "scribble"; opacity?: number }
   // Shared We Were Online collages drifting onto the slide one after another.
   | { kind: "collages" };
+
+/** How many presses of next reveal the slide's builds before it moves on. */
+export function buildCount(slide: Slide): number {
+  return Math.max(0, ...slide.layers.map((layer) => layer.build ?? 0));
+}
 
 export type Slide = {
   // Figma node id of the slide, so it can be found again in the file.
@@ -158,10 +169,11 @@ export const perpetualPlayDeck: Slide[] = [
     layers: [
       img("2075-705", [586, 217, 747, 645]),
       byline,
-      img("2096-60", [70, 665, 590, 393]),
-      img("2096-63", [1240, 30, 680, 510]),
-      img("2096-65", [1277, 540, 606, 540]),
-      img("2096-66", [70, 29, 671, 504]),
+      // Benches and playgrounds join one at a time, clockwise from the top left.
+      img("2096-60", [70, 665, 590, 393], { build: 4 }),
+      img("2096-63", [1240, 30, 680, 510], { build: 2 }),
+      img("2096-65", [1277, 540, 606, 540], { build: 3 }),
+      img("2096-66", [70, 29, 671, 504], { build: 1 }),
     ],
   },
   {

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
+import { buildCount, perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide, type MediaMode } from "./Slide";
 import { SlideOverview } from "./SlideOverview";
 import { useFitScale, type FitMode } from "./useFitScale";
@@ -20,6 +20,23 @@ const LAST = deck.length - 1;
 const FIT_KEY = "talk:fit";
 const clamp = (n: number) => Math.min(LAST, Math.max(0, n));
 
+/** Which slide is up, and how many of its builds are revealed. */
+type Position = { index: number; build: number };
+
+/**
+ * One press of next or back. Next reveals the slide's next build before
+ * moving on; back hides the last build, or returns to the slide before fully
+ * built, the way Figma and Keynote do.
+ */
+function stepFrom({ index, build }: Position, by: 1 | -1): Position {
+  if (by === 1) {
+    if (build < buildCount(deck[index])) return { index, build: build + 1 };
+    return index < LAST ? { index: index + 1, build: 0 } : { index, build };
+  }
+  if (build > 0) return { index, build: build - 1 };
+  return index > 0 ? { index: index - 1, build: buildCount(deck[index - 1]) } : { index, build };
+}
+
 function linkFor(index: number): string | null {
   for (const layer of deck[index].layers) {
     if (layer.kind === "label" && layer.link) return `https://${layer.link}`;
@@ -28,7 +45,12 @@ function linkFor(index: number): string | null {
 }
 
 export function DeckStage() {
-  const [index, setIndex] = useState(() => slideFromHash(deck.length) ?? recallSlide(deck.length) ?? 0);
+  const [position, setPosition] = useState<Position>(() => ({
+    index: slideFromHash(deck.length) ?? recallSlide(deck.length) ?? 0,
+    build: 0,
+  }));
+  const { index, build } = position;
+  const step = useCallback((by: 1 | -1) => setPosition((p) => stepFrom(p, by)), []);
   const [playing, setPlaying] = useState(true);
   const [chromeVisible, setChromeVisible] = useState(true);
   const [typed, setTyped] = useState("");
@@ -57,7 +79,7 @@ export function DeckStage() {
   }, [index]);
 
   const goto = useCallback((n: number) => {
-    setIndex(clamp(n));
+    setPosition({ index: clamp(n), build: 0 });
     setPlaying(true);
   }, []);
 
@@ -83,7 +105,7 @@ export function DeckStage() {
 
   const send = useDeckChannel((message: DeckMessage) => {
     if (message.type === "goto") goto(message.index);
-    if (message.type === "step") setIndex((i) => clamp(i + message.by));
+    if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
     if (message.type === "hello") send({ type: "state", state: { index, playing } });
   });
@@ -100,7 +122,7 @@ export function DeckStage() {
   useEffect(() => {
     const onHash = () => {
       const fromHash = slideFromHash(deck.length);
-      if (fromHash !== null) setIndex(fromHash);
+      if (fromHash !== null) setPosition((p) => (p.index === fromHash ? p : { index: fromHash, build: 0 }));
     };
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
@@ -165,10 +187,10 @@ export function DeckStage() {
       const back = event.shiftKey && (key === " " || key === "Enter");
       if (!back && ["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(key)) {
         event.preventDefault();
-        setIndex((i) => clamp(i + 1));
+        step(1);
       } else if (back || ["ArrowLeft", "ArrowUp", "PageUp"].includes(key)) {
         event.preventDefault();
-        setIndex((i) => clamp(i - 1));
+        step(-1);
       } else if (key === "Home" || key === "r" || key === "R") goto(0);
       else if (key === "End") goto(LAST);
       else if (key === "k" || key === "p") setPlaying((p) => !p);
@@ -186,7 +208,7 @@ export function DeckStage() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goto, index, openNotes, toggleFit, toggleFullscreen, typed]);
+  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, typed]);
 
   const hasVideo = deck[index].layers.some((l) => l.kind === "video");
   const link = linkFor(index);
@@ -208,7 +230,13 @@ export function DeckStage() {
                   visibility: i === index ? "visible" : "hidden",
                 }}
               >
-                <Slide slide={slide} mode={mode} active={i === index} from={i === index ? cameFrom : null} />
+                <Slide
+                  slide={slide}
+                  mode={mode}
+                  active={i === index}
+                  from={i === index ? cameFrom : null}
+                  build={i === index ? build : i > index ? 0 : undefined}
+                />
 
               </div>
             );
@@ -235,13 +263,13 @@ export function DeckStage() {
       </div>
 
       <nav className="talk-chrome" aria-label="Slide controls">
-        <button type="button" onClick={() => setIndex((i) => clamp(i - 1))} aria-label="Previous slide">
+        <button type="button" onClick={() => step(-1)} aria-label="Previous slide">
           ←
         </button>
         <span className="talk-chrome__count">
           {typed ? `go to ${typed}` : `${index + 1} / ${deck.length}`}
         </span>
-        <button type="button" onClick={() => setIndex((i) => clamp(i + 1))} aria-label="Next slide">
+        <button type="button" onClick={() => step(1)} aria-label="Next slide">
           →
         </button>
         {hasVideo && (
