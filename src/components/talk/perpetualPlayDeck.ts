@@ -150,7 +150,11 @@ export const perpetualPlayDeck: Slide[] = [
   { figmaId: "2070:602", layers: [byline, img("2070-605", [370, 194, 1214, 692])] },
   {
     figmaId: "2059:441",
-    layers: [heading([356, 439, 1207, 202], "I think technology is meaningless without people"), byline],
+    layers: [
+      heading([356, 330, 1207, 202], "People give meaning to technology"),
+      { ...heading([356, 600, 1207, 140], "So we can make it what we want:\nfun, caring, creative", { size: 56 }), build: 1 },
+      byline,
+    ],
   },
   {
     figmaId: "2176:43",

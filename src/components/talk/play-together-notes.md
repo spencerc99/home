@@ -19,6 +19,8 @@ I like to say I make software you can touch. From software spaces and tools, to 
 
 A big part of this work is creating things that are approachable and fun and invite the curiosity and creativity that play enables. To imagine new possibilities
 
+i believe in positive visions being able to bring change better than pure critique
+
 ## 4 · which is why I've always been…
 <!-- 2070:583 -->
 
@@ -43,18 +45,21 @@ Perpetual Play takes the idea of the perpetual motion machine but brings it to a
 this is me and my big brother when i was little.
 i grew up on the internet, watching him play video games I soon got into myself. All those worlds and strangers taught me to socialize and connect with people through the computer — that it could be a medium for play, creation, and connection.
 
-## 8 · I think technology is meaningless without people
+## 8 · People give meaning to technology
 <!-- 2059:441 -->
 
 i think this helped form this fundamental belief that underlies all my work
 
-**i think technology is meaningless without people!** we give the meaning to all these things — they help us live life easier, connect to each other, create amazing things. it's all for us.
-so what do we want to do with it? and how can it actually help rather than harm us?
+People give meaning to technology
+
+So we can make it what we want: fun, caring, creative
+
+all of it is  for us. so all we need to ask ourselves is: what do we want from it? 
 
 ## 9 · We're not starting from an easy…
 <!-- 2176:43 -->
 
-We're not starting from an easy place. There is not a lot of hope for the internet these days. Dead internet theory has become popular again — there's now more bot activity than human activity on the web.
+We're not starting from an easy place. There is not a lot of hope for the internet these days. Dead internet theory has become popular again — there's now more bot activity than human activity on the web. AI-generated slop floods the web and people are scared whether the open web is doomed. 
 
 ## 10 · But just because the quantity of…
 <!-- 2083:714 -->
