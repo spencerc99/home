@@ -7,7 +7,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { perpetualPlayDeck as deck } from "../src/components/talk/perpetualPlayDeck";
-import { parseSpeakerNotes } from "../src/components/talk/speakerNotes";
+import { parseSpeakerNotes, readNoteSections } from "../src/components/talk/speakerNotes";
 
 const VAULT_NOTE = join(
   homedir(),
@@ -34,7 +34,8 @@ if (missing.length) {
   throw new Error(`The Obsidian note has no notes for slides ${missing.map((s) => s.figmaId).join(", ")}`);
 }
 
-const old = parseSpeakerNotes(readFileSync(SITE_NOTES, "utf8"));
+// The copy on the site may still hold slides the deck has since dropped.
+const old = readNoteSections(readFileSync(SITE_NOTES, "utf8"));
 const changed = deck.flatMap((slide, i) => (old.get(slide.figmaId) === fresh.get(slide.figmaId) ? [] : [i + 1]));
 writeFileSync(SITE_NOTES, next);
 console.log(changed.length ? `Notes updated for slides ${changed.join(", ")}.` : "Notes already up to date.");

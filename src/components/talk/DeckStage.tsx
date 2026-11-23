@@ -289,7 +289,7 @@ export function DeckStage() {
                 slide={index}
                 build={build}
                 moment={deck[index].live ?? null}
-                fridgeDoor={deck[index].fridgeDoor ?? false}
+                fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 presenting={presenting}
                 joinOpen={joinOpen}
                 wakeForced={wakeForced}

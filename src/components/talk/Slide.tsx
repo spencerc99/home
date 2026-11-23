@@ -88,6 +88,18 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
       );
     case "video":
       return <SlideVideo src={layer.src} box={layer.box} radius={layer.radius} mode={mode} />;
+    case "website":
+      // Not clickable: a click inside would take the keyboard from the deck.
+      return mode === "still" ? (
+        <img src={layer.still} alt="" draggable={false} style={{ ...place(layer.box), objectFit: "cover" }} />
+      ) : (
+        <iframe
+          src={layer.url}
+          title={layer.url}
+          tabIndex={-1}
+          style={{ ...place(layer.box), border: 0, pointerEvents: "none", background: "#fff" }}
+        />
+      );
     case "block":
       return <div style={{ ...place(layer.box), background: layer.color }} />;
     case "text":

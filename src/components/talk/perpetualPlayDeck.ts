@@ -28,6 +28,9 @@ type LayerContent =
       cover?: boolean;
     }
   | { kind: "video"; src: string; box: Box; radius?: number }
+  // A live web page, framed. Thumbnails (the overview grid, the notes window)
+  // show `still` instead so they don't each load the page.
+  | { kind: "website"; url: string; box: Box; still: string }
   | {
       kind: "text";
       box: Box;
@@ -51,7 +54,7 @@ type LayerContent =
 
 /** How many presses of next reveal the slide's builds before it moves on. */
 export function buildCount(slide: Slide): number {
-  return Math.max(0, ...slide.layers.map((layer) => layer.build ?? 0));
+  return Math.max(slide.fridgeDoor ?? 0, ...slide.layers.map((layer) => layer.build ?? 0));
 }
 
 export type Slide = {
@@ -60,9 +63,9 @@ export type Slide = {
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
   live?: "warmup" | "title" | "seat" | "fridge" | "patina" | "finale";
-  // The fridge slide where the big screen draws the shared fridge door;
-  // phones can already move words on the fridge slides before it.
-  fridgeDoor?: boolean;
+  // The fridge slide where the big screen draws the shared fridge door, on
+  // this build; phones can already move words on the fridge slides before it.
+  fridgeDoor?: number;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -212,12 +215,24 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "36:224",
     live: "fridge",
-    fridgeDoor: true,
+    // The real fridge first; the next press brings up the room's own door.
+    fridgeDoor: 1,
     layers: [img("36-226", [-22, -237, 1942, 1554], { radius: 8 }), label("poems we found on the internet", "playhtml.fun/fridge")],
   },
   {
     figmaId: "45:363",
-    layers: [...livingSites(true), label("playhtml", "playhtml.fun"), img("2075-619", [1004, 285, 874, 818])],
+    // One more website on each press, ending on recent ones made with playhtml.
+    layers: [
+      ...[
+        ...livingSites(true),
+        img("2075-619", [1004, 285, 874, 818]),
+        img("student-teletext", [70, 60, 760, 475], { radius: 8, cover: true }),
+        img("student-cyberspace", [1110, 50, 760, 475], { radius: 8, cover: true }),
+        img("student-compost", [230, 545, 760, 475], { radius: 8, cover: true }),
+        img("student-trash", [1010, 560, 760, 475], { radius: 8, cover: true }),
+      ].map((layer, i) => ({ ...layer, build: i })),
+      label("playhtml", "playhtml.fun"),
+    ],
   },
   {
     figmaId: "2086:769",
@@ -314,7 +329,13 @@ export const perpetualPlayDeck: Slide[] = [
   { figmaId: "2096:74", layers: [img("2096-75", [548, 128, 824, 824]), byline, img("2096-77", [640, 259, 639, 561])] },
   { figmaId: "2002:201", layers: [byline, img("2048-375", [294, 38, 1331, 1003])] },
   { figmaId: "2058:389", layers: [byline, img("2058-393", [506, 55, 908, 969])] },
-  { figmaId: "33:182", layers: [img("36-201", [0, -186, 1920, 1452]), label("we were online", "wewere.online")] },
+  {
+    figmaId: "33:182",
+    layers: [
+      { kind: "website", url: "https://wewere.online/", box: [0, 0, 1920, 1080], still: `${IMG}/36-201.webp` },
+      label("we were online", "wewere.online"),
+    ],
+  },
   {
     figmaId: "33:185",
     layers: [
@@ -336,9 +357,11 @@ export const perpetualPlayDeck: Slide[] = [
       vid("wikipedia-cursors", [16, 291, 601, 720]),
       vid("wikipedia-demo", [668, 164, 1161, 882]),
       label("we were online", "wewere.online"),
+      // The Wikipedia main page's "Welcome to Wikipedia", its link tinted by
+      // everyone's cursor colours.
+      { ...img("wikipedia-patina", [260, 330, 1400, 368], { radius: 12, cover: true }), build: 1 },
     ],
   },
-  { figmaId: "2086:723", layers: [byline, img("2086-728", [411, 128, 1098, 824]), label("we were online", "wewere.online")] },
   { figmaId: "2096:87", layers: [byline, ...livingSites(false), img("2075-619", [1004, 285, 874, 818]), label("we were online", "wewere.online")] },
   {
     figmaId: "2075:608",
@@ -369,7 +392,7 @@ export const perpetualPlayDeck: Slide[] = [
       heading([838, 218, 880, 101], "Thank you :)", { align: "center" }),
       {
         kind: "text",
-        box: [1025, 319, 727, 528],
+        box: [1025, 319, 880, 528],
         size: 48,
         lineHeight: 1,
         runs: [],
@@ -381,7 +404,11 @@ export const perpetualPlayDeck: Slide[] = [
             [{ text: "Be part of a living internet: " }, { text: "wewere.online", color: LINK }],
           ],
         },
-        after: [{ text: "\n\n\nspencer.place\n", color: LINK }, { text: "hi@spencer.place", underline: true }],
+        after: [
+          { text: "\n\n\nspencer.place\n", color: LINK },
+          { text: "hi@spencer.place", underline: true },
+          { text: "\nspencercha.ng on tiktok / ig / bsky" },
+        ],
       },
       img("2094-39", [204, 218, 643, 643]),
     ],

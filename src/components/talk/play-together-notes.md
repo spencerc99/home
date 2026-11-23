@@ -217,17 +217,14 @@ This is a partnership I did with Wikipedia to show how this concept could extend
 
 you can see other cursors on the same page, click to follow a stranger down different pages,
 
+**[next: close-up]** and watch the links grow patina with the cursor colors of everyone who has traveled through. Patina of people.
+
 ## 35 · we were online
-<!-- 2086:723 -->
-
-and watch the links grow patina with the cursor colors of everyone who has traveled through. Patina of people.
-
-## 36 · we were online
 <!-- 2096:87 -->
 
 I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
 
-## 37 · rules of play
+## 36 · rules of play
 <!-- 2075:608 -->
 
 these projects all found their way to cycles of play from different angles — creating spaces for life to accumulate and energy to continue.
@@ -238,14 +235,14 @@ They made seeds rather than products so that people were empowered to begin and 
 
 And they programmed for surprise so that every encounter could be different and a space for the human error to spill over
 
-## 38 · Play Together
+## 37 · Play Together
 <!-- 2002:212 -->
 
 Ultimately, I think im invested in creating the conditions that allow for change to happen at every level of our technology. Projects, spaces, and ways of interacting that grow beyond myself to create millions of interfaces, devices, and internets, each with their own personalities and niches.
 
 put together, our energy can create new systems, reimagine our relationships with & through technology, and create these cycles of play over and over and over so that if you squint they might just look infinite.
 
-## 39 · Thank you :)
+## 38 · Thank you :)
 <!-- 2094:36 -->
 
 All of these projects are out in the world and driven by the community, so if any of these interested you, please explore and reach out to help me make new interfaces, devices, and internets.
