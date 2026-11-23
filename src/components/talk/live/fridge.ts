@@ -3,16 +3,12 @@
 // was left and the colour of whoever moved it last.
 
 export const FRIDGE_WORDS: readonly string[] = [
-  "the", "internet", "has", "no", "benches",
-  "we", "were", "here", "online", "together",
-  "play", "forever", "a", "home", "long",
-  "table", "canal", "playground", "sit", "and",
-  "watch", "proof", "of", "life", "you",
-  "can", "touch", "shape", "it", "live",
-  "shared", "space", "every", "color", "is",
-  "person", "room", "spiral", "slow", "soft",
-  "my", "your", "our", "s", "ing",
-  "to", "in", "with",
+  "the", "internet", "has", "no",
+  "benches", "we", "were", "here",
+  "online", "together", "play", "home",
+  "live", "proof", "of", "life",
+  "you", "is", "a", "soft",
+  "our", "with", "s", "ing",
 ];
 
 /** The fridge is a tall door, 3:4, so it fits a phone held upright. */
@@ -20,7 +16,7 @@ export const FRIDGE_ASPECT = 3 / 4;
 
 /** Where a word starts before anyone moves it: loose rows, a little scattered. */
 export function startingSpot(index: number): { x: number; y: number } {
-  const perRow = 5;
+  const perRow = 4;
   const row = Math.floor(index / perRow);
   const col = index % perRow;
   const rows = Math.ceil(FRIDGE_WORDS.length / perRow);

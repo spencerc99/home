@@ -83,8 +83,12 @@ export const LOOPS_DATA = "talk-title-loops";
 export type Loop = { color: string; points: number[] };
 export type Loops = Record<string, Loop>;
 
-/** Fridge words people have moved, by word index: where it sits (0..1 of the fridge) and who moved it last. */
-export const FRIDGE_DATA = "talk-fridge";
+/**
+ * Fridge words people have moved, by word index: where it sits (0..1 of the
+ * fridge) and who moved it last. Keyed by index into FRIDGE_WORDS, so a new
+ * word list needs a new name here.
+ */
+export const FRIDGE_DATA = "talk-fridge-words";
 export type FridgeWord = { x: number; y: number; color: string };
 export type Fridge = Record<string, FridgeWord>;
 
