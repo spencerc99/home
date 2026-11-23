@@ -44,6 +44,41 @@ function linkFor(index: number): string | null {
   return null;
 }
 
+// Small line icons for the control bar, drawn in the text colour.
+const icon = { width: 16, height: 16, viewBox: "0 0 16 16", fill: "none", stroke: "currentColor", strokeWidth: 1.4, "aria-hidden": true } as const;
+
+/** A dot sending out waves: phones follow this screen. */
+function LiveIcon() {
+  return (
+    <svg {...icon} strokeLinecap="round">
+      <circle cx="8" cy="8" r="1.8" fill="currentColor" stroke="none" />
+      <path d="M5.2 5.2a4 4 0 0 0 0 5.6M10.8 5.2a4 4 0 0 1 0 5.6M3 3a7 7 0 0 0 0 10M13 3a7 7 0 0 1 0 10" />
+    </svg>
+  );
+}
+
+/** A page with lines: the speaker notes window. */
+function NotesIcon() {
+  return (
+    <svg {...icon} strokeLinecap="round">
+      <rect x="3" y="2" width="10" height="12" rx="1.2" />
+      <path d="M5.6 5.5h4.8M5.6 8h4.8M5.6 10.5h3" />
+    </svg>
+  );
+}
+
+/** Four tiles: every slide at once. */
+function GridIcon() {
+  return (
+    <svg {...icon}>
+      <rect x="2.5" y="2.5" width="4.5" height="4.5" rx="0.6" />
+      <rect x="9" y="2.5" width="4.5" height="4.5" rx="0.6" />
+      <rect x="2.5" y="9" width="4.5" height="4.5" rx="0.6" />
+      <rect x="9" y="9" width="4.5" height="4.5" rx="0.6" />
+    </svg>
+  );
+}
+
 export function DeckStage() {
   const [position, setPosition] = useState<Position>(() => ({
     index: slideFromHash(deck.length) ?? recallSlide(deck.length) ?? 0,
@@ -289,20 +324,18 @@ export function DeckStage() {
           className="talk-chrome__live"
           aria-pressed={presenting}
           onClick={() => setPresenting((p) => !p)}
-          title="Phones follow this screen while live (l). j shows the join card, w wakes slide 2."
+          aria-label={presenting ? "Live: phones follow this screen" : "Go live"}
+          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card, w wakes slide 2.`}
         >
-          {presenting ? "● live" : "go live"}
+          <LiveIcon />
         </button>
-        <button type="button" onClick={openNotes}>
-          notes
+        <button type="button" onClick={openNotes} aria-label="Speaker notes" title="Speaker notes (n)">
+          <NotesIcon />
         </button>
-        <button type="button" onClick={() => setOverview(true)} title="All slides (g)">
-          all
+        <button type="button" onClick={() => setOverview(true)} aria-label="All slides" title="All slides (g)">
+          <GridIcon />
         </button>
-        <button type="button" onClick={toggleFit} title="Fit or fill the screen (z)">
-          {fit}
-        </button>
-        <button type="button" onClick={toggleFullscreen} aria-label="Full screen">
+        <button type="button" onClick={toggleFullscreen} aria-label="Full screen" title="Full screen (f). z switches fit and fill.">
           ⛶
         </button>
       </nav>
