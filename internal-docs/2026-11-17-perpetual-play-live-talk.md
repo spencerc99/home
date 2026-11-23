@@ -40,9 +40,12 @@
   play/pause, `n` notes, `f` full screen, `o` open the slide's link.
 - The notes window follows the "Script" design from the canvas: words
   biggest, current and next slide on the left, wall clock and timer on top.
-- Speaker notes live in `src/components/talk/play-together-notes.md` and are
-  edited there (they started as Figma's speaker notes; Figma is no longer the
-  source). One `## N · title` heading per slide, then an `<!-- figma id -->`
+- Speaker notes are written in Spencer's Obsidian vault, in
+  `projects/talks/ncm play together - speaker notes.md` (2026-11-23: editing
+  on a phone was the reason), and `bun run talk-notes`
+  (`scripts/syncTalkNotes.ts`) copies them into
+  `src/components/talk/play-together-notes.md`, which the notes window reads.
+  They started as Figma's speaker notes; Figma is no longer the source. One `## N · title` heading per slide, then an `<!-- figma id -->`
   line tying it to the slide, then the notes. `speakerNotes.ts` parses it; a
   heading without an id, an id used twice, an id not in the deck, or a slide
   without notes all throw.

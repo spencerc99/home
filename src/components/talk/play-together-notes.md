@@ -1,8 +1,8 @@
 # Play Together · speaker notes
 
-The notes window (/talk/notes) shows the text under each slide's heading.
-Edit the words freely; **bold** stays bold, and a line break starts a new paragraph.
-The `<!-- id -->` line under each heading ties the notes to their slide in the deck, so leave it as it is.
+Copied from the Obsidian note "projects/talks/ncm play together - speaker notes"
+by `bun run talk-notes`. Edit the notes there, not here: this file is replaced
+each time the command runs.
 
 ## 1 · Hi I’m Spencer
 <!-- 2081:708 -->

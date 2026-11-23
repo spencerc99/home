@@ -12,7 +12,8 @@
     "import-creations": "bun scripts/importCreations.ts",
     "import-newsletter": "bun scripts/importNewsletter.ts",
     "import-all": "bun run import-creations && bun run import-newsletter",
-    "upload-fits": "sh ./scripts/upload_fits.sh"
+    "upload-fits": "sh ./scripts/upload_fits.sh",
+    "talk-notes": "bun scripts/syncTalkNotes.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.4.1",

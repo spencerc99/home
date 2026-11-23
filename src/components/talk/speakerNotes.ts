@@ -1,7 +1,7 @@
-// Speaker notes live in play-together-notes.md, written to be edited by hand.
-// Each slide is a `## ` heading, then an `<!-- figma id -->` line that ties it
-// to its slide in the deck, then the notes themselves.
-import source from "./play-together-notes.md?raw";
+// Speaker notes are written in Spencer's Obsidian vault and copied into
+// play-together-notes.md with `bun run talk-notes`. Each slide is a `## `
+// heading, then an `<!-- figma id -->` line that ties it to its slide in the
+// deck, then the notes themselves.
 import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 
 const FILE = "play-together-notes.md";
@@ -27,4 +27,3 @@ export function parseSpeakerNotes(markdown: string): Map<string, string> {
   return notes;
 }
 
-export const speakerNotes = parseSpeakerNotes(source);

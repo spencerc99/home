@@ -1,10 +1,13 @@
 import { Fragment, useEffect, useState, type ReactNode } from "react";
 import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide } from "./Slide";
-import { speakerNotes } from "./speakerNotes";
+import notesSource from "./play-together-notes.md?raw";
+import { parseSpeakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
 import "./talk.scss";
+
+const speakerNotes = parseSpeakerNotes(notesSource);
 
 /** The notes use **bold** and *italic*; nothing else needs parsing. */
 function renderNotes(text: string): ReactNode {
