@@ -637,6 +637,40 @@ html.talk-page body {
   font-family: "Vulf Sans", sans-serif;
 }
 
+// Take a seat: playhtml cursors over the benches. Updates arrive a few
+// times a second, so each cursor eases to its next spot.
+.talk-live__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: transform 220ms linear;
+  will-change: transform;
+}
+
+.talk-live__cursor-body {
+  display: block;
+  transform-origin: 30% 80%;
+  transition:
+    transform 420ms cubic-bezier(0.3, 1.4, 0.5, 1),
+    filter 420ms ease-out;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+
+  [data-seated] > & {
+    // Sitting: tipped back a little, with a longer shadow on the seat.
+    transform: rotate(-16deg);
+    filter: drop-shadow(-6px 10px 4px rgba(0, 0, 0, 0.32));
+  }
+}
+
+// The fridge: the shared door stands over the fridge poem slide.
+.talk-live__fridge {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  width: 720px;
+  transform: translateX(-50%);
+}
+
 .talk-live__glow {
   position: absolute;
   width: 240px;

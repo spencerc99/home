@@ -310,3 +310,15 @@ html.talk-phone body {
     opacity: 0;
   }
 }
+
+// Take a seat: the pad is a trackpad, so it only needs to feel like one.
+.phone__trackpad {
+  border: 1px solid rgba(97, 110, 129, 0.18);
+  border-radius: 16px;
+}
+
+// The fridge, as large as the screen allows at its 3:4 shape.
+.phone__fridge {
+  width: min(100%, calc(66svh * 3 / 4));
+  margin: 0 auto;
+}

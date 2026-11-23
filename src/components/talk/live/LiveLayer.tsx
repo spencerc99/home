@@ -2,15 +2,23 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LiveMoment } from "./talkRoom";
 import {
   AUDIENCE_CHANNEL,
+  FRIDGE_REREAD_MS,
+  SEAT_CHANNEL,
   STAGE_CHANNEL,
+  fridgeWords,
   titleLoops,
   playhtml,
   type AudiencePresence,
+  type Fridge,
   type Loops,
+  type SeatPresence,
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
-import { parseAudience, parseLoops } from "./roomData";
+import { parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
+import { SEATS } from "./seats";
+import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
+import { FridgeDoor } from "./FridgeDoor";
 
 // What the audience adds on top of the slide on the big screen. Drawn in
 // slide pixels (1920x1080) over the current slide; the deck never waits on it.
@@ -44,6 +52,58 @@ function useAudience(ready: boolean) {
     };
   }, [ready]);
   return audience;
+}
+
+/** Everyone's cursor on the benches slide, by presence id. */
+function useSeats(ready: boolean, on: boolean) {
+  const [seats, setSeats] = useState<Map<string, SeatPresence>>(new Map());
+  useEffect(() => {
+    if (!ready || !on) return;
+    let frame: number | null = null;
+    const read = () => {
+      frame = null;
+      const next = new Map<string, SeatPresence>();
+      for (const [id, view] of playhtml.presence.getPresences()) {
+        const value = parseSeat(view[SEAT_CHANNEL]);
+        if (value) next.set(id, value);
+      }
+      setSeats(next);
+    };
+    read();
+    const off = playhtml.presence.onPresenceChange(SEAT_CHANNEL, () => {
+      frame ??= requestAnimationFrame(read);
+    });
+    return () => {
+      off();
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [ready, on]);
+  return seats;
+}
+
+/** The fridge words people have moved. */
+function useFridge(ready: boolean, on: boolean) {
+  const [words, setWords] = useState<Fridge>({});
+  useEffect(() => {
+    if (!ready || !on) return;
+    const channel = fridgeWords();
+    let frame: number | null = null;
+    const read = () => {
+      frame = null;
+      setWords(parseFridge(channel.getData()));
+    };
+    read();
+    const off = channel.onUpdate(() => {
+      frame ??= requestAnimationFrame(read);
+    });
+    const reread = setInterval(read, FRIDGE_REREAD_MS);
+    return () => {
+      off();
+      clearInterval(reread);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [ready, on]);
+  return words;
 }
 
 function useLoops(ready: boolean, on: boolean) {
@@ -171,17 +231,69 @@ function TitleLoops({ loops }: { loops: Loops }) {
   );
 }
 
+const CURSOR = 64;
+
+/**
+ * Everyone's cursor over the benches. A cursor that has sat down settles on
+ * its seat, tips back a little and casts a shadow; others wander.
+ */
+function SeatedCursors({
+  seats,
+  audience,
+  build,
+}: {
+  seats: Map<string, SeatPresence>;
+  audience: Map<string, AudiencePresence>;
+  build: number;
+}) {
+  // Two people on one seat (both let go at once) sit side by side.
+  const onSeat = new Map<number, number>();
+  return (
+    <>
+      {[...seats].map(([id, cursor]) => {
+        const color = audience.get(id)?.color;
+        if (!color) return null;
+        const seat = cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
+        let x = cursor.x * W;
+        let y = cursor.y * H;
+        if (seat && cursor.seat !== null) {
+          const nth = onSeat.get(cursor.seat) ?? 0;
+          onSeat.set(cursor.seat, nth + 1);
+          x = seat.x * W + nth * 26;
+          y = seat.y * H;
+        }
+        return (
+          <span
+            key={id}
+            className="talk-live__cursor"
+            data-seated={seat ? true : undefined}
+            style={{ transform: `translate(${x - CURSOR_TIP.x * CURSOR}px, ${y - CURSOR_TIP.y * CURSOR}px)` }}
+          >
+            <span className="talk-live__cursor-body">
+              <PlayCursor color={color} size={CURSOR} />
+            </span>
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 export function LiveLayer({
   ready,
   slide,
+  build,
   moment,
+  fridgeDoor,
   presenting,
   joinOpen,
   wakeForced,
 }: {
   ready: boolean;
   slide: number;
+  build: number;
   moment: LiveMoment | null;
+  fridgeDoor: boolean;
   presenting: boolean;
   joinOpen: boolean;
   wakeForced: boolean;
@@ -190,6 +302,8 @@ export function LiveLayer({
   const [awake, setAwake] = useState(false);
   const wake = useCallback(() => setAwake(true), []);
   const loops = useLoops(ready, moment === "title");
+  const seats = useSeats(ready, moment === "seat");
+  const fridge = useFridge(ready, fridgeDoor);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {
@@ -200,9 +314,9 @@ export function LiveLayer({
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
     if (!ready) return;
-    const value: StagePresence | null = presenting ? { slide, moment, joinOpen } : null;
+    const value: StagePresence | null = presenting ? { slide, build, moment, joinOpen } : null;
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, moment, joinOpen]);
+  }, [ready, presenting, slide, build, moment, joinOpen]);
 
   const here = useMemo(() => [...audience.values()], [audience]);
   // The join card needs nothing from the room, so it shows while the room is
@@ -219,6 +333,12 @@ export function LiveLayer({
     <div className="talk-live" aria-hidden="true">
       {moment === "warmup" && <Warmup audience={audience} forced={wakeForced} awake={awake} onWake={wake} />}
       {moment === "title" && <TitleLoops loops={loops} />}
+      {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
+      {fridgeDoor && (
+        <div className="talk-live__fridge">
+          <FridgeDoor words={fridge} />
+        </div>
+      )}
       {joinOpen && (
         <>
           {moment !== "warmup" && <Glows audience={audience} />}

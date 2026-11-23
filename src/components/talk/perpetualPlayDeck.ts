@@ -59,7 +59,10 @@ export type Slide = {
   figmaId: string;
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
-  live?: "warmup" | "title" | "fridge" | "patina" | "finale";
+  live?: "warmup" | "title" | "seat" | "fridge" | "patina" | "finale";
+  // The fridge slide where the big screen draws the shared fridge door;
+  // phones can already move words on the fridge slides before it.
+  fridgeDoor?: boolean;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -166,6 +169,7 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2075:702",
+    live: "seat",
     layers: [
       img("2075-705", [586, 217, 747, 645]),
       byline,
@@ -195,14 +199,15 @@ export const perpetualPlayDeck: Slide[] = [
     live: "fridge",
     layers: [
       vid("playhtml-all-interactions", [0, 0, 1125, 805]),
-      // playhtml.fun/gallery/, captured at 980x919 to fill the box the docs
-      // screenshot used in Figma.
+      // playhtml.fun/gallery/ at 2x, cropped to the part of the box the
+      // slide shows (the box runs off the slide's right and bottom edges).
       img("playhtml-gallery", [986, 490, 980, 919]),
     ],
   },
   {
     figmaId: "36:224",
     live: "fridge",
+    fridgeDoor: true,
     layers: [img("36-226", [-22, -237, 1942, 1554], { radius: 8 }), label("poems we found on the internet", "playhtml.fun/fridge")],
   },
   {

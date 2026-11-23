@@ -2,9 +2,11 @@
 // to it. Nothing from the room is drawn until it has been checked here: bad
 // entries are skipped, and the amounts are capped so one person cannot slow
 // the stage down or break it for everyone.
-import type { AudiencePresence, LiveMoment, Loop, Loops, StagePresence } from "./talkRoom";
+import type { AudiencePresence, Fridge, LiveMoment, Loop, Loops, SeatPresence, StagePresence } from "./talkRoom";
+import { FRIDGE_WORDS } from "./fridge";
+import { SEATS } from "./seats";
 
-const MOMENTS: readonly LiveMoment[] = ["warmup", "title", "fridge", "patina", "finale"];
+const MOMENTS: readonly LiveMoment[] = ["warmup", "title", "seat", "fridge", "patina", "finale"];
 /** The most loops the stage will draw, newest kept. */
 export const MAX_DRAWN_LOOPS = 1500;
 const MAX_POINTS = 400;
@@ -24,8 +26,9 @@ export function parseStage(value: unknown): StagePresence | null {
   const v = value as Record<string, unknown>;
   if (!Number.isInteger(v.slide) || (v.slide as number) < 0 || (v.slide as number) > 200) return null;
   if (v.moment !== null && !MOMENTS.includes(v.moment as LiveMoment)) return null;
+  if (!Number.isInteger(v.build) || (v.build as number) < 0 || (v.build as number) > 50) return null;
   if (typeof v.joinOpen !== "boolean") return null;
-  return { slide: v.slide as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen };
+  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen };
 }
 
 export function parseAudience(value: unknown): AudiencePresence | null {
@@ -37,6 +40,30 @@ export function parseAudience(value: unknown): AudiencePresence | null {
   const t = v.touch as Record<string, unknown> | undefined;
   if (!t || !unit(t.x, 0, 1) || !unit(t.y, 0, 1)) return null;
   return { color, touch: { x: t.x as number, y: t.y as number } };
+}
+
+export function parseSeat(value: unknown): SeatPresence | null {
+  if (!value || typeof value !== "object") return null;
+  const v = value as Record<string, unknown>;
+  if (!unit(v.x, 0, 1) || !unit(v.y, 0, 1)) return null;
+  if (v.seat !== null && !(Number.isInteger(v.seat) && (v.seat as number) >= 0 && (v.seat as number) < SEATS.length)) return null;
+  return { x: v.x as number, y: v.y as number, seat: v.seat as number | null };
+}
+
+/** The moved fridge words that are safe to draw; unknown words are skipped. */
+export function parseFridge(data: unknown): Fridge {
+  if (!data || typeof data !== "object") return {};
+  const out: Fridge = {};
+  for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+    const index = Number(key);
+    if (!Number.isInteger(index) || index < 0 || index >= FRIDGE_WORDS.length) continue;
+    if (!value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    const color = safeColor(v.color);
+    if (!color || !unit(v.x, 0, 1) || !unit(v.y, 0, 1)) continue;
+    out[key] = { x: v.x as number, y: v.y as number, color };
+  }
+  return out;
 }
 
 function parseLoop(value: unknown): Loop | null {

@@ -1,16 +1,23 @@
 import { Component, useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import {
   AUDIENCE_CHANNEL,
+  FRIDGE_REREAD_MS,
+  SEAT_CHANNEL,
   STAGE_CHANNEL,
+  fridgeWords,
   joinTalkRoom,
   titleLoops,
   playhtml,
   throttle,
   type AudiencePresence,
+  type Fridge,
+  type SeatPresence,
   type StagePresence,
 } from "./talkRoom";
 import { wakeThreshold } from "./moments";
-import { parseAudience, parseStage } from "./roomData";
+import { parseAudience, parseFridge, parseSeat, parseStage } from "./roomData";
+import { SEATS, seatNear } from "./seats";
+import { FridgeDoor } from "./FridgeDoor";
 import "./phone.scss";
 
 // What a phone shows: the door, the colour pick, then whatever the stage is
@@ -380,6 +387,156 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
   );
 }
 
+// How far the cursor goes for a finger's move: a swipe across the pad
+// carries it a bit more than across the whole slide, like a trackpad.
+const TRACKPAD_SPEED = 1.3;
+
+/**
+ * Take a seat: the phone is a trackpad for your cursor on the big screen.
+ * Let go near a seat that is showing and free, and you sit on it.
+ */
+function SeatPad({ build }: { build: number }) {
+  const [cursor, setCursor] = useState<SeatPresence>(() => ({
+    x: 0.35 + Math.random() * 0.3,
+    y: 0.62 + Math.random() * 0.1,
+    seat: null,
+  }));
+  const [missed, setMissed] = useState(false);
+  const finger = useRef<{ x: number; y: number } | null>(null);
+  // Throttled sends can land after this screen has gone; they must not bring
+  // the cursor back.
+  const gone = useRef(false);
+  const send = useRef(
+    throttle<SeatPresence>(TOUCH_EVERY_MS, (value) => {
+      if (!gone.current) playhtml.presence.setMyPresence(SEAT_CHANNEL, value);
+    }),
+  ).current;
+  const first = useRef(cursor);
+  useEffect(() => {
+    gone.current = false;
+    playhtml.presence.setMyPresence(SEAT_CHANNEL, first.current);
+    return () => {
+      gone.current = true;
+      playhtml.presence.setMyPresence(SEAT_CHANNEL, null);
+    };
+  }, []);
+
+  // Moves can arrive faster than renders, so each one builds on the latest.
+  const latest = useRef(cursor);
+  const move = (next: SeatPresence) => {
+    latest.current = next;
+    setCursor(next);
+    send(next);
+  };
+
+  const takenSeats = () => {
+    const me = playhtml.presence.getMyIdentity().publicKey;
+    const taken = new Set<number>();
+    for (const [id, view] of playhtml.presence.getPresences()) {
+      if (id === me) continue;
+      const other = parseSeat(view[SEAT_CHANNEL]);
+      if (other?.seat != null) taken.add(other.seat);
+    }
+    return taken;
+  };
+
+  const letGo = () => {
+    if (!finger.current) return;
+    finger.current = null;
+    const at = latest.current;
+    const seat = seatNear(at.x, at.y, build, takenSeats());
+    setMissed(seat === null);
+    move({ ...at, seat });
+  };
+
+  const seated = cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
+  return (
+    <div className="phone__screen phone__screen--turn">
+      <div className="phone__intro phone__intro--center">
+        <h2>Take a seat</h2>
+        <p>Drag to move your cursor on the big screen. Let go on a bench, a chair, the canal.</p>
+      </div>
+      <div
+        className="phone__pad phone__trackpad"
+        onPointerDown={(event) => {
+          capture(event);
+          finger.current = { x: event.clientX, y: event.clientY };
+          setMissed(false);
+          if (latest.current.seat !== null) move({ ...latest.current, seat: null });
+        }}
+        onPointerMove={(event) => {
+          const from = finger.current;
+          if (!from) return;
+          const width = event.currentTarget.getBoundingClientRect().width;
+          const scale = TRACKPAD_SPEED / width;
+          const dx = (event.clientX - from.x) * scale;
+          const dy = ((event.clientY - from.y) * scale * 1920) / 1080;
+          finger.current = { x: event.clientX, y: event.clientY };
+          const at = latest.current;
+          move({
+            x: Math.min(1, Math.max(0, at.x + dx)),
+            y: Math.min(1, Math.max(0, at.y + dy)),
+            seat: null,
+          });
+        }}
+        onPointerUp={letGo}
+        onPointerCancel={letGo}
+      >
+        <p className="phone__hint">{seated ? "Sitting" : "Drag here"}</p>
+      </div>
+      <p className="phone__meta">
+        {seated ? `you are sitting on ${seated.name}` : missed ? "no free seat there, try nearer one" : "look up at the big screen"}
+      </p>
+    </div>
+  );
+}
+
+/** The shared fridge, shrunk to the phone. Drag any word. */
+function FridgePad({ color }: { color: string }) {
+  const [words, setWords] = useState<Fridge>(() => parseFridge(fridgeWords().getData()));
+  useEffect(() => {
+    const channel = fridgeWords();
+    const read = () => setWords(parseFridge(channel.getData()));
+    let pending: ReturnType<typeof setTimeout> | null = null;
+    const off = channel.onUpdate(() => {
+      pending ??= setTimeout(() => {
+        pending = null;
+        read();
+      }, 100);
+    });
+    const reread = setInterval(read, FRIDGE_REREAD_MS);
+    return () => {
+      off();
+      clearInterval(reread);
+      if (pending) clearTimeout(pending);
+    };
+  }, []);
+  const colorRef = useRef(color);
+  colorRef.current = color;
+  const write = useRef(
+    throttle<{ index: number; x: number; y: number }>(120, ({ index, x, y }) => {
+      fridgeWords().setData((draft) => {
+        draft[String(index)] = { x, y, color: colorRef.current };
+      });
+    }),
+  ).current;
+  return (
+    <div className="phone__screen phone__screen--turn">
+      <div className="phone__intro phone__intro--center">
+        <h2>Make a line</h2>
+        <p>Drag words. Everyone shares one fridge.</p>
+      </div>
+      <div className="phone__fridge">
+        <FridgeDoor
+          words={words}
+          myColor={color}
+          onMove={(index, spot) => write({ index, x: spot.x, y: spot.y })}
+        />
+      </div>
+    </div>
+  );
+}
+
 /** If the phone page ever breaks, say so plainly instead of going blank. */
 class PhoneBoundary extends Component<{ children: React.ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -503,6 +660,10 @@ function Phone() {
     );
   } else if (moment === "title") {
     screen = <DrawPad color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
+  } else if (moment === "seat" && stage) {
+    screen = <SeatPad build={stage.build} />;
+  } else if (moment === "fridge") {
+    screen = <FridgePad color={color} />;
   } else if (!stage || stage.joinOpen) {
     screen = (
       <div className="phone__screen">

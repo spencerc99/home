@@ -252,7 +252,9 @@ export function DeckStage() {
               <LiveLayer
                 ready={roomReady}
                 slide={index}
+                build={build}
                 moment={deck[index].live ?? null}
+                fridgeDoor={deck[index].fridgeDoor ?? false}
                 presenting={presenting}
                 joinOpen={joinOpen}
                 wakeForced={wakeForced}
