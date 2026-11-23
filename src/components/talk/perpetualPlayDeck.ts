@@ -202,10 +202,11 @@ export const perpetualPlayDeck: Slide[] = [
     figmaId: "1:105",
     live: "fridge",
     layers: [
-      vid("playhtml-all-interactions", [0, 0, 1125, 805]),
-      // playhtml.fun/gallery/ at 2x, cropped to the part of the box the
-      // slide shows (the box runs off the slide's right and bottom edges).
-      img("playhtml-gallery", [986, 490, 980, 919]),
+      // playhtml.fun in a desktop window and a phone at once: what one does,
+      // the other sees (recorded with Playwright, 1920x1188).
+      vid("playhtml-home-interactions", [0, 0, 1125, 696]),
+      // The "How it works" section of playhtml.fun, captured at 2x.
+      img("playhtml-how-it-works", [860, 600, 1010, 455]),
     ],
   },
   {

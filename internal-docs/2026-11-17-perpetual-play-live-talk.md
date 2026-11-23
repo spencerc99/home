@@ -146,13 +146,17 @@
   If a talk needs it, add a small server that only relays stage messages
   signed with a presenter secret.
 
+- Slide 14 demo video (`video/playhtml-home-interactions.mp4`) is recorded
+  by `scripts/recordPlayhtmlDemo.mjs` on the live playhtml.fun (desktop and
+  phone windows, scripted clicks, the guestbook left alone) and stitched with
+  the ffmpeg command in its header. The image beside it is the site's
+  "How it works" section at 2x.
+
 ## Still open
 
 - Stage controls and notes screen look: options on the design canvas
   (claude.ai/artifact/WiCHMWqVdfV9L7e4JFH4Jw), current build is closest to
   "Stamp" + "Script".
-- Re-record the two-screen playhtml realtime video on the new playhtml.fun
-  design (replaces `video/playhtml-all-interactions.mp4`).
 - Spencer replaces the We Were Online portraits montage with Ars footage
   (`video/we-were-browsing-montage.mp4`).
 - Point `assets.spencerchang.me` at the R2 bucket (part of moving the whole
