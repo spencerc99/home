@@ -40,8 +40,12 @@
   play/pause, `n` notes, `f` full screen, `o` open the slide's link.
 - The notes window follows the "Script" design from the canvas: words
   biggest, current and next slide on the left, wall clock and timer on top.
-- Speaker notes come from Figma's `speakerNotes` and live in
-  `perpetualPlayNotes.json`, keyed by slide id. A slide without an entry throws.
+- Speaker notes live in `src/components/talk/play-together-notes.md` and are
+  edited there (they started as Figma's speaker notes; Figma is no longer the
+  source). One `## N · title` heading per slide, then an `<!-- figma id -->`
+  line tying it to the slide, then the notes. `speakerNotes.ts` parses it; a
+  heading without an id, an id used twice, an id not in the deck, or a slide
+  without notes all throw.
 
 ## Assets
 
@@ -97,11 +101,20 @@
   `ncm-2026`; rehearse with `?event=rehearsal` on both pages so practice loops
   never land in the real talk. playhtml prefixes rooms with the hostname, so
   the stage and the phones must use the same host.
-- Presence (live only): `talk-stage` from the presenting stage (slide, live
-  moment, join card open), `talk-audience` from each phone (color, finger).
-  Fingers are sent at most 5 times a second; the stage eases between them.
-- Saved data: `talk-title-loops`, one entry per loop keyed `<person>:<n>`,
-  written once when the finger lifts, thinned to 160 points, 24 loops each.
+- Presence (live only): `talk-stage` from the presenting stage (slide, how
+  many builds are showing, live moment, join card open), `talk-audience` from
+  each phone (color, finger), `talk-seat` from each phone on the benches
+  slide (cursor spot, seat). Fingers and cursors are sent at most 5 times a
+  second; the stage eases between them.
+- Saved data: `talk-title-loops`, one entry per loop keyed `<person>:<time>`,
+  written while it is drawn (only new points go out, 10 times a second), up
+  to 300 points a loop and 40 loops each; `talk-fridge`, the fridge words
+  people have moved, keyed by word index, with the last mover's color.
+- playhtml 2.17 (2026-11-22): 2.14 lost page-data updates in a new room. 2.17
+  still does not report the first change to a page-data channel in a new room
+  to other screens, so the fridge re-reads every 2 s (`FRIDGE_REREAD_MS`);
+  loops are fine because every later point triggers an update. Worth fixing
+  in playhtml itself.
 - Stage keys: `l` go live (phones only follow a stage that is live, so
   someone else opening /talk/stage cannot drive the room), `j` join card (QR,
   people count, everyone's touches), `w` force slide 2 awake. The live layer
@@ -110,9 +123,15 @@
 - Built so far: join flow and lobby, warm-up (slide 2 starts blurred and gray;
   it wakes when 40% of the people in the room hold at once, at least 2, never
   more than the room has; fingers already down when the slide comes up must
-  lift first), title loops (slide 3; each person's loops sit a little off
-  center so together they spiral). Patina, take a seat, fridge, finale and the
-  keepsake card are next.
+  lift first), title loops (slide 3; the phone pad is the slide turned on its
+  side, and the stage turns it back, so loops land where they were drawn and
+  fill the slide), take a seat (slide 12, `live/seats.ts`: the phone is a
+  trackpad for a playhtml-style cursor; let go near a free seat whose picture
+  is showing and the cursor sits there, tipped back), fridge (slides 14-15,
+  `live/fridge.ts`: 48 words from the talk on a 3:4 door, so it fits an
+  upright phone; phones can drag on both slides, the stage draws the door on
+  15, over the playhtml.fun/fridge picture). Patina, finale and the keepsake
+  card are next.
 - Testing two people needs two browsers (or a phone): tabs in one browser
   share a playhtml identity and count as one person.
 - Everything in the room is written by browsers, so it is checked before use

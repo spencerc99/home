@@ -1,16 +1,15 @@
 import { Fragment, useEffect, useState, type ReactNode } from "react";
 import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
-import notes from "./perpetualPlayNotes.json";
 import { Slide } from "./Slide";
+import { speakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
 import "./talk.scss";
 
-const speakerNotes = notes as Record<string, string>;
-
-/** The notes use Figma's **bold** and *italic*; nothing else needs parsing. */
+/** The notes use **bold** and *italic*; nothing else needs parsing. */
 function renderNotes(text: string): ReactNode {
-  return text.split("\n").map((line, i) => (
+  // Blank lines between paragraphs in the notes file are not paragraphs themselves.
+  return text.split(/\n+/).map((line, i) => (
     <p key={i}>
       {line.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/).map((part, j) => {
         if (part.startsWith("**")) return <strong key={j}>{part.slice(2, -2)}</strong>;
@@ -88,9 +87,9 @@ export function DeckNotes() {
   }
 
   const slide = deck[state.index];
-  const slideNotes = speakerNotes[slide.figmaId];
+  const slideNotes = speakerNotes.get(slide.figmaId);
   if (slideNotes === undefined) {
-    throw new Error(`No speaker notes entry for slide ${slide.figmaId}; re-sync perpetualPlayNotes.json from Figma`);
+    throw new Error(`No speaker notes for slide ${slide.figmaId}; add a section for it to play-together-notes.md`);
   }
   const hasVideo = slide.layers.some((l) => l.kind === "video");
 
