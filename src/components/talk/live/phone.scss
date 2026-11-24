@@ -1,0 +1,324 @@
+// The audience phone at spencer.place/talk: the same paper and type as the
+// slides, big touch targets, nothing to read during the quiet parts.
+@font-face {
+  font-family: "Vulf Sans";
+  src: url("/fonts/VulfSansDemo-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: "Vulf Sans";
+  src: url("/fonts/VulfSansDemo-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: block;
+}
+
+html.talk-phone,
+html.talk-phone body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: hsl(50 100% 95%);
+}
+
+.phone {
+  --ink: rgb(30, 28, 26);
+  --muted: rgb(97 110 129);
+  --body: rgb(57, 56, 60);
+  --orange: hsl(33, 100%, 56%);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: max(16px, env(safe-area-inset-top)) 22px max(24px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: hsl(50 100% 95%) url("/talk/perpetual-play/img/paper.webp") center / cover;
+  background-blend-mode: multiply;
+  color: var(--ink);
+  font-family: "Vulf Sans", sans-serif;
+  // Long presses must not select text or open the iOS callout.
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  h1,
+  h2,
+  p {
+    margin: 0;
+  }
+  h1 {
+    font-size: 34px;
+    line-height: 1;
+  }
+  h2 {
+    font-size: 30px;
+    line-height: 1.05;
+  }
+  p {
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--body);
+  }
+}
+
+.phone__top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.phone__me {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--me);
+}
+
+.phone__screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 40px;
+  min-height: 0;
+}
+
+.phone__screen--turn {
+  padding-top: 24px;
+}
+
+.phone__screen--quiet {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 24px;
+
+  p {
+    max-width: 240px;
+    color: var(--muted);
+  }
+}
+
+.phone__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.phone__intro--center {
+  text-align: center;
+}
+
+.phone__byline {
+  font-size: 16px;
+  line-height: 1.1;
+
+  span {
+    color: #007fd9;
+  }
+}
+
+.phone__bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.phone__pill {
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font: inherit;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.phone__meta {
+  text-align: center;
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 13px !important;
+  color: var(--muted) !important;
+}
+
+.phone__swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  justify-content: space-between;
+  row-gap: 22px;
+  padding: 0 8px;
+}
+
+.phone__swatch {
+  width: 72px;
+  height: 72px;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--swatch) 0 45%, transparent 72%);
+  cursor: pointer;
+
+  &[aria-pressed="true"] {
+    box-shadow: 0 0 0 3px var(--ink);
+  }
+}
+
+.phone__mix {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--muted);
+
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 22px;
+    border-radius: 11px;
+    background: linear-gradient(
+      90deg,
+      hsl(0, 75%, 60%),
+      hsl(60, 75%, 60%),
+      hsl(120, 55%, 52%),
+      hsl(180, 60%, 52%),
+      hsl(240, 60%, 64%),
+      hsl(300, 60%, 62%),
+      hsl(360, 75%, 60%)
+    );
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--thumb);
+      box-shadow:
+        0 0 0 3px #fff,
+        0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.phone__pad {
+  position: relative;
+  flex: 1;
+  min-height: 200px;
+  border-radius: 18px;
+  touch-action: none;
+}
+
+.phone__hint {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted) !important;
+  pointer-events: none;
+}
+
+.phone__glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  margin: -90px 0 0 -90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0 38%, transparent 72%);
+  pointer-events: none;
+}
+
+.phone__dot {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow) 0 38%, transparent 72%);
+  opacity: 0.5;
+}
+
+.phone__bottom-note {
+  text-align: center;
+}
+
+.phone__progress {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(97, 110, 129, 0.2);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--orange);
+    transition: width 200ms ease;
+  }
+}
+
+// The slide's shape turned on its side (9:16), as tall as the screen allows.
+.phone__draw {
+  width: min(100%, calc(62svh * 9 / 16));
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border: 1px solid rgba(97, 110, 129, 0.18);
+  border-radius: 12px;
+  touch-action: none;
+
+  path {
+    fill: none;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.phone__guide {
+  fill: none;
+  stroke: rgba(97, 110, 129, 0.35);
+  stroke-width: 0.6;
+  stroke-dasharray: 2 4;
+}
+
+// A turn begins: two flashes of your colour fill the screen.
+.phone__flash {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--me);
+  pointer-events: none;
+  animation: phone-flash 900ms ease-out both;
+}
+
+@keyframes phone-flash {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0.2;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// Take a seat: the pad is a trackpad, so it only needs to feel like one.
+.phone__trackpad {
+  border: 1px solid rgba(97, 110, 129, 0.18);
+  border-radius: 16px;
+}
+
+// The fridge, as large as the screen allows at its 3:4 shape.
+.phone__fridge {
+  width: min(100%, calc(66svh * 3 / 4));
+  margin: 0 auto;
+}

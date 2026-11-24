@@ -1,0 +1,9 @@
+---
+// What audience phones open from the QR code: spencer.place/talk.
+import TalkLayout from "../../layouts/TalkLayout.astro";
+import { PhoneApp } from "../../components/talk/live/PhoneApp";
+---
+
+<TalkLayout title="Play Together" surface="phone">
+  <PhoneApp client:only="react" />
+</TalkLayout>

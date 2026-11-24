@@ -1,0 +1,8 @@
+---
+import TalkLayout from "../../layouts/TalkLayout.astro";
+import { DeckNotes } from "../../components/talk/DeckNotes";
+---
+
+<TalkLayout title="Play Together · notes">
+  <DeckNotes client:only="react" />
+</TalkLayout>

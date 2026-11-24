@@ -1,0 +1,118 @@
+// The live room a talk's stage and every audience phone share. One playhtml
+// room per event, so loops drawn at one talk never mix into another. Rehearse
+// with ?event=rehearsal on both /talk and /talk/stage.
+import { playhtml, type PageDataChannel } from "playhtml";
+
+/** The event a plain spencer.place/talk link joins. */
+const CURRENT_EVENT = "ncm-2026";
+
+export function talkEvent(): string {
+  const fromUrl = new URLSearchParams(window.location.search).get("event");
+  return fromUrl && /^[a-z0-9-]{1,40}$/.test(fromUrl) ? fromUrl : CURRENT_EVENT;
+}
+
+let joining: Promise<void> | null = null;
+let loopsChannel: PageDataChannel<Loops> | null = null;
+let fridgeChannel: PageDataChannel<Fridge> | null = null;
+
+/** Connects this page to the event's room. Safe to call from several places. */
+export function joinTalkRoom(): Promise<void> {
+  if (!joining) {
+    playhtml.init({ room: `talk-play-together-${talkEvent()}`, cursors: { enabled: false } });
+    // The saved loops are opened once, as soon as the room is up, and kept for
+    // the page's life, so the stage and every phone are attached to them long
+    // before anyone draws.
+    joining = playhtml.ready.then(() => {
+      loopsChannel = playhtml.createPageData<Loops>(LOOPS_DATA, {});
+      fridgeChannel = playhtml.createPageData<Fridge>(FRIDGE_DATA, {});
+    });
+  }
+  return joining;
+}
+
+/** The title loops, shared by the whole room. Only after joinTalkRoom() resolves. */
+export function titleLoops(): PageDataChannel<Loops> {
+  if (!loopsChannel) throw new Error("[talk] the title loops are read before the room joined");
+  return loopsChannel;
+}
+
+/**
+ * How often a screen showing the fridge re-reads it. playhtml 2.17 does not
+ * report the very first change to a page-data channel in a new room to the
+ * other screens (later changes arrive); a word moved once and left would
+ * otherwise never show. The fridge is small, so re-reading is cheap.
+ */
+export const FRIDGE_REREAD_MS = 2000;
+
+/** The fridge words that have been moved. Only after joinTalkRoom() resolves. */
+export function fridgeWords(): PageDataChannel<Fridge> {
+  if (!fridgeChannel) throw new Error("[talk] the fridge is read before the room joined");
+  return fridgeChannel;
+}
+
+// Presence channels. Presence is live only: it vanishes when a phone leaves.
+/** The presenting stage says which slide is up and what the audience can do. */
+export const STAGE_CHANNEL = "talk-stage";
+/** Each phone: its colour, and where a finger is down (0..1 across the pad). */
+export const AUDIENCE_CHANNEL = "talk-audience";
+/** Each phone's cursor on the benches slide, and the seat it sits on. */
+export const SEAT_CHANNEL = "talk-seat";
+
+export type LiveMoment = "warmup" | "title" | "seat" | "fridge" | "patina" | "finale";
+
+export type StagePresence = {
+  slide: number;
+  // How many of the slide's builds are showing, so phones know which seats exist.
+  build: number;
+  moment: LiveMoment | null;
+  joinOpen: boolean;
+};
+
+export type AudiencePresence = {
+  color: string;
+  // Where the finger is, or null when it is lifted.
+  touch: { x: number; y: number } | null;
+};
+
+/** Where a phone's cursor is on the slide (0..1 each way), and its seat once it sits. */
+export type SeatPresence = { x: number; y: number; seat: number | null };
+
+// Saved data, kept with the event for the replay and keepsake cards.
+/** Loops drawn on the title slide, one entry per loop, keyed `<person>:<n>`. */
+export const LOOPS_DATA = "talk-title-loops";
+export type Loop = { color: string; points: number[] };
+export type Loops = Record<string, Loop>;
+
+/**
+ * Fridge words people have moved, by word index: where it sits (0..1 of the
+ * fridge) and who moved it last. Keyed by index into FRIDGE_WORDS, so a new
+ * word list needs a new name here.
+ */
+export const FRIDGE_DATA = "talk-fridge-words";
+export type FridgeWord = { x: number; y: number; color: string };
+export type Fridge = Record<string, FridgeWord>;
+
+/** Calls `fn` at most every `ms`, always ending on the latest value. */
+export function throttle<T>(ms: number, fn: (value: T) => void): (value: T) => void {
+  let last = 0;
+  let pending: { value: T } | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  return (value: T) => {
+    const now = Date.now();
+    if (now - last >= ms) {
+      last = now;
+      fn(value);
+      return;
+    }
+    pending = { value };
+    if (timer) return;
+    timer = setTimeout(() => {
+      timer = null;
+      last = Date.now();
+      if (pending) fn(pending.value);
+      pending = null;
+    }, ms - (now - last));
+  };
+}
+
+export { playhtml };
