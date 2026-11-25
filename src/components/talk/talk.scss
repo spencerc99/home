@@ -734,6 +734,30 @@ html.talk-page body {
     top 220ms linear;
 }
 
+// Text that slowly fades through the audience's colours (TextRun.shifting).
+.talk-shifting {
+  animation: talk-shifting 10s linear infinite;
+}
+
+@keyframes talk-shifting {
+  0%,
+  100% {
+    color: hsl(33, 100%, 52%);
+  }
+  20% {
+    color: hsl(330, 75%, 58%);
+  }
+  40% {
+    color: hsl(265, 60%, 58%);
+  }
+  60% {
+    color: hsl(205, 85%, 48%);
+  }
+  80% {
+    color: hsl(150, 55%, 40%);
+  }
+}
+
 // The join slide's own build: the slide stays visible but steps back.
 .talk-live__fade {
   position: absolute;

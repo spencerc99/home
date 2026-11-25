@@ -30,6 +30,7 @@ function Runs({ runs }: { runs: TextRun[] }) {
       {runs.map((run, i) => (
         <span
           key={i}
+          className={run.shifting ? "talk-shifting" : undefined}
           style={{
             color: run.color,
             fontWeight: run.bold ? 700 : undefined,

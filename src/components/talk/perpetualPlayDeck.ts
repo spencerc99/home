@@ -5,7 +5,14 @@
 
 export type Box = [number, number, number, number];
 
-export type TextRun = { text: string; color?: string; bold?: boolean; underline?: boolean };
+export type TextRun = {
+  text: string;
+  color?: string;
+  bold?: boolean;
+  underline?: boolean;
+  // Slowly fades through the audience's colours instead of one colour.
+  shifting?: boolean;
+};
 
 export type Layer = LayerContent & {
   // Hidden when the slide comes up; each press of next reveals the layers of
@@ -209,7 +216,14 @@ export const perpetualPlayDeck: Slide[] = [
     figmaId: "2059:441",
     layers: [
       heading([356, 330, 1207, 202], "People give meaning to technology"),
-      { ...heading([356, 600, 1207, 140], "So we can make it what we want:\nfun, caring, creative", { size: 56 }), build: 1 },
+      {
+        kind: "text",
+        box: [356, 600, 1207, 140],
+        size: 56,
+        lineHeight: 1.2,
+        runs: [{ text: "So we can make it what we want:\nfun, caring, creative, " }, { text: "???", bold: true, shifting: true }],
+        build: 1,
+      },
       byline,
     ],
   },
