@@ -288,6 +288,7 @@ export function DeckStage() {
                 build={build}
                 moment={deck[index].live ?? null}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
+                joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
                 presenting={presenting}
                 joinOpen={joinOpen}
               />

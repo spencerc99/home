@@ -734,6 +734,21 @@ html.talk-page body {
     top 220ms linear;
 }
 
+// The join slide's own build: the slide stays visible but steps back.
+.talk-live__fade {
+  position: absolute;
+  inset: 0;
+  background: rgba(251, 250, 246, 0.72);
+  backdrop-filter: blur(4px);
+  animation: talk-live-fade-in 600ms ease both;
+}
+
+@keyframes talk-live-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .talk-live__loops {
   position: absolute;
   inset: 0;

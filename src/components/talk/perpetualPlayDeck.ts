@@ -28,6 +28,10 @@ type LayerContent =
       cover?: boolean;
     }
   | { kind: "video"; src: string; box: Box; radius?: number }
+  // A tile that steps through pictures and videos (by file extension),
+  // crossfading, while its slide is up: each shows for `every` ms, and
+  // `delay` staggers tiles on the same slide. Thumbnails show the first.
+  | { kind: "reel"; box: Box; items: string[]; every: number; delay?: number }
   // A live web page, framed. Thumbnails (the overview grid, the notes window)
   // show `still` instead so they don't each load the page.
   | { kind: "website"; url: string; box: Box; still: string }
@@ -54,7 +58,7 @@ type LayerContent =
 
 /** How many presses of next reveal the slide's builds before it moves on. */
 export function buildCount(slide: Slide): number {
-  return Math.max(slide.fridgeDoor ?? 0, ...slide.layers.map((layer) => layer.build ?? 0));
+  return Math.max(slide.fridgeDoor ?? 0, slide.joinAt ?? 0, ...slide.layers.map((layer) => layer.build ?? 0));
 }
 
 export type Slide = {
@@ -66,6 +70,9 @@ export type Slide = {
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
+  // The build where the join card (QR code, people count, everyone's
+  // touches) comes up over this slide, fading the rest of it.
+  joinAt?: number;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -73,6 +80,10 @@ const IMG = "/talk/perpetual-play/img";
 // assets-spencerchang-me at talks/perpetual-play/video/. This is the bucket's
 // r2.dev address until assets.spencerchang.me is pointed at it.
 const VID = "https://pub-bd6722caa0b449ffa44df72e8cef733a.r2.dev/talks/perpetual-play/video";
+
+// Project videos from the site's creations (public/creation-videos), for the
+// reels on slide 2: a spread of websites, objects, devices and performances.
+const CREATION = (id: string) => `/creation-videos/bl-${id}.mp4`;
 
 const img = (name: string, box: Box, extra: Partial<Extract<Layer, { kind: "image" }>> = {}): Layer => ({
   kind: "image",
@@ -132,12 +143,54 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "1:193",
-    // The QR code, the people count and everyone's touches go over this slide.
+    // The QR code, the people count and everyone's touches come up over this
+    // slide on the next press.
     live: "join",
+    joinAt: 1,
     layers: [
-      img("2102-144", [0, -104, 1233, 824]),
-      img("2102-141", [1233, 0, 784, 1061]),
-      img("2102-128", [0, 524, 1233, 660]),
+      {
+        kind: "reel",
+        box: [0, -104, 1233, 824],
+        every: 4200,
+        items: [
+          `${IMG}/2102-144.webp`,
+          CREATION("oWbNjGXdjK"), // html garden
+          CREATION("pcKpYu0tOF"), // nothing on my computer
+          CREATION("21P7fqNtic"), // Webcollages
+          CREATION("3sAn_jqexq"), // cursor watching
+          CREATION("UApY84pF0v"), // minute faces (together)
+          CREATION("1JtvwPkD5S"), // playhtml
+        ],
+      },
+      {
+        kind: "reel",
+        box: [1233, 0, 784, 1061],
+        every: 4200,
+        delay: 1400,
+        items: [
+          `${IMG}/2102-141.webp`,
+          CREATION("3iG3YRioYt"), // everyday
+          CREATION("PkmObpZzQs"), // Internet Sculptures
+          CREATION("qERwPYcAzY"), // Sharing Stories
+          CREATION("I3Z8iiQmXs"), // Wi-Fi Graffiti
+          CREATION("_1DHAWsaB2"), // Free Agents
+          CREATION("F-kruJn5lE"), // SIGIL I
+        ],
+      },
+      {
+        kind: "reel",
+        box: [0, 524, 1233, 660],
+        every: 4200,
+        delay: 2800,
+        items: [
+          `${IMG}/2102-128.webp`,
+          CREATION("oDGrU4LJTF"), // Computing-Infused Objects
+          CREATION("WMZO6IlYNO"), // alive internet theory
+          CREATION("WWhDKi1Q-U"), // iframe quilt
+          CREATION("vf4rrdhrob"), // CMU.PLACE
+          CREATION("M0Wu51rgfw"), // everyday at the Internet Archive
+        ],
+      },
       { kind: "block", box: [506, 314, 910, 356], color: "#ff8901" },
       { ...heading([504, 405, 912, 240], "software you can touch", { bold: true, align: "center", size: 120 }), lineHeight: 1.02 },
       { kind: "text", box: [0, 335, 1920, 64], size: 64, align: "center", lineHeight: 1, runs: [{ text: "I make" }] },

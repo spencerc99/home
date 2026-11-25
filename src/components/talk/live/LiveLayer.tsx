@@ -244,6 +244,7 @@ export function LiveLayer({
   build,
   moment,
   fridgeDoor,
+  joinShown,
   presenting,
   joinOpen,
 }: {
@@ -252,6 +253,8 @@ export function LiveLayer({
   build: number;
   moment: LiveMoment | null;
   fridgeDoor: boolean;
+  // The join slide's build that brings up the join card and fades the slide.
+  joinShown: boolean;
   presenting: boolean;
   joinOpen: boolean;
 }) {
@@ -277,10 +280,11 @@ export function LiveLayer({
   // The join slide, or the join card shown over any slide with `j` for
   // latecomers. It needs nothing from the room, so it shows while the room is
   // still connecting; only the count of people waits.
-  const joining = joinOpen || moment === "join";
+  const joining = joinOpen || joinShown;
   if (!ready) {
     return joining ? (
       <div className="talk-live" aria-hidden="true">
+        {joinShown && <div className="talk-live__fade" />}
         <JoinCard here={here} />
       </div>
     ) : null;
@@ -288,6 +292,7 @@ export function LiveLayer({
 
   return (
     <div className="talk-live" aria-hidden="true">
+      {joinShown && <div className="talk-live__fade" />}
       {moment === "title" && <TitleLoops loops={loops} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (

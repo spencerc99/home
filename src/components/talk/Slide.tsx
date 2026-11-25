@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { buildCount, type Box, type Layer, type Slide as SlideData, type TextRun } from "./perpetualPlayDeck";
 import { SharedCollages } from "./SharedCollages";
 
@@ -71,6 +71,64 @@ function SlideVideo({ src, box, radius, mode }: { src: string; box: Box; radius?
   );
 }
 
+const isVideo = (src: string) => /\.(mp4|webm|mov)$/i.test(src);
+
+function ReelItem({ src, shown, playing }: { src: string; shown: boolean; playing: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    if (playing) {
+      video.play().catch((error: unknown) => console.warn(`[talk] could not autoplay ${src}`, error));
+    } else {
+      video.pause();
+    }
+  }, [playing, src]);
+  const style: CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    opacity: shown ? 1 : 0,
+    transition: "opacity 900ms ease",
+  };
+  return isVideo(src) ? (
+    <video ref={ref} src={src} muted loop playsInline preload="auto" style={style} />
+  ) : (
+    <img src={src} alt="" draggable={false} style={style} />
+  );
+}
+
+/** A tile stepping through `items` while its slide plays; see the "reel" layer. */
+function SlideReel({ layer, mode }: { layer: Extract<Layer, { kind: "reel" }>; mode: MediaMode }) {
+  const [at, setAt] = useState(0);
+  const playing = mode === "play";
+  useEffect(() => {
+    if (!playing) return;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const start = setTimeout(() => {
+      setAt((i) => (i + 1) % layer.items.length);
+      interval = setInterval(() => setAt((i) => (i + 1) % layer.items.length), layer.every);
+    }, (layer.delay ?? 0) + layer.every);
+    return () => {
+      clearTimeout(start);
+      clearInterval(interval);
+    };
+  }, [playing, layer]);
+  const n = layer.items.length;
+  // Only the one showing, the one fading out and the one coming up are in
+  // the page, so a tile never loads all of its videos at once.
+  const mounted = mode === "still" ? [0] : [...new Set([(at - 1 + n) % n, at, (at + 1) % n])];
+  return (
+    <div style={{ ...place(clip(layer.box)), overflow: "hidden" }}>
+      {mounted.map((i) => (
+        <ReelItem key={i} src={layer.items[i]} shown={i === at} playing={playing && i !== (at + 1) % n} />
+      ))}
+    </div>
+  );
+}
+
 function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; active: boolean }) {
   switch (layer.kind) {
     case "image":
@@ -88,6 +146,8 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
       );
     case "video":
       return <SlideVideo src={layer.src} box={layer.box} radius={layer.radius} mode={mode} />;
+    case "reel":
+      return <SlideReel layer={layer} mode={mode} />;
     case "website":
       // Not clickable: a click inside would take the keyboard from the deck.
       return mode === "still" ? (

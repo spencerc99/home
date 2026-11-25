@@ -212,6 +212,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
 // 3. Slide 2, joining: everyone touches at once.
 {
   await goto(SLIDE.join);
+  await stage.keyboard.press("ArrowRight");
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__pad").isVisible(), 15000)));
   let maxGlows = 0;
   const started = Date.now();
