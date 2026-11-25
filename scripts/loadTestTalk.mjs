@@ -129,7 +129,7 @@ for (let i = 0; i < PHONES; i++) {
 const allPhones = [...phones];
 
 const inRoom = (p) =>
-  p.page.evaluate(() => !!document.querySelector(".phone__top") && !document.body.innerText.includes("Finding the room"));
+  p.page.evaluate(() => !!document.querySelector("main.phone[data-connected]"));
 const stageCount = async () => {
   const text = await stage.textContent(".talk-live__here").catch(() => null);
   return text ? Number(text.match(/(\d+) here/)?.[1] ?? NaN) : NaN;

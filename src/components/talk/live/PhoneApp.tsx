@@ -73,19 +73,41 @@ function useWakeLock(on: boolean) {
   }, [on]);
 }
 
+/**
+ * How long a phone keeps showing the slide it was on after the room goes
+ * quiet. Venue wifi drops for a few seconds at a time; the phone carries on
+ * as if nothing happened, and what people do meanwhile is sent once the
+ * connection is back.
+ */
+const ROOM_HOLD_MS = 20000;
+
 /** The stage that is presenting, if any, and how many phones are here. */
 function useRoom(ready: boolean) {
   const [stage, setStage] = useState<StagePresence | null>(null);
   const [audience, setAudience] = useState<AudiencePresence[]>([]);
+  const stageRef = useRef(stage);
+  stageRef.current = stage;
   useEffect(() => {
     if (!ready) return;
+    let hold: ReturnType<typeof setTimeout> | null = null;
     const readStage = () => {
       let found: StagePresence | null = null;
       for (const view of playhtml.presence.getPresences().values()) {
         const value = parseStage(view[STAGE_CHANNEL]);
         if (value) found = value;
       }
-      setStage(found);
+      if (found || !stageRef.current) {
+        if (hold) clearTimeout(hold);
+        hold = null;
+        setStage(found);
+        return;
+      }
+      // The stage vanished: this phone's connection may have dropped, or the
+      // stage's. Keep the slide up for a while before going quiet.
+      hold ??= setTimeout(() => {
+        hold = null;
+        setStage(null);
+      }, ROOM_HOLD_MS);
     };
     // A phone only shows counts, so a few reads a second is plenty, however
     // many fingers are moving in the room.
@@ -110,6 +132,7 @@ function useRoom(ready: boolean) {
       offStage();
       offAudience();
       if (pending) clearTimeout(pending);
+      if (hold) clearTimeout(hold);
     };
   }, [ready]);
   return { stage, audience };
@@ -585,8 +608,13 @@ function Phone() {
     );
   }, []);
 
+  // Before the room connects, a touch only lights up this phone.
+  const readyRef = useRef(ready);
+  readyRef.current = ready;
   const sendTouch = useRef(
-    throttle<AudiencePresence>(TOUCH_EVERY_MS, (value) => playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, value)),
+    throttle<AudiencePresence>(TOUCH_EVERY_MS, (value) => {
+      if (readyRef.current) playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, value);
+    }),
   ).current;
 
   // Being in the room is being counted, even with no finger down.
@@ -633,12 +661,6 @@ function Phone() {
         }}
       />
     );
-  } else if (!ready) {
-    screen = (
-      <div className="phone__screen phone__screen--quiet">
-        <p>Finding the room…</p>
-      </div>
-    );
   } else if (moment === "title") {
     screen = <DrawPad color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
   } else if (moment === "seat" && stage) {
@@ -664,7 +686,7 @@ function Phone() {
   }
 
   return (
-    <main className="phone" style={{ ["--me" as string]: color }}>
+    <main className="phone" data-connected={ready || undefined} style={{ ["--me" as string]: color }}>
       {step === "room" && (
         <div className="phone__top">
           <span className="phone__me" /> you
