@@ -6,7 +6,7 @@ import {
   SEAT_CHANNEL,
   STAGE_CHANNEL,
   fridgeWords,
-  titleLoops,
+  circleLoops,
   playhtml,
   type AudiencePresence,
   type Fridge,
@@ -109,7 +109,7 @@ function useLoops(ready: boolean, on: boolean) {
   const [loops, setLoops] = useState<Loops>({});
   useEffect(() => {
     if (!ready || !on) return;
-    const channel = titleLoops();
+    const channel = circleLoops();
     // Loops grow while people draw, so updates come often; redraw once a frame.
     let frame: number | null = null;
     const read = () => {
@@ -171,10 +171,10 @@ function JoinCard({ here }: { here: AudiencePresence[] }) {
 }
 
 /**
- * Everyone's loops over the title. A phone's pad is the slide turned on its
+ * Everyone's loops over the video of the circle being drawn. A phone's pad is the slide turned on its
  * side, so each point is turned back: the pad's top is the slide's right.
  */
-function TitleLoops({ loops }: { loops: Loops }) {
+function CircleLoops({ loops }: { loops: Loops }) {
   return (
     <svg className="talk-live__loops" viewBox={`0 0 ${W} ${H}`} width={W} height={H}>
       {Object.entries(loops).map(([key, loop]) => {
@@ -259,7 +259,7 @@ export function LiveLayer({
   joinOpen: boolean;
 }) {
   const audience = useAudience(ready);
-  const loops = useLoops(ready, moment === "title");
+  const loops = useLoops(ready, moment === "circle");
   const seats = useSeats(ready, moment === "seat");
   const fridge = useFridge(ready, fridgeDoor);
 
@@ -293,7 +293,7 @@ export function LiveLayer({
   return (
     <div className="talk-live" aria-hidden="true">
       {joinShown && <div className="talk-live__fade" />}
-      {moment === "title" && <TitleLoops loops={loops} />}
+      {moment === "circle" && <CircleLoops loops={loops} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (
         <div className="talk-live__fridge">

@@ -22,7 +22,7 @@ const BASE = arg("base", "https://spencer.place");
 const OUT = arg("out", `/tmp/talk-loadtest-${Date.now()}`);
 const EVENT = `loadtest-${Date.now().toString(36)}`;
 // Slide numbers of the live moments, as in src/components/talk/perpetualPlayDeck.ts.
-const SLIDE = { join: 2, title: 3, seat: 12, fridgeDoor: 15 };
+const SLIDE = { join: 2, circle: 6, seat: 12, fridgeDoor: 15 };
 const COLORS = ["hsl(33, 100%, 56%)", "hsl(205, 85%, 52%)", "hsl(330, 75%, 62%)", "hsl(150, 55%, 42%)", "hsl(265, 60%, 62%)"];
 mkdirSync(OUT, { recursive: true });
 
@@ -235,9 +235,9 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   });
 }
 
-// 4. The title slide: everyone draws two loops at the same time.
+// 4. The circle slide: everyone draws two loops at the same time.
 {
-  await goto(SLIDE.title);
+  await goto(SLIDE.circle);
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__draw").isVisible(), 15000)));
   const before = sumIn();
   const started = Date.now();
@@ -349,8 +349,8 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   for (const p of dropped) p.cut = false;
   const back = await until(async () => (await stageCount()) >= phones.length, 60000, 250);
   const stillWorking = await Promise.all(dropped.map((p) => inRoom(p)));
-  // Back phones can draw again: switch to the title and have one draw.
-  await goto(SLIDE.title);
+  // Back phones can draw again: switch to the circle slide and have one draw.
+  await goto(SLIDE.circle);
   const drawn = await until(() => dropped[0].page.locator(".phone__draw").isVisible(), 15000);
   let loopArrived = null;
   if (drawn !== null) {

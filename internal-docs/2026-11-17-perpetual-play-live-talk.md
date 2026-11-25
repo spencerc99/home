@@ -126,7 +126,7 @@
 - Built so far: join flow and lobby, joining over slide 2 (the QR code, the
   people count and everyone's touches on top of "software you can touch"; it
   replaced a warm-up where slide 2 woke once enough people held their phones,
-  cut on 2026-11-25 to get to the room faster), title loops (slide 3; the phone pad is the slide turned on its
+  cut on 2026-11-25 to get to the room faster), circle loops (slide 6, over the video of the circle being drawn, moved there from the title slide on 2026-11-25; the phone pad is the slide turned on its
   side, and the stage turns it back, so loops land where they were drawn and
   fill the slide), take a seat (slide 12, `live/seats.ts`: the phone is a
   trackpad for a playhtml-style cursor; let go near a free seat whose picture

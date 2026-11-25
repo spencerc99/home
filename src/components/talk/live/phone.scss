@@ -293,6 +293,39 @@ html.talk-phone body {
   animation: phone-flash 900ms ease-out both;
 }
 
+// The start of the talk: three flashes, then the words stay a moment.
+.phone__flash--hello {
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  animation: phone-hello 3600ms ease-out both;
+
+  p {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.2;
+    text-align: center;
+    color: #111;
+  }
+}
+
+@keyframes phone-hello {
+  0%,
+  24%,
+  48% {
+    opacity: 0;
+  }
+  8%,
+  32%,
+  56%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes phone-flash {
   0% {
     opacity: 0;

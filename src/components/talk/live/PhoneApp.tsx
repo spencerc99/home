@@ -6,7 +6,7 @@ import {
   STAGE_CHANNEL,
   fridgeWords,
   joinTalkRoom,
-  titleLoops,
+  circleLoops,
   playhtml,
   throttle,
   type AudiencePresence,
@@ -34,6 +34,8 @@ const COLOR_KEY = "talk:color";
 // Fingers reach the stage at most five times a second, so a full room does
 // not swamp the venue wifi; the stage eases between updates.
 const TOUCH_EVERY_MS = 200;
+/** How long the start-of-talk flash runs: three flashes and the words. */
+const HELLO_FLASH_MS = 3600;
 // Loops: a point is added once the finger moves this far (pad units, -1..1),
 // new points go to the room this often, and each loop is capped in size.
 const POINT_STEP = 0.02;
@@ -287,7 +289,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
   // The whole gesture as drawn here, in pad units (-1..1).
   const [drawn, setDrawn] = useState<number[]>([]);
   const [count, setCount] = useState(
-    () => Object.keys(titleLoops().getData()).filter((key) => key.startsWith(`${pid}:`)).length,
+    () => Object.keys(circleLoops().getData()).filter((key) => key.startsWith(`${pid}:`)).length,
   );
   const countRef = useRef(count);
   // The loop being saved: its key, its points, and how many are already in the room.
@@ -304,7 +306,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
     const fresh = current.points.slice(current.sent);
     const first = current.sent === 0;
     current.sent = current.points.length;
-    titleLoops().setData((draft) => {
+    circleLoops().setData((draft) => {
       if (first) draft[current.key] = { color, points: fresh };
       else draft[current.key]?.points.push(...fresh);
     });
@@ -322,7 +324,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
     loop.current = null;
     if (!current || current.sent === 0) return;
     if (current.points.length < MIN_LOOP_POINTS * 2) {
-      titleLoops().setData((draft) => {
+      circleLoops().setData((draft) => {
         delete draft[current.key];
       });
       return;
@@ -367,7 +369,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
     <div className="phone__screen phone__screen--turn">
       <div className="phone__intro phone__intro--center">
         <h2>Draw a circle</h2>
-        <p>Keep going round. Every loop joins the title.</p>
+        <p>Keep going round. Your loops join mine on the big screen.</p>
       </div>
       <svg
         className="phone__draw"
@@ -597,7 +599,10 @@ function Phone() {
   // tab mid-talk) goes straight back into the room.
   const [step, setStep] = useState<Step>(() => (savedColor() ? "room" : "door"));
   const [color, setColor] = useState<string>(() => savedColor() ?? COLORS[Math.floor(Math.random() * COLORS.length)]);
-  const [flash, setFlash] = useState(false);
+  // The screen flashing this phone's colour: "hello" when the talk starts,
+  // "turn" when a slide asks something of the room. `n` restarts it.
+  const [flash, setFlash] = useState<{ kind: "hello" | "turn"; n: number } | null>(null);
+  const [started, setStarted] = useState(false);
   const { stage, audience } = useRoom(ready);
   useWakeLock(step === "room");
 
@@ -629,18 +634,29 @@ function Phone() {
   );
 
   // A turn starts with the screen flashing your colour (phones cannot vibrate
-  // from a web page on iPhone).
+  // from a web page on iPhone). The first time the stage goes live, every
+  // phone flashes a few times and says what the flash means, so the room
+  // learns it before the first turn.
   const moment = stage?.moment ?? null;
+  const live = stage !== null;
   const lastMoment = useRef(moment);
+  const startedRef = useRef(false);
   useEffect(() => {
-    if (moment && moment !== lastMoment.current) {
-      setFlash(true);
-      const timer = setTimeout(() => setFlash(false), 900);
-      lastMoment.current = moment;
-      return () => clearTimeout(timer);
-    }
+    const before = lastMoment.current;
     lastMoment.current = moment;
-  }, [moment]);
+    if (live && !startedRef.current) {
+      startedRef.current = true;
+      setStarted(true);
+      setFlash((f) => ({ kind: "hello", n: (f?.n ?? 0) + 1 }));
+    } else if (moment && moment !== before) {
+      setFlash((f) => ({ kind: "turn", n: (f?.n ?? 0) + 1 }));
+    }
+  }, [live, moment]);
+  useEffect(() => {
+    if (!flash) return;
+    const timer = setTimeout(() => setFlash(null), flash.kind === "hello" ? HELLO_FLASH_MS : 900);
+    return () => clearTimeout(timer);
+  }, [flash]);
 
   const here = audience.length;
   let screen: React.ReactNode;
@@ -661,7 +677,7 @@ function Phone() {
         }}
       />
     );
-  } else if (moment === "title") {
+  } else if (moment === "circle") {
     screen = <DrawPad color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
   } else if (moment === "seat" && stage) {
     screen = <SeatPad build={stage.build} />;
@@ -673,7 +689,11 @@ function Phone() {
         <TouchPad color={color} onTouch={touch}>
           <p className="phone__hint">Touch anywhere</p>
         </TouchPad>
-        <p className="phone__bottom-note">We start in a few minutes. Your touch shows up on the big screen.</p>
+        <p className="phone__bottom-note">
+          {started
+            ? "When your screen flashes your color, look up: it's your turn."
+            : "We start in a few minutes. Your touch shows up on the big screen."}
+        </p>
       </div>
     );
   } else {
@@ -693,7 +713,12 @@ function Phone() {
         </div>
       )}
       {screen}
-      {flash && <div className="phone__flash" aria-hidden="true" />}
+      {flash?.kind === "turn" && <div key={flash.n} className="phone__flash" aria-hidden="true" />}
+      {flash?.kind === "hello" && (
+        <div key={flash.n} className="phone__flash phone__flash--hello" role="status">
+          <p>This is your color. When it flashes, look up.</p>
+        </div>
+      )}
     </main>
   );
 }

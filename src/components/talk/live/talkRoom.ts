@@ -30,9 +30,9 @@ export function joinTalkRoom(): Promise<void> {
   return joining;
 }
 
-/** The title loops, shared by the whole room. Only after joinTalkRoom() resolves. */
-export function titleLoops(): PageDataChannel<Loops> {
-  if (!loopsChannel) throw new Error("[talk] the title loops are read before the room joined");
+/** The circle loops, shared by the whole room. Only after joinTalkRoom() resolves. */
+export function circleLoops(): PageDataChannel<Loops> {
+  if (!loopsChannel) throw new Error("[talk] the circle loops are read before the room joined");
   return loopsChannel;
 }
 
@@ -58,7 +58,7 @@ export const AUDIENCE_CHANNEL = "talk-audience";
 /** Each phone's cursor on the benches slide, and the seat it sits on. */
 export const SEAT_CHANNEL = "talk-seat";
 
-export type LiveMoment = "join" | "title" | "seat" | "fridge" | "patina" | "finale";
+export type LiveMoment = "join" | "circle" | "seat" | "fridge" | "patina" | "finale";
 
 export type StagePresence = {
   slide: number;
@@ -78,7 +78,7 @@ export type AudiencePresence = {
 export type SeatPresence = { x: number; y: number; seat: number | null };
 
 // Saved data, kept with the event for the replay and keepsake cards.
-/** Loops drawn on the title slide, one entry per loop, keyed `<person>:<n>`. */
+/** Loops drawn on the circle-drawing slide, one entry per loop, keyed `<person>:<n>`. */
 export const LOOPS_DATA = "talk-title-loops";
 export type Loop = { color: string; points: number[] };
 export type Loops = Record<string, Loop>;

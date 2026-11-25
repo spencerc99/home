@@ -66,7 +66,7 @@ export type Slide = {
   figmaId: string;
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
-  live?: "join" | "title" | "seat" | "fridge" | "patina" | "finale";
+  live?: "join" | "circle" | "seat" | "fridge" | "patina" | "finale";
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
@@ -198,12 +198,12 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2070:448",
-    live: "title",
     layers: [{ kind: "scribble" }, byline, heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" })],
   },
   { figmaId: "2070:583", layers: [vid("da-vinci", [600, 180, 720, 720]), byline] },
   { figmaId: "2070:594", layers: [img("2070-595", [606, 188, 707, 703]), byline] },
-  { figmaId: "2002:158", layers: [vid("drawing-circle", [0, -328, 1920, 1792]), byline] },
+  // Phones draw loops over the video of the circle being drawn.
+  { figmaId: "2002:158", live: "circle", layers: [vid("drawing-circle", [0, -328, 1920, 1792]), byline] },
   { figmaId: "2070:602", layers: [byline, img("2070-605", [370, 194, 1214, 692])] },
   {
     figmaId: "2059:441",
