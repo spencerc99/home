@@ -39,6 +39,17 @@ const talkDeckEditsSaver = {
         res.end("POST the whole edits file");
         return;
       }
+      // Only the deck's own page may save: another site open in the same
+      // browser can't send JSON here without a preflight this route never
+      // answers, and its Origin would not match.
+      const sameOrigin =
+        req.headers["sec-fetch-site"] === "same-origin" ||
+        (req.headers.origin && new URL(req.headers.origin).host === req.headers.host);
+      if (!sameOrigin || !req.headers["content-type"]?.startsWith("application/json")) {
+        res.statusCode = 403;
+        res.end("deck edits are saved from /talk/stage on this server only");
+        return;
+      }
       let body = "";
       req.on("data", (chunk) => {
         body += chunk;
@@ -47,7 +58,18 @@ const talkDeckEditsSaver = {
       req.on("end", async () => {
         try {
           const edits = JSON.parse(body);
-          if (!edits || typeof edits !== "object" || Array.isArray(edits)) throw new Error("edits must be an object");
+          const isObject = (v) => v && typeof v === "object" && !Array.isArray(v);
+          if (!isObject(edits)) throw new Error("edits must be an object");
+          for (const forSlide of Object.values(edits)) {
+            if (!isObject(forSlide)) throw new Error("each slide's edits must be an object");
+            for (const [index, edit] of Object.entries(forSlide)) {
+              if (!/^\d+$/.test(index) || !isObject(edit) || typeof edit.kind !== "string") {
+                throw new Error(`bad layer edit ${index}`);
+              }
+              const unknown = Object.keys(edit).filter((k) => !["kind", "box", "size", "texts"].includes(k));
+              if (unknown.length) throw new Error(`unknown fields ${unknown.join(", ")}`);
+            }
+          }
           await writeFile(
             new URL("./src/components/talk/deckEdits.json", import.meta.url),
             `${JSON.stringify(edits, null, 2)}\n`,

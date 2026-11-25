@@ -11,7 +11,8 @@ import {
   writeSlideToHash,
   type DeckMessage,
 } from "./deckSync";
-import { EditOverlay, EditPanel, useDeckEditor } from "./DeckEditor";
+import { EditOverlay, EditPanel } from "./DeckEditor";
+import { useDeckEditor } from "./useDeckEditor";
 import { LiveBoundary } from "./live/LiveBoundary";
 import { LiveLayer } from "./live/LiveLayer";
 import { joinTalkRoom } from "./live/talkRoom";

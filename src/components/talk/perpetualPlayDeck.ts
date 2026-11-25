@@ -452,20 +452,28 @@ export const uneditedDeck: Slide[] = [
   { figmaId: "2096:87", layers: [byline, ...livingSites(false), img("2075-619", [1004, 285, 874, 818]), label("we were online", "wewere.online")] },
   {
     figmaId: "2075:608",
+    // The rules, each with examples from the talk, one rule per press.
     layers: [
-      { ...heading([452, 375, 1099, 83], "rules of play"), ...TYPE.listTitle },
-      {
-        kind: "text",
-        box: [452, 375 + 83 + GAP, 1099, 220],
-        ...TYPE.body,
-        runs: [],
-        list: {
-          style: "ordered",
-          items: [[{ text: "inhabit > use" }], [{ text: "seeds > products" }], [{ text: "program for surprise" }]],
-        },
-      },
       byline,
       { kind: "scribble", opacity: 0.3 },
+      { ...heading([110, 70, 1700, 83], "rules of play"), ...TYPE.listTitle },
+      ...(
+        [
+          ["inhabit > use", "2096-65", "36-201", "2075-705"],
+          ["seeds > products", "student-teletext", "student-compost", "30-85"],
+          ["program for surprise", "36-226", "wikipedia-patina", "2070-467"],
+        ] as const
+      ).flatMap(([rule, big, left, right], i): Layer[] => {
+        const x = 110 + i * 590;
+        // A rule that wraps starts a line higher, so each ends just above its pictures.
+        const lines = rule.length > 16 ? 2 : 1;
+        return [
+          { ...heading([x, 340 - lines * 73, 550, lines * 73], rule), ...TYPE.body, bold: true, build: i + 1 },
+          { ...img(big, [x, 360, 550, 330], { radius: 8, cover: true }), build: i + 1 },
+          { ...img(left, [x, 710, 265, 250], { radius: 8, cover: true }), build: i + 1 },
+          { ...img(right, [x + 285, 710, 265, 250], { radius: 8, cover: true }), build: i + 1 },
+        ];
+      }),
     ],
   },
   {
