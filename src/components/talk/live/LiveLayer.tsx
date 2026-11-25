@@ -7,7 +7,7 @@ import {
   STAGE_CHANNEL,
   fridgeWords,
   answers as answersChannel,
-  hideNewestAnswer,
+  talkEvent,
   type Answers,
   circleLoops,
   playhtml,
@@ -126,9 +126,9 @@ function hashOf(text: string): number {
  * of 40 places (5 across, 8 down), nudged a little so it reads as handwritten;
  * once all 40 are taken the newest take the oldest places.
  */
-function AnswerCloud({ answers, kind }: { answers: Answers; kind: "wish" | "rule" }) {
+function AnswerCloud({ answers, kind, hidden }: { answers: Answers; kind: "wish" | "rule"; hidden: ReadonlySet<string> }) {
   const list = Object.entries(answers)
-    .filter(([, a]) => a.kind === kind && !a.hidden)
+    .filter(([key, a]) => a.kind === kind && !hidden.has(key))
     .sort(([, a], [, b]) => a.at - b.at);
   if (list.length === 0) return null;
   const rows = ANSWER_SLOTS / SLOT_COLUMNS;
@@ -352,13 +352,34 @@ export function LiveLayer({
   const answerKind = moment === "wish" || moment === "rule" ? moment : null;
   const shownAnswers = useAnswers(ready, answerKind !== null);
 
-  // h hides the newest answer of the moment on screen.
+  // h hides the newest answer of the moment on screen. The hidden list lives
+  // on this laptop only (kept across reloads), so phones cannot undo it.
+  const hiddenKey = `talk:hidden-answers:${talkEvent()}`;
+  const [hiddenAnswers, setHiddenAnswers] = useState<ReadonlySet<string>>(() => {
+    try {
+      return new Set(JSON.parse(localStorage.getItem(hiddenKey) ?? "[]") as string[]);
+    } catch (error) {
+      console.warn("[talk] could not read the hidden answers", error);
+      return new Set();
+    }
+  });
   const handledHides = useRef(hideRequests);
   useEffect(() => {
     if (hideRequests === handledHides.current) return;
     handledHides.current = hideRequests;
-    if (ready && answerKind) hideNewestAnswer(answerKind, shownAnswers);
-  }, [hideRequests, ready, answerKind, shownAnswers]);
+    if (!answerKind) return;
+    const newest = Object.entries(shownAnswers)
+      .filter(([key, a]) => a.kind === answerKind && !hiddenAnswers.has(key))
+      .sort(([, a], [, b]) => b.at - a.at)[0];
+    if (!newest) return;
+    const next = new Set(hiddenAnswers).add(newest[0]);
+    setHiddenAnswers(next);
+    try {
+      localStorage.setItem(hiddenKey, JSON.stringify([...next]));
+    } catch (error) {
+      console.warn("[talk] could not remember the hidden answers", error);
+    }
+  }, [hideRequests, answerKind, shownAnswers, hiddenAnswers, hiddenKey]);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {
@@ -391,7 +412,7 @@ export function LiveLayer({
     <div className="talk-live" aria-hidden="true">
       {joinShown && <div className="talk-live__fade" />}
       {moment === "circle" && <CircleLoops loops={loops} />}
-      {answerKind && <AnswerCloud answers={shownAnswers} kind={answerKind} />}
+      {answerKind && <AnswerCloud answers={shownAnswers} kind={answerKind} hidden={hiddenAnswers} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (
         <div className="talk-live__fridge">

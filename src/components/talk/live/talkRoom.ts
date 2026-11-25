@@ -52,18 +52,6 @@ export function answers(): PageDataChannel<Answers> {
   return answersChannel;
 }
 
-/** Hides the newest shown answer of a kind, for the presenter's `h` key. */
-export function hideNewestAnswer(kind: AnswerKind, shown: Answers) {
-  const newest = Object.entries(shown)
-    .filter(([, a]) => a.kind === kind && !a.hidden)
-    .sort(([, a], [, b]) => b.at - a.at)[0];
-  if (!newest) return;
-  answers().setData((draft) => {
-    const answer = draft[newest[0]];
-    if (answer) answer.hidden = true;
-  });
-}
-
 /** The fridge words that have been moved. Only after joinTalkRoom() resolves. */
 export function fridgeWords(): PageDataChannel<Fridge> {
   if (!fridgeChannel) throw new Error("[talk] the fridge is read before the room joined");
@@ -119,11 +107,13 @@ export type Fridge = Record<string, FridgeWord>;
 /**
  * Wishes for what computing could be (slide 8) and rules for getting there
  * (rules of play), typed on phones. Keyed `<person>:<time>`, so every answer
- * is its own entry and sending never overwrites anyone else's.
+ * is its own entry and sending never overwrites anyone else's. Hiding one
+ * (the presenter's `h`) is kept on the presenting laptop, not in the room,
+ * so no phone can bring a hidden answer back.
  */
 export const ANSWERS_DATA = "talk-answers";
 export type AnswerKind = "wish" | "rule";
-export type Answer = { kind: AnswerKind; text: string; color: string; at: number; hidden?: boolean };
+export type Answer = { kind: AnswerKind; text: string; color: string; at: number };
 export type Answers = Record<string, Answer>;
 /** The longest answer a phone can send. */
 export const ANSWER_MAX_CHARS = 60;

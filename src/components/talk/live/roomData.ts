@@ -61,18 +61,29 @@ export function parseSeat(value: unknown): SeatPresence | null {
   return { x: v.x as number, y: v.y as number, sitting: v.sitting, seat: v.seat as number | null };
 }
 
+/** The most answers read from the room, newest kept, and the most from one phone. */
+const MAX_ANSWERS = 500;
+const MAX_ANSWERS_EACH = 20;
+
 /** The answers that are safe to show: known kind, short text, a real colour. */
 export function parseAnswers(data: unknown): Answers {
   if (!data || typeof data !== "object") return {};
   const out: Answers = {};
-  for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+  const perPerson = new Map<string, number>();
+  const entries = Object.entries(data as Record<string, unknown>).slice(-MAX_ANSWERS);
+  // Newest first, so a phone over its share loses its oldest answers.
+  for (const [key, value] of entries.reverse()) {
+    const person = key.split(":")[0];
+    const count = perPerson.get(person) ?? 0;
+    if (count >= MAX_ANSWERS_EACH) continue;
     if (key.length > 200 || !value || typeof value !== "object") continue;
     const v = value as Record<string, unknown>;
     const color = safeColor(v.color);
     if (v.kind !== "wish" && v.kind !== "rule") continue;
     if (typeof v.text !== "string" || !v.text.trim() || v.text.length > ANSWER_MAX_CHARS) continue;
     if (!color || typeof v.at !== "number" || !Number.isFinite(v.at)) continue;
-    out[key] = { kind: v.kind, text: v.text.trim(), color, at: v.at, hidden: v.hidden === true };
+    perPerson.set(person, count + 1);
+    out[key] = { kind: v.kind, text: v.text.trim(), color, at: v.at };
   }
   return out;
 }
