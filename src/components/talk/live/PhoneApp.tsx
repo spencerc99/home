@@ -423,9 +423,9 @@ function SeatPad({ build }: { build: number }) {
   const [cursor, setCursor] = useState<SeatPresence>(() => ({
     x: 0.35 + Math.random() * 0.3,
     y: 0.62 + Math.random() * 0.1,
+    sitting: false,
     seat: null,
   }));
-  const [missed, setMissed] = useState(false);
   const finger = useRef<{ x: number; y: number } | null>(null);
   // Throttled sends can land after this screen has gone; they must not bring
   // the cursor back.
@@ -468,12 +468,11 @@ function SeatPad({ build }: { build: number }) {
     if (!finger.current) return;
     finger.current = null;
     const at = latest.current;
-    const seat = seatNear(at.x, at.y, build, takenSeats());
-    setMissed(seat === null);
-    move({ ...at, seat });
+    // Anywhere is a seat; near a free one in the pictures, it sits on that.
+    move({ ...at, sitting: true, seat: seatNear(at.x, at.y, build, takenSeats()) });
   };
 
-  const seated = cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
+  const seat = cursor.sitting && cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
   return (
     <div className="phone__screen phone__screen--turn">
       <div className="phone__intro phone__intro--center">
@@ -485,8 +484,7 @@ function SeatPad({ build }: { build: number }) {
         onPointerDown={(event) => {
           capture(event);
           finger.current = { x: event.clientX, y: event.clientY };
-          setMissed(false);
-          if (latest.current.seat !== null) move({ ...latest.current, seat: null });
+          if (latest.current.sitting) move({ ...latest.current, sitting: false, seat: null });
         }}
         onPointerMove={(event) => {
           const from = finger.current;
@@ -500,16 +498,17 @@ function SeatPad({ build }: { build: number }) {
           move({
             x: Math.min(1, Math.max(0, at.x + dx)),
             y: Math.min(1, Math.max(0, at.y + dy)),
+            sitting: false,
             seat: null,
           });
         }}
         onPointerUp={letGo}
         onPointerCancel={letGo}
       >
-        <p className="phone__hint">{seated ? "Sitting" : "Drag here"}</p>
+        <p className="phone__hint">{cursor.sitting ? "Sitting" : "Drag here"}</p>
       </div>
       <p className="phone__meta">
-        {seated ? `you are sitting on ${seated.name}` : missed ? "no free seat there, try nearer one" : "look up at the big screen"}
+        {seat ? `you are sitting on ${seat.name}` : cursor.sitting ? "you sat down" : "look up at the big screen"}
       </p>
     </div>
   );

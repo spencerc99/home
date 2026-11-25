@@ -74,8 +74,12 @@ export type AudiencePresence = {
   touch: { x: number; y: number } | null;
 };
 
-/** Where a phone's cursor is on the slide (0..1 each way), and its seat once it sits. */
-export type SeatPresence = { x: number; y: number; seat: number | null };
+/**
+ * Where a phone's cursor is on the slide (0..1 each way), and whether it has
+ * sat down. A cursor sits wherever it is let go; let go near a free seat in
+ * the pictures, it sits on that seat (`seat`).
+ */
+export type SeatPresence = { x: number; y: number; sitting: boolean; seat: number | null };
 
 // Saved data, kept with the event for the replay and keepsake cards.
 /** Loops drawn on the circle-drawing slide, one entry per loop, keyed `<person>:<n>`. */

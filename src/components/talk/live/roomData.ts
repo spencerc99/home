@@ -46,8 +46,9 @@ export function parseSeat(value: unknown): SeatPresence | null {
   if (!value || typeof value !== "object") return null;
   const v = value as Record<string, unknown>;
   if (!unit(v.x, 0, 1) || !unit(v.y, 0, 1)) return null;
+  if (typeof v.sitting !== "boolean") return null;
   if (v.seat !== null && !(Number.isInteger(v.seat) && (v.seat as number) >= 0 && (v.seat as number) < SEATS.length)) return null;
-  return { x: v.x as number, y: v.y as number, seat: v.seat as number | null };
+  return { x: v.x as number, y: v.y as number, sitting: v.sitting, seat: v.seat as number | null };
 }
 
 /** The moved fridge words that are safe to draw; unknown words are skipped. */

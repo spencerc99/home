@@ -212,7 +212,8 @@ function SeatedCursors({
       {[...seats].map(([id, cursor]) => {
         const color = audience.get(id)?.color;
         if (!color) return null;
-        const seat = cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
+        const seat =
+          cursor.sitting && cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
         let x = cursor.x * W;
         let y = cursor.y * H;
         if (seat && cursor.seat !== null) {
@@ -225,7 +226,7 @@ function SeatedCursors({
           <span
             key={id}
             className="talk-live__cursor"
-            data-seated={seat ? true : undefined}
+            data-seated={cursor.sitting || undefined}
             style={{ transform: `translate(${x - CURSOR_TIP.x * CURSOR}px, ${y - CURSOR_TIP.y * CURSOR}px)` }}
           >
             <span className="talk-live__cursor-body">
