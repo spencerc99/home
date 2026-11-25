@@ -120,17 +120,17 @@
   in playhtml itself.
 - Stage keys: `l` go live (phones only follow a stage that is live, so
   someone else opening /talk/stage cannot drive the room), `j` join card (QR,
-  people count, everyone's touches), `w` force slide 2 awake. The live layer
+  people count, everyone's touches) over any slide, for latecomers. The live layer
   (`live/LiveLayer.tsx`) is drawn over the current slide in its own frame and
   never blocks the deck; if the room does not connect the deck runs as before.
-- Built so far: join flow and lobby, warm-up (slide 2 starts blurred and gray;
-  it wakes when 40% of the people in the room hold at once, at least 2, never
-  more than the room has; fingers already down when the slide comes up must
-  lift first), title loops (slide 3; the phone pad is the slide turned on its
+- Built so far: join flow and lobby, the join slide (slide 3, after the
+  intro: the QR code, the people count and everyone's touches; it replaced a
+  warm-up where slide 2 woke once enough people held their phones, cut on
+  2026-11-25 to get to the room faster), title loops (slide 4; the phone pad is the slide turned on its
   side, and the stage turns it back, so loops land where they were drawn and
-  fill the slide), take a seat (slide 12, `live/seats.ts`: the phone is a
+  fill the slide), take a seat (slide 13, `live/seats.ts`: the phone is a
   trackpad for a playhtml-style cursor; let go near a free seat whose picture
-  is showing and the cursor sits there, tipped back), fridge (slides 14-15,
+  is showing and the cursor sits there, tipped back), fridge (slides 15-16,
   `live/fridge.ts`: 48 words from the talk on a 3:4 door, so it fits an
   upright phone; phones can drag on both slides, the stage draws the door on
   15, over the playhtml.fun/fridge picture). Patina, finale and the keepsake

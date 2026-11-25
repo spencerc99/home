@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { LiveMoment } from "./talkRoom";
 import {
   AUDIENCE_CHANNEL,
@@ -14,7 +14,6 @@ import {
   type SeatPresence,
   type StagePresence,
 } from "./talkRoom";
-import { wakeThreshold } from "./moments";
 import { parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
 import { SEATS } from "./seats";
 import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
@@ -171,46 +170,6 @@ function JoinCard({ here }: { here: AudiencePresence[] }) {
   );
 }
 
-/** Slide 2 starts asleep; enough fingers held at once wake it. */
-function Warmup({
-  audience,
-  forced,
-  awake,
-  onWake,
-}: {
-  audience: Map<string, AudiencePresence>;
-  forced: boolean;
-  // Once woken, slide 2 stays awake, even after stepping back to it.
-  awake: boolean;
-  onWake: () => void;
-}) {
-  // Fingers already down when the slide comes up are left over from the
-  // lobby (phones hear about the new slide a moment after the stage). They
-  // count only after lifting once.
-  const carriedRef = useRef<Set<string> | null>(null);
-  carriedRef.current ??= new Set([...audience].filter(([, p]) => p.touch).map(([id]) => id));
-  const carried = carriedRef.current;
-  for (const [id, person] of audience) if (!person.touch) carried.delete(id);
-  const people = [...audience.values()];
-  const holding = [...audience].filter(([id, p]) => p.touch && !carried.has(id)).length;
-  const needed = wakeThreshold(people.length);
-  useEffect(() => {
-    if (!awake && (forced || holding >= needed)) onWake();
-  }, [awake, forced, holding, needed, onWake]);
-  const sleep = awake ? 0 : 1 - Math.min(1, holding / needed);
-  return (
-    <>
-      <div className="talk-live__sleep" style={{ opacity: sleep }} />
-      <Glows audience={audience} />
-      {!awake && (
-        <div className="talk-live__count">
-          {holding} of {needed} holding
-        </div>
-      )}
-    </>
-  );
-}
-
 /**
  * Everyone's loops over the title. A phone's pad is the slide turned on its
  * side, so each point is turned back: the pad's top is the slide's right.
@@ -287,7 +246,6 @@ export function LiveLayer({
   fridgeDoor,
   presenting,
   joinOpen,
-  wakeForced,
 }: {
   ready: boolean;
   slide: number;
@@ -296,11 +254,8 @@ export function LiveLayer({
   fridgeDoor: boolean;
   presenting: boolean;
   joinOpen: boolean;
-  wakeForced: boolean;
 }) {
   const audience = useAudience(ready);
-  const [awake, setAwake] = useState(false);
-  const wake = useCallback(() => setAwake(true), []);
   const loops = useLoops(ready, moment === "title");
   const seats = useSeats(ready, moment === "seat");
   const fridge = useFridge(ready, fridgeDoor);
@@ -319,10 +274,12 @@ export function LiveLayer({
   }, [ready, presenting, slide, build, moment, joinOpen]);
 
   const here = useMemo(() => [...audience.values()], [audience]);
-  // The join card needs nothing from the room, so it shows while the room is
+  // The join slide, or the join card shown over any slide with `j` for
+  // latecomers. It needs nothing from the room, so it shows while the room is
   // still connecting; only the count of people waits.
+  const joining = joinOpen || moment === "join";
   if (!ready) {
-    return joinOpen ? (
+    return joining ? (
       <div className="talk-live" aria-hidden="true">
         <JoinCard here={here} />
       </div>
@@ -331,7 +288,6 @@ export function LiveLayer({
 
   return (
     <div className="talk-live" aria-hidden="true">
-      {moment === "warmup" && <Warmup audience={audience} forced={wakeForced} awake={awake} onWake={wake} />}
       {moment === "title" && <TitleLoops loops={loops} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (
@@ -339,9 +295,9 @@ export function LiveLayer({
           <FridgeDoor words={fridge} />
         </div>
       )}
-      {joinOpen && (
+      {joining && (
         <>
-          {moment !== "warmup" && <Glows audience={audience} />}
+          <Glows audience={audience} />
           <JoinCard here={here} />
         </>
       )}

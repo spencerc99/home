@@ -14,7 +14,6 @@ import {
   type SeatPresence,
   type StagePresence,
 } from "./talkRoom";
-import { wakeThreshold } from "./moments";
 import { parseAudience, parseFridge, parseSeat, parseStage } from "./roomData";
 import { SEATS, seatNear } from "./seats";
 import { FridgeDoor } from "./FridgeDoor";
@@ -213,8 +212,8 @@ function TouchPad({
   children?: React.ReactNode;
 }) {
   const [finger, setFinger] = useState<{ x: number; y: number } | null>(null);
-  // When the screen changes under a finger (the lobby turning into the
-  // warm-up), the old touch must not carry over and count as holding.
+  // When the pad goes away under a finger (the join slide giving way to the
+  // next), the touch is lifted so its glow does not stay on the big screen.
   const latestOnTouch = useRef(onTouch);
   latestOnTouch.current = onTouch;
   useEffect(() => () => latestOnTouch.current(null), []);
@@ -640,31 +639,13 @@ function Phone() {
         <p>Finding the room…</p>
       </div>
     );
-  } else if (moment === "warmup") {
-    const holding = audience.filter((p) => p.touch).length;
-    const needed = wakeThreshold(here);
-    screen = (
-      <div className="phone__screen phone__screen--turn">
-        <div className="phone__intro phone__intro--center">
-          <h2>Press and hold</h2>
-          <p>The slide wakes up when enough of us hold on.</p>
-        </div>
-        <TouchPad color={color} onTouch={touch} />
-        <div className="phone__progress">
-          <span style={{ width: `${Math.min(1, holding / needed) * 100}%` }} />
-        </div>
-        <p className="phone__meta">
-          {holding} of {needed} holding
-        </p>
-      </div>
-    );
   } else if (moment === "title") {
     screen = <DrawPad color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
   } else if (moment === "seat" && stage) {
     screen = <SeatPad build={stage.build} />;
   } else if (moment === "fridge") {
     screen = <FridgePad color={color} />;
-  } else if (!stage || stage.joinOpen) {
+  } else if (!stage || stage.joinOpen || moment === "join") {
     screen = (
       <div className="phone__screen">
         <TouchPad color={color} onTouch={touch}>

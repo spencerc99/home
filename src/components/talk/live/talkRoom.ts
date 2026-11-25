@@ -58,7 +58,7 @@ export const AUDIENCE_CHANNEL = "talk-audience";
 /** Each phone's cursor on the benches slide, and the seat it sits on. */
 export const SEAT_CHANNEL = "talk-seat";
 
-export type LiveMoment = "warmup" | "title" | "seat" | "fridge" | "patina" | "finale";
+export type LiveMoment = "join" | "title" | "seat" | "fridge" | "patina" | "finale";
 
 export type StagePresence = {
   slide: number;

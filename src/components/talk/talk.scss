@@ -685,24 +685,6 @@ html.talk-page body {
     top 220ms linear;
 }
 
-.talk-live__sleep {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(16px) grayscale(1);
-  background: rgba(245, 242, 234, 0.55);
-  transition: opacity 600ms ease;
-}
-
-.talk-live__count {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 56px;
-  text-align: center;
-  font-size: 32px;
-  color: rgb(30, 28, 26);
-}
-
 .talk-live__loops {
   position: absolute;
   inset: 0;

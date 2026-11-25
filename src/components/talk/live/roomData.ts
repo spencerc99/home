@@ -6,7 +6,7 @@ import type { AudiencePresence, Fridge, LiveMoment, Loop, Loops, SeatPresence, S
 import { FRIDGE_WORDS } from "./fridge";
 import { SEATS } from "./seats";
 
-const MOMENTS: readonly LiveMoment[] = ["warmup", "title", "seat", "fridge", "patina", "finale"];
+const MOMENTS: readonly LiveMoment[] = ["join", "title", "seat", "fridge", "patina", "finale"];
 /** The most loops the stage will draw, newest kept. */
 export const MAX_DRAWN_LOOPS = 1500;
 const MAX_POINTS = 400;

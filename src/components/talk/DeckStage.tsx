@@ -95,7 +95,6 @@ export function DeckStage() {
   const [roomReady, setRoomReady] = useState(false);
   const [presenting, setPresenting] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
-  const [wakeForced, setWakeForced] = useState(false);
   const [fit, setFit] = useState<FitMode>(() => {
     try {
       return localStorage.getItem(FIT_KEY) === "fill" ? "fill" : "fit";
@@ -234,7 +233,6 @@ export function DeckStage() {
       else if (key === "z" || key === "Z") toggleFit();
       else if (key === "l") setPresenting((p) => !p);
       else if (key === "j") setJoinOpen((open) => !open);
-      else if (key === "w") setWakeForced(true);
       else if (key === "g") setOverview(true);
       else if (key === "o") {
         const link = linkFor(index);
@@ -292,7 +290,6 @@ export function DeckStage() {
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 presenting={presenting}
                 joinOpen={joinOpen}
-                wakeForced={wakeForced}
               />
             </LiveBoundary>
           </div>
@@ -325,7 +322,7 @@ export function DeckStage() {
           aria-pressed={presenting}
           onClick={() => setPresenting((p) => !p)}
           aria-label={presenting ? "Live: phones follow this screen" : "Go live"}
-          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card, w wakes slide 2.`}
+          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide.`}
         >
           <LiveIcon />
         </button>
