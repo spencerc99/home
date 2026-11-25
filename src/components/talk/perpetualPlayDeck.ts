@@ -472,16 +472,15 @@ export const uneditedDeck: Slide[] = [
       { ...heading([110, 70, 1700, 83], "rules of play"), ...TYPE.listTitle },
       ...(
         [
-          ["inhabit > use", "2096-65", "36-201", "2075-705"],
-          ["seeds > products", "student-teletext", "student-compost", "30-85"],
-          ["program for surprise", "36-226", "wikipedia-patina", "2070-467"],
+          ["inhabit\n> use", "2096-65", "36-201", "2075-705"],
+          ["seeds\n> products", "student-teletext", "student-compost", "30-85"],
+          ["program for\nsurprise", "36-226", "wikipedia-patina", "2070-467"],
         ] as const
       ).flatMap(([rule, big, left, right], i): Layer[] => {
         const x = 110 + i * 590;
-        // A rule that wraps starts a line higher, so each ends just above its pictures.
-        const lines = rule.length > 16 ? 2 : 1;
+        // Every rule takes two lines, so all three line up over their pictures.
         return [
-          { ...heading([x, 340 - lines * 73, 550, lines * 73], rule), ...TYPE.body, bold: true, build: i + 1 },
+          { ...heading([x, 194, 550, 146], rule), ...TYPE.body, bold: true, build: i + 1 },
           { ...img(big, [x, 360, 550, 330], { radius: 8, cover: true }), build: i + 1 },
           { ...img(left, [x, 710, 265, 250], { radius: 8, cover: true }), build: i + 1 },
           { ...img(right, [x + 285, 710, 265, 250], { radius: 8, cover: true }), build: i + 1 },
