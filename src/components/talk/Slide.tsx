@@ -179,12 +179,21 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
           <Runs runs={layer.runs} />
           {layer.list &&
             (() => {
-              const List = layer.list.style === "ordered" ? "ol" : "ul";
+              const ordered = layer.list.style === "ordered";
+              const List = ordered ? "ol" : "ul";
               return (
-                <List style={{ margin: 0, paddingLeft: "1.1em" }}>
+                <List style={{ margin: 0, padding: 0, listStyle: "none" }}>
                   {layer.list.items.map((item, i) => (
-                    <li key={i}>
-                      <Runs runs={item} />
+                    <li key={i} style={{ display: "flex", gap: "0.3em" }}>
+                      <span
+                        aria-hidden="true"
+                        style={{ flex: "none", width: ordered ? "1.15em" : "0.6em", textAlign: ordered ? "right" : "left" }}
+                      >
+                        {ordered ? `${i + 1}.` : "•"}
+                      </span>
+                      <span>
+                        <Runs runs={item} />
+                      </span>
                     </li>
                   ))}
                 </List>

@@ -112,6 +112,23 @@ const byline: Layer = {
   lineHeight: 1,
   runs: [{ text: "Spencer Chang\n" }, { text: "spencer.place", color: LINK }],
 };
+// The deck's type scale, in slide pixels. Every text layer uses one of these.
+//   statement 120 bold: a slide that is one big line ("software you can touch")
+//   title 84: the line a slide is about ("People give meaning to technology")
+//   listTitle 72 bold: the heading over a list
+//   body 56: second lines and list items
+//   small 40: dense lists (the thank-you links)
+//   byline and labels stay at 24.
+const TYPE = {
+  statement: { size: 120, bold: true, lineHeight: 1.08 },
+  title: { size: 84, lineHeight: 1.15 },
+  listTitle: { size: 72, bold: true, lineHeight: 1.15 },
+  body: { size: 56, lineHeight: 1.3 },
+  small: { size: 40, lineHeight: 1.35 },
+} as const;
+// The space between a heading and what follows it.
+const GAP = 36;
+
 const heading = (
   box: Box,
   text: string,
@@ -215,12 +232,11 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "2059:441",
     layers: [
-      heading([356, 330, 1207, 202], "People give meaning to technology"),
+      { ...heading([356, 350, 1207, 194], "People give meaning to technology"), ...TYPE.title },
       {
         kind: "text",
-        box: [356, 600, 1207, 140],
-        size: 56,
-        lineHeight: 1.2,
+        box: [356, 350 + 194 + GAP, 1207, 146],
+        ...TYPE.body,
         runs: [{ text: "So we can make it what we want:\nfun, caring, creative, " }, { text: "???", bold: true, shifting: true }],
         build: 1,
       },
@@ -240,7 +256,7 @@ export const perpetualPlayDeck: Slide[] = [
   { figmaId: "2083:714", layers: [byline, img("2083-721", [350, 274, 1220, 531])] },
   {
     figmaId: "2075:612",
-    layers: [heading([426, 420, 1067, 240], "The Internet has no benches", { bold: true, align: "center", size: 120 }), byline],
+    layers: [{ ...heading([426, 410, 1067, 260], "The Internet has no benches", { align: "center" }), ...TYPE.statement }, byline],
   },
   {
     figmaId: "2075:702",
@@ -258,12 +274,11 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "2176:38",
     layers: [
-      heading([356, 190, 1207, 180], "We need to offer different, positive visions", { bold: true, size: 72 }),
+      { ...heading([356, 318, 1207, 166], "We need to offer different, positive visions"), ...TYPE.listTitle },
       {
         kind: "text",
-        box: [356, 430, 1207, 303],
-        size: 84,
-        lineHeight: 1.2,
+        box: [356, 318 + 166 + GAP, 1207, 220],
+        ...TYPE.body,
         runs: [],
         list: { style: "ordered", items: [[{ text: "new websites/apps" }], [{ text: "new devices" }], [{ text: "new browsers" }]] },
       },
@@ -326,7 +341,7 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2086:766",
-    layers: [heading([356, 388, 1207, 303], "Proof of Life\n<>\nPossibility of Surprise", { bold: true, align: "center" }), byline],
+    layers: [{ ...heading([356, 395, 1207, 290], "Proof of Life\n<>\nPossibility of Surprise", { bold: true, align: "center" }), ...TYPE.title, bold: true }, byline],
   },
   { figmaId: "43:350", layers: [byline, windowAt(430, 211)] },
   {
@@ -435,12 +450,12 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "2075:608",
     layers: [
+      { ...heading([452, 375, 1099, 83], "rules of play"), ...TYPE.listTitle },
       {
         kind: "text",
-        box: [452, 336, 1099, 406],
-        size: 84,
-        lineHeight: 1.2,
-        runs: [{ text: "rules of play", bold: true }],
+        box: [452, 375 + 83 + GAP, 1099, 220],
+        ...TYPE.body,
+        runs: [],
         list: {
           style: "ordered",
           items: [[{ text: "inhabit > use" }], [{ text: "seeds > products" }], [{ text: "program for surprise" }]],
@@ -458,12 +473,11 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "2094:36",
     layers: [
-      heading([838, 218, 880, 101], "Thank you :)", { align: "center" }),
+      { ...heading([960, 218, 900, 97], "Thank you :)"), ...TYPE.title },
       {
         kind: "text",
-        box: [1025, 319, 880, 528],
-        size: 48,
-        lineHeight: 1,
+        box: [960, 218 + 97 + GAP, 900, 520],
+        ...TYPE.small,
         runs: [],
         list: {
           style: "bullet",
@@ -474,7 +488,7 @@ export const perpetualPlayDeck: Slide[] = [
           ],
         },
         after: [
-          { text: "\n\n\nspencer.place\n", color: LINK },
+          { text: "\n\nspencer.place\n", color: LINK },
           { text: "hi@spencer.place", underline: true },
           { text: "\nspencercha.ng on tiktok / ig / bsky" },
         ],
