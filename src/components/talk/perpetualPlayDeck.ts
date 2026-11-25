@@ -290,10 +290,9 @@ export const perpetualPlayDeck: Slide[] = [
     live: "fridge",
     layers: [
       // playhtml.fun in a desktop window and a phone at once: what one does,
-      // the other sees (recorded with Playwright, 1920x1188).
-      vid("playhtml-home-interactions", [0, 0, 1125, 696]),
-      // The "How it works" section of playhtml.fun, captured at 2x.
-      img("playhtml-how-it-works", [860, 600, 1010, 455]),
+      // the other sees (recorded with Playwright, 1920x1188). It fills the
+      // slide; the dark margin above and below the windows is cropped.
+      vid("playhtml-home-interactions", [0, -44, 1920, 1188]),
     ],
   },
   {
