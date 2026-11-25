@@ -907,6 +907,36 @@ html.talk-page body {
   line-height: 1.5;
 }
 
+// Wishes and rules from the room (AnswerCloud in LiveLayer.tsx), over a veil
+// that keeps the slide visible behind them.
+.talk-live__veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(251, 250, 246, 0.8);
+  animation: talk-live-fade-in 600ms ease both;
+}
+
+.talk-live__answer {
+  position: absolute;
+  padding: 8px 18px 6px;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+  font-size: 34px;
+  line-height: 1.15;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.14),
+    inset 0 -6px 0 var(--mover);
+  animation: talk-answer-in 500ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes talk-answer-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
 // The join slide's own build: the slide stays visible but steps back.
 .talk-live__fade {
   position: absolute;

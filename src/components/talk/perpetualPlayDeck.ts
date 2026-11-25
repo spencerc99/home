@@ -68,7 +68,12 @@ type LayerContent =
 
 /** How many presses of next reveal the slide's builds before it moves on. */
 export function buildCount(slide: Slide): number {
-  return Math.max(slide.fridgeDoor ?? 0, slide.joinAt ?? 0, ...slide.layers.map((layer) => layer.build ?? 0));
+  return Math.max(
+    slide.fridgeDoor ?? 0,
+    slide.joinAt ?? 0,
+    slide.liveAt ?? 0,
+    ...slide.layers.map((layer) => layer.build ?? 0),
+  );
 }
 
 export type Slide = {
@@ -76,7 +81,9 @@ export type Slide = {
   figmaId: string;
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
-  live?: "join" | "circle" | "seat" | "fridge" | "patina" | "finale";
+  live?: "join" | "circle" | "seat" | "fridge" | "wish" | "rule" | "patina" | "finale";
+  // The build where the live moment starts; before it the slide is just a slide.
+  liveAt?: number;
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
@@ -235,6 +242,9 @@ export const uneditedDeck: Slide[] = [
   { figmaId: "2070:602", layers: [byline, img("2070-605", [370, 194, 1214, 692])] },
   {
     figmaId: "2059:441",
+    // Once the ??? is up, phones send wishes for what computing could be.
+    live: "wish",
+    liveAt: 1,
     layers: [
       { ...heading([356, 350, 1207, 194], "People give meaning to technology"), ...TYPE.title },
       {
@@ -452,7 +462,10 @@ export const uneditedDeck: Slide[] = [
   { figmaId: "2096:87", layers: [byline, ...livingSites(false), img("2075-619", [1004, 285, 874, 818]), label("we were online", "wewere.online")] },
   {
     figmaId: "2075:608",
-    // The rules, each with examples from the talk, one rule per press.
+    // The rules, each with examples from the talk, one rule per press; once
+    // all three are up, phones send rules of their own.
+    live: "rule",
+    liveAt: 3,
     layers: [
       byline,
       { kind: "scribble", opacity: 0.3 },

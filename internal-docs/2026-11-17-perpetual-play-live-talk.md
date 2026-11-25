@@ -120,7 +120,8 @@
   in playhtml itself.
 - Stage keys: `l` go live (phones only follow a stage that is live, so
   someone else opening /talk/stage cannot drive the room), `j` join card (QR,
-  people count, everyone's touches) over any slide, for latecomers. The live layer
+  people count, everyone's touches) over any slide, for latecomers; `h` hides
+  the newest wish or rule on screen. The live layer
   (`live/LiveLayer.tsx`) is drawn over the current slide in its own frame and
   never blocks the deck; if the room does not connect the deck runs as before.
 - Built so far: join flow and lobby, joining over slide 2 (the QR code, the
@@ -163,3 +164,22 @@
   assets host off S3), then switch `VID` to it.
 - Live audience: patina, take a seat, fridge, finale, keepsake card. Load
   testing with a full room.
+
+## Wishes and rules (2026-11-25)
+
+- Slide 8: once the ??? is up (press 1), phones ask "What else could computers
+  be?". Rules of play: once all three rules are up (press 3), phones ask for a
+  rule of their own. `liveAt` on a slide is the press where its moment starts.
+- Answers go to the saved page-data channel `talk-answers`, one entry per
+  answer keyed `<person>:<time>`, up to 60 characters, as many as people like
+  (a phone waits 1.5 s between sends). They show live; the presenter's `h`
+  marks the newest one hidden. The big screen shows the newest 40 over a veil.
+
+## Edit mode (2026-11-25)
+
+- `e` on /talk/stage on the local dev server: drag, resize, nudge and retype
+  layers. Edits save to `src/components/talk/deckEdits.json` through a
+  dev-server-only route (`/__talk/deck-edits`, same-origin JSON only) and are
+  laid over the slides in `perpetualPlayDeck.ts` by index. If a slide's layers
+  are reordered in code, loading fails and names the edit to fix.
+

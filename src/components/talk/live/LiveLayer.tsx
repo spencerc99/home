@@ -6,6 +6,9 @@ import {
   SEAT_CHANNEL,
   STAGE_CHANNEL,
   fridgeWords,
+  answers as answersChannel,
+  hideNewestAnswer,
+  type Answers,
   circleLoops,
   playhtml,
   type AudiencePresence,
@@ -14,7 +17,7 @@ import {
   type SeatPresence,
   type StagePresence,
 } from "./talkRoom";
-import { parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
+import { parseAnswers, parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
 import { SEATS } from "./seats";
 import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
 import { FridgeDoor } from "./FridgeDoor";
@@ -81,6 +84,86 @@ function useSeats(ready: boolean, on: boolean) {
 }
 
 /** The fridge words people have moved. */
+function useAnswers(ready: boolean, on: boolean) {
+  const [shown, setShown] = useState<Answers>({});
+  useEffect(() => {
+    if (!ready || !on) return;
+    const channel = answersChannel();
+    let frame: number | null = null;
+    const read = () => {
+      frame = null;
+      setShown(parseAnswers(channel.getData()));
+    };
+    read();
+    const off = channel.onUpdate(() => {
+      frame ??= requestAnimationFrame(read);
+    });
+    // Same gap in playhtml as the fridge: the first change in a new room
+    // can go unreported, so re-read now and then.
+    const reread = setInterval(read, FRIDGE_REREAD_MS);
+    return () => {
+      off();
+      clearInterval(reread);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [ready, on]);
+  return shown;
+}
+
+/** The most answers on screen at once; older ones make room for new ones. */
+const ANSWER_SLOTS = 40;
+const SLOT_COLUMNS = 5;
+
+/** A stable small number from a string, to scatter answers the same way on every screen. */
+function hashOf(text: string): number {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = (h * 31 + text.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+/**
+ * Wishes or rules from the room, over a veil on the slide. Each lands in one
+ * of 40 places (5 across, 8 down), nudged a little so it reads as handwritten;
+ * once all 40 are taken the newest take the oldest places.
+ */
+function AnswerCloud({ answers, kind }: { answers: Answers; kind: "wish" | "rule" }) {
+  const list = Object.entries(answers)
+    .filter(([, a]) => a.kind === kind && !a.hidden)
+    .sort(([, a], [, b]) => a.at - b.at);
+  if (list.length === 0) return null;
+  const rows = ANSWER_SLOTS / SLOT_COLUMNS;
+  const cellW = (W - 160) / SLOT_COLUMNS;
+  const cellH = (H - 200) / rows;
+  return (
+    <>
+      <div className="talk-live__veil" />
+      {list.slice(-ANSWER_SLOTS).map(([key, answer], i) => {
+        const at = (list.length - Math.min(list.length, ANSWER_SLOTS) + i) % ANSWER_SLOTS;
+        // Fill the places in a scattered order rather than row by row.
+        const slot = (at * 17) % ANSWER_SLOTS;
+        const h = hashOf(key);
+        const x = 80 + (slot % SLOT_COLUMNS) * cellW + (h % 40);
+        const y = 120 + Math.floor(slot / SLOT_COLUMNS) * cellH + ((h >> 6) % 24);
+        return (
+          <span
+            key={key}
+            className="talk-live__answer"
+            style={{
+              left: x,
+              top: y,
+              maxWidth: cellW * 1.6,
+              transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
+              ["--mover" as string]: answer.color,
+            }}
+          >
+            {answer.text}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 function useFridge(ready: boolean, on: boolean) {
   const [words, setWords] = useState<Fridge>({});
   useEffect(() => {
@@ -246,6 +329,7 @@ export function LiveLayer({
   moment,
   fridgeDoor,
   joinShown,
+  hideRequests,
   presenting,
   joinOpen,
 }: {
@@ -256,6 +340,8 @@ export function LiveLayer({
   fridgeDoor: boolean;
   // The join slide's build that brings up the join card and fades the slide.
   joinShown: boolean;
+  // Goes up by one each time the presenter presses h.
+  hideRequests: number;
   presenting: boolean;
   joinOpen: boolean;
 }) {
@@ -263,6 +349,16 @@ export function LiveLayer({
   const loops = useLoops(ready, moment === "circle");
   const seats = useSeats(ready, moment === "seat");
   const fridge = useFridge(ready, fridgeDoor);
+  const answerKind = moment === "wish" || moment === "rule" ? moment : null;
+  const shownAnswers = useAnswers(ready, answerKind !== null);
+
+  // h hides the newest answer of the moment on screen.
+  const handledHides = useRef(hideRequests);
+  useEffect(() => {
+    if (hideRequests === handledHides.current) return;
+    handledHides.current = hideRequests;
+    if (ready && answerKind) hideNewestAnswer(answerKind, shownAnswers);
+  }, [hideRequests, ready, answerKind, shownAnswers]);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {
@@ -295,6 +391,7 @@ export function LiveLayer({
     <div className="talk-live" aria-hidden="true">
       {joinShown && <div className="talk-live__fade" />}
       {moment === "circle" && <CircleLoops loops={loops} />}
+      {answerKind && <AnswerCloud answers={shownAnswers} kind={answerKind} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (
         <div className="talk-live__fridge">

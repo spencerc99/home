@@ -2,11 +2,21 @@
 // to it. Nothing from the room is drawn until it has been checked here: bad
 // entries are skipped, and the amounts are capped so one person cannot slow
 // the stage down or break it for everyone.
-import type { AudiencePresence, Fridge, LiveMoment, Loop, Loops, SeatPresence, StagePresence } from "./talkRoom";
+import {
+  ANSWER_MAX_CHARS,
+  type Answers,
+  type AudiencePresence,
+  type Fridge,
+  type LiveMoment,
+  type Loop,
+  type Loops,
+  type SeatPresence,
+  type StagePresence,
+} from "./talkRoom";
 import { FRIDGE_WORDS } from "./fridge";
 import { SEATS } from "./seats";
 
-const MOMENTS: readonly LiveMoment[] = ["join", "circle", "seat", "fridge", "patina", "finale"];
+const MOMENTS: readonly LiveMoment[] = ["join", "circle", "seat", "fridge", "wish", "rule", "patina", "finale"];
 /** The most loops the stage will draw, newest kept. */
 export const MAX_DRAWN_LOOPS = 1500;
 const MAX_POINTS = 400;
@@ -49,6 +59,22 @@ export function parseSeat(value: unknown): SeatPresence | null {
   if (typeof v.sitting !== "boolean") return null;
   if (v.seat !== null && !(Number.isInteger(v.seat) && (v.seat as number) >= 0 && (v.seat as number) < SEATS.length)) return null;
   return { x: v.x as number, y: v.y as number, sitting: v.sitting, seat: v.seat as number | null };
+}
+
+/** The answers that are safe to show: known kind, short text, a real colour. */
+export function parseAnswers(data: unknown): Answers {
+  if (!data || typeof data !== "object") return {};
+  const out: Answers = {};
+  for (const [key, value] of Object.entries(data as Record<string, unknown>)) {
+    if (key.length > 200 || !value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    const color = safeColor(v.color);
+    if (v.kind !== "wish" && v.kind !== "rule") continue;
+    if (typeof v.text !== "string" || !v.text.trim() || v.text.length > ANSWER_MAX_CHARS) continue;
+    if (!color || typeof v.at !== "number" || !Number.isFinite(v.at)) continue;
+    out[key] = { kind: v.kind, text: v.text.trim(), color, at: v.at, hidden: v.hidden === true };
+  }
+  return out;
 }
 
 /** The moved fridge words that are safe to draw; unknown words are skipped. */

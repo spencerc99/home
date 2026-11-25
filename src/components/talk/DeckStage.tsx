@@ -247,6 +247,7 @@ export function DeckStage() {
       else if (key === "j") setJoinOpen((open) => !open);
       else if (key === "g") setOverview(true);
       else if (key === "e") toggleEditing();
+      else if (key === "h") setHideRequests((n) => n + 1);
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -267,6 +268,11 @@ export function DeckStage() {
     editedIndex.current = index;
     selectLayer(null);
   }, [index, selectLayer]);
+
+  // The slide's live moment, once its press has come.
+  const moment = deck[index].live && build >= (deck[index].liveAt ?? 0) ? deck[index].live : null;
+  // Each press of h hides the newest wish or rule on the big screen.
+  const [hideRequests, setHideRequests] = useState(0);
 
   const hasVideo = deck[index].layers.some((l) => l.kind === "video");
   const link = linkFor(index);
@@ -313,7 +319,8 @@ export function DeckStage() {
                 ready={roomReady}
                 slide={index}
                 build={build}
-                moment={deck[index].live ?? null}
+                moment={moment}
+                hideRequests={hideRequests}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
                 presenting={presenting}
@@ -356,7 +363,7 @@ export function DeckStage() {
           aria-pressed={presenting}
           onClick={() => setPresenting((p) => !p)}
           aria-label={presenting ? "Live: phones follow this screen" : "Go live"}
-          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide.`}
+          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide, h hides the newest wish or rule.`}
         >
           <LiveIcon />
         </button>

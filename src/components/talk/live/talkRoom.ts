@@ -14,6 +14,7 @@ export function talkEvent(): string {
 let joining: Promise<void> | null = null;
 let loopsChannel: PageDataChannel<Loops> | null = null;
 let fridgeChannel: PageDataChannel<Fridge> | null = null;
+let answersChannel: PageDataChannel<Answers> | null = null;
 
 /** Connects this page to the event's room. Safe to call from several places. */
 export function joinTalkRoom(): Promise<void> {
@@ -25,6 +26,7 @@ export function joinTalkRoom(): Promise<void> {
     joining = playhtml.ready.then(() => {
       loopsChannel = playhtml.createPageData<Loops>(LOOPS_DATA, {});
       fridgeChannel = playhtml.createPageData<Fridge>(FRIDGE_DATA, {});
+      answersChannel = playhtml.createPageData<Answers>(ANSWERS_DATA, {});
     });
   }
   return joining;
@@ -44,6 +46,24 @@ export function circleLoops(): PageDataChannel<Loops> {
  */
 export const FRIDGE_REREAD_MS = 2000;
 
+/** The wishes and rules people have sent. Only after joinTalkRoom() resolves. */
+export function answers(): PageDataChannel<Answers> {
+  if (!answersChannel) throw new Error("[talk] the answers are read before the room joined");
+  return answersChannel;
+}
+
+/** Hides the newest shown answer of a kind, for the presenter's `h` key. */
+export function hideNewestAnswer(kind: AnswerKind, shown: Answers) {
+  const newest = Object.entries(shown)
+    .filter(([, a]) => a.kind === kind && !a.hidden)
+    .sort(([, a], [, b]) => b.at - a.at)[0];
+  if (!newest) return;
+  answers().setData((draft) => {
+    const answer = draft[newest[0]];
+    if (answer) answer.hidden = true;
+  });
+}
+
 /** The fridge words that have been moved. Only after joinTalkRoom() resolves. */
 export function fridgeWords(): PageDataChannel<Fridge> {
   if (!fridgeChannel) throw new Error("[talk] the fridge is read before the room joined");
@@ -58,7 +78,7 @@ export const AUDIENCE_CHANNEL = "talk-audience";
 /** Each phone's cursor on the benches slide, and the seat it sits on. */
 export const SEAT_CHANNEL = "talk-seat";
 
-export type LiveMoment = "join" | "circle" | "seat" | "fridge" | "patina" | "finale";
+export type LiveMoment = "join" | "circle" | "seat" | "fridge" | "wish" | "rule" | "patina" | "finale";
 
 export type StagePresence = {
   slide: number;
@@ -95,6 +115,18 @@ export type Loops = Record<string, Loop>;
 export const FRIDGE_DATA = "talk-fridge-words";
 export type FridgeWord = { x: number; y: number; color: string };
 export type Fridge = Record<string, FridgeWord>;
+
+/**
+ * Wishes for what computing could be (slide 8) and rules for getting there
+ * (rules of play), typed on phones. Keyed `<person>:<time>`, so every answer
+ * is its own entry and sending never overwrites anyone else's.
+ */
+export const ANSWERS_DATA = "talk-answers";
+export type AnswerKind = "wish" | "rule";
+export type Answer = { kind: AnswerKind; text: string; color: string; at: number; hidden?: boolean };
+export type Answers = Record<string, Answer>;
+/** The longest answer a phone can send. */
+export const ANSWER_MAX_CHARS = 60;
 
 /** Calls `fn` at most every `ms`, always ending on the latest value. */
 export function throttle<T>(ms: number, fn: (value: T) => void): (value: T) => void {

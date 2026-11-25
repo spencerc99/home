@@ -5,6 +5,9 @@ import {
   SEAT_CHANNEL,
   STAGE_CHANNEL,
   fridgeWords,
+  answers,
+  ANSWER_MAX_CHARS,
+  type AnswerKind,
   joinTalkRoom,
   circleLoops,
   playhtml,
@@ -514,6 +517,74 @@ function SeatPad({ build }: { build: number }) {
   );
 }
 
+const ASK: Record<AnswerKind, { title: string; prompt: string; example: string }> = {
+  wish: { title: "Make a wish", prompt: "What else could computers be?", example: "slow, like a garden" },
+  rule: { title: "Add a rule", prompt: "A rule of play for getting there.", example: "neighbors > users" },
+};
+/** A short pause between sends, so one person can't flood the screen. */
+const SEND_GAP_MS = 1500;
+
+/** Type a wish or a rule; each one sent shows up on the big screen. */
+function AnswerPad({ kind, color, pid }: { kind: AnswerKind; color: string; pid: string }) {
+  const [text, setText] = useState("");
+  const [sent, setSent] = useState<string[]>([]);
+  const [waiting, setWaiting] = useState(false);
+  const ask = ASK[kind];
+  const send = () => {
+    const trimmed = text.trim();
+    if (!trimmed || waiting) return;
+    const at = Date.now();
+    answers().setData((draft) => {
+      draft[`${pid}:${at.toString(36)}`] = { kind, text: trimmed.slice(0, ANSWER_MAX_CHARS), color, at };
+    });
+    setSent((list) => [trimmed, ...list]);
+    setText("");
+    setWaiting(true);
+    setTimeout(() => setWaiting(false), SEND_GAP_MS);
+  };
+  return (
+    <div className="phone__screen phone__screen--turn">
+      <div className="phone__intro phone__intro--center">
+        <h2>{ask.title}</h2>
+        <p>{ask.prompt}</p>
+      </div>
+      <form
+        className="phone__answer"
+        onSubmit={(event) => {
+          event.preventDefault();
+          send();
+        }}
+      >
+        <label htmlFor="talk-answer" className="phone__visually-hidden">
+          {ask.prompt}
+        </label>
+        <input
+          id="talk-answer"
+          value={text}
+          maxLength={ANSWER_MAX_CHARS}
+          placeholder={ask.example}
+          autoComplete="off"
+          enterKeyHint="send"
+          onChange={(event) => setText(event.target.value)}
+        />
+        <p className="phone__meta">
+          {text.length}/{ANSWER_MAX_CHARS}
+        </p>
+        <button type="submit" className="phone__pill" style={{ background: color }} disabled={!text.trim() || waiting}>
+          {waiting ? "sent" : "send to the screen"}
+        </button>
+      </form>
+      {sent.length > 0 && (
+        <ul className="phone__sent" aria-label="What you sent">
+          {sent.map((line, i) => (
+            <li key={i}>{line}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 /** The shared fridge, shrunk to the phone. Drag any word. */
 function FridgePad({ color }: { color: string }) {
   const [words, setWords] = useState<Fridge>(() => parseFridge(fridgeWords().getData()));
@@ -682,6 +753,8 @@ function Phone() {
     screen = <SeatPad build={stage.build} />;
   } else if (moment === "fridge") {
     screen = <FridgePad color={color} />;
+  } else if (moment === "wish" || moment === "rule") {
+    screen = <AnswerPad key={moment} kind={moment} color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
   } else if (!stage || stage.joinOpen || moment === "join") {
     screen = (
       <div className="phone__screen">
