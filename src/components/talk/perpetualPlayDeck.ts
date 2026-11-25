@@ -3,6 +3,9 @@
 // canvas; boxes are [x, y, width, height] in Figma's canvas pixels and layers
 // are listed bottom to top, matching Figma's layer order.
 
+import { applyDeckEdits, type DeckEdits } from "./deckEdits";
+import deckEdits from "./deckEdits.json";
+
 export type Box = [number, number, number, number];
 
 export type TextRun = {
@@ -133,7 +136,7 @@ const heading = (
   box: Box,
   text: string,
   opts: { bold?: boolean; align?: "left" | "center"; size?: number; nowrap?: boolean } = {},
-): Layer => ({
+): Extract<Layer, { kind: "text" }> => ({
   kind: "text",
   box,
   nowrap: opts.nowrap,
@@ -160,7 +163,8 @@ const livingSites = (withImage201: boolean): Layer[] => [
   img("2075-622", [183, 471, 717, 824]),
 ];
 
-export const perpetualPlayDeck: Slide[] = [
+/** The slides as written here, before the hand edits from deckEdits.json. */
+export const uneditedDeck: Slide[] = [
   {
     figmaId: "2081:708",
     layers: [byline, heading([669, 151, 581, 101], "Hi I’m Spencer", { nowrap: true }), img("2088-788", [298, 287, 1324, 824])],
@@ -496,3 +500,6 @@ export const perpetualPlayDeck: Slide[] = [
     ],
   },
 ];
+
+/** The deck as shown: the slides above with the edits made in the stage's edit mode. */
+export const perpetualPlayDeck: Slide[] = applyDeckEdits(uneditedDeck, deckEdits as DeckEdits);

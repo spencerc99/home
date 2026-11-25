@@ -11,12 +11,15 @@ import {
   writeSlideToHash,
   type DeckMessage,
 } from "./deckSync";
+import { EditOverlay, EditPanel, useDeckEditor } from "./DeckEditor";
 import { LiveBoundary } from "./live/LiveBoundary";
 import { LiveLayer } from "./live/LiveLayer";
 import { joinTalkRoom } from "./live/talkRoom";
 import "./talk.scss";
 
 const LAST = deck.length - 1;
+/** How many slides ahead of the current one load their videos. */
+const READY_AHEAD = 2;
 const FIT_KEY = "talk:fit";
 const clamp = (n: number) => Math.min(LAST, Math.max(0, n));
 
@@ -102,7 +105,12 @@ export function DeckStage() {
       return "fit";
     }
   });
-  const { ref, scale } = useFitScale<HTMLDivElement>(fit);
+  // Edit mode (e) is only on the local dev server, where edits can be saved.
+  const editor = useDeckEditor(import.meta.env.DEV);
+  const toggleEditing = editor.toggle;
+
+  // While editing, the whole slide shows beside the edit panel.
+  const { ref, scale } = useFitScale<HTMLDivElement>(editor.editing ? "fit" : fit);
   const hideTimer = useRef<ReturnType<typeof setTimeout>>();
   // The slide shown before this render, so a single step can glide shared
   // pictures across (see Slide). Updated after each change has been drawn.
@@ -205,6 +213,9 @@ export function DeckStage() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
+      // Typing in the edit panel is not a slide shortcut.
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA"].includes(target.tagName))) return;
       const key = event.key;
       if (/^\d$/.test(key)) {
         setTyped((t) => (t + key).slice(-2));
@@ -234,6 +245,7 @@ export function DeckStage() {
       else if (key === "l") setPresenting((p) => !p);
       else if (key === "j") setJoinOpen((open) => !open);
       else if (key === "g") setOverview(true);
+      else if (key === "e") toggleEditing();
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -241,18 +253,32 @@ export function DeckStage() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, typed]);
+  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, toggleEditing, typed]);
+
+  // Edit mode lays unsaved changes over the slides as they are made.
+  const shown = editor.editing ? editor.deck : deck;
+  // A new slide lets go of the picked layer. (Only a real change of slide:
+  // saving an edit reloads this module, which runs effects again.)
+  const selectLayer = editor.select;
+  const editedIndex = useRef(index);
+  useEffect(() => {
+    if (editedIndex.current === index) return;
+    editedIndex.current = index;
+    selectLayer(null);
+  }, [index, selectLayer]);
 
   const hasVideo = deck[index].layers.some((l) => l.kind === "video");
   const link = linkFor(index);
 
   return (
-    <div className="talk-stage" data-chrome={chromeVisible || undefined} onPointerMove={showChrome}>
+    <div className="talk-stage" data-chrome={chromeVisible || undefined} data-editing={editor.editing || undefined} onPointerMove={showChrome}>
       <div className="talk-stage__frame" ref={ref}>
         {scale > 0 &&
           deck.map((slide, i) => {
-            if (Math.abs(i - index) > 1) return null;
-            const mode: MediaMode = i === index ? (playing ? "play" : "pause") : i === index + 1 ? "ready" : "still";
+            // The slide before stays for the glide back; the two after are
+            // loading their videos, so they're ready even after quick clicks.
+            if (i < index - 1 || i > index + READY_AHEAD) return null;
+            const mode: MediaMode = i === index ? (playing ? "play" : "pause") : i > index ? "ready" : "still";
             return (
               <div
                 key={slide.figmaId}
@@ -264,7 +290,7 @@ export function DeckStage() {
                 }}
               >
                 <Slide
-                  slide={slide}
+                  slide={shown[i]}
                   mode={mode}
                   active={i === index}
                   from={i === index ? cameFrom : null}
@@ -295,7 +321,13 @@ export function DeckStage() {
             </LiveBoundary>
           </div>
         )}
+        {scale > 0 && editor.editing && (
+          <div className="talk-stage__slide talk-stage__edit" style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
+            <EditOverlay editor={editor} slide={shown[index]} build={build} scale={scale} />
+          </div>
+        )}
       </div>
+      {editor.editing && <EditPanel editor={editor} slide={shown[index]} slideNumber={index + 1} />}
 
       <nav className="talk-chrome" aria-label="Slide controls">
         <button type="button" onClick={() => step(-1)} aria-label="Previous slide">
