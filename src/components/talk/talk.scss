@@ -548,6 +548,11 @@ html.talk-page body {
   color: rgb(97 110 129);
 }
 
+.talk-notes__tools {
+  display: flex;
+  gap: 8px;
+}
+
 .talk-notes__body {
   display: grid;
   grid-template-columns: minmax(280px, 440px) minmax(0, 1fr);
@@ -593,15 +598,59 @@ html.talk-page body {
 }
 
 .talk-notes__text {
+  min-height: 0;
   overflow-y: auto;
+  // useFitText in DeckNotes.tsx sets the size to fill the box.
   font-size: 30px;
-  line-height: 1.4;
+  line-height: 1.35;
 
   p {
     margin: 0 0 0.6em;
   }
   strong {
     background: hsla(33, 100%, 56%, 0.3);
+  }
+}
+
+.talk-notes--text-only {
+  .talk-notes__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .talk-notes__slides {
+    display: none;
+  }
+}
+
+// A narrow notes window puts the notes first, full width, with the current
+// and next slides small underneath.
+@media (max-width: 860px) {
+  .talk-notes__bar,
+  .talk-notes__controls {
+    padding: 10px 16px;
+  }
+  .talk-notes__bar button {
+    padding: 0 12px;
+  }
+  .talk-notes__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 14px;
+    padding: 16px;
+  }
+  .talk-notes__text {
+    order: -1;
+  }
+  .talk-notes__slides {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 12px;
+
+    > .talk-thumb {
+      width: min(50%, 260px);
+    }
+  }
+  .talk-notes__next {
+    width: min(38%, 200px);
   }
 }
 
