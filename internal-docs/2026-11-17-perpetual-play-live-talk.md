@@ -147,11 +147,12 @@
   If a talk needs it, add a small server that only relays stage messages
   signed with a presenter secret.
 
-- Slide 14 demo video (`video/playhtml-home-interactions.mp4`) is recorded
-  by `scripts/recordPlayhtmlDemo.mjs` on the live playhtml.fun (desktop and
-  phone windows, scripted clicks, the guestbook left alone) and stitched with
-  the ffmpeg command in its header. The image beside it is the site's
-  "How it works" section at 2x.
+- Slide 14 shows `video/playhtml-hero-cursors.mp4`, Spencer's recording of
+  the playhtml.fun hero with live cursors (art:research/playhtml/
+  01-hero-cursors.mp4), whole on the slide. It replaced a two-window demo
+  recorded by `scripts/recordPlayhtmlDemo.mjs`
+  (`video/playhtml-home-interactions.mp4`, still in the bucket), which can
+  record a new one.
 
 ## Still open
 
