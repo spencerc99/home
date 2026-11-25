@@ -303,10 +303,10 @@ export const uneditedDeck: Slide[] = [
     figmaId: "1:105",
     live: "fridge",
     layers: [
-      // playhtml.fun in a desktop window and a phone at once: what one does,
-      // the other sees (recorded with Playwright, 1920x1188). It fills the
-      // slide; the dark margin above and below the windows is cropped.
-      vid("playhtml-home-interactions", [0, -44, 1920, 1188]),
+      // The playhtml.fun homepage hero with live cursors, from
+      // art:research/playhtml/01-hero-cursors.mp4 (1440x900, so it sits
+      // whole on the slide with a little paper either side).
+      vid("playhtml-hero-cursors", [96, 0, 1728, 1080]),
     ],
   },
   {
