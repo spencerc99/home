@@ -258,9 +258,10 @@ export const perpetualPlayDeck: Slide[] = [
   {
     figmaId: "2176:38",
     layers: [
+      heading([356, 190, 1207, 180], "We need to offer different, positive visions", { bold: true, size: 72 }),
       {
         kind: "text",
-        box: [356, 389, 1207, 303],
+        box: [356, 430, 1207, 303],
         size: 84,
         lineHeight: 1.2,
         runs: [],
