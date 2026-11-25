@@ -22,11 +22,7 @@ const BASE = arg("base", "https://spencer.place");
 const OUT = arg("out", `/tmp/talk-loadtest-${Date.now()}`);
 const EVENT = `loadtest-${Date.now().toString(36)}`;
 // Slide numbers of the live moments, as in src/components/talk/perpetualPlayDeck.ts.
-// The live site runs the deck from main, so pass --old-deck to test it before
-// the join slide is deployed.
-const SLIDE = process.argv.includes("--old-deck")
-  ? { join: 2, title: 3, seat: 12, fridgeDoor: 15 }
-  : { join: 3, title: 4, seat: 13, fridgeDoor: 16 };
+const SLIDE = { join: 2, title: 3, seat: 12, fridgeDoor: 15 };
 const COLORS = ["hsl(33, 100%, 56%)", "hsl(205, 85%, 52%)", "hsl(330, 75%, 62%)", "hsl(150, 55%, 42%)", "hsl(265, 60%, 62%)"];
 mkdirSync(OUT, { recursive: true });
 
@@ -213,7 +209,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   });
 }
 
-// 3. Slide 3, the join slide: everyone touches at once.
+// 3. Slide 2, joining: everyone touches at once.
 {
   await goto(SLIDE.join);
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__pad").isVisible(), 15000)));
@@ -229,7 +225,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   await Promise.all(phones.map((p) => (switched[p.k] === null ? null : scribble(p.page, ".phone__pad", 4000, { i: p.i }))));
   await watching;
   await shot("3-join");
-  note("3 join slide", {
+  note("3 joining on slide 2", {
     phonesSwitched: `${switched.filter((ms) => ms !== null).length}/${phones.length}`,
     slowestSwitchMs: Math.max(...switched.filter((ms) => ms !== null)),
     stageCount: await stageCount(),

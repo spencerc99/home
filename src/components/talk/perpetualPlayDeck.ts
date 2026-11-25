@@ -132,24 +132,15 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "1:193",
+    // The QR code, the people count and everyone's touches go over this slide.
+    live: "join",
     layers: [
       img("2102-144", [0, -104, 1233, 824]),
       img("2102-141", [1233, 0, 784, 1061]),
       img("2102-128", [0, 524, 1233, 660]),
       { kind: "block", box: [506, 314, 910, 356], color: "#ff8901" },
-      heading([504, 399, 912, 240], "software you can touch", { bold: true, align: "center", size: 120 }),
+      { ...heading([504, 405, 912, 240], "software you can touch", { bold: true, align: "center", size: 120 }), lineHeight: 1.02 },
       { kind: "text", box: [0, 335, 1920, 64], size: 64, align: "center", lineHeight: 1, runs: [{ text: "I make" }] },
-    ],
-  },
-  {
-    // Not in Figma: the QR code and everyone who has joined, before the first
-    // thing the room does together.
-    figmaId: "join",
-    live: "join",
-    layers: [
-      byline,
-      heading([150, 330, 1150, 300], "Play along on your phone", { bold: true, size: 120 }),
-      { kind: "text", box: [150, 660, 1150, 64], size: 48, lineHeight: 1.2, runs: [{ text: "scan the code, or go to " }, { text: "spencer.place/talk", color: LINK }] },
     ],
   },
   {

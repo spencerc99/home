@@ -711,7 +711,7 @@ html.talk-page body {
 
 .talk-live__qr {
   position: absolute;
-  right: 150px;
+  right: 110px;
   top: 300px;
   width: 360px;
   height: 360px;
@@ -757,11 +757,14 @@ html.talk-page body {
 
 .talk-live__here {
   position: absolute;
-  left: 300px;
-  top: 1000px;
+  left: 290px;
+  top: 990px;
   display: flex;
   align-items: center;
   gap: 18px;
+  padding: 6px 20px 6px 10px;
+  border-radius: 999px;
+  background: rgba(251, 250, 246, 0.9);
   font-size: 32px;
   color: rgb(30, 28, 26);
 }
