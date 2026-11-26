@@ -66,6 +66,8 @@ So we can make it what we want: fun, caring, creative
 
 all of it is  for us. so all we need to ask ourselves is: what do we want from it? 
 
+if you open your phones you can share a bit about what you want
+
 ## 9 · We're not starting from an easy…
 <!-- 2176:43 -->
 
@@ -95,7 +97,7 @@ What would that internet feel like?
 
 ## 13 · New positive visions
 <!-- 2176:38 -->
-
+there’s a lot of energy and nostalgia for an old internet and i think we need to channel that into
 We need to ask questions like this to offer new positive visions for how things could be different. 
 
 We can turn our wishes for what technology should feel like into 
@@ -103,15 +105,12 @@ We can turn our wishes for what technology should feel like into
 2. new devices and machines and hardware
 3. and new internets (networks)
 
-**i think technology is meaningless without people!** we give the meaning to all these things — they help us live life easier, connect to each other, create amazing things. it's all for us.
-so what do we want to do with it? and how can it actually help rather than harm us?
+today i wanna share a few things ive tried 
 
 ## 14 · playhtml is an open source tool…
 <!-- 1:105 -->
 
 playhtml is an open source tool I created in 2023 for bridging the gap between expressive personal websites and new social interfaces and interactions. It makes it easy for anyone who can make a personal website to create a **live shared space** — everything you do happens in real time for everyone else, and the things you do, like turning on a lamp or leaving a note, stay for others to find.
-
-**[from the fridge slide, now removed]** One of the earliest games I made with it: poems we found on the internet, a huge fridge poetry game. **Every color represents a different person** — you can feel how many people contributed to this place. It started as a single set of words and evolved into this living, growing thing that's completely different. Proof of life.
 
 ## 15 · playhtml
 <!-- 45:363 -->
@@ -129,100 +128,98 @@ I'm really inspired by the natural signs of life that the physical world offers 
 
 Each a new cycle for a new kind of interaction and play. A new site for a new kind of encounter.
 
-## 17 · Proof of Life · Possibility of Surprise
-<!-- 2086:766 -->
+**[next: the photos wash back, Proof of Life <> Possibility of Surprise over them]**
 
 This proof of life is everywhere in the physical world. It's a piece of ourselves left for someone to find and it becomes an invitation for someone else to continue the loop. We don't need to be together to play and continue this cycle. We see how other people have lived and shown up, it accumulates, and the cycle grows.
 
 How can our devices and technology contribute to this proof of life? How can they help us
 
-## 18 · So what about our devices?…
+## 17 · So what about our devices?…
 <!-- 43:350 -->
 
 So what about our devices?
 
-## 19 · they connect us to thousands and…
+## 18 · they connect us to thousands and…
 <!-- 2070:540 -->
 
  they connect us to thousands and millions of people, but somehow it's hard to feel this sense of life. We look at feeds and apps that are clean, curated, sanitized of the imperfect circles.
 
-## 20 · How can we interrupt this pattern?…
+## 19 · How can we interrupt this pattern?…
 <!-- 2070:555 -->
 
 **How can we interrupt this pattern? Turn them into these portals for the human and unexpected?**
 
-## 21 · everyday
+## 20 · everyday
 <!-- 2002:204 -->
 
 everyday is a project i did a couple years back that challenging our relationship with the phone — it turns it into an object we can play with and respond to. Every hour of the day there's a different prompt to interact with your phone in a new and strange way: dancing with it, tracing a cloud, pretending it's a hot rock and tossing it between you.
 I performed this at the Internet Archive, where **over 300 people threw their phones in the air together.**
 → **inhabit > use** — changing our relationship with these devices. *what new devices can we imagine?*
 
-## 22 · Computing Shrines
+## 21 · Computing Shrines
 <!-- 30:82 -->
 
 Computing Shrines is my latest work that co-opts these devices into facilitating intimate encounters with strangers who have been to the same physical spaces as us. It's anchored around sculptures, each with a website experience embedded within —
 
-## 23 · Computing Shrines
+## 22 · Computing Shrines
 <!-- 27:63 -->
 
  as you offer your phone up to them, you're teleported to an experience that can only be accessed there and contextual to the sculpture
 
-## 24 · Computing Shrines
+## 23 · Computing Shrines
 <!-- 2043:300 -->
 
 Rocks that people have offered fall down the screen, each contributed by someone who stood here. Observations strangers have left. **The voice of the last stranger, which you must listen to before you're allowed to replace it with your own.**
 
-## 25 · Computing Shrines
+## 24 · Computing Shrines
 <!-- 2070:460 -->
 
 I'm excited for this to grow into a network that lives beyond myself — a community-driven protocol where anyone around the world can host their own shrine. The first large public art installation opens in San Francisco this fall, and **I'd love your help stewarding your own shrine.**
 
-## 26 · So we can create these sites…
+## 25 · So we can create these sites…
 <!-- 2096:74 -->
 
 So we can create these sites for accumulating life and showing who has been here, but someone has to start each of these cycles and we have to have the opportunity to contribute to them in the first place.
-
 
 This is a still from one of my favorite movies, Perfect Days — a toilet cleaner in Tokyo, deeply dedicated to this simple, perhaps looked-down-upon task. One day during his shift he finds a scrap of paper: the starting point of a tic-tac-toe game, one move filled in. Instead of throwing it away, **he makes his move and puts it back where he found it.** The game unfolds between these two strangers over weeks.
 
 there's liveness, but we also need to continue the cycle — **we need to plant seeds.** Someone has to begin, and be vulnerable enough to put themselves out there, so that other people can play off of it.
 
-## 27 · Browsing is so core to our…
+## 26 · Browsing is so core to our…
 <!-- 2002:201 -->
 
 Browsing is so core to our daily lives, but it feels so isolated. We are all so online, yet being online feels so solitary. There's no sense of life or history from the people who have been there before. I want to see these traces of life all over the internet, not just on isolated websites.
 
 How do we show the humanity behind all of the actions that unfold through them?
 
-## 28 · Can it feel like the way…
+## 27 · Can it feel like the way…
 <!-- 2058:389 -->
 
 Can it feel like the way we shape our entire socities and environments? where every action of ours makes a difference
 
-## 29 · we were online
+## 28 · we were online
 <!-- 33:182 -->
 
 we were online is my latest extension to playhtml, a browser extension that brings that shared experience to your daily browsing and the entire internet. These are the live trails of people actively browsing around the world,
 
-## 30 · we were online
+## 29 · we were online
 <!-- 33:185 -->
 
 And you can see how each people's contributions can turn into these **collective portraits of the internet**, proof of life in our daily browsing.
 
 Beyond these collective portraits, I'm interested in how we can turn the actual surface of the internet that we browse, the webpages and apps, into spaces for the accumulation of this life.
 
-## 31 · we were online
+## 30 · we were online
 <!-- 2176:53 -->
 
 and people can collect samples of elements and things they come across
 
-## 32 · we were online
+## 31 · we were online
 <!-- 2176:61 -->
 
-and turn them into beatuiful collages
+and turn them into beatuiful collages. here's a few from the community (click through)
 
-## 33 · we were online
+## 32 · we were online
 <!-- 1:98 -->
 
 This is a partnership I did with Wikipedia to show how this concept could extend to any place on the web, contextual to that site.
@@ -231,14 +228,7 @@ you can see other cursors on the same page, click to follow a stranger down diff
 
 **[next: close-up]** and watch the links grow patina with the cursor colors of everyone who has traveled through. Patina of people.
 
-## 34 · we were online
-<!-- 2096:87 -->
-
-**[one row per press: new software → playhtml · new machines → shrines · new internets → we were online]**
-
-I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
-
-## 35 · rules of play
+## 33 · rules of play
 <!-- 2075:608 -->
 
 **[one rule per press]**
@@ -251,16 +241,23 @@ They made seeds rather than products so that people were empowered to begin and 
 
 And they programmed for surprise so that every encounter could be different and a space for the human error to spill over
 
-## 36 · Play Together
-<!-- 2002:212 -->
+## 34 · new software, new devices, new networks
+<!-- 2096:87 -->
 
-**[everyone's loops, marks and wishes fill the slide · every phone shows its own card to save]**
+**[one row per press: new software → playhtml · new devices → shrines · new networks → we were online]**
+
+new software, new devices, new networks
+
+My hope is that this encourages others to make their own 
+I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
+
+**[m: everyone's loops, marks and wishes fill the slide · every phone shows its own card to save]**
 
 Ultimately, I think im invested in creating the conditions that allow for change to happen at every level of our technology. Projects, spaces, and ways of interacting that grow beyond myself to create millions of interfaces, devices, and internets, each with their own personalities and niches.
 
 put together, our energy can create new systems, reimagine our relationships with & through technology, and create these cycles of play over and over and over so that if you squint they might just look infinite.
 
-## 37 · Thank you :)
+## 35 · Thank you :)
 <!-- 2094:36 -->
 
 All of these projects are out in the world and driven by the community, so if any of these interested you, please explore and reach out to help me make new interfaces, devices, and internets.

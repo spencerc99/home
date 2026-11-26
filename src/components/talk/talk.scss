@@ -63,6 +63,16 @@ html.talk-page body {
   }
 }
 
+.talk-notes__live {
+  font-family: "Sono", ui-monospace, monospace;
+
+  &[aria-pressed="true"] {
+    background: #fde8e3 !important;
+    border-color: #d13b1f !important;
+    color: #a52a12;
+  }
+}
+
 .talk-notes__phones:not([aria-pressed="true"]) {
   border-color: hsl(33, 100%, 46%) !important;
 }
@@ -1108,6 +1118,8 @@ html.talk-page body {
 .talk-room-marks {
   position: absolute;
   inset: 0;
+  // The slide stays faintly behind everything the room made.
+  background: rgba(246, 243, 235, 0.72);
   animation: talk-live-fade-in 900ms ease both;
 
   svg {
