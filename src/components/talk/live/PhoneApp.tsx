@@ -28,7 +28,7 @@ import {
 import { parseAudience, parseFridge, parseSeat, parseStage } from "./roomData";
 import { SEATS, seatNear } from "./seats";
 import { FridgeDoor } from "./FridgeDoor";
-import { KeepsakeCard } from "./KeepsakeCard";
+import { Keepsake } from "./KeepsakeCard";
 import "./phone.scss";
 
 // What a phone shows: the door, the colour pick, then whatever the stage is
@@ -1027,9 +1027,9 @@ function Phone() {
       <div className="phone__screen phone__screen--card">
         <div className="phone__intro phone__intro--center">
           <h2>Thanks for playing</h2>
-          <p>Here's what you made with everyone tonight.</p>
+          <p>Here's everything we made together tonight.</p>
         </div>
-        <KeepsakeCard
+        <Keepsake
           color={color}
           pid={playhtml.presence.getMyIdentity().publicKey}
           hidden={hiddenAnswers}

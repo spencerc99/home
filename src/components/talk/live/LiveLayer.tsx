@@ -20,6 +20,7 @@ import {
 } from "./talkRoom";
 import { parseAnswers, parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
 import { SEATS } from "./seats";
+import { answerBox, newAnswerLayout, placeAnswers, type AnswerLayout, type Measure } from "./answerLayout";
 import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
 import { FridgeDoor } from "./FridgeDoor";
 
@@ -213,10 +214,6 @@ function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers;
   );
 }
 
-/** The most answers on screen at once; older ones make room for new ones. */
-const ANSWER_SLOTS = 40;
-const SLOT_COLUMNS = 5;
-
 /** A stable small number from a string, to scatter answers the same way on every screen. */
 function hashOf(text: string): number {
   let h = 0;
@@ -224,37 +221,77 @@ function hashOf(text: string): number {
   return Math.abs(h);
 }
 
+// Wishes are measured in the stage's own font, so each card's box (and the
+// spots in answerLayout.ts) match what is drawn.
+const ANSWER_FONT = '"Vulf Sans", sans-serif';
+let measureContext: CanvasRenderingContext2D | null = null;
+const measured = new Map<string, number>();
+const measureAnswer: Measure = (text, size) => {
+  const key = `${size}|${text}`;
+  const known = measured.get(key);
+  if (known !== undefined) return known;
+  measureContext ??= document.createElement("canvas").getContext("2d");
+  if (!measureContext) throw new Error("[talk] no 2d canvas to measure wishes with");
+  measureContext.font = `${size}px ${ANSWER_FONT}`;
+  const width = measureContext.measureText(text).width;
+  measured.set(key, width);
+  return width;
+};
+
+/** True once the stage's font is in, so wishes are measured in it. */
+function useAnswerFont() {
+  const [ready, setReady] = useState(() => document.fonts.check(`34px ${ANSWER_FONT}`));
+  useEffect(() => {
+    if (ready) return;
+    let alive = true;
+    document.fonts.load(`34px ${ANSWER_FONT}`).then(
+      () => alive && setReady(true),
+      (error: unknown) => {
+        console.warn("[talk] the wish font did not load; measuring with the fallback", error);
+        if (alive) setReady(true);
+      },
+    );
+    return () => {
+      alive = false;
+    };
+  }, [ready]);
+  return ready;
+}
+
 /**
- * Wishes or rules from the room, over a veil on the slide. Each lands in one
- * of 40 places (5 across, 8 down), nudged a little so it reads as handwritten;
- * once all 40 are taken the newest take the oldest places.
+ * Wishes from the room, over a veil on the slide. Every wish is shown: each
+ * keeps the spot it got when it arrived (see answerLayout.ts), and when the
+ * slide fills they all shrink together around their own spots.
  */
 function AnswerCloud({ answers, kind, hidden }: { answers: Answers; kind: "wish"; hidden: ReadonlySet<string> }) {
+  const fontReady = useAnswerFont();
+  const layout = useRef<AnswerLayout>(newAnswerLayout());
   const list = Object.entries(answers)
     .filter(([key, a]) => a.kind === kind && !hidden.has(key))
     .sort(([, a], [, b]) => a.at - b.at);
-  if (list.length === 0) return null;
-  const rows = ANSWER_SLOTS / SLOT_COLUMNS;
-  const cellW = (W - 160) / SLOT_COLUMNS;
-  const cellH = (H - 200) / rows;
+  if (list.length === 0 || !fontReady) return null;
+  placeAnswers(
+    list.map(([key, a]) => ({ key, text: a.text })),
+    layout.current,
+    measureAnswer,
+  );
+  const size = layout.current.size;
   return (
     <>
       <div className="talk-live__veil" />
-      {list.slice(-ANSWER_SLOTS).map(([key, answer], i) => {
-        const at = (list.length - Math.min(list.length, ANSWER_SLOTS) + i) % ANSWER_SLOTS;
-        // Fill the places in a scattered order rather than row by row.
-        const slot = (at * 17) % ANSWER_SLOTS;
+      {list.map(([key, answer]) => {
+        const box = answerBox(key, layout.current, measureAnswer);
+        if (!box) return null;
         const h = hashOf(key);
-        const x = 80 + (slot % SLOT_COLUMNS) * cellW + (h % 40);
-        const y = 120 + Math.floor(slot / SLOT_COLUMNS) * cellH + ((h >> 6) % 24);
         return (
           <span
             key={key}
             className="talk-live__answer"
             style={{
-              left: x,
-              top: y,
-              maxWidth: cellW * 1.6,
+              left: box.x,
+              top: box.y,
+              width: box.w,
+              fontSize: size,
               transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
               ["--mover" as string]: answer.color,
             }}

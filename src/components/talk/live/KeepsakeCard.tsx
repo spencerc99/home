@@ -333,12 +333,156 @@ export function KeepsakeCard({ color, pid, hidden }: { color: string; pid: strin
     <div className="phone__card">
       <canvas ref={canvas} className="phone__card-image" role="img" aria-label="Your Play Together card: the room's loops with yours, and the wishes" />
       <button type="button" className="phone__pill phone__card-save" style={{ background: color }} onClick={save} disabled={!drawn}>
-        {saving === "saved" ? "Saved" : "Save"}
+        {saving === "saved" ? "Saved" : "Save your card"}
       </button>
       {typeof saving === "object" && <p className="phone__meta">{saving.failed}</p>}
+      <p className="phone__meta">Saves this card. Scroll for everything we made.</p>
+    </div>
+  );
+}
+
+// Everything the room made, below the card: the whole drawing and every wish,
+// for scrolling through. The card above is the condensed version to save.
+
+/** The room's drawing is drawn at this size and shown at the phone's width. */
+const ROOM_W = 960;
+const ROOM_H = 540;
+
+/** The room's loops and wishes as they stand, redrawn as they change. */
+function useRoomRecord() {
+  const [record, setRecord] = useState<{ loops: Loops; answers: Answers }>({ loops: {}, answers: {} });
+  useEffect(() => {
+    let alive = true;
+    let lastLoops: Loops = {};
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    const read = () => {
+      timer = null;
+      if (!alive) return;
+      lastLoops = parseLoops(circleLoops().getData(), lastLoops);
+      setRecord({ loops: lastLoops, answers: parseAnswers(answersChannel().getData()) });
+    };
+    const soon = () => {
+      timer ??= setTimeout(read, REDRAW_MS);
+    };
+    read();
+    const offLoops = circleLoops().onUpdate(soon);
+    const offAnswers = answersChannel().onUpdate(soon);
+    return () => {
+      alive = false;
+      offLoops();
+      offAnswers();
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+  return record;
+}
+
+/** Every loop where it was drawn on the slide; yours bold, a soft mark where each person began. */
+function drawRoom(canvas: HTMLCanvasElement, loops: Loops, pid: string, color: string) {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("[talk] no 2d canvas for the room's drawing");
+  canvas.width = ROOM_W;
+  canvas.height = ROOM_H;
+  ctx.fillStyle = "rgb(255, 252, 235)";
+  ctx.fillRect(0, 0, ROOM_W, ROOM_H);
+  const k = ROOM_W / 1920;
+  const at = (points: number[], i: number): [number, number] => [((1 - points[i + 1]) / 2) * 1920 * k, ((1 + points[i]) / 2) * 1080 * k];
+  const mine = (key: string) => key.startsWith(`${pid}:`);
+  const all = Object.entries(loops);
+  const first = new Map<string, Loops[string]>();
+  for (const [key, loop] of all) {
+    const person = key.split(":")[0];
+    if (!first.has(person)) first.set(person, loop);
+  }
+  for (const [person, loop] of first) {
+    if (loop.points.length < 2) continue;
+    const [x, y] = at(loop.points, 0);
+    const own = person === pid;
+    const r = own ? 120 : 90;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, own ? color : loop.color);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.globalAlpha = own ? 0.45 : 0.18;
+    ctx.fillStyle = g;
+    ctx.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+  const stroke = (loop: Loops[string], width: number, alpha: number, strokeColor: string) => {
+    ctx.beginPath();
+    for (let i = 0; i + 1 < loop.points.length; i += 2) {
+      const [x, y] = at(loop.points, i);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.stroke();
+  };
+  for (const [, loop] of all.filter(([key]) => !mine(key))) stroke(loop, 2.4, 0.5, loop.color);
+  for (const [, loop] of all.filter(([key]) => mine(key))) stroke(loop, 7, 1, color);
+  ctx.globalAlpha = 1;
+}
+
+function RoomRecord({ color, pid, hidden }: { color: string; pid: string; hidden: ReadonlySet<string> }) {
+  const { loops, answers } = useRoomRecord();
+  const canvas = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (canvas.current) drawRoom(canvas.current, loops, pid, color);
+  }, [loops, pid, color]);
+
+  const loopCount = Object.keys(loops).length;
+  const people = new Set(Object.keys(loops).map((key) => key.split(":")[0])).size;
+  const mineCount = Object.keys(loops).filter((key) => key.startsWith(`${pid}:`)).length;
+  const wishes = Object.entries(answers)
+    .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
+    .sort(([, a], [, b]) => a.at - b.at);
+
+  return (
+    <div className="phone__record">
+      <section className="phone__record-part">
+        <h3>Everything we drew</h3>
+        <canvas
+          ref={canvas}
+          className="phone__record-drawing"
+          role="img"
+          aria-label={`Everyone's loops on the slide: ${loopCount} loops by ${people} people`}
+        />
+        <p className="phone__meta">
+          {loopCount} {loopCount === 1 ? "loop" : "loops"} by {people} {people === 1 ? "person" : "people"}
+          {mineCount > 0 ? ` · yours are bold` : ""}
+        </p>
+      </section>
+      <section className="phone__record-part">
+        <h3>Every wish</h3>
+        <p className="phone__meta">We wish technology was… {SLIDE_WISHES.join(", ")}, and:</p>
+        {wishes.length === 0 ? (
+          <p className="phone__meta">No wishes were sent.</p>
+        ) : (
+          <ol className="phone__wishes">
+            {wishes.map(([key, wish]) => (
+              <li key={key} style={{ ["--wish" as string]: wish.color }}>
+                <span className="phone__wish-text">{wish.text}</span>
+                {key.startsWith(`${pid}:`) && <span className="phone__wish-you">you</span>}
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
       <a href="https://spencer.place" className="phone__card-link">
         spencer.place
       </a>
     </div>
+  );
+}
+
+/** The end of the talk on a phone: the card to save, then everything the room made. */
+export function Keepsake({ color, pid, hidden }: { color: string; pid: string; hidden: ReadonlySet<string> }) {
+  return (
+    <>
+      <KeepsakeCard color={color} pid={pid} hidden={hidden} />
+      <RoomRecord color={color} pid={pid} hidden={hidden} />
+    </>
   );
 }
