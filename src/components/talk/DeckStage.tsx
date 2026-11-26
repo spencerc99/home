@@ -97,9 +97,12 @@ export function DeckStage() {
   const [typed, setTyped] = useState("");
   const [overview, setOverview] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
-  // The current slide's phone moment, started and stopped with m. A new slide
-  // always starts with it off.
-  const [phonesOn, setPhonesOn] = useState(false);
+  // The slide whose phone moment is on, started and stopped with m. Tied to
+  // the slide, so moving on can never start the next slide's moment, even for
+  // one render; a new slide always starts with it off.
+  const [phonesAt, setPhonesAt] = useState<number | null>(null);
+  const phonesOn = phonesAt === index;
+  const togglePhones = useCallback(() => setPhonesAt((at) => (at === index ? null : index)), [index]);
   // Live audience: the room connects in the background and the deck never
   // waits on it. Phones only follow this stage once `presenting` is on (l).
   const [roomReady, setRoomReady] = useState(false);
@@ -156,7 +159,7 @@ export function DeckStage() {
     if (message.type === "goto") goto(message.index);
     if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
-    if (message.type === "toggle-phones" && deck[index].live) setPhonesOn((on) => !on);
+    if (message.type === "toggle-phones" && deck[index].live) togglePhones();
     if (message.type === "toggle-live") setPresenting((p) => !p);
     if (message.type === "hello") send({ type: "state", state: deckState });
   });
@@ -173,8 +176,8 @@ export function DeckStage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, build, playing, phonesOn, presenting]);
 
-  // Leaving a slide ends its phone moment.
-  useEffect(() => setPhonesOn(false), [index]);
+  // Leaving a slide ends its phone moment, so coming back starts it off too.
+  useEffect(() => setPhonesAt(null), [index]);
 
   // Coming back to the tab (browser back, or a hash typed in the address bar).
   useEffect(() => {
@@ -269,7 +272,7 @@ export function DeckStage() {
       else if (key === "g") setOverview(true);
       else if (key === "e") toggleEditing();
       else if (key === "h") setHideRequests((n) => n + 1);
-      else if (key === "m" && deck[index].live) setPhonesOn((on) => !on);
+      else if (key === "m" && deck[index].live) togglePhones();
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -277,7 +280,7 @@ export function DeckStage() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, toggleEditing, typed]);
+  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, toggleEditing, togglePhones, typed]);
 
   // Edit mode lays unsaved changes over the slides as they are made.
   const shown = editor.editing ? editor.deck : deck;
@@ -293,7 +296,7 @@ export function DeckStage() {
 
   // The slide's phone moment, once the presenter has started it with m.
   // On the finale every phone shows its own card, no m needed.
-  const moment = phonesOn ? deck[index].live ?? null : deck[index].roomMarks ? "card" : null;
+  const moment = phonesOn ? deck[index].live ?? null : null;
   // Each press of h hides the newest wish or rule on the big screen.
   const [hideRequests, setHideRequests] = useState(0);
 
@@ -346,7 +349,7 @@ export function DeckStage() {
                 hideRequests={hideRequests}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
-                roomMarks={deck[index].roomMarks === true}
+                roomMarks={moment === "card"}
                 presenting={presenting}
                 joinOpen={joinOpen}
               />
@@ -376,7 +379,7 @@ export function DeckStage() {
             type="button"
             className="talk-chrome__phones"
             aria-pressed={phonesOn}
-            onClick={() => setPhonesOn((on) => !on)}
+            onClick={togglePhones}
             title="Start or stop the phones' turn on this slide (m)"
           >
             {phonesOn ? `phones: ${MOMENT_NAMES[deck[index].live]} · m stops` : `m: ${MOMENT_NAMES[deck[index].live]}`}

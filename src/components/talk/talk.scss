@@ -1089,6 +1089,8 @@ html.talk-page body {
 .talk-room-marks {
   position: absolute;
   inset: 0;
+  // The slide stays faintly behind everything the room made.
+  background: rgba(246, 243, 235, 0.72);
   animation: talk-live-fade-in 900ms ease both;
 
   svg {
