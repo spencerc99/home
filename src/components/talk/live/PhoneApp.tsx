@@ -428,7 +428,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
     <div className="phone__screen phone__screen--turn">
       <div className="phone__intro phone__intro--center">
         <h2>Draw a circle</h2>
-        <p>Keep going round. Your loops join mine on the big screen.</p>
+        <p>Contribute to our collective loops.</p>
       </div>
       <svg
         className="phone__draw"
@@ -682,57 +682,6 @@ function AnswerPad({
   );
 }
 
-/** The shared fridge, shrunk to the phone. Drag any word. */
-function FridgePad({ color }: { color: string }) {
-  const [words, setWords] = useState<Fridge>(() =>
-    parseFridge(fridgeWords().getData()),
-  );
-  useEffect(() => {
-    const channel = fridgeWords();
-    const read = () => setWords(parseFridge(channel.getData()));
-    let pending: ReturnType<typeof setTimeout> | null = null;
-    const off = channel.onUpdate(() => {
-      pending ??= setTimeout(() => {
-        pending = null;
-        read();
-      }, 100);
-    });
-    const reread = setInterval(read, FRIDGE_REREAD_MS);
-    return () => {
-      off();
-      clearInterval(reread);
-      if (pending) clearTimeout(pending);
-    };
-  }, []);
-  const colorRef = useRef(color);
-  colorRef.current = color;
-  const write = useRef(
-    throttle<{ index: number; x: number; y: number }>(
-      120,
-      ({ index, x, y }) => {
-        fridgeWords().setData((draft) => {
-          draft[String(index)] = { x, y, color: colorRef.current };
-        });
-      },
-    ),
-  ).current;
-  return (
-    <div className="phone__screen phone__screen--turn">
-      <div className="phone__intro phone__intro--center">
-        <h2>Make a line</h2>
-        <p>Drag words. Everyone shares one fridge.</p>
-      </div>
-      <div className="phone__fridge">
-        <FridgeDoor
-          words={words}
-          myColor={color}
-          onMove={(index, spot) => write({ index, x: spot.x, y: spot.y })}
-        />
-      </div>
-    </div>
-  );
-}
-
 /** If the phone page ever breaks, say so plainly instead of going blank. */
 class PhoneBoundary extends Component<
   { children: React.ReactNode },
@@ -902,7 +851,7 @@ function Phone() {
       <div className="phone__screen phone__screen--card">
         <div className="phone__intro phone__intro--center">
           <h2>Thanks for playing</h2>
-          <p>Here is what you made with everyone tonight.</p>
+          <p>Here's what you made with everyone tonight.</p>
         </div>
         <KeepsakeCard
           color={color}
