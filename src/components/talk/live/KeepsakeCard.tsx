@@ -235,8 +235,8 @@ function draw(
 
   // You, and the link.
   const people = firstByPerson.size;
-  const others = Math.max(0, people - 1);
-  const youLine = `you + ${others} ${others === 1 ? "other" : "others"} · ${all.length} ${all.length === 1 ? "loop" : "loops"}`;
+  const otherPeople = Math.max(0, people - 1);
+  const youLine = `you + ${otherPeople} ${otherPeople === 1 ? "other" : "others"} · ${all.length} ${all.length === 1 ? "loop" : "loops"}`;
   ctx.font = '12px "Sono", monospace';
   const lineW = ctx.measureText(youLine).width + 22;
   const lx = (CARD_W - lineW) / 2;
