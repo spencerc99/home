@@ -207,11 +207,12 @@ export const uneditedDeck: Slide[] = [
           `${IMG}/2102-141.webp`,
           `${VID}/shrine-to-earth.mp4`, // Computing Shrines
           CREATION("3iG3YRioYt"), // everyday
+          // Every story people submitted, growing scene by scene (made from
+          // art:research/alserkal-feed-is-a-stage/story-submissions).
+          `${VID}/sharing-stories-submissions.mp4`, // Sharing Stories
           `${VID}/we-were-browsing-montage.mp4`, // we were browsing
           CREATION("PkmObpZzQs"), // Internet Sculptures
           `${VID}/shrine-to-others.mp4`, // Computing Shrines
-          CREATION("I3Z8iiQmXs"), // Wi-Fi Graffiti
-          CREATION("_1DHAWsaB2"), // Free Agents
         ],
       },
       {
@@ -222,6 +223,7 @@ export const uneditedDeck: Slide[] = [
         items: [
           `${IMG}/2102-128.webp`,
           `${VID}/playhtml-hero-cursors.mp4`, // playhtml
+          CREATION("G6amMoVZqV"), // Free Agents, the phones in hands stitched together
           CREATION("oDGrU4LJTF"), // Computing-Infused Objects
           `${VID}/we-were-typing.mp4`, // we were online
           CREATION("WMZO6IlYNO"), // alive internet theory

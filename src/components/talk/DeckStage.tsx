@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { buildCount, perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide, type MediaMode } from "./Slide";
+import { ShortcutSheet } from "./ShortcutSheet";
 import { SlideOverview } from "./SlideOverview";
 import { useFitScale, type FitMode } from "./useFitScale";
 import {
@@ -94,6 +95,7 @@ export function DeckStage() {
   const [chromeVisible, setChromeVisible] = useState(true);
   const [typed, setTyped] = useState("");
   const [overview, setOverview] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   // Live audience: the room connects in the background and the deck never
   // waits on it. Phones only follow this stage once `presenting` is on (l).
   const [roomReady, setRoomReady] = useState(false);
@@ -218,6 +220,12 @@ export function DeckStage() {
       const target = event.target;
       if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA"].includes(target.tagName))) return;
       const key = event.key;
+      if (key === "/" || key === "?") {
+        event.preventDefault();
+        setShortcutsOpen((open) => !open);
+        return;
+      }
+      if (key === "Escape") setShortcutsOpen(false);
       if (/^\d$/.test(key)) {
         setTyped((t) => (t + key).slice(-2));
         return;
@@ -377,6 +385,7 @@ export function DeckStage() {
           ⛶
         </button>
       </nav>
+      {shortcutsOpen && <ShortcutSheet onClose={() => setShortcutsOpen(false)} />}
       {overview && <SlideOverview deck={deck} current={index} onPick={pickFromOverview} onClose={closeOverview} />}
     </div>
   );
