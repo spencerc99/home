@@ -189,12 +189,13 @@ export const uneditedDeck: Slide[] = [
         every: 4200,
         items: [
           `${IMG}/2102-144.webp`,
+          CREATION("1JtvwPkD5S"), // playhtml
+          `${VID}/shrine-to-voice.mp4`, // Computing Shrines
           CREATION("oWbNjGXdjK"), // html garden
+          `${VID}/colored-windows.mp4`, // we were online
           CREATION("pcKpYu0tOF"), // nothing on my computer
           CREATION("21P7fqNtic"), // Webcollages
           CREATION("3sAn_jqexq"), // cursor watching
-          CREATION("UApY84pF0v"), // minute faces (together)
-          CREATION("1JtvwPkD5S"), // playhtml
         ],
       },
       {
@@ -204,12 +205,13 @@ export const uneditedDeck: Slide[] = [
         delay: 1400,
         items: [
           `${IMG}/2102-141.webp`,
+          `${VID}/shrine-to-earth.mp4`, // Computing Shrines
           CREATION("3iG3YRioYt"), // everyday
+          `${VID}/we-were-browsing-montage.mp4`, // we were browsing
           CREATION("PkmObpZzQs"), // Internet Sculptures
-          CREATION("qERwPYcAzY"), // Sharing Stories
+          `${VID}/shrine-to-others.mp4`, // Computing Shrines
           CREATION("I3Z8iiQmXs"), // Wi-Fi Graffiti
           CREATION("_1DHAWsaB2"), // Free Agents
-          CREATION("F-kruJn5lE"), // SIGIL I
         ],
       },
       {
@@ -219,10 +221,11 @@ export const uneditedDeck: Slide[] = [
         delay: 2800,
         items: [
           `${IMG}/2102-128.webp`,
+          `${VID}/playhtml-hero-cursors.mp4`, // playhtml
           CREATION("oDGrU4LJTF"), // Computing-Infused Objects
+          `${VID}/we-were-typing.mp4`, // we were online
           CREATION("WMZO6IlYNO"), // alive internet theory
-          CREATION("WWhDKi1Q-U"), // iframe quilt
-          CREATION("vf4rrdhrob"), // CMU.PLACE
+          CREATION("UApY84pF0v"), // minute faces (together)
           CREATION("M0Wu51rgfw"), // everyday at the Internet Archive
         ],
       },
