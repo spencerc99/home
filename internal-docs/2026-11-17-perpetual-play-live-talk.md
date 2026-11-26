@@ -166,6 +166,12 @@
 - Live audience: patina, take a seat, fridge, finale, keepsake card. Load
   testing with a full room.
 
+## Fridge removed (2026-11-26)
+
+- The fridge slide (36:224) and the fridge moment on slide 14 are gone; the
+  fridge code (FridgeDoor, fridge.ts, the `talk-fridge-words` channel) is no
+  longer used by any slide.
+
 ## Starting the phones' turns (2026-11-26)
 
 - Each phone moment (circle, seat, fridge, wish, rule) starts when the

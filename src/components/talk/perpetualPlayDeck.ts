@@ -125,7 +125,10 @@ const byline: Layer = {
   box: [16, 29, 280, 48],
   size: 24,
   lineHeight: 1,
-  runs: [{ text: "Spencer Chang\n" }, { text: "spencer.place", color: LINK, href: "https://spencer.place" }],
+  runs: [
+    { text: "Spencer Chang\n" },
+    { text: "spencer.place", color: LINK, href: "https://spencer.place" },
+  ],
 };
 // The deck's type scale, in slide pixels. Every text layer uses one of these.
 //   statement 120 bold: a slide that is one big line ("software you can touch")
@@ -386,23 +389,12 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "1:105",
-    live: "fridge",
     layers: [
       // The playhtml.fun homepage hero with live cursors, from
       // art:research/playhtml/01-hero-cursors.mp4 (1440x900, so it sits
       // whole on the slide with a little paper either side).
       vid("playhtml-hero-cursors", [96, 0, 1728, 1080]),
       label("playhtml", "playhtml.fun"),
-    ],
-  },
-  {
-    figmaId: "36:224",
-    live: "fridge",
-    // The real fridge first; the next press brings up the room's own door.
-    fridgeDoor: 1,
-    layers: [
-      img("36-226", [-22, -237, 1942, 1554], { radius: 8 }),
-      label("poems we found on the internet", "playhtml.fun/fridge"),
     ],
   },
   {
@@ -632,22 +624,22 @@ export const uneditedDeck: Slide[] = [
     // phones send rules of their own.
     live: "rule",
     layers: [
-      byline,
       { kind: "scribble", opacity: 0.3 },
       { ...heading([110, 70, 1700, 83], "rules of play"), ...TYPE.listTitle },
       ...(
         [
-          ["inhabit\n> use", "2096-65", "36-201", "2075-705"],
-          ["seeds\n> products", "student-teletext", "student-compost", "30-85"],
-          ["program for\nsurprise", "36-226", "wikipedia-patina", "2070-467"],
+          ["inhabit > use", "2096-65", "36-201", "2075-705"],
+          ["seeds > products", "student-teletext", "student-compost", "30-85"],
+          ["program for surprise", "36-226", "wikipedia-patina", "2070-467"],
         ] as const
       ).flatMap(([rule, big, left, right], i): Layer[] => {
         const x = 110 + i * 590;
-        // Every rule takes two lines, so all three line up over their pictures.
+        // Each rule on one line, a little under body size so the longest fits.
         return [
           {
-            ...heading([x, 194, 550, 146], rule),
+            ...heading([x, 194, 550, 80], rule),
             ...TYPE.body,
+            size: 50,
             bold: true,
             build: i + 1,
           },

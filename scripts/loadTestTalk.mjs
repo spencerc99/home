@@ -22,7 +22,7 @@ const BASE = arg("base", "https://spencer.place");
 const OUT = arg("out", `/tmp/talk-loadtest-${Date.now()}`);
 const EVENT = `loadtest-${Date.now().toString(36)}`;
 // Slide numbers of the live moments, as in src/components/talk/perpetualPlayDeck.ts.
-const SLIDE = { join: 2, circle: 6, seat: 12, fridgeDoor: 15 };
+const SLIDE = { join: 2, circle: 6, seat: 12 };
 const COLORS = ["hsl(33, 100%, 56%)", "hsl(205, 85%, 52%)", "hsl(330, 75%, 62%)", "hsl(150, 55%, 42%)", "hsl(265, 60%, 62%)"];
 mkdirSync(OUT, { recursive: true });
 
@@ -292,42 +292,6 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   note("5 seats", {
     phonesSwitched: `${switched.filter((ms) => ms !== null).length}/${phones.length}`,
     stageMostCursors: maxCursors,
-    stageFps: await rate,
-  });
-}
-
-// 6. The fridge door: everyone drags a word.
-{
-  await goto(SLIDE.fridgeDoor);
-  await stage.keyboard.press("ArrowRight");
-  await stage.keyboard.press("m");
-  const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".talk-fridge__word").first().isVisible(), 15000)));
-  const rate = fps(4000);
-  await Promise.all(
-    phones.map(async (p) => {
-      if (switched[p.k] === null) return;
-      const word = p.page.locator(".talk-fridge__word").nth(p.i % 24);
-      const box = await word.boundingBox();
-      await p.page.mouse.move(box.x + 4, box.y + 4);
-      await p.page.mouse.down();
-      for (let s = 0; s < 20; s++) {
-        await p.page.mouse.move(box.x + 4 + s * 3, box.y + 4 + s * 4);
-        await sleep(40);
-      }
-      await p.page.mouse.up();
-    }),
-  );
-  const moved = await until(
-    async () =>
-      (await stage.$$eval(".talk-live__fridge .talk-fridge__word", (ws) =>
-        ws.filter((w) => w.style.getPropertyValue("--mover") !== "transparent").length,
-      )) >= Math.min(24, phones.length),
-    15000,
-  );
-  await shot("6-fridge");
-  note("6 fridge", {
-    phonesSwitched: `${switched.filter((ms) => ms !== null).length}/${phones.length}`,
-    stageShowsAllMovedWords: moved === null ? "no" : `yes, ${moved}ms after`,
     stageFps: await rate,
   });
 }
