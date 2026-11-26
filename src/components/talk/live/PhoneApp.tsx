@@ -36,19 +36,21 @@ import "./phone.scss";
 
 /**
  * Each phone's own palette: one random tone (saturation and lightness) for
- * this phone, and six hues spread around the wheel from a random start, so
+ * this phone, and nine hues evenly around the wheel from a random start, so
  * every phone offers different colours. The slider keeps the tone and only
  * turns the hue. Lightness stays in a band that reads on the paper and under
  * dark type.
  */
 type Palette = { saturation: number; lightness: number; hues: number[] };
+/** Swatches offered, evenly around the hue wheel (40° apart). */
+const SWATCHES = 9;
 
 function randomPalette(): Palette {
   const saturation = Math.round(55 + Math.random() * 40);
   const lightness = Math.round(50 + Math.random() * 18);
   const start = Math.random() * 360;
-  const hues = Array.from({ length: 6 }, (_, i) =>
-    Math.round((start + i * 60 + (Math.random() - 0.5) * 24 + 360) % 360),
+  const hues = Array.from({ length: SWATCHES }, (_, i) =>
+    Math.round((start + (i * 360) / SWATCHES) % 360),
   );
   return { saturation, lightness, hues };
 }

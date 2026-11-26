@@ -427,34 +427,65 @@ const NAME_STAMP = "/assets/name-stamp.png";
 /**
  * Where phones join from this stage. playhtml keeps each domain's rooms
  * apart, so a stage on a preview (or a local copy) only meets phones on that
- * same address: there the card gives this page's own phone link, with the
- * event, instead of the spencer.place QR, which leads to a different room.
+ * same address: there the card's QR leads to this page's own phone link, with
+ * the event, rather than to spencer.place, which is a different room.
  */
-function previewJoinAddress(): string | null {
-  const { hostname, host } = window.location;
+function previewJoinUrl(): string | null {
+  const { hostname, origin } = window.location;
   if (hostname === "spencer.place" || hostname === "www.spencer.place") return null;
-  return `${host}/talk/?event=${talkEvent()}`;
+  return `${origin}/talk/?event=${talkEvent()}`;
+}
+
+/**
+ * A QR code drawn as SVG squares, for a preview's join link. The QR library
+ * loads only here, so the real site never downloads it. Error correction is
+ * high (H), so the name stamp over the middle still leaves it readable.
+ */
+function PreviewQr({ url }: { url: string }) {
+  const [cells, setCells] = useState<{ size: number; dark: [number, number][] } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    import("qrcode-generator").then(
+      ({ default: qrcode }) => {
+        const qr = qrcode(0, "H");
+        qr.addData(url);
+        qr.make();
+        const size = qr.getModuleCount();
+        const dark: [number, number][] = [];
+        for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (qr.isDark(r, c)) dark.push([c, r]);
+        if (alive) setCells({ size, dark });
+      },
+      (error: unknown) => console.error("[talk] could not draw the preview's QR code", error),
+    );
+    return () => {
+      alive = false;
+    };
+  }, [url]);
+  if (!cells) return null;
+  const pad = 2;
+  const span = cells.size + pad * 2;
+  return (
+    <svg className="talk-live__qr-code" viewBox={`0 0 ${span} ${span}`} role="img" aria-label={`QR code for ${url}`}>
+      <rect width={span} height={span} rx={2} fill="#fff" />
+      {cells.dark.map(([x, y]) => (
+        <rect key={`${x},${y}`} x={x + pad} y={y + pad} width={1.02} height={1.02} fill="#111" />
+      ))}
+    </svg>
+  );
 }
 
 /** The QR and link to join; `here` adds the count of people in the room. */
 export function JoinCard({ here }: { here?: AudiencePresence[] }) {
-  const [preview] = useState(previewJoinAddress);
+  const [preview] = useState(previewJoinUrl);
   return (
     <>
-      {preview ? (
-        <div className="talk-live__qr talk-live__qr--preview">
-          <span>On this preview, phones join at</span>
-          <strong>{preview}</strong>
-        </div>
-      ) : (
-        <div className="talk-live__qr">
-          <img src={JOIN_QR} alt="QR code for spencer.place/talk" />
-          <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
-        </div>
-      )}
+      <div className="talk-live__qr">
+        {preview ? <PreviewQr url={preview} /> : <img src={JOIN_QR} alt="QR code for spencer.place/talk" />}
+        <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
+      </div>
       <div className="talk-live__label">
         <span>join on your phone</span>
-        <span className="talk-live__link">{preview ? "this preview's /talk" : "spencer.place/talk"}</span>
+        <span className="talk-live__link">{preview ? `${window.location.host}/talk` : "spencer.place/talk"}</span>
       </div>
       {here && (
         <div className="talk-live__here">
@@ -545,6 +576,7 @@ export function LiveLayer({
   presenting,
   joinOpen,
   cue,
+  watchOnly = false,
 }: {
   ready: boolean;
   slide: number;
@@ -561,6 +593,9 @@ export function LiveLayer({
   joinOpen: boolean;
   // Each press of m that starts something; phones flash when it rises.
   cue: number;
+  // The speaker notes' preview: shows what the room is doing on the current
+  // slide, but never speaks for the stage, so phones only ever follow the stage.
+  watchOnly?: boolean;
 }) {
   const audience = useAudience(ready);
   const loops = useLoops(ready, moment === "circle" || roomMarks);
@@ -580,6 +615,21 @@ export function LiveLayer({
       return new Set();
     }
   });
+  // A watching window (the notes) picks up hides the stage makes, since the
+  // stage keeps them in this browser's storage.
+  useEffect(() => {
+    if (!watchOnly) return;
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== hiddenKey) return;
+      try {
+        setHiddenAnswers(new Set(JSON.parse(event.newValue ?? "[]") as string[]));
+      } catch (error) {
+        console.warn("[talk] could not read the hidden answers", error);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [watchOnly, hiddenKey]);
   const handledHides = useRef(hideRequests);
   useEffect(() => {
     if (hideRequests === handledHides.current) return;
@@ -601,13 +651,13 @@ export function LiveLayer({
   // Phones follow only a stage that has been switched to presenting, so
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || watchOnly) return;
     const hidden = [...hiddenAnswers].slice(-MAX_HIDDEN_SENT);
     const value: StagePresence = presenting
       ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden, paused: false, cue }
       : { slide, build, moment: null, joinOpen: false, hidden, paused: true, cue };
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers, cue]);
+  }, [ready, watchOnly, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers, cue]);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {

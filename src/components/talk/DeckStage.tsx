@@ -231,7 +231,8 @@ export function DeckStage() {
   }, []);
 
   const openNotes = useCallback(() => {
-    const notes = window.open("/talk/notes", "perpetual-play-notes", "popup,width=1280,height=800");
+    // The notes join the same room, so they keep the stage's ?event.
+    const notes = window.open(`/talk/notes${window.location.search}`, "perpetual-play-notes", "popup,width=1280,height=800");
     if (!notes) console.warn("[talk] the notes window was blocked; allow pop-ups for this site");
   }, []);
 
