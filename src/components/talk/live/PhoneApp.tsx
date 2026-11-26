@@ -809,10 +809,13 @@ function Phone() {
     () => savedColor() ?? COLORS[Math.floor(Math.random() * COLORS.length)],
   );
   // The screen flashing this phone's colour: "hello" when the talk starts,
-  // "turn" when a slide asks something of the room. `n` restarts it.
+  // "turn" when a slide asks something of the room. `n` restarts it. A
+  // finished flash stays on the page, see-through: taking its layer away
+  // leaves iOS browsers ignoring drags on a pad nobody touched yet.
   const [flash, setFlash] = useState<{
     kind: "hello" | "turn";
     n: number;
+    done?: true;
   } | null>(null);
   const [started, setStarted] = useState(false);
   // Once the finale has come, the phone keeps the card, even after the talk.
@@ -888,9 +891,9 @@ function Phone() {
     }
   }, [live, moment]);
   useEffect(() => {
-    if (!flash) return;
+    if (!flash || flash.done) return;
     const timer = setTimeout(
-      () => setFlash(null),
+      () => setFlash((f) => f && { ...f, done: true }),
       flash.kind === "hello" ? HELLO_FLASH_MS : 900,
     );
     return () => clearTimeout(timer);
@@ -991,6 +994,7 @@ function Phone() {
           key={flash.n}
           className="phone__flash phone__flash--hello"
           role="status"
+          aria-hidden={flash.done}
         >
           <p>This is your color. When it flashes, look up.</p>
         </div>

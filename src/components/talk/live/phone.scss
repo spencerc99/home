@@ -42,6 +42,10 @@ html.talk-phone body {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+  // No finger on the phone pans or zooms the page. iOS browsers keep their own
+  // map of where a finger may pan, and can be slow to update it when a screen
+  // changes (a turn's flash ending), which cancels a drag on the new pad.
+  touch-action: none;
 
   h1,
   h2,
@@ -327,6 +331,8 @@ html.talk-phone body {
   z-index: 10;
   background: var(--me);
   pointer-events: none;
+  // Stays its own layer after the flash ends (see PhoneApp's `flash`).
+  will-change: opacity;
   animation: phone-flash 900ms ease-out both;
 }
 
@@ -365,6 +371,7 @@ html.talk-phone body {
   margin: 0;
   padding: 0;
   overflow-y: auto;
+  touch-action: pan-y;
   list-style: none;
   font-size: 16px;
   color: rgb(97 110 129);
