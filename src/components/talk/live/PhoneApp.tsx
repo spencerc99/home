@@ -34,14 +34,34 @@ import "./phone.scss";
 // What a phone shows: the door, the colour pick, then whatever the stage is
 // doing. Between turns it stays quiet so people look up, not down.
 
-const COLORS = [
-  "hsl(33, 100%, 56%)",
-  "hsl(200, 70%, 58%)",
-  "hsl(140, 40%, 52%)",
-  "hsl(340, 70%, 66%)",
-  "hsl(50, 90%, 56%)",
-  "hsl(265, 45%, 64%)",
-];
+/**
+ * Each phone's own palette: one random tone (saturation and lightness) for
+ * this phone, and six hues spread around the wheel from a random start, so
+ * every phone offers different colours. The slider keeps the tone and only
+ * turns the hue. Lightness stays in a band that reads on the paper and under
+ * dark type.
+ */
+type Palette = { saturation: number; lightness: number; hues: number[] };
+
+function randomPalette(): Palette {
+  const saturation = Math.round(55 + Math.random() * 40);
+  const lightness = Math.round(50 + Math.random() * 18);
+  const start = Math.random() * 360;
+  const hues = Array.from({ length: 6 }, (_, i) =>
+    Math.round((start + i * 60 + (Math.random() - 0.5) * 24 + 360) % 360),
+  );
+  return { saturation, lightness, hues };
+}
+
+const hsl = (hue: number, { saturation, lightness }: Palette) =>
+  `hsl(${Math.round(hue) % 360}, ${saturation}%, ${lightness}%)`;
+
+/** The hue of an `hsl(...)` colour this page made, or null for anything else. */
+function hueOf(color: string): number | null {
+  const match = /^hsl\(\s*(\d{1,3})/.exec(color);
+  return match ? Number(match[1]) : null;
+}
+
 const COLOR_KEY = "talk:color";
 // Fingers reach the stage at most five times a second, so a full room does
 // not swamp the venue wifi; the stage eases between updates.
@@ -260,11 +280,16 @@ function Pick({
   initial,
   onPick,
 }: {
-  initial: string;
+  initial: string | null;
   onPick: (color: string) => void;
 }) {
-  const [color, setColor] = useState(initial);
-  const [hue, setHue] = useState(223);
+  const [palette] = useState(randomPalette);
+  const swatches = palette.hues.map((hue) => hsl(hue, palette));
+  // Someone picking again starts on their colour; anyone new, on the first swatch.
+  const [color, setColor] = useState(initial ?? swatches[0]);
+  const [hue, setHue] = useState(() => hueOf(color) ?? palette.hues[0]);
+  // The slider's track runs through every hue in this phone's tone.
+  const track = `linear-gradient(to right, ${[0, 60, 120, 180, 240, 300, 360].map((h) => hsl(h, palette)).join(", ")})`;
   return (
     <div className="phone__screen">
       <div className="phone__intro">
@@ -272,7 +297,7 @@ function Pick({
         <p>Find something that represents you or how you're feeling today.</p>
       </div>
       <div className="phone__swatches">
-        {COLORS.map((c) => (
+        {swatches.map((c, i) => (
           <button
             key={c}
             type="button"
@@ -280,22 +305,25 @@ function Pick({
             aria-pressed={c === color}
             className="phone__swatch"
             style={{ ["--swatch" as string]: c }}
-            onClick={() => setColor(c)}
+            onClick={() => {
+              setColor(c);
+              setHue(palette.hues[i]);
+            }}
           />
         ))}
       </div>
       <label className="phone__mix">
-        <span>or mix your own</span>
+        <span>or turn the hue</span>
         <input
           type="range"
           min={0}
           max={359}
           value={hue}
-          style={{ ["--thumb" as string]: `hsl(${hue}, 65%, 60%)` }}
+          style={{ ["--thumb" as string]: hsl(hue, palette), ["--track" as string]: track }}
           onChange={(event) => {
             const next = Number(event.target.value);
             setHue(next);
-            setColor(`hsl(${next}, 65%, 60%)`);
+            setColor(hsl(next, palette));
           }}
         />
       </label>
@@ -878,9 +906,12 @@ function Phone() {
   const [step, setStep] = useState<Step>(() =>
     savedColor() ? "room" : "door",
   );
-  const [color, setColor] = useState<string>(
-    () => savedColor() ?? COLORS[Math.floor(Math.random() * COLORS.length)],
-  );
+  const [color, setColor] = useState<string>(() => {
+    const saved = savedColor();
+    if (saved) return saved;
+    const palette = randomPalette();
+    return hsl(palette.hues[0], palette);
+  });
   // The screen flashing this phone's colour: "hello" when the talk starts,
   // "turn" when a slide asks something of the room. `n` restarts it. A
   // finished flash stays on the page, see-through: taking its layer away
@@ -999,7 +1030,7 @@ function Phone() {
   } else if (step === "pick") {
     screen = (
       <Pick
-        initial={color}
+        initial={savedColor()}
         onPick={(picked) => {
           setColor(picked);
           try {

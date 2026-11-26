@@ -188,15 +188,19 @@ html.talk-phone body {
     appearance: none;
     height: 22px;
     border-radius: 11px;
-    background: linear-gradient(
-      90deg,
-      hsl(0, 75%, 60%),
-      hsl(60, 75%, 60%),
-      hsl(120, 55%, 52%),
-      hsl(180, 60%, 52%),
-      hsl(240, 60%, 64%),
-      hsl(300, 60%, 62%),
-      hsl(360, 75%, 60%)
+    // Every hue in this phone's tone (set by Pick), so the track shows what the thumb picks.
+    background: var(
+      --track,
+      linear-gradient(
+        90deg,
+        hsl(0, 75%, 60%),
+        hsl(60, 75%, 60%),
+        hsl(120, 55%, 52%),
+        hsl(180, 60%, 52%),
+        hsl(240, 60%, 64%),
+        hsl(300, 60%, 62%),
+        hsl(360, 75%, 60%)
+      )
     );
 
     &::-webkit-slider-thumb {

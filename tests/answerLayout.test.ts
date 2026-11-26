@@ -7,6 +7,7 @@ import {
   placeAnswers,
   type AnswerBox,
   type AnswerLayout,
+  type AnswerSpace,
   type Measure,
 } from "../src/components/talk/live/answerLayout";
 
@@ -99,4 +100,17 @@ describe("wish layout on the big screen", () => {
     expect(layout.centers.size).toBe(320);
     for (const b of boxes(layout)) expect(inside(b)).toBe(true);
   }, 20000);
+
+  test("wishes flow around what is kept clear (the finale's title and contact card)", () => {
+    const space: AnswerSpace = {
+      area: ANSWER_AREA,
+      keepClear: [
+        { x: 700, y: 465, w: 520, h: 110 },
+        { x: 1330, y: 840, w: 550, h: 200 },
+      ],
+    };
+    const layout = placeAnswers(wishes(150), newAnswerLayout(), measure, space);
+    expect(layout.centers.size).toBe(150);
+    for (const b of boxes(layout)) for (const clear of space.keepClear) expect(overlap(b, clear)).toBe(false);
+  });
 });

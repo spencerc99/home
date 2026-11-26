@@ -8,6 +8,17 @@
 
 /** The area wishes may use, in slide pixels (the slide is 1920x1080). */
 export const ANSWER_AREA = { left: 70, top: 90, right: 1850, bottom: 1010 };
+
+/**
+ * Where a set of wishes may go: the area to fill, and boxes on the slide to
+ * keep clear (a title, a contact card). The wishes still grow from the
+ * area's middle, flowing around what is kept clear.
+ */
+export type AnswerSpace = {
+  area: { left: number; top: number; right: number; bottom: number };
+  keepClear: AnswerBox[];
+};
+export const WHOLE_SLIDE: AnswerSpace = { area: ANSWER_AREA, keepClear: [] };
 /** Type sizes, largest first. All wishes share one, stepping down as the slide fills. */
 export const ANSWER_SIZES = [34, 30, 26, 22, 19, 16, 14, 12];
 /** Text wraps past this many ems. */
@@ -94,8 +105,8 @@ function hashOf(text: string): number {
 }
 
 /** The free spot nearest the middle for a card of w×h, or null if none is left. */
-function findSpot(key: string, w: number, h: number, others: AnswerBox[], size: number) {
-  const { left, top, right, bottom } = ANSWER_AREA;
+function findSpot(key: string, w: number, h: number, others: AnswerBox[], size: number, space: AnswerSpace) {
+  const { left, top, right, bottom } = space.area;
   const gap = GAP_EMS * size;
   const step = Math.max(10, STEP_EMS * size);
   const scatter = SCATTER_EMS * size;
@@ -130,8 +141,8 @@ function findSpot(key: string, w: number, h: number, others: AnswerBox[], size: 
 }
 
 /** With no free spot even at the smallest size: the spot that covers the least. */
-function leastCovered(w: number, h: number, others: AnswerBox[]) {
-  const { left, top, right, bottom } = ANSWER_AREA;
+function leastCovered(w: number, h: number, others: AnswerBox[], space: AnswerSpace) {
+  const { left, top, right, bottom } = space.area;
   // Coarser than the free-spot search: past full, any spot is a compromise.
   const step = 30;
   let best = { cx: left + w / 2, cy: top + h / 2 };
@@ -162,6 +173,7 @@ export function placeAnswers(
   list: { key: string; text: string }[],
   layout: AnswerLayout,
   measure: Measure,
+  space: AnswerSpace = WHOLE_SLIDE,
 ): AnswerLayout {
   const keep = new Set(list.map((a) => a.key));
   for (const key of layout.centers.keys()) if (!keep.has(key)) layout.centers.delete(key);
@@ -169,16 +181,19 @@ export function placeAnswers(
     if (layout.centers.has(key)) continue;
     for (;;) {
       const size = layout.size;
-      const others = [...layout.centers.keys()].map((k) => answerBox(k, layout, measure)!);
+      const others = [
+        ...space.keepClear,
+        ...[...layout.centers.keys()].map((k) => answerBox(k, layout, measure)!),
+      ];
       const { w, h } = answerSize(text, size, measure);
-      const spot = findSpot(key, w, h, others, size);
+      const spot = findSpot(key, w, h, others, size, space);
       if (spot) {
         layout.centers.set(key, { ...spot, text });
         break;
       }
       const smaller = ANSWER_SIZES.find((s) => s < size);
       if (smaller === undefined) {
-        layout.centers.set(key, { ...leastCovered(w, h, others), text });
+        layout.centers.set(key, { ...leastCovered(w, h, others, space), text });
         break;
       }
       // Every card shrinks around its own centre: nothing moves, and none

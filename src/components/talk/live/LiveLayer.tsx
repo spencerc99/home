@@ -20,7 +20,7 @@ import {
 } from "./talkRoom";
 import { parseAnswers, parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
 import { SEATS } from "./seats";
-import { answerBox, newAnswerLayout, placeAnswers, type AnswerLayout, type Measure } from "./answerLayout";
+import { answerBox, newAnswerLayout, placeAnswers, type AnswerLayout, type AnswerSpace, type Measure } from "./answerLayout";
 import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
 import { FridgeDoor } from "./FridgeDoor";
 
@@ -126,25 +126,23 @@ function loopPath(points: number[]): string {
 /** Spencer's colour, for the slide's own words among the room's. */
 const PRESENTER_COLOR = "#ffae00";
 const SLIDE_WISHES = ["fun", "caring", "creative"];
-/** The most wishes placed on the finale, and the most patina marks. */
-const FINALE_WISHES = 34;
+/** The most patina marks on the finale. */
 const FINALE_MARKS = 120;
-// Places for wishes around the edges of the finale, clear of the title.
 /** The contact card on the finale, in slide pixels: the bottom right corner. */
 const CONTACT_BOX = { left: 1330, top: 840 };
 /** The QR code from the thank-you slide. */
 const CONTACT_QR = "/talk/perpetual-play/img/2094-39.webp";
-const FINALE_SLOTS: [number, number][] = [];
-for (let row = 0; row < 7; row++) {
-  for (let col = 0; col < 6; col++) {
-    const x = 90 + col * 300;
-    const y = 120 + row * 130;
-    if (x > 380 && x < 1300 && y > 360 && y < 680) continue;
-    // Keep clear of the contact card in the bottom right corner.
-    if (x + 440 > CONTACT_BOX.left && y + 80 > CONTACT_BOX.top) continue;
-    FINALE_SLOTS.push([x, y]);
-  }
-}
+/**
+ * The finale's wishes use the same layout as the wish slide, flowing around
+ * the title in the middle and the contact card in the corner.
+ */
+const FINALE_SPACE: AnswerSpace = {
+  area: { left: 70, top: 90, right: 1850, bottom: 1030 },
+  keepClear: [
+    { x: 700, y: 465, w: 520, h: 110 },
+    { x: CONTACT_BOX.left, y: CONTACT_BOX.top, w: 550, h: 200 },
+  ],
+};
 
 /** One loop, redrawn only when it has grown (parseLoops keeps unchanged loops the same). */
 const LoopPath = memo(function LoopPath({ loop }: { loop: Loops[string] }) {
@@ -158,20 +156,18 @@ const LoopPath = memo(function LoopPath({ loop }: { loop: Loops[string] }) {
  * The title stays clear in the middle.
  */
 function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
-  const seen = new Set<string>();
-  const wishes = Object.entries(answers)
-    .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
-    .sort(([a], [b]) => hashOf(a) - hashOf(b))
-    .filter(([, a]) => {
-      const text = a.text.toLowerCase();
-      if (seen.has(text)) return false;
-      seen.add(text);
-      return true;
-    });
-  const words: [string, string, string][] = [
-    ...SLIDE_WISHES.map((w): [string, string, string] => [`slide:${w}`, w, PRESENTER_COLOR]),
-    ...wishes.slice(0, FINALE_WISHES - SLIDE_WISHES.length).map(([key, a]): [string, string, string] => [key, a.text, a.color]),
-  ].slice(0, FINALE_SLOTS.length);
+  const fontReady = useAnswerFont();
+  const layout = useRef<AnswerLayout>(newAnswerLayout());
+  // The slide's own words first, then every wish in the order it was sent.
+  const words: { key: string; text: string; color: string }[] = [
+    ...SLIDE_WISHES.map((text) => ({ key: `slide:${text}`, text, color: PRESENTER_COLOR })),
+    ...Object.entries(answers)
+      .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
+      .sort(([, a], [, b]) => a.at - b.at)
+      .map(([key, a]) => ({ key, text: a.text, color: a.color })),
+  ];
+  if (fontReady) placeAnswers(words, layout.current, measureAnswer, FINALE_SPACE);
+  const size = layout.current.size;
   const loopList = Object.entries(loops);
   const firstLoops = new Map<string, Loops[string]>();
   for (const [key, loop] of loopList) {
@@ -197,24 +193,28 @@ function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers;
           <LoopPath key={key} loop={loop} />
         ))}
       </svg>
-      {words.map(([key, text, color], i) => {
-        const [x, y] = FINALE_SLOTS[(i * 11) % FINALE_SLOTS.length];
-        const h = hashOf(key);
-        return (
-          <span
-            key={key}
-            className="talk-room-marks__word"
-            style={{
-              left: x + (h % 60) - 30,
-              top: y + ((h >> 5) % 40) - 20,
-              transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
-              ["--mover" as string]: color,
-            }}
-          >
-            {text}
-          </span>
-        );
-      })}
+      {fontReady &&
+        words.map(({ key, text, color }) => {
+          const box = answerBox(key, layout.current, measureAnswer);
+          if (!box) return null;
+          const h = hashOf(key);
+          return (
+            <span
+              key={key}
+              className="talk-live__answer talk-live__answer--finale"
+              style={{
+                left: box.x,
+                top: box.y,
+                width: box.w,
+                fontSize: size,
+                transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
+                ["--mover" as string]: color,
+              }}
+            >
+              {text}
+            </span>
+          );
+        })}
       <div className="talk-room-marks__title">Play Together</div>
       {/* How to find Spencer afterwards, small enough to leave the room's
           marks on screen through the questions. */}
@@ -424,17 +424,37 @@ function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
 const JOIN_QR = "/talk/perpetual-play/join-qr.svg";
 const NAME_STAMP = "/assets/name-stamp.png";
 
+/**
+ * Where phones join from this stage. playhtml keeps each domain's rooms
+ * apart, so a stage on a preview (or a local copy) only meets phones on that
+ * same address: there the card gives this page's own phone link, with the
+ * event, instead of the spencer.place QR, which leads to a different room.
+ */
+function previewJoinAddress(): string | null {
+  const { hostname, host } = window.location;
+  if (hostname === "spencer.place" || hostname === "www.spencer.place") return null;
+  return `${host}/talk/?event=${talkEvent()}`;
+}
+
 /** The QR and link to join; `here` adds the count of people in the room. */
 export function JoinCard({ here }: { here?: AudiencePresence[] }) {
+  const [preview] = useState(previewJoinAddress);
   return (
     <>
-      <div className="talk-live__qr">
-        <img src={JOIN_QR} alt="QR code for spencer.place/talk" />
-        <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
-      </div>
+      {preview ? (
+        <div className="talk-live__qr talk-live__qr--preview">
+          <span>On this preview, phones join at</span>
+          <strong>{preview}</strong>
+        </div>
+      ) : (
+        <div className="talk-live__qr">
+          <img src={JOIN_QR} alt="QR code for spencer.place/talk" />
+          <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
+        </div>
+      )}
       <div className="talk-live__label">
         <span>join on your phone</span>
-        <span className="talk-live__link">spencer.place/talk</span>
+        <span className="talk-live__link">{preview ? "this preview's /talk" : "spencer.place/talk"}</span>
       </div>
       {here && (
         <div className="talk-live__here">
