@@ -90,6 +90,8 @@ export type Slide = {
   // The build where the join card (QR code, people count, everyone's
   // touches) comes up over this slide, fading the rest of it.
   joinAt?: number;
+  // The room's keepsake card, drawn from tonight's loops and wishes.
+  roomCard?: boolean;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -611,11 +613,35 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2096:87",
+    // Slide 13's three lines again, each answered by a project from the talk,
+    // one per press.
     layers: [
       byline,
-      ...livingSites(false),
-      img("2075-619", [1004, 285, 874, 818]),
-      label("we were online", "wewere.online"),
+      ...(
+        [
+          ["new software", "playhtml.fun", ["student-teletext", "student-trash", "student-cyberspace"]],
+          ["new machines", "shrine.computer", ["30-85", "27-66", "30-89"]],
+          ["new internets", "wewere.online", ["36-201", "wikipedia-patina", "2075-619"]],
+        ] as const
+      ).flatMap(([line, site, pictures], i): Layer[] => {
+        const y = 70 + i * 325;
+        return [
+          { ...heading([110, y + 70, 620, 83], line), ...TYPE.listTitle, build: i + 1 },
+          {
+            kind: "text",
+            box: [110, y + 160, 620, 52],
+            ...TYPE.small,
+            runs: [{ text: `→ ${site}`, color: LINK, href: `https://${site}` }],
+            build: i + 1,
+          },
+          ...pictures.map(
+            (name, k): Layer => ({
+              ...img(name, [760 + k * 360, y, 340, 290], { radius: 8, cover: true }),
+              build: i + 1,
+            }),
+          ),
+        ];
+      }),
     ],
   },
   {
@@ -661,16 +687,9 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2002:212",
-    layers: [
-      heading([560, 486, 800, 67], "Play Together", {
-        bold: true,
-        size: 56,
-        nowrap: true,
-        align: "center",
-      }),
-      { kind: "scribble" },
-      byline,
-    ],
+    // The room's keepsake card: everyone's loops, their marks and their wishes.
+    roomCard: true,
+    layers: [{ kind: "scribble", opacity: 0.2 }, byline],
   },
   {
     figmaId: "2094:36",
@@ -678,7 +697,7 @@ export const uneditedDeck: Slide[] = [
       { ...heading([960, 218, 900, 97], "Thank you :)"), ...TYPE.title },
       {
         kind: "text",
-        box: [960, 218 + 97 + GAP, 900, 520],
+        box: [960, 351, 899, 434],
         ...TYPE.small,
         runs: [],
         list: {
@@ -701,7 +720,6 @@ export const uneditedDeck: Slide[] = [
         after: [
           { text: "\n\nspencer.place\n", color: LINK },
           { text: "hi@spencer.place", underline: true },
-          { text: "\nspencercha.ng on tiktok / ig / bsky" },
         ],
       },
       img("2094-39", [204, 218, 643, 643]),

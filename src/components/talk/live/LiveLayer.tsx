@@ -110,6 +110,99 @@ function useAnswers(ready: boolean, on: boolean) {
   return shown;
 }
 
+/** A loop as an SVG path on the slide: the phone's pad is the slide on its side. */
+function loopPath(points: number[]): string {
+  let d = "";
+  for (let i = 0; i + 1 < points.length; i += 2) {
+    const x = ((1 - points[i + 1]) / 2) * W;
+    const y = ((1 + points[i]) / 2) * H;
+    d += `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)} `;
+  }
+  return d;
+}
+
+/** Spencer's colour, for the slide's own words on the room's card. */
+const PRESENTER_COLOR = "#ffae00";
+const SLIDE_WISHES = ["fun", "caring", "creative"];
+/** How many of the room's wishes fit on the card; the rest are counted. */
+const CARD_WISHES = 12;
+
+/**
+ * The finale: the keepsake card for the whole room, phone-shaped in the
+ * middle of the slide. Everyone's loops, a soft mark where each began (the
+ * room's patina), and the wishes, each faintly underlined in its person's
+ * colour, the same on every screen.
+ */
+function RoomCard({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
+  const wishes = Object.entries(answers)
+    .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
+    .sort(([a], [b]) => hashOf(a) - hashOf(b));
+  const shown = wishes.slice(0, CARD_WISHES);
+  const loopList = Object.entries(loops);
+  // Frame the drawing around the loops themselves, so they fill the card.
+  let x0 = W, y0 = H, x1 = 0, y1 = 0;
+  for (const [, loop] of loopList) {
+    for (let i = 0; i + 1 < loop.points.length; i += 2) {
+      const x = ((1 - loop.points[i + 1]) / 2) * W;
+      const y = ((1 + loop.points[i]) / 2) * H;
+      x0 = Math.min(x0, x);
+      y0 = Math.min(y0, y);
+      x1 = Math.max(x1, x);
+      y1 = Math.max(y1, y);
+    }
+  }
+  const pad = 120;
+  const view = loopList.length ? `${x0 - pad} ${y0 - pad} ${x1 - x0 + pad * 2} ${y1 - y0 + pad * 2}` : `0 0 ${W} ${H}`;
+  return (
+    <div className="talk-room-card">
+      <div className="talk-room-card__top">
+        <strong>Play Together</strong>
+        <span>NCM · NOV 2026</span>
+      </div>
+      <svg className="talk-room-card__loops" viewBox={view} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        {loopList.map(([key, loop]) => (
+          <circle
+            key={`mark-${key}`}
+            cx={((1 - loop.points[1]) / 2) * W}
+            cy={((1 + loop.points[0]) / 2) * H}
+            r={90}
+            fill={loop.color}
+            opacity={0.25}
+            style={{ filter: "blur(28px)" }}
+          />
+        ))}
+        {loopList.map(([key, loop]) => (
+          <path key={key} d={loopPath(loop.points)} stroke={loop.color} />
+        ))}
+      </svg>
+      <div className="talk-room-card__words">
+        <span className="talk-room-card__starter">We wish technology was...</span>
+        <p>
+          {SLIDE_WISHES.map((w) => (
+            <span key={w}>
+              <span style={{ ["--mover" as string]: PRESENTER_COLOR }}>{w}</span>
+              {" · "}
+            </span>
+          ))}
+          {shown.map(([key, a], i) => (
+            <span key={key}>
+              <span style={{ ["--mover" as string]: a.color }}>{a.text}</span>
+              {i < shown.length - 1 ? " · " : ""}
+            </span>
+          ))}
+          {wishes.length > shown.length && <span className="talk-room-card__more"> · +{wishes.length - shown.length} more</span>}
+        </p>
+      </div>
+      <div className="talk-room-card__foot">
+        <span>
+          {loopList.length} loops · {wishes.length} wishes
+        </span>
+        <span>spencer.place/talk</span>
+      </div>
+    </div>
+  );
+}
+
 /** The most answers on screen at once; older ones make room for new ones. */
 const ANSWER_SLOTS = 40;
 const SLOT_COLUMNS = 5;
@@ -358,6 +451,7 @@ export function LiveLayer({
   moment,
   fridgeDoor,
   joinShown,
+  roomCard,
   hideRequests,
   presenting,
   joinOpen,
@@ -369,17 +463,19 @@ export function LiveLayer({
   fridgeDoor: boolean;
   // The join slide's build that brings up the join card and fades the slide.
   joinShown: boolean;
+  // The finale: the room's keepsake card from tonight's loops and wishes.
+  roomCard: boolean;
   // Goes up by one each time the presenter presses h.
   hideRequests: number;
   presenting: boolean;
   joinOpen: boolean;
 }) {
   const audience = useAudience(ready);
-  const loops = useLoops(ready, moment === "circle");
+  const loops = useLoops(ready, moment === "circle" || roomCard);
   const seats = useSeats(ready, moment === "seat");
   const fridge = useFridge(ready, fridgeDoor);
   const answerKind = moment === "wish" || moment === "rule" ? moment : null;
-  const shownAnswers = useAnswers(ready, answerKind !== null);
+  const shownAnswers = useAnswers(ready, answerKind !== null || roomCard);
 
   // h hides the newest answer of the moment on screen. The hidden list lives
   // on this laptop only (kept across reloads), so phones cannot undo it.
@@ -441,6 +537,7 @@ export function LiveLayer({
     <div className="talk-live" aria-hidden="true">
       {joinShown && <div className="talk-live__fade" />}
       {moment === "circle" && <CircleLoops loops={loops} />}
+      {roomCard && <RoomCard loops={loops} answers={shownAnswers} hidden={hiddenAnswers} />}
       {answerKind && <AnswerCloud answers={shownAnswers} kind={answerKind} hidden={hiddenAnswers} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (

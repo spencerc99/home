@@ -339,6 +339,7 @@ export function DeckStage() {
                 hideRequests={hideRequests}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
+                roomCard={deck[index].roomCard === true}
                 presenting={presenting}
                 joinOpen={joinOpen}
               />
