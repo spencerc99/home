@@ -130,12 +130,18 @@ const SLIDE_WISHES = ["fun", "caring", "creative"];
 const FINALE_WISHES = 34;
 const FINALE_MARKS = 120;
 // Places for wishes around the edges of the finale, clear of the title.
+/** The contact card on the finale, in slide pixels: the bottom right corner. */
+const CONTACT_BOX = { left: 1330, top: 840 };
+/** The QR code from the thank-you slide. */
+const CONTACT_QR = "/talk/perpetual-play/img/2094-39.webp";
 const FINALE_SLOTS: [number, number][] = [];
 for (let row = 0; row < 7; row++) {
   for (let col = 0; col < 6; col++) {
     const x = 90 + col * 300;
     const y = 120 + row * 130;
     if (x > 380 && x < 1300 && y > 360 && y < 680) continue;
+    // Keep clear of the contact card in the bottom right corner.
+    if (x + 440 > CONTACT_BOX.left && y + 80 > CONTACT_BOX.top) continue;
     FINALE_SLOTS.push([x, y]);
   }
 }
@@ -210,6 +216,17 @@ function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers;
         );
       })}
       <div className="talk-room-marks__title">Play Together</div>
+      {/* How to find Spencer afterwards, small enough to leave the room's
+          marks on screen through the questions. */}
+      <div className="talk-room-marks__contact" style={{ left: CONTACT_BOX.left, top: CONTACT_BOX.top }}>
+        <img src={CONTACT_QR} alt="QR code for spencer.place" />
+        <div>
+          <p className="talk-room-marks__thanks">Thank you :)</p>
+          <p className="talk-room-marks__site">spencer.place</p>
+          <p>hi@spencer.place</p>
+          <p className="talk-room-marks__projects">playhtml.fun · shrine.computer · wewere.online</p>
+        </div>
+      </div>
     </div>
   );
 }
