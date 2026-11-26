@@ -86,6 +86,9 @@ export type StagePresence = {
   joinOpen: boolean;
   // Answers the presenter hid (h), newest last, so no phone's card shows them.
   hidden: string[];
+  // A stage with live switched off (l). Phones go quiet at once, rather than
+  // waiting out a dropped connection.
+  paused: boolean;
 };
 
 /**

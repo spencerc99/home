@@ -39,12 +39,16 @@ export function parseStage(value: unknown): StagePresence | null {
   if (v.moment !== null && !MOMENTS.includes(v.moment as LiveMoment)) return null;
   if (!Number.isInteger(v.build) || (v.build as number) < 0 || (v.build as number) > 50) return null;
   if (typeof v.joinOpen !== "boolean") return null;
+  // A stage from before these fields existed sends neither; it still counts.
   const hidden =
-    Array.isArray(v.hidden) && v.hidden.length <= MAX_HIDDEN_SENT && v.hidden.every((k) => typeof k === "string" && k.length <= 200)
-      ? (v.hidden as string[])
-      : null;
+    v.hidden === undefined
+      ? []
+      : Array.isArray(v.hidden) && v.hidden.length <= MAX_HIDDEN_SENT && v.hidden.every((k) => typeof k === "string" && k.length <= 200)
+        ? (v.hidden as string[])
+        : null;
   if (!hidden) return null;
-  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen, hidden };
+  const paused = v.paused === true;
+  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen, hidden, paused };
 }
 
 export function parseAudience(value: unknown): AudiencePresence | null {

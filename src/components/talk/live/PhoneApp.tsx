@@ -107,12 +107,17 @@ function useRoom(ready: boolean) {
     if (!ready) return;
     let hold: ReturnType<typeof setTimeout> | null = null;
     const readStage = () => {
+      // A live stage wins; a stage with live off means quiet now. Only when no
+      // stage is heard at all (a dropped connection) does the phone wait.
       let found: StagePresence | null = null;
+      let pausedOnly = false;
       for (const view of playhtml.presence.getPresences().values()) {
         const value = parseStage(view[STAGE_CHANNEL]);
-        if (value) found = value;
+        if (!value) continue;
+        if (value.paused) pausedOnly = true;
+        else found = value;
       }
-      if (found || !stageRef.current) {
+      if (found || pausedOnly || !stageRef.current) {
         if (hold) clearTimeout(hold);
         hold = null;
         setStage(found);
@@ -541,10 +546,7 @@ function SeatPad({ build }: { build: number }) {
     <div className="phone__screen phone__screen--turn">
       <div className="phone__intro phone__intro--center">
         <h2>Take a seat</h2>
-        <p>
-          Drag to move your cursor on the big screen. Let go on a bench, a
-          chair, the canal.
-        </p>
+        <p>Drag to move your cursor and find a seat.</p>
       </div>
       <div
         className="phone__pad phone__trackpad"
@@ -790,7 +792,9 @@ function Phone() {
   // Once the finale has come, the phone keeps the card, even after the talk.
   const [cardSeen, setCardSeen] = useState(false);
   // The answers the presenter hid, as last heard from the stage.
-  const [hiddenAnswers, setHiddenAnswers] = useState<ReadonlySet<string>>(new Set());
+  const [hiddenAnswers, setHiddenAnswers] = useState<ReadonlySet<string>>(
+    new Set(),
+  );
   const { stage, audience } = useRoom(ready);
   useWakeLock(step === "room");
 
@@ -837,7 +841,8 @@ function Phone() {
   // Compared as JSON, so a new list from the stage is noticed whatever the keys hold.
   const hiddenList = stage ? JSON.stringify(stage.hidden) : null;
   useEffect(() => {
-    if (hiddenList !== null) setHiddenAnswers(new Set(JSON.parse(hiddenList) as string[]));
+    if (hiddenList !== null)
+      setHiddenAnswers(new Set(JSON.parse(hiddenList) as string[]));
   }, [hiddenList]);
   const live = stage !== null;
   const lastMoment = useRef(moment);
@@ -899,7 +904,11 @@ function Phone() {
           <h2>Thanks for playing</h2>
           <p>Here is what you made with everyone tonight.</p>
         </div>
-        <KeepsakeCard color={color} pid={playhtml.presence.getMyIdentity().publicKey} hidden={hiddenAnswers} />
+        <KeepsakeCard
+          color={color}
+          pid={playhtml.presence.getMyIdentity().publicKey}
+          hidden={hiddenAnswers}
+        />
       </div>
     );
   } else if (moment === "wish") {

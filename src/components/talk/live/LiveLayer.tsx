@@ -522,9 +522,10 @@ export function LiveLayer({
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
     if (!ready) return;
-    const value: StagePresence | null = presenting
-      ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden: [...hiddenAnswers].slice(-MAX_HIDDEN_SENT) }
-      : null;
+    const hidden = [...hiddenAnswers].slice(-MAX_HIDDEN_SENT);
+    const value: StagePresence = presenting
+      ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden, paused: false }
+      : { slide, build, moment: null, joinOpen: false, hidden, paused: true };
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
   }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers]);
 
