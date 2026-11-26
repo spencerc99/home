@@ -51,6 +51,99 @@ html.talk-page body {
   transform-origin: center;
 }
 
+// m: the phones' turn on this slide, ready or running.
+.talk-chrome__phones,
+.talk-notes__phones {
+  font-family: "Sono", ui-monospace, monospace;
+
+  &[aria-pressed="true"] {
+    background: #e5f7e9 !important;
+    border-color: #2f9e55 !important;
+    color: #14612e;
+  }
+}
+
+.talk-notes__phones:not([aria-pressed="true"]) {
+  border-color: hsl(33, 100%, 46%) !important;
+}
+
+// The shortcut sheet (/ on the stage).
+.talk-help {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(17, 17, 17, 0.55);
+  cursor: default;
+}
+
+.talk-help__card {
+  width: min(920px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 22px 26px;
+  border-radius: 14px;
+  background: hsl(50 100% 97%);
+  color: var(--talk-ink);
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 15px;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-family: "Vulf Sans", sans-serif;
+    font-size: 24px;
+  }
+
+  header button {
+    padding: 4px 12px;
+    border: 1px solid rgba(112, 128, 144, 0.4);
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-family: "Sono", ui-monospace, monospace;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-family: "Vulf Sans", sans-serif;
+    font-size: 17px;
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dl > div {
+    display: grid;
+    grid-template-columns: 175px 1fr;
+    gap: 12px;
+    padding: 4px 0;
+  }
+
+  dt {
+    color: #c25e00;
+    white-space: pre;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.talk-help__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 18px 32px;
+}
+
 .talk-chrome {
   position: fixed;
   right: 16px;
@@ -548,6 +641,11 @@ html.talk-page body {
   color: rgb(97 110 129);
 }
 
+.talk-notes__tools {
+  display: flex;
+  gap: 8px;
+}
+
 .talk-notes__body {
   display: grid;
   grid-template-columns: minmax(280px, 440px) minmax(0, 1fr);
@@ -574,7 +672,18 @@ html.talk-page body {
   color: rgb(97 110 129);
 }
 
+// Links on a slide open in a new tab from the stage. Thumbnails (the notes
+// window, the overview) only show them.
+.talk-slide-link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
 .talk-thumb {
+  pointer-events: none;
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -593,15 +702,59 @@ html.talk-page body {
 }
 
 .talk-notes__text {
+  min-height: 0;
   overflow-y: auto;
+  // useFitText in DeckNotes.tsx sets the size to fill the box.
   font-size: 30px;
-  line-height: 1.4;
+  line-height: 1.35;
 
   p {
     margin: 0 0 0.6em;
   }
   strong {
     background: hsla(33, 100%, 56%, 0.3);
+  }
+}
+
+.talk-notes--text-only {
+  .talk-notes__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .talk-notes__slides {
+    display: none;
+  }
+}
+
+// A narrow notes window puts the notes first, full width, with the current
+// and next slides small underneath.
+@media (max-width: 860px) {
+  .talk-notes__bar,
+  .talk-notes__controls {
+    padding: 10px 16px;
+  }
+  .talk-notes__bar button {
+    padding: 0 12px;
+  }
+  .talk-notes__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 14px;
+    padding: 16px;
+  }
+  .talk-notes__text {
+    order: -1;
+  }
+  .talk-notes__slides {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 12px;
+
+    > .talk-thumb {
+      width: min(50%, 260px);
+    }
+  }
+  .talk-notes__next {
+    width: min(38%, 200px);
   }
 }
 
@@ -671,36 +824,330 @@ html.talk-page body {
   transform: translateX(-50%);
 }
 
+// A finger on a phone: a soft blot of colour like we-bsite's fingerprints,
+// with no hard edge. It swells in when the finger lands and fades as it lifts.
 .talk-live__glow {
   position: absolute;
-  width: 240px;
-  height: 240px;
-  margin: -120px 0 0 -120px;
+  width: 260px;
+  height: 260px;
+  margin: -130px 0 0 -130px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow) 0 36%, transparent 72%);
-  opacity: 0.8;
+  background: radial-gradient(
+    circle closest-side,
+    var(--glow) 0%,
+    color-mix(in srgb, var(--glow) 92%, transparent) 18%,
+    color-mix(in srgb, var(--glow) 72%, transparent) 36%,
+    color-mix(in srgb, var(--glow) 46%, transparent) 54%,
+    color-mix(in srgb, var(--glow) 22%, transparent) 72%,
+    color-mix(in srgb, var(--glow) 7%, transparent) 88%,
+    transparent 100%
+  );
+  opacity: 0.85;
   // Phones send five updates a second; easing fills the gaps.
   transition:
     left 220ms linear,
     top 220ms linear;
+  animation: talk-glow-in 520ms cubic-bezier(0.3, 1.3, 0.5, 1) both;
+
+  &[data-lifted] {
+    animation: talk-glow-out 650ms ease-out both;
+  }
 }
 
-.talk-live__sleep {
+@keyframes talk-glow-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+
+@keyframes talk-glow-out {
+  from {
+    opacity: 0.85;
+  }
+  to {
+    opacity: 0;
+    scale: 1.3;
+  }
+}
+
+// Text that slowly fades through the audience's colours (TextRun.shifting).
+.talk-shifting {
+  animation: talk-shifting 10s linear infinite;
+}
+
+@keyframes talk-shifting {
+  0%,
+  100% {
+    color: hsl(33, 100%, 52%);
+  }
+  20% {
+    color: hsl(330, 75%, 58%);
+  }
+  40% {
+    color: hsl(265, 60%, 58%);
+  }
+  60% {
+    color: hsl(205, 85%, 48%);
+  }
+  80% {
+    color: hsl(150, 55%, 40%);
+  }
+}
+
+// Edit mode (DeckEditor.tsx): outlines over the slide, in slide pixels.
+.talk-stage__edit {
+  width: 1920px;
+  height: 1080px;
+  pointer-events: none;
+}
+
+// Room for the edit panel beside the slide.
+.talk-stage[data-editing] .talk-stage__frame {
+  right: 324px;
+}
+
+.talk-edit {
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(16px) grayscale(1);
-  background: rgba(245, 242, 234, 0.55);
-  transition: opacity 600ms ease;
+  pointer-events: auto;
 }
 
-.talk-live__count {
+.talk-edit__box {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 56px;
+  box-sizing: border-box;
+  border: dashed rgba(0, 127, 217, 0.55);
+  cursor: move;
+  touch-action: none;
+
+  &:hover {
+    border-color: rgba(0, 127, 217, 0.9);
+  }
+
+  &[data-selected] {
+    border-style: solid;
+    border-color: #007fd9;
+    background: rgba(0, 127, 217, 0.06);
+  }
+}
+
+.talk-edit__handle {
+  position: absolute;
+  border-radius: 2px;
+  background: #007fd9;
+  cursor: nwse-resize;
+}
+
+.talk-edit-panel {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 20;
+  width: 300px;
+  overflow-y: auto;
+  padding: 14px;
+  border-radius: 12px;
+  background: hsl(50 100% 97%);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  color: var(--talk-ink);
+  font-family: "Sono", ui-monospace, monospace;
+  font-size: 13px;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  button {
+    padding: 4px 10px;
+    border: 1px solid rgba(112, 128, 144, 0.4);
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  input,
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid rgba(112, 128, 144, 0.4);
+    border-radius: 6px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: rgb(97 110 129);
+  }
+}
+
+.talk-edit-panel__status {
+  margin: 6px 0 10px;
+  color: rgb(97 110 129);
+}
+
+.talk-edit-panel__layers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+
+  button {
+    width: 100%;
+    border-radius: 6px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &[aria-pressed="true"] {
+      border-color: #007fd9;
+      background: rgba(0, 127, 217, 0.1);
+    }
+  }
+}
+
+.talk-edit-panel__layer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(112, 128, 144, 0.25);
+}
+
+.talk-edit-panel__numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.talk-edit-panel__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.talk-edit-panel__hint {
+  margin: 14px 0 0;
+  color: rgb(97 110 129);
+  line-height: 1.5;
+}
+
+// Wishes and rules from the room (AnswerCloud in LiveLayer.tsx), over a veil
+// that keeps the slide visible behind them.
+.talk-live__veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(251, 250, 246, 0.8);
+  animation: talk-live-fade-in 600ms ease both;
+}
+
+.talk-live__answer {
+  position: absolute;
+  padding: 8px 18px 6px;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+  font-size: 34px;
+  line-height: 1.15;
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.14),
+    inset 0 -6px 0 var(--mover);
+  animation: talk-answer-in 500ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+@keyframes talk-answer-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+// The finale (RoomMarks in LiveLayer.tsx): everything the room made, over the
+// slide. Loops thin out as the room fills; the title stays clear.
+.talk-room-marks {
+  position: absolute;
+  inset: 0;
+  animation: talk-live-fade-in 900ms ease both;
+
+  svg {
+    position: absolute;
+    inset: 0;
+  }
+
+  path {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.7;
+  }
+
+  &[data-density="busy"] path {
+    stroke-width: 3;
+    opacity: 0.5;
+  }
+
+  &[data-density="dense"] path {
+    stroke-width: 2;
+    opacity: 0.35;
+  }
+}
+
+.talk-room-marks__word {
+  position: absolute;
+  max-width: 420px;
+  padding: 6px 14px 4px;
+  border-radius: 6px;
+  background: rgba(251, 250, 246, 0.85);
+  color: #111;
+  font-size: 30px;
+  line-height: 1.15;
+  box-shadow: inset 0 -5px 0 color-mix(in srgb, var(--mover) 60%, transparent);
+  animation: talk-answer-in 600ms cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+
+.talk-room-marks__title {
+  position: absolute;
+  left: 560px;
+  top: 486px;
+  width: 800px;
   text-align: center;
-  font-size: 32px;
-  color: rgb(30, 28, 26);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-shadow:
+    0 0 24px rgb(251, 250, 246),
+    0 0 10px rgb(251, 250, 246),
+    0 0 4px rgb(251, 250, 246);
+}
+
+// The join slide's own build: the slide stays visible but steps back.
+.talk-live__fade {
+  position: absolute;
+  inset: 0;
+  // A plain wash: a backdrop blur over three playing videos costs the
+  // projector laptop a lot of frames.
+  background: rgba(251, 250, 246, 0.78);
+  animation: talk-live-fade-in 600ms ease both;
+}
+
+@keyframes talk-live-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .talk-live__loops {
@@ -729,7 +1176,7 @@ html.talk-page body {
 
 .talk-live__qr {
   position: absolute;
-  right: 150px;
+  right: 110px;
   top: 300px;
   width: 360px;
   height: 360px;
@@ -775,11 +1222,14 @@ html.talk-page body {
 
 .talk-live__here {
   position: absolute;
-  left: 300px;
-  top: 1000px;
+  left: 290px;
+  top: 990px;
   display: flex;
   align-items: center;
   gap: 18px;
+  padding: 6px 20px 6px 10px;
+  border-radius: 999px;
+  background: rgba(251, 250, 246, 0.9);
   font-size: 32px;
   color: rgb(30, 28, 26);
 }
@@ -792,7 +1242,16 @@ html.talk-page body {
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--glow) 0 50%, transparent 74%);
+    background: radial-gradient(
+    circle closest-side,
+    var(--glow) 0%,
+    color-mix(in srgb, var(--glow) 92%, transparent) 18%,
+    color-mix(in srgb, var(--glow) 72%, transparent) 36%,
+    color-mix(in srgb, var(--glow) 46%, transparent) 54%,
+    color-mix(in srgb, var(--glow) 22%, transparent) 72%,
+    color-mix(in srgb, var(--glow) 7%, transparent) 88%,
+    transparent 100%
+  );
   }
 }
 

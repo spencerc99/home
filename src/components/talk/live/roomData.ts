@@ -2,11 +2,22 @@
 // to it. Nothing from the room is drawn until it has been checked here: bad
 // entries are skipped, and the amounts are capped so one person cannot slow
 // the stage down or break it for everyone.
-import type { AudiencePresence, Fridge, LiveMoment, Loop, Loops, SeatPresence, StagePresence } from "./talkRoom";
+import {
+  ANSWER_MAX_CHARS,
+  MAX_HIDDEN_SENT,
+  type Answers,
+  type AudiencePresence,
+  type Fridge,
+  type LiveMoment,
+  type Loop,
+  type Loops,
+  type SeatPresence,
+  type StagePresence,
+} from "./talkRoom";
 import { FRIDGE_WORDS } from "./fridge";
 import { SEATS } from "./seats";
 
-const MOMENTS: readonly LiveMoment[] = ["warmup", "title", "seat", "fridge", "patina", "finale"];
+const MOMENTS: readonly LiveMoment[] = ["circle", "seat", "fridge", "wish", "card"];
 /** The most loops the stage will draw, newest kept. */
 export const MAX_DRAWN_LOOPS = 1500;
 const MAX_POINTS = 400;
@@ -28,7 +39,16 @@ export function parseStage(value: unknown): StagePresence | null {
   if (v.moment !== null && !MOMENTS.includes(v.moment as LiveMoment)) return null;
   if (!Number.isInteger(v.build) || (v.build as number) < 0 || (v.build as number) > 50) return null;
   if (typeof v.joinOpen !== "boolean") return null;
-  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen };
+  // A stage from before these fields existed sends neither; it still counts.
+  const hidden =
+    v.hidden === undefined
+      ? []
+      : Array.isArray(v.hidden) && v.hidden.length <= MAX_HIDDEN_SENT && v.hidden.every((k) => typeof k === "string" && k.length <= 200)
+        ? (v.hidden as string[])
+        : null;
+  if (!hidden) return null;
+  const paused = v.paused === true;
+  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen, hidden, paused };
 }
 
 export function parseAudience(value: unknown): AudiencePresence | null {
@@ -46,8 +66,39 @@ export function parseSeat(value: unknown): SeatPresence | null {
   if (!value || typeof value !== "object") return null;
   const v = value as Record<string, unknown>;
   if (!unit(v.x, 0, 1) || !unit(v.y, 0, 1)) return null;
+  if (typeof v.sitting !== "boolean") return null;
   if (v.seat !== null && !(Number.isInteger(v.seat) && (v.seat as number) >= 0 && (v.seat as number) < SEATS.length)) return null;
-  return { x: v.x as number, y: v.y as number, seat: v.seat as number | null };
+  return { x: v.x as number, y: v.y as number, sitting: v.sitting, seat: v.seat as number | null };
+}
+
+const ANSWER_KEY = /^[A-Za-z0-9_+/=-]{1,100}:[a-z0-9]{1,16}$/;
+
+/** The most answers read from the room, newest kept, and the most from one phone. */
+const MAX_ANSWERS = 500;
+const MAX_ANSWERS_EACH = 20;
+
+/** The answers that are safe to show: known kind, short text, a real colour. */
+export function parseAnswers(data: unknown): Answers {
+  if (!data || typeof data !== "object") return {};
+  const out: Answers = {};
+  const perPerson = new Map<string, number>();
+  const entries = Object.entries(data as Record<string, unknown>).slice(-MAX_ANSWERS);
+  // Newest first, so a phone over its share loses its oldest answers.
+  for (const [key, value] of entries.reverse()) {
+    const person = key.split(":")[0];
+    const count = perPerson.get(person) ?? 0;
+    if (count >= MAX_ANSWERS_EACH) continue;
+    // Keys are `<phone id>:<time>`, as AnswerPad writes them; anything else is not a phone's answer.
+    if (!ANSWER_KEY.test(key) || !value || typeof value !== "object") continue;
+    const v = value as Record<string, unknown>;
+    const color = safeColor(v.color);
+    if (v.kind !== "wish") continue;
+    if (typeof v.text !== "string" || !v.text.trim() || v.text.length > ANSWER_MAX_CHARS) continue;
+    if (!color || typeof v.at !== "number" || !Number.isFinite(v.at)) continue;
+    perPerson.set(person, count + 1);
+    out[key] = { kind: v.kind, text: v.text.trim(), color, at: v.at };
+  }
+  return out;
 }
 
 /** The moved fridge words that are safe to draw; unknown words are skipped. */
@@ -75,13 +126,23 @@ function parseLoop(value: unknown): Loop | null {
   return { color, points: v.points as number[] };
 }
 
-/** The loops that are safe to draw, at most MAX_DRAWN_LOOPS of them. */
-export function parseLoops(data: unknown): Loops {
+/**
+ * The loops that are safe to draw, at most MAX_DRAWN_LOOPS of them. Pass the
+ * last result as `previous`: a loop that has not grown since is reused as it
+ * was (same object), so only loops being drawn are checked and redrawn.
+ */
+export function parseLoops(data: unknown, previous: Loops = {}): Loops {
   if (!data || typeof data !== "object") return {};
   const out: Loops = {};
   const entries = Object.entries(data as Record<string, unknown>);
   for (const [key, value] of entries.slice(-MAX_DRAWN_LOOPS)) {
     if (key.length > 200) continue;
+    const before = previous[key];
+    const points = (value as { points?: unknown } | null)?.points;
+    if (before && Array.isArray(points) && points.length === before.points.length) {
+      out[key] = before;
+      continue;
+    }
     const loop = parseLoop(value);
     if (loop) out[key] = loop;
   }

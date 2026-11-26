@@ -120,13 +120,14 @@
   in playhtml itself.
 - Stage keys: `l` go live (phones only follow a stage that is live, so
   someone else opening /talk/stage cannot drive the room), `j` join card (QR,
-  people count, everyone's touches), `w` force slide 2 awake. The live layer
+  people count, everyone's touches) over any slide, for latecomers; `h` hides
+  the newest wish or rule on screen. The live layer
   (`live/LiveLayer.tsx`) is drawn over the current slide in its own frame and
   never blocks the deck; if the room does not connect the deck runs as before.
-- Built so far: join flow and lobby, warm-up (slide 2 starts blurred and gray;
-  it wakes when 40% of the people in the room hold at once, at least 2, never
-  more than the room has; fingers already down when the slide comes up must
-  lift first), title loops (slide 3; the phone pad is the slide turned on its
+- Built so far: join flow and lobby, joining over slide 2 (the QR code, the
+  people count and everyone's touches on top of "software you can touch"; it
+  replaced a warm-up where slide 2 woke once enough people held their phones,
+  cut on 2026-11-25 to get to the room faster), circle loops (slide 6, over the video of the circle being drawn, moved there from the title slide on 2026-11-25; the phone pad is the slide turned on its
   side, and the stage turns it back, so loops land where they were drawn and
   fill the slide), take a seat (slide 12, `live/seats.ts`: the phone is a
   trackpad for a playhtml-style cursor; let go near a free seat whose picture
@@ -146,11 +147,12 @@
   If a talk needs it, add a small server that only relays stage messages
   signed with a presenter secret.
 
-- Slide 14 demo video (`video/playhtml-home-interactions.mp4`) is recorded
-  by `scripts/recordPlayhtmlDemo.mjs` on the live playhtml.fun (desktop and
-  phone windows, scripted clicks, the guestbook left alone) and stitched with
-  the ffmpeg command in its header. The image beside it is the site's
-  "How it works" section at 2x.
+- Slide 14 shows `video/playhtml-hero-cursors.mp4`, Spencer's recording of
+  the playhtml.fun hero with live cursors (art:research/playhtml/
+  01-hero-cursors.mp4), whole on the slide. It replaced a two-window demo
+  recorded by `scripts/recordPlayhtmlDemo.mjs`
+  (`video/playhtml-home-interactions.mp4`, still in the bucket), which can
+  record a new one.
 
 ## Still open
 
@@ -163,3 +165,35 @@
   assets host off S3), then switch `VID` to it.
 - Live audience: patina, take a seat, fridge, finale, keepsake card. Load
   testing with a full room.
+
+## Fridge removed (2026-11-26)
+
+- The fridge slide (36:224) and the fridge moment on slide 14 are gone; the
+  fridge code (FridgeDoor, fridge.ts, the `talk-fridge-words` channel) is no
+  longer used by any slide.
+
+## Starting the phones' turns (2026-11-26)
+
+- Each phone moment (circle, seat, fridge, wish, rule) starts when the
+  presenter presses `m`, on the stage or in the notes window, and stops on `m`
+  again or on leaving the slide. Joining on slide 2 needs no `m`: phones
+  offer the touch pad whenever the join card is up. `/` shows every key.
+
+## Wishes and rules (2026-11-25)
+
+- Slide 8: once the ??? is up (press 1), phones ask "What else could computers
+  be?". Rules of play: once all three rules are up (press 3), phones ask for a
+  rule of their own. `liveAt` on a slide is the press where its moment starts.
+- Answers go to the saved page-data channel `talk-answers`, one entry per
+  answer keyed `<person>:<time>`, up to 60 characters, as many as people like
+  (a phone waits 1.5 s between sends). They show live; the presenter's `h`
+  marks the newest one hidden. The big screen shows the newest 40 over a veil.
+
+## Edit mode (2026-11-25)
+
+- `e` on /talk/stage on the local dev server: drag, resize, nudge and retype
+  layers. Edits save to `src/components/talk/deckEdits.json` through a
+  dev-server-only route (`/__talk/deck-edits`, same-origin JSON only) and are
+  laid over the slides in `perpetualPlayDeck.ts` by index. If a slide's layers
+  are reordered in code, loading fails and names the edit to fix.
+

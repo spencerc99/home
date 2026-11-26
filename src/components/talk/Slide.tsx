@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { buildCount, type Box, type Layer, type Slide as SlideData, type TextRun } from "./perpetualPlayDeck";
 import { SharedCollages } from "./SharedCollages";
 
@@ -27,18 +27,22 @@ export type MediaMode = "play" | "pause" | "ready" | "still";
 function Runs({ runs }: { runs: TextRun[] }) {
   return (
     <>
-      {runs.map((run, i) => (
-        <span
-          key={i}
-          style={{
-            color: run.color,
-            fontWeight: run.bold ? 700 : undefined,
-            textDecoration: run.underline ? "underline" : undefined,
-          }}
-        >
-          {run.text}
-        </span>
-      ))}
+      {runs.map((run, i) => {
+        const style = {
+          color: run.color,
+          fontWeight: run.bold ? 700 : undefined,
+          textDecoration: run.underline ? "underline" : "none",
+        };
+        return run.href ? (
+          <a key={i} href={run.href} target="_blank" rel="noopener" className="talk-slide-link" style={style}>
+            {run.text}
+          </a>
+        ) : (
+          <span key={i} className={run.shifting ? "talk-shifting" : undefined} style={style}>
+            {run.text}
+          </span>
+        );
+      })}
     </>
   );
 }
@@ -71,6 +75,64 @@ function SlideVideo({ src, box, radius, mode }: { src: string; box: Box; radius?
   );
 }
 
+const isVideo = (src: string) => /\.(mp4|webm|mov)$/i.test(src);
+
+function ReelItem({ src, shown, playing }: { src: string; shown: boolean; playing: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    if (playing) {
+      video.play().catch((error: unknown) => console.warn(`[talk] could not autoplay ${src}`, error));
+    } else {
+      video.pause();
+    }
+  }, [playing, src]);
+  const style: CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    opacity: shown ? 1 : 0,
+    transition: "opacity 900ms ease",
+  };
+  return isVideo(src) ? (
+    <video ref={ref} src={src} muted loop playsInline preload="auto" style={style} />
+  ) : (
+    <img src={src} alt="" draggable={false} style={style} />
+  );
+}
+
+/** A tile stepping through `items` while its slide plays; see the "reel" layer. */
+function SlideReel({ layer, mode }: { layer: Extract<Layer, { kind: "reel" }>; mode: MediaMode }) {
+  const [at, setAt] = useState(0);
+  const playing = mode === "play";
+  useEffect(() => {
+    if (!playing) return;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const start = setTimeout(() => {
+      setAt((i) => (i + 1) % layer.items.length);
+      interval = setInterval(() => setAt((i) => (i + 1) % layer.items.length), layer.every);
+    }, (layer.delay ?? 0) + layer.every);
+    return () => {
+      clearTimeout(start);
+      clearInterval(interval);
+    };
+  }, [playing, layer]);
+  const n = layer.items.length;
+  // Only the one showing, the one fading out and the one coming up are in
+  // the page, so a tile never loads all of its videos at once.
+  const mounted = mode === "still" ? [0] : [...new Set([(at - 1 + n) % n, at, (at + 1) % n])];
+  return (
+    <div style={{ ...place(clip(layer.box)), overflow: "hidden" }}>
+      {mounted.map((i) => (
+        <ReelItem key={i} src={layer.items[i]} shown={i === at} playing={playing && i !== (at + 1) % n} />
+      ))}
+    </div>
+  );
+}
+
 function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; active: boolean }) {
   switch (layer.kind) {
     case "image":
@@ -88,6 +150,8 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
       );
     case "video":
       return <SlideVideo src={layer.src} box={layer.box} radius={layer.radius} mode={mode} />;
+    case "reel":
+      return <SlideReel layer={layer} mode={mode} />;
     case "website":
       // Not clickable: a click inside would take the keyboard from the deck.
       return mode === "still" ? (
@@ -118,12 +182,21 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
           <Runs runs={layer.runs} />
           {layer.list &&
             (() => {
-              const List = layer.list.style === "ordered" ? "ol" : "ul";
+              const ordered = layer.list.style === "ordered";
+              const List = ordered ? "ol" : "ul";
               return (
-                <List style={{ margin: 0, paddingLeft: "1.1em" }}>
+                <List style={{ margin: 0, padding: 0, listStyle: "none" }}>
                   {layer.list.items.map((item, i) => (
-                    <li key={i}>
-                      <Runs runs={item} />
+                    <li key={i} style={{ display: "flex", gap: "0.3em" }}>
+                      <span
+                        aria-hidden="true"
+                        style={{ flex: "none", width: ordered ? "1.15em" : "0.6em", textAlign: ordered ? "right" : "left" }}
+                      >
+                        {ordered ? `${i + 1}.` : "•"}
+                      </span>
+                      <span>
+                        <Runs runs={item} />
+                      </span>
                     </li>
                   ))}
                 </List>
@@ -148,7 +221,17 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
           }}
         >
           <span style={{ color: "#000" }}>{layer.title}</span>
-          {layer.link && <span style={{ color: "#007fd9" }}>{layer.link}</span>}
+          {layer.link && (
+            <a
+              href={`https://${layer.link}`}
+              target="_blank"
+              rel="noopener"
+              className="talk-slide-link"
+              style={{ color: "#007fd9", textDecoration: "none" }}
+            >
+              {layer.link}
+            </a>
+          )}
         </div>
       );
     case "scribble":

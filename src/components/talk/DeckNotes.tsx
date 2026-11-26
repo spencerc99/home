@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide } from "./Slide";
 import notesSource from "./play-together-notes.md?raw";
 import { parseSpeakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
+import { MOMENT_NAMES } from "./live/talkRoom";
 import "./talk.scss";
 
 const speakerNotes = parseSpeakerNotes(notesSource);
@@ -37,6 +38,52 @@ function Thumb({ index }: { index: number }) {
   );
 }
 
+// The notes text is as big as fits: short notes read from across the room,
+// long ones shrink down to NOTES_MIN_PX and then scroll.
+const NOTES_MIN_PX = 18;
+const NOTES_MAX_PX = 44;
+
+/** Sizes the text inside the returned element to fill it; re-fits when `key` changes or the window resizes. */
+function useFitText<T extends HTMLElement>(key: unknown) {
+  const ref = useRef<T>(null);
+  useLayoutEffect(() => {
+    const box = ref.current;
+    if (!box) return;
+    const fits = (px: number) => {
+      box.style.fontSize = `${px}px`;
+      return box.scrollHeight <= box.clientHeight;
+    };
+    const fit = () => {
+      if (fits(NOTES_MAX_PX)) return;
+      let lo = NOTES_MIN_PX;
+      let hi = NOTES_MAX_PX;
+      while (hi - lo > 1) {
+        const mid = Math.floor((lo + hi) / 2);
+        if (fits(mid)) lo = mid;
+        else hi = mid;
+      }
+      fits(lo);
+    };
+    fit();
+    // The box's own size is set by the layout, not by its text, so fitting
+    // the text inside it does not trigger this again.
+    const observer = new ResizeObserver(fit);
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, [key]);
+  return ref;
+}
+
+const SLIDES_SHOWN_KEY = "talk:notes-slides";
+
+function savedSlidesShown(): boolean {
+  try {
+    return localStorage.getItem(SLIDES_SHOWN_KEY) !== "hidden";
+  } catch {
+    return true;
+  }
+}
+
 function useClock(startedAt: number | null) {
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
@@ -53,6 +100,18 @@ export function DeckNotes() {
   const [state, setState] = useState<DeckState | null>(null);
   const [startedAt, setStartedAt] = useState<number | null>(null);
   const { time, elapsed } = useClock(startedAt);
+  // The slide pictures can be put away, leaving the whole window to the notes.
+  const [slidesShown, setSlidesShown] = useState(savedSlidesShown);
+  const toggleSlides = () =>
+    setSlidesShown((shown) => {
+      try {
+        localStorage.setItem(SLIDES_SHOWN_KEY, shown ? "hidden" : "shown");
+      } catch (error) {
+        console.warn("[talk] could not remember the notes layout", error);
+      }
+      return !shown;
+    });
+  const textRef = useFitText<HTMLElement>(`${state?.index}:${slidesShown}`);
 
   const send = useDeckChannel((message: DeckMessage) => {
     if (message.type === "state") setState(message.state);
@@ -73,8 +132,12 @@ export function DeckNotes() {
       } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
         event.preventDefault();
         send({ type: "step", by: -1 });
+      } else if (event.key === "m") {
+        send({ type: "toggle-phones" });
       } else if ((event.key === "k" || event.key === "p") && state) {
         send({ type: "set-playing", playing: !state.playing });
+      } else if (event.key === "s") {
+        toggleSlides();
       }
     };
     window.addEventListener("keydown", onKey);
@@ -97,15 +160,31 @@ export function DeckNotes() {
   const hasVideo = slide.layers.some((l) => l.kind === "video");
 
   return (
-    <div className="talk-notes">
+    <div className={`talk-notes${slidesShown ? "" : " talk-notes--text-only"}`}>
       <header className="talk-notes__bar">
         <span>
           {state.index + 1} / {deck.length}
         </span>
         <span className="talk-notes__clock">{time}</span>
-        <button type="button" onClick={() => setStartedAt(startedAt === null ? Date.now() : null)}>
-          {startedAt === null ? "start timer" : elapsed}
-        </button>
+        {slide.live && (
+          <button
+            type="button"
+            className="talk-notes__phones"
+            aria-pressed={state.phones}
+            onClick={() => send({ type: "toggle-phones" })}
+            title="Start or stop the phones' turn (m)"
+          >
+            {state.phones ? `phones: ${MOMENT_NAMES[slide.live]} · m stops` : `m: start ${MOMENT_NAMES[slide.live]}`}
+          </button>
+        )}
+        <span className="talk-notes__tools">
+          <button type="button" aria-pressed={!slidesShown} title="Show or hide the slide pictures (s)" onClick={toggleSlides}>
+            {slidesShown ? "hide slides" : "show slides"}
+          </button>
+          <button type="button" onClick={() => setStartedAt(startedAt === null ? Date.now() : null)}>
+            {startedAt === null ? "start timer" : elapsed}
+          </button>
+        </span>
       </header>
       <div className="talk-notes__body">
         <div className="talk-notes__slides">
@@ -115,7 +194,9 @@ export function DeckNotes() {
             <Thumb index={state.index + 1} />
           </div>
         </div>
-        <article className="talk-notes__text">{renderNotes(slideNotes)}</article>
+        <article className="talk-notes__text" ref={textRef}>
+          {renderNotes(slideNotes)}
+        </article>
       </div>
       <footer className="talk-notes__controls">
         <button type="button" onClick={() => send({ type: "step", by: -1 })}>

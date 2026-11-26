@@ -3,9 +3,21 @@
 // canvas; boxes are [x, y, width, height] in Figma's canvas pixels and layers
 // are listed bottom to top, matching Figma's layer order.
 
+import { applyDeckEdits, type DeckEdits } from "./deckEdits";
+import deckEdits from "./deckEdits.json";
+
 export type Box = [number, number, number, number];
 
-export type TextRun = { text: string; color?: string; bold?: boolean; underline?: boolean };
+export type TextRun = {
+  text: string;
+  color?: string;
+  bold?: boolean;
+  underline?: boolean;
+  // Slowly fades through the audience's colours instead of one colour.
+  shifting?: boolean;
+  // A link, opened in a new tab when clicked on the stage.
+  href?: string;
+};
 
 export type Layer = LayerContent & {
   // Hidden when the slide comes up; each press of next reveals the layers of
@@ -28,6 +40,10 @@ type LayerContent =
       cover?: boolean;
     }
   | { kind: "video"; src: string; box: Box; radius?: number }
+  // A tile that steps through pictures and videos (by file extension),
+  // crossfading, while its slide is up: each shows for `every` ms, and
+  // `delay` staggers tiles on the same slide. Thumbnails show the first.
+  | { kind: "reel"; box: Box; items: string[]; every: number; delay?: number }
   // A live web page, framed. Thumbnails (the overview grid, the notes window)
   // show `still` instead so they don't each load the page.
   | { kind: "website"; url: string; box: Box; still: string }
@@ -54,7 +70,11 @@ type LayerContent =
 
 /** How many presses of next reveal the slide's builds before it moves on. */
 export function buildCount(slide: Slide): number {
-  return Math.max(slide.fridgeDoor ?? 0, ...slide.layers.map((layer) => layer.build ?? 0));
+  return Math.max(
+    slide.fridgeDoor ?? 0,
+    slide.joinAt ?? 0,
+    ...slide.layers.map((layer) => layer.build ?? 0),
+  );
 }
 
 export type Slide = {
@@ -62,19 +82,35 @@ export type Slide = {
   figmaId: string;
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
-  live?: "warmup" | "title" | "seat" | "fridge" | "patina" | "finale";
+  // The phones' turn on this slide. It starts when the presenter presses m.
+  live?: "circle" | "seat" | "fridge" | "wish";
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
+  // The build where the join card (QR code, people count, everyone's
+  // touches) comes up over this slide, fading the rest of it.
+  joinAt?: number;
+  // The finale: everyone's loops, patina and wishes drawn over the slide,
+  // and each phone shows its own keepsake card.
+  roomMarks?: boolean;
 };
 
 const IMG = "/talk/perpetual-play/img";
 // Videos are too big for the site bundle; they live in the public R2 bucket
 // assets-spencerchang-me at talks/perpetual-play/video/. This is the bucket's
 // r2.dev address until assets.spencerchang.me is pointed at it.
-const VID = "https://pub-bd6722caa0b449ffa44df72e8cef733a.r2.dev/talks/perpetual-play/video";
+const VID =
+  "https://pub-bd6722caa0b449ffa44df72e8cef733a.r2.dev/talks/perpetual-play/video";
 
-const img = (name: string, box: Box, extra: Partial<Extract<Layer, { kind: "image" }>> = {}): Layer => ({
+// Project videos from the site's creations (public/creation-videos), for the
+// reels on slide 2: a spread of websites, objects, devices and performances.
+const CREATION = (id: string) => `/creation-videos/bl-${id}.mp4`;
+
+const img = (
+  name: string,
+  box: Box,
+  extra: Partial<Extract<Layer, { kind: "image" }>> = {},
+): Layer => ({
   kind: "image",
   src: `${IMG}/${name}.webp`,
   box,
@@ -92,13 +128,38 @@ const byline: Layer = {
   box: [16, 29, 280, 48],
   size: 24,
   lineHeight: 1,
-  runs: [{ text: "Spencer Chang\n" }, { text: "spencer.place", color: LINK }],
+  runs: [
+    { text: "Spencer Chang\n" },
+    { text: "spencer.place", color: LINK, href: "https://spencer.place" },
+  ],
 };
+// The deck's type scale, in slide pixels. Every text layer uses one of these.
+//   statement 120 bold: a slide that is one big line ("software you can touch")
+//   title 84: the line a slide is about ("People give meaning to technology")
+//   listTitle 72 bold: the heading over a list
+//   body 56: second lines and list items
+//   small 40: dense lists (the thank-you links)
+//   byline and labels stay at 24.
+const TYPE = {
+  statement: { size: 120, bold: true, lineHeight: 1.08 },
+  title: { size: 84, lineHeight: 1.15 },
+  listTitle: { size: 72, bold: true, lineHeight: 1.15 },
+  body: { size: 56, lineHeight: 1.3 },
+  small: { size: 40, lineHeight: 1.35 },
+} as const;
+// The space between a heading and what follows it.
+const GAP = 36;
+
 const heading = (
   box: Box,
   text: string,
-  opts: { bold?: boolean; align?: "left" | "center"; size?: number; nowrap?: boolean } = {},
-): Layer => ({
+  opts: {
+    bold?: boolean;
+    align?: "left" | "center";
+    size?: number;
+    nowrap?: boolean;
+  } = {},
+): Extract<Layer, { kind: "text" }> => ({
   kind: "text",
   box,
   nowrap: opts.nowrap,
@@ -108,10 +169,15 @@ const heading = (
   lineHeight: 1.2,
   runs: [{ text }],
 });
-const label = (title: string, link?: string): Layer => ({ kind: "label", title, link });
+const label = (title: string, link?: string): Layer => ({
+  kind: "label",
+  title,
+  link,
+});
 
 // One reused "browser window" image, scattered across slides 20 and 21.
-const windowAt = (x: number, y: number) => img("2070-537", [x, y, 1059, 658], { clipToSlide: false, cover: true });
+const windowAt = (x: number, y: number) =>
+  img("2070-537", [x, y, 1059, 658], { clipToSlide: false, cover: true });
 
 // The playhtml collage of living websites, shown on two slides.
 const livingSites = (withImage201: boolean): Layer[] => [
@@ -125,37 +191,139 @@ const livingSites = (withImage201: boolean): Layer[] => [
   img("2075-622", [183, 471, 717, 824]),
 ];
 
-export const perpetualPlayDeck: Slide[] = [
+/** The slides as written here, before the hand edits from deckEdits.json. */
+export const uneditedDeck: Slide[] = [
   {
     figmaId: "2081:708",
-    layers: [byline, heading([669, 151, 581, 101], "Hi I’m Spencer", { nowrap: true }), img("2088-788", [298, 287, 1324, 824])],
+    layers: [
+      byline,
+      heading([669, 151, 581, 101], "Hi I’m Spencer", { nowrap: true }),
+      img("2088-788", [298, 287, 1324, 824]),
+    ],
   },
   {
     figmaId: "1:193",
-    live: "warmup",
+    // The QR code, the people count and everyone's touches come up over this
+    // slide on the next press.
+    joinAt: 1,
     layers: [
-      img("2102-144", [0, -104, 1233, 824]),
-      img("2102-141", [1233, 0, 784, 1061]),
-      img("2102-128", [0, 524, 1233, 660]),
+      {
+        kind: "reel",
+        box: [0, -104, 1233, 824],
+        every: 4200,
+        items: [
+          `${IMG}/2102-144.webp`,
+          CREATION("1JtvwPkD5S"), // playhtml
+          `${VID}/shrine-to-voice.mp4`, // Computing Shrines
+          CREATION("oWbNjGXdjK"), // html garden
+          `${VID}/colored-windows.mp4`, // we were online
+          CREATION("pcKpYu0tOF"), // nothing on my computer
+          CREATION("21P7fqNtic"), // Webcollages
+          CREATION("3sAn_jqexq"), // cursor watching
+        ],
+      },
+      {
+        kind: "reel",
+        box: [1233, 0, 784, 1061],
+        every: 4200,
+        delay: 1400,
+        items: [
+          `${IMG}/2102-141.webp`,
+          `${VID}/shrine-to-earth.mp4`, // Computing Shrines
+          CREATION("3iG3YRioYt"), // everyday
+          // Every story people submitted, growing scene by scene (made from
+          // art:research/alserkal-feed-is-a-stage/story-submissions).
+          `${VID}/sharing-stories-submissions.mp4`, // Sharing Stories
+          `${VID}/we-were-browsing-montage.mp4`, // we were browsing
+          CREATION("PkmObpZzQs"), // Internet Sculptures
+          `${VID}/shrine-to-others.mp4`, // Computing Shrines
+        ],
+      },
+      {
+        kind: "reel",
+        box: [0, 524, 1233, 660],
+        every: 4200,
+        delay: 2800,
+        items: [
+          `${IMG}/2102-128.webp`,
+          `${VID}/playhtml-hero-cursors.mp4`, // playhtml
+          CREATION("G6amMoVZqV"), // Free Agents, the phones in hands stitched together
+          CREATION("oDGrU4LJTF"), // Computing-Infused Objects
+          `${VID}/we-were-typing.mp4`, // we were online
+          CREATION("WMZO6IlYNO"), // alive internet theory
+          CREATION("UApY84pF0v"), // minute faces (together)
+          CREATION("M0Wu51rgfw"), // everyday at the Internet Archive
+        ],
+      },
       { kind: "block", box: [506, 314, 910, 356], color: "#ff8901" },
-      heading([504, 399, 912, 240], "software you can touch", { bold: true, align: "center", size: 120 }),
-      { kind: "text", box: [0, 335, 1920, 64], size: 64, align: "center", lineHeight: 1, runs: [{ text: "I make" }] },
+      {
+        ...heading([504, 405, 912, 240], "software you can touch", {
+          bold: true,
+          align: "center",
+          size: 120,
+        }),
+        lineHeight: 1.02,
+      },
+      {
+        kind: "text",
+        box: [0, 335, 1920, 64],
+        size: 64,
+        align: "center",
+        lineHeight: 1,
+        runs: [{ text: "I make" }],
+      },
     ],
   },
   {
     figmaId: "2070:448",
-    live: "title",
-    layers: [{ kind: "scribble" }, byline, heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" })],
+    layers: [
+      { kind: "scribble" },
+      byline,
+      heading([560, 486, 800, 67], "Play Together", {
+        bold: true,
+        size: 56,
+        nowrap: true,
+        align: "center",
+      }),
+    ],
   },
-  { figmaId: "2070:583", layers: [vid("da-vinci", [600, 180, 720, 720]), byline] },
-  { figmaId: "2070:594", layers: [img("2070-595", [606, 188, 707, 703]), byline] },
-  { figmaId: "2002:158", layers: [vid("drawing-circle", [0, -328, 1920, 1792]), byline] },
-  { figmaId: "2070:602", layers: [byline, img("2070-605", [370, 194, 1214, 692])] },
+  {
+    figmaId: "2070:583",
+    layers: [vid("da-vinci", [600, 180, 720, 720]), byline],
+  },
+  {
+    figmaId: "2070:594",
+    layers: [img("2070-595", [606, 188, 707, 703]), byline],
+  },
+  // Phones draw loops over the video of the circle being drawn.
+  {
+    figmaId: "2002:158",
+    live: "circle",
+    layers: [vid("drawing-circle", [0, -328, 1920, 1792]), byline],
+  },
+  {
+    figmaId: "2070:602",
+    layers: [byline, img("2070-605", [370, 194, 1214, 692])],
+  },
   {
     figmaId: "2059:441",
+    // Phones send wishes for what computing could be.
+    live: "wish",
     layers: [
-      heading([356, 330, 1207, 202], "People give meaning to technology"),
-      { ...heading([356, 600, 1207, 140], "So we can make it what we want:\nfun, caring, creative", { size: 56 }), build: 1 },
+      {
+        ...heading([356, 350, 1207, 194], "People give meaning to technology"),
+        ...TYPE.title,
+      },
+      {
+        kind: "text",
+        box: [356, 350 + 194 + GAP, 1207, 146],
+        ...TYPE.body,
+        runs: [
+          { text: "So we can make it what we want:\nfun, caring, creative, " },
+          { text: "???", bold: true, shifting: true },
+        ],
+        build: 1,
+      },
       byline,
     ],
   },
@@ -169,10 +337,21 @@ export const perpetualPlayDeck: Slide[] = [
       img("2176-51", [1163, 607, 757, 473]),
     ],
   },
-  { figmaId: "2083:714", layers: [byline, img("2083-721", [350, 274, 1220, 531])] },
+  {
+    figmaId: "2083:714",
+    layers: [byline, img("2083-721", [350, 274, 1220, 531])],
+  },
   {
     figmaId: "2075:612",
-    layers: [heading([426, 420, 1067, 240], "The Internet has no benches", { bold: true, align: "center", size: 120 }), byline],
+    layers: [
+      {
+        ...heading([426, 410, 1067, 260], "The Internet has no benches", {
+          align: "center",
+        }),
+        ...TYPE.statement,
+      },
+      byline,
+    ],
   },
   {
     figmaId: "2075:702",
@@ -191,33 +370,35 @@ export const perpetualPlayDeck: Slide[] = [
     figmaId: "2176:38",
     layers: [
       {
+        ...heading([355, 338, 1237, 93], "We need different positive visions"),
+        ...TYPE.listTitle,
+      },
+      {
         kind: "text",
-        box: [356, 389, 1207, 303],
-        size: 84,
-        lineHeight: 1.2,
+        box: [355, 430, 1207, 220],
+        ...TYPE.body,
         runs: [],
-        list: { style: "ordered", items: [[{ text: "new websites/apps" }], [{ text: "new devices" }], [{ text: "new browsers" }]] },
+        list: {
+          style: "ordered",
+          items: [
+            [{ text: "new software" }],
+            [{ text: "new machines" }],
+            [{ text: "new internets" }],
+          ],
+        },
       },
       byline,
     ],
   },
   {
     figmaId: "1:105",
-    live: "fridge",
     layers: [
-      // playhtml.fun in a desktop window and a phone at once: what one does,
-      // the other sees (recorded with Playwright, 1920x1188).
-      vid("playhtml-home-interactions", [0, 0, 1125, 696]),
-      // The "How it works" section of playhtml.fun, captured at 2x.
-      img("playhtml-how-it-works", [860, 600, 1010, 455]),
+      // The playhtml.fun homepage hero with live cursors, from
+      // art:research/playhtml/01-hero-cursors.mp4 (1440x900, so it sits
+      // whole on the slide with a little paper either side).
+      vid("playhtml-hero-cursors", [96, 0, 1728, 1080]),
+      label("playhtml", "playhtml.fun"),
     ],
-  },
-  {
-    figmaId: "36:224",
-    live: "fridge",
-    // The real fridge first; the next press brings up the room's own door.
-    fridgeDoor: 1,
-    layers: [img("36-226", [-22, -237, 1942, 1554], { radius: 8 }), label("poems we found on the internet", "playhtml.fun/fridge")],
   },
   {
     figmaId: "45:363",
@@ -227,8 +408,14 @@ export const perpetualPlayDeck: Slide[] = [
         ...livingSites(true),
         img("2075-619", [1004, 285, 874, 818]),
         img("student-teletext", [70, 60, 760, 475], { radius: 8, cover: true }),
-        img("student-cyberspace", [1110, 50, 760, 475], { radius: 8, cover: true }),
-        img("student-compost", [230, 545, 760, 475], { radius: 8, cover: true }),
+        img("student-cyberspace", [1110, 50, 760, 475], {
+          radius: 8,
+          cover: true,
+        }),
+        img("student-compost", [230, 545, 760, 475], {
+          radius: 8,
+          cover: true,
+        }),
         img("student-trash", [1010, 560, 760, 475], { radius: 8, cover: true }),
       ].map((layer, i) => ({ ...layer, build: i })),
       label("playhtml", "playhtml.fun"),
@@ -236,7 +423,6 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2086:769",
-    live: "patina",
     layers: [
       byline,
       {
@@ -245,7 +431,13 @@ export const perpetualPlayDeck: Slide[] = [
         size: 24,
         lineHeight: 1,
         nowrap: true,
-        runs: [{ text: "https://www.are.na/spencer-chang/proof-of-life-patina", underline: true }],
+        runs: [
+          {
+            text: "https://www.are.na/spencer-chang/proof-of-life-patina",
+            underline: true,
+            href: "https://www.are.na/spencer-chang/proof-of-life-patina",
+          },
+        ],
       },
       img("2086-772", [479, 128, 479, 824]),
       img("2086-773", [479, 128, 479, 824]),
@@ -257,7 +449,18 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2086:766",
-    layers: [heading([356, 388, 1207, 303], "Proof of Life\n<>\nPossibility of Surprise", { bold: true, align: "center" }), byline],
+    layers: [
+      {
+        ...heading(
+          [356, 395, 1207, 290],
+          "Proof of Life\n<>\nPossibility of Surprise",
+          { bold: true, align: "center" },
+        ),
+        ...TYPE.title,
+        bold: true,
+      },
+      byline,
+    ],
   },
   { figmaId: "43:350", layers: [byline, windowAt(430, 211)] },
   {
@@ -297,7 +500,13 @@ export const perpetualPlayDeck: Slide[] = [
       img("2070-579", [12, 0, 1908, 1080], { clipToSlide: false, cover: true }),
     ],
   },
-  { figmaId: "2002:204", layers: [label("everyday"), vid("everyday-internet-archive", [262, 128, 1465, 824])] },
+  {
+    figmaId: "2002:204",
+    layers: [
+      label("everyday"),
+      vid("everyday-internet-archive", [262, 128, 1465, 824]),
+    ],
+  },
   {
     figmaId: "30:82",
     layers: [
@@ -325,14 +534,38 @@ export const perpetualPlayDeck: Slide[] = [
       vid("shrine-to-voice", [198, 128, 471, 824]),
     ],
   },
-  { figmaId: "2070:460", layers: [label("Computing Shrines", "shrine.computer"), img("2070-467", [591, 3, 702, 1077])] },
-  { figmaId: "2096:74", layers: [img("2096-75", [548, 128, 824, 824]), byline, img("2096-77", [640, 259, 639, 561])] },
-  { figmaId: "2002:201", layers: [byline, img("2048-375", [294, 38, 1331, 1003])] },
-  { figmaId: "2058:389", layers: [byline, img("2058-393", [506, 55, 908, 969])] },
+  {
+    figmaId: "2070:460",
+    layers: [
+      label("Computing Shrines", "shrine.computer"),
+      img("2070-467", [591, 3, 702, 1077]),
+    ],
+  },
+  {
+    figmaId: "2096:74",
+    layers: [
+      img("2096-75", [548, 128, 824, 824]),
+      byline,
+      img("2096-77", [640, 259, 639, 561]),
+    ],
+  },
+  {
+    figmaId: "2002:201",
+    layers: [byline, img("2048-375", [294, 38, 1331, 1003])],
+  },
+  {
+    figmaId: "2058:389",
+    layers: [byline, img("2058-393", [506, 55, 908, 969])],
+  },
   {
     figmaId: "33:182",
     layers: [
-      { kind: "website", url: "https://wewere.online/", box: [0, 0, 1920, 1080], still: `${IMG}/36-201.webp` },
+      {
+        kind: "website",
+        url: "https://wewere.online/",
+        box: [0, 0, 1920, 1080],
+        still: `${IMG}/36-201.webp`,
+      },
       label("we were online", "wewere.online"),
     ],
   },
@@ -347,9 +580,20 @@ export const perpetualPlayDeck: Slide[] = [
   },
   {
     figmaId: "2176:53",
-    layers: [byline, label("we were online", "wewere.online"), vid("internet-scraps-demo", [233, 5, 1454, 1075])],
+    layers: [
+      byline,
+      label("we were online", "wewere.online"),
+      vid("internet-scraps-demo", [233, 5, 1454, 1075]),
+    ],
   },
-  { figmaId: "2176:61", layers: [{ kind: "collages" }, byline, label("we were online", "wewere.online")] },
+  {
+    figmaId: "2176:61",
+    layers: [
+      { kind: "collages" },
+      byline,
+      label("we were online", "wewere.online"),
+    ],
+  },
   {
     figmaId: "1:98",
     layers: [
@@ -359,58 +603,136 @@ export const perpetualPlayDeck: Slide[] = [
       label("we were online", "wewere.online"),
       // The Wikipedia main page's "Welcome to Wikipedia", its link tinted by
       // everyone's cursor colours.
-      { ...img("wikipedia-patina", [260, 330, 1400, 368], { radius: 12, cover: true }), build: 1 },
+      {
+        ...img("wikipedia-patina", [260, 330, 1400, 368], {
+          radius: 12,
+          cover: true,
+        }),
+        build: 1,
+      },
     ],
   },
-  { figmaId: "2096:87", layers: [byline, ...livingSites(false), img("2075-619", [1004, 285, 874, 818]), label("we were online", "wewere.online")] },
+  {
+    figmaId: "2096:87",
+    // Slide 13's three lines again, each answered by a project from the talk,
+    // one per press.
+    layers: [
+      byline,
+      ...(
+        [
+          ["new software", "playhtml.fun", ["student-teletext", "student-trash", "student-cyberspace"]],
+          ["new machines", "shrine.computer", ["30-85", "27-66", "30-89"]],
+          ["new internets", "wewere.online", ["36-201", "wikipedia-patina", "2075-619"]],
+        ] as const
+      ).flatMap(([line, site, pictures], i): Layer[] => {
+        const y = 70 + i * 325;
+        return [
+          { ...heading([110, y + 70, 620, 83], line), ...TYPE.listTitle, build: i + 1 },
+          {
+            kind: "text",
+            box: [110, y + 160, 620, 52],
+            ...TYPE.small,
+            runs: [{ text: `→ ${site}`, color: LINK, href: `https://${site}` }],
+            build: i + 1,
+          },
+          ...pictures.map(
+            (name, k): Layer => ({
+              ...img(name, [760 + k * 360, y, 340, 290], { radius: 8, cover: true }),
+              build: i + 1,
+            }),
+          ),
+        ];
+      }),
+    ],
+  },
   {
     figmaId: "2075:608",
+    // The rules, each with examples from the talk, one rule per press.
     layers: [
-      {
-        kind: "text",
-        box: [452, 336, 1099, 406],
-        size: 84,
-        lineHeight: 1.2,
-        runs: [{ text: "rules of play", bold: true }],
-        list: {
-          style: "ordered",
-          items: [[{ text: "inhabit > use" }], [{ text: "seeds > products" }], [{ text: "program for surprise" }]],
-        },
-      },
-      byline,
       { kind: "scribble", opacity: 0.3 },
+      { ...heading([110, 70, 1700, 83], "rules of play"), ...TYPE.listTitle },
+      ...(
+        [
+          ["inhabit > use", "2096-65", "36-201", "2075-705"],
+          ["seeds > products", "student-teletext", "student-compost", "30-85"],
+          ["program for surprise", "36-226", "wikipedia-patina", "2070-467"],
+        ] as const
+      ).flatMap(([rule, big, left, right], i): Layer[] => {
+        const x = 110 + i * 590;
+        // Each rule on one line, a little under body size so the longest fits.
+        return [
+          {
+            ...heading([x, 194, 550, 80], rule),
+            ...TYPE.body,
+            size: 50,
+            bold: true,
+            build: i + 1,
+          },
+          {
+            ...img(big, [x, 360, 550, 330], { radius: 8, cover: true }),
+            build: i + 1,
+          },
+          {
+            ...img(left, [x, 710, 265, 250], { radius: 8, cover: true }),
+            build: i + 1,
+          },
+          {
+            ...img(right, [x + 285, 710, 265, 250], { radius: 8, cover: true }),
+            build: i + 1,
+          },
+        ];
+      }),
     ],
   },
   {
     figmaId: "2002:212",
-    live: "finale",
-    layers: [heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" }), { kind: "scribble" }, byline],
+    // Everything the room made tonight, over the title and a faded scribble.
+    roomMarks: true,
+    layers: [
+      heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" }),
+      { kind: "scribble", opacity: 0.2 },
+      byline,
+    ],
   },
   {
     figmaId: "2094:36",
     layers: [
-      heading([838, 218, 880, 101], "Thank you :)", { align: "center" }),
+      { ...heading([960, 218, 900, 97], "Thank you :)"), ...TYPE.title },
       {
         kind: "text",
-        box: [1025, 319, 880, 528],
-        size: 48,
-        lineHeight: 1,
+        box: [960, 351, 899, 434],
+        ...TYPE.small,
         runs: [],
         list: {
           style: "bullet",
           items: [
-            [{ text: "Make a living website: " }, { text: "playhtml.fun", color: LINK }],
-            [{ text: "Host a shrine: " }, { text: "shrine.computer", color: LINK }],
-            [{ text: "Be part of a living internet: " }, { text: "wewere.online", color: LINK }],
+            [
+              { text: "Make a living website: " },
+              { text: "playhtml.fun", color: LINK },
+            ],
+            [
+              { text: "Host a shrine: " },
+              { text: "shrine.computer", color: LINK },
+            ],
+            [
+              { text: "Be part of a living internet: " },
+              { text: "wewere.online", color: LINK },
+            ],
           ],
         },
         after: [
-          { text: "\n\n\nspencer.place\n", color: LINK },
+          { text: "\n\nspencer.place\n", color: LINK },
           { text: "hi@spencer.place", underline: true },
-          { text: "\nspencercha.ng on tiktok / ig / bsky" },
         ],
       },
       img("2094-39", [204, 218, 643, 643]),
     ],
   },
 ];
+
+/** The deck as shown: the slides above with the edits made in the stage's edit mode. */
+export const perpetualPlayDeck: Slide[] = applyDeckEdits(
+  uneditedDeck,
+  // The JSON's kinds read as plain strings; applyDeckEdits checks each one.
+  deckEdits as unknown as DeckEdits,
+);

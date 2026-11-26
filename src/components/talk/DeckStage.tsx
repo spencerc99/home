@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { buildCount, perpetualPlayDeck as deck } from "./perpetualPlayDeck";
 import { Slide, type MediaMode } from "./Slide";
+import { ShortcutSheet } from "./ShortcutSheet";
 import { SlideOverview } from "./SlideOverview";
 import { useFitScale, type FitMode } from "./useFitScale";
 import {
@@ -11,12 +12,16 @@ import {
   writeSlideToHash,
   type DeckMessage,
 } from "./deckSync";
+import { EditOverlay, EditPanel } from "./DeckEditor";
+import { useDeckEditor } from "./useDeckEditor";
 import { LiveBoundary } from "./live/LiveBoundary";
 import { LiveLayer } from "./live/LiveLayer";
-import { joinTalkRoom } from "./live/talkRoom";
+import { MOMENT_NAMES, joinTalkRoom } from "./live/talkRoom";
 import "./talk.scss";
 
 const LAST = deck.length - 1;
+/** How many slides ahead of the current one load their videos. */
+const READY_AHEAD = 2;
 const FIT_KEY = "talk:fit";
 const clamp = (n: number) => Math.min(LAST, Math.max(0, n));
 
@@ -90,12 +95,15 @@ export function DeckStage() {
   const [chromeVisible, setChromeVisible] = useState(true);
   const [typed, setTyped] = useState("");
   const [overview, setOverview] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  // The current slide's phone moment, started and stopped with m. A new slide
+  // always starts with it off.
+  const [phonesOn, setPhonesOn] = useState(false);
   // Live audience: the room connects in the background and the deck never
   // waits on it. Phones only follow this stage once `presenting` is on (l).
   const [roomReady, setRoomReady] = useState(false);
   const [presenting, setPresenting] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
-  const [wakeForced, setWakeForced] = useState(false);
   const [fit, setFit] = useState<FitMode>(() => {
     try {
       return localStorage.getItem(FIT_KEY) === "fill" ? "fill" : "fit";
@@ -103,7 +111,12 @@ export function DeckStage() {
       return "fit";
     }
   });
-  const { ref, scale } = useFitScale<HTMLDivElement>(fit);
+  // Edit mode (e) is only on the local dev server, where edits can be saved.
+  const editor = useDeckEditor(import.meta.env.DEV);
+  const toggleEditing = editor.toggle;
+
+  // While editing, the whole slide shows beside the edit panel.
+  const { ref, scale } = useFitScale<HTMLDivElement>(editor.editing ? "fit" : fit);
   const hideTimer = useRef<ReturnType<typeof setTimeout>>();
   // The slide shown before this render, so a single step can glide shared
   // pictures across (see Slide). Updated after each change has been drawn.
@@ -142,16 +155,20 @@ export function DeckStage() {
     if (message.type === "goto") goto(message.index);
     if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
-    if (message.type === "hello") send({ type: "state", state: { index, playing } });
+    if (message.type === "toggle-phones" && deck[index].live) setPhonesOn((on) => !on);
+    if (message.type === "hello") send({ type: "state", state: { index, playing, phones: phonesOn } });
   });
 
   useEffect(() => {
     writeSlideToHash(index);
     rememberSlide(index);
-    send({ type: "state", state: { index, playing } });
+    send({ type: "state", state: { index, playing, phones: phonesOn } });
     // send is rebuilt every render; only a state change should broadcast.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, playing]);
+  }, [index, playing, phonesOn]);
+
+  // Leaving a slide ends its phone moment.
+  useEffect(() => setPhonesOn(false), [index]);
 
   // Coming back to the tab (browser back, or a hash typed in the address bar).
   useEffect(() => {
@@ -206,7 +223,16 @@ export function DeckStage() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
+      // Typing in the edit panel is not a slide shortcut.
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA"].includes(target.tagName))) return;
       const key = event.key;
+      if (key === "/" || key === "?") {
+        event.preventDefault();
+        setShortcutsOpen((open) => !open);
+        return;
+      }
+      if (key === "Escape") setShortcutsOpen(false);
       if (/^\d$/.test(key)) {
         setTyped((t) => (t + key).slice(-2));
         return;
@@ -234,8 +260,10 @@ export function DeckStage() {
       else if (key === "z" || key === "Z") toggleFit();
       else if (key === "l") setPresenting((p) => !p);
       else if (key === "j") setJoinOpen((open) => !open);
-      else if (key === "w") setWakeForced(true);
       else if (key === "g") setOverview(true);
+      else if (key === "e") toggleEditing();
+      else if (key === "h") setHideRequests((n) => n + 1);
+      else if (key === "m" && deck[index].live) setPhonesOn((on) => !on);
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -243,18 +271,38 @@ export function DeckStage() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, typed]);
+  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, toggleEditing, typed]);
+
+  // Edit mode lays unsaved changes over the slides as they are made.
+  const shown = editor.editing ? editor.deck : deck;
+  // A new slide lets go of the picked layer. (Only a real change of slide:
+  // saving an edit reloads this module, which runs effects again.)
+  const selectLayer = editor.select;
+  const editedIndex = useRef(index);
+  useEffect(() => {
+    if (editedIndex.current === index) return;
+    editedIndex.current = index;
+    selectLayer(null);
+  }, [index, selectLayer]);
+
+  // The slide's phone moment, once the presenter has started it with m.
+  // On the finale every phone shows its own card, no m needed.
+  const moment = phonesOn ? deck[index].live ?? null : deck[index].roomMarks ? "card" : null;
+  // Each press of h hides the newest wish or rule on the big screen.
+  const [hideRequests, setHideRequests] = useState(0);
 
   const hasVideo = deck[index].layers.some((l) => l.kind === "video");
   const link = linkFor(index);
 
   return (
-    <div className="talk-stage" data-chrome={chromeVisible || undefined} onPointerMove={showChrome}>
+    <div className="talk-stage" data-chrome={chromeVisible || undefined} data-editing={editor.editing || undefined} onPointerMove={showChrome}>
       <div className="talk-stage__frame" ref={ref}>
         {scale > 0 &&
           deck.map((slide, i) => {
-            if (Math.abs(i - index) > 1) return null;
-            const mode: MediaMode = i === index ? (playing ? "play" : "pause") : i === index + 1 ? "ready" : "still";
+            // The slide before stays for the glide back; the two after are
+            // loading their videos, so they're ready even after quick clicks.
+            if (i < index - 1 || i > index + READY_AHEAD) return null;
+            const mode: MediaMode = i === index ? (playing ? "play" : "pause") : i > index ? "ready" : "still";
             return (
               <div
                 key={slide.figmaId}
@@ -266,7 +314,7 @@ export function DeckStage() {
                 }}
               >
                 <Slide
-                  slide={slide}
+                  slide={shown[i]}
                   mode={mode}
                   active={i === index}
                   from={i === index ? cameFrom : null}
@@ -288,16 +336,24 @@ export function DeckStage() {
                 ready={roomReady}
                 slide={index}
                 build={build}
-                moment={deck[index].live ?? null}
+                moment={moment}
+                hideRequests={hideRequests}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
+                joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
+                roomMarks={deck[index].roomMarks === true}
                 presenting={presenting}
                 joinOpen={joinOpen}
-                wakeForced={wakeForced}
               />
             </LiveBoundary>
           </div>
         )}
+        {scale > 0 && editor.editing && (
+          <div className="talk-stage__slide talk-stage__edit" style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
+            <EditOverlay editor={editor} slide={shown[index]} build={build} scale={scale} />
+          </div>
+        )}
       </div>
+      {editor.editing && <EditPanel editor={editor} slide={shown[index]} slideNumber={index + 1} />}
 
       <nav className="talk-chrome" aria-label="Slide controls">
         <button type="button" onClick={() => step(-1)} aria-label="Previous slide">
@@ -309,6 +365,17 @@ export function DeckStage() {
         <button type="button" onClick={() => step(1)} aria-label="Next slide">
           →
         </button>
+        {deck[index].live && (
+          <button
+            type="button"
+            className="talk-chrome__phones"
+            aria-pressed={phonesOn}
+            onClick={() => setPhonesOn((on) => !on)}
+            title="Start or stop the phones' turn on this slide (m)"
+          >
+            {phonesOn ? `phones: ${MOMENT_NAMES[deck[index].live]} · m stops` : `m: ${MOMENT_NAMES[deck[index].live]}`}
+          </button>
+        )}
         {hasVideo && (
           <button type="button" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause video" : "Play video"}>
             {playing ? "❙❙" : "▸"}
@@ -325,7 +392,7 @@ export function DeckStage() {
           aria-pressed={presenting}
           onClick={() => setPresenting((p) => !p)}
           aria-label={presenting ? "Live: phones follow this screen" : "Go live"}
-          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card, w wakes slide 2.`}
+          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide, h hides the newest wish.`}
         >
           <LiveIcon />
         </button>
@@ -339,6 +406,7 @@ export function DeckStage() {
           ⛶
         </button>
       </nav>
+      {shortcutsOpen && <ShortcutSheet onClose={() => setShortcutsOpen(false)} />}
       {overview && <SlideOverview deck={deck} current={index} onPick={pickFromOverview} onClose={closeOverview} />}
     </div>
   );
