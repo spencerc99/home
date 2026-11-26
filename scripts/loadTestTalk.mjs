@@ -22,7 +22,7 @@ const BASE = arg("base", "https://spencer.place");
 const OUT = arg("out", `/tmp/talk-loadtest-${Date.now()}`);
 const EVENT = `loadtest-${Date.now().toString(36)}`;
 // Slide numbers of the live moments, as in src/components/talk/perpetualPlayDeck.ts.
-const SLIDE = { join: 2, circle: 6, wish: 8, seat: 12, finale: 35 };
+const SLIDE = { join: 2, circle: 6, wish: 8, seat: 12, finale: 34 };
 const COLORS = ["hsl(33, 100%, 56%)", "hsl(205, 85%, 52%)", "hsl(330, 75%, 62%)", "hsl(150, 55%, 42%)", "hsl(265, 60%, 62%)"];
 mkdirSync(OUT, { recursive: true });
 
@@ -327,9 +327,10 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   });
 }
 
-// 6b. Slide 35, the finale: the stage draws everything, every phone its card.
+// 6b. Slide 34, the finale (m): the stage draws everything, every phone its card.
 {
   await goto(SLIDE.finale);
+  await stage.keyboard.press("m");
   const started = Date.now();
   const cards = await Promise.all(
     phones.map((p) =>

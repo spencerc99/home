@@ -83,16 +83,13 @@ export type Slide = {
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
   // The phones' turn on this slide. It starts when the presenter presses m.
-  live?: "circle" | "seat" | "fridge" | "wish";
+  live?: "circle" | "seat" | "fridge" | "wish" | "card";
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
   // The build where the join card (QR code, people count, everyone's
   // touches) comes up over this slide, fading the rest of it.
   joinAt?: number;
-  // The finale: everyone's loops, patina and wishes drawn over the slide,
-  // and each phone shows its own keepsake card.
-  roomMarks?: boolean;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -370,7 +367,7 @@ export const uneditedDeck: Slide[] = [
     figmaId: "2176:38",
     layers: [
       {
-        ...heading([355, 338, 1237, 93], "We need different positive visions"),
+        ...heading([355, 338, 1237, 93], "We need new positive visions"),
         ...TYPE.listTitle,
       },
       {
@@ -382,8 +379,8 @@ export const uneditedDeck: Slide[] = [
           style: "ordered",
           items: [
             [{ text: "new software" }],
-            [{ text: "new machines" }],
-            [{ text: "new internets" }],
+            [{ text: "new devices" }],
+            [{ text: "new networks" }],
           ],
         },
       },
@@ -431,7 +428,12 @@ export const uneditedDeck: Slide[] = [
       img("2086-775", [1423, 128, 497, 824]),
       img("2086-776", [-1, 128, 479, 824]),
       img("2086-777", [1440, 128, 480, 824]),
-      { kind: "block", box: [0, 0, 1920, 1080], color: "rgba(246, 243, 235, 0.8)", build: 1 },
+      {
+        kind: "block",
+        box: [0, 0, 1920, 1080],
+        color: "rgba(246, 243, 235, 0.8)",
+        build: 1,
+      },
       {
         ...heading(
           [356, 395, 1207, 290],
@@ -610,39 +612,6 @@ export const uneditedDeck: Slide[] = [
     ],
   },
   {
-    figmaId: "2096:87",
-    // Slide 13's three lines again, each answered by a project from the talk,
-    // one per press.
-    layers: [
-      byline,
-      ...(
-        [
-          ["new software", "playhtml.fun", ["student-teletext", "student-trash", "student-cyberspace"]],
-          ["new machines", "shrine.computer", ["30-85", "27-66", "30-89"]],
-          ["new internets", "wewere.online", ["36-201", "wikipedia-patina", "2075-619"]],
-        ] as const
-      ).flatMap(([line, site, pictures], i): Layer[] => {
-        const y = 70 + i * 325;
-        return [
-          { ...heading([110, y + 70, 620, 83], line), ...TYPE.listTitle, build: i + 1 },
-          {
-            kind: "text",
-            box: [110, y + 160, 620, 52],
-            ...TYPE.small,
-            runs: [{ text: `→ ${site}`, color: LINK, href: `https://${site}` }],
-            build: i + 1,
-          },
-          ...pictures.map(
-            (name, k): Layer => ({
-              ...img(name, [760 + k * 360, y, 340, 290], { radius: 8, cover: true }),
-              build: i + 1,
-            }),
-          ),
-        ];
-      }),
-    ],
-  },
-  {
     figmaId: "2075:608",
     // The rules, each with examples from the talk, one rule per press.
     layers: [
@@ -682,13 +651,53 @@ export const uneditedDeck: Slide[] = [
     ],
   },
   {
-    figmaId: "2002:212",
-    // Everything the room made tonight, over the title and a faded scribble.
-    roomMarks: true,
+    figmaId: "2096:87",
+    // Slide 13's three lines again, each answered by a project from the talk,
+    // one per press. The ending: m draws everything the room made over it
+    // and every phone shows its own keepsake card.
+    live: "card",
     layers: [
-      heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" }),
-      { kind: "scribble", opacity: 0.2 },
       byline,
+      ...(
+        [
+          [
+            "new software",
+            "playhtml.fun",
+            ["student-teletext", "student-trash", "student-cyberspace"],
+          ],
+          ["new devices", "shrine.computer", ["30-85", "27-66", "30-89"]],
+          [
+            "new networks",
+            "wewere.online",
+            ["36-201", "wikipedia-patina", "2075-619"],
+          ],
+        ] as const
+      ).flatMap(([line, site, pictures], i): Layer[] => {
+        const y = 70 + i * 325;
+        return [
+          {
+            ...heading([110, y + 70, 620, 83], line),
+            ...TYPE.listTitle,
+            build: i + 1,
+          },
+          {
+            kind: "text",
+            box: [110, y + 160, 620, 52],
+            ...TYPE.small,
+            runs: [{ text: `→ ${site}`, color: LINK, href: `https://${site}` }],
+            build: i + 1,
+          },
+          ...pictures.map(
+            (name, k): Layer => ({
+              ...img(name, [760 + k * 360, y, 340, 290], {
+                radius: 8,
+                cover: true,
+              }),
+              build: i + 1,
+            }),
+          ),
+        ];
+      }),
     ],
   },
   {

@@ -228,16 +228,7 @@ you can see other cursors on the same page, click to follow a stranger down diff
 
 **[next: close-up]** and watch the links grow patina with the cursor colors of everyone who has traveled through. Patina of people.
 
-## 33 · new software, new machines, new internets
-<!-- 2096:87 -->
-
-**[one row per press: new software → playhtml · new machines → shrines · new internets → we were online]**
-
-alt websites, new devices, new networks.
-
-I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
-
-## 34 · rules of play
+## 33 · rules of play
 <!-- 2075:608 -->
 
 **[one rule per press]**
@@ -250,16 +241,23 @@ They made seeds rather than products so that people were empowered to begin and 
 
 And they programmed for surprise so that every encounter could be different and a space for the human error to spill over
 
-## 35 · Play Together
-<!-- 2002:212 -->
+## 34 · new software, new devices, new networks
+<!-- 2096:87 -->
 
-**[everyone's loops, marks and wishes fill the slide · every phone shows its own card to save]**
+**[one row per press: new software → playhtml · new devices → shrines · new networks → we were online]**
+
+new software, new devices, new networks
+
+My hope is that this encourages others to make their own 
+I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
+
+**[m: everyone's loops, marks and wishes fill the slide · every phone shows its own card to save]**
 
 Ultimately, I think im invested in creating the conditions that allow for change to happen at every level of our technology. Projects, spaces, and ways of interacting that grow beyond myself to create millions of interfaces, devices, and internets, each with their own personalities and niches.
 
 put together, our energy can create new systems, reimagine our relationships with & through technology, and create these cycles of play over and over and over so that if you squint they might just look infinite.
 
-## 36 · Thank you :)
+## 35 · Thank you :)
 <!-- 2094:36 -->
 
 All of these projects are out in the world and driven by the community, so if any of these interested you, please explore and reach out to help me make new interfaces, devices, and internets.

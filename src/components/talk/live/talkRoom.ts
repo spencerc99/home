@@ -74,7 +74,7 @@ export const MOMENT_NAMES: Record<LiveMoment, string> = {
   seat: "take a seat",
   fridge: "drag fridge words",
   wish: "send wishes",
-  card: "keep their card",
+  card: "show everyone's marks",
 };
 
 export type StagePresence = {
