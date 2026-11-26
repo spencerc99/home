@@ -27,19 +27,22 @@ export type MediaMode = "play" | "pause" | "ready" | "still";
 function Runs({ runs }: { runs: TextRun[] }) {
   return (
     <>
-      {runs.map((run, i) => (
-        <span
-          key={i}
-          className={run.shifting ? "talk-shifting" : undefined}
-          style={{
-            color: run.color,
-            fontWeight: run.bold ? 700 : undefined,
-            textDecoration: run.underline ? "underline" : undefined,
-          }}
-        >
-          {run.text}
-        </span>
-      ))}
+      {runs.map((run, i) => {
+        const style = {
+          color: run.color,
+          fontWeight: run.bold ? 700 : undefined,
+          textDecoration: run.underline ? "underline" : "none",
+        };
+        return run.href ? (
+          <a key={i} href={run.href} target="_blank" rel="noopener" className="talk-slide-link" style={style}>
+            {run.text}
+          </a>
+        ) : (
+          <span key={i} className={run.shifting ? "talk-shifting" : undefined} style={style}>
+            {run.text}
+          </span>
+        );
+      })}
     </>
   );
 }
@@ -218,7 +221,17 @@ function SlideLayer({ layer, mode, active }: { layer: Layer; mode: MediaMode; ac
           }}
         >
           <span style={{ color: "#000" }}>{layer.title}</span>
-          {layer.link && <span style={{ color: "#007fd9" }}>{layer.link}</span>}
+          {layer.link && (
+            <a
+              href={`https://${layer.link}`}
+              target="_blank"
+              rel="noopener"
+              className="talk-slide-link"
+              style={{ color: "#007fd9", textDecoration: "none" }}
+            >
+              {layer.link}
+            </a>
+          )}
         </div>
       );
     case "scribble":

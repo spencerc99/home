@@ -21,7 +21,7 @@ export type DeckEditor = ReturnType<typeof useDeckEditor>;
 /** The edit mode's state. `allowed` is false outside the dev server, and then nothing here runs. */
 export function useDeckEditor(allowed: boolean) {
   const [editing, setEditing] = useState(() => allowed && savedEditing());
-  const [edits, setEdits] = useState<DeckEdits>(savedEdits as DeckEdits);
+  const [edits, setEdits] = useState<DeckEdits>(savedEdits as unknown as DeckEdits);
   const [selected, setSelected] = useState<number | null>(null);
   const [saving, setSaving] = useState<"saved" | "saving" | { failed: string }>("saved");
   const history = useRef<DeckEdits[]>([]);

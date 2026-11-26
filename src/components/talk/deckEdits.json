@@ -1,1 +1,85 @@
-{}
+{
+  "2176:38": {
+    "0": {
+      "kind": "text",
+      "box": [
+        355,
+        338,
+        1237,
+        93
+      ],
+      "texts": [
+        "We need different positive visions"
+      ],
+      "size": 72
+    },
+    "1": {
+      "kind": "text",
+      "box": [
+        355,
+        430,
+        1207,
+        220
+      ]
+    }
+  },
+  "2075:608": {
+    "3": {
+      "kind": "text",
+      "box": [
+        110,
+        194,
+        550,
+        80
+      ],
+      "size": 50,
+      "texts": [
+        "inhabit > use"
+      ]
+    },
+    "4": {
+      "kind": "image",
+      "box": [
+        109,
+        360,
+        550,
+        330
+      ]
+    },
+    "7": {
+      "kind": "text",
+      "box": [
+        700,
+        194,
+        550,
+        80
+      ],
+      "texts": [
+        "seeds > products"
+      ],
+      "size": 50
+    },
+    "8": {
+      "kind": "image",
+      "box": [
+        700,
+        360,
+        550,
+        330
+      ]
+    },
+    "11": {
+      "kind": "text",
+      "texts": [
+        "program for surprise"
+      ],
+      "size": 50,
+      "box": [
+        1289,
+        194,
+        550,
+        80
+      ]
+    }
+  }
+}

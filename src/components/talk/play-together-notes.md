@@ -42,7 +42,7 @@ But when we look closer, a lot of them turn out to be closed loops It seems infi
 ## 6 · So can we realize the original…
 <!-- 2002:158 -->
 
-**[phones: draw loops over the circle]**
+**[m: phones draw loops over the circle]**
 
 So can we realize the original promise of perpetual energy? I think I've found that the energy I care about comes in these very human, unoptimized, error-full forms. Rather than a perfect closed circle, I'm interested in a continuing spiral — the kind that requires people to play off each other and shows the life of everyone who has contributed.
 Perpetual Play takes the idea of the perpetual motion machine but brings it to a human scale. Rather than something we have to optimize and capture, it can be something free and light. The way we play together, generate new possibilities, turn one encounter into one that changes the course of lives, is a kind of power that cannot be measured. We have so much capability to change the world that we don't recognize, and it all starts from giving ourselves **the permission to play with one another**, and being open to what possibilities can emerge.
@@ -56,7 +56,7 @@ i grew up on the internet, watching him play video games I soon got into myself.
 ## 8 · People give meaning to technology
 <!-- 2059:441 -->
 
-**[next: second line and ??? · phones send wishes · h hides a bad one]**
+**[next: second line and ??? · m: phones send wishes · h hides a bad one]**
 
 i think this helped form this fundamental belief that underlies all my work
 
@@ -86,17 +86,22 @@ I think the problem is that **the internet has no benches.** It's not like a pub
 ## 12 · There's no in-between. There's no place…
 <!-- 2075:702 -->
 
-**[phones: take a seat · each press brings in another place to sit]**
+**[m: phones take a seat · each press brings in another place to sit]**
 
 There's no in-between. There's no place to just sit and watch.
 What would it feel like to have a website that felt like a home? a long communal table? a canal? a playground?
 
 What would that internet feel like?
 
-## 13 · i think this helped form this…
+## 13 · New positive visions
 <!-- 2176:38 -->
 
-i think this helped form this fundamental belief that underlies all my work
+We need to ask questions like this to offer new positive visions for how things could be different. 
+
+We can turn our wishes for what technology should feel like into 
+1. new software, websites, and apps
+2. new devices and machines and hardware
+3. and new internets (networks)
 
 **i think technology is meaningless without people!** we give the meaning to all these things — they help us live life easier, connect to each other, create amazing things. it's all for us.
 so what do we want to do with it? and how can it actually help rather than harm us?
@@ -109,7 +114,7 @@ playhtml is an open source tool I created in 2023 for bridging the gap between e
 ## 15 · poems we found on the internet
 <!-- 36:224 -->
 
-**[next: the shared fridge door · phones drag words]**
+**[m: phones drag words · next: the shared fridge door]**
 
 One of the earliest games I made with it: poems we found on the internet, a huge fridge poetry game. **Every color represents a different person** — you can feel how many people contributed to this place. It started as a single set of words and evolved into this living, growing thing that's completely different. Proof of life.
 
@@ -241,7 +246,7 @@ I want the entire internet to feel like a space with benches - bringing this eth
 ## 36 · rules of play
 <!-- 2075:608 -->
 
-**[one rule per press · after the third, phones send rules · h hides a bad one]**
+**[one rule per press · then m: phones send rules · h hides a bad one]**
 
 these projects all found their way to cycles of play from different angles — creating spaces for life to accumulate and energy to continue.
 

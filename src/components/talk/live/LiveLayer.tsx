@@ -390,9 +390,9 @@ export function LiveLayer({
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
     if (!ready) return;
-    const value: StagePresence | null = presenting ? { slide, build, moment, joinOpen } : null;
+    const value: StagePresence | null = presenting ? { slide, build, moment, joinOpen: joinOpen || joinShown } : null;
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, build, moment, joinOpen]);
+  }, [ready, presenting, slide, build, moment, joinOpen, joinShown]);
 
   const here = useMemo(() => [...audience.values()], [audience]);
   // The join slide, or the join card shown over any slide with `j` for

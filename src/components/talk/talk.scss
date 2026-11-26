@@ -51,6 +51,22 @@ html.talk-page body {
   transform-origin: center;
 }
 
+// m: the phones' turn on this slide, ready or running.
+.talk-chrome__phones,
+.talk-notes__phones {
+  font-family: "Sono", ui-monospace, monospace;
+
+  &[aria-pressed="true"] {
+    background: #e5f7e9 !important;
+    border-color: #2f9e55 !important;
+    color: #14612e;
+  }
+}
+
+.talk-notes__phones:not([aria-pressed="true"]) {
+  border-color: hsl(33, 100%, 46%) !important;
+}
+
 // The shortcut sheet (/ on the stage).
 .talk-help {
   position: fixed;
@@ -656,7 +672,18 @@ html.talk-page body {
   color: rgb(97 110 129);
 }
 
+// Links on a slide open in a new tab from the stage. Thumbnails (the notes
+// window, the overview) only show them.
+.talk-slide-link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
 .talk-thumb {
+  pointer-events: none;
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;

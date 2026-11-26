@@ -66,13 +66,23 @@ export const AUDIENCE_CHANNEL = "talk-audience";
 /** Each phone's cursor on the benches slide, and the seat it sits on. */
 export const SEAT_CHANNEL = "talk-seat";
 
-export type LiveMoment = "join" | "circle" | "seat" | "fridge" | "wish" | "rule";
+export type LiveMoment = "circle" | "seat" | "fridge" | "wish" | "rule";
+
+/** What the phones do in each moment, for the presenter's labels. */
+export const MOMENT_NAMES: Record<LiveMoment, string> = {
+  circle: "draw loops",
+  seat: "take a seat",
+  fridge: "drag fridge words",
+  wish: "send wishes",
+  rule: "send rules",
+};
 
 export type StagePresence = {
   slide: number;
   // How many of the slide's builds are showing, so phones know which seats exist.
   build: number;
   moment: LiveMoment | null;
+  // The join card is up (slide 2's build, or j), so phones offer the touch pad.
   joinOpen: boolean;
 };
 

@@ -166,6 +166,13 @@
 - Live audience: patina, take a seat, fridge, finale, keepsake card. Load
   testing with a full room.
 
+## Starting the phones' turns (2026-11-26)
+
+- Each phone moment (circle, seat, fridge, wish, rule) starts when the
+  presenter presses `m`, on the stage or in the notes window, and stops on `m`
+  again or on leaving the slide. Joining on slide 2 needs no `m`: phones
+  offer the touch pad whenever the join card is up. `/` shows every key.
+
 ## Wishes and rules (2026-11-25)
 
 - Slide 8: once the ??? is up (press 1), phones ask "What else could computers

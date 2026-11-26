@@ -16,18 +16,19 @@ const GROUPS: { title: string; keys: [string, string][] }[] = [
     keys: [
       ["l", "go live: phones follow this screen (first time: every phone flashes)"],
       ["j", "join card over any slide, for latecomers"],
+      ["m", "start or stop the phones' turn on this slide"],
       ["h", "hide the newest wish or rule"],
     ],
   },
   {
-    title: "Phones join in on their own",
+    title: "The phones' turns (press m)",
     keys: [
-      ["slide 2, next", "join card"],
+      ["slide 2, next", "join card (no m needed)"],
       ["slide 6", "draw loops"],
-      ["slide 8, next", "send wishes"],
+      ["slide 8", "send wishes"],
       ["slide 12", "take a seat"],
       ["slides 14–15", "drag fridge words"],
-      ["slide 36, 3rd rule", "send rules"],
+      ["slide 36", "send rules"],
     ],
   },
   {

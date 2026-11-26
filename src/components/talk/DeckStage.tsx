@@ -16,7 +16,7 @@ import { EditOverlay, EditPanel } from "./DeckEditor";
 import { useDeckEditor } from "./useDeckEditor";
 import { LiveBoundary } from "./live/LiveBoundary";
 import { LiveLayer } from "./live/LiveLayer";
-import { joinTalkRoom } from "./live/talkRoom";
+import { MOMENT_NAMES, joinTalkRoom } from "./live/talkRoom";
 import "./talk.scss";
 
 const LAST = deck.length - 1;
@@ -96,6 +96,9 @@ export function DeckStage() {
   const [typed, setTyped] = useState("");
   const [overview, setOverview] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  // The current slide's phone moment, started and stopped with m. A new slide
+  // always starts with it off.
+  const [phonesOn, setPhonesOn] = useState(false);
   // Live audience: the room connects in the background and the deck never
   // waits on it. Phones only follow this stage once `presenting` is on (l).
   const [roomReady, setRoomReady] = useState(false);
@@ -152,16 +155,20 @@ export function DeckStage() {
     if (message.type === "goto") goto(message.index);
     if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
-    if (message.type === "hello") send({ type: "state", state: { index, playing } });
+    if (message.type === "toggle-phones" && deck[index].live) setPhonesOn((on) => !on);
+    if (message.type === "hello") send({ type: "state", state: { index, playing, phones: phonesOn } });
   });
 
   useEffect(() => {
     writeSlideToHash(index);
     rememberSlide(index);
-    send({ type: "state", state: { index, playing } });
+    send({ type: "state", state: { index, playing, phones: phonesOn } });
     // send is rebuilt every render; only a state change should broadcast.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, playing]);
+  }, [index, playing, phonesOn]);
+
+  // Leaving a slide ends its phone moment.
+  useEffect(() => setPhonesOn(false), [index]);
 
   // Coming back to the tab (browser back, or a hash typed in the address bar).
   useEffect(() => {
@@ -256,6 +263,7 @@ export function DeckStage() {
       else if (key === "g") setOverview(true);
       else if (key === "e") toggleEditing();
       else if (key === "h") setHideRequests((n) => n + 1);
+      else if (key === "m" && deck[index].live) setPhonesOn((on) => !on);
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -277,8 +285,8 @@ export function DeckStage() {
     selectLayer(null);
   }, [index, selectLayer]);
 
-  // The slide's live moment, once its press has come.
-  const moment = deck[index].live && build >= (deck[index].liveAt ?? 0) ? deck[index].live : null;
+  // The slide's phone moment, once the presenter has started it with m.
+  const moment = phonesOn ? deck[index].live ?? null : null;
   // Each press of h hides the newest wish or rule on the big screen.
   const [hideRequests, setHideRequests] = useState(0);
 
@@ -355,6 +363,17 @@ export function DeckStage() {
         <button type="button" onClick={() => step(1)} aria-label="Next slide">
           →
         </button>
+        {deck[index].live && (
+          <button
+            type="button"
+            className="talk-chrome__phones"
+            aria-pressed={phonesOn}
+            onClick={() => setPhonesOn((on) => !on)}
+            title="Start or stop the phones' turn on this slide (m)"
+          >
+            {phonesOn ? `phones: ${MOMENT_NAMES[deck[index].live]} · m stops` : `m: ${MOMENT_NAMES[deck[index].live]}`}
+          </button>
+        )}
         {hasVideo && (
           <button type="button" onClick={() => setPlaying((p) => !p)} aria-label={playing ? "Pause video" : "Play video"}>
             {playing ? "❙❙" : "▸"}

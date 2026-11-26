@@ -238,6 +238,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
 // 4. The circle slide: everyone draws two loops at the same time.
 {
   await goto(SLIDE.circle);
+  await stage.keyboard.press("m");
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__draw").isVisible(), 15000)));
   const before = sumIn();
   const started = Date.now();
@@ -274,6 +275,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
 {
   await goto(SLIDE.seat);
   for (let b = 0; b < 4; b++) await stage.keyboard.press("ArrowRight");
+  await stage.keyboard.press("m");
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__trackpad").isVisible(), 15000)));
   const rate = fps(4000);
   let maxCursors = 0;
@@ -298,6 +300,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
 {
   await goto(SLIDE.fridgeDoor);
   await stage.keyboard.press("ArrowRight");
+  await stage.keyboard.press("m");
   const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".talk-fridge__word").first().isVisible(), 15000)));
   const rate = fps(4000);
   await Promise.all(
@@ -351,6 +354,7 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
   const stillWorking = await Promise.all(dropped.map((p) => inRoom(p)));
   // Back phones can draw again: switch to the circle slide and have one draw.
   await goto(SLIDE.circle);
+  await stage.keyboard.press("m");
   const drawn = await until(() => dropped[0].page.locator(".phone__draw").isVisible(), 15000);
   let loopArrived = null;
   if (drawn !== null) {

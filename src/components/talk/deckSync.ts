@@ -4,13 +4,15 @@
 
 import { useEffect, useRef } from "react";
 
-export type DeckState = { index: number; playing: boolean };
+// `phones`: the slide's phone moment is on (the presenter pressed m).
+export type DeckState = { index: number; playing: boolean; phones: boolean };
 
 export type DeckMessage =
   | { type: "state"; state: DeckState }
   | { type: "goto"; index: number }
   | { type: "step"; by: 1 | -1 }
   | { type: "set-playing"; playing: boolean }
+  | { type: "toggle-phones" }
   | { type: "hello" };
 
 const CHANNEL = "talk:perpetual-play";

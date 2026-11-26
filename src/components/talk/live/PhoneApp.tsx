@@ -755,7 +755,7 @@ function Phone() {
     screen = <FridgePad color={color} />;
   } else if (moment === "wish" || moment === "rule") {
     screen = <AnswerPad key={moment} kind={moment} color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
-  } else if (!stage || stage.joinOpen || moment === "join") {
+  } else if (!stage || stage.joinOpen) {
     screen = (
       <div className="phone__screen">
         <TouchPad color={color} onTouch={touch}>

@@ -5,6 +5,7 @@ import notesSource from "./play-together-notes.md?raw";
 import { parseSpeakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
+import { MOMENT_NAMES } from "./live/talkRoom";
 import "./talk.scss";
 
 const speakerNotes = parseSpeakerNotes(notesSource);
@@ -131,6 +132,8 @@ export function DeckNotes() {
       } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
         event.preventDefault();
         send({ type: "step", by: -1 });
+      } else if (event.key === "m") {
+        send({ type: "toggle-phones" });
       } else if ((event.key === "k" || event.key === "p") && state) {
         send({ type: "set-playing", playing: !state.playing });
       } else if (event.key === "s") {
@@ -163,6 +166,17 @@ export function DeckNotes() {
           {state.index + 1} / {deck.length}
         </span>
         <span className="talk-notes__clock">{time}</span>
+        {slide.live && (
+          <button
+            type="button"
+            className="talk-notes__phones"
+            aria-pressed={state.phones}
+            onClick={() => send({ type: "toggle-phones" })}
+            title="Start or stop the phones' turn (m)"
+          >
+            {state.phones ? `phones: ${MOMENT_NAMES[slide.live]} · m stops` : `m: start ${MOMENT_NAMES[slide.live]}`}
+          </button>
+        )}
         <span className="talk-notes__tools">
           <button type="button" aria-pressed={!slidesShown} title="Show or hide the slide pictures (s)" onClick={toggleSlides}>
             {slidesShown ? "hide slides" : "show slides"}
