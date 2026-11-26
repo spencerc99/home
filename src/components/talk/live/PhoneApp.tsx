@@ -18,6 +18,7 @@ import {
   joinTalkRoom,
   circleLoops,
   playhtml,
+  talkEvent,
   throttle,
   type AudiencePresence,
   type Fridge,
@@ -65,6 +66,64 @@ function savedColor(): string | null {
   } catch {
     return null;
   }
+}
+
+// What this tab has seen of the talk, kept for the tab's life, so a reload
+// (see useFreshAfterSleep) picks up where the phone left off.
+const sessionKey = (name: string) => `talk:${talkEvent()}:${name}`;
+
+function readSession<T>(name: string, fallback: T): T {
+  try {
+    const raw = sessionStorage.getItem(sessionKey(name));
+    return raw === null ? fallback : (JSON.parse(raw) as T);
+  } catch {
+    return fallback;
+  }
+}
+
+function writeSession(name: string, value: unknown) {
+  try {
+    sessionStorage.setItem(sessionKey(name), JSON.stringify(value));
+  } catch (error) {
+    console.warn("[talk] could not keep this tab's progress", error);
+  }
+}
+
+/**
+ * How long a phone can be locked or put away before it reloads on coming
+ * back. After a long sleep its connection may be dead without the browser
+ * noticing (a phone that hopped from venue wifi to cellular while locked),
+ * and playhtml has no heartbeat to catch that, so the phone would sit on an
+ * old slide. A reload reconnects in a second or two. Quick glances at another
+ * app stay under this and keep the page as it is.
+ */
+const WAKE_RELOAD_AFTER_MS = 30_000;
+
+function useFreshAfterSleep(on: boolean) {
+  useEffect(() => {
+    if (!on) return;
+    let hiddenAt: number | null =
+      document.visibilityState === "hidden" ? Date.now() : null;
+    // Reloading with no network shows the browser's error page, so a phone
+    // that wakes offline waits for the network first.
+    const onOnline = () => location.reload();
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") {
+        hiddenAt ??= Date.now();
+        return;
+      }
+      const away = hiddenAt === null ? 0 : Date.now() - hiddenAt;
+      hiddenAt = null;
+      if (away < WAKE_RELOAD_AFTER_MS) return;
+      if (navigator.onLine) location.reload();
+      else window.addEventListener("online", onOnline, { once: true });
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("online", onOnline);
+    };
+  }, [on]);
 }
 
 /** Keeps the screen awake while the talk runs; phones lock in the quiet parts. */
@@ -690,8 +749,22 @@ function AnswerPad({
   color: string;
   pid: string;
 }) {
-  const [text, setText] = useState("");
-  const [sent, setSent] = useState<string[]>([]);
+  const [text, setTextNow] = useState(() =>
+    readSession(`draft:${kind}`, ""),
+  );
+  const setText = (value: string) => {
+    setTextNow(value);
+    writeSession(`draft:${kind}`, value);
+  };
+  const [sent, setSentNow] = useState<string[]>(() =>
+    readSession(`sent:${kind}`, []),
+  );
+  const setSent = (update: (list: string[]) => string[]) =>
+    setSentNow((list) => {
+      const next = update(list);
+      writeSession(`sent:${kind}`, next);
+      return next;
+    });
   const [waiting, setWaiting] = useState(false);
   const ask = ASK[kind];
   const send = () => {
@@ -817,9 +890,13 @@ function Phone() {
     n: number;
     done?: true;
   } | null>(null);
-  const [started, setStarted] = useState(false);
+  // Both are kept across a reload: the welcome flash plays once a talk, and
+  // the card stays once the finale has come.
+  const [started, setStarted] = useState(() => readSession("started", false));
   // Once the finale has come, the phone keeps the card, even after the talk.
-  const [cardSeen, setCardSeen] = useState(false);
+  const [cardSeen, setCardSeen] = useState(() =>
+    readSession("card-seen", false),
+  );
   // The answers the presenter hid, as last heard from the stage.
   const [hiddenAnswers, setHiddenAnswers] = useState<ReadonlySet<string>>(
     new Set(),
@@ -829,6 +906,7 @@ function Phone() {
     new URLSearchParams(location.search).has("debug"),
   );
   useWakeLock(step === "room");
+  useFreshAfterSleep(step === "room");
 
   useEffect(() => {
     joinTalkRoom().then(
@@ -868,7 +946,9 @@ function Phone() {
   // learns it before the first turn.
   const moment = stage?.moment ?? null;
   useEffect(() => {
-    if (moment === "card") setCardSeen(true);
+    if (moment !== "card") return;
+    setCardSeen(true);
+    writeSession("card-seen", true);
   }, [moment]);
   // Compared as JSON, so a new list from the stage is noticed whatever the keys hold.
   const hiddenList = stage ? JSON.stringify(stage.hidden) : null;
@@ -878,13 +958,16 @@ function Phone() {
   }, [hiddenList]);
   const live = stage !== null;
   const lastMoment = useRef(moment);
-  const startedRef = useRef(false);
+  // A phone reloaded mid-talk has had its welcome; it gets a turn flash for
+  // whatever moment is up instead.
+  const startedRef = useRef(started);
   useEffect(() => {
     const before = lastMoment.current;
     lastMoment.current = moment;
     if (live && !startedRef.current) {
       startedRef.current = true;
       setStarted(true);
+      writeSession("started", true);
       setFlash((f) => ({ kind: "hello", n: (f?.n ?? 0) + 1 }));
     } else if (moment && moment !== before) {
       setFlash((f) => ({ kind: "turn", n: (f?.n ?? 0) + 1 }));
