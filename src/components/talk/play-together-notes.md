@@ -231,7 +231,7 @@ you can see other cursors on the same page, click to follow a stranger down diff
 
 **[next: close-up]** and watch the links grow patina with the cursor colors of everyone who has traveled through. Patina of people.
 
-## 34 · we were online
+## 34 · new software, new machines, new internets
 <!-- 2096:87 -->
 
 **[one row per press: new software → playhtml · new machines → shrines · new internets → we were online]**
