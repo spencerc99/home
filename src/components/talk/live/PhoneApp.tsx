@@ -240,6 +240,8 @@ function TouchPad({
   children?: React.ReactNode;
 }) {
   const [finger, setFinger] = useState<{ x: number; y: number } | null>(null);
+  // Where the finger last was, so the glow can fade there after it lifts.
+  const [mark, setMark] = useState<{ x: number; y: number } | null>(null);
   // When the pad goes away under a finger (the join slide giving way to the
   // next), the touch is lifted so its glow does not stay on the big screen.
   const latestOnTouch = useRef(onTouch);
@@ -263,6 +265,7 @@ function TouchPad({
         capture(event);
         const p = place(event);
         setFinger(p);
+        setMark(p);
         onTouch(p);
       }}
       onPointerMove={(event) => {
@@ -271,16 +274,18 @@ function TouchPad({
         // A held finger trembles; only real moves go out to the room.
         if (Math.hypot(p.x - finger.x, p.y - finger.y) < 0.02) return;
         setFinger(p);
+        setMark(p);
         onTouch(p);
       }}
       onPointerUp={lift}
       onPointerCancel={lift}
     >
       {children}
-      {finger && (
+      {mark && (
         <span
           className="phone__glow"
-          style={{ left: `${finger.x * 100}%`, top: `${finger.y * 100}%`, ["--glow" as string]: color }}
+          data-lifted={finger ? undefined : true}
+          style={{ left: `${mark.x * 100}%`, top: `${mark.y * 100}%`, ["--glow" as string]: color }}
         />
       )}
     </div>

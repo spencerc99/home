@@ -211,18 +211,47 @@ function useLoops(ready: boolean, on: boolean) {
   return loops;
 }
 
+type Mark = { x: number; y: number; color: string };
+/** How long a lifted finger takes to fade (talk-glow-out in talk.scss). */
+const GLOW_FADE_MS = 650;
+
 function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
+  // Fingers that just lifted, kept a moment so they fade where they were.
+  const [lifted, setLifted] = useState<Map<string, Mark>>(new Map());
+  const down = useRef(new Map<string, Mark>());
+  useEffect(() => {
+    const now = new Map<string, Mark>();
+    for (const [id, person] of audience) {
+      if (person.touch) now.set(id, { x: person.touch.x, y: person.touch.y, color: person.color });
+    }
+    const gone = [...down.current].filter(([id]) => !now.has(id));
+    down.current = now;
+    if (gone.length === 0) return;
+    setLifted((marks) => new Map([...marks, ...gone]));
+    // Not cleared on the next change: every lifted mark must leave on time.
+    setTimeout(() => {
+      setLifted((marks) => {
+        const next = new Map(marks);
+        for (const [id] of gone) next.delete(id);
+        return next;
+      });
+    }, GLOW_FADE_MS);
+  }, [audience]);
+
+  const glow = (key: string, mark: Mark, fading: boolean) => (
+    <span
+      key={key}
+      className="talk-live__glow"
+      data-lifted={fading || undefined}
+      style={{ left: mark.x * W, top: mark.y * H, ["--glow" as string]: mark.color }}
+    />
+  );
   return (
     <>
       {[...audience].map(([id, person]) =>
-        person.touch ? (
-          <span
-            key={id}
-            className="talk-live__glow"
-            style={{ left: person.touch.x * W, top: person.touch.y * H, ["--glow" as string]: person.color }}
-          />
-        ) : null,
+        person.touch ? glow(id, { x: person.touch.x, y: person.touch.y, color: person.color }, false) : null,
       )}
+      {[...lifted].map(([id, mark]) => (audience.get(id)?.touch ? null : glow(`${id}:lifted`, mark, true)))}
     </>
   );
 }
