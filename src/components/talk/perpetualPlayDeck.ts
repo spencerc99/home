@@ -81,7 +81,7 @@ export type Slide = {
   figmaId: string;
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
-  live?: "join" | "circle" | "seat" | "fridge" | "wish" | "rule" | "patina" | "finale";
+  live?: "join" | "circle" | "seat" | "fridge" | "wish" | "rule";
   // The build where the live moment starts; before it the slide is just a slide.
   liveAt?: number;
   // The fridge slide where the big screen draws the shared fridge door, on
@@ -307,6 +307,7 @@ export const uneditedDeck: Slide[] = [
       // art:research/playhtml/01-hero-cursors.mp4 (1440x900, so it sits
       // whole on the slide with a little paper either side).
       vid("playhtml-hero-cursors", [96, 0, 1728, 1080]),
+      label("playhtml", "playhtml.fun"),
     ],
   },
   {
@@ -333,7 +334,6 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2086:769",
-    live: "patina",
     layers: [
       byline,
       {
@@ -490,7 +490,6 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2002:212",
-    live: "finale",
     layers: [heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" }), { kind: "scribble" }, byline],
   },
   {

@@ -12,6 +12,8 @@ hi im spencer and im an artist and technologist and this is my website.
 ## 2 · software you can touch
 <!-- 1:193 -->
 
+**[next: join card over the slide · once the count is up, l to go live: every phone flashes]**
+
 I like to say I make software you can touch. From software spaces and tools, to sculptures and devices, I care about tangible forms of technology that invite you to interact with and feel them. I think these feel closer to life and make it feel like you can actually shape and change it yourself.
 
 (draft, rewrite in your words) Take out your phone: scan the code, or go to **spencer.place/talk**. Pick a color. Touch your screen and you show up here.
@@ -40,6 +42,8 @@ But when we look closer, a lot of them turn out to be closed loops It seems infi
 ## 6 · So can we realize the original…
 <!-- 2002:158 -->
 
+**[phones: draw loops over the circle]**
+
 So can we realize the original promise of perpetual energy? I think I've found that the energy I care about comes in these very human, unoptimized, error-full forms. Rather than a perfect closed circle, I'm interested in a continuing spiral — the kind that requires people to play off each other and shows the life of everyone who has contributed.
 Perpetual Play takes the idea of the perpetual motion machine but brings it to a human scale. Rather than something we have to optimize and capture, it can be something free and light. The way we play together, generate new possibilities, turn one encounter into one that changes the course of lives, is a kind of power that cannot be measured. We have so much capability to change the world that we don't recognize, and it all starts from giving ourselves **the permission to play with one another**, and being open to what possibilities can emerge.
 
@@ -51,6 +55,8 @@ i grew up on the internet, watching him play video games I soon got into myself.
 
 ## 8 · People give meaning to technology
 <!-- 2059:441 -->
+
+**[next: second line and ??? · phones send wishes · h hides a bad one]**
 
 i think this helped form this fundamental belief that underlies all my work
 
@@ -80,6 +86,8 @@ I think the problem is that **the internet has no benches.** It's not like a pub
 ## 12 · There's no in-between. There's no place…
 <!-- 2075:702 -->
 
+**[phones: take a seat · each press brings in another place to sit]**
+
 There's no in-between. There's no place to just sit and watch.
 What would it feel like to have a website that felt like a home? a long communal table? a canal? a playground?
 
@@ -100,6 +108,8 @@ playhtml is an open source tool I created in 2023 for bridging the gap between e
 
 ## 15 · poems we found on the internet
 <!-- 36:224 -->
+
+**[next: the shared fridge door · phones drag words]**
 
 One of the earliest games I made with it: poems we found on the internet, a huge fridge poetry game. **Every color represents a different person** — you can feel how many people contributed to this place. It started as a single set of words and evolved into this living, growing thing that's completely different. Proof of life.
 
@@ -230,6 +240,8 @@ I want the entire internet to feel like a space with benches - bringing this eth
 
 ## 36 · rules of play
 <!-- 2075:608 -->
+
+**[one rule per press · after the third, phones send rules · h hides a bad one]**
 
 these projects all found their way to cycles of play from different angles — creating spaces for life to accumulate and energy to continue.
 
