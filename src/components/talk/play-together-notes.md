@@ -241,7 +241,7 @@ I want the entire internet to feel like a space with benches - bringing this eth
 ## 35 · rules of play
 <!-- 2075:608 -->
 
-**[one rule per press · then m: phones send rules · h hides a bad one]**
+**[one rule per press]**
 
 these projects all found their way to cycles of play from different angles — creating spaces for life to accumulate and energy to continue.
 
@@ -253,6 +253,8 @@ And they programmed for surprise so that every encounter could be different and 
 
 ## 36 · Play Together
 <!-- 2002:212 -->
+
+**[everyone's loops, marks and wishes fill the slide · every phone shows its own card to save]**
 
 Ultimately, I think im invested in creating the conditions that allow for change to happen at every level of our technology. Projects, spaces, and ways of interacting that grow beyond myself to create millions of interfaces, devices, and internets, each with their own personalities and niches.
 

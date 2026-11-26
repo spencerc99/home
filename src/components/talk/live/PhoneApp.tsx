@@ -27,6 +27,7 @@ import {
 import { parseAudience, parseFridge, parseSeat, parseStage } from "./roomData";
 import { SEATS, seatNear } from "./seats";
 import { FridgeDoor } from "./FridgeDoor";
+import { KeepsakeCard } from "./KeepsakeCard";
 import "./phone.scss";
 
 // What a phone shows: the door, the colour pick, then whatever the stage is
@@ -53,6 +54,8 @@ const SEND_EVERY_MS = 100;
 const MIN_LOOP_POINTS = 8;
 const MAX_LOOP_POINTS = 300;
 const MAX_LOOPS_EACH = 40;
+/** The most points the drawing pad shows of the gesture under the finger. */
+const MAX_PAD_POINTS = 600;
 
 type Step = "door" | "pick" | "room";
 
@@ -440,7 +443,8 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
           const [lx, ly] = last.current;
           if (Math.hypot(x - lx, y - ly) < POINT_STEP) return;
           last.current = [x, y];
-          setDrawn((points) => [...points, x, y]);
+          // Only the recent part of a long scribble stays on the pad.
+          setDrawn((points) => [...points.slice(-MAX_PAD_POINTS * 2), x, y]);
           const current = loop.current;
           if (!current) return;
           current.points.push(x, y);
@@ -593,16 +597,11 @@ const ASK: Record<
     prompt: "What else could computers be?",
     example: "slow, like a garden",
   },
-  rule: {
-    title: "Add a rule",
-    prompt: "A rule of play for getting there.",
-    example: "neighbors > users",
-  },
 };
 /** A short pause between sends, so one person can't flood the screen. */
 const SEND_GAP_MS = 1500;
 
-/** Type a wish or a rule; each one sent shows up on the big screen. */
+/** Type a wish; each one sent shows up on the big screen. */
 function AnswerPad({
   kind,
   color,
@@ -788,6 +787,10 @@ function Phone() {
     n: number;
   } | null>(null);
   const [started, setStarted] = useState(false);
+  // Once the finale has come, the phone keeps the card, even after the talk.
+  const [cardSeen, setCardSeen] = useState(false);
+  // The answers the presenter hid, as last heard from the stage.
+  const [hiddenAnswers, setHiddenAnswers] = useState<ReadonlySet<string>>(new Set());
   const { stage, audience } = useRoom(ready);
   useWakeLock(step === "room");
 
@@ -828,6 +831,13 @@ function Phone() {
   // phone flashes a few times and says what the flash means, so the room
   // learns it before the first turn.
   const moment = stage?.moment ?? null;
+  useEffect(() => {
+    if (moment === "card") setCardSeen(true);
+  }, [moment]);
+  const hiddenKey = stage?.hidden.join("|") ?? null;
+  useEffect(() => {
+    if (hiddenKey !== null) setHiddenAnswers(new Set(hiddenKey ? hiddenKey.split("|") : []));
+  }, [hiddenKey]);
   const live = stage !== null;
   const lastMoment = useRef(moment);
   const startedRef = useRef(false);
@@ -881,7 +891,17 @@ function Phone() {
     screen = <SeatPad build={stage.build} />;
   } else if (moment === "fridge") {
     screen = <FridgePad color={color} />;
-  } else if (moment === "wish" || moment === "rule") {
+  } else if (moment === "card" || (cardSeen && !moment)) {
+    screen = (
+      <div className="phone__screen phone__screen--card">
+        <div className="phone__intro phone__intro--center">
+          <h2>Thanks for playing</h2>
+          <p>Here is what you made with everyone tonight.</p>
+        </div>
+        <KeepsakeCard color={color} pid={playhtml.presence.getMyIdentity().publicKey} hidden={hiddenAnswers} />
+      </div>
+    );
+  } else if (moment === "wish") {
     screen = (
       <AnswerPad
         key={moment}

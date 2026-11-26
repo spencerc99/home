@@ -66,7 +66,7 @@ export const AUDIENCE_CHANNEL = "talk-audience";
 /** Each phone's cursor on the benches slide, and the seat it sits on. */
 export const SEAT_CHANNEL = "talk-seat";
 
-export type LiveMoment = "circle" | "seat" | "fridge" | "wish" | "rule";
+export type LiveMoment = "circle" | "seat" | "fridge" | "wish" | "card";
 
 /** What the phones do in each moment, for the presenter's labels. */
 export const MOMENT_NAMES: Record<LiveMoment, string> = {
@@ -74,7 +74,7 @@ export const MOMENT_NAMES: Record<LiveMoment, string> = {
   seat: "take a seat",
   fridge: "drag fridge words",
   wish: "send wishes",
-  rule: "send rules",
+  card: "keep their card",
 };
 
 export type StagePresence = {
@@ -84,7 +84,12 @@ export type StagePresence = {
   moment: LiveMoment | null;
   // The join card is up (slide 2's build, or j), so phones offer the touch pad.
   joinOpen: boolean;
+  // Answers the presenter hid (h), newest last, so no phone's card shows them.
+  hidden: string[];
 };
+
+/** The most hidden answers the stage tells phones about (presence stays small). */
+export const MAX_HIDDEN_SENT = 40;
 
 export type AudiencePresence = {
   color: string;
@@ -122,7 +127,7 @@ export type Fridge = Record<string, FridgeWord>;
  * so no phone can bring a hidden answer back.
  */
 export const ANSWERS_DATA = "talk-answers";
-export type AnswerKind = "wish" | "rule";
+export type AnswerKind = "wish";
 export type Answer = { kind: AnswerKind; text: string; color: string; at: number };
 export type Answers = Record<string, Answer>;
 /** The longest answer a phone can send. */

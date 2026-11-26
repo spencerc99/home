@@ -17,7 +17,7 @@ const GROUPS: { title: string; keys: [string, string][] }[] = [
       ["l", "go live: phones follow this screen (first time: every phone flashes)"],
       ["j", "join card over any slide, for latecomers"],
       ["m", "start or stop the phones' turn on this slide"],
-      ["h", "hide the newest wish or rule"],
+      ["h", "hide the newest wish"],
     ],
   },
   {
@@ -27,7 +27,7 @@ const GROUPS: { title: string; keys: [string, string][] }[] = [
       ["slide 6", "draw loops"],
       ["slide 8", "send wishes"],
       ["slide 12", "take a seat"],
-      ["slide 35", "send rules"],
+      ["slide 36", "everyone's card (no m needed)"],
     ],
   },
   {

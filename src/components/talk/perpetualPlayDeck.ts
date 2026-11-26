@@ -83,15 +83,16 @@ export type Slide = {
   layers: Layer[];
   // Slides with a live audience moment layered on top later.
   // The phones' turn on this slide. It starts when the presenter presses m.
-  live?: "circle" | "seat" | "fridge" | "wish" | "rule";
+  live?: "circle" | "seat" | "fridge" | "wish";
   // The fridge slide where the big screen draws the shared fridge door, on
   // this build; phones can already move words on the fridge slides before it.
   fridgeDoor?: number;
   // The build where the join card (QR code, people count, everyone's
   // touches) comes up over this slide, fading the rest of it.
   joinAt?: number;
-  // The room's keepsake card, drawn from tonight's loops and wishes.
-  roomCard?: boolean;
+  // The finale: everyone's loops, patina and wishes drawn over the slide,
+  // and each phone shows its own keepsake card.
+  roomMarks?: boolean;
 };
 
 const IMG = "/talk/perpetual-play/img";
@@ -646,9 +647,7 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2075:608",
-    // The rules, each with examples from the talk, one rule per press; then
-    // phones send rules of their own.
-    live: "rule",
+    // The rules, each with examples from the talk, one rule per press.
     layers: [
       { kind: "scribble", opacity: 0.3 },
       { ...heading([110, 70, 1700, 83], "rules of play"), ...TYPE.listTitle },
@@ -687,9 +686,13 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2002:212",
-    // The room's keepsake card: everyone's loops, their marks and their wishes.
-    roomCard: true,
-    layers: [{ kind: "scribble", opacity: 0.2 }, byline],
+    // Everything the room made tonight, over the title and a faded scribble.
+    roomMarks: true,
+    layers: [
+      heading([560, 486, 800, 67], "Play Together", { bold: true, size: 56, nowrap: true, align: "center" }),
+      { kind: "scribble", opacity: 0.2 },
+      byline,
+    ],
   },
   {
     figmaId: "2094:36",

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import type { LiveMoment } from "./talkRoom";
 import {
   AUDIENCE_CHANNEL,
@@ -7,6 +7,7 @@ import {
   STAGE_CHANNEL,
   fridgeWords,
   answers as answersChannel,
+  MAX_HIDDEN_SENT,
   talkEvent,
   type Answers,
   circleLoops,
@@ -121,21 +122,35 @@ function loopPath(points: number[]): string {
   return d;
 }
 
-/** Spencer's colour, for the slide's own words on the room's card. */
+/** Spencer's colour, for the slide's own words among the room's. */
 const PRESENTER_COLOR = "#ffae00";
 const SLIDE_WISHES = ["fun", "caring", "creative"];
-/** How many letters of the room's wishes fit on the card; the rest are counted. */
-const CARD_WISH_LETTERS = 240;
+/** The most wishes placed on the finale, and the most patina marks. */
+const FINALE_WISHES = 34;
+const FINALE_MARKS = 120;
+// Places for wishes around the edges of the finale, clear of the title.
+const FINALE_SLOTS: [number, number][] = [];
+for (let row = 0; row < 7; row++) {
+  for (let col = 0; col < 6; col++) {
+    const x = 90 + col * 300;
+    const y = 120 + row * 130;
+    if (x > 380 && x < 1300 && y > 360 && y < 680) continue;
+    FINALE_SLOTS.push([x, y]);
+  }
+}
+
+/** One loop, redrawn only when it has grown (parseLoops keeps unchanged loops the same). */
+const LoopPath = memo(function LoopPath({ loop }: { loop: Loops[string] }) {
+  return <path d={loopPath(loop.points)} stroke={loop.color} />;
+});
 
 /**
- * The finale: the keepsake card for the whole room, phone-shaped in the
- * middle of the slide. Everyone's loops, a soft mark where each began (the
- * room's patina), and the wishes, each faintly underlined in its person's
- * colour, the same on every screen.
+ * The finale: everything the room made, over the slide as it is. Every loop,
+ * a soft mark where each person first drew (the room's patina), and the
+ * wishes around the edges, each faintly underlined in its person's colour.
+ * The title stays clear in the middle.
  */
-function RoomCard({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
-  // Each wish once, however many people sent it, in a shuffled order that is
-  // the same on every screen.
+function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
   const seen = new Set<string>();
   const wishes = Object.entries(answers)
     .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
@@ -146,83 +161,54 @@ function RoomCard({ loops, answers, hidden }: { loops: Loops; answers: Answers; 
       seen.add(text);
       return true;
     });
-  // As many wishes as fit, by length, in the same shuffled order on every screen.
-  const shown: typeof wishes = [];
-  let letters = 0;
-  for (const wish of wishes) {
-    if (letters + wish[1].text.length > CARD_WISH_LETTERS) break;
-    letters += wish[1].text.length + 3;
-    shown.push(wish);
-  }
+  const words: [string, string, string][] = [
+    ...SLIDE_WISHES.map((w): [string, string, string] => [`slide:${w}`, w, PRESENTER_COLOR]),
+    ...wishes.slice(0, FINALE_WISHES - SLIDE_WISHES.length).map(([key, a]): [string, string, string] => [key, a.text, a.color]),
+  ].slice(0, FINALE_SLOTS.length);
   const loopList = Object.entries(loops);
-  // One soft mark per person, where they first drew: the room's patina.
   const firstLoops = new Map<string, Loops[string]>();
   for (const [key, loop] of loopList) {
     const person = key.split(":")[0];
-    if (!firstLoops.has(person)) firstLoops.set(person, loop);
+    if (!firstLoops.has(person) && firstLoops.size < FINALE_MARKS) firstLoops.set(person, loop);
   }
-  // A full room draws hundreds of loops; thinner, lighter lines keep them legible.
   const density = loopList.length > 300 ? "dense" : loopList.length > 80 ? "busy" : undefined;
-  // Frame the drawing around the loops themselves, so they fill the card.
-  let x0 = W, y0 = H, x1 = 0, y1 = 0;
-  for (const [, loop] of loopList) {
-    for (let i = 0; i + 1 < loop.points.length; i += 2) {
-      const x = ((1 - loop.points[i + 1]) / 2) * W;
-      const y = ((1 + loop.points[i]) / 2) * H;
-      x0 = Math.min(x0, x);
-      y0 = Math.min(y0, y);
-      x1 = Math.max(x1, x);
-      y1 = Math.max(y1, y);
-    }
-  }
-  const pad = 120;
-  const view = loopList.length ? `${x0 - pad} ${y0 - pad} ${x1 - x0 + pad * 2} ${y1 - y0 + pad * 2}` : `0 0 ${W} ${H}`;
   return (
-    <div className="talk-room-card" data-density={density}>
-      <div className="talk-room-card__top">
-        <strong>Play Together</strong>
-        <span>NCM · NOV 2026</span>
-      </div>
-      <svg className="talk-room-card__loops" viewBox={view} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        {[...firstLoops].map(([key, loop]) => (
+    <div className="talk-room-marks" data-density={density}>
+      <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} aria-hidden="true">
+        {[...firstLoops].map(([person, loop]) => (
           <circle
-            key={`mark-${key}`}
+            key={person}
             cx={((1 - loop.points[1]) / 2) * W}
             cy={((1 + loop.points[0]) / 2) * H}
-            r={90}
+            r={110}
             fill={loop.color}
-            opacity={0.25}
-            style={{ filter: "blur(28px)" }}
+            opacity={0.22}
+            style={{ filter: "blur(40px)" }}
           />
         ))}
         {loopList.map(([key, loop]) => (
-          <path key={key} d={loopPath(loop.points)} stroke={loop.color} />
+          <LoopPath key={key} loop={loop} />
         ))}
       </svg>
-      <div className="talk-room-card__words">
-        <span className="talk-room-card__starter">We wish technology was...</span>
-        <p>
-          {SLIDE_WISHES.map((w) => (
-            <span key={w}>
-              <span style={{ ["--mover" as string]: PRESENTER_COLOR }}>{w}</span>
-              {" · "}
-            </span>
-          ))}
-          {shown.map(([key, a], i) => (
-            <span key={key}>
-              <span style={{ ["--mover" as string]: a.color }}>{a.text}</span>
-              {i < shown.length - 1 ? " · " : ""}
-            </span>
-          ))}
-          {wishes.length > shown.length && <span className="talk-room-card__more"> · +{wishes.length - shown.length} more</span>}
-        </p>
-      </div>
-      <div className="talk-room-card__foot">
-        <span>
-          {loopList.length} loops · {wishes.length} wishes
-        </span>
-        <span>spencer.place/talk</span>
-      </div>
+      {words.map(([key, text, color], i) => {
+        const [x, y] = FINALE_SLOTS[(i * 11) % FINALE_SLOTS.length];
+        const h = hashOf(key);
+        return (
+          <span
+            key={key}
+            className="talk-room-marks__word"
+            style={{
+              left: x + (h % 60) - 30,
+              top: y + ((h >> 5) % 40) - 20,
+              transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
+              ["--mover" as string]: color,
+            }}
+          >
+            {text}
+          </span>
+        );
+      })}
+      <div className="talk-room-marks__title">Play Together</div>
     </div>
   );
 }
@@ -243,7 +229,7 @@ function hashOf(text: string): number {
  * of 40 places (5 across, 8 down), nudged a little so it reads as handwritten;
  * once all 40 are taken the newest take the oldest places.
  */
-function AnswerCloud({ answers, kind, hidden }: { answers: Answers; kind: "wish" | "rule"; hidden: ReadonlySet<string> }) {
+function AnswerCloud({ answers, kind, hidden }: { answers: Answers; kind: "wish"; hidden: ReadonlySet<string> }) {
   const list = Object.entries(answers)
     .filter(([key, a]) => a.kind === kind && !hidden.has(key))
     .sort(([, a], [, b]) => a.at - b.at);
@@ -310,11 +296,14 @@ function useLoops(ready: boolean, on: boolean) {
   useEffect(() => {
     if (!ready || !on) return;
     const channel = circleLoops();
-    // Loops grow while people draw, so updates come often; redraw once a frame.
+    // Loops grow while people draw, so updates come often; redraw once a frame,
+    // and only re-check the loops that grew.
     let frame: number | null = null;
+    let last: Loops = {};
     const read = () => {
       frame = null;
-      setLoops(parseLoops(channel.getData()));
+      last = parseLoops(channel.getData(), last);
+      setLoops(last);
     };
     read();
     const off = channel.onUpdate(() => {
@@ -329,6 +318,10 @@ function useLoops(ready: boolean, on: boolean) {
 }
 
 type Mark = { x: number; y: number; color: string };
+/** The most fingers drawn at once; past this the room is a sea of colour anyway. */
+const MAX_GLOWS = 150;
+/** The most cursors on the benches slide. */
+const MAX_SEATED = 150;
 /** How long a lifted finger takes to fade (talk-glow-out in talk.scss). */
 const GLOW_FADE_MS = 650;
 
@@ -365,9 +358,10 @@ function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
   );
   return (
     <>
-      {[...audience].map(([id, person]) =>
-        person.touch ? glow(id, { x: person.touch.x, y: person.touch.y, color: person.color }, false) : null,
-      )}
+      {[...audience]
+        .filter(([, person]) => person.touch)
+        .slice(0, MAX_GLOWS)
+        .map(([id, person]) => glow(id, { x: person.touch!.x, y: person.touch!.y, color: person.color }, false))}
       {[...lifted].map(([id, mark]) => (audience.get(id)?.touch ? null : glow(`${id}:lifted`, mark, true)))}
     </>
   );
@@ -406,15 +400,9 @@ function JoinCard({ here }: { here: AudiencePresence[] }) {
 function CircleLoops({ loops }: { loops: Loops }) {
   return (
     <svg className="talk-live__loops" viewBox={`0 0 ${W} ${H}`} width={W} height={H}>
-      {Object.entries(loops).map(([key, loop]) => {
-        let d = "";
-        for (let i = 0; i + 1 < loop.points.length; i += 2) {
-          const x = ((1 - loop.points[i + 1]) / 2) * W;
-          const y = ((1 + loop.points[i]) / 2) * H;
-          d += `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)} `;
-        }
-        return <path key={key} d={d} stroke={loop.color} />;
-      })}
+      {Object.entries(loops).map(([key, loop]) => (
+        <LoopPath key={key} loop={loop} />
+      ))}
     </svg>
   );
 }
@@ -438,7 +426,7 @@ function SeatedCursors({
   const onSeat = new Map<number, number>();
   return (
     <>
-      {[...seats].map(([id, cursor]) => {
+      {[...seats].slice(0, MAX_SEATED).map(([id, cursor]) => {
         const color = audience.get(id)?.color;
         if (!color) return null;
         const seat =
@@ -475,7 +463,7 @@ export function LiveLayer({
   moment,
   fridgeDoor,
   joinShown,
-  roomCard,
+  roomMarks,
   hideRequests,
   presenting,
   joinOpen,
@@ -487,19 +475,19 @@ export function LiveLayer({
   fridgeDoor: boolean;
   // The join slide's build that brings up the join card and fades the slide.
   joinShown: boolean;
-  // The finale: the room's keepsake card from tonight's loops and wishes.
-  roomCard: boolean;
+  // The finale: everyone's loops, marks and wishes over the slide.
+  roomMarks: boolean;
   // Goes up by one each time the presenter presses h.
   hideRequests: number;
   presenting: boolean;
   joinOpen: boolean;
 }) {
   const audience = useAudience(ready);
-  const loops = useLoops(ready, moment === "circle" || roomCard);
+  const loops = useLoops(ready, moment === "circle" || roomMarks);
   const seats = useSeats(ready, moment === "seat");
   const fridge = useFridge(ready, fridgeDoor);
-  const answerKind = moment === "wish" || moment === "rule" ? moment : null;
-  const shownAnswers = useAnswers(ready, answerKind !== null || roomCard);
+  const answerKind = moment === "wish" ? moment : null;
+  const shownAnswers = useAnswers(ready, answerKind !== null || roomMarks);
 
   // h hides the newest answer of the moment on screen. The hidden list lives
   // on this laptop only (kept across reloads), so phones cannot undo it.
@@ -530,18 +518,21 @@ export function LiveLayer({
     }
   }, [hideRequests, answerKind, shownAnswers, hiddenAnswers, hiddenKey]);
 
+  // Phones follow only a stage that has been switched to presenting, so
+  // someone else opening /talk/stage cannot drive the room.
+  useEffect(() => {
+    if (!ready) return;
+    const value: StagePresence | null = presenting
+      ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden: [...hiddenAnswers].slice(-MAX_HIDDEN_SENT) }
+      : null;
+    playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
+  }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers]);
+
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {
     for (const src of [JOIN_QR, NAME_STAMP]) new Image().src = src;
   }, []);
 
-  // Phones follow only a stage that has been switched to presenting, so
-  // someone else opening /talk/stage cannot drive the room.
-  useEffect(() => {
-    if (!ready) return;
-    const value: StagePresence | null = presenting ? { slide, build, moment, joinOpen: joinOpen || joinShown } : null;
-    playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, build, moment, joinOpen, joinShown]);
 
   const here = useMemo(() => [...audience.values()], [audience]);
   // The join slide, or the join card shown over any slide with `j` for
@@ -561,7 +552,7 @@ export function LiveLayer({
     <div className="talk-live" aria-hidden="true">
       {joinShown && <div className="talk-live__fade" />}
       {moment === "circle" && <CircleLoops loops={loops} />}
-      {roomCard && <RoomCard loops={loops} answers={shownAnswers} hidden={hiddenAnswers} />}
+      {roomMarks && <RoomMarks loops={loops} answers={shownAnswers} hidden={hiddenAnswers} />}
       {answerKind && <AnswerCloud answers={shownAnswers} kind={answerKind} hidden={hiddenAnswers} />}
       {moment === "seat" && <SeatedCursors seats={seats} audience={audience} build={build} />}
       {fridgeDoor && (

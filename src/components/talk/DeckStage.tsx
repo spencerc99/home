@@ -286,7 +286,8 @@ export function DeckStage() {
   }, [index, selectLayer]);
 
   // The slide's phone moment, once the presenter has started it with m.
-  const moment = phonesOn ? deck[index].live ?? null : null;
+  // On the finale every phone shows its own card, no m needed.
+  const moment = phonesOn ? deck[index].live ?? null : deck[index].roomMarks ? "card" : null;
   // Each press of h hides the newest wish or rule on the big screen.
   const [hideRequests, setHideRequests] = useState(0);
 
@@ -339,7 +340,7 @@ export function DeckStage() {
                 hideRequests={hideRequests}
                 fridgeDoor={deck[index].fridgeDoor !== undefined && build >= deck[index].fridgeDoor}
                 joinShown={deck[index].joinAt !== undefined && build >= deck[index].joinAt}
-                roomCard={deck[index].roomCard === true}
+                roomMarks={deck[index].roomMarks === true}
                 presenting={presenting}
                 joinOpen={joinOpen}
               />
@@ -391,7 +392,7 @@ export function DeckStage() {
           aria-pressed={presenting}
           onClick={() => setPresenting((p) => !p)}
           aria-label={presenting ? "Live: phones follow this screen" : "Go live"}
-          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide, h hides the newest wish or rule.`}
+          title={`${presenting ? "Live" : "Go live"}: phones follow this screen (l). j shows the join card over any slide, h hides the newest wish.`}
         >
           <LiveIcon />
         </button>
