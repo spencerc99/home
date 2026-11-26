@@ -423,7 +423,25 @@ export const uneditedDeck: Slide[] = [
   },
   {
     figmaId: "2086:769",
+    // The patina photos; the next press washes them back and sets the title over them.
     layers: [
+      img("2086-772", [479, 128, 479, 824]),
+      img("2086-773", [479, 128, 479, 824]),
+      img("2086-774", [958, 128, 465, 824]),
+      img("2086-775", [1423, 128, 497, 824]),
+      img("2086-776", [-1, 128, 479, 824]),
+      img("2086-777", [1440, 128, 480, 824]),
+      { kind: "block", box: [0, 0, 1920, 1080], color: "rgba(246, 243, 235, 0.8)", build: 1 },
+      {
+        ...heading(
+          [356, 395, 1207, 290],
+          "Proof of Life\n<>\nPossibility of Surprise",
+          { bold: true, align: "center" },
+        ),
+        ...TYPE.title,
+        bold: true,
+        build: 1,
+      },
       byline,
       {
         kind: "text",
@@ -439,27 +457,6 @@ export const uneditedDeck: Slide[] = [
           },
         ],
       },
-      img("2086-772", [479, 128, 479, 824]),
-      img("2086-773", [479, 128, 479, 824]),
-      img("2086-774", [958, 128, 465, 824]),
-      img("2086-775", [1423, 128, 497, 824]),
-      img("2086-776", [-1, 128, 479, 824]),
-      img("2086-777", [1440, 128, 480, 824]),
-    ],
-  },
-  {
-    figmaId: "2086:766",
-    layers: [
-      {
-        ...heading(
-          [356, 395, 1207, 290],
-          "Proof of Life\n<>\nPossibility of Surprise",
-          { bold: true, align: "center" },
-        ),
-        ...TYPE.title,
-        bold: true,
-      },
-      byline,
     ],
   },
   { figmaId: "43:350", layers: [byline, windowAt(430, 211)] },

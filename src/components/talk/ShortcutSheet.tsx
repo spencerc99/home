@@ -27,7 +27,7 @@ const GROUPS: { title: string; keys: [string, string][] }[] = [
       ["slide 6", "draw loops"],
       ["slide 8", "send wishes"],
       ["slide 12", "take a seat"],
-      ["slide 36", "everyone's card (no m needed)"],
+      ["slide 35", "everyone's card (no m needed)"],
     ],
   },
   {
