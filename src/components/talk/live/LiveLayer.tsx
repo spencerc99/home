@@ -467,6 +467,7 @@ export function LiveLayer({
   hideRequests,
   presenting,
   joinOpen,
+  cue,
 }: {
   ready: boolean;
   slide: number;
@@ -481,6 +482,8 @@ export function LiveLayer({
   hideRequests: number;
   presenting: boolean;
   joinOpen: boolean;
+  // Each press of m that starts something; phones flash when it rises.
+  cue: number;
 }) {
   const audience = useAudience(ready);
   const loops = useLoops(ready, moment === "circle" || roomMarks);
@@ -524,10 +527,10 @@ export function LiveLayer({
     if (!ready) return;
     const hidden = [...hiddenAnswers].slice(-MAX_HIDDEN_SENT);
     const value: StagePresence = presenting
-      ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden, paused: false }
-      : { slide, build, moment: null, joinOpen: false, hidden, paused: true };
+      ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden, paused: false, cue }
+      : { slide, build, moment: null, joinOpen: false, hidden, paused: true, cue };
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers]);
+  }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers, cue]);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {

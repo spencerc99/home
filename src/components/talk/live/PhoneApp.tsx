@@ -961,18 +961,28 @@ function Phone() {
   // A phone reloaded mid-talk has had its welcome; it gets a turn flash for
   // whatever moment is up instead.
   const startedRef = useRef(started);
+  // The stage's cue as this phone last heard it. The first one heard is only
+  // a starting point, so a phone that joins (or reloads) late does not flash
+  // for presses it never saw.
+  const cue = stage?.cue ?? null;
+  const lastCue = useRef<number | null>(null);
   useEffect(() => {
     const before = lastMoment.current;
     lastMoment.current = moment;
-    if (live && !startedRef.current) {
+    const cueBefore = lastCue.current;
+    if (cue !== null) lastCue.current = cue;
+    const cued = cue !== null && cueBefore !== null && cue > cueBefore;
+    if ((live && !startedRef.current) || (cued && !moment)) {
+      // The welcome when the talk goes live, and again when the presenter
+      // presses m on the join screen to show the room what a flash means.
       startedRef.current = true;
       setStarted(true);
       writeSession("started", true);
       setFlash((f) => ({ kind: "hello", n: (f?.n ?? 0) + 1 }));
-    } else if (moment && moment !== before) {
+    } else if (cued || (moment && moment !== before)) {
       setFlash((f) => ({ kind: "turn", n: (f?.n ?? 0) + 1 }));
     }
-  }, [live, moment]);
+  }, [live, moment, cue]);
   useEffect(() => {
     if (!flash || flash.done) return;
     const timer = setTimeout(

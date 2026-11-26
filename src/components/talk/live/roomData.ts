@@ -48,7 +48,8 @@ export function parseStage(value: unknown): StagePresence | null {
         : null;
   if (!hidden) return null;
   const paused = v.paused === true;
-  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen, hidden, paused };
+  const cue = Number.isInteger(v.cue) && (v.cue as number) >= 0 ? (v.cue as number) : 0;
+  return { slide: v.slide as number, build: v.build as number, moment: v.moment as LiveMoment | null, joinOpen: v.joinOpen, hidden, paused, cue };
 }
 
 export function parseAudience(value: unknown): AudiencePresence | null {

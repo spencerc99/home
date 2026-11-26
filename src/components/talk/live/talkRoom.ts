@@ -89,6 +89,10 @@ export type StagePresence = {
   // A stage with live switched off (l). Phones go quiet at once, rather than
   // waiting out a dropped connection.
   paused: boolean;
+  // Goes up each time the presenter presses m to start something (a moment,
+  // or the join screen's demo), so every phone flashes with the big screen.
+  // It restarts at 0 when the stage reloads; phones only flash when it rises.
+  cue: number;
 };
 
 /**

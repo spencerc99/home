@@ -16,7 +16,7 @@ const GROUPS: { title: string; keys: [string, string][] }[] = [
     keys: [
       ["l", "go live: phones follow this screen (first time: every phone flashes)"],
       ["j", "join card over any slide, for latecomers"],
-      ["m", "start or stop the phones' turn on this slide"],
+      ["m", "start or stop the phones' turn on this slide; on the join screen, flash the room once"],
       ["h", "hide the newest wish"],
     ],
   },
