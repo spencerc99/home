@@ -834,10 +834,11 @@ function Phone() {
   useEffect(() => {
     if (moment === "card") setCardSeen(true);
   }, [moment]);
-  const hiddenKey = stage?.hidden.join("|") ?? null;
+  // Compared as JSON, so a new list from the stage is noticed whatever the keys hold.
+  const hiddenList = stage ? JSON.stringify(stage.hidden) : null;
   useEffect(() => {
-    if (hiddenKey !== null) setHiddenAnswers(new Set(hiddenKey ? hiddenKey.split("|") : []));
-  }, [hiddenKey]);
+    if (hiddenList !== null) setHiddenAnswers(new Set(JSON.parse(hiddenList) as string[]));
+  }, [hiddenList]);
   const live = stage !== null;
   const lastMoment = useRef(moment);
   const startedRef = useRef(false);

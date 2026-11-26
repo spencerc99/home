@@ -88,8 +88,12 @@ export type StagePresence = {
   hidden: string[];
 };
 
-/** The most hidden answers the stage tells phones about (presence stays small). */
-export const MAX_HIDDEN_SENT = 40;
+/**
+ * The most hidden answers the stage tells phones about, newest kept. Presence
+ * values are capped at 4KB and a key is up to ~60 characters, so 60 fits; a
+ * talk hides a handful at most.
+ */
+export const MAX_HIDDEN_SENT = 60;
 
 export type AudiencePresence = {
   color: string;

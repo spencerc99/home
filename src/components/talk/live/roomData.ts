@@ -67,6 +67,8 @@ export function parseSeat(value: unknown): SeatPresence | null {
   return { x: v.x as number, y: v.y as number, sitting: v.sitting, seat: v.seat as number | null };
 }
 
+const ANSWER_KEY = /^[A-Za-z0-9_+/=-]{1,100}:[a-z0-9]{1,16}$/;
+
 /** The most answers read from the room, newest kept, and the most from one phone. */
 const MAX_ANSWERS = 500;
 const MAX_ANSWERS_EACH = 20;
@@ -82,7 +84,8 @@ export function parseAnswers(data: unknown): Answers {
     const person = key.split(":")[0];
     const count = perPerson.get(person) ?? 0;
     if (count >= MAX_ANSWERS_EACH) continue;
-    if (key.length > 200 || !value || typeof value !== "object") continue;
+    // Keys are `<phone id>:<time>`, as AnswerPad writes them; anything else is not a phone's answer.
+    if (!ANSWER_KEY.test(key) || !value || typeof value !== "object") continue;
     const v = value as Record<string, unknown>;
     const color = safeColor(v.color);
     if (v.kind !== "wish") continue;

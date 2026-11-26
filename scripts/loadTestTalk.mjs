@@ -22,7 +22,7 @@ const BASE = arg("base", "https://spencer.place");
 const OUT = arg("out", `/tmp/talk-loadtest-${Date.now()}`);
 const EVENT = `loadtest-${Date.now().toString(36)}`;
 // Slide numbers of the live moments, as in src/components/talk/perpetualPlayDeck.ts.
-const SLIDE = { join: 2, circle: 6, seat: 12 };
+const SLIDE = { join: 2, circle: 6, wish: 8, seat: 12, finale: 36 };
 const COLORS = ["hsl(33, 100%, 56%)", "hsl(205, 85%, 52%)", "hsl(330, 75%, 62%)", "hsl(150, 55%, 42%)", "hsl(265, 60%, 62%)"];
 mkdirSync(OUT, { recursive: true });
 
@@ -293,6 +293,67 @@ const sumIn = () => phones.reduce((n, p) => n + p.stats.bytesIn, 0);
     phonesSwitched: `${switched.filter((ms) => ms !== null).length}/${phones.length}`,
     stageMostCursors: maxCursors,
     stageFps: await rate,
+  });
+}
+
+// 6. Slide 8: everyone sends two wishes at once.
+{
+  await goto(SLIDE.wish);
+  await stage.keyboard.press("ArrowRight");
+  await stage.keyboard.press("m");
+  const switched = await Promise.all(phones.map((p) => until(() => p.page.locator(".phone__answer input").isVisible(), 15000)));
+  const words = ["slow, like a garden", "weird on purpose", "a place to sit", "kind to strangers", "less lonely", "mine to change", "gentle", "a campfire"];
+  const rate = fps(6000);
+  const started = Date.now();
+  await Promise.all(
+    phones.map(async (p, k) => {
+      if (switched[p.k] === null) return;
+      for (let n = 0; n < 2; n++) {
+        await p.page.fill(".phone__answer input", `${words[(k + n) % words.length]} ${p.i}`);
+        await p.page.click(".phone__answer button");
+        await sleep(1700);
+      }
+    }),
+  );
+  const shown = await until(async () => (await stage.$$(".talk-live__answer")).length >= Math.min(40, phones.length * 2), 20000);
+  await shot("6-wishes");
+  note("6 wishes", {
+    phonesSwitched: `${switched.filter((ms) => ms !== null).length}/${phones.length}`,
+    sent: phones.length * 2,
+    stageShows: (await stage.$$(".talk-live__answer")).length,
+    stageFilled: shown === null ? "no" : `${shown}ms after the last send`,
+    stageFps: await rate,
+    tookMs: Date.now() - started,
+  });
+}
+
+// 6b. Slide 36, the finale: the stage draws everything, every phone its card.
+{
+  await goto(SLIDE.finale);
+  const started = Date.now();
+  const cards = await Promise.all(
+    phones.map((p) =>
+      until(
+        () =>
+          p.page.evaluate(() => {
+            const c = document.querySelector(".phone__card-image");
+            return !!c && c.width > 0 && !document.querySelector(".phone__card-actions button[disabled]");
+          }),
+        30000,
+      ),
+    ),
+  );
+  const rate = fps(4000);
+  await sleep(1000);
+  await shot("6b-finale");
+  note("6b finale", {
+    phonesWithCard: `${cards.filter((ms) => ms !== null).length}/${phones.length}`,
+    slowestCardMs: Math.max(...cards.filter((ms) => ms !== null)),
+    stageLoops: (await stage.$$(".talk-room-marks path")).length,
+    stageWords: (await stage.$$(".talk-room-marks__word")).length,
+    stageMarks: (await stage.$$(".talk-room-marks circle")).length,
+    stageFps: await rate,
+    tookMs: Date.now() - started,
   });
 }
 
