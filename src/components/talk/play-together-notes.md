@@ -158,8 +158,6 @@ everyday is a project i did a couple years back that challenging our relationshi
 I performed this at the Internet Archive, where **over 300 people threw their phones in the air together.**
 → **inhabit > use** — changing our relationship with these devices. *what new devices can we imagine?*
 
-This changed our
-
 ## 22 · Computing Shrines
 <!-- 30:82 -->
 
@@ -235,6 +233,8 @@ you can see other cursors on the same page, click to follow a stranger down diff
 
 ## 34 · we were online
 <!-- 2096:87 -->
+
+**[one row per press: new software → playhtml · new machines → shrines · new internets → we were online]**
 
 I want the entire internet to feel like a space with benches - bringing this ethos of thousands of personal social spaces from playhtml to the entire internet
 

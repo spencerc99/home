@@ -266,6 +266,77 @@ function capture(event: ReactPointerEvent<Element>) {
   }
 }
 
+/**
+ * Keeps a finger on this element from scrolling or zooming the page. iOS
+ * Safari can miss `touch-action: none` on an element that appears after the
+ * page has loaded, and then cancels the pointer as soon as the finger moves,
+ * so the pads also refuse the touch gestures directly.
+ */
+function useHoldsFinger<T extends Element>() {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const hold = (event: Event) => event.preventDefault();
+    element.addEventListener("touchstart", hold, { passive: false });
+    element.addEventListener("touchmove", hold, { passive: false });
+    return () => {
+      element.removeEventListener("touchstart", hold);
+      element.removeEventListener("touchmove", hold);
+    };
+  }, []);
+  return ref;
+}
+
+const DEBUG_EVENTS = [
+  "touchstart",
+  "touchmove",
+  "pointerdown",
+  "pointermove",
+  "pointerup",
+  "pointercancel",
+] as const;
+
+/**
+ * With `debug` in the address: what this phone hears from the stage, and how
+ * many finger events reach the page, for finding why a pad does nothing.
+ */
+function DebugPanel({
+  ready,
+  stage,
+}: {
+  ready: boolean;
+  stage: StagePresence | null;
+}) {
+  const [counts, setCounts] = useState<Record<string, number>>({});
+  const [target, setTarget] = useState("");
+  useEffect(() => {
+    const seen = (event: Event) => {
+      setCounts((c) => ({ ...c, [event.type]: (c[event.type] ?? 0) + 1 }));
+      if (event.type === "pointerdown" && event.target instanceof Element)
+        setTarget(
+          `${event.target.tagName.toLowerCase()}.${event.target.getAttribute("class") ?? ""}`,
+        );
+    };
+    for (const type of DEBUG_EVENTS)
+      document.addEventListener(type, seen, { capture: true, passive: true });
+    return () => {
+      for (const type of DEBUG_EVENTS)
+        document.removeEventListener(type, seen, { capture: true });
+    };
+  }, []);
+  return (
+    <pre className="phone__debug">
+      {`connected ${ready}\n`}
+      {stage
+        ? `slide ${stage.slide + 1}.${stage.build} moment ${stage.moment ?? "-"}${stage.paused ? " paused" : ""}\n`
+        : "no stage\n"}
+      {DEBUG_EVENTS.map((type) => `${type} ${counts[type] ?? 0}`).join("\n")}
+      {`\ndown on ${target || "-"}`}
+    </pre>
+  );
+}
+
 /** A pad that sends where the finger is, for the lobby and the warm-up. */
 function TouchPad({
   color,
@@ -295,8 +366,10 @@ function TouchPad({
     setFinger(null);
     onTouch(null);
   };
+  const pad = useHoldsFinger<HTMLDivElement>();
   return (
     <div
+      ref={pad}
       className="phone__pad"
       onPointerDown={(event) => {
         capture(event);
@@ -416,6 +489,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
     setDrawn([]);
   };
 
+  const pad = useHoldsFinger<SVGSVGElement>();
   const path = drawn.reduce(
     (d, v, i) =>
       i % 2 === 0
@@ -431,6 +505,7 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
         <p>Contribute to our collective loops.</p>
       </div>
       <svg
+        ref={pad}
         className="phone__draw"
         viewBox="0 0 90 160"
         onPointerDown={(event) => {
@@ -538,6 +613,7 @@ function SeatPad({ build }: { build: number }) {
     });
   };
 
+  const pad = useHoldsFinger<HTMLDivElement>();
   const seat =
     cursor.sitting && cursor.seat !== null && SEATS[cursor.seat].build <= build
       ? SEATS[cursor.seat]
@@ -549,6 +625,7 @@ function SeatPad({ build }: { build: number }) {
         <p>Drag to move your cursor and find a seat.</p>
       </div>
       <div
+        ref={pad}
         className="phone__pad phone__trackpad"
         onPointerDown={(event) => {
           capture(event);
@@ -745,6 +822,9 @@ function Phone() {
     new Set(),
   );
   const { stage, audience } = useRoom(ready);
+  const [debug] = useState(() =>
+    new URLSearchParams(location.search).has("debug"),
+  );
   useWakeLock(step === "room");
 
   useEffect(() => {
@@ -915,6 +995,7 @@ function Phone() {
           <p>This is your color. When it flashes, look up.</p>
         </div>
       )}
+      {debug && <DebugPanel ready={ready} stage={stage} />}
     </main>
   );
 }

@@ -404,23 +404,13 @@ html.talk-phone body {
   box-shadow: 0 12px 30px rgba(30, 28, 26, 0.25);
 }
 
-.phone__card-actions {
-  display: flex;
-  gap: 10px;
+.phone__card-save {
   width: 100%;
-
-  .phone__pill {
-    flex: 1;
-  }
-}
-
-.phone__pill--ghost {
-  background: transparent !important;
-  border: 1.5px solid rgb(30, 28, 26);
 }
 
 .phone__card-link {
   color: #007fd9;
+  font-size: 17px;
 }
 
 // The start of the talk: three flashes, then the words stay a moment.
@@ -484,4 +474,21 @@ html.talk-phone body {
 .phone__fridge {
   width: min(100%, calc(66svh * 3 / 4));
   margin: 0 auto;
+}
+
+// Only with `debug` in the address (PhoneApp's DebugPanel).
+.phone__debug {
+  position: fixed;
+  left: 8px;
+  bottom: 8px;
+  z-index: 20;
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font: 11px/1.35 ui-monospace, monospace;
+  pointer-events: none;
+  white-space: pre-wrap;
+  max-width: calc(100% - 16px);
 }

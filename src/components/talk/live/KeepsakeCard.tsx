@@ -235,7 +235,8 @@ function draw(
 
   // You, and the link.
   const people = firstByPerson.size;
-  const youLine = `you + ${Math.max(0, people - 1)} others · ${all.length} loops`;
+  const others = Math.max(0, people - 1);
+  const youLine = `you + ${others} ${others === 1 ? "other" : "others"} · ${all.length} ${all.length === 1 ? "loop" : "loops"}`;
   ctx.font = '12px "Sono", monospace';
   const lineW = ctx.measureText(youLine).width + 22;
   const lx = (CARD_W - lineW) / 2;
@@ -255,8 +256,7 @@ function draw(
 export function KeepsakeCard({ color, pid, hidden }: { color: string; pid: string; hidden: ReadonlySet<string> }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [drawn, setDrawn] = useState(false);
-  const [saving, setSaving] = useState<"idle" | "saving" | "saved" | { failed: string }>("idle");
-  const canShare = typeof navigator !== "undefined" && "share" in navigator;
+  const [saving, setSaving] = useState<"idle" | "saved" | { failed: string }>("idle");
 
   useEffect(() => {
     let alive = true;
@@ -305,10 +305,15 @@ export function KeepsakeCard({ color, pid, hidden }: { color: string; pid: strin
       }, "image/png");
     });
 
+  // On a phone the share sheet is where "Save Image" puts the card in Photos;
+  // where files cannot be shared, the card downloads instead.
   const save = async () => {
-    setSaving("saving");
     try {
       const image = await file();
+      if (navigator.canShare?.({ files: [image] })) {
+        await navigator.share({ files: [image], title: "Play Together" });
+        return;
+      }
       const url = URL.createObjectURL(image);
       const a = document.createElement("a");
       a.href = url;
@@ -317,46 +322,23 @@ export function KeepsakeCard({ color, pid, hidden }: { color: string; pid: strin
       setTimeout(() => URL.revokeObjectURL(url), 10000);
       setSaving("saved");
     } catch (error) {
-      console.error("[talk] could not save the card", error);
-      setSaving({ failed: "Couldn't save. Take a screenshot instead." });
-    }
-  };
-
-  const share = async () => {
-    try {
-      const image = await file();
-      if (navigator.canShare && !navigator.canShare({ files: [image] })) {
-        await save();
-        return;
-      }
-      await navigator.share({ files: [image], title: "Play Together" });
-    } catch (error) {
       // Closing the share sheet counts as an error; nothing to tell anyone.
       if (error instanceof DOMException && error.name === "AbortError") return;
-      console.error("[talk] could not share the card", error);
-      setSaving({ failed: "Couldn't share. Take a screenshot instead." });
+      console.error("[talk] could not save the card", error);
+      setSaving({ failed: "Couldn't save. Take a screenshot instead." });
     }
   };
 
   return (
     <div className="phone__card">
       <canvas ref={canvas} className="phone__card-image" role="img" aria-label="Your Play Together card: the room's loops with yours, and the wishes" />
-      <div className="phone__card-actions">
-        <button type="button" className="phone__pill" style={{ background: color }} onClick={save} disabled={!drawn}>
-          {saving === "saved" ? "saved" : "Save image"}
-        </button>
-        {canShare && (
-          <button type="button" className="phone__pill phone__pill--ghost" onClick={share} disabled={!drawn}>
-            Share
-          </button>
-        )}
-      </div>
-      <p className="phone__meta">
-        {typeof saving === "object" ? saving.failed : "or take a screenshot · "}
-        <a href="https://spencer.place" className="phone__card-link">
-          spencer.place
-        </a>
-      </p>
+      <button type="button" className="phone__pill phone__card-save" style={{ background: color }} onClick={save} disabled={!drawn}>
+        {saving === "saved" ? "Saved" : "Save"}
+      </button>
+      {typeof saving === "object" && <p className="phone__meta">{saving.failed}</p>}
+      <a href="https://spencer.place" className="phone__card-link">
+        spencer.place
+      </a>
     </div>
   );
 }
