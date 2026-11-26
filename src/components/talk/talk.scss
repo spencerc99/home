@@ -1124,6 +1124,16 @@ html.talk-page body {
     stroke-linejoin: round;
     opacity: 0.8;
   }
+
+  [data-density="busy"] & path {
+    stroke-width: 4;
+    opacity: 0.6;
+  }
+
+  [data-density="dense"] & path {
+    stroke-width: 2.5;
+    opacity: 0.45;
+  }
 }
 
 .talk-room-card__words {

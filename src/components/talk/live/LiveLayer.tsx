@@ -124,8 +124,8 @@ function loopPath(points: number[]): string {
 /** Spencer's colour, for the slide's own words on the room's card. */
 const PRESENTER_COLOR = "#ffae00";
 const SLIDE_WISHES = ["fun", "caring", "creative"];
-/** How many of the room's wishes fit on the card; the rest are counted. */
-const CARD_WISHES = 12;
+/** How many letters of the room's wishes fit on the card; the rest are counted. */
+const CARD_WISH_LETTERS = 240;
 
 /**
  * The finale: the keepsake card for the whole room, phone-shaped in the
@@ -134,11 +134,35 @@ const CARD_WISHES = 12;
  * colour, the same on every screen.
  */
 function RoomCard({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
+  // Each wish once, however many people sent it, in a shuffled order that is
+  // the same on every screen.
+  const seen = new Set<string>();
   const wishes = Object.entries(answers)
     .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
-    .sort(([a], [b]) => hashOf(a) - hashOf(b));
-  const shown = wishes.slice(0, CARD_WISHES);
+    .sort(([a], [b]) => hashOf(a) - hashOf(b))
+    .filter(([, a]) => {
+      const text = a.text.toLowerCase();
+      if (seen.has(text)) return false;
+      seen.add(text);
+      return true;
+    });
+  // As many wishes as fit, by length, in the same shuffled order on every screen.
+  const shown: typeof wishes = [];
+  let letters = 0;
+  for (const wish of wishes) {
+    if (letters + wish[1].text.length > CARD_WISH_LETTERS) break;
+    letters += wish[1].text.length + 3;
+    shown.push(wish);
+  }
   const loopList = Object.entries(loops);
+  // One soft mark per person, where they first drew: the room's patina.
+  const firstLoops = new Map<string, Loops[string]>();
+  for (const [key, loop] of loopList) {
+    const person = key.split(":")[0];
+    if (!firstLoops.has(person)) firstLoops.set(person, loop);
+  }
+  // A full room draws hundreds of loops; thinner, lighter lines keep them legible.
+  const density = loopList.length > 300 ? "dense" : loopList.length > 80 ? "busy" : undefined;
   // Frame the drawing around the loops themselves, so they fill the card.
   let x0 = W, y0 = H, x1 = 0, y1 = 0;
   for (const [, loop] of loopList) {
@@ -154,13 +178,13 @@ function RoomCard({ loops, answers, hidden }: { loops: Loops; answers: Answers; 
   const pad = 120;
   const view = loopList.length ? `${x0 - pad} ${y0 - pad} ${x1 - x0 + pad * 2} ${y1 - y0 + pad * 2}` : `0 0 ${W} ${H}`;
   return (
-    <div className="talk-room-card">
+    <div className="talk-room-card" data-density={density}>
       <div className="talk-room-card__top">
         <strong>Play Together</strong>
         <span>NCM · NOV 2026</span>
       </div>
       <svg className="talk-room-card__loops" viewBox={view} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        {loopList.map(([key, loop]) => (
+        {[...firstLoops].map(([key, loop]) => (
           <circle
             key={`mark-${key}`}
             cx={((1 - loop.points[1]) / 2) * W}
