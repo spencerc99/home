@@ -115,6 +115,8 @@ html.talk-phone body {
 }
 
 .phone__byline {
+    display: flex;
+    justify-content: space-between;
   font-size: 16px;
   line-height: 1.1;
 

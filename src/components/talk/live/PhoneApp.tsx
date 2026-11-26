@@ -1,4 +1,11 @@
-import { Component, useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  Component,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import {
   AUDIENCE_CHANNEL,
   FRIDGE_REREAD_MS,
@@ -65,7 +72,8 @@ function useWakeLock(on: boolean) {
     const request = () => {
       navigator.wakeLock.request("screen").then(
         (l) => (lock = l),
-        (error: unknown) => console.warn("[talk] screen wake lock refused", error),
+        (error: unknown) =>
+          console.warn("[talk] screen wake lock refused", error),
       );
     };
     request();
@@ -131,8 +139,14 @@ function useRoom(ready: boolean) {
     };
     readStage();
     countAudience();
-    const offStage = playhtml.presence.onPresenceChange(STAGE_CHANNEL, readStage);
-    const offAudience = playhtml.presence.onPresenceChange(AUDIENCE_CHANNEL, readAudience);
+    const offStage = playhtml.presence.onPresenceChange(
+      STAGE_CHANNEL,
+      readStage,
+    );
+    const offAudience = playhtml.presence.onPresenceChange(
+      AUDIENCE_CHANNEL,
+      readAudience,
+    );
     return () => {
       offStage();
       offAudience();
@@ -147,7 +161,6 @@ function Byline() {
   return (
     <div className="phone__byline">
       Spencer Chang
-      <br />
       <span>spencer.place</span>
     </div>
   );
@@ -159,26 +172,37 @@ function Door({ here, onJoin }: { here: number; onJoin: () => void }) {
       <div className="phone__intro">
         <Byline />
         <h1>Play Together</h1>
-        <p>This page is part of the talk. Keep it open the whole time.</p>
+        <p>
+          Welcome to the talk! We're going to be doing some collective
+          exercises..
+        </p>
       </div>
       <div className="phone__bottom">
         <button type="button" className="phone__pill" onClick={onJoin}>
-          Join the room
+          Join
         </button>
-        <p className="phone__meta">{here === 1 ? "1 person here" : `${here} people here`}</p>
+        <p className="phone__meta">
+          {here === 1 ? "1 person here" : `${here} people here`}
+        </p>
       </div>
     </div>
   );
 }
 
-function Pick({ initial, onPick }: { initial: string; onPick: (color: string) => void }) {
+function Pick({
+  initial,
+  onPick,
+}: {
+  initial: string;
+  onPick: (color: string) => void;
+}) {
   const [color, setColor] = useState(initial);
   const [hue, setHue] = useState(223);
   return (
     <div className="phone__screen">
       <div className="phone__intro">
         <h2>Pick your color</h2>
-        <p>This is you on the big screen tonight.</p>
+        <p>Find something that represents you or how you're feeling today.</p>
       </div>
       <div className="phone__swatches">
         {COLORS.map((c) => (
@@ -209,7 +233,12 @@ function Pick({ initial, onPick }: { initial: string; onPick: (color: string) =>
         />
       </label>
       <div className="phone__bottom">
-        <button type="button" className="phone__pill" style={{ background: color }} onClick={() => onPick(color)}>
+        <button
+          type="button"
+          className="phone__pill"
+          style={{ background: color }}
+          onClick={() => onPick(color)}
+        >
           That's me
         </button>
       </div>
@@ -285,7 +314,11 @@ function TouchPad({
         <span
           className="phone__glow"
           data-lifted={finger ? undefined : true}
-          style={{ left: `${mark.x * 100}%`, top: `${mark.y * 100}%`, ["--glow" as string]: color }}
+          style={{
+            left: `${mark.x * 100}%`,
+            top: `${mark.y * 100}%`,
+            ["--glow" as string]: color,
+          }}
         />
       )}
     </div>
@@ -297,11 +330,16 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
   // The whole gesture as drawn here, in pad units (-1..1).
   const [drawn, setDrawn] = useState<number[]>([]);
   const [count, setCount] = useState(
-    () => Object.keys(circleLoops().getData()).filter((key) => key.startsWith(`${pid}:`)).length,
+    () =>
+      Object.keys(circleLoops().getData()).filter((key) =>
+        key.startsWith(`${pid}:`),
+      ).length,
   );
   const countRef = useRef(count);
   // The loop being saved: its key, its points, and how many are already in the room.
-  const loop = useRef<{ key: string; points: number[]; sent: number } | null>(null);
+  const loop = useRef<{ key: string; points: number[]; sent: number } | null>(
+    null,
+  );
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // The room gets each loop while it is drawn: only the new points go out,
@@ -322,7 +360,9 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
 
   const begin = (x: number, y: number) => {
     loop.current =
-      countRef.current < MAX_LOOPS_EACH ? { key: `${pid}:${Date.now().toString(36)}`, points: [x, y], sent: 0 } : null;
+      countRef.current < MAX_LOOPS_EACH
+        ? { key: `${pid}:${Date.now().toString(36)}`, points: [x, y], sent: 0 }
+        : null;
   };
 
   // Ends the loop being saved. Taps and tiny scribbles are taken back out.
@@ -369,7 +409,10 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
   };
 
   const path = drawn.reduce(
-    (d, v, i) => (i % 2 === 0 ? `${d}${i === 0 ? "M" : "L"}${(v + 1) * 45} ` : `${d}${(v + 1) * 80} `),
+    (d, v, i) =>
+      i % 2 === 0
+        ? `${d}${i === 0 ? "M" : "L"}${(v + 1) * 45} `
+        : `${d}${(v + 1) * 80} `,
     "",
   );
 
@@ -414,7 +457,9 @@ function DrawPad({ color, pid }: { color: string; pid: string }) {
         <circle cx="45" cy="80" r="30" className="phone__guide" />
         <path d={path} stroke={color} />
       </svg>
-      <p className="phone__meta">{count === 1 ? "your loops: 1" : `your loops: ${count}`}</p>
+      <p className="phone__meta">
+        {count === 1 ? "your loops: 1" : `your loops: ${count}`}
+      </p>
     </div>
   );
 }
@@ -477,22 +522,33 @@ function SeatPad({ build }: { build: number }) {
     finger.current = null;
     const at = latest.current;
     // Anywhere is a seat; near a free one in the pictures, it sits on that.
-    move({ ...at, sitting: true, seat: seatNear(at.x, at.y, build, takenSeats()) });
+    move({
+      ...at,
+      sitting: true,
+      seat: seatNear(at.x, at.y, build, takenSeats()),
+    });
   };
 
-  const seat = cursor.sitting && cursor.seat !== null && SEATS[cursor.seat].build <= build ? SEATS[cursor.seat] : null;
+  const seat =
+    cursor.sitting && cursor.seat !== null && SEATS[cursor.seat].build <= build
+      ? SEATS[cursor.seat]
+      : null;
   return (
     <div className="phone__screen phone__screen--turn">
       <div className="phone__intro phone__intro--center">
         <h2>Take a seat</h2>
-        <p>Drag to move your cursor on the big screen. Let go on a bench, a chair, the canal.</p>
+        <p>
+          Drag to move your cursor on the big screen. Let go on a bench, a
+          chair, the canal.
+        </p>
       </div>
       <div
         className="phone__pad phone__trackpad"
         onPointerDown={(event) => {
           capture(event);
           finger.current = { x: event.clientX, y: event.clientY };
-          if (latest.current.sitting) move({ ...latest.current, sitting: false, seat: null });
+          if (latest.current.sitting)
+            move({ ...latest.current, sitting: false, seat: null });
         }}
         onPointerMove={(event) => {
           const from = finger.current;
@@ -513,24 +569,49 @@ function SeatPad({ build }: { build: number }) {
         onPointerUp={letGo}
         onPointerCancel={letGo}
       >
-        <p className="phone__hint">{cursor.sitting ? "Sitting" : "Drag here"}</p>
+        <p className="phone__hint">
+          {cursor.sitting ? "Sitting" : "Drag here"}
+        </p>
       </div>
       <p className="phone__meta">
-        {seat ? `you are sitting on ${seat.name}` : cursor.sitting ? "you sat down" : "look up at the big screen"}
+        {seat
+          ? `you are sitting on ${seat.name}`
+          : cursor.sitting
+            ? "you sat down"
+            : "look up at the big screen"}
       </p>
     </div>
   );
 }
 
-const ASK: Record<AnswerKind, { title: string; prompt: string; example: string }> = {
-  wish: { title: "Make a wish", prompt: "What else could computers be?", example: "slow, like a garden" },
-  rule: { title: "Add a rule", prompt: "A rule of play for getting there.", example: "neighbors > users" },
+const ASK: Record<
+  AnswerKind,
+  { title: string; prompt: string; example: string }
+> = {
+  wish: {
+    title: "Make a wish",
+    prompt: "What else could computers be?",
+    example: "slow, like a garden",
+  },
+  rule: {
+    title: "Add a rule",
+    prompt: "A rule of play for getting there.",
+    example: "neighbors > users",
+  },
 };
 /** A short pause between sends, so one person can't flood the screen. */
 const SEND_GAP_MS = 1500;
 
 /** Type a wish or a rule; each one sent shows up on the big screen. */
-function AnswerPad({ kind, color, pid }: { kind: AnswerKind; color: string; pid: string }) {
+function AnswerPad({
+  kind,
+  color,
+  pid,
+}: {
+  kind: AnswerKind;
+  color: string;
+  pid: string;
+}) {
   const [text, setText] = useState("");
   const [sent, setSent] = useState<string[]>([]);
   const [waiting, setWaiting] = useState(false);
@@ -540,7 +621,12 @@ function AnswerPad({ kind, color, pid }: { kind: AnswerKind; color: string; pid:
     if (!trimmed || waiting) return;
     const at = Date.now();
     answers().setData((draft) => {
-      draft[`${pid}:${at.toString(36)}`] = { kind, text: trimmed.slice(0, ANSWER_MAX_CHARS), color, at };
+      draft[`${pid}:${at.toString(36)}`] = {
+        kind,
+        text: trimmed.slice(0, ANSWER_MAX_CHARS),
+        color,
+        at,
+      };
     });
     setSent((list) => [trimmed, ...list]);
     setText("");
@@ -575,7 +661,12 @@ function AnswerPad({ kind, color, pid }: { kind: AnswerKind; color: string; pid:
         <p className="phone__meta">
           {text.length}/{ANSWER_MAX_CHARS}
         </p>
-        <button type="submit" className="phone__pill" style={{ background: color }} disabled={!text.trim() || waiting}>
+        <button
+          type="submit"
+          className="phone__pill"
+          style={{ background: color }}
+          disabled={!text.trim() || waiting}
+        >
           {waiting ? "sent" : "send to the screen"}
         </button>
       </form>
@@ -592,7 +683,9 @@ function AnswerPad({ kind, color, pid }: { kind: AnswerKind; color: string; pid:
 
 /** The shared fridge, shrunk to the phone. Drag any word. */
 function FridgePad({ color }: { color: string }) {
-  const [words, setWords] = useState<Fridge>(() => parseFridge(fridgeWords().getData()));
+  const [words, setWords] = useState<Fridge>(() =>
+    parseFridge(fridgeWords().getData()),
+  );
   useEffect(() => {
     const channel = fridgeWords();
     const read = () => setWords(parseFridge(channel.getData()));
@@ -613,11 +706,14 @@ function FridgePad({ color }: { color: string }) {
   const colorRef = useRef(color);
   colorRef.current = color;
   const write = useRef(
-    throttle<{ index: number; x: number; y: number }>(120, ({ index, x, y }) => {
-      fridgeWords().setData((draft) => {
-        draft[String(index)] = { x, y, color: colorRef.current };
-      });
-    }),
+    throttle<{ index: number; x: number; y: number }>(
+      120,
+      ({ index, x, y }) => {
+        fridgeWords().setData((draft) => {
+          draft[String(index)] = { x, y, color: colorRef.current };
+        });
+      },
+    ),
   ).current;
   return (
     <div className="phone__screen phone__screen--turn">
@@ -637,7 +733,10 @@ function FridgePad({ color }: { color: string }) {
 }
 
 /** If the phone page ever breaks, say so plainly instead of going blank. */
-class PhoneBoundary extends Component<{ children: React.ReactNode }, { failed: boolean }> {
+class PhoneBoundary extends Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
   state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
@@ -651,7 +750,11 @@ class PhoneBoundary extends Component<{ children: React.ReactNode }, { failed: b
       <main className="phone">
         <div className="phone__screen phone__screen--quiet">
           <p>Something went wrong on this page.</p>
-          <button type="button" className="phone__pill" onClick={() => window.location.reload()}>
+          <button
+            type="button"
+            className="phone__pill"
+            onClick={() => window.location.reload()}
+          >
             Reload
           </button>
         </div>
@@ -672,11 +775,18 @@ function Phone() {
   const [ready, setReady] = useState(false);
   // Someone who already picked a color (a reload, or the phone dropping the
   // tab mid-talk) goes straight back into the room.
-  const [step, setStep] = useState<Step>(() => (savedColor() ? "room" : "door"));
-  const [color, setColor] = useState<string>(() => savedColor() ?? COLORS[Math.floor(Math.random() * COLORS.length)]);
+  const [step, setStep] = useState<Step>(() =>
+    savedColor() ? "room" : "door",
+  );
+  const [color, setColor] = useState<string>(
+    () => savedColor() ?? COLORS[Math.floor(Math.random() * COLORS.length)],
+  );
   // The screen flashing this phone's colour: "hello" when the talk starts,
   // "turn" when a slide asks something of the room. `n` restarts it.
-  const [flash, setFlash] = useState<{ kind: "hello" | "turn"; n: number } | null>(null);
+  const [flash, setFlash] = useState<{
+    kind: "hello" | "turn";
+    n: number;
+  } | null>(null);
   const [started, setStarted] = useState(false);
   const { stage, audience } = useRoom(ready);
   useWakeLock(step === "room");
@@ -684,7 +794,8 @@ function Phone() {
   useEffect(() => {
     joinTalkRoom().then(
       () => setReady(true),
-      (error: unknown) => console.error("[talk] could not join the room", error),
+      (error: unknown) =>
+        console.error("[talk] could not join the room", error),
     );
   }, []);
 
@@ -693,14 +804,18 @@ function Phone() {
   readyRef.current = ready;
   const sendTouch = useRef(
     throttle<AudiencePresence>(TOUCH_EVERY_MS, (value) => {
-      if (readyRef.current) playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, value);
+      if (readyRef.current)
+        playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, value);
     }),
   ).current;
 
   // Being in the room is being counted, even with no finger down.
   useEffect(() => {
     if (!ready || step !== "room") return;
-    playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, { color, touch: null } satisfies AudiencePresence);
+    playhtml.presence.setMyPresence(AUDIENCE_CHANNEL, {
+      color,
+      touch: null,
+    } satisfies AudiencePresence);
   }, [ready, step, color]);
 
   const touch = useCallback(
@@ -729,7 +844,10 @@ function Phone() {
   }, [live, moment]);
   useEffect(() => {
     if (!flash) return;
-    const timer = setTimeout(() => setFlash(null), flash.kind === "hello" ? HELLO_FLASH_MS : 900);
+    const timer = setTimeout(
+      () => setFlash(null),
+      flash.kind === "hello" ? HELLO_FLASH_MS : 900,
+    );
     return () => clearTimeout(timer);
   }, [flash]);
 
@@ -753,13 +871,25 @@ function Phone() {
       />
     );
   } else if (moment === "circle") {
-    screen = <DrawPad color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
+    screen = (
+      <DrawPad
+        color={color}
+        pid={playhtml.presence.getMyIdentity().publicKey}
+      />
+    );
   } else if (moment === "seat" && stage) {
     screen = <SeatPad build={stage.build} />;
   } else if (moment === "fridge") {
     screen = <FridgePad color={color} />;
   } else if (moment === "wish" || moment === "rule") {
-    screen = <AnswerPad key={moment} kind={moment} color={color} pid={playhtml.presence.getMyIdentity().publicKey} />;
+    screen = (
+      <AnswerPad
+        key={moment}
+        kind={moment}
+        color={color}
+        pid={playhtml.presence.getMyIdentity().publicKey}
+      />
+    );
   } else if (!stage || stage.joinOpen) {
     screen = (
       <div className="phone__screen">
@@ -768,8 +898,8 @@ function Phone() {
         </TouchPad>
         <p className="phone__bottom-note">
           {started
-            ? "When your screen flashes your color, look up: it's your turn."
-            : "We start in a few minutes. Your touch shows up on the big screen."}
+            ? "When your screen flashes your color, you can participate."
+            : ""}
         </p>
       </div>
     );
@@ -777,22 +907,32 @@ function Phone() {
     screen = (
       <div className="phone__screen phone__screen--quiet">
         <span className="phone__dot" style={{ ["--glow" as string]: color }} />
-        <p>Nothing to do right now. Your screen lights up when there is.</p>
+        <p>Nothing live right now.</p>
       </div>
     );
   }
 
   return (
-    <main className="phone" data-connected={ready || undefined} style={{ ["--me" as string]: color }}>
+    <main
+      className="phone"
+      data-connected={ready || undefined}
+      style={{ ["--me" as string]: color }}
+    >
       {step === "room" && (
         <div className="phone__top">
           <span className="phone__me" /> you
         </div>
       )}
       {screen}
-      {flash?.kind === "turn" && <div key={flash.n} className="phone__flash" aria-hidden="true" />}
+      {flash?.kind === "turn" && (
+        <div key={flash.n} className="phone__flash" aria-hidden="true" />
+      )}
       {flash?.kind === "hello" && (
-        <div key={flash.n} className="phone__flash phone__flash--hello" role="status">
+        <div
+          key={flash.n}
+          className="phone__flash phone__flash--hello"
+          role="status"
+        >
           <p>This is your color. When it flashes, look up.</p>
         </div>
       )}
