@@ -108,6 +108,9 @@ export function DeckStage() {
   const [roomReady, setRoomReady] = useState(false);
   const [presenting, setPresenting] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
+  // Each press of m that starts something: the whole screen flashes orange
+  // and every phone flashes with it, so people know to look down.
+  const [cue, setCue] = useState(0);
   const [fit, setFit] = useState<FitMode>(() => {
     try {
       return localStorage.getItem(FIT_KEY) === "fill" ? "fill" : "fit";
@@ -155,11 +158,20 @@ export function DeckStage() {
     }
   }, [index]);
 
+  // m starts or stops the slide's phone moment. On the join screen, which has
+  // no moment, it flashes the room once to show what a turn looks like; the
+  // touch pad stays up on the phones throughout.
+  const joining = joinOpen || (deck[index].joinAt !== undefined && build >= deck[index].joinAt);
+  const pressM = useCallback(() => {
+    if (deck[index].live) togglePhones();
+    else if (joining) setCue((n) => n + 1);
+  }, [index, joining, togglePhones]);
+
   const send = useDeckChannel((message: DeckMessage) => {
     if (message.type === "goto") goto(message.index);
     if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
-    if (message.type === "toggle-phones" && deck[index].live) togglePhones();
+    if (message.type === "toggle-phones") pressM();
     if (message.type === "toggle-live") setPresenting((p) => !p);
     if (message.type === "hello") send({ type: "state", state: deckState });
   });
@@ -178,6 +190,10 @@ export function DeckStage() {
 
   // Leaving a slide ends its phone moment, so coming back starts it off too.
   useEffect(() => setPhonesAt(null), [index]);
+  // Starting a moment flashes the room; stopping one does not.
+  useEffect(() => {
+    if (phonesOn) setCue((n) => n + 1);
+  }, [phonesOn]);
 
   // Coming back to the tab (browser back, or a hash typed in the address bar).
   useEffect(() => {
@@ -272,7 +288,7 @@ export function DeckStage() {
       else if (key === "g") setOverview(true);
       else if (key === "e") toggleEditing();
       else if (key === "h") setHideRequests((n) => n + 1);
-      else if (key === "m" && deck[index].live) togglePhones();
+      else if (key === "m") pressM();
       else if (key === "o") {
         const link = linkFor(index);
         if (link) window.open(link, "_blank", "noopener");
@@ -280,7 +296,7 @@ export function DeckStage() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goto, index, openNotes, step, toggleFit, toggleFullscreen, toggleEditing, togglePhones, typed]);
+  }, [goto, index, openNotes, pressM, step, toggleFit, toggleFullscreen, toggleEditing, typed]);
 
   // Edit mode lays unsaved changes over the slides as they are made.
   const shown = editor.editing ? editor.deck : deck;
@@ -352,6 +368,7 @@ export function DeckStage() {
                 roomMarks={moment === "card"}
                 presenting={presenting}
                 joinOpen={joinOpen}
+                cue={cue}
               />
             </LiveBoundary>
           </div>
@@ -363,6 +380,7 @@ export function DeckStage() {
         )}
       </div>
       {editor.editing && <EditPanel editor={editor} slide={shown[index]} slideNumber={index + 1} />}
+      {cue > 0 && <div key={cue} className="talk-stage__flash" aria-hidden="true" />}
 
       <nav className="talk-chrome" aria-label="Slide controls">
         <button type="button" onClick={() => step(-1)} aria-label="Previous slide">
@@ -383,6 +401,16 @@ export function DeckStage() {
             title="Start or stop the phones' turn on this slide (m)"
           >
             {phonesOn ? `phones: ${MOMENT_NAMES[deck[index].live]} · m stops` : `m: ${MOMENT_NAMES[deck[index].live]}`}
+          </button>
+        )}
+        {!deck[index].live && joining && (
+          <button
+            type="button"
+            className="talk-chrome__phones"
+            onClick={pressM}
+            title="Flash the room once to show what a turn looks like (m)"
+          >
+            m: show the flash
           </button>
         )}
         {hasVideo && (
