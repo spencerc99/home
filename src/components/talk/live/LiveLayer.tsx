@@ -370,7 +370,8 @@ function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
 const JOIN_QR = "/talk/perpetual-play/join-qr.svg";
 const NAME_STAMP = "/assets/name-stamp.png";
 
-function JoinCard({ here }: { here: AudiencePresence[] }) {
+/** The QR and link to join; `here` adds the count of people in the room. */
+export function JoinCard({ here }: { here?: AudiencePresence[] }) {
   return (
     <>
       <div className="talk-live__qr">
@@ -381,14 +382,16 @@ function JoinCard({ here }: { here: AudiencePresence[] }) {
         <span>join on your phone</span>
         <span className="talk-live__link">spencer.place/talk</span>
       </div>
-      <div className="talk-live__here">
-        <span className="talk-live__dots">
-          {here.slice(0, 40).map((person, i) => (
-            <span key={i} style={{ ["--glow" as string]: person.color }} />
-          ))}
-        </span>
-        {here.length} here
-      </div>
+      {here && (
+        <div className="talk-live__here">
+          <span className="talk-live__dots">
+            {here.slice(0, 40).map((person, i) => (
+              <span key={i} style={{ ["--glow" as string]: person.color }} />
+            ))}
+          </span>
+          {here.length} here
+        </div>
+      )}
     </>
   );
 }

@@ -66,6 +66,8 @@ So we can make it what we want: fun, caring, creative
 
 all of it is  for us. so all we need to ask ourselves is: what do we want from it? 
 
+if you open your phones you can share a bit about what you want
+
 ## 9 · We're not starting from an easy…
 <!-- 2176:43 -->
 
@@ -95,7 +97,7 @@ What would that internet feel like?
 
 ## 13 · New positive visions
 <!-- 2176:38 -->
-
+there’s a lot of energy and nostalgia for an old internet and i think we need to channel that into
 We need to ask questions like this to offer new positive visions for how things could be different. 
 
 We can turn our wishes for what technology should feel like into 
@@ -103,8 +105,7 @@ We can turn our wishes for what technology should feel like into
 2. new devices and machines and hardware
 3. and new internets (networks)
 
-**i think technology is meaningless without people!** we give the meaning to all these things — they help us live life easier, connect to each other, create amazing things. it's all for us.
-so what do we want to do with it? and how can it actually help rather than harm us?
+today i wanna share a few things ive tried 
 
 ## 14 · playhtml is an open source tool…
 <!-- 1:105 -->
@@ -182,7 +183,6 @@ I'm excited for this to grow into a network that lives beyond myself — a commu
 <!-- 2096:74 -->
 
 So we can create these sites for accumulating life and showing who has been here, but someone has to start each of these cycles and we have to have the opportunity to contribute to them in the first place.
-
 
 This is a still from one of my favorite movies, Perfect Days — a toilet cleaner in Tokyo, deeply dedicated to this simple, perhaps looked-down-upon task. One day during his shift he finds a scrap of paper: the starting point of a tic-tac-toe game, one move filled in. Instead of throwing it away, **he makes his move and puts it back where he found it.** The game unfolds between these two strangers over weeks.
 

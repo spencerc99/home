@@ -11,6 +11,7 @@ import {
   useDeckChannel,
   writeSlideToHash,
   type DeckMessage,
+  type DeckState,
 } from "./deckSync";
 import { EditOverlay, EditPanel } from "./DeckEditor";
 import { useDeckEditor } from "./useDeckEditor";
@@ -156,16 +157,21 @@ export function DeckStage() {
     if (message.type === "step") step(message.by);
     if (message.type === "set-playing") setPlaying(message.playing);
     if (message.type === "toggle-phones" && deck[index].live) setPhonesOn((on) => !on);
-    if (message.type === "hello") send({ type: "state", state: { index, playing, phones: phonesOn } });
+    if (message.type === "toggle-live") setPresenting((p) => !p);
+    if (message.type === "hello") send({ type: "state", state: deckState });
   });
+  const deckState: DeckState = { index, build, playing, phones: phonesOn, live: presenting };
 
   useEffect(() => {
     writeSlideToHash(index);
     rememberSlide(index);
-    send({ type: "state", state: { index, playing, phones: phonesOn } });
+  }, [index]);
+
+  useEffect(() => {
+    send({ type: "state", state: deckState });
     // send is rebuilt every render; only a state change should broadcast.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, playing, phonesOn]);
+  }, [index, build, playing, phonesOn, presenting]);
 
   // Leaving a slide ends its phone moment.
   useEffect(() => setPhonesOn(false), [index]);
