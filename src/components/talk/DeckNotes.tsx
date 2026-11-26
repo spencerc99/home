@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { perpetualPlayDeck as deck } from "./perpetualPlayDeck";
-import { Slide } from "./Slide";
+import { buildCount, perpetualPlayDeck as deck, type Slide as SlideData } from "./perpetualPlayDeck";
+import { Slide, type MediaMode } from "./Slide";
 import notesSource from "./play-together-notes.md?raw";
 import { parseSpeakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
 import { MOMENT_NAMES } from "./live/talkRoom";
+import { JoinCard } from "./live/LiveLayer";
 import "./talk.scss";
 
 const speakerNotes = parseSpeakerNotes(notesSource);
@@ -24,13 +25,42 @@ function renderNotes(text: string): ReactNode {
   ));
 }
 
-function Thumb({ index }: { index: number }) {
+/**
+ * A slide as the stage shows it: `build` steps revealed, and for the slide
+ * that is up, the same fades, glides and playing videos as the big screen.
+ */
+function Thumb({
+  index,
+  build,
+  mode = "still",
+  active = false,
+  from = null,
+}: {
+  index: number;
+  build: number;
+  mode?: MediaMode;
+  active?: boolean;
+  from?: SlideData | null;
+}) {
   const { ref, scale } = useFitScale<HTMLDivElement>();
+  const slide = index < deck.length ? deck[index] : null;
+  // The join card is drawn by the stage's live layer, not the slide; the
+  // preview shows it too, without the count of people.
+  const joinShown = slide?.joinAt !== undefined && build >= slide.joinAt;
+  const frame = { transform: `translate(-50%, -50%) scale(${scale})` };
   return (
     <div className="talk-thumb" ref={ref}>
-      {scale > 0 && index < deck.length && (
-        <div className="talk-stage__slide" style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
-          <Slide slide={deck[index]} mode="still" active={false} />
+      {scale > 0 && slide && (
+        <div className="talk-stage__slide" style={frame}>
+          <Slide key={slide.figmaId} slide={slide} mode={mode} active={active} from={from} build={build} />
+        </div>
+      )}
+      {scale > 0 && joinShown && (
+        <div className="talk-stage__slide talk-stage__live" style={frame}>
+          <div className="talk-live" aria-hidden="true">
+            <div className="talk-live__fade" />
+            <JoinCard />
+          </div>
         </div>
       )}
       {index >= deck.length && <span className="talk-thumb__end">end</span>}
@@ -117,6 +147,17 @@ export function DeckNotes() {
     if (message.type === "state") setState(message.state);
   });
 
+  // The slide shown before, so a single step glides like the stage does.
+  const shownIndex = useRef<number | null>(null);
+  const cameFrom =
+    state && shownIndex.current !== null && Math.abs(shownIndex.current - state.index) === 1
+      ? deck[shownIndex.current]
+      : null;
+  const stateIndex = state?.index ?? null;
+  useEffect(() => {
+    shownIndex.current = stateIndex;
+  }, [stateIndex]);
+
   useEffect(() => {
     send({ type: "hello" });
     // Ask once on open; the stage broadcasts every change after that.
@@ -134,6 +175,8 @@ export function DeckNotes() {
         send({ type: "step", by: -1 });
       } else if (event.key === "m") {
         send({ type: "toggle-phones" });
+      } else if (event.key === "l") {
+        send({ type: "toggle-live" });
       } else if ((event.key === "k" || event.key === "p") && state) {
         send({ type: "set-playing", playing: !state.playing });
       } else if (event.key === "s") {
@@ -158,6 +201,9 @@ export function DeckNotes() {
     throw new Error(`No speaker notes for slide ${slide.figmaId}; add a section for it to play-together-notes.md`);
   }
   const hasVideo = slide.layers.some((l) => l.kind === "video");
+  // What the next press shows: this slide's next build, or the next slide.
+  const next =
+    state.build < buildCount(slide) ? { index: state.index, build: state.build + 1 } : { index: state.index + 1, build: 0 };
 
   return (
     <div className={`talk-notes${slidesShown ? "" : " talk-notes--text-only"}`}>
@@ -166,6 +212,15 @@ export function DeckNotes() {
           {state.index + 1} / {deck.length}
         </span>
         <span className="talk-notes__clock">{time}</span>
+        <button
+          type="button"
+          className="talk-notes__live"
+          aria-pressed={state.live}
+          onClick={() => send({ type: "toggle-live" })}
+          title="Phones follow the stage while live (l)"
+        >
+          {state.live ? "● live · l stops" : "l: go live"}
+        </button>
         {slide.live && (
           <button
             type="button"
@@ -188,10 +243,22 @@ export function DeckNotes() {
       </header>
       <div className="talk-notes__body">
         <div className="talk-notes__slides">
-          <Thumb index={state.index} />
+          <Thumb
+            index={state.index}
+            build={state.build}
+            mode={state.playing ? "play" : "pause"}
+            active
+            from={cameFrom}
+          />
           <div className="talk-notes__next">
-            <span>{state.index + 1 < deck.length ? `next · ${state.index + 2}` : "next"}</span>
-            <Thumb index={state.index + 1} />
+            <span>
+              {next.index === state.index
+                ? "next · same slide, next build"
+                : next.index < deck.length
+                  ? `next · ${next.index + 1}`
+                  : "next"}
+            </span>
+            <Thumb index={next.index} build={next.build} />
           </div>
         </div>
         <article className="talk-notes__text" ref={textRef}>

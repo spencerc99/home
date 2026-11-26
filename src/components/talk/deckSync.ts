@@ -4,8 +4,10 @@
 
 import { useEffect, useRef } from "react";
 
+// `build`: how many of the slide's builds are revealed.
 // `phones`: the slide's phone moment is on (the presenter pressed m).
-export type DeckState = { index: number; playing: boolean; phones: boolean };
+// `live`: phones follow the stage (the presenter pressed l).
+export type DeckState = { index: number; build: number; playing: boolean; phones: boolean; live: boolean };
 
 export type DeckMessage =
   | { type: "state"; state: DeckState }
@@ -13,6 +15,7 @@ export type DeckMessage =
   | { type: "step"; by: 1 | -1 }
   | { type: "set-playing"; playing: boolean }
   | { type: "toggle-phones" }
+  | { type: "toggle-live" }
   | { type: "hello" };
 
 const CHANNEL = "talk:perpetual-play";
