@@ -285,13 +285,23 @@ function Pick({
   initial: string | null;
   onPick: (color: string) => void;
 }) {
-  const [palette] = useState(randomPalette);
+  const [palette, setPalette] = useState(randomPalette);
   const swatches = palette.hues.map((hue) => hsl(hue, palette));
   // Someone picking again starts on their colour; anyone new, on the first swatch.
   const [color, setColor] = useState(initial ?? swatches[0]);
   const [hue, setHue] = useState(() => hueOf(color) ?? palette.hues[0]);
   // The slider's track runs through every hue in this phone's tone.
   const track = `linear-gradient(to right, ${[0, 60, 120, 180, 240, 300, 360].map((h) => hsl(h, palette)).join(", ")})`;
+  // A new tone and new hues. The same swatch stays picked; a hue mixed on the
+  // slider keeps its hue in the new tone.
+  const shuffle = () => {
+    const next = randomPalette();
+    const picked = swatches.indexOf(color);
+    const nextHue = picked >= 0 ? next.hues[picked] : hue;
+    setPalette(next);
+    setHue(nextHue);
+    setColor(hsl(nextHue, next));
+  };
   return (
     <div className="phone__screen">
       <div className="phone__intro">
@@ -314,21 +324,33 @@ function Pick({
           />
         ))}
       </div>
-      <label className="phone__mix">
-        <span>or turn the hue</span>
-        <input
-          type="range"
-          min={0}
-          max={359}
-          value={hue}
-          style={{ ["--thumb" as string]: hsl(hue, palette), ["--track" as string]: track }}
-          onChange={(event) => {
-            const next = Number(event.target.value);
-            setHue(next);
-            setColor(hsl(next, palette));
-          }}
-        />
-      </label>
+      <div className="phone__mix">
+        <label htmlFor="talk-hue">or turn the hue</label>
+        <div className="phone__mix-row">
+          <input
+            id="talk-hue"
+            type="range"
+            min={0}
+            max={359}
+            value={hue}
+            style={{ ["--thumb" as string]: hsl(hue, palette), ["--track" as string]: track }}
+            onChange={(event) => {
+              const next = Number(event.target.value);
+              setHue(next);
+              setColor(hsl(next, palette));
+            }}
+          />
+          <button type="button" className="phone__shuffle" aria-label="Shuffle the colors" onClick={shuffle}>
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 6h4c5 0 5 12 10 12h4" />
+              <path d="M3 18h4c2 0 3-2 4-4.5" />
+              <path d="M13 9.5c1-2.5 2-3.5 4-3.5h4" />
+              <path d="M18 3l3 3-3 3" />
+              <path d="M18 15l3 3-3 3" />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div className="phone__bottom">
         <button
           type="button"
