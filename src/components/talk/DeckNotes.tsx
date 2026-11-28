@@ -6,7 +6,9 @@ import { parseSpeakerNotes } from "./speakerNotes";
 import { useFitScale } from "./useFitScale";
 import { useDeckChannel, type DeckMessage, type DeckState } from "./deckSync";
 import { MOMENT_NAMES } from "./live/talkRoom";
-import { JoinCard } from "./live/LiveLayer";
+import { JoinCard, LiveLayer } from "./live/LiveLayer";
+import { LiveBoundary } from "./live/LiveBoundary";
+import { joinTalkRoom } from "./live/talkRoom";
 import "./talk.scss";
 
 const speakerNotes = parseSpeakerNotes(notesSource);
@@ -35,19 +37,23 @@ function Thumb({
   mode = "still",
   active = false,
   from = null,
+  live = null,
 }: {
   index: number;
   build: number;
   mode?: MediaMode;
   active?: boolean;
   from?: SlideData | null;
+  // For the slide that is up: the room as the stage shows it.
+  live?: { ready: boolean; phones: boolean } | null;
 }) {
   const { ref, scale } = useFitScale<HTMLDivElement>();
   const slide = index < deck.length ? deck[index] : null;
   // The join card is drawn by the stage's live layer, not the slide; the
-  // preview shows it too, without the count of people.
+  // preview shows it too.
   const joinShown = slide?.joinAt !== undefined && build >= slide.joinAt;
   const frame = { transform: `translate(-50%, -50%) scale(${scale})` };
+  const moment = live?.phones ? (slide?.live ?? null) : null;
   return (
     <div className="talk-thumb" ref={ref}>
       {scale > 0 && slide && (
@@ -55,7 +61,29 @@ function Thumb({
           <Slide key={slide.figmaId} slide={slide} mode={mode} active={active} from={from} build={build} />
         </div>
       )}
-      {scale > 0 && joinShown && (
+      {scale > 0 && slide && live && (
+        // The same live layer as the stage, only watching: touches, loops,
+        // seats, wishes and the finale, as the room makes them.
+        <div className="talk-stage__slide talk-stage__live" style={frame}>
+          <LiveBoundary>
+            <LiveLayer
+              ready={live.ready}
+              slide={index}
+              build={build}
+              moment={moment}
+              hideRequests={0}
+              fridgeDoor={slide.fridgeDoor !== undefined && build >= slide.fridgeDoor}
+              joinShown={joinShown}
+              roomMarks={moment === "card"}
+              presenting={false}
+              joinOpen={false}
+              cue={0}
+              watchOnly
+            />
+          </LiveBoundary>
+        </div>
+      )}
+      {scale > 0 && !live && joinShown && (
         <div className="talk-stage__slide talk-stage__live" style={frame}>
           <div className="talk-live" aria-hidden="true">
             <div className="talk-live__fade" />
@@ -146,6 +174,16 @@ export function DeckNotes() {
   const send = useDeckChannel((message: DeckMessage) => {
     if (message.type === "state") setState(message.state);
   });
+
+  // The notes watch the same live room as the stage, so the current slide's
+  // preview shows what the room is doing. The deck never waits on it.
+  const [roomReady, setRoomReady] = useState(false);
+  useEffect(() => {
+    joinTalkRoom().then(
+      () => setRoomReady(true),
+      (error: unknown) => console.error("[talk] the notes could not join the room", error),
+    );
+  }, []);
 
   // The slide shown before, so a single step glides like the stage does.
   const shownIndex = useRef<number | null>(null);
@@ -249,6 +287,7 @@ export function DeckNotes() {
             mode={state.playing ? "play" : "pause"}
             active
             from={cameFrom}
+            live={{ ready: roomReady, phones: state.phones }}
           />
           <div className="talk-notes__next">
             <span>

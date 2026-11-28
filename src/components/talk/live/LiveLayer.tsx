@@ -20,6 +20,7 @@ import {
 } from "./talkRoom";
 import { parseAnswers, parseAudience, parseFridge, parseLoops, parseSeat } from "./roomData";
 import { SEATS } from "./seats";
+import { answerBox, newAnswerLayout, placeAnswers, type AnswerLayout, type AnswerSpace, type Measure } from "./answerLayout";
 import { CURSOR_TIP, PlayCursor } from "./PlayCursor";
 import { FridgeDoor } from "./FridgeDoor";
 
@@ -125,19 +126,23 @@ function loopPath(points: number[]): string {
 /** Spencer's colour, for the slide's own words among the room's. */
 const PRESENTER_COLOR = "#ffae00";
 const SLIDE_WISHES = ["fun", "caring", "creative"];
-/** The most wishes placed on the finale, and the most patina marks. */
-const FINALE_WISHES = 34;
+/** The most patina marks on the finale. */
 const FINALE_MARKS = 120;
-// Places for wishes around the edges of the finale, clear of the title.
-const FINALE_SLOTS: [number, number][] = [];
-for (let row = 0; row < 7; row++) {
-  for (let col = 0; col < 6; col++) {
-    const x = 90 + col * 300;
-    const y = 120 + row * 130;
-    if (x > 380 && x < 1300 && y > 360 && y < 680) continue;
-    FINALE_SLOTS.push([x, y]);
-  }
-}
+/** The contact card on the finale, in slide pixels: the bottom right corner. */
+const CONTACT_BOX = { left: 1330, top: 840 };
+/** The QR code from the thank-you slide. */
+const CONTACT_QR = "/talk/perpetual-play/img/2094-39.webp";
+/**
+ * The finale's wishes use the same layout as the wish slide, flowing around
+ * the title in the middle and the contact card in the corner.
+ */
+const FINALE_SPACE: AnswerSpace = {
+  area: { left: 70, top: 90, right: 1850, bottom: 1030 },
+  keepClear: [
+    { x: 700, y: 465, w: 520, h: 110 },
+    { x: CONTACT_BOX.left, y: CONTACT_BOX.top, w: 550, h: 200 },
+  ],
+};
 
 /** One loop, redrawn only when it has grown (parseLoops keeps unchanged loops the same). */
 const LoopPath = memo(function LoopPath({ loop }: { loop: Loops[string] }) {
@@ -151,20 +156,18 @@ const LoopPath = memo(function LoopPath({ loop }: { loop: Loops[string] }) {
  * The title stays clear in the middle.
  */
 function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers; hidden: ReadonlySet<string> }) {
-  const seen = new Set<string>();
-  const wishes = Object.entries(answers)
-    .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
-    .sort(([a], [b]) => hashOf(a) - hashOf(b))
-    .filter(([, a]) => {
-      const text = a.text.toLowerCase();
-      if (seen.has(text)) return false;
-      seen.add(text);
-      return true;
-    });
-  const words: [string, string, string][] = [
-    ...SLIDE_WISHES.map((w): [string, string, string] => [`slide:${w}`, w, PRESENTER_COLOR]),
-    ...wishes.slice(0, FINALE_WISHES - SLIDE_WISHES.length).map(([key, a]): [string, string, string] => [key, a.text, a.color]),
-  ].slice(0, FINALE_SLOTS.length);
+  const fontReady = useAnswerFont();
+  const layout = useRef<AnswerLayout>(newAnswerLayout());
+  // The slide's own words first, then every wish in the order it was sent.
+  const words: { key: string; text: string; color: string }[] = [
+    ...SLIDE_WISHES.map((text) => ({ key: `slide:${text}`, text, color: PRESENTER_COLOR })),
+    ...Object.entries(answers)
+      .filter(([key, a]) => a.kind === "wish" && !hidden.has(key))
+      .sort(([, a], [, b]) => a.at - b.at)
+      .map(([key, a]) => ({ key, text: a.text, color: a.color })),
+  ];
+  if (fontReady) placeAnswers(words, layout.current, measureAnswer, FINALE_SPACE);
+  const size = layout.current.size;
   const loopList = Object.entries(loops);
   const firstLoops = new Map<string, Loops[string]>();
   for (const [key, loop] of loopList) {
@@ -190,32 +193,43 @@ function RoomMarks({ loops, answers, hidden }: { loops: Loops; answers: Answers;
           <LoopPath key={key} loop={loop} />
         ))}
       </svg>
-      {words.map(([key, text, color], i) => {
-        const [x, y] = FINALE_SLOTS[(i * 11) % FINALE_SLOTS.length];
-        const h = hashOf(key);
-        return (
-          <span
-            key={key}
-            className="talk-room-marks__word"
-            style={{
-              left: x + (h % 60) - 30,
-              top: y + ((h >> 5) % 40) - 20,
-              transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
-              ["--mover" as string]: color,
-            }}
-          >
-            {text}
-          </span>
-        );
-      })}
+      {fontReady &&
+        words.map(({ key, text, color }) => {
+          const box = answerBox(key, layout.current, measureAnswer);
+          if (!box) return null;
+          const h = hashOf(key);
+          return (
+            <span
+              key={key}
+              className="talk-live__answer talk-live__answer--finale"
+              style={{
+                left: box.x,
+                top: box.y,
+                width: box.w,
+                fontSize: size,
+                transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
+                ["--mover" as string]: color,
+              }}
+            >
+              {text}
+            </span>
+          );
+        })}
       <div className="talk-room-marks__title">Play Together</div>
+      {/* How to find Spencer afterwards, small enough to leave the room's
+          marks on screen through the questions. */}
+      <div className="talk-room-marks__contact" style={{ left: CONTACT_BOX.left, top: CONTACT_BOX.top }}>
+        <img src={CONTACT_QR} alt="QR code for spencer.place" />
+        <div>
+          <p className="talk-room-marks__thanks">Thank you :)</p>
+          <p className="talk-room-marks__site">spencer.place</p>
+          <p>hi@spencer.place</p>
+          <p className="talk-room-marks__projects">playhtml.fun · shrine.computer · wewere.online</p>
+        </div>
+      </div>
     </div>
   );
 }
-
-/** The most answers on screen at once; older ones make room for new ones. */
-const ANSWER_SLOTS = 40;
-const SLOT_COLUMNS = 5;
 
 /** A stable small number from a string, to scatter answers the same way on every screen. */
 function hashOf(text: string): number {
@@ -224,37 +238,77 @@ function hashOf(text: string): number {
   return Math.abs(h);
 }
 
+// Wishes are measured in the stage's own font, so each card's box (and the
+// spots in answerLayout.ts) match what is drawn.
+const ANSWER_FONT = '"Vulf Sans", sans-serif';
+let measureContext: CanvasRenderingContext2D | null = null;
+const measured = new Map<string, number>();
+const measureAnswer: Measure = (text, size) => {
+  const key = `${size}|${text}`;
+  const known = measured.get(key);
+  if (known !== undefined) return known;
+  measureContext ??= document.createElement("canvas").getContext("2d");
+  if (!measureContext) throw new Error("[talk] no 2d canvas to measure wishes with");
+  measureContext.font = `${size}px ${ANSWER_FONT}`;
+  const width = measureContext.measureText(text).width;
+  measured.set(key, width);
+  return width;
+};
+
+/** True once the stage's font is in, so wishes are measured in it. */
+function useAnswerFont() {
+  const [ready, setReady] = useState(() => document.fonts.check(`34px ${ANSWER_FONT}`));
+  useEffect(() => {
+    if (ready) return;
+    let alive = true;
+    document.fonts.load(`34px ${ANSWER_FONT}`).then(
+      () => alive && setReady(true),
+      (error: unknown) => {
+        console.warn("[talk] the wish font did not load; measuring with the fallback", error);
+        if (alive) setReady(true);
+      },
+    );
+    return () => {
+      alive = false;
+    };
+  }, [ready]);
+  return ready;
+}
+
 /**
- * Wishes or rules from the room, over a veil on the slide. Each lands in one
- * of 40 places (5 across, 8 down), nudged a little so it reads as handwritten;
- * once all 40 are taken the newest take the oldest places.
+ * Wishes from the room, over a veil on the slide. Every wish is shown: each
+ * keeps the spot it got when it arrived (see answerLayout.ts), and when the
+ * slide fills they all shrink together around their own spots.
  */
 function AnswerCloud({ answers, kind, hidden }: { answers: Answers; kind: "wish"; hidden: ReadonlySet<string> }) {
+  const fontReady = useAnswerFont();
+  const layout = useRef<AnswerLayout>(newAnswerLayout());
   const list = Object.entries(answers)
     .filter(([key, a]) => a.kind === kind && !hidden.has(key))
     .sort(([, a], [, b]) => a.at - b.at);
-  if (list.length === 0) return null;
-  const rows = ANSWER_SLOTS / SLOT_COLUMNS;
-  const cellW = (W - 160) / SLOT_COLUMNS;
-  const cellH = (H - 200) / rows;
+  if (list.length === 0 || !fontReady) return null;
+  placeAnswers(
+    list.map(([key, a]) => ({ key, text: a.text })),
+    layout.current,
+    measureAnswer,
+  );
+  const size = layout.current.size;
   return (
     <>
       <div className="talk-live__veil" />
-      {list.slice(-ANSWER_SLOTS).map(([key, answer], i) => {
-        const at = (list.length - Math.min(list.length, ANSWER_SLOTS) + i) % ANSWER_SLOTS;
-        // Fill the places in a scattered order rather than row by row.
-        const slot = (at * 17) % ANSWER_SLOTS;
+      {list.map(([key, answer]) => {
+        const box = answerBox(key, layout.current, measureAnswer);
+        if (!box) return null;
         const h = hashOf(key);
-        const x = 80 + (slot % SLOT_COLUMNS) * cellW + (h % 40);
-        const y = 120 + Math.floor(slot / SLOT_COLUMNS) * cellH + ((h >> 6) % 24);
         return (
           <span
             key={key}
             className="talk-live__answer"
             style={{
-              left: x,
-              top: y,
-              maxWidth: cellW * 1.6,
+              left: box.x,
+              top: box.y,
+              width: box.w,
+              fontSize: size,
               transform: `rotate(${((h >> 3) % 7) - 3}deg)`,
               ["--mover" as string]: answer.color,
             }}
@@ -370,17 +424,68 @@ function Glows({ audience }: { audience: Map<string, AudiencePresence> }) {
 const JOIN_QR = "/talk/perpetual-play/join-qr.svg";
 const NAME_STAMP = "/assets/name-stamp.png";
 
+/**
+ * Where phones join from this stage. playhtml keeps each domain's rooms
+ * apart, so a stage on a preview (or a local copy) only meets phones on that
+ * same address: there the card's QR leads to this page's own phone link, with
+ * the event, rather than to spencer.place, which is a different room.
+ */
+function previewJoinUrl(): string | null {
+  const { hostname, origin } = window.location;
+  if (hostname === "spencer.place" || hostname === "www.spencer.place") return null;
+  return `${origin}/talk/?event=${talkEvent()}`;
+}
+
+/**
+ * A QR code drawn as SVG squares, for a preview's join link. The QR library
+ * loads only here, so the real site never downloads it. Error correction is
+ * high (H), so the name stamp over the middle still leaves it readable.
+ */
+function PreviewQr({ url }: { url: string }) {
+  const [cells, setCells] = useState<{ size: number; dark: [number, number][] } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    import("qrcode-generator").then(
+      ({ default: qrcode }) => {
+        const qr = qrcode(0, "H");
+        qr.addData(url);
+        qr.make();
+        const size = qr.getModuleCount();
+        const dark: [number, number][] = [];
+        for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (qr.isDark(r, c)) dark.push([c, r]);
+        if (alive) setCells({ size, dark });
+      },
+      (error: unknown) => console.error("[talk] could not draw the preview's QR code", error),
+    );
+    return () => {
+      alive = false;
+    };
+  }, [url]);
+  if (!cells) return null;
+  const pad = 2;
+  const span = cells.size + pad * 2;
+  return (
+    <svg className="talk-live__qr-code" viewBox={`0 0 ${span} ${span}`} role="img" aria-label={`QR code for ${url}`}>
+      <rect width={span} height={span} rx={2} fill="#fff" />
+      {cells.dark.map(([x, y]) => (
+        <rect key={`${x},${y}`} x={x + pad} y={y + pad} width={1.02} height={1.02} fill="#111" />
+      ))}
+    </svg>
+  );
+}
+
 /** The QR and link to join; `here` adds the count of people in the room. */
 export function JoinCard({ here }: { here?: AudiencePresence[] }) {
+  const [preview] = useState(previewJoinUrl);
   return (
     <>
       <div className="talk-live__qr">
-        <img src={JOIN_QR} alt="QR code for spencer.place/talk" />
+        {preview ? <PreviewQr url={preview} /> : <img src={JOIN_QR} alt="QR code for spencer.place/talk" />}
         <img className="talk-live__stamp" src={NAME_STAMP} alt="" />
       </div>
       <div className="talk-live__label">
         <span>join on your phone</span>
-        <span className="talk-live__link">spencer.place/talk</span>
+        <span className="talk-live__link">{preview ? `${window.location.host}/talk` : "spencer.place/talk"}</span>
       </div>
       {here && (
         <div className="talk-live__here">
@@ -471,6 +576,7 @@ export function LiveLayer({
   presenting,
   joinOpen,
   cue,
+  watchOnly = false,
 }: {
   ready: boolean;
   slide: number;
@@ -487,6 +593,9 @@ export function LiveLayer({
   joinOpen: boolean;
   // Each press of m that starts something; phones flash when it rises.
   cue: number;
+  // The speaker notes' preview: shows what the room is doing on the current
+  // slide, but never speaks for the stage, so phones only ever follow the stage.
+  watchOnly?: boolean;
 }) {
   const audience = useAudience(ready);
   const loops = useLoops(ready, moment === "circle" || roomMarks);
@@ -506,6 +615,21 @@ export function LiveLayer({
       return new Set();
     }
   });
+  // A watching window (the notes) picks up hides the stage makes, since the
+  // stage keeps them in this browser's storage.
+  useEffect(() => {
+    if (!watchOnly) return;
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== hiddenKey) return;
+      try {
+        setHiddenAnswers(new Set(JSON.parse(event.newValue ?? "[]") as string[]));
+      } catch (error) {
+        console.warn("[talk] could not read the hidden answers", error);
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [watchOnly, hiddenKey]);
   const handledHides = useRef(hideRequests);
   useEffect(() => {
     if (hideRequests === handledHides.current) return;
@@ -527,13 +651,13 @@ export function LiveLayer({
   // Phones follow only a stage that has been switched to presenting, so
   // someone else opening /talk/stage cannot drive the room.
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || watchOnly) return;
     const hidden = [...hiddenAnswers].slice(-MAX_HIDDEN_SENT);
     const value: StagePresence = presenting
       ? { slide, build, moment, joinOpen: joinOpen || joinShown, hidden, paused: false, cue }
       : { slide, build, moment: null, joinOpen: false, hidden, paused: true, cue };
     playhtml.presence.setMyPresence(STAGE_CHANNEL, value);
-  }, [ready, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers, cue]);
+  }, [ready, watchOnly, presenting, slide, build, moment, joinOpen, joinShown, hiddenAnswers, cue]);
 
   // Fetch the join card's pictures with the deck, so `j` shows it at once.
   useEffect(() => {
